@@ -1,0 +1,14 @@
+@mixin size($width, $height)
+    width: $width
+    height: $height
+
+@mixin font($font_name, $file_name, $weight, $style)
+    @font-face
+        font-family: $font_name
+        font-display: swap
+        src: url("../fonts/#{$file_name}.woff") format("woff"), url("../fonts/#{$file_name}.woff2") format("woff2")
+        font-weight: #{$weight}
+        font-style: #{$style}
+
+@mixin adaptive-property($property, $value, $min-value)
+    #{$property}: calc(#{$min-value + px} + (#{$value} - #{$min-value}) * ((100vw - 320px) / (#{$containerWidth} - 320)))

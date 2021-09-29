@@ -1,0 +1,41 @@
+.spoiler-button
+    display: inline-flex
+    justify-content: center
+    align-items: center
+    position: relative
+
+    padding: 15px 0px 15px 0px
+    transition: all 0.5s ease
+    cursor: pointer !important
+
+    @media (max-width: 426px)
+        flex-flow: column nowrap
+
+    &.active
+        color: #fd6767
+
+        &:after
+            margin: 3px 0px 0px 7px
+            transform: rotate(-45deg)
+
+    &:after
+        display: inline-block
+        margin: 0px 0px 0px 7px
+        padding: 5px 5px 5px 5px
+        @include size (10px,10px)
+
+        border-top: 2px solid #000
+        border-right: 2px solid #000
+        transform: rotate(135deg)
+
+        transition: all 0.2s ease
+        content: url("")
+
+        @media (max-width: 426px)
+            transform: rotate(135deg)
+
+.spoiler-content
+
+    li
+        padding: 5px 0px 5px 0px
+    &.active
