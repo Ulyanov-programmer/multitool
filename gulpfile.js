@@ -18,7 +18,7 @@ let paths = {
         css: `${sourceFolder}/sass/style.sass`,
         scripts: `${sourceFolder}/scripts/script.js`,
         images: `${sourceFolder}/img/**/*.{jpg,png,svg,gif,ico,webp}`,
-        fonts: `${sourceFolder}/fonts/*.ttf`,
+        fonts: `${sourceFolder}/fonts/*`,
     },
     watch: {
         html: `${sourceFolder}/**/*.html`,
@@ -43,9 +43,7 @@ let { scr, dest } = require('gulp'),
     imagemin = require('gulp-imagemin'),
     webp = require('gulp-webp'),
     webpHtml = require('gulp-webp-html'),
-    ttf2woff = require('gulp-ttf2woff'),
     ttf2woff2 = require('gulp-ttf2woff2'),
-    fonter = require('gulp-fonter');
 
 
 function browserSync(params) {
@@ -126,18 +124,18 @@ function images() {
         .pipe(browsersync.stream());
 }
 function fonts() {
-    gulp.src(paths.scr.fonts)
-        .pipe(ttf2woff())
-        .pipe(dest(paths.build.fonts));
     return gulp.src(paths.scr.fonts)
-        .pipe(ttf2woff2())
+        .pipe(ttf2woff2({
+            ignoreExt: true,
+        }))
         .pipe(dest(paths.build.fonts));
 }
 
 function fontsStyle() {
-    let file_content = fs.readFileSync(`${sourceFolder}/sass/fonts.sass`);
+    let file_content = fs.readFileSync(`${sourceFolder}/sass/fonts.sass`)
+        .toString().replace(/\s/g, "");
 
-    if (file_content == '') {
+    if (file_content == "") {
         fs.writeFile(`${sourceFolder}/sass/fonts.sass`, '', () => { });
         return fs.readdir(paths.build.fonts, (err, items) => {
 
@@ -157,15 +155,6 @@ function fontsStyle() {
         })
     }
 }
-
-// Call this task via terminal to convert .otf to .ttf => gulp otfTottf
-gulp.task('otfTottf', () => {
-    return gulp.src(`${sourceFolder}/fonts/*.otf`)
-        .pipe(fonter({
-            formats: ['ttf'],
-        }))
-        .pipe(dest(`${sourceFolder}/fonts/`));
-});
 
 
 let build = gulp.series(clean, gulp.parallel(scripts, css, html, images, fonts), fontsStyle);
