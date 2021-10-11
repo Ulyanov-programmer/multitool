@@ -169,7 +169,11 @@ If you have any questions or suggestions, write to me by email <a href="mailto:c
   * Настройте слайдер Swiper, если он вам нужен, в файле _scripts.html.
   Если он вам не нужен, удалите строки подключения стиля в _head.html и скриптов в _script.html.
   
-  * И наконец - удалите ненужные файлы стилей или скриптов, запустите gulp и верстайте!
+  * И наконец: <br>
+    Удалите ненужные файлы стилей или скриптов; <br>
+    Если вы используете систему контроля версий, удалите папку .git в корне проекта; <br>
+    Запустите gulp (с.м "Как запустить?" => VS Code); <br>
+    Верстайте! <br>
   Вы всегда можете проверить работоспособность сборщика, заглянув в итоковые файлы проекта. 
 
 </details>
@@ -197,7 +201,11 @@ If you have any questions or suggestions, write to me by email <a href="mailto:c
   * Customize the Swiper slider if you need it in the _scripts.html file.
   If you don't need it, remove the style connection lines in _head.html and scripts in _script.html.
   
-  * And finally - remove unnecessary style or script files, run the gulp and develop!
+  * And finally: <br>
+      Delete unnecessary style and script files; <br>
+      If you are using a revision control system, delete the .git folder at the root of the project; <br>
+      Run gulp (see "How to start?" => VS Code); <br>
+      Develop! <br>
   You can always check the functionality of the collector by looking at the final project files.
 </details>
 
