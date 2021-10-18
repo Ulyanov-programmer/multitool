@@ -15,21 +15,24 @@
         color: #fd6767
 
         &:after
-            margin: 3px 0px 0px 7px
-            transform: rotate(-45deg)
+            margin: 0px 0px 0px 7px
+            animation: spoiler-arrow-totop 1s
+            animation-fill-mode: forwards
 
     &:after
         display: inline-block
+        content: ""
+        
         margin: 0px 0px 0px 7px
         padding: 5px 5px 5px 5px
         @include size (10px,10px)
 
         border-top: 2px solid #000
         border-right: 2px solid #000
-        transform: rotate(135deg)
+        animation: spoiler-arrow-tobottom 1s
+        animation-fill-mode: forwards
 
         transition: all 0.2s ease
-        content: url("")
 
         @media (max-width: 426px)
             transform: rotate(135deg)
@@ -38,4 +41,17 @@
 
     li
         padding: 5px 0px 5px 0px
+
     &.active
+
+@keyframes spoiler-arrow-totop
+    0%
+        transform: rotate(135deg) translate(0%, 50%)
+    100%
+        transform: rotate(-45deg) translate(-50%, 0%)
+
+@keyframes spoiler-arrow-tobottom
+    0%
+        transform: rotate(-45deg) translate(-50%, 0%)
+    100%
+        transform: rotate(-225deg) translate(0%, 50%)

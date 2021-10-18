@@ -154,9 +154,8 @@ If you have any questions or suggestions, write to me by email <a href="mailto:c
   > *Большинство правок происходит в папке **src**, папка с итоговыми файлами (называемая именем папки проекта) **создаётся и изменяется автоматически**.*
   * Скачайте изображения, в том числе векторные, из макета и добавьте их в папку img. Не поленитесь создать дополнительные папки в ней для удобства навигации.
   
-  * Добавьте шрифты в папку **fonts** в формате **.ttf**. Они будут автоматически подключены в файл fonts.sass и к главному файлу стилей - style.sass.
-    * Если вам доступны файлы .otf, вы их можете конвертировать в .ttf, добавив их в папку fonts и введя команду ``gulp otfTottf``
-    > Будьте внимательны, файл шрифтов перез записью должен быть пуст, даже без отступов.
+  * Добавьте шрифты в папку **fonts**. Они будут автоматически подключены в файл fonts.sass и к главному файлу стилей - style.sass.
+    > Будьте внимательны, файл шрифтов перез записью должен быть пуст.
     ___
   * Добавьте иконочные шрифты, если они нужны. 
     * Файл стилей, переделанный под .sass, добавьте в папку sass с произвольным названием. Далее подключите её к главному файлу стилей - style.sass через 
@@ -186,13 +185,12 @@ If you have any questions or suggestions, write to me by email <a href="mailto:c
   
   * Download images, including vectors, from the layout and add them to the img folder. Do not be lazy to create additional folders in it for easy navigation.
   
-  * Add fonts to **fonts** folder in **.ttf** format. They will be automatically included in the fonts.sass file and in the main stylesheet - style.sass.
-    * If .otf files are available to you, you can convert them to .ttf by adding them to the fonts folder and entering the command ``gulp otfTottf``
-    > Be careful, the font file must be empty before writing, even without indentation.
+  * Add fonts to **fonts** folder. They will be automatically included in the fonts.sass file and in the main stylesheet - style.sass.
+    > Be careful, the font file must not contain any characters before writing.
     ___
   * Add icon fonts if needed.
     * The stylesheet file, remade under .sass, add to the sass folder with an arbitrary name. Next, connect it to the main stylesheet - style.sass via
-    ``@import "yourIconFontsStylesName"``
+    ``@import "yourIconFontStyleFile"``
     * Add icon font files to the fonts folder.
     ___
 

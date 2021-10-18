@@ -28,9 +28,11 @@ function toggleSpoilerState(event) {
     let spoilerContainer = targetSpoilerButton.nextElementSibling;
     let animationDuration = 500;
 
-    toggleSpoilerAnimation(spoilerContainer, animationDuration);
-    targetSpoilerButton.classList.toggle('active');
-    spoilerContainer.classList.toggle('active');
+    if (spoilerContainer.classList.contains('_slide') === false) {
+        toggleSpoilerAnimation(spoilerContainer, animationDuration);
+        targetSpoilerButton.classList.toggle('active');
+        spoilerContainer.classList.toggle('active');
+    }
 }
 
 // Determines spoilers when the page is loaded and when it is resized.

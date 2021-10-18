@@ -43,7 +43,7 @@ let { scr, dest } = require('gulp'),
     imagemin = require('gulp-imagemin'),
     webp = require('gulp-webp'),
     webpHtml = require('gulp-webp-html'),
-    ttf2woff2 = require('gulp-ttf2woff2'),
+    ttf2woff2 = require('gulp-ttf2woff2');
 
 
 function browserSync(params) {
@@ -110,7 +110,7 @@ function scripts() {
 function images() {
     return gulp.src(paths.scr.images)
         .pipe(webp({
-            quality: 70,
+            quality: 90,
         }))
         .pipe(dest(paths.build.images))
         .pipe(gulp.src(paths.scr.images))
