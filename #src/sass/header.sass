@@ -179,30 +179,47 @@
 
     @media (max-width: 600px)
         z-index: 5
+        position: relative
         display: flex
-        justify-content: center
+        flex-flow: column nowrap
+        justify-content: space-between
         align-items: center
 
-        width: 40px
-        height: 20px
-
-        border-top: 0.2em solid black
-        border-bottom: 0.2em solid black
+        width: 30px
+        height: 24px
 
         cursor: pointer
         transition: all 0.5s
 
-        span
-            height: 0.18em
+        div
+            display: inline-block
+            height: 0.2em
             width: 100%
-            background-color: #000
-            transition: all 0.5s
+            background: #000
+            transition: all 0.3s
 
     &.active
-        border-color: #fff
-        transform: rotateZ(450deg)
-        span
-            background-color: #fff
+        div
+            visibility: hidden
+            opacity: 0
+            pointer-events: none
+            background: #fff
+
+            transform-origin: left
+
+            &:first-child
+                visibility: visible
+                opacity: 1
+                pointer-events: all
+
+                transform: rotate(46deg)
+
+            &:last-child
+                visibility: visible
+                opacity: 1
+                pointer-events: all
+
+                transform: rotate(-46deg)
 
 .logo
     z-index: 10

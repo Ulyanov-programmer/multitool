@@ -348,15 +348,32 @@ h6 {
   background-color: transparent;
 }
 
-.header__burger.active {
-  border-color: #fff;
-  -webkit-transform: rotateZ(450deg);
-      -ms-transform: rotate(450deg);
-          transform: rotateZ(450deg);
+.header__burger.active div {
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+  background: #fff;
+  -webkit-transform-origin: left;
+      -ms-transform-origin: left;
+          transform-origin: left;
 }
 
-.header__burger.active span {
-  background-color: #fff;
+.header__burger.active div:first-child {
+  visibility: visible;
+  opacity: 1;
+  pointer-events: all;
+  -webkit-transform: rotate(46deg);
+      -ms-transform: rotate(46deg);
+          transform: rotate(46deg);
+}
+
+.header__burger.active div:last-child {
+  visibility: visible;
+  opacity: 1;
+  pointer-events: all;
+  -webkit-transform: rotate(-46deg);
+      -ms-transform: rotate(-46deg);
+          transform: rotate(-46deg);
 }
 
 .logo {
@@ -629,32 +646,36 @@ body button {
 
   .header__burger {
     z-index: 5;
+    position: relative;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
-    -webkit-box-pack: center;
-        -ms-flex-pack: center;
-            justify-content: center;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-flow: column nowrap;
+            flex-flow: column nowrap;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
     -webkit-box-align: center;
         -ms-flex-align: center;
             align-items: center;
-    width: 40px;
-    height: 20px;
-    border-top: 0.2em solid black;
-    border-bottom: 0.2em solid black;
+    width: 30px;
+    height: 24px;
     cursor: pointer;
     -webkit-transition: all 0.5s;
     -o-transition: all 0.5s;
     transition: all 0.5s;
   }
 
-  .header__burger span {
-    height: 0.18em;
+  .header__burger div {
+    display: inline-block;
+    height: 0.2em;
     width: 100%;
-    background-color: #000;
-    -webkit-transition: all 0.5s;
-    -o-transition: all 0.5s;
-    transition: all 0.5s;
+    background: #000;
+    -webkit-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    transition: all 0.3s;
   }
 }
 

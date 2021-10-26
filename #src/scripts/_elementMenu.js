@@ -5,7 +5,7 @@ function appendModalMenu(e) {
     modalElementClone.classList.remove('_non-active');
 
     targetContentPreview.append(modalElementClone);
-    setTimeout(function () {
+    setTimeout(() => {
         modalElementClone.classList.add('_active');
     }, 30)
 }
@@ -15,7 +15,7 @@ function removeModalMenu(e) {
 
     if (modalMenu.classList.contains("class")) {
         modalMenu.classList.remove("_active")
-        setTimeout(function () {
+        setTimeout(() => {
             modalMenu.remove();
         }, 200)
     }
