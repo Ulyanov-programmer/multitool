@@ -155,7 +155,7 @@ If you have any questions or suggestions, write to me by email <a href="mailto:c
   * Скачайте изображения, в том числе векторные, из макета и добавьте их в папку img. Не поленитесь создать дополнительные папки в ней для удобства навигации.
   
   * Добавьте шрифты в папку **fonts**. Они будут автоматически подключены в файл fonts.sass и к главному файлу стилей - style.sass.
-    > Будьте внимательны, файл шрифтов перез записью должен быть пуст.
+    > Будьте внимательны, файл fonts.sass перез записью **должен быть пуст**.
     ___
   * Добавьте иконочные шрифты, если они нужны. 
     * Файл стилей, переделанный под .sass, добавьте в папку sass с произвольным названием. Далее подключите её к главному файлу стилей - style.sass через 
@@ -186,7 +186,7 @@ If you have any questions or suggestions, write to me by email <a href="mailto:c
   * Download images, including vectors, from the layout and add them to the img folder. Do not be lazy to create additional folders in it for easy navigation.
   
   * Add fonts to **fonts** folder. They will be automatically included in the fonts.sass file and in the main stylesheet - style.sass.
-    > Be careful, the font file must not contain any characters before writing.
+    > Be careful, the fonts.sass file **must not contain any characters** before writing.
     ___
   * Add icon fonts if needed.
     * The stylesheet file, remade under .sass, add to the sass folder with an arbitrary name. Next, connect it to the main stylesheet - style.sass via
