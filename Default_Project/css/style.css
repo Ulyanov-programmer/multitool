@@ -274,7 +274,7 @@ h6 {
   position: relative;
   top: 0;
   left: 0;
-  content: url(".");
+  content: '';
   -webkit-box-flex: 0;
       -ms-flex: 0 0 70px;
           flex: 0 0 70px;

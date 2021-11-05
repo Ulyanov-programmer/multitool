@@ -156,10 +156,29 @@ function fontsStyle() {
     }
 }
 
+function setupSwiperJs() {
+    const modules = [
+        'node_modules/swiper/swiper-bundle.min.js',
+        'node_modules/swiper/swiper-bundle.min.js.map',
+    ];
 
-let build = gulp.series(clean, gulp.parallel(scripts, css, html, images, fonts), fontsStyle);
+    return gulp.src(modules)
+        .pipe(dest(paths.build.scripts));
+};
+function setupSwiperCss() {
+    const modules = [
+        'node_modules/swiper/swiper-bundle.min.css',
+    ];
+
+    return gulp.src(modules)
+        .pipe(dest(paths.build.css));
+};
+
+let build = gulp.series(clean, setupSwiperJs, setupSwiperCss, gulp.parallel(scripts, css, html, images, fonts), fontsStyle);
 let watch = gulp.parallel(build, watchFIles, browserSync);
 
+exports.setupSwiperCss = setupSwiperCss;
+exports.setupSwiperJs = vendorJS;
 exports.fontsStyle = fontsStyle;
 exports.fonts = fonts;
 exports.images = images;
