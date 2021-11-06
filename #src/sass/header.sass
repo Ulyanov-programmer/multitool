@@ -1,230 +1,239 @@
 @import "mixins"
 
 .header
-    display: flex
-    justify-content: center
-    z-index: 5
-    background: rgb(99, 99, 99)
-    *
-        z-index: 5
-
-    &__body
-        display: flex
-        justify-content: space-between
-        align-items: center
-        padding: 10px 0px 10px 0px
-
-.fixed-header
-    position: fixed
+  position: relative
+  display: flex
+  justify-content: center
+  z-index: 5
+  &:after
+    position: absolute
     top: 0
     left: 0
-    @include size(100%, 70px)
+    content: ''
+    width: 100%
+    height: 100%
+    background: rgb(99, 99, 99)
+    z-index: 4
+
+  &__body
+    display: flex
+    justify-content: space-between
+    align-items: center
+    padding: 10px 0px 10px 0px
+    *
+      z-index: 5
+
+.fixed-header
+  position: fixed
+  top: 0
+  left: 0
+  @include size(100%, 70px)
 
 .navmenu
-    height: 50px
-    @media (max-width: 600px)
-        display: none
+  height: 50px
+  @media (max-width: 600px)
+    display: none
 
-    &__body
+  &__body
+    display: flex
+    height: 100%
+
+  &__list
+    display: flex
+
+    li
+      display: flex
+      justify-content: center
+      align-items: center
+
+      padding: 0px 10px 0px 10px
+
+      cursor: pointer
+      transition: all 0.2s ease 0s
+
+      &:hover
+        background: #dddada62
+
+      a
         display: flex
-        height: 100%
+        justify-content: center
+        align-items: center
 
-    &__list
-        display: flex
-
-        li
-            display: flex
-            justify-content: center
-            align-items: center
-
-            padding: 0px 10px 0px 10px
-
-            cursor: pointer
-            transition: all 0.2s ease 0s
-
-            &:hover
-                background: #dddada62
-
-            a
-                display: flex
-                justify-content: center
-                align-items: center
-
-                color: white
-                @include size(100%, 100%)
+        color: white
+        @include size(100%, 100%)
 
     .submenu-open-button
-        position: relative
-        display: flex
+      position: relative
+      display: flex
 
+      &::after
+        display: inline-block
+        content: ""
+        @include size(4px, 4px)
+
+        border-top: 1.5px solid rgb(255, 255, 255)
+        border-right: 1.5px solid rgb(255, 255, 255)
+
+        transform: translate(5px,0) rotate(135deg)
+        transition: all 0.3s ease 0s
+
+      &.active
         &::after
-            display: inline-block
-            content: ""
-            @include size(4px, 4px)
-
-            border-top: 1.5px solid rgb(255, 255, 255)
-            border-right: 1.5px solid rgb(255, 255, 255)
-
-            transform: translate(5px,0) rotate(135deg)
-            transition: all 0.3s ease 0s
-
-        &.active
-            &::after
-                transform: translate(5px,0) rotate(-45deg)
+          transform: translate(5px,0) rotate(-45deg)
 
     &__submenu
-        z-index: 1
+      z-index: 1
+      position: absolute
+      display: none
+      height: 50px
+
+      background: #818181
+
+      &.show
         position: absolute
-        display: none
-        height: 50px
-
-        background: #818181
-
-        &.show
-            position: absolute
-            top: 100%
-            right: 0
-            display: flex
+        top: 100%
+        right: 0
+        display: flex
 
         &.navmenu__list
-            li
-                &:hover
-                    filter: brightness(115%)
+          li
+            &:hover
+              filter: brightness(115%)
 
-                // a {
-                // }
+              // a {
+              // }
 
 .fullscreen-navmenu
-    position: fixed
-    top: 0
-    right: -100%
-    z-index: -1
-    @include size (100%,100%)
-    @include adaptive-property ('font-size',25, 20)
-    color: #fff
+  position: fixed
+  top: 0
+  right: -100%
+  z-index: -1
+  @include size (100%,100%)
+  @include adaptive-property ('font-size',25, 20)
+  color: #fff
 
+  display: flex
+  flex-flow: column nowrap
+
+  background: #000000ad
+  transition: all 0.5s ease
+
+  @media (min-width: 600px)
+    display: none
+
+  &.active
+    right: 0
+
+  &__body
     display: flex
     flex-flow: column nowrap
-
-    background: #000000ad
-    transition: all 0.5s ease
-
-    @media (min-width: 600px)
-        display: none
-
-    &.active
-        right: 0
-
-    &__body
-        display: flex
-        flex-flow: column nowrap
-        align-items: center
-        overflow: auto
-        &:before
-            position: relative
-            top: 0
-            left: 0
-            content: ''
-            flex: 0 0 70px
+    align-items: center
+    overflow: auto
+    &:before
+      position: relative
+      top: 0
+      left: 0
+      content: ''
+      flex: 0 0 70px
 
     ul
-        overflow: auto
-        width: 100%
-        li
-            text-align: center
-            padding: 25px 0px 25px 0px
-            margin: 0 auto
+      overflow: auto
+      width: 100%
+      li
+        text-align: center
+        padding: 25px 0px 25px 0px
+        margin: 0 auto
 
-            width: 50%
-            cursor: pointer
-            border-bottom: 1px solid #fff
-            &:last-child
-                border: none
+        width: 50%
+        cursor: pointer
+        border-bottom: 1px solid #fff
 
-            &:hover
-                color: #beafaf
-            a
-                color: #fff
+        &:last-child
+          border: none
+        &:hover
+          color: #beafaf
+        a
+          color: #fff
 
 .searchbar
-    display: flex
-    // ? Reverse elements
-    // flex-flow: row-reverse nowrap
+  display: flex
+  // ? Reverse elements
+  // flex-flow: row-reverse nowrap
 
-    background: #fff
-    height: 30px
+  background: #fff
+  height: 30px
 
-    *
-        height: 100%
+  *
+    height: 100%
 
-    &__input
-        padding: 0px 0px 0px 10px
-        &:focus
-            background: #d8d5d5
+  &__input
+    padding: 0px 0px 0px 10px
+    &:focus
+      background: #d8d5d5
 
-    &__submit
-        padding: 0px 10px 0px 10px
-        transition: all 0.3s ease
+  &__submit
+    padding: 0px 10px 0px 10px
+    transition: all 0.3s ease
 
-        &:hover
-            background: #acabab
-
-        img
-            @include size (16px,16px)
-
-.header__burger
-    display: none
-    border-radius: 0px
-    background-color: transparent
-
-    @media (max-width: 600px)
-        z-index: 5
-        position: relative
-        display: flex
-        flex-flow: column nowrap
-        justify-content: space-between
-        align-items: center
-
-        width: 30px
-        height: 24px
-
-        cursor: pointer
-        transition: all 0.5s
-
-        div
-            display: inline-block
-            height: 0.2em
-            width: 100%
-            background: #000
-            transition: all 0.3s
-
-    &.active
-        div
-            visibility: hidden
-            opacity: 0
-            pointer-events: none
-            background: #fff
-
-            transform-origin: left
-
-            &:first-child
-                visibility: visible
-                opacity: 1
-                pointer-events: all
-
-                transform: rotate(46deg)
-
-            &:last-child
-                visibility: visible
-                opacity: 1
-                pointer-events: all
-
-                transform: rotate(-46deg)
-
-.logo
-    z-index: 10
-    height: 50px
+    &:hover
+      background: #acabab
 
     img
-        min-width: 100%
-        height: 100%
+      @include size (16px,16px)
+
+.header__burger
+  display: none
+  border-radius: 0px
+  background-color: transparent
+
+  &.active
+    div
+      visibility: hidden
+      opacity: 0
+      pointer-events: none
+      background: #fff
+
+      transform-origin: left
+
+      &:first-child
+        visibility: visible
+        opacity: 1
+        pointer-events: all
+
+        transform: rotate(46deg)
+
+      &:last-child
+        visibility: visible
+        opacity: 1
+        pointer-events: all
+
+        transform: rotate(-46deg)
+
+  @media (max-width: 600px)
+    z-index: 5
+    position: relative
+    display: flex
+    flex-flow: column nowrap
+    justify-content: space-between
+    align-items: center
+
+    width: 30px
+    height: 24px
+
+    cursor: pointer
+    transition: all 0.5s
+
+    div
+      display: inline-block
+      height: 0.2em
+      width: 100%
+      background: #000
+      transition: all 0.3s
+
+.logo
+  z-index: 10
+  height: 50px
+
+  img
+    max-width: 50px
+    height: 100%

@@ -1,57 +1,57 @@
 .spoiler-button
-    display: inline-flex
-    justify-content: center
-    align-items: center
-    position: relative
+  display: inline-flex
+  justify-content: center
+  align-items: center
+  position: relative
 
-    padding: 15px 0px 15px 0px
-    transition: all 0.5s ease
-    cursor: pointer !important
+  padding: 15px 0px 15px 0px
+  transition: all 0.3s ease
+  cursor: pointer !important
 
-    @media (max-width: 426px)
-        flex-flow: column nowrap
+  @media (max-width: 426px)
+    flex-flow: column nowrap
 
-    &.active
-        color: #fd6767
-
-        &:after
-            margin: 0px 0px 0px 7px
-            animation: spoiler-arrow-totop 1s
-            animation-fill-mode: forwards
+  &.active
+    color: #fd6767
 
     &:after
-        display: inline-block
-        content: ""
-        
-        margin: 0px 0px 0px 7px
-        padding: 5px 5px 5px 5px
-        @include size (10px,10px)
+      margin: 0px 0px 0px 7px
+      animation: spoiler-arrow-totop 1s
+      animation-fill-mode: forwards
 
-        border-top: 2px solid #000
-        border-right: 2px solid #000
-        animation: spoiler-arrow-tobottom 1s
-        animation-fill-mode: forwards
+  &:after
+    display: inline-block
+    content: ""
 
-        transition: all 0.2s ease
+    margin: 0px 0px 0px 7px
+    padding: 5px 5px 5px 5px
+    @include size (10px,10px)
 
-        @media (max-width: 426px)
-            transform: rotate(135deg)
+    border-top: 2px solid #000
+    border-right: 2px solid #000
+    animation: spoiler-arrow-tobottom 1s
+    animation-fill-mode: forwards
+
+    transition: all 0.3s ease
+
+    @media (max-width: 426px)
+      transform: rotate(135deg)
 
 .spoiler-content
 
-    li
-        padding: 5px 0px 5px 0px
+  li
+    padding: 5px 0px 5px 0px
 
-    &.active
+  &.active
 
 @keyframes spoiler-arrow-totop
-    0%
-        transform: rotate(135deg) translate(0%, 50%)
-    100%
-        transform: rotate(-45deg) translate(-50%, 0%)
+  0%
+    transform: rotate(135deg) translate(0%, 50%)
+  100%
+    transform: rotate(-45deg) translate(-50%, 0%)
 
 @keyframes spoiler-arrow-tobottom
-    0%
-        transform: rotate(-45deg) translate(-50%, 0%)
-    100%
-        transform: rotate(-225deg) translate(0%, 50%)
+  0%
+    transform: rotate(-45deg) translate(-50%, 0%)
+  100%
+    transform: rotate(-225deg) translate(0%, 50%)

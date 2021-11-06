@@ -1,71 +1,70 @@
 <header class="header">
-    <!-- ? Use the fixed header below if you are using full screen mode. 
-        !  Attention, container and fixed header are mutually exclusive! -->
-    <div class="header__body container">
-        <a href="#" class="logo">
-            <img src="img/logo.png" alt="logo">
-        </a>
-        <form class="searchbar">
-            <input class="searchbar__input" type='text' placeholder='input' required>
-            <button class="searchbar__submit" type='submit'>
-                <img src="img/icons/loupe.svg" alt="search">
-            </button>
-        </form>
+  <!-- ! Attention, container and fixed-header classes are mutually exclusive! -->
+  <div class="header__body container">
+    <a href="#" class="logo">
+      <img src="img/logo.png" alt="logo">
+    </a>
+    <form class="searchbar">
+      <input class="searchbar__input" type='text' placeholder='input' required>
+      <button class="searchbar__submit" type='submit'>
+        <img src="img/icons/loupe.svg" alt="search">
+      </button>
+    </form>
 
-        <button data-modal-link="modal_1" type='button'>I show modal page</button>
+    <button data-modal-link="modal_1" type='button'>I show modal page</button>
 
-        <nav class="navmenu">
-            <div class="navmenu__body">
+    <nav class="navmenu">
+      <div class="navmenu__body">
 
-                <!-- One Page site navmenu -->
-                <ul class='navmenu__list'>
-                    <li data-scroll-to="block1">кнопка</li>
-                    <li data-scroll-to="block1">кнопка2</li>
-                    <!-- Subnavmenu -->
-                    <li class="submenu-open-button">
-                        submenu
-                        <!-- <button type='button'></button> -->
-                        <ul class='navmenu__submenu navmenu__list'>
-                            <li>
-                                <a target="_blank" rel="noopener" href="#">ref</a>
-                            </li>
-                            <li data-scroll-to="how-it-works">button</li>
-                        </ul>
-                    </li>
-                </ul>
+        <!-- One Page site navmenu -->
+        <ul class='navmenu__list'>
+          <li data-scroll-to="block1">кнопка</li>
+          <li data-scroll-to="block1">кнопка2</li>
+          <!-- Subnavmenu -->
+          <li class="submenu-open-button">
+            submenu
+            <!-- <button type='button'></button> -->
+            <ul class='navmenu__submenu navmenu__list'>
+              <li>
+                <a target="_blank" rel="noopener" href="#">ref</a>
+              </li>
+              <li data-scroll-to="how-it-works">button</li>
+            </ul>
+          </li>
+        </ul>
+        <!-- ! Multiple page site navmenu
+        <ul class='navmenu__list'>
+              <li>
+                  <a target="_blank" rel="noopener" href="#">ссылка2</a>
+              </li>
+          </ul> 
+        -->
+      </div>
+    </nav>
 
-                <!-- ! Multiple page site navmenu -->
-                <!-- <ul class='navmenu__list'>
-                    <li>
-                        <a target="_blank" rel="noopener" href="#">ссылка2</a>
-                    </li>
-                </ul> -->
-            </div>
-        </nav>
-
-        <button aria-label="menu" type="menu" id="burgerButton" class="header__burger">
-            <div></div>
-            <div></div>
-            <div></div>
-        </button>
-        <nav class="fullscreen-navmenu">
-            <div class="fullscreen-navmenu__body">
-                <ul>
-                    <li>кнопка</li>
-                    <li>кнопка</li>
-                    <li>кнопка</li>
-                </ul>
-            </div>
-        </nav>
-    </div>
+    <button aria-label="menu" type="menu" id="burgerButton" class="header__burger">
+      <div></div>
+      <div></div>
+      <div></div>
+    </button>
+    <nav class="fullscreen-navmenu">
+      <div class="fullscreen-navmenu__body">
+        <ul>
+          <li>кнопка</li>
+          <li>кнопка</li>
+          <li>кнопка</li>
+        </ul>
+      </div>
+    </nav>
+  </div>
 </header>
 
 <!-- ? Use if the header can be clearly divided into two parts. -->
 <!-- <header class="header">
-    <div class="header__body container">
-        <div class="header__top">
-        </div>
-        <div class="header__bottom">
-        </div>
+  <div class="header__body container">
+    <div class="header__top">
     </div>
+    <div class="header__bottom">
+    </div>
+  </div>
 </header> -->
