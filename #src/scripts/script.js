@@ -10,6 +10,7 @@ let innerWindowHeight = () => window.innerHeight;
 @@include('_fsNavmenu.js');
 @@include('_spoiler.js');
 @@include('_elementMenu.js');
+@@include('_sliders.js');
 
 
 function showOrHideSubmenu(e) {
