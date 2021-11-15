@@ -81,27 +81,27 @@
         &::after
           transform: translate(5px,0) rotate(-45deg)
 
-    &__submenu
-      z-index: 1
+  &__submenu
+    z-index: я1
+    position: absolute
+    display: none
+    height: 50px
+
+    background: #818181
+
+    &.show
       position: absolute
-      display: none
-      height: 50px
+      top: 100%
+      right: 0
+      display: flex
 
-      background: #818181
+      &.navmenu__list
+        li
+          &:hover
+            filter: brightness(115%)
 
-      &.show
-        position: absolute
-        top: 100%
-        right: 0
-        display: flex
-
-        &.navmenu__list
-          li
-            &:hover
-              filter: brightness(115%)
-
-              // a {
-              // }
+            // a {
+            // }
 
 .fullscreen-navmenu
   position: fixed
@@ -181,54 +181,39 @@
     img
       @include size (16px,16px)
 
-.header__burger
-  display: none
-  border-radius: 0px
-  background-color: transparent
+.burger-btn
+  z-index: 5
+  display: block
+
+  cursor: pointer
+
+  @media (min-width: 600px)
+    display: none
+
+  &__svg
+    *
+      transition: all 0.5s ease
+
+  &__rect-top
+    transform-origin: center
+
+  &__rect-center
+
+  &__rect-bottom
+    transform-origin: center
 
   &.active
-    div
+    .burger-btn__rect-top
+      transform: rotate(45deg) translate(-5%,50%)
+
+    .burger-btn__rect-center
       visibility: hidden
       opacity: 0
       pointer-events: none
-      background: #fff
+      height: 0
 
-      transform-origin: left
-
-      &:first-child
-        visibility: visible
-        opacity: 1
-        pointer-events: all
-
-        transform: rotate(46deg)
-
-      &:last-child
-        visibility: visible
-        opacity: 1
-        pointer-events: all
-
-        transform: rotate(-46deg)
-
-  @media (max-width: 600px)
-    z-index: 5
-    position: relative
-    display: flex
-    flex-flow: column nowrap
-    justify-content: space-between
-    align-items: center
-
-    width: 30px
-    height: 24px
-
-    cursor: pointer
-    transition: all 0.5s
-
-    div
-      display: inline-block
-      height: 0.2em
-      width: 100%
-      background: #000
-      transition: all 0.3s
+    .burger-btn__rect-bottom
+      transform: rotate(-45deg) translate(-5%,-50%)
 
 .logo
   z-index: 10

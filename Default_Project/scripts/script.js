@@ -263,6 +263,64 @@ function removeModalMenu(e) {
 }
 const contentElements = doc.querySelectorAll('.container-class');
 const modalElement = doc.querySelector('.modal');;
+const someSwiper = new Swiper('.swiper', {
+  /*
+
+  navigation: {
+    nextEl: ".nextNavButton", prevEl: ".prevNavButton",
+  },
+  pagination: { 
+    el: '.swiperPagination', 
+    clickable: true, 
+  },
+
+  preloadImages: true,
+  lazy: {
+    loadOnTransitionStart: false,
+    loadPrevnext: true,
+  },
+
+  autoplay:{
+    delay: 3000,
+    stopOnLastSlide: false,
+  },
+
+  Infinite scrolling.
+    loop: false,
+
+  Changes the slider settings based on the width of the screen.
+    breakpoints: {
+      when window width is >= 320px
+      320: {
+        slidesPerView: 2,
+        spaceBetween: 20,
+      },
+    },
+
+  Changes the height of the slider in runtime depending on the height of the slides.
+    autoHeight: true,
+    slidesPerView: 1,
+
+  If there are no more than one slides, the slider stops working.
+    watchOverflow: true,
+    direction: 'horizontal' or 'vertical',
+
+  Indent between slides.
+    spaceBetween: 150,
+
+  Enable parallax effect.
+    parallax: true,
+  For working add and set attributes on elements in slide:
+    data-swiper-parallax="0" (xRight)
+    data-swiper-parallax-duration="1000" (in ms)
+
+  effect: 'fade',
+  fadeEffect: {
+      crossFade: true,
+  }
+  */
+});
+;
 
 
 function showOrHideSubmenu(e) {
@@ -331,62 +389,3 @@ function headerToFixed(e) {
 }
 const header = doc.querySelector('.header__body');
 window.addEventListener('scroll', headerToFixed);
-
-
-const someSwiper = new Swiper('.swiper', {
-  /*
-  navigation: {
-    // Enter nav button classes here.
-    nextEl: ".next",
-    prevEl: ".prev",
-  },
-  
-  pagination: { 
-    el: '.swiper__pagination', 
-    clickable: true, 
-  },
-
-  preloadImages: true,
-  lazy: {
-    loadOnTransitionStart: false,
-    loadPrevnext: true,
-  },
-
-  autoplay:{
-    delay: 3000,
-    stopOnLastSlide: false,
-  },
-
-  // Infinity
-  loop: false,
-  
-  // Changes the slider settings based on the width of the screen.
-  breakpoints: {
-    // when window width is >= 320px
-    320: {
-      slidesPerView: 2,
-      spaceBetween: 20
-    },
-  },
-
-  
-  // Changes the height of the slider in runtime depending on the height of the slides.
-  autoHeight: true,
-
-  slidesPerView: 1,
-
-  // If there are no more than one slides, the slider stops working.
-  watchOverflow: true,
-  direction: 'horizontal' or 'vertical',
-
-  // Indent between slides.
-  spaceBetween: 150,
-
-  // Enable parallax effect. For working add attributes:
-  data-swiper-parallax="0" (xRight)
-  data-swiper-parallax-duration="1000" (in ms)
-  on elements in swiper-slide.
-
-  parallax: true,
-  */
-});

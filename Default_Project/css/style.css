@@ -1,3 +1,5 @@
+@charset "UTF-8";
+
 * {
   padding: 0;
   margin: 0;
@@ -176,7 +178,7 @@ h6 {
   background: #dddada62;
 }
 
-.navmenu__list li:hover a {
+.navmenu__list li a {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -213,21 +215,21 @@ h6 {
   transition: all 0.3s ease 0s;
 }
 
-.navmenu__list .submenu-open-button::after.active::after {
+.navmenu__list .submenu-open-button.active::after {
   -webkit-transform: translate(5px, 0) rotate(-45deg);
       -ms-transform: translate(5px, 0) rotate(-45deg);
           transform: translate(5px, 0) rotate(-45deg);
 }
 
-.navmenu__list__submenu {
-  z-index: 1;
+.navmenu__submenu {
+  z-index: я1;
   position: absolute;
   display: none;
   height: 50px;
   background: #818181;
 }
 
-.navmenu__list__submenu.show {
+.navmenu__submenu.show {
   position: absolute;
   top: 100%;
   right: 0;
@@ -236,7 +238,7 @@ h6 {
   display: flex;
 }
 
-.navmenu__list__submenu.show.navmenu__list li:hover {
+.navmenu__submenu.show.navmenu__list li:hover {
   -webkit-filter: brightness(115%);
           filter: brightness(115%);
 }
@@ -309,11 +311,11 @@ h6 {
   border: none;
 }
 
-.fullscreen-navmenu__body ul li:last-child:hover {
+.fullscreen-navmenu__body ul li:hover {
   color: #beafaf;
 }
 
-.fullscreen-navmenu__body ul li:last-child:hover a {
+.fullscreen-navmenu__body ul li a {
   color: #fff;
 }
 
@@ -353,48 +355,47 @@ h6 {
   height: 16px;
 }
 
-.header__burger {
-  display: none;
-  border-radius: 0px;
-  background-color: transparent;
+.burger-btn {
+  z-index: 5;
+  display: block;
+  cursor: pointer;
 }
 
-.header__burger.active div {
+.burger-btn__svg * {
+  -webkit-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+}
+
+.burger-btn__rect-top {
+  -webkit-transform-origin: center;
+      -ms-transform-origin: center;
+          transform-origin: center;
+}
+
+.burger-btn__rect-bottom {
+  -webkit-transform-origin: center;
+      -ms-transform-origin: center;
+          transform-origin: center;
+}
+
+.burger-btn.active .burger-btn__rect-top {
+  -webkit-transform: rotate(45deg) translate(-5%, 50%);
+      -ms-transform: rotate(45deg) translate(-5%, 50%);
+          transform: rotate(45deg) translate(-5%, 50%);
+}
+
+.burger-btn.active .burger-btn__rect-center {
   visibility: hidden;
   opacity: 0;
   pointer-events: none;
-  background: #fff;
-  -webkit-transform-origin: left;
-      -ms-transform-origin: left;
-          transform-origin: left;
+  height: 0;
 }
 
-.header__burger.active div:first-child {
-  visibility: visible;
-  opacity: 1;
-  pointer-events: all;
-  -webkit-transform: rotate(46deg);
-      -ms-transform: rotate(46deg);
-          transform: rotate(46deg);
-}
-
-.header__burger.active div:last-child {
-  visibility: visible;
-  opacity: 1;
-  pointer-events: all;
-  -webkit-transform: rotate(-46deg);
-      -ms-transform: rotate(-46deg);
-          transform: rotate(-46deg);
-}
-
-.header__burger div {
-  display: inline-block;
-  height: 0.2em;
-  width: 100%;
-  background: #000;
-  -webkit-transition: all 0.3s;
-  -o-transition: all 0.3s;
-  transition: all 0.3s;
+.burger-btn.active .burger-btn__rect-bottom {
+  -webkit-transform: rotate(-45deg) translate(-5%, -50%);
+      -ms-transform: rotate(-45deg) translate(-5%, -50%);
+          transform: rotate(-45deg) translate(-5%, -50%);
 }
 
 .logo {
@@ -433,7 +434,7 @@ h6 {
   -webkit-transition: all 0.3s ease;
   -o-transition: all 0.3s ease;
   transition: all 0.3s ease;
-  cursor: pointer !important;
+  cursor: pointer;
 }
 
 .spoiler-button.active {
@@ -652,6 +653,10 @@ body button {
   .fullscreen-navmenu {
     display: none;
   }
+
+  .burger-btn {
+    display: none;
+  }
 }
 
 @media (min-width: 900px) {
@@ -663,30 +668,6 @@ body button {
 @media (max-width: 600px) {
   .navmenu {
     display: none;
-  }
-
-  .header__burger {
-    z-index: 5;
-    position: relative;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-        -ms-flex-flow: column nowrap;
-            flex-flow: column nowrap;
-    -webkit-box-pack: justify;
-        -ms-flex-pack: justify;
-            justify-content: space-between;
-    -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
-    width: 30px;
-    height: 24px;
-    cursor: pointer;
-    -webkit-transition: all 0.5s;
-    -o-transition: all 0.5s;
-    transition: all 0.5s;
   }
 }
 
