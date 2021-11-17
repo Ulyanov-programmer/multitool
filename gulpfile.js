@@ -15,7 +15,7 @@ let paths = {
   },
   scr: {
     html: [`${sourceFolder}/*.html`, `!${sourceFolder}/_*.html`],
-    css: `${sourceFolder}/sass/style.sass`,
+    css: [`${sourceFolder}/sass/*.sass`, `!${sourceFolder}/sass/_*.sass`],
     scripts: `${sourceFolder}/scripts/script.js`,
     images: `${sourceFolder}/img/**/*.{jpg,png,svg,gif,ico,webp}`,
     fonts: `${sourceFolder}/fonts/*`,
@@ -28,6 +28,7 @@ let paths = {
   },
   clean: `./${projectFolder}/`,
 }
+let fontsFIlePath = `${sourceFolder}/sass/_fonts.sass`;
 
 let { scr, dest } = require('gulp'),
   gulp = require('gulp'),
@@ -132,11 +133,11 @@ function fonts() {
 }
 
 function fontsStyle() {
-  let file_content = fs.readFileSync(`${sourceFolder}/sass/fonts.sass`)
+  let file_content = fs.readFileSync(fontsFIlePath)
     .toString().replace(/\s/g, "");
 
   if (file_content == "") {
-    fs.writeFile(`${sourceFolder}/sass/fonts.sass`, '', () => { });
+    fs.writeFile(fontsFIlePath, '', () => { });
     return fs.readdir(paths.build.fonts, (err, items) => {
 
       if (items) {
@@ -147,7 +148,7 @@ function fontsStyle() {
           fontname = fontname[0];
 
           if (c_fontname != fontname) {
-            fs.appendFile(`${sourceFolder}/sass/fonts.sass`, '@include font("' + fontname + '", "' + fontname + '", "400", "normal");\r\n', () => { });
+            fs.appendFile(fontsFIlePath, '@include font("' + fontname + '", "' + fontname + '", "400", "normal");\r\n', () => { });
           }
           c_fontname = fontname;
         }

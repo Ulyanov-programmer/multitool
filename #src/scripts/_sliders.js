@@ -3,6 +3,7 @@ const someSwiper = new Swiper('.swiper', {
 
   navigation: {
     nextEl: ".nextNavButton", prevEl: ".prevNavButton",
+    disabledClass: 'unactive',
   },
   pagination: { 
     el: '.swiperPagination', 
@@ -51,7 +52,24 @@ const someSwiper = new Swiper('.swiper', {
 
   effect: 'fade',
   fadeEffect: {
-      crossFade: true,
+    crossFade: true,
   }
+
+  Thumbs construction:
+    const demosSwiper = new Swiper('.demos', {
+      spaceBetween: 15,
+      slidesPerView: 6,
+      watchOverflow: true,
+    });
+
+    const mainSwiper = new Swiper('.main', {
+      watchOverflow: true,
+
+      thumbs: {
+        swiper: demosSwiper,
+        slideThumbActiveClass: 'active',
+      },
+    });
   */
+  // ! PLEASE TURN ME OFF IF YOU DO NOT NEED ME!
 });

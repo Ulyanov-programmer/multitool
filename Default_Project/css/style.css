@@ -519,6 +519,61 @@ h6 {
   }
 }
 
+.container {
+  margin: auto;
+}
+
+.adaptive-image {
+  display: block;
+  position: relative;
+  padding: 0px 0px 100% 0px;
+}
+
+.adaptive-image img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.modal-window {
+  position: fixed;
+  z-index: 15;
+  top: 0;
+  left: 0;
+  background: #00000046;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+  -webkit-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+}
+
+.modal-window.active {
+  overflow-y: scroll;
+  opacity: 1;
+  pointer-events: all;
+}
+
+.modal-window__body {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  height: 100%;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
 body {
   height: 100%;
   color: #fff;
@@ -565,10 +620,6 @@ body button {
   bottom: 5%;
 }
 
-.container {
-  margin: auto;
-}
-
 .sidepanel {
   position: absolute;
   left: 10%;
@@ -596,57 +647,6 @@ body button {
   -webkit-box-direction: normal;
       -ms-flex-flow: column nowrap;
           flex-flow: column nowrap;
-}
-
-.modal-window {
-  position: fixed;
-  z-index: 15;
-  top: 0;
-  left: 0;
-  background: #00000046;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  opacity: 0;
-  pointer-events: none;
-  -webkit-transition: all 0.5s ease;
-  -o-transition: all 0.5s ease;
-  transition: all 0.5s ease;
-}
-
-.modal-window.active {
-  overflow-y: scroll;
-  opacity: 1;
-  pointer-events: all;
-}
-
-.modal-window__body {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  height: 100%;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-}
-
-.adaptive-image {
-  display: block;
-  position: relative;
-  padding: 0px 0px 100% 0px;
-}
-
-.adaptive-image img {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  -o-object-fit: cover;
-     object-fit: cover;
 }
 
 @media (min-width: 600px) {
