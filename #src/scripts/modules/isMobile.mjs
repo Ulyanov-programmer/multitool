@@ -1,4 +1,4 @@
-class IsMobile {
+export class IsMobile {
   static Android() {
     return navigator.userAgent.match(/Android/i);
   }
@@ -31,9 +31,8 @@ class IsMobile {
     any: function () { return ( isMobile.Android() || isMobile.BlackBerry() ||
             isMobile.iOS() || isMobile.Opera() || isMobile.Windows()); }
  }; */
-
 if (IsMobile.any()) {
-  body.classList.add('_touch');
+  document.body.classList.add('_touch');
 } else {
-  body.classList.add('_pc');
+  document.body.classList.add('_pc');
 }

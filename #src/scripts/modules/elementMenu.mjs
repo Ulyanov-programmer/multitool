@@ -20,5 +20,5 @@ function removeModalMenu(e) {
     }, 200)
   }
 }
-const contentElements = doc.querySelectorAll('.container-class');
-const modalElement = doc.querySelector('.modal');
+const contentElements = document.querySelectorAll('.container-class');
+const modalElement = document.querySelector('.modal');

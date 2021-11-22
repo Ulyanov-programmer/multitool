@@ -1,4 +1,4 @@
-function filtContentByType(e) {
+export function filtContentByType(e) {
   let typeOfContent = e.target.dataset.filtContent;
 
   for (const work of works) {

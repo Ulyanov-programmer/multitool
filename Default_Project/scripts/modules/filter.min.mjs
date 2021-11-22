@@ -1,0 +1,1 @@
+export function filtContentByType(t){let e=t.target.dataset.filtContent;for(const t of works)"all"===e||t.dataset.contentType===e?t.style.display="":t.style.display="none"}const filterButtons=document.querySelectorAll("[data-filt-content]");for(const t of filterButtons)t.addEventListener("click",filtContentByType);const works=document.querySelectorAll("[data-content-type]");

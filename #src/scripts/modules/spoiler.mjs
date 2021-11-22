@@ -1,5 +1,5 @@
-let spoilerButtons = doc.querySelectorAll('[data-spoiler-button]');
-let spoilerContentElements = doc.querySelectorAll('[data-spoiler-content]');
+let spoilerButtons = document.querySelectorAll('[data-spoiler-button]');
+let spoilerContentElements = document.querySelectorAll('[data-spoiler-content]');
 
 function toggleToSpoilers(e) {
   if (spoilerContentElements.length > 0 &&

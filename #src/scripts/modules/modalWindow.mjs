@@ -3,20 +3,20 @@
 
 let body = document.body;
 
-let modalLinks = doc.querySelectorAll('[data-modal-link]');
+let modalLinks = document.querySelectorAll('[data-modal-link]');
 
 for (let modalLink of modalLinks) {
   modalLink.addEventListener("click", () => {
     let popupId = modalLink.dataset.modalLink;
 
     if (popupId !== undefined) {
-      let modal = doc.getElementById(popupId);
+      let modal = document.getElementById(popupId);
       showOrHideModal(modal);
     }
   });
 }
 
-let modalClosers = doc.querySelectorAll('.modal-closer');
+let modalClosers = document.querySelectorAll('.modal-closer');
 
 for (const modalCloser of modalClosers) {
   modalCloser.addEventListener("click", () => {
@@ -28,7 +28,7 @@ for (const modalCloser of modalClosers) {
 // When the body loses scrolling, the page may shift.
 // To fix this, it will be padded in the size of the scrollbar.
 function returnScrollbarWidth() {
-  let scrollbarWidth = innerWindowWidth() - doc.querySelector('html').clientWidth;
+  let scrollbarWidth = window.innerWidth - document.querySelector('html').clientWidth;
 
   return scrollbarWidth;
 }
@@ -42,7 +42,7 @@ const transitionTimeout = 0.5;
 
 function showOrHideModal(modalElement) {
   if (modalElement && unlock) {
-    let activeModal = doc.querySelector('.modal-window.active');
+    let activeModal = document.querySelector('.modal-window.active');
 
     if (activeModal) {
       closeModal(activeModal, false);
@@ -87,10 +87,10 @@ function toggleBodyScroll(toggleScrollOn) {
   }, transitionTimeout * 1000);
 }
 
-doc.addEventListener('keydown', (key) => {
+document.addEventListener('keydown', (key) => {
 
   if (key.code === 'Escape') {
-    let activeModal = doc.querySelector('.modal-window.active');
+    let activeModal = document.querySelector('.modal-window.active');
     closeModal(activeModal, true);
   }
 });

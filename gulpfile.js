@@ -10,13 +10,15 @@ let paths = {
     html: `${projectFolder}/`,
     css: `${projectFolder}/css/`,
     scripts: `${projectFolder}/scripts/`,
+    scriptModules: `${projectFolder}/scripts/modules/`,
     images: `${projectFolder}/img/`,
     fonts: `${projectFolder}/fonts/`,
   },
   scr: {
-    html: [`${sourceFolder}/*.html`, `!${sourceFolder}/*.htm`, `!${sourceFolder}/_*.html`],
+    html: [`${sourceFolder}/*.html`, `!${sourceFolder}/*.htm`],
     css: [`${sourceFolder}/sass/*.sass`, `!${sourceFolder}/sass/_*.sass`],
-    scripts: [`${sourceFolder}/scripts/*.js`, `!${sourceFolder}/scripts/_*.js`],
+    scripts: `${sourceFolder}/scripts/*.js`,
+    scriptModules: `${sourceFolder}/scripts/modules/*.mjs`,
     images: `${sourceFolder}/img/**/*.{jpg,png,svg,gif,ico,webp}`,
     fonts: `${sourceFolder}/fonts/*`,
   },
@@ -24,6 +26,7 @@ let paths = {
     html: `${sourceFolder}/**/*.html`,
     css: `${sourceFolder}/sass/**/*.sass`,
     scripts: `${sourceFolder}/scripts/**/*.js`,
+    scriptModules: `${sourceFolder}/scripts/**/*.mjs`,
     images: `${sourceFolder}/img/**/*.{jpg,png,svg,gif,ico,webp}`,
   },
   clean: `./${projectFolder}/`,
@@ -88,24 +91,40 @@ function watchFIles() {
   gulp.watch([paths.watch.html], html);
   gulp.watch([paths.watch.css], css);
   gulp.watch([paths.watch.scripts], scripts);
+  gulp.watch([paths.watch.scriptModules], scripts);
   gulp.watch([paths.watch.images], images);
 }
 function clean() {
   return del(paths.clean);
 }
 function scripts() {
-  return gulp.src(paths.scr.scripts)
+  // ? save .js files
+  gulp.src(paths.scr.scripts)
     .pipe(fileinclude())
 
-    //save scripts
     .pipe(dest(paths.build.scripts))
 
-    //save cleaning and renaming new js files
+    //save minimize and renaming new .js files
     .pipe(cleanJs())
     .pipe(rename({
       extname: '.min.js'
     }))
     .pipe(dest(paths.build.scripts))
+    .pipe(browsersync.stream());
+
+  // ? save .mjs modules
+  return gulp.src(paths.scr.scriptModules)
+    .pipe(fileinclude())
+
+    //save scripts
+    .pipe(dest(paths.build.scriptModules))
+
+    //save minimize and renaming new .mjs files
+    .pipe(cleanJs())
+    .pipe(rename({
+      extname: '.min.mjs'
+    }))
+    .pipe(dest(paths.build.scriptModules))
     .pipe(browsersync.stream());
 }
 function images() {
@@ -157,6 +176,7 @@ function fontsStyle() {
   }
 }
 
+// ! Make sure you install the swiper via NPM!
 function setupSwiperJs() {
   const modules = [
     'node_modules/swiper/swiper-bundle.min.js',

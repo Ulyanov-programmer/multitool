@@ -51,8 +51,8 @@ function changeByClick(inputEvent) {
     element.style.width = newContentWidth + "px";
   });
 }
-const albumElements = doc.querySelectorAll('.album-element');
-const rangeInput = doc.querySelector('#inputRange');
+const albumElements = document.querySelectorAll('.album-element');
+const rangeInput = document.querySelector('#inputRange');
 
 rangeInput.addEventListener('input', changeByClick);
 rangeInput.onwheel = (arg) => {
