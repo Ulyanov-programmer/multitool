@@ -12,3 +12,19 @@
 
 @mixin adaptive-property($property, $value, $min-value)
   #{$property}: calc(#{$min-value + px} + (#{$value} - #{$min-value}) * ((100vw - 320px) / (#{$containerWidth} - 320)))
+
+/// Return value for responsive font-size.
+///
+/// @param {number} $default-size
+///   The size of the font that is specified in the layout (without px).
+///   It will be rendered assuming the width of the content container is the same as in the design layout.
+/// @param {number} $min-size
+///   The minimum font size (without px).
+///   Will be displayed on the screen width of 320 pixels.
+///   Default value = 12. 
+@function adapt-fsize($default-size, $min-size: 12)
+  @return calc((100vw - 320px) / (#{$containerWidth} - 320) * (#{$default-size} - #{$min-size}) + #{$min-size + px})
+
+@mixin flex-centring()
+  justify-content: center
+  align-items: center

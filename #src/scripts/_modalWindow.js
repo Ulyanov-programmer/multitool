@@ -74,10 +74,10 @@ function toggleBodyScroll(toggleScrollOn) {
 
   if (toggleScrollOn && fsMenuIsActive === false) {
     body.style.paddingRight = 0;
-    body.classList.remove("fixed");
+    body.classList.remove("scroll-block");
   } else {
     body.style.paddingRight = returnScrollbarWidth() + 'px';
-    body.classList.add('fixed');
+    body.classList.add('scroll-block');
   }
 
   unlock = false;

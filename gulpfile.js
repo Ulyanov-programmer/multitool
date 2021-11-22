@@ -14,9 +14,9 @@ let paths = {
     fonts: `${projectFolder}/fonts/`,
   },
   scr: {
-    html: [`${sourceFolder}/*.html`, `!${sourceFolder}/_*.html`],
+    html: [`${sourceFolder}/*.html`, `!${sourceFolder}/*.htm`, `!${sourceFolder}/_*.html`],
     css: [`${sourceFolder}/sass/*.sass`, `!${sourceFolder}/sass/_*.sass`],
-    scripts: `${sourceFolder}/scripts/script.js`,
+    scripts: [`${sourceFolder}/scripts/*.js`, `!${sourceFolder}/scripts/_*.js`],
     images: `${sourceFolder}/img/**/*.{jpg,png,svg,gif,ico,webp}`,
     fonts: `${sourceFolder}/fonts/*`,
   },

@@ -1,4 +1,4 @@
-$containerWidth: 900
+$containerWidth: 1000
 $mainFontFamily: Arial
 $mainFontColor: #fff
 $mainFontSize: 16
@@ -16,10 +16,9 @@ $background: #fff
 body
   height: 100%
   color: $mainFontColor
-  font-family: $mainFontFamily
-  @include adaptive-property ('font-size',$mainFontSize,12)
+  font: adapt-fsize(16) $mainFontFamily
 
-  &.fixed
+  &.scroll-block
     overflow: hidden
 
   button
@@ -27,6 +26,7 @@ body
 
 .main
   width: 100%
+  overflow: hidden
 
   background: $background
 
@@ -38,8 +38,7 @@ body
   position: relative
 
   display: flex
-  justify-content: center
-  align-items: center
+  @include flex-centring
 
   @include size(auto, 100vh)
   @include adaptive-property ('min-height',500, 500)
@@ -60,9 +59,10 @@ body
 .sidepanel
   position: absolute
   left: 10%
-  top: 0
+  padding: 0px padrpx 0px 0px
+  top: 0 
   @include size (50px, 100%)
-
+  
   &__body
     display: flex
     justify-content: center
@@ -71,3 +71,6 @@ body
 
   &__list
     flex-flow: column nowrap
+    >*
+      &:not(:last-child)
+        margin-bottom: 10px

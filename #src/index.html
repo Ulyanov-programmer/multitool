@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 
-@@include('_head.html', {
-  "title": "Main"
+@@include('_head.htm', {
+"title": "Main",
+'swiper': true,
 })
 
 <body>
-  @@include('_header.html')
+  @@include('_header.htm', {})
 
   <main class="main">
     <div class="main__body">
@@ -14,23 +15,23 @@
         <div class="fullscreen__body container">
         </div>
         <!-- ? Use if you need a side menu. -->
-        <section class='sidepanel'>
+        <aside class='sidepanel'>
           <div class="sidepanel__body">
             <ul class='navmenu__list sidepanel__list'>
               <li data-scroll-to="block1">кнопка</li>
               <li data-scroll-to="block1">кнопка2</li>
             </ul>
           </div>
-        </section>
+        </aside>
         <button class="fullscreen__scroll" type='button' data-scroll-to="content">Scroll</button>
       </section>
       <section class='content'>
+
         <div class="content__body">
-          <div class="block">
-            <section>
-            </section>
-            <!-- Swiper construction 
-              <div class="swiper"">
+          <section>
+          </section>
+          <!-- Swiper construction 
+              <div class="swiper">
                 <div class="swiper-wrapper">
                     <div class="swiper-slide">
                     </div>
@@ -47,14 +48,13 @@
                 <div class="swiper-scrollbar"></div>
               </div>
             -->
-            <div class="swiper" style="background: gray; height: 100px; text-align: center;">
-              <div class="swiper-wrapper">
-                <div class="swiper-slide">
-                  swipe me
-                </div>
-                <div class="swiper-slide">
-                  swipe me
-                </div>
+          <div class="swiper" style="background: gray; height: 100px; text-align: center;">
+            <div class="swiper-wrapper">
+              <div class="swiper-slide">
+                swipe me
+              </div>
+              <div class="swiper-slide">
+                swipe me
               </div>
             </div>
           </div>
@@ -62,7 +62,7 @@
     </div>
   </main>
 
-  @@include('_footer.html')
+  @@include('_footer.htm', {})
 
   <section id="modal_1" class='modal-window'>
     <div class="modal-window__body">
@@ -79,6 +79,9 @@
     </div>
   </section>
 </body>
-@@include('_scripts.html')
+
+@@include('_scripts.htm', {
+'swiper': true,
+})
 
 </html>

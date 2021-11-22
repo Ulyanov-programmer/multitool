@@ -43,28 +43,28 @@
 
     li
       display: flex
-      justify-content: center
-      align-items: center
+      @include flex-centring
 
-      padding: 0px 10px 0px 10px
-
-      cursor: pointer
       transition: all 0.2s ease 0s
-
-      &:hover
-        background: #dddada62
+      &:not(:last-child)
+        padding: 0px 10px 0px 0px
 
       a
         display: flex
-        justify-content: center
-        align-items: center
+        @include flex-centring
+        flex: 1 0 100%
 
-        color: white
+        padding: 0px 5px 0px 5px
+        color: #fff
         @include size(100%, 100%)
+
+        &:hover
+          background: #dddada62
 
     .submenu-open-button
       position: relative
       display: flex
+      cursor: pointer
 
       &::after
         display: inline-block
@@ -109,7 +109,7 @@
   right: -100%
   z-index: -1
   @include size (100%,100%)
-  @include adaptive-property ('font-size',25, 20)
+  font-size: adapt-fsize(25,20)
   color: #fff
 
   display: flex
