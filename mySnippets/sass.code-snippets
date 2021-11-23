@@ -1,0 +1,380 @@
+{
+	"margin": {
+		"scope": "sass",
+		"prefix": "mar",
+		"body": [
+			"margin: $0px $0px $0px $0px",
+		],
+	},
+	"margin gorizontal and vertical": {
+		"scope": "sass",
+		"prefix": "margv",
+		"body": [
+			"margin: $0px $1px $0px $1px",
+		],
+	},
+	"margin gorizontal": {
+		"scope": "sass",
+		"prefix": "marg",
+		"body": [
+			"margin: 0 $0px 0 $0px",
+		],
+	},
+	"margin vertical": {
+		"scope": "sass",
+		"prefix": "marv",
+		"body": [
+			"margin: $0px 0 $0px 0",
+		],
+	},
+	"margin top": {
+		"scope": "sass",
+		"prefix": "mart",
+		"body": [
+			"margin: $0px 0 0 0",
+		],
+	},
+	"margin right": {
+		"scope": "sass",
+		"prefix": "marr",
+		"body": [
+			"margin: 0 $0px 0 0",
+		],
+	},
+	"margin bottom": {
+		"scope": "sass",
+		"prefix": "marb",
+		"body": [
+			"margin: 0 0 $0px 0",
+		],
+	},
+	"margin left": {
+		"scope": "sass",
+		"prefix": "marl",
+		"body": [
+			"margin: 0 0 0 $0px",
+		],
+	},
+	"padding": {
+		"scope": "sass",
+		"prefix": "pad",
+		"body": [
+			"padding: $0px $0px $0px $0px",
+		],
+	},
+	"padding gorizontal and vertical": {
+		"scope": "sass",
+		"prefix": "padgv",
+		"body": [
+			"padding: $0px $1px $0px $1px",
+		],
+	},
+	"padding vertical": {
+		"scope": "sass",
+		"prefix": "padv",
+		"body": [
+			"padding: $0px 0 $0px 0",
+		],
+	},
+	"padding gorizontal": {
+		"scope": "sass",
+		"prefix": "padg",
+		"body": [
+			"padding: 0 $0px 0 $0",
+		],
+	},
+	"padding top": {
+		"scope": "sass",
+		"prefix": "padt",
+		"body": [
+			"padding: $0px 0 0 0",
+		],
+	},
+	"padding right": {
+		"scope": "sass",
+		"prefix": "padr",
+		"body": [
+			"padding: 0 $0px 0 0",
+		],
+	},
+	"padding left": {
+		"scope": "sass",
+		"prefix": "padl",
+		"body": [
+			"padding: 0 0 0 $0px",
+		],
+	},
+  "arbitrary media query": {
+    "scope": "sass",
+    "prefix": "med",
+    "body": [
+      "@media (max-width: ${1}px)",
+      "\t$0",
+    ],
+  },
+	"media mobile": {
+		"scope": "sass",
+		"prefix": "medMOB",
+		"body": [
+			"@media (max-width: ${1|768,426|}px)",
+			"\t$0",
+		],
+	},
+	"border": {
+		"scope": "sass",
+		"prefix": "bor",
+		"body": [
+			"border: $1px ${2|solid,dashed,dotted,inset|} #${3:}",
+		],
+	},
+	"box shadow": {
+		"scope": "sass",
+		"prefix": "bsh",
+		"body": [
+			"box-shadow: ${1:xRight} ${2:yDown} ${3:blur}px rgba(0,0,0,0.${0:color})",
+		],
+	},
+	"flex flow": {
+		"scope": "sass",
+		"prefix": "ffl",
+		"body": [
+		"flex-flow: ${1|column,row,column-reverse,row-reverse|} ${2|nowrap,wrap|}",
+		],
+	},
+	"background": {
+		"scope": "sass",
+		"prefix": "bgi",
+		"body": [
+			"background: url('../img/$0') no-repeat center / cover",
+		],
+	},
+	"flex centring": {
+		"scope": "sass",
+		"prefix": "fcenter",
+		"body": [
+			"@include flex-centring",
+		],
+	},
+	"flex settings": {
+		"scope": "sass",
+		"prefix": "fl",
+		"body": [
+			"flex: ${1:canBigger} ${2:canSmaller} ${0:defaultSize}",
+		],
+	},
+	"sass variable": {
+		"scope": "scss,sass",
+		"prefix": "$, var",
+		"body": [
+			"$${1:varName}: ${0:value}",
+		],
+	},
+	"z-index": {
+		"scope": "sass",
+		"prefix": "zi",
+		"body": [
+			"z-index: ${0:1}",
+		],
+	},
+	"hover": {
+		"scope": "sass",
+		"prefix": "hov",
+		"body": [
+			"&:hover",
+			"\t$0",
+		],
+	},
+	"active": {
+		"scope": "sass",
+		"prefix": "act",
+		"body": [
+			"&:active",
+			"\t$0",
+		],
+	},
+	"focus": {
+		"scope": "sass",
+		"prefix": "foc",
+		"body": [
+			"&:focus",
+			"\t$0",
+		],
+	},
+	"before": {
+		"scope": "sass",
+		"prefix": "befor",
+		"body": [
+			"&:before",
+			"\tcontent: ${1|'',url('')|}",
+		],
+	},
+	"after": {
+		"scope": "sass",
+		"prefix": "afte",
+		"body": [
+			"&:after",
+			"\tcontent: ${1|'',url('')|}",
+		],
+	},
+	"include": {
+		"scope": "sass",
+		"prefix": "inc, @inc",
+		"body": [
+			"@include ${1|size,adaptive-property|} ('${2:property}',${3:maxValue},${0:minValue})",
+		],
+	},
+	"size": {
+		"scope": "sass",
+		"prefix": "size",
+		"body": [
+			"@include size (${1:width},${0:height})",
+		],
+		"description": "width and height of object"
+	},
+	"transition": {
+		"scope": "sass",
+		"prefix": "trn",
+		"body": [
+			"transition: all $0s ease",
+		],
+	},
+	"last child": {
+		"scope": "sass",
+		"prefix": "lc",
+		"body": [
+			"&:last-child",
+			"\t$0",
+		],
+	},
+	"first child": {
+		"scope": "sass",
+		"prefix": "fc",
+		"body": [
+			"&:first-child",
+			"\t$0",
+		],
+	},
+	"adaptive font size": {
+		"scope": "sass",
+		"prefix": "fz",
+		"body": [
+			"font-size: adapt-fsize(${0:layoutSize,min-size})",
+		],
+	},
+  "font property": {
+    "scope": "sass",
+    "prefix": "font",
+    "body": [
+      "font: adapt-fsize(${1:layoutSize,min-size}) ${0:fontFamily}",
+    ],
+  },
+	"color for SASS": {
+		"scope": "sass",
+		"prefix": "col",
+		"body": [
+			"color: #$0",
+		],
+	},
+	"transform translate": {
+		"scope": "sass",
+		"prefix": "trmt",
+		"body": [
+			"transform: translate(${1:xRight},${0:yDown})",
+		],
+	},
+	"transform scale": {
+		"scope": "sass",
+		"prefix": "trmc",
+		"body": [
+			"transform: scale(${1:xCoeff},${0:yCoeff})",
+		],
+	},
+	"transform rotate": {
+		"scope": "sass",
+		"prefix": "trmr",
+		"body": [
+			"transform: rotate(${0:degrees}deg)",
+		],
+	},
+	"transform property": {
+		"scope": "sass",
+		"prefix": "trm",
+		"body": [
+			"transform: ${1|translate(xy),scale(xy),rotate(deg)|}",
+		],
+	},
+	"adaptive size": {
+		"scope": "sass",
+		"prefix": "asize",
+		"body": [
+			"@include adaptive-property ('width', ${1:max}, ${2:min})",
+			"@include adaptive-property ('height', ${3:max}, ${0:min})",
+		],
+	},
+	"absolute block centring": {
+		"scope": "sass",
+		"prefix": "acenter",
+		"body": [
+			"top: 50%",
+      "left: 50%",
+      "transform: translate(-50%, -50%)",
+		],
+	},
+	"grid-template sass": {
+		"scope": "sass",
+		"prefix": "gt",
+		"body": [
+			"grid-template: '${1:row1element} row1element' ${2:row1size} 'row2element row2element' row1size / ${3:col1size} col2size",
+		],
+	},
+	"hide element": {
+		"scope": "sass",
+		"prefix": "hide",
+		"body": [
+			"visibility: hidden",
+			"opacity: 0",
+			"pointer-events: none",
+		],
+	},
+	"show element": {
+		"scope": "sass",
+		"prefix": "show",
+		"body": [
+			"visibility: visible",
+			"opacity: 1",
+			"pointer-events: all",
+		],
+	},
+	"placeholder sass": {
+		"scope": "sass",
+		"prefix": "place",
+		"body": [
+			"&::placeholder",
+			"\t$0",
+		],
+	},
+  "not last child": {
+    "scope": "sass",
+    "prefix": "nlc",
+    "body": [
+      "&:not(:last-child)",
+      "\t$0",
+    ],
+  },
+  "padding for all elements but not for last": {
+    "scope": "sass",
+    "prefix": "bmarb",
+    "body": [
+      ">*",
+        "\t&:not(:last-child)",
+          "\t\tmargin-bottom: $0px"
+    ],
+  },
+  "BEM subclass": {
+    "scope": "sass",
+    "prefix": "sclass",
+    "body": [
+      "&__${0:class}",
+    ],
+  },
+}
