@@ -1,15 +1,34 @@
-'use strict'
+import * as f from './modules/modalWindow.mjs';
+import * as sliders from './modules/sliders.mjs';
 
-let innerWindowHeight = () => window.innerHeight;
-//TODO: Эту переменную не видно в modalWindow.
-let fsMenuIsActive = false;
+// ! is mobile /\
 
-import * as m from  './modules/modalWindow.mjs';
-import * as f from './modules/fsNavmenu.mjs';
-import * as sp from  './modules/spoiler.mjs';
-import * as sl from  './modules/sliders.mjs';
+// import IsMobile from './modules/isMobile.min.mjs';
 
+// ! fsnavmenu /\
 
+import FsNavmenu from './modules/fsNavmenu.min.mjs';
+new FsNavmenu();
+
+// ! spoiler /\
+
+import SpoilerMenu from './modules/spoiler.min.mjs';
+new SpoilerMenu();
+
+// ! filter /\
+
+// import Filter from './modules/filter.min.mjs';
+// const filterButtons = document.querySelectorAll('[data-filt-content]');
+// const filtElements = document.querySelectorAll('[data-content-type]');
+
+// let filter = new Filter(filterButtons, filtElements);
+
+// ! modal window /\
+
+import ModalWindowMenu from './modules/modalWindow.min.mjs';
+new ModalWindowMenu();
+
+// ! GENERAL /\
 
 function showOrHideSubmenu(e) {
   const menuButton = e.target;

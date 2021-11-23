@@ -1,25 +1,35 @@
-let spoilerButtons = document.querySelectorAll('[data-spoiler-button]');
-let spoilerContentElements = document.querySelectorAll('[data-spoiler-content]');
+export default class SpoilerMenu{
+  static spoilerButtons = document.querySelectorAll('[data-spoiler-button]');
+  static spoilerContentElements = document.querySelectorAll('[data-spoiler-content]');
 
+  constructor() {
+    if (SpoilerMenu.spoilerButtons.length > 0 && SpoilerMenu.spoilerContentElements.length > 0) {
+      toggleToSpoilers();
+    } else {
+      throw '[SPOILERS] Set the necessary attributes for buttons and content!'
+    }
+  }  
+}
 function toggleToSpoilers(e) {
-  if (spoilerContentElements.length > 0 &&
-    spoilerButtons.length == spoilerContentElements.length) {
-    for (let i = 0; i < spoilerContentElements.length; i++) {
+  if (SpoilerMenu.spoilerButtons.length > 0) {
+    for (let i = 0; i < SpoilerMenu.spoilerContentElements.length; i++) {
 
       if (window.innerWidth <= 900) {
-        spoilerContentElements[i].classList.add('spoiler-content');
-        spoilerContentElements[i].hidden = true;
-        spoilerButtons[i].classList.add('spoiler-button');
+        SpoilerMenu.spoilerContentElements[i].classList.add('spoiler-content');
+        SpoilerMenu.spoilerContentElements[i].hidden = true;
+        SpoilerMenu.spoilerButtons[i].classList.add('spoiler-button');
       } else {
-        spoilerContentElements[i].classList.remove('spoiler-content');
-        spoilerContentElements[i].hidden = false;
-        spoilerButtons[i].classList.remove('spoiler-button');
+        SpoilerMenu.spoilerContentElements[i].classList.remove('spoiler-content');
+        SpoilerMenu.spoilerContentElements[i].hidden = false;
+        SpoilerMenu.spoilerButtons[i].classList.remove('spoiler-button');
       }
     }
 
-    for (let spoilerButton of spoilerButtons) {
+    for (let spoilerButton of SpoilerMenu.spoilerButtons) {
       spoilerButton.addEventListener('click', toggleSpoilerState);
     }
+  } else {
+    throw 'The length of spoiler buttons and spoiler content-elements must be more than zero.'
   }
 }
 
@@ -35,8 +45,7 @@ function toggleSpoilerState(event) {
   }
 }
 
-// Determines spoilers when the page is loaded and when it is resized.
-toggleToSpoilers();
+// ? Determines spoilers when the page is resized.
 window.addEventListener(`resize`, toggleToSpoilers);
 
 function spoilerUp(spoilerContainer, duration) {

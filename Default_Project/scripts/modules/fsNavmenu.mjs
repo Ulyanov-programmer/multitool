@@ -1,20 +1,31 @@
-export function showOrHideFullscreenNav(e) {
-  const fsNavmenu = document.querySelector('.fullscreen-navmenu');
-  let sbWidth = window.innerWidth - document.querySelector('html').clientWidth;
-  let header = document.querySelector('header');
 
-  if (fsNavmenu !== undefined) {
-    burger.classList.toggle('active');
+export default class FsNavmenu {
+  static burgerBtn = document.getElementById('burgerButton');
+  static fsNavmenu = document.querySelector('.fullscreen-navmenu');
 
-    document.body.classList.toggle('scroll-block');
-    document.body.style.paddingRight = sbWidth + 'px';
+  constructor() {
+    if (FsNavmenu.burgerBtn !== undefined && FsNavmenu.fsNavmenu !== undefined) {
+      FsNavmenu.burgerBtn.addEventListener('click', this.showOrHideFullscreenNav);
+    } else {
+      throw '[FSNAVMENU] Set the necessary attributes for button and menu!'
+    }
+  }
 
-    header.classList.toggle('fixed-header');
-    header.style.paddingRight = sbWidth + 'px';
 
-    fsNavmenu.classList.toggle('active');
-    fsMenuIsActive = !fsMenuIsActive;
+  showOrHideFullscreenNav(e) {
+    let sbWidth = window.innerWidth - document.querySelector('html').clientWidth;
+    let header = document.querySelector('header');
+
+    if (FsNavmenu.fsNavmenu !== undefined) {
+      FsNavmenu.burgerBtn.classList.toggle('active');
+
+      document.body.classList.toggle('scroll-block');
+      document.body.style.paddingRight = sbWidth + 'px';
+
+      header.classList.toggle('fixed-header');
+      header.style.paddingRight = sbWidth + 'px';
+
+      FsNavmenu.fsNavmenu.classList.toggle('active');
+    }
   }
 }
-const burger = document.getElementById('burgerButton');
-burger.addEventListener('click', showOrHideFullscreenNav);

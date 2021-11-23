@@ -1,4 +1,4 @@
-export class IsMobile {
+export default class IsMobile {
   static Android() {
     return navigator.userAgent.match(/Android/i);
   }
