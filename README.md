@@ -1,7 +1,9 @@
 # Default Project
+
 Default Project - my standard project to start any layout. It will be gradually updated and supplemented, this is not the final version.
 
-<!-- Ctrl + Shift + V => view this file in VS Code -->
+The following technologies were used:
+<!-- Ctrl + Shift + V => live view this file in VS Code -->
 
 <details>
  <summary>RU Как запустить?</summary>

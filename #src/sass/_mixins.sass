@@ -25,6 +25,10 @@
 @function adapt-fsize($default-size, $min-size: 12)
   @return calc((100vw - 320px) / (#{$containerWidth} - 320) * (#{$default-size} - #{$min-size}) + #{$min-size + px})
 
+@function rem($default-size, $min-size: 12)
+  @return $default-size / $mainFontSize + rem
+
+
 @mixin flex-centring()
   justify-content: center
   align-items: center
