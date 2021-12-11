@@ -1,34 +1,62 @@
-import * as f from './modules/modalWindow.mjs';
-import * as sliders from './modules/sliders.mjs';
-
-// ! is mobile /\
-
-// import IsMobile from './modules/isMobile.min.mjs';
-
-// ! fsnavmenu /\
-
+// fsnavmenu //
 import FsNavmenu from './modules/fsNavmenu.min.mjs';
-new FsNavmenu();
 
-// ! spoiler /\
+new FsNavmenu(
+  '#burgerButton',
+  '.fullscreen-navmenu',
+);
 
+// spoiler //
 import SpoilerMenu from './modules/spoiler.min.mjs';
-new SpoilerMenu();
 
-// ! filter /\
+new SpoilerMenu(
+  '.uspoiler-btn',
+  '.uspoiler-content',
+  2560,
+  500,
+);
 
-// import Filter from './modules/filter.min.mjs';
-// const filterButtons = document.querySelectorAll('[data-filt-content]');
-// const filtElements = document.querySelectorAll('[data-content-type]');
+// filter //
+import Filter from './modules/filter.min.mjs';
 
-// let filter = new Filter(filterButtons, filtElements);
+let filter = new Filter(
+  '.filter__button',
+  '.filter__item',
+);
 
-// ! modal window /\
-
+// modal window //
 import ModalWindowMenu from './modules/modalWindow.min.mjs';
+
 new ModalWindowMenu();
 
-// ! GENERAL /\
+// element-modal //
+import ElementModal from './modules/elementMenu.min.mjs';
+
+let elementMenu1 = new ElementModal(
+  '.el-menu__item',
+  '.el-menu__menu',
+  300,
+)
+
+// element-modal //
+import ScrollElement from './modules/scrollToElement.min.mjs';
+
+// scroll-elements //
+
+//? Use this if you have scroll buttons.
+let scrollElement = new ScrollElement(
+  '[data-scroll-to]',
+
+  // If you use a fixed header, enter its selector here 
+  // so that its height is taken into account when scrolling.
+
+  // '.fixed-header',
+)
+
+// spoilers //
+import * as sliders from './modules/sliders.mjs';
+
+//? general //
 
 function showOrHideSubmenu(e) {
   const menuButton = e.target;
@@ -54,24 +82,4 @@ function showOrHideSubmenu(e) {
 const activateSubmenuButtons = document.querySelectorAll('.submenu-open-button');
 for (let submenuButton of activateSubmenuButtons) {
   submenuButton.addEventListener('click', showOrHideSubmenu);
-}
-
-// ? Use this if you have scroll buttons.
-function scrollToElement(eventData) {
-  let scrollElement = document.querySelector(`.${eventData.target.dataset.scrollTo}`);
-
-  if (scrollElement !== undefined) {
-    let scrolltop = window.pageYOffset + scrollElement.getBoundingClientRect().top;
-
-    window.scrollTo({
-      // If you are using a fixed header, subtract the value of the header height 
-      // from the scroll value.
-      top: scrolltop - 50,
-      behavior: "smooth"
-    });
-  }
-}
-let scrollButtons = document.querySelectorAll('[data-scroll-to]');
-for (let scrollButton of scrollButtons) {
-  scrollButton.addEventListener('click', scrollToElement);
 }

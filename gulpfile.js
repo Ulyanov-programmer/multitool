@@ -98,21 +98,14 @@ function clean() {
   return del(paths.clean);
 }
 function scripts() {
-  // ? save .js files
+  //? save .js files
   gulp.src(paths.scr.scripts)
     .pipe(fileinclude())
 
     .pipe(dest(paths.build.scripts))
-
-    //save minimize and renaming new .js files
-    .pipe(cleanJs())
-    .pipe(rename({
-      extname: '.min.js'
-    }))
-    .pipe(dest(paths.build.scripts))
     .pipe(browsersync.stream());
 
-  // ? save .mjs modules
+  //? save .mjs modules
   return gulp.src(paths.scr.scriptModules)
     .pipe(fileinclude())
 

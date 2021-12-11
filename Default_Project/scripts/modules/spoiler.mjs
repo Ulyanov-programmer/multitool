@@ -1,52 +1,61 @@
-export default class SpoilerMenu{
-  static spoilerButtons = document.querySelectorAll('[data-spoiler-button]');
-  static spoilerContentElements = document.querySelectorAll('[data-spoiler-content]');
+export default class SpoilerMenu {
+  static spoilerButtons;
+  static spoilerContentElements;
+  static spoilerVisibleWidth;
+  static animationDuration;
 
-  constructor() {
-    if (SpoilerMenu.spoilerButtons.length > 0 && SpoilerMenu.spoilerContentElements.length > 0) {
-      toggleToSpoilers();
+  constructor(spButtonsSelector, spContentBlocksSelector, spoilerVisibleWidth, animationDuration) {
+    if (spButtonsSelector && spContentBlocksSelector && spoilerVisibleWidth >= 0 && animationDuration >= 0) {
+
+      SpoilerMenu.spoilerButtons = document.querySelectorAll(spButtonsSelector);
+      SpoilerMenu.spoilerContentElements = document.querySelectorAll(spContentBlocksSelector);
+      SpoilerMenu.spoilerVisibleWidth = spoilerVisibleWidth;
+      SpoilerMenu.animationDuration = animationDuration;
+
+      this.toggleToSpoilers();
+
     } else {
-      throw '[SPOILERS] Set the necessary attributes for buttons and content!'
+      throw '[SPOILERS] Set the necessary classes for buttons and content!'
     }
-  }  
-}
-function toggleToSpoilers(e) {
-  if (SpoilerMenu.spoilerButtons.length > 0) {
-    for (let i = 0; i < SpoilerMenu.spoilerContentElements.length; i++) {
+    //? Determines spoilers when the page is resized.
+    window.addEventListener(`resize`, this.toggleToSpoilers);
+  }
 
-      if (window.innerWidth <= 900) {
-        SpoilerMenu.spoilerContentElements[i].classList.add('spoiler-content');
-        SpoilerMenu.spoilerContentElements[i].hidden = true;
-        SpoilerMenu.spoilerButtons[i].classList.add('spoiler-button');
-      } else {
-        SpoilerMenu.spoilerContentElements[i].classList.remove('spoiler-content');
-        SpoilerMenu.spoilerContentElements[i].hidden = false;
-        SpoilerMenu.spoilerButtons[i].classList.remove('spoiler-button');
+
+  toggleToSpoilers() {
+    if (SpoilerMenu.spoilerButtons.length > 0) {
+      for (let i = 0; i < SpoilerMenu.spoilerContentElements.length; i++) {
+
+        if (window.innerWidth <= SpoilerMenu.spoilerVisibleWidth) {
+          SpoilerMenu.spoilerContentElements[i].classList.add('uspoiler-content-active');
+          SpoilerMenu.spoilerContentElements[i].hidden = true;
+          SpoilerMenu.spoilerButtons[i].classList.add('uspoiler-btn-active');
+        } else {
+          SpoilerMenu.spoilerContentElements[i].classList.remove('uspoiler-content-active');
+          SpoilerMenu.spoilerContentElements[i].hidden = false;
+          SpoilerMenu.spoilerButtons[i].classList.remove('uspoiler-btn-active');
+        }
       }
-    }
 
-    for (let spoilerButton of SpoilerMenu.spoilerButtons) {
-      spoilerButton.addEventListener('click', toggleSpoilerState);
+      for (let spoilerButton of SpoilerMenu.spoilerButtons) {
+        spoilerButton.addEventListener('click', this.toggleSpoilerState);
+      }
+    } else {
+      throw '[SPOILERS] The length of spoiler buttons and spoiler content-elements must be more than zero.'
     }
-  } else {
-    throw 'The length of spoiler buttons and spoiler content-elements must be more than zero.'
+  }
+  toggleSpoilerState(event) {
+    let targetSpoilerButton = event.target;
+    let spoilerContainer = targetSpoilerButton.nextElementSibling;
+    let animationDuration = SpoilerMenu.animationDuration;
+
+    if (spoilerContainer.classList.contains('_slide') === false) {
+      toggleSpoilerAnimation(spoilerContainer, animationDuration);
+      targetSpoilerButton.classList.toggle('active');
+      spoilerContainer.classList.toggle('active');
+    }
   }
 }
-
-function toggleSpoilerState(event) {
-  let targetSpoilerButton = event.target;
-  let spoilerContainer = targetSpoilerButton.nextElementSibling;
-  let animationDuration = 500;
-
-  if (spoilerContainer.classList.contains('_slide') === false) {
-    toggleSpoilerAnimation(spoilerContainer, animationDuration);
-    targetSpoilerButton.classList.toggle('active');
-    spoilerContainer.classList.toggle('active');
-  }
-}
-
-// ? Determines spoilers when the page is resized.
-window.addEventListener(`resize`, toggleToSpoilers);
 
 function spoilerUp(spoilerContainer, duration) {
   if (spoilerContainer.classList.contains('_slide') === false) {

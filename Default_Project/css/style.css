@@ -36,7 +36,6 @@ body {
   width: 100%;
   font-size: 100%;
   line-height: 1;
-  font-size: 14px;
   -ms-text-size-adjust: 100%;
   -moz-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
@@ -91,6 +90,10 @@ h5,
 h6 {
   font-size: inherit;
   font-weight: 400;
+}
+
+address {
+  font-style: normal;
 }
 
 .header {
@@ -426,7 +429,11 @@ h6 {
   min-height: 100px;
 }
 
-.spoiler-button {
+.footer__body a {
+  color: #fff;
+}
+
+.uspoiler-btn-active {
   display: -webkit-inline-box;
   display: -ms-inline-flexbox;
   display: inline-flex;
@@ -444,11 +451,11 @@ h6 {
   cursor: pointer;
 }
 
-.spoiler-button.active {
-  color: #fd6767;
+.uspoiler-btn-active.active {
+  color: #d6d6d6;
 }
 
-.spoiler-button.active:after {
+.uspoiler-btn-active.active:after {
   margin: 0px 0px 0px 7px;
   -webkit-animation: spoiler-arrow-totop 1s;
           animation: spoiler-arrow-totop 1s;
@@ -456,7 +463,7 @@ h6 {
           animation-fill-mode: forwards;
 }
 
-.spoiler-button:after {
+.uspoiler-btn-active:after {
   display: inline-block;
   content: "";
   margin: 0px 0px 0px 7px;
@@ -472,10 +479,6 @@ h6 {
   -webkit-transition: all 0.3s ease;
   -o-transition: all 0.3s ease;
   transition: all 0.3s ease;
-}
-
-.spoiler-content li {
-  padding: 5px 0px 5px 0px;
 }
 
 @-webkit-keyframes spoiler-arrow-totop {
@@ -546,6 +549,22 @@ h6 {
      object-fit: cover;
 }
 
+.adaptive-video {
+  display: block;
+  position: relative;
+  padding: 0px 0px 100% 0px;
+}
+
+.adaptive-video video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+
 .modal-window {
   position: fixed;
   z-index: 15;
@@ -598,11 +617,14 @@ body button {
 .main {
   width: 100%;
   overflow: hidden;
-  background: #fff;
 }
 
 .main__body {
-  background: #fff;
+  background: gray;
+}
+
+.main__body > *:not(:last-child) {
+  margin-bottom: 20px;
 }
 
 .fullscreen {
@@ -661,6 +683,196 @@ body button {
   margin-bottom: 10px;
 }
 
+.filter {
+  text-align: center;
+  background: gray;
+}
+
+.filter__body {
+  padding: 20px 0 20px 0;
+}
+
+.filter__body > *:not(:last-child) {
+  margin-bottom: 20px;
+}
+
+.filter__title {
+  text-transform: uppercase;
+  font-size: calc((100vw - 320px) / (1000 - 320) * (25 - 20) + 20px);
+}
+
+.filter__header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row wrap;
+          flex-flow: row wrap;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  gap: 15px;
+}
+
+.filter__button {
+  padding: 10px 7px 10px 7px;
+  border: 1px solid #fff;
+}
+
+.filter__button:hover {
+  background: #fff;
+  color: #000;
+}
+
+.filter__main {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row wrap;
+          flex-flow: row wrap;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  gap: 15px;
+}
+
+.filter__item {
+  padding: 10px 5px 10px 5px;
+}
+
+.filter__item_green {
+  background: green;
+}
+
+.filter__item_blue {
+  background: blue;
+}
+
+.filter__item_red {
+  background: red;
+}
+
+.filter__item_yellow {
+  background: yellow;
+  color: #000;
+}
+
+.swiper {
+  background: gray;
+  text-align: center;
+}
+
+.swiper span {
+  display: inline-block;
+  text-transform: uppercase;
+  font-size: calc((100vw - 320px) / (1000 - 320) * (25 - 20) + 20px);
+}
+
+.swiper-slide {
+  min-height: 100px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.demo-spoiler {
+  background: gray;
+  text-align: center;
+}
+
+.demo-spoiler__body {
+  padding: 20px 0 20px 0;
+}
+
+.demo-spoiler__body > *:not(:last-child) {
+  margin-bottom: 20px;
+}
+
+.demo-spoiler__title {
+  text-transform: uppercase;
+  font-size: calc((100vw - 320px) / (1000 - 320) * (25 - 20) + 20px);
+}
+
+.el-menu {
+  text-align: center;
+}
+
+.el-menu__body {
+  padding: 20px 0 20px 0;
+}
+
+.el-menu__body > *:not(:last-child) {
+  margin-bottom: 20px;
+}
+
+.el-menu__title {
+  text-transform: uppercase;
+  font-size: calc((100vw - 320px) / (1000 - 320) * (25 - 20) + 20px);
+}
+
+.el-menu__content {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row wrap;
+          flex-flow: row wrap;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.el-menu__item {
+  position: relative;
+  border: 1px solid #fff;
+  padding: 15px 15px 15px 15px;
+}
+
+.el-menu__item:not(:last-child) {
+  margin: 0 10px 0 0;
+}
+
+.el-menu__menu {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #000000ab;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+
+.el-menu__menu._non-active {
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.uspoiler-content li {
+  padding: 5px 0px 5px 0px;
+}
+
 @media (min-width: 600px) {
   .fullscreen-navmenu {
     display: none;
@@ -695,14 +907,14 @@ body button {
 }
 
 @media (max-width: 426px) {
-  .spoiler-button {
+  .uspoiler-btn-active {
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
         -ms-flex-flow: column nowrap;
             flex-flow: column nowrap;
   }
 
-  .spoiler-button:after {
+  .uspoiler-btn-active:after {
     -webkit-transform: rotate(135deg);
         -ms-transform: rotate(135deg);
             transform: rotate(135deg);

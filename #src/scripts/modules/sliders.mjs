@@ -71,5 +71,5 @@ export const someSwiper = new Swiper('.swiper', {
       },
     });
   */
-  // ! PLEASE TURN ME OFF IF YOU DO NOT NEED ME!
+  //! PLEASE TURN ME OFF IF YOU DO NOT NEED ME!
 });

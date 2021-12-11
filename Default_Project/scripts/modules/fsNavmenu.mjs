@@ -1,10 +1,13 @@
-
 export default class FsNavmenu {
-  static burgerBtn = document.getElementById('burgerButton');
-  static fsNavmenu = document.querySelector('.fullscreen-navmenu');
+  static burgerBtn;
+  static fsNavmenu;
 
-  constructor() {
-    if (FsNavmenu.burgerBtn !== undefined && FsNavmenu.fsNavmenu !== undefined) {
+  constructor(burgerBtnSelector, fsNavmenuSelector) {
+    if (burgerBtnSelector && fsNavmenuSelector) {
+
+      FsNavmenu.burgerBtn = document.querySelector(burgerBtnSelector);
+      FsNavmenu.fsNavmenu = document.querySelector(fsNavmenuSelector);
+
       FsNavmenu.burgerBtn.addEventListener('click', this.showOrHideFullscreenNav);
     } else {
       throw '[FSNAVMENU] Set the necessary attributes for button and menu!'

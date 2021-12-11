@@ -28,6 +28,8 @@ export default class ModalWindowMenu {
         this.closeModal(modalCloser.closest('.modal-window'), true);
       });
     }
+
+    
     document.addEventListener('keydown', (key) => {
       let keyCode = key.code;
 
@@ -71,8 +73,7 @@ export default class ModalWindowMenu {
   }
 
   toggleBodyScroll(toggleScrollOn) {
-
-    if (toggleScrollOn && ModalWindowMenu.FS_MENU_CLASSLIST.contains('active') == false) {
+    if (toggleScrollOn && !ModalWindowMenu.FS_MENU_CLASSLIST.contains('active')) {
       body.style.paddingRight = 0;
       body.classList.remove("scroll-block");
     } else {

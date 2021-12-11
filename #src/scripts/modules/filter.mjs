@@ -1,29 +1,28 @@
 export default class Filter {
-  filterButtons = NodeList;
-  filterContentElements = NodeList;
+  filterButtons;
+  filterContentElements;
 
-  constructor(filtButtons, filtElements) {
-
-    if (filtButtons.length > 0 && filtElements.length > 0) {
-      this.filterButtons = filtButtons;
-      this.filterContentElements = filtElements;
+  constructor(filtButtonsSelector, filtElementsSelector) {
+    if (filtButtonsSelector && filtElementsSelector) {
+      
+      this.filterButtons = document.querySelectorAll(filtButtonsSelector);
+      this.filterContentElements = document.querySelectorAll(filtElementsSelector);;
 
       for (const filtButton of this.filterButtons) {
         filtButton.addEventListener('click', () => {
-          Filter.filtContentByType(filtButton, this.filterContentElements)
+          this.filtContentByType(filtButton, this.filterContentElements)
         });
       }
     } else {
-      throw 'Length of filter elements must be more than zero.'
+      throw '[FILTER] Length of filter elements must be more than zero.'
     }
   }
 
 
-  static filtContentByType(filterButton, filterContentElements) {
+  filtContentByType(filterButton, filterContentElements) {
     let typeOfContent = filterButton.dataset.filtContent;
 
     for (const filtElement of filterContentElements) {
-
       if (typeOfContent === 'all' || filtElement.dataset.contentType === typeOfContent) {
         filtElement.style.display = '';
       } else {

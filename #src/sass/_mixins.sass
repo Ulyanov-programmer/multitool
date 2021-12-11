@@ -32,3 +32,8 @@
 @mixin flex-centring()
   justify-content: center
   align-items: center
+
+@mixin firstLevelElementsMargin($bottom-margin)
+  >*
+    &:not(:last-child)
+      margin-bottom: $bottom-margin + px

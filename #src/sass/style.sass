@@ -2,7 +2,7 @@ $containerWidth: 1000
 $mainFontFamily: Arial
 $mainFontColor: #fff
 $mainFontSize: 16
-$background: #fff
+$bg: gray
 
 @import "nullStyle"
 @import "mixins"
@@ -16,24 +16,23 @@ body
   height: 100%
   color: $mainFontColor
   font: adapt-fsize(16) $mainFontFamily
-  
+
   &.scroll-block
     overflow: hidden
 
   button
-    color: #fff
+    color: $mainFontColor
 
 .main
   width: 100%
   overflow: hidden
 
-  background: $background
-
   &__body
-    background: $background
+    @include firstLevelElementsMargin(20)
+    background: $bg
 
 .fullscreen
-  // ? I recommend save this if you use sidepanel in fullscreen.
+  //? I recommend save this if you use sidepanel in fullscreen.
   position: relative
 
   display: flex
@@ -51,10 +50,6 @@ body
     position: absolute
     bottom: 5%
 
-.content
-
-  &__body
-
 .sidepanel
   position: absolute
   left: 10%
@@ -70,6 +65,123 @@ body
 
   &__list
     flex-flow: column nowrap
-    >*
-      &:not(:last-child)
-        margin-bottom: 10px
+    @include firstLevelElementsMargin(10)
+
+.filter
+  text-align: center
+  background: gray
+
+  &__body
+    padding: 20px 0 20px 0
+    @include firstLevelElementsMargin(20)
+
+  &__title
+    text-transform: uppercase
+    font-size: adapt-fsize(25, 20)
+
+  &__header
+    display: flex
+    flex-flow: row wrap
+    justify-content: center
+    gap: 15px
+
+  &__button
+    padding: 10px 7px 10px 7px
+    border: 1px solid #fff
+    &:hover
+      background: #fff
+      color: #000
+
+  &__main
+    display: flex
+    flex-flow: row wrap
+    justify-content: center
+    gap: 15px
+
+  &__item
+    padding: 10px 5px 10px 5px
+
+    &_green
+      background: green
+
+    &_blue
+      background: blue
+
+    &_red
+      background: red
+
+    &_yellow
+      background: yellow
+      color: #000
+
+.swiper
+  background: gray
+  text-align: center
+
+  span
+    display: inline-block
+    text-transform: uppercase
+    font-size: adapt-fsize(25, 20)
+
+  &-slide
+    min-height: 100px
+    display: flex
+    @include flex-centring
+
+.demo-spoiler
+  background: gray
+  text-align: center
+
+  &__body
+    padding: 20px 0 20px 0
+    @include firstLevelElementsMargin(20)
+
+  &__title
+    text-transform: uppercase
+    font-size: adapt-fsize(25, 20)
+
+.el-menu
+  text-align: center
+
+  &__body
+    padding: 20px 0 20px 0
+    @include firstLevelElementsMargin(20)
+
+  &__title
+    text-transform: uppercase
+    font-size: adapt-fsize(25, 20)
+
+  &__content
+    display: flex
+    flex-flow: row wrap
+    justify-content: center
+
+  &__item
+    position: relative
+    border: 1px solid #fff
+    padding: 15px 15px 15px 15px
+    &:not(:last-child)
+      margin: 0 10px 0 0
+
+  &__menu
+    position: absolute
+    top: 0
+    left: 0
+    @include size (100%,100%)
+    background: #000000ab
+
+    display: flex
+    @include flex-centring
+
+    transition: all 0.3s ease
+    &._non-active
+      visibility: hidden
+      opacity: 0
+      pointer-events: none
+
+.uspoiler-content
+
+  li
+    padding: 5px 0px 5px 0px
+
+  &.active

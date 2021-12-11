@@ -1,24 +1,45 @@
-function appendModalMenu(e) {
-  let targetContentPreview = e.currentTarget;
-  let modalElementClone = modalElement.cloneNode(true);
+export default class ElementModal {
+  contentElements;
+  modalElement;
 
-  modalElementClone.classList.remove('_non-active');
+  constructor(contentElementsSelector, modalElementSelector, animationDuration) {
+    if (contentElementsSelector && modalElementSelector && animationDuration >= 0) {
 
-  targetContentPreview.append(modalElementClone);
-  setTimeout(() => {
-    modalElementClone.classList.add('_active');
-  }, 30)
-}
-function removeModalMenu(e) {
-  // Try to get modal block.
-  let modalMenu = e.currentTarget.lastElementChild;
+      this.contentElements = document.querySelectorAll(contentElementsSelector);
+      this.modalElement = document.querySelector(modalElementSelector);
 
-  if (modalMenu.classList.contains("class")) {
-    modalMenu.classList.remove("_active")
+      for (const contentEl of this.contentElements) {
+        contentEl.addEventListener('mouseenter', () => {
+          this.appendModalMenu(contentEl, this.modalElement);
+        });
+        contentEl.addEventListener('mouseleave', () => {
+          this.removeModalMenu(contentEl, animationDuration);
+        });
+      }
+
+    } else {
+      throw '[ELEMENT-MODAL] The specified elements were not found!'
+    }
+  }
+
+
+  appendModalMenu(contentElement, modalElement) {
+    let modalElementClone = modalElement.cloneNode(true);
+
+    contentElement.append(modalElementClone);
     setTimeout(() => {
-      modalMenu.remove();
-    }, 200)
+      modalElementClone.classList.remove('_non-active');
+    }, 30)
+  }
+  removeModalMenu(contentElement, animationDuration) {
+    // Try to get modal block.
+    let modalMenu = contentElement.lastElementChild;
+
+    if (modalMenu) {
+      modalMenu.classList.add('_non-active')
+      setTimeout(() => {
+        modalMenu.remove();
+      }, animationDuration + 100)
+    }
   }
 }
-const contentElements = document.querySelectorAll('.container-class');
-const modalElement = document.querySelector('.modal');

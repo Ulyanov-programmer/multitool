@@ -17,20 +17,45 @@
         <!-- ? Use if you need a side menu. -->
         <aside class='sidepanel'>
           <div class="sidepanel__body">
-            <ul class='navmenu__list sidepanel__list'>
-              <li data-scroll-to="block1">кнопка</li>
-              <li data-scroll-to="block1">кнопка2</li>
+            <ul class='sidepanel__list'>
+              <li>el1</li>
+              <li>el2</li>
             </ul>
           </div>
         </aside>
-        <button class="fullscreen__scroll" type='button' data-scroll-to="content">Scroll</button>
+        <button class="fullscreen__scroll" type='button' data-scroll-to=".filter">Scroll</button>
       </section>
-      <section class='content'>
+      <section class='filter'>
+        <div class='filter__body container'>
+          <h6 class='filter__title'>filter</h6>
+          <header class="filter__header">
+            <button class='filter__button' data-filt-content="red" type='button'>Red</button>
+            <button class='filter__button' data-filt-content="green" type='button'>Green</button>
+            <button class='filter__button' data-filt-content="yellow" type='button'>Yellow</button>
+            <button class='filter__button' data-filt-content="blue" type='button'>Blue</button>
+            <button class='filter__button' data-filt-content="all" type='button'>All</button>
+          </header>
+          <div class="filter__main">
+            <section class="filter__item filter__item_green" data-content-type="green">green</section>
+            <section class="filter__item filter__item_blue" data-content-type="blue">blue</section>
+            <section class="filter__item filter__item_red" data-content-type="red">red</section>
+            <section class="filter__item filter__item_yellow" data-content-type="yellow">yellow</section>
+          </div>
+        </div>
+      </section>
+      <section class='demo-spoiler'>
+        <div class='demo-spoiler__body'>
+          <h6 class='demo-spoiler__title'>spoiler</h6>
+          <span class='uspoiler-btn'>Spoiler button</span>
+          <ul class='uspoiler-content'>
+            <li>spoiler element</li>
+            <li>spoiler element</li>
+            <li>spoiler element</li>
+          </ul>
+        </div>
+      </section>
 
-        <div class="content__body">
-          <section>
-          </section>
-          <!-- Swiper construction 
+      <!-- Swiper construction 
               <div class="swiper">
                 <div class="swiper-wrapper">
                     <div class="swiper-slide">
@@ -48,18 +73,41 @@
                 <div class="swiper-scrollbar"></div>
               </div>
             -->
-          <div class="swiper" style="background: gray; height: 100px; text-align: center;">
-            <div class="swiper-wrapper">
-              <div class="swiper-slide">
-                swipe me
-              </div>
-              <div class="swiper-slide">
-                swipe me
-              </div>
-            </div>
+      <!--? If you want to use the swiper in a grid container, 
+            give some width (minmax, px) for container columns. -->
+      <div class="swiper">
+        <span>Slider Swiper</span>
+        <div class="swiper-wrapper">
+          <div class="swiper-slide">
+            swipe me
           </div>
+          <div class="swiper-slide">
+            swipe me
+          </div>
+        </div>
+      </div>
+      <section class='el-menu'>
+        <div class='el-menu__body'>
+          <h6 class='el-menu__title'>element-menu demo</h6>
+          <div class="el-menu__content">
+            <section class="el-menu__item">
+              Lorem ispum <br>
+              Ispum lorem <br>
+              Ispum Ispum Ispum Ispum <br>
+              Lorem Lorem Lorem Lorem
+            </section>
+            <section class="el-menu__item">
+              Lorem ispum <br>
+              Ispum lorem <br>
+              Ispum Ispum Ispum Ispum <br>
+              Lorem Lorem Lorem Lorem
+            </section>
+          </div>
+          <div class="el-menu__menu _non-active">
+            Lorem ispum ispum lorem!
+          </div>
+        </div>
       </section>
-    </div>
   </main>
 
   @@include('_footer.htm', {})

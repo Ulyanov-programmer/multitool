@@ -25,6 +25,18 @@
     @include size (100%,100%)
     object-fit: cover
 
+.adaptive-video
+  display: block
+  position: relative
+  padding: 0px 0px 100% 0px
+
+  video
+    position: absolute
+    top: 0
+    left: 0
+    @include size (100%,100%)
+    object-fit: contain
+
 .modal-window
   position: fixed
   z-index: 15
