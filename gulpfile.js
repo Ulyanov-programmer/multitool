@@ -3,8 +3,6 @@ const fileinclude = require('gulp-file-include');
 const projectFolder = require('path').basename(__dirname);
 const sourceFolder = '#src';
 
-let fs = require('fs');
-
 let paths = {
   build: {
     html: `${projectFolder}/`,
@@ -33,24 +31,26 @@ let paths = {
 }
 let fontsFIlePath = `${sourceFolder}/sass/_fonts.sass`;
 
-let { scr, dest } = require('gulp'),
+let { scr, dest, src } = require('gulp'),
   gulp = require('gulp'),
-  browsersync = require('browser-sync').create(),
-  fileInclude = require('gulp-file-include'),
-  del = require('del'),
-  gulpSass = require('gulp-sass'),
-  autoprefixer = require('gulp-autoprefixer'),
-  groupMedia = require('gulp-group-css-media-queries'),
-  cleanCss = require('gulp-clean-css'),
-  rename = require('gulp-rename'),
-  cleanJs = require('gulp-uglify-es').default,
-  imagemin = require('gulp-imagemin'),
-  ttf2woff2 = require('gulp-ttf2woff2'),
-  squoosh = require('gulp-libsquoosh'),
-  webpHTML = require('gulp-webp-html-fix');
+  lp = require('gulp-load-plugins')();
+
+lp.browsersync = require('browser-sync').create();
+lp.fileInclude = require('gulp-file-include');
+lp.del = require('del');
+lp.gulpSass = require('gulp-sass');
+lp.autoprefixer = require('gulp-autoprefixer');
+lp.groupMedia = require('gulp-group-css-media-queries');
+lp.cleanCss = require('gulp-clean-css');
+lp.rename = require('gulp-rename');
+lp.cleanJs = require('gulp-uglify-es').default;
+lp.imagemin = require('gulp-imagemin');
+lp.ttf2woff2 = require('gulp-ttf2woff2');
+lp.webpHTML = require('gulp-webp-html-fix');
+lp.squoosh = require('gulp-libsquoosh');
 
 function browserSync(params) {
-  browsersync.init({
+  lp.browsersync.init({
     server: {
       baseDir: paths.clean,
     },
@@ -60,18 +60,18 @@ function browserSync(params) {
 }
 function html() {
   return gulp.src(paths.scr.html)
-    .pipe(fileInclude())
-    .pipe(webpHTML())
+    .pipe(lp.fileInclude())
+    .pipe(lp.webpHTML())
     .pipe(dest(paths.build.html))
-    .pipe(browsersync.stream());
+    .pipe(lp.browsersync.stream());
 }
 function css() {
   return gulp.src(paths.scr.css)
-    .pipe(gulpSass({
+    .pipe(lp.gulpSass({
       outputStyle: 'expanded',
     }))
-    .pipe(groupMedia())
-    .pipe(autoprefixer({
+    .pipe(lp.groupMedia())
+    .pipe(lp.autoprefixer({
       overrideBrowserslist: ['last 5 versions'],
       cascade: true,
     }))
@@ -79,12 +79,12 @@ function css() {
     .pipe(dest(paths.build.css))
 
     //save cleaning and renaming new css files
-    .pipe(cleanCss())
-    .pipe(rename({
+    .pipe(lp.cleanCss())
+    .pipe(lp.rename({
       extname: '.min.css'
     }))
     .pipe(dest(paths.build.css))
-    .pipe(browsersync.stream());
+    .pipe(lp.browsersync.stream());
 }
 function watchFIles() {
   gulp.watch(paths.watch.html, html);
@@ -94,7 +94,7 @@ function watchFIles() {
   gulp.watch([paths.watch.images], images);
 }
 function clean() {
-  return del(paths.clean);
+  return lp.del(paths.clean);
 }
 function scripts() {
   //? save .js files
@@ -102,7 +102,7 @@ function scripts() {
     .pipe(fileinclude())
 
     .pipe(dest(paths.build.scripts))
-    .pipe(browsersync.stream());
+    .pipe(lp.browsersync.stream());
 
   //? save .mjs modules
   return gulp.src(paths.scr.scriptModules)
@@ -112,37 +112,38 @@ function scripts() {
     .pipe(dest(paths.build.scriptModules))
 
     //save minimize and renaming new .mjs files
-    .pipe(cleanJs())
-    .pipe(rename({
+    .pipe(lp.cleanJs())
+    .pipe(lp.rename({
       extname: '.min.mjs'
     }))
     .pipe(dest(paths.build.scriptModules))
-    .pipe(browsersync.stream());
+    .pipe(lp.browsersync.stream());
 }
 function images() {
   return gulp.src(paths.scr.images)
-    .pipe(squoosh({
+    .pipe(lp.squoosh({
       webp: {},
     }))
     .pipe(dest(paths.build.images))
     .pipe(gulp.src(paths.scr.images))
-    .pipe(imagemin({
+    .pipe(lp.imagemin({
       progressive: true,
       svgoPlugins: [{ removeViewBox: false }],
       interlaced: true,
       optimizationLevel: 3,
     }))
     .pipe(dest(paths.build.images))
-    .pipe(browsersync.stream());
+    .pipe(lp.browsersync.stream());
 }
 function fonts() {
   return gulp.src(paths.scr.fonts)
-    .pipe(ttf2woff2({
+    .pipe(lp.ttf2woff2({
       ignoreExt: true,
     }))
     .pipe(dest(paths.build.fonts));
 }
 
+let fs = require('fs');
 function fontsStyle() {
   let file_content = fs.readFileSync(fontsFIlePath)
     .toString().replace(/\s/g, "");
@@ -167,37 +168,34 @@ function fontsStyle() {
     })
   }
 }
-
-//! Make sure you install the swiper via NPM!
 function setupSwiperJs() {
-  const modules = [
-    'node_modules/swiper/swiper-bundle.min.js',
-    'node_modules/swiper/swiper-bundle.min.js.map',
-  ];
-
-  return gulp.src(modules)
-    .pipe(dest(paths.build.scripts));
+  if (fs.existsSync('node_modules/swiper/swiper-bundle.min.js')) {
+    const modules = [
+      'node_modules/swiper/swiper-bundle.min.js',
+      'node_modules/swiper/swiper-bundle.min.js.map',
+    ];
+    return gulp.src(modules)
+      .pipe(dest(paths.build.scripts));
+  } else {
+    return gulp.src(paths.scr.scripts);
+  }
 };
 function setupSwiperCss() {
-  const modules = [
-    'node_modules/swiper/swiper-bundle.min.css',
-  ];
-
-  return gulp.src(modules)
-    .pipe(dest(paths.build.css));
+  if (fs.existsSync('node_modules/swiper/swiper-bundle.min.css')) {
+    const swiperCss = [
+      'node_modules/swiper/swiper-bundle.min.css',
+    ];
+    return gulp.src(swiperCss)
+      .pipe(dest(paths.build.css));
+  } else {
+    return gulp.src(paths.scr.css);
+  }
 };
 
-let build = gulp.series(clean, setupSwiperJs, setupSwiperCss, gulp.parallel(scripts, css, html, images, fonts), fontsStyle);
+
+let build = gulp.series(clean, setupSwiperCss, setupSwiperJs, gulp.parallel(scripts, css, html, images, fonts), fontsStyle);
 let watch = gulp.parallel(build, watchFIles, browserSync);
 
-exports.setupSwiperCss = setupSwiperCss;
-exports.setupSwiperJs = setupSwiperJs;
-exports.fontsStyle = fontsStyle;
-exports.fonts = fonts;
-exports.images = images;
-exports.scripts = scripts;
-exports.css = css;
-exports.html = html;
 exports.build = build;
 exports.watch = watch;
 exports.default = watch;
