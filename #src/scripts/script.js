@@ -1,3 +1,6 @@
+//? If you are making a multi-page site, i recommend dividing the contents of this file
+//? into several parts and connecting them to each page separately.
+
 // fsnavmenu //
 import FsNavmenu from './modules/fsNavmenu.min.mjs';
 

@@ -23,7 +23,7 @@ let paths = {
     fonts: `${sourceFolder}/fonts/*`,
   },
   watch: {
-    html: `${sourceFolder}/**/*.html`,
+    html: [`${sourceFolder}/**/*.html`, `${sourceFolder}/**/*.htm`],
     css: `${sourceFolder}/sass/**/*.sass`,
     scripts: `${sourceFolder}/scripts/**/*.js`,
     scriptModules: `${sourceFolder}/scripts/**/*.mjs`,
@@ -45,10 +45,9 @@ let { scr, dest } = require('gulp'),
   rename = require('gulp-rename'),
   cleanJs = require('gulp-uglify-es').default,
   imagemin = require('gulp-imagemin'),
-  webp = require('gulp-webp'),
-  webpHtml = require('gulp-webp-html'),
-  ttf2woff2 = require('gulp-ttf2woff2');
-
+  ttf2woff2 = require('gulp-ttf2woff2'),
+  squoosh = require('gulp-libsquoosh'),
+  webpHTML = require('gulp-webp-html-fix');
 
 function browserSync(params) {
   browsersync.init({
@@ -61,8 +60,8 @@ function browserSync(params) {
 }
 function html() {
   return gulp.src(paths.scr.html)
-    .pipe(fileinclude())
-    .pipe(webpHtml())
+    .pipe(fileInclude())
+    .pipe(webpHTML())
     .pipe(dest(paths.build.html))
     .pipe(browsersync.stream());
 }
@@ -88,7 +87,7 @@ function css() {
     .pipe(browsersync.stream());
 }
 function watchFIles() {
-  gulp.watch([paths.watch.html], html);
+  gulp.watch(paths.watch.html, html);
   gulp.watch([paths.watch.css], css);
   gulp.watch([paths.watch.scripts], scripts);
   gulp.watch([paths.watch.scriptModules], scripts);
@@ -109,7 +108,7 @@ function scripts() {
   return gulp.src(paths.scr.scriptModules)
     .pipe(fileinclude())
 
-    //save scripts
+    //save modules
     .pipe(dest(paths.build.scriptModules))
 
     //save minimize and renaming new .mjs files
@@ -122,8 +121,8 @@ function scripts() {
 }
 function images() {
   return gulp.src(paths.scr.images)
-    .pipe(webp({
-      quality: 90,
+    .pipe(squoosh({
+      webp: {},
     }))
     .pipe(dest(paths.build.images))
     .pipe(gulp.src(paths.scr.images))
@@ -169,7 +168,7 @@ function fontsStyle() {
   }
 }
 
-// ! Make sure you install the swiper via NPM!
+//! Make sure you install the swiper via NPM!
 function setupSwiperJs() {
   const modules = [
     'node_modules/swiper/swiper-bundle.min.js',
