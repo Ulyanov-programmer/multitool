@@ -13,7 +13,7 @@
 @mixin adaptive-property($property, $value, $min-value)
   #{$property}: calc(#{$min-value + px} + (#{$value} - #{$min-value}) * ((100vw - 320px) / (#{$containerWidth} - 320)))
 
-/// Return value for responsive font-size.
+/// Return value for responsive font-size (work with rem).
 ///
 /// @param {number} $default-size
 ///   The size of the font that is specified in the layout (without px).
@@ -22,11 +22,19 @@
 ///   The minimum font size (without px).
 ///   Will be displayed on the screen width of 320 pixels.
 ///   Default value = 12. 
-@function adapt-fsize($default-size, $min-size: 12)
-  @return calc((100vw - 320px) / (#{$containerWidth} - 320) * (#{$default-size} - #{$min-size}) + #{$min-size + px})
+@function adapt-fsize($default-size, $min-size: remNumber(12))
+  $cWidthRem: remNumber($containerWidth)
+  $defSizeRem: remNumber($default-size)
+  $min-size-rem: rem(12)
+  
+  $result: calc((100vw - 20rem)/(#{$cWidthRem} - 20) * (#{$defSizeRem} - #{$min-size}) + #{$min-size-rem})
 
-@function rem($default-size, $min-size: 12)
-  @return $default-size / $mainFontSize + rem
+  @return $result
+
+@function rem($px-size)
+  @return ($px-size / $mainFontSize) + rem
+@function remNumber($px-size)
+  @return ($px-size / $mainFontSize)
 
 
 @mixin flex-centring()
