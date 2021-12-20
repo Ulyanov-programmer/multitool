@@ -22,7 +22,8 @@
 ///   The minimum font size (without px).
 ///   Will be displayed on the screen width of 320 pixels.
 ///   Default value = 12. 
-@function adapt-fsize($px-size, $min-size: remNumber(12))
+@function adapt-fsize($px-size, $min-size: 12)
+  $min-size: remNumber($min-size)
   $lWidthRem: remNumber($layoutWidth)
   $pxSizeRem: remNumber($px-size)
   $min-size-rem: rem(12)

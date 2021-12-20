@@ -27,7 +27,7 @@
   position: fixed
   top: 0
   left: 0
-  @include size(100%, 70px)
+  width: 100%
 
 .navmenu
   height: 50px
@@ -111,7 +111,7 @@
   right: -100%
   z-index: -1
   @include size (100%,100%)
-  font-size: adapt-fsize(25,20)
+  font-size: 30px
   color: #fff
 
   display: flex
@@ -129,25 +129,10 @@
   &__body
     display: flex
     flex-flow: column nowrap
-    align-items: center
     overflow: auto
-    &:before
-      position: relative
-      top: 0
-      left: 0
-      content: ''
-      flex: 0 0 70px
 
     ul
-      overflow: auto
-      width: 100%
       li
-        text-align: center
-        padding: 25px 0px 25px 0px
-        margin: 0 auto
-
-        width: 50%
-        cursor: pointer
         border-bottom: 1px solid #fff
 
         &:last-child
@@ -155,6 +140,13 @@
         &:hover
           color: #beafaf
         a
+          display: flex
+          flex-grow: 1
+          justify-content: center
+          padding: 25px 0px 25px 0px
+          margin: 0 0 0 auto
+
+          width: 70%
           color: #fff
 
 .searchbar

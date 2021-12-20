@@ -146,7 +146,6 @@ address {
   top: 0;
   left: 0;
   width: 100%;
-  height: 70px;
 }
 
 .navmenu {
@@ -271,7 +270,7 @@ address {
   z-index: -1;
   width: 100%;
   height: 100%;
-  font-size: calc((100vw - 20rem)/(62.5 - 20) * (1.5625 - 20) + 0.75rem);
+  font-size: 30px;
   color: #fff;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -298,33 +297,10 @@ address {
   -webkit-box-direction: normal;
       -ms-flex-flow: column nowrap;
           flex-flow: column nowrap;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
   overflow: auto;
-}
-
-.fullscreen-navmenu__body:before {
-  position: relative;
-  top: 0;
-  left: 0;
-  content: '';
-  -webkit-box-flex: 0;
-      -ms-flex: 0 0 70px;
-          flex: 0 0 70px;
-}
-
-.fullscreen-navmenu__body ul {
-  overflow: auto;
-  width: 100%;
 }
 
 .fullscreen-navmenu__body ul li {
-  text-align: center;
-  padding: 25px 0px 25px 0px;
-  margin: 0 auto;
-  width: 50%;
-  cursor: pointer;
   border-bottom: 1px solid #fff;
 }
 
@@ -337,6 +313,18 @@ address {
 }
 
 .fullscreen-navmenu__body ul li a {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  padding: 25px 0px 25px 0px;
+  margin: 0 0 0 auto;
+  width: 70%;
   color: #fff;
 }
 
@@ -709,7 +697,7 @@ body button {
 
 .filter__title {
   text-transform: uppercase;
-  font-size: calc((100vw - 20rem)/(62.5 - 20) * (1.5625 - 20) + 0.75rem);
+  font-size: calc((100vw - 20rem)/(62.5 - 20) * (1.5625 - 1.25) + 0.75rem);
 }
 
 .filter__header {
@@ -779,7 +767,7 @@ body button {
 .swiper span {
   display: inline-block;
   text-transform: uppercase;
-  font-size: calc((100vw - 20rem)/(62.5 - 20) * (1.5625 - 20) + 0.75rem);
+  font-size: calc((100vw - 20rem)/(62.5 - 20) * (1.5625 - 1.25) + 0.75rem);
 }
 
 .swiper-slide {
@@ -810,7 +798,7 @@ body button {
 
 .demo-spoiler__title {
   text-transform: uppercase;
-  font-size: calc((100vw - 20rem)/(62.5 - 20) * (1.5625 - 20) + 0.75rem);
+  font-size: calc((100vw - 20rem)/(62.5 - 20) * (1.5625 - 1.25) + 0.75rem);
 }
 
 .el-menu {
@@ -827,7 +815,7 @@ body button {
 
 .el-menu__title {
   text-transform: uppercase;
-  font-size: calc((100vw - 20rem)/(62.5 - 20) * (1.5625 - 20) + 0.75rem);
+  font-size: calc((100vw - 20rem)/(62.5 - 20) * (1.5625 - 1.25) + 0.75rem);
 }
 
 .el-menu__content {
