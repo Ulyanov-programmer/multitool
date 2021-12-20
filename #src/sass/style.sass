@@ -1,9 +1,10 @@
-$containerWidth: 1000
-$mainFontFamily: Arial
-$mainFontColor: #fff
+$layoutWidth: 1000
 $mainFontSize: 16
-$bg: gray
-
+html
+  --main-font-color: #fff
+  --main-font-family: Arial
+  --bg: gray
+  
 @import "nullStyle"
 @import "mixins"
 @import "header"
@@ -14,14 +15,14 @@ $bg: gray
 
 body
   height: 100%
-  color: $mainFontColor
-  font: adapt-fsize(16) $mainFontFamily
+  color: var(--main-font-color)
+  font: adapt-fsize(16) var(--main-font-family)
 
   &.scroll-block
     overflow: hidden
 
   button
-    color: $mainFontColor
+    color: var(--main-font-color)
 
 .main
   width: 100%
@@ -29,7 +30,7 @@ body
 
   &__body
     @include firstLevelElementsMargin(20)
-    background: $bg
+    background: var(--bg)
 
 .fullscreen
   //? I recommend save this if you use sidepanel in fullscreen.

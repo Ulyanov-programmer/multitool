@@ -11,23 +11,23 @@
     font-style: #{$style}
 
 @mixin adaptive-property($property, $value, $min-value)
-  #{$property}: calc(#{$min-value + px} + (#{$value} - #{$min-value}) * ((100vw - 320px) / (#{$containerWidth} - 320)))
+  #{$property}: calc(#{$min-value + px} + (#{$value} - #{$min-value}) * ((100vw - 320px) / (#{$layoutWidth} - 320)))
 
 /// Return value for responsive font-size (work with rem).
 ///
-/// @param {number} $default-size
+/// @param {number} $px-size
 ///   The size of the font that is specified in the layout (without px).
 ///   It will be rendered assuming the width of the content container is the same as in the design layout.
 /// @param {number} $min-size
 ///   The minimum font size (without px).
 ///   Will be displayed on the screen width of 320 pixels.
 ///   Default value = 12. 
-@function adapt-fsize($default-size, $min-size: remNumber(12))
-  $cWidthRem: remNumber($containerWidth)
-  $defSizeRem: remNumber($default-size)
+@function adapt-fsize($px-size, $min-size: remNumber(12))
+  $lWidthRem: remNumber($layoutWidth)
+  $pxSizeRem: remNumber($px-size)
   $min-size-rem: rem(12)
   
-  $result: calc((100vw - 20rem)/(#{$cWidthRem} - 20) * (#{$defSizeRem} - #{$min-size}) + #{$min-size-rem})
+  $result: calc((100vw - 20rem)/(#{$lWidthRem} - 20) * (#{$pxSizeRem} - #{$min-size}) + #{$min-size-rem})
 
   @return $result
 

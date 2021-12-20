@@ -1,5 +1,11 @@
 @charset "UTF-8";
 
+html {
+  --main-font-color: #fff;
+  --main-font-family: Arial;
+  --bg: gray;
+}
+
 * {
   padding: 0;
   margin: 0;
@@ -607,8 +613,8 @@ address {
 
 body {
   height: 100%;
-  color: #fff;
-  font: calc((100vw - 20rem)/(62.5 - 20) * (1 - 0.75) + 0.75rem) Arial;
+  color: var(--main-font-color);
+  font: calc((100vw - 20rem)/(62.5 - 20) * (1 - 0.75) + 0.75rem) var(--main-font-family);
 }
 
 body.scroll-block {
@@ -616,7 +622,7 @@ body.scroll-block {
 }
 
 body button {
-  color: #fff;
+  color: var(--main-font-color);
 }
 
 .main {
@@ -625,7 +631,7 @@ body button {
 }
 
 .main__body {
-  background: gray;
+  background: var(--bg);
 }
 
 .main__body > *:not(:last-child) {
