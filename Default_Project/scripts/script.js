@@ -59,6 +59,14 @@ let scrollElement = new ScrollElement(
 // spoilers //
 import * as sliders from './modules/sliders.mjs';
 
+// sidebar //
+import Sidebar from './modules/sidebar.min.mjs';
+
+let someSidebar = new Sidebar(
+  '.sidebar',
+  '.sidebar__show-btn',
+)
+
 //? general //
 
 function showOrHideSubmenu(e) {

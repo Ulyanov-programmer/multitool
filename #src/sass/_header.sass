@@ -22,6 +22,9 @@
     padding: 10px 0px 10px 0px
     *
       z-index: 5
+    @media (max-width: 560px)
+      .searchbar
+        display: none
 
 .fixed-header
   position: fixed
@@ -109,7 +112,7 @@
   position: fixed
   top: 0
   right: -100%
-  z-index: -1
+  z-index: 4
   @include size (100%,100%)
   font-size: 30px
   color: #fff
@@ -132,21 +135,20 @@
     overflow: auto
 
     ul
+      margin: 0 auto
+      width: 100%
       li
         border-bottom: 1px solid #fff
 
         &:last-child
           border: none
-        &:hover
+        &:hover,&:focus
           color: #beafaf
         a
           display: flex
           flex-grow: 1
           justify-content: center
           padding: 25px 0px 25px 0px
-          margin: 0 0 0 auto
-
-          width: 70%
           color: #fff
 
 .searchbar

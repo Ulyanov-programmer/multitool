@@ -13,14 +13,26 @@
     <div class="main__body">
       <section class="fullscreen">
         <div class="fullscreen__body container">
+          <h1>Hello, developer! This is my default project. <br>
+            Below You can test the different functionality that i use.</h1>
         </div>
         <!-- ? Use if you need a side menu. -->
-        <aside class='sidepanel'>
-          <div class="sidepanel__body">
-            <ul class='sidepanel__list'>
-              <li>el1</li>
-              <li>el2</li>
-            </ul>
+        <aside id="sidebar1" class="sidebar content__sidebar">
+          <button data-open-sidebar="sidebar1" class="sidebar__show-btn" aria-label='show-sidebar' type='button'>
+            <svg id='sidebar-svg' version="1.1" height='50' width='50' xmlns="http://www.w3.org/2000/svg"
+              xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 16 16" xml:space="preserve">
+              <circle cx="8" cy="8" r="8" class="bg" />
+              <rect x="2.4" y="5.6" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -3.0849 5.733)" class="top-arrow"
+                width='6' height='2' />
+              <rect x="3.6" y="7" width='10' class="center-arrow" height='2' />
+              <rect x="2.4" y="8.4" transform="matrix(0.7071 0.7071 -0.7071 0.7071 8.2222 -1.0626)" class="bottom-arrow"
+                width='6' height='2' />
+            </svg>
+          </button>
+          <div class="sidebar__body">
+            <div class="sidebar-block sidebar__block">
+              This is a sidebar.
+            </div>
           </div>
         </aside>
         <button class="fullscreen__scroll" type='button' data-scroll-to=".filter">Scroll</button>
@@ -36,10 +48,10 @@
             <button class='filter__button' data-filt-content="all" type='button'>All</button>
           </header>
           <div class="filter__main">
-            <section class="filter__item filter__item_green" data-content-type="green">green</section>
-            <section class="filter__item filter__item_blue" data-content-type="blue">blue</section>
-            <section class="filter__item filter__item_red" data-content-type="red">red</section>
-            <section class="filter__item filter__item_yellow" data-content-type="yellow">yellow</section>
+            <div class="filter__item filter__item_green" data-content-type="green">green</div>
+            <div class="filter__item filter__item_blue" data-content-type="blue">blue</div>
+            <div class="filter__item filter__item_red" data-content-type="red">red</div>
+            <div class="filter__item filter__item_yellow" data-content-type="yellow">yellow</div>
           </div>
         </div>
       </section>
@@ -73,7 +85,7 @@
                 <div class="swiper-scrollbar"></div>
               </div>
             -->
-      
+
       <!--? If you want to use the swiper in a grid container, 
             give some width (minmax, px) for container columns. -->
       <div class="swiper">
@@ -91,24 +103,25 @@
         <div class='el-menu__body'>
           <h6 class='el-menu__title'>element-menu demo</h6>
           <div class="el-menu__content">
-            <section class="el-menu__item">
+            <div class="el-menu__item">
               Lorem ispum <br>
               Ispum lorem <br>
               Ispum Ispum Ispum Ispum <br>
               Lorem Lorem Lorem Lorem
-            </section>
-            <section class="el-menu__item">
+            </div>
+            <div class="el-menu__item">
               Lorem ispum <br>
               Ispum lorem <br>
               Ispum Ispum Ispum Ispum <br>
               Lorem Lorem Lorem Lorem
-            </section>
+            </div>
           </div>
           <div class="el-menu__menu _non-active">
             Lorem ispum ispum lorem!
           </div>
         </div>
       </section>
+    </div>
   </main>
 
   @@include('_footer.htm', {})

@@ -37,6 +37,78 @@
     @include size (100%,100%)
     object-fit: contain
 
+.sidebar
+  $toMobileWidth: 950px
+  height: 100%
+  z-index: 5
+
+  @media (max-width: $toMobileWidth)
+    position: fixed
+    background: gray
+    left: 100vw
+    width: 40vw
+    top: 0
+    transition: all 0.5s ease
+
+    &.active
+      left: 60vw
+
+  @media (max-width: 600px)
+    width: 70vw
+    &.active
+      left: 30vw
+
+  &__body
+    padding: 20px 15px 10px 10px
+
+    position: sticky
+    top: 10px
+    overflow: auto
+
+    @include firstLevelElementsMargin(30)
+
+    @media (max-width: $toMobileWidth)
+      height: 100%
+
+  &__block
+
+  &-block
+
+  &__show-btn
+    display: none
+    position: absolute
+    left: -70px
+    top: 76px
+
+    @media (max-width: $toMobileWidth)
+      display: block
+
+      &.active
+        svg
+          transform: rotate(-180deg)
+
+    @media (max-width: 426px)
+      left: -35px
+
+      &.active
+        left: -55px
+
+    svg
+      transition: all 0.5s ease
+      @include size (100%,100%)
+
+      &:hover, &:focus
+        rect
+          fill: #e8663c
+
+      rect
+        transition: all 0.5s ease
+        fill: #dddddd
+      .bg
+      .top-arrow
+      .center-arrow
+      .bottom-arrow
+
 .modal-window
   position: fixed
   z-index: 15
@@ -60,3 +132,5 @@
     height: 100%
     justify-content: center
     align-items: center
+
+.button

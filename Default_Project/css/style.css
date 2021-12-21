@@ -267,7 +267,7 @@ address {
   position: fixed;
   top: 0;
   right: -100%;
-  z-index: -1;
+  z-index: 4;
   width: 100%;
   height: 100%;
   font-size: 30px;
@@ -300,6 +300,11 @@ address {
   overflow: auto;
 }
 
+.fullscreen-navmenu__body ul {
+  margin: 0 auto;
+  width: 100%;
+}
+
 .fullscreen-navmenu__body ul li {
   border-bottom: 1px solid #fff;
 }
@@ -308,7 +313,8 @@ address {
   border: none;
 }
 
-.fullscreen-navmenu__body ul li:hover {
+.fullscreen-navmenu__body ul li:hover,
+.fullscreen-navmenu__body ul li:focus {
   color: #beafaf;
 }
 
@@ -323,8 +329,6 @@ address {
       -ms-flex-pack: center;
           justify-content: center;
   padding: 25px 0px 25px 0px;
-  margin: 0 0 0 auto;
-  width: 70%;
   color: #fff;
 }
 
@@ -564,6 +568,49 @@ address {
      object-fit: contain;
 }
 
+.sidebar {
+  height: 100%;
+  z-index: 5;
+}
+
+.sidebar__body {
+  padding: 20px 15px 10px 10px;
+  position: sticky;
+  top: 10px;
+  overflow: auto;
+}
+
+.sidebar__body > *:not(:last-child) {
+  margin-bottom: 30px;
+}
+
+.sidebar__show-btn {
+  display: none;
+  position: absolute;
+  left: -70px;
+  top: 76px;
+}
+
+.sidebar__show-btn svg {
+  -webkit-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+  width: 100%;
+  height: 100%;
+}
+
+.sidebar__show-btn svg:hover rect,
+.sidebar__show-btn svg:focus rect {
+  fill: #e8663c;
+}
+
+.sidebar__show-btn svg rect {
+  -webkit-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+  fill: #dddddd;
+}
+
 .modal-window {
   position: fixed;
   z-index: 15;
@@ -615,7 +662,6 @@ body button {
 
 .main {
   width: 100%;
-  overflow: hidden;
 }
 
 .main__body {
@@ -627,7 +673,6 @@ body button {
 }
 
 .fullscreen {
-  position: relative;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -637,9 +682,10 @@ body button {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  position: relative;
   width: auto;
-  height: 100vh;
-  min-height: calc(500px + (500 - 500) * ((100vw - 320px) / (1000 - 320)));
+  height: 87vh;
+  min-height: calc(300px + (400 - 300) * ((100vw - 320px) / (1000 - 320)));
   background: #363636;
 }
 
@@ -899,8 +945,53 @@ body button {
   }
 }
 
+@media (max-width: 950px) {
+  .sidebar {
+    position: fixed;
+    background: gray;
+    left: 100vw;
+    width: 40vw;
+    top: 0;
+    -webkit-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+  }
+
+  .sidebar.active {
+    left: 60vw;
+  }
+
+  .sidebar__body {
+    height: 100%;
+  }
+
+  .sidebar__show-btn {
+    display: block;
+  }
+
+  .sidebar__show-btn.active svg {
+    -webkit-transform: rotate(-180deg);
+        -ms-transform: rotate(-180deg);
+            transform: rotate(-180deg);
+  }
+}
+
 @media (max-width: 600px) {
   .navmenu {
+    display: none;
+  }
+
+  .sidebar {
+    width: 70vw;
+  }
+
+  .sidebar.active {
+    left: 30vw;
+  }
+}
+
+@media (max-width: 560px) {
+  .header__body .searchbar {
     display: none;
   }
 }
@@ -917,6 +1008,14 @@ body button {
     -webkit-transform: rotate(135deg);
         -ms-transform: rotate(135deg);
             transform: rotate(135deg);
+  }
+
+  .sidebar__show-btn {
+    left: -35px;
+  }
+
+  .sidebar__show-btn.active {
+    left: -55px;
   }
 }
 

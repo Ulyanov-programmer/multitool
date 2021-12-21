@@ -26,21 +26,18 @@ body
 
 .main
   width: 100%
-  overflow: hidden
 
   &__body
     @include firstLevelElementsMargin(20)
     background: var(--bg)
 
 .fullscreen
-  //? I recommend save this if you use sidepanel in fullscreen.
-  position: relative
-
   display: flex
   @include flex-centring
+  position: relative
 
-  @include size(auto, 100vh)
-  @include adaptive-property ('min-height',500, 500)
+  @include size(auto, 87vh)
+  @include adaptive-property ('min-height',400, 300)
 
   // background: url('../img/') no-repeat center / cover
   background: rgb(54, 54, 54)
