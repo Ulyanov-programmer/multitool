@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- maximum-scale=1.0, user-scalable=0 does not allow content to be scaled on Android. -->
+  <!-- Disables forced link for phone number on iOS -->
+  <meta name="format-detection" content="telephone=no">
+
+  <meta name="description" content="description">
+  <link type="image/x-icon" rel="shortcut icon" href="img/favicon.ico">
+  <!-- <link rel="preload" href="fonts/YourMainFont.woff2" as="font" crossorigin> -->
+
+  <!-- SEO
+    <meta name="keywords" content="keyword1,">
+    <meta name="robots" content="none,noindex,nofollow,noimageindex,noarchive,nosnippet">
+    <meta name="Author" content="Author">
+    <meta name="Copyright" content="Copyright">
+    <meta name="Address" content="Address"> 
+    <! - Redirect (reload) the page. Delay in seconds; url=Site / page address ->
+    <meta http-equiv="refresh" content="seconds; url = URL">
+
+    Facebook
+    <! - site localization, for the Russian-language site ru_RU ->
+    <meta property="og:locale" content="ru_RU">
+    <! - content type, default is article ->
+    <meta property="og:type" content="article">
+    <! - the title of the page that will be displayed in the post of the social network ->
+    <meta property="og:title" content="META tags">
+    <! - page description ->
+    <meta property="og:description" content="Description of the page about META tags">
+    <! - link to the image that will be published in the post ->
+    <meta property="og:image" content="path">
+    <! - link to the current page ->
+    <meta property="og: url" content="path">
+    <! - site name ->
+    <meta property="og:site_name" content="Freelancer for life">
+
+    Twitter
+    <! - Map type, default is summary ->
+    <meta name="twitter: card" content="summary">
+    <! - Author name / login ->
+    <meta name="twitter: site" content="Ivan">
+    <! - Page title ->
+    <meta name="twitter: title" content="META tags">
+    <! - Page description ->
+    <meta name="twitter: description" content="about META tags">
+    <! - Link to image ->
+    <meta name="twitter: image" content="path">
+  -->
+
+  <link rel="stylesheet" href="css/style.min.css">
+
+  
+  <!-- Swiper -->
+  <link rel="stylesheet" href="css/swiper-bundle.min.css">
+
+  <!--? Use this if you want set multiple files. -->
+  
+  <link rel="stylesheet" href="css/">
+
+  <title>Main</title>
+</head>
+
+<body>
+  <header class="header">
+  <!--! Attention, container and fixed-header classes are mutually exclusive! -->
+  <div class="header__body container">
+    <a href="/" class="logo">
+      <picture><source srcset="img/logo.webp" type="image/webp"><img src="img/logo.png" alt="logo" width=50 height=50></picture>
+    </a>
+    <form class="searchbar">
+      <input class="searchbar__input" type='text' placeholder='input' required>
+      <button class="searchbar__submit" type='submit'>
+        <picture><source srcset="img/icons/loupe.svg" type="image/webp"><img src="img/icons/loupe.svg" alt="search"></picture>
+      </button>
+    </form>
+
+    <button data-modal-link="modal_1" type='button'>I show modal page</button>
+
+    <nav class="navmenu">
+      <div class="navmenu__body">
+
+        <!-- One Page site navmenu -->
+        <ul class='navmenu__list'>
+          <li data-scroll-to="block1">el</li>
+          <li data-scroll-to="block1">el</li>
+          <!-- <li data-scroll-to="block1">ref</li>
+          <li data-scroll-to="block1">ref</li> -->
+          <!-- Subnavmenu -->
+          <li class="submenu-open-button">
+            submenu
+            <!-- <button type='button'></button> -->
+            <ul class='navmenu__submenu navmenu__list'>
+              <li>
+                <a target="_self" rel="noopener" href="#">ref</a>
+              </li>
+              <li data-scroll-to="how-it-works">button</li>
+            </ul>
+          </li>
+        </ul>
+        <!--? Multiple page site navmenu
+        <ul class='navmenu__list'>
+          <li>
+            <a target="_self" rel="noopener" href="#">ссылка2</a>
+          </li>
+        </ul> 
+        -->
+      </div>
+    </nav>
+
+    <button aria-label="burger-menu" type="button" id="burgerButton" class="header__burger burger-btn">
+      <svg class="burger-btn__svg" width="32" height="30" xmlns="http://www.w3.org/2000/svg">
+        <rect class="burger-btn__rect-top" width="100%" height="10%" x="0" y="0%" fill="#fff" />
+        <rect class="burger-btn__rect-center" width="100%" height="10%" x="0" y="45%" fill="#fff" />
+        <rect class="burger-btn__rect-bottom" width="100%" height="10%" x="0" y="90%" fill="#fff" />
+      </svg>
+    </button>
+    <nav class="fullscreen-navmenu">
+      <div class="fullscreen-navmenu__body">
+        <ul>
+          <li><a href='#' target='_blank' rel='noopener noreferrer'>ref</a></li>
+          <li><a href='#' target='_blank' rel='noopener noreferrer'>ref</a></li>
+          <li><a href='#' target='_blank' rel='noopener noreferrer'>ref</a></li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<!--? Use if the header can be clearly divided into two parts. 
+<header class="header">
+  <div class="header__body container">
+    <div class="header__top">
+    </div>
+    <div class="header__bottom">
+    </div>
+  </div>
+</header> -->
+
+  <main class="main">
+    <div class="main__body">
+      <section class="fullscreen">
+        <div class="fullscreen__body container">
+          <h1>Hello, developer! This is my default project. <br>
+            Below You can test the different functionality that i use.</h1>
+        </div>
+        <!-- ? Use if you need a side menu. -->
+        <aside id="sidebar1" class="sidebar content__sidebar">
+          <button data-open-sidebar="sidebar1" class="sidebar__show-btn" aria-label='show-sidebar' type='button'>
+            <svg id='sidebar-svg' version="1.1" height='50' width='50' xmlns="http://www.w3.org/2000/svg"
+              xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 16 16" xml:space="preserve">
+              <circle cx="8" cy="8" r="8" class="bg" />
+              <rect x="2.4" y="5.6" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -3.0849 5.733)" class="top-arrow"
+                width='6' height='2' />
+              <rect x="3.6" y="7" width='10' class="center-arrow" height='2' />
+              <rect x="2.4" y="8.4" transform="matrix(0.7071 0.7071 -0.7071 0.7071 8.2222 -1.0626)" class="bottom-arrow"
+                width='6' height='2' />
+            </svg>
+          </button>
+          <div class="sidebar__body">
+            <div class="sidebar-block sidebar__block">
+              This is a sidebar.
+            </div>
+          </div>
+        </aside>
+        <button class="fullscreen__scroll" type='button' data-scroll-to=".filter">Scroll</button>
+      </section>
+      <section class='filter'>
+        <div class='filter__body container'>
+          <h6 class='filter__title'>filter</h6>
+          <header class="filter__header">
+            <button class='filter__button' data-filt-content="red" type='button'>Red</button>
+            <button class='filter__button' data-filt-content="green" type='button'>Green</button>
+            <button class='filter__button' data-filt-content="yellow" type='button'>Yellow</button>
+            <button class='filter__button' data-filt-content="blue" type='button'>Blue</button>
+            <button class='filter__button' data-filt-content="all" type='button'>All</button>
+          </header>
+          <div class="filter__main">
+            <div class="filter__item filter__item_green" data-content-type="green">green</div>
+            <div class="filter__item filter__item_blue" data-content-type="blue">blue</div>
+            <div class="filter__item filter__item_red" data-content-type="red">red</div>
+            <div class="filter__item filter__item_yellow" data-content-type="yellow">yellow</div>
+          </div>
+        </div>
+      </section>
+      <section class='demo-spoiler'>
+        <div class='demo-spoiler__body'>
+          <h6 class='demo-spoiler__title'>spoiler</h6>
+          <span class='uspoiler-btn'>Spoiler button</span>
+          <ul class='uspoiler-content'>
+            <li>spoiler element</li>
+            <li>spoiler element</li>
+            <li>spoiler element</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Swiper construction 
+              <div class="swiper">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                    </div>
+                    <div class="swiper-slide">
+                    </div>
+                </div>
+
+                ? I recommend placing and positioning buttons relative to NOT-swiper blocks.
+                <div class="swiper-pagination"></div>
+
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next"></div>
+
+                <div class="swiper-scrollbar"></div>
+              </div>
+            -->
+
+      <!--? If you want to use the swiper in a grid container, 
+            give some width (minmax, px) for container columns. -->
+      <div class="swiper">
+        <span>Slider Swiper</span>
+        <div class="swiper-wrapper">
+          <div class="swiper-slide">
+            swipe me
+          </div>
+          <div class="swiper-slide">
+            swipe me
+          </div>
+        </div>
+      </div>
+      <section class='el-menu'>
+        <div class='el-menu__body'>
+          <h6 class='el-menu__title'>element-menu demo</h6>
+          <div class="el-menu__content">
+            <div class="el-menu__item">
+              Lorem ispum <br>
+              Ispum lorem <br>
+              Ispum Ispum Ispum Ispum <br>
+              Lorem Lorem Lorem Lorem
+            </div>
+            <div class="el-menu__item">
+              Lorem ispum <br>
+              Ispum lorem <br>
+              Ispum Ispum Ispum Ispum <br>
+              Lorem Lorem Lorem Lorem
+            </div>
+          </div>
+          <div class="el-menu__menu _non-active">
+            Lorem ispum ispum lorem!
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="footer">
+  <div class="footer__body container">
+    <div class="contacts-block">
+      <ul class='contacts-block__list list'>
+        <li class='list__item'>
+          <a class="email" target="_blank" href="mailto:ccoldatheinrich@yandex.ru"
+            rel="noopener noreferrer">ccoldatheinrich@yandex.ru</a>
+        </li>
+        <li class='list__item'>
+          <a class="email" target="_blank" href="//github.com/Ulyanov-programmer"
+            rel="noopener noreferrer">Me on GitHub</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+<!--? Use if the footer can be clearly divided into two parts. 
+<footer class="footer">
+  <div class="footer__body container">
+    <div class="footer__top">
+    </div>
+    <div class="footer__bottom">
+    </div>
+  </div>
+</footer> -->
+
+  <section id="modal_1" class='modal-window'>
+    <div class="modal-window__body">
+      <div class="modal-window__content">
+        <button type='button' class="modal-closer">close me</button>
+
+        <form class="searchbar">
+          <input class="searchbar__input" type='text' placeholder='input' required>
+          <button aria-label="search" class="searchbar__submit" type='submit'>
+            <picture><source srcset="img/icons/loupe.svg" type="image/webp"><img src="img/icons/loupe.svg" alt="search"></picture>
+          </button>
+        </form>
+      </div>
+    </div>
+  </section>
+</body>
+
+
+<script type="module" src="scripts/script.js"></script>
+
+
+<!-- Swiper -->
+<script src="scripts/swiper-bundle.min.js"></script>
+
+</html>
+
+<!-- 
+  Made in Russia, with ❤, by Ivan Ulyanov. 
+-->

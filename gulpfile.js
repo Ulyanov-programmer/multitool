@@ -1,5 +1,3 @@
-const fileinclude = require('gulp-file-include');
-
 const projectFolder = require('path').basename(__dirname);
 const sourceFolder = '#src';
 
@@ -31,10 +29,11 @@ const paths = {
 }
 let fontsFIlePath = `${sourceFolder}/sass/_fonts.sass`;
 
-let { scr, dest, src } = require('gulp'),
+let { dest } = require('gulp'),
   gulp = require('gulp'),
-  lp = require('gulp-load-plugins')();
-
+  lp = require('gulp-load-plugins')(),
+  fileinclude = require('gulp-file-include');
+  
 lp.browsersync = require('browser-sync').create();
 lp.fileInclude = require('gulp-file-include');
 lp.del = require('del');
@@ -168,7 +167,7 @@ function fontsStyle() {
 
             fontWeight = getFontWeightFromString(fontWeight);
             fontName = concatFontWeightWithName(fontName, fontWeightName);
-            
+
             fs.appendFile(fontsFIlePath,
               `@include font('${fontName}','${fontFileName}', '${fontWeight}', ${fontStyle});\r\n`,
               () => { });
