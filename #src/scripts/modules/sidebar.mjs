@@ -1,4 +1,4 @@
-export default class Sidebar {
+export default class SidebarMenu {
   sidebars;
   sidebarButtons;
 
@@ -24,9 +24,4 @@ export default class Sidebar {
     parentSidebar.classList.toggle('active');
   }
 }
-
-
-const toggleSidebarBtn = document.getElementById('sidebar-toggle-btn');
-
-const sidebar = document.querySelector('.sidebar');
 

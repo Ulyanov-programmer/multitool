@@ -1,1 +1,0 @@
-export const someSwiper=new Swiper(".swiper",{});

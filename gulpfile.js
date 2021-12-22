@@ -3,7 +3,7 @@ const fileinclude = require('gulp-file-include');
 const projectFolder = require('path').basename(__dirname);
 const sourceFolder = '#src';
 
-let paths = {
+const paths = {
   build: {
     html: `${projectFolder}/`,
     css: `${projectFolder}/css/`,
@@ -75,7 +75,7 @@ function css() {
       overrideBrowserslist: ['last 5 versions'],
       cascade: true,
     }))
-    //save css files
+    //if you want to see not-minify css files
     .pipe(dest(paths.build.css))
 
     //save cleaning and renaming new css files
@@ -90,10 +90,11 @@ function watchFIles() {
   gulp.watch(paths.watch.html, html);
   gulp.watch([paths.watch.css], css);
   gulp.watch([paths.watch.scripts], scripts);
-  gulp.watch([paths.watch.scriptModules], scripts);
+  //? if you want work with .mjs modules.
+  // gulp.watch([paths.watch.scriptModules], scripts);
   gulp.watch([paths.watch.images], images);
 }
-function clean() {
+function recreate() {
   return lp.del(paths.clean);
 }
 function scripts() {
@@ -108,8 +109,8 @@ function scripts() {
   return gulp.src(paths.scr.scriptModules)
     .pipe(fileinclude())
 
-    //save modules
-    .pipe(dest(paths.build.scriptModules))
+    // if you want to see not-minify .mjs modules
+    // .pipe(dest(paths.build.scriptModules))
 
     //save minimize and renaming new .mjs files
     .pipe(lp.cleanJs())
@@ -153,21 +154,82 @@ function fontsStyle() {
     return fs.readdir(paths.build.fonts, (err, items) => {
 
       if (items) {
-        let c_fontname;
-
         for (var i = 0; i < items.length; i++) {
-          let fontname = items[i].split('.');
-          fontname = fontname[0];
+          let c_fontname;
+          let fontFileName = items[i].split('.')[0];
 
-          if (c_fontname != fontname) {
-            fs.appendFile(fontsFIlePath, '@include font("' + fontname + '", "' + fontname + '", "400", "normal");\r\n', () => { });
+          if (c_fontname !== fontFileName) {
+            let fontFileNameLC = fontFileName.toLowerCase();
+            let fontWeightName = fontFileNameLC.replace('italic', '').split('-')[1];
+
+            let fontName = fontFileName.split('-')[0] ? fontFileName.split('-')[0] : fontFileName;
+            let fontStyle = fontFileNameLC.includes('italic') ? 'italic' : 'normal';
+            let fontWeight = fontWeightName ? fontWeightName : fontFileName;
+
+            fontWeight = getFontWeightFromString(fontWeight);
+            fontName = concatFontWeightWithName(fontName, fontWeightName);
+            
+            fs.appendFile(fontsFIlePath,
+              `@include font('${fontName}','${fontFileName}', '${fontWeight}', ${fontStyle});\r\n`,
+              () => { });
           }
-          c_fontname = fontname;
+          c_fontname = fontFileName;
         }
       }
     })
   }
 }
+function concatFontWeightWithName(fontName, fontWeightName) {
+  switch (fontWeightName) {
+    case 'thin':
+      return `${fontName}-thin`;
+    case 'extralight':
+      return `${fontName}-el`;
+    case 'light':
+      return `${fontName}-l`;
+    case 'medium':
+      return `${fontName}-med`;
+    case 'semibold':
+      return `${fontName}-sb`;
+    case 'bold':
+      return `${fontName}-b`;
+    case 'extrabold':
+    case 'ultrabold':
+      return `${fontName}-eb`;
+    case 'black':
+    case 'heavy':
+      return `${fontName}-bl`;
+
+    default:
+      return fontName;
+  }
+}
+function getFontWeightFromString(filename) {
+  switch (filename) {
+    case 'thin':
+      return '100';
+    case 'extralight':
+      return '200';
+    case 'light':
+      return '300';
+    case 'medium':
+      return '500';
+    case 'semibold':
+      return '600';
+    case 'bold':
+      return '700';
+    case 'extrabold':
+    case 'ultrabold':
+      return '800';
+    case 'black':
+    case 'heavy':
+      return '900';
+
+    default:
+      return '400';
+  }
+}
+
 function setupSwiperJs() {
   if (fs.existsSync('node_modules/swiper/swiper-bundle.min.js')) {
     const modules = [
@@ -193,7 +255,7 @@ function setupSwiperCss() {
 };
 
 
-let build = gulp.series(clean, setupSwiperCss, setupSwiperJs, gulp.parallel(scripts, css, html, images, fonts), fontsStyle);
+let build = gulp.series(recreate, setupSwiperCss, setupSwiperJs, gulp.parallel(scripts, css, html, images, fonts), fontsStyle);
 let watch = gulp.parallel(build, watchFIles, browserSync);
 
 exports.build = build;

@@ -60,9 +60,9 @@ let scrollElement = new ScrollElement(
 import * as sliders from './modules/sliders.mjs';
 
 // sidebar //
-import Sidebar from './modules/sidebar.min.mjs';
+import SidebarMenu from './modules/sidebar.min.mjs';
 
-let someSidebar = new Sidebar(
+new SidebarMenu(
   '.sidebar',
   '.sidebar__show-btn',
 )
