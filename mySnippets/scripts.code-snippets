@@ -44,12 +44,11 @@
       "}"
     ],
   },
-  "commentary delimiter": {
+  "ternary operator": {
     "scope": "javascript,typescript",
-    "prefix": "block",
+    "prefix": "ter",
     "body": [
-      "// ! ${1:delimiterName} /\\",
-      "",
+      "${1:cond} ? ${2:true} : ${3:false};",
     ],
   },
 }
