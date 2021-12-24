@@ -57,7 +57,7 @@ let scrollElement = new ScrollElement(
 )
 
 // spoilers //
-import * as sliders from './modules/sliders.min.mjs';
+import * as sliders from './sliders.js';
 
 // sidebar //
 import SidebarMenu from './modules/sidebar.min.mjs';
