@@ -5,7 +5,7 @@ export default class SidebarMenu {
   constructor(selectorOfSidebars, selectorOfSidebarButtons) {
     if (selectorOfSidebars && selectorOfSidebarButtons) {
 
-      this.sidebars = document.querySelectorAll(selectorOfSidebars);
+      this.sidebars = document.querySelector(selectorOfSidebars);
       this.sidebarButtons = document.querySelectorAll(selectorOfSidebarButtons);
 
       for (const sidebarBtn of this.sidebarButtons) {
