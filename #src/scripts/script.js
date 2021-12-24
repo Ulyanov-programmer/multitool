@@ -56,7 +56,7 @@ let scrollElement = new ScrollElement(
   // '.fixed-header',
 )
 
-// spoilers //
+// sliders //
 import * as sliders from './sliders.js';
 
 // sidebar //
