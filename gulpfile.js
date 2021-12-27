@@ -12,7 +12,7 @@ const paths = {
   },
   scr: {
     html: [`${sourceFolder}/*.html`, `!${sourceFolder}/*.htm`],
-    css: [`${sourceFolder}/sass/*.sass`, `!${sourceFolder}/sass/_*.sass`],
+    css: [`${sourceFolder}/stylus/*.styl`, `!${sourceFolder}/stylus/_*.styl`],
     scripts: `${sourceFolder}/scripts/*.js`,
     scriptModules: `${sourceFolder}/scripts/modules/*.mjs`,
     images: `${sourceFolder}/img/**/*.{jpg,png,svg,gif,ico,webp}`,
@@ -20,14 +20,14 @@ const paths = {
   },
   watch: {
     html: [`${sourceFolder}/**/*.html`, `${sourceFolder}/**/*.htm`],
-    css: `${sourceFolder}/sass/**/*.sass`,
+    css: `${sourceFolder}/stylus/**/*.styl`,
     scripts: `${sourceFolder}/scripts/**/*.js`,
     scriptModules: `${sourceFolder}/scripts/**/*.mjs`,
     images: `${sourceFolder}/img/**/*.{jpg,png,svg,gif,ico,webp}`,
   },
   clean: `./${projectFolder}/`,
 }
-let fontsFIlePath = `${sourceFolder}/sass/_fonts.sass`;
+let fontsFIlePath = `${sourceFolder}/stylus/_fonts.styl`;
 
 let { dest } = require('gulp'),
   gulp = require('gulp'),
@@ -37,7 +37,7 @@ let { dest } = require('gulp'),
 lp.browsersync = require('browser-sync').create();
 lp.fileInclude = require('gulp-file-include');
 lp.del = require('del');
-lp.gulpSass = require('gulp-sass');
+lp.stylus = require('gulp-stylus');
 lp.autoprefixer = require('gulp-autoprefixer');
 lp.groupMedia = require('gulp-group-css-media-queries');
 lp.cleanCss = require('gulp-clean-css');
@@ -66,8 +66,8 @@ function html() {
 }
 function css() {
   return gulp.src(paths.scr.css)
-    .pipe(lp.gulpSass({
-      outputStyle: 'expanded',
+    .pipe(lp.stylus({
+      compress: true,
     }))
     .pipe(lp.groupMedia())
     .pipe(lp.autoprefixer({

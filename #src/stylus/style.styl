@@ -1,19 +1,19 @@
-$layoutWidth: 1000
-$mainFontSize: 16
+$layoutWidth = 1000
+$mainFontSize = 16
 html
   --main-font-color: #fff
   --main-font-family: Arial
   --bg: gray
-  
-@import "nullStyle"
-@import "mixins"
-@import "header"
-@import "footer"
-@import "fonts"
-@import "spoiler"
-@import "general"
 
-body
+@import "_nullStyle"
+@import "_mixins"
+@import "_header"
+@import "_footer"
+@import "_fonts"
+@import "_spoiler"
+@import "_general"
+
+body 
   height: 100%
   color: var(--main-font-color)
   font: adapt-fsize(16) var(--main-font-family)
@@ -29,42 +29,25 @@ body
   width: 100%
 
   &__body
-    @include firstLevelElementsMargin(20)
+    firstLevelElementsMargin 20
     background: var(--bg)
 
 .fullscreen
-  display: flex
-  @include flex-centring
+  flex-set row nowrap
+  flex-content-position center center
   position: relative
 
-  @include size(auto, 87vh)
-  @include adaptive-property ('min-height',400, 300)
+  block-size auto 90vh
+  adaptive-property 'min-height' 400  300
 
   // background: url('../img/') no-repeat center / cover
   background: rgb(54, 54, 54)
 
-  &__body
+  // &__body
 
   &__scroll
     position: absolute
     bottom: 5%
-
-.sidepanel
-  position: absolute
-  left: 10%
-  padding: 0px padrpx 0px 0px
-  top: 0
-  @include size (50px, 100%)
-
-  &__body
-    display: flex
-    justify-content: center
-    align-items: center
-    @include size (50px, 100%)
-
-  &__list
-    flex-flow: column nowrap
-    @include firstLevelElementsMargin(10)
 
 .filter
   text-align: center
@@ -72,15 +55,14 @@ body
 
   &__body
     padding: 20px 0 20px 0
-    @include firstLevelElementsMargin(20)
+    firstLevelElementsMargin 20
 
   &__title
     text-transform: uppercase
     font-size: adapt-fsize(25, 20)
 
   &__header
-    display: flex
-    flex-flow: row wrap
+    flex-set row wrap
     justify-content: center
     gap: 15px
 
@@ -92,8 +74,7 @@ body
       color: #000
 
   &__main
-    display: flex
-    flex-flow: row wrap
+    flex-set row wrap
     justify-content: center
     gap: 15px
 
@@ -124,8 +105,8 @@ body
 
   &-slide
     min-height: 100px
-    display: flex
-    @include flex-centring
+    flex-set row nowrap
+    flex-content-position center center
 
 .demo-spoiler
   background: gray
@@ -133,7 +114,7 @@ body
 
   &__body
     padding: 20px 0 20px 0
-    @include firstLevelElementsMargin(20)
+    firstLevelElementsMargin 20
 
   &__title
     text-transform: uppercase
@@ -144,15 +125,14 @@ body
 
   &__body
     padding: 20px 0 20px 0
-    @include firstLevelElementsMargin(20)
+    firstLevelElementsMargin(20)
 
   &__title
     text-transform: uppercase
     font-size: adapt-fsize(25, 20)
 
   &__content
-    display: flex
-    flex-flow: row wrap
+    flex-set row wrap
     justify-content: center
 
   &__item
@@ -166,11 +146,11 @@ body
     position: absolute
     top: 0
     left: 0
-    @include size (100%,100%)
+    block-size 100% 100%
     background: #000000ab
 
-    display: flex
-    @include flex-centring
+    flex-set row nowrap
+    flex-content-position center center
 
     transition: all 0.3s ease
     &._non-active
@@ -183,4 +163,4 @@ body
   li
     padding: 5px 0px 5px 0px
 
-  &.active
+  // &.active

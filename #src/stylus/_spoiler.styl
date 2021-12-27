@@ -1,7 +1,6 @@
 .uspoiler-btn-active
   display: inline-flex
-  justify-content: center
-  align-items: center
+  flex-content-position center center
   position: relative
 
   padding: 15px 0px 15px 0px
@@ -25,7 +24,7 @@
 
     margin: 0px 0px 0px 7px
     padding: 5px 5px 5px 5px
-    @include size (10px,10px)
+    block-size 10px 10px
 
     border-top: 2px solid #000
     border-right: 2px solid #000
@@ -37,9 +36,9 @@
     @media (max-width: 426px)
       transform: rotate(135deg)
 
-.uspoiler-content-active
+// .uspoiler-content-active
 
-  &.active
+  // &.active
 
 @keyframes spoiler-arrow-totop
   0%

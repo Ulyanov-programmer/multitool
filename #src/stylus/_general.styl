@@ -1,10 +1,10 @@
 .container
   margin: auto
-  @media (min-width: $layoutWidth + px)
+  @media (min-width: unit($layoutWidth, px))
     // Insert the width of the container as a percentage of the width of the layout.
     width: 70%
 
-  @media (min-width: 768px) and (max-width: $layoutWidth + px)
+  @media (min-width: 768px) and (max-width: unit($layoutWidth, px))
     width: 70%
 
   @media (min-width: 426px) and (max-width: 768px)
@@ -22,7 +22,7 @@
     position: absolute
     top: 0
     left: 0
-    @include size (100%,100%)
+    block-size 100% 100%
     object-fit: cover
 
 .adaptive-video
@@ -34,11 +34,11 @@
     position: absolute
     top: 0
     left: 0
-    @include size (100%,100%)
+    size(100%,100%)
     object-fit: contain
 
 .sidebar
-  $toMobileWidth: 950px
+  $toMobileWidth = 950px
   height: 100%
   z-index: 5
 
@@ -65,14 +65,14 @@
     top: 10px
     overflow: auto
 
-    @include firstLevelElementsMargin(30)
+    firstLevelElementsMargin 30
 
     @media (max-width: $toMobileWidth)
       height: 100%
 
-  &__block
+  // &__block
 
-  &-block
+  // &-block
 
   &__show-btn
     display: none
@@ -95,7 +95,7 @@
 
     svg
       transition: all 0.5s ease
-      @include size (100%,100%)
+      block-size 100% 100%
 
       &:hover, &:focus
         rect
@@ -104,10 +104,10 @@
       rect
         transition: all 0.5s ease
         fill: #dddddd
-      .bg
-      .top-arrow
-      .center-arrow
-      .bottom-arrow
+      // .bg
+      // .top-arrow
+      // .center-arrow
+      // .bottom-arrow
 
 .modal-window
   position: fixed
@@ -115,22 +115,17 @@
   top: 0
   left: 0
   background: #00000046
-  @include size (100%,100%)
+  block-size 100% 100%
 
-  overflow: hidden
-  opacity: 0
-  pointer-events: none
+  hide()
   transition: all 0.5s ease
 
   &.active
-    overflow-y: scroll
-    opacity: 1
-    pointer-events: all
+    show()
 
   &__body
-    display: flex
+    flex-set row nowrap
     height: 100%
-    justify-content: center
-    align-items: center
+    flex-content-position center center
 
-.button
+// .button
