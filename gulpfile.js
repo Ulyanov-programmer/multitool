@@ -144,6 +144,7 @@ function fonts() {
 }
 
 let fs = require('fs');
+
 function fontsStyle() {
   let file_content = fs.readFileSync(fontsFIlePath)
     .toString().replace(/\s/g, "");
@@ -162,14 +163,17 @@ function fontsStyle() {
             let fontWeightName = fontFileNameLC.replace('italic', '').split('-')[1];
 
             let fontName = fontFileName.split('-')[0] ? fontFileName.split('-')[0] : fontFileName;
-            let fontStyle = fontFileNameLC.includes('italic') ? 'italic' : 'normal';
             let fontWeight = fontWeightName ? fontWeightName : fontFileName;
+            let fontStyle = 'normal';
+            if (fontFileNameLC.includes('italic') || fontFileNameLC.includes('it')) {
+              fontStyle = 'italic';
+            }
 
             fontWeight = getFontWeightFromString(fontWeight);
             fontName = concatFontWeightWithName(fontName, fontWeightName);
 
             fs.appendFile(fontsFIlePath,
-              `@include font('${fontName}','${fontFileName}', '${fontWeight}', ${fontStyle});\r\n`,
+              `fontStyle('${fontName}',${fontFileName}, '${fontWeight}', ${fontStyle});\r\n`,
               () => { });
           }
           c_fontname = fontFileName;
