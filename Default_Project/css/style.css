@@ -656,7 +656,7 @@ address {
 }
 
 .modal-window.active {
-  overflow-y: scroll;
+  overflow: auto;
   opacity: 1;
   pointer-events: all;
 }

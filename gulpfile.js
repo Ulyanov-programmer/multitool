@@ -164,10 +164,7 @@ function fontsStyle() {
 
             let fontName = fontFileName.split('-')[0] ? fontFileName.split('-')[0] : fontFileName;
             let fontWeight = fontWeightName ? fontWeightName : fontFileName;
-            let fontStyle = 'normal';
-            if (fontFileNameLC.includes('italic') || fontFileNameLC.includes('it')) {
-              fontStyle = 'italic';
-            }
+            let fontStyle = fontFileNameLC.includes('italic') ? 'italic' : 'normal';
 
             fontWeight = getFontWeightFromString(fontWeight);
             fontName = concatFontWeightWithName(fontName, fontWeightName);

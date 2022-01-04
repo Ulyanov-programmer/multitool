@@ -1,4 +1,4 @@
-export const someSwiper = new Swiper('.swiper', {
+export const demoSwiper = new Swiper('.swiper', {
   /*
 
   navigation: {

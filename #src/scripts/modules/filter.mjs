@@ -31,7 +31,3 @@ export default class Filter {
     }
   }
 }
-/*
-? For working add data-attributes [ data-filt-content="type" ] for filter buttons,
-? And [ data-content-type="type" ] for content-blocks.
-*/

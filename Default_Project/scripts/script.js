@@ -31,8 +31,11 @@ new SpoilerMenu(
 import Filter from './modules/filter.min.mjs';
 
 /*
+? For working add data-attributes [ data-filt-content="type" ] for filter buttons,
+? And [ data-content-type="type" ] for content-blocks.
+
 In theory, you can declare multiple filters to work separately. 
-But at the moment this functionality has not been tested in practice. 
+But at the moment this functionality has not been tested in practice.
 */
 let filter = new Filter(
   // filter Buttons Selector, should contain data-filt-content attribute.
@@ -87,7 +90,7 @@ How it works?
 */
 let scrollElement = new ScrollElement(
   // scroll Buttons Selector, should contain data-scroll-to attribute.
-  // i recommend use this value.
+  // I recommend use this value.
   '[data-scroll-to]',
 
   // If you use a fixed header, enter its selector here 
@@ -97,9 +100,8 @@ let scrollElement = new ScrollElement(
 )
 
 // sliders //
-/*
-You can set your sliders in sliders.js. Try Ctrl + P.
-*/
+// You can set your sliders in sliders.js. Try Ctrl + P.
+//? Remove me if you don't need sliders
 import * as sliders from './sliders.js';
 
 
