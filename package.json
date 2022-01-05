@@ -24,7 +24,11 @@
     "gulp-stylus": "^2.7.0",
     "gulp-ttf2woff2": "^4.0.1",
     "gulp-uglify-es": "^2.0.0",
-    "gulp-webp-html-fix": "^1.0.3"
+    "gulp-webp-html-fix": "^1.0.3",
+    "gulp-typescript": "^6.0.0-alpha.1",
+    "typescript": "^4.5.4"
   },
-  "dependencies": {}
+  "dependencies": {
+    "swiper": "^7.4.1"
+  }
 }

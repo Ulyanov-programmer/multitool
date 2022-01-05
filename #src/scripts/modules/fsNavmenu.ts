@@ -3,7 +3,7 @@ export default class FsNavmenu {
   static fsNavmenu;
   static header = document.querySelector('header');
 
-  constructor(burgerBtnSelector, fsNavmenuSelector) {
+  constructor(burgerBtnSelector: string, fsNavmenuSelector) {
     if (burgerBtnSelector && fsNavmenuSelector) {
 
       FsNavmenu.burgerBtn = document.querySelector(burgerBtnSelector);

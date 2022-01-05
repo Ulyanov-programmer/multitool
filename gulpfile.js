@@ -13,16 +13,16 @@ const paths = {
   scr: {
     html: [`${sourceFolder}/*.html`, `!${sourceFolder}/*.htm`],
     css: [`${sourceFolder}/stylus/*.styl`, `!${sourceFolder}/stylus/_*.styl`],
-    scripts: `${sourceFolder}/scripts/*.js`,
-    scriptModules: `${sourceFolder}/scripts/modules/*.mjs`,
+    scripts: `${sourceFolder}/scripts/*.{ts,js}`,
+    scriptModules: `${sourceFolder}/scripts/modules/*.{ts,js}`,
     images: `${sourceFolder}/img/**/*.{jpg,png,svg,gif,ico,webp}`,
     fonts: `${sourceFolder}/fonts/*`,
   },
   watch: {
     html: [`${sourceFolder}/**/*.html`, `${sourceFolder}/**/*.htm`],
     css: `${sourceFolder}/stylus/**/*.styl`,
-    scripts: `${sourceFolder}/scripts/**/*.js`,
-    scriptModules: `${sourceFolder}/scripts/**/*.mjs`,
+    scripts: `${sourceFolder}/scripts/**/*.{ts,js}`,
+    scriptModules: `${sourceFolder}/scripts/**/*.{ts,js}`,
     images: `${sourceFolder}/img/**/*.{jpg,png,svg,gif,ico,webp}`,
   },
   clean: `./${projectFolder}/`,
@@ -33,9 +33,10 @@ let { dest } = require('gulp'),
   gulp = require('gulp'),
   lp = require('gulp-load-plugins')(),
   fileinclude = require('gulp-file-include');
-  
+
 lp.browsersync = require('browser-sync').create();
 lp.fileInclude = require('gulp-file-include');
+lp.ts = require('gulp-typescript');
 lp.del = require('del');
 lp.stylus = require('gulp-stylus');
 lp.autoprefixer = require('gulp-autoprefixer');
@@ -97,26 +98,34 @@ function recreate() {
   return lp.del(paths.clean);
 }
 function scripts() {
-  //? save .js files
+  //? saving .ts files
   gulp.src(paths.scr.scripts)
     .pipe(fileinclude())
+    .pipe(lp.ts({
+      target: 'ES6',
+      allowJs: true,
+    }))
 
     .pipe(dest(paths.build.scripts))
     .pipe(lp.browsersync.stream());
 
-  //? save .mjs modules
+  //? save .ts modules
   return gulp.src(paths.scr.scriptModules)
     .pipe(fileinclude())
+    .pipe(lp.ts({
+      target: 'ES6',
+      allowJs: true,
+    }))
 
     // if you want to see not-minify .mjs modules
-    // .pipe(dest(paths.build.scriptModules))
+    .pipe(dest(paths.build.scriptModules))
 
     //save minimize and renaming new .mjs files
-    .pipe(lp.cleanJs())
-    .pipe(lp.rename({
-      extname: '.min.mjs'
-    }))
-    .pipe(dest(paths.build.scriptModules))
+    // .pipe(lp.cleanJs())
+    // .pipe(lp.rename({
+    //   extname: '.min.mjs'
+    // }))
+    // .pipe(dest(paths.build.scriptModules))
     .pipe(lp.browsersync.stream());
 }
 function images() {

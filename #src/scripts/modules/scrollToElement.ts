@@ -1,7 +1,7 @@
 export default class ScrollElement {
   static FIXED_HEADER_HEIGHT = 0;
 
-  constructor(scrollButtonsSelector, fixedHeaderSelector) {
+  constructor(scrollButtonsSelector, fixedHeaderSelector = null) {
     let scrollButtons = document.querySelectorAll(scrollButtonsSelector);
 
     if (scrollButtons.length >= 0) {

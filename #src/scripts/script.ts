@@ -2,7 +2,7 @@
 //? into several parts and connecting them to each page separately.
 
 // fsnavmenu //
-import FsNavmenu from './modules/fsNavmenu.min.mjs';
+import FsNavmenu from './modules/fsNavmenu.js';
 
 new FsNavmenu(
   // burger Button Selector
@@ -12,7 +12,7 @@ new FsNavmenu(
 );
 
 // spoiler //
-import SpoilerMenu from './modules/spoiler.min.mjs';
+import SpoilerMenu from './modules/spoiler.js';
 
 new SpoilerMenu(
   // spoiler Buttons Selector
@@ -28,7 +28,7 @@ new SpoilerMenu(
 );
 
 // filter //
-import Filter from './modules/filter.min.mjs';
+import Filter from './modules/filter.js';
 
 /*
 ? For working add data-attributes [ data-filt-content="type" ] for filter buttons,
@@ -45,7 +45,7 @@ let filter = new Filter(
 );
 
 // modal window //
-import ModalWindowMenu from './modules/modalWindow.min.mjs';
+import ModalWindowMenu from './modules/modalWindow.js';
 
 /*
 ? It works like this:
@@ -58,7 +58,7 @@ Also, when pressed, turns off the scrolling body.
 new ModalWindowMenu();
 
 // element-modal //
-import ElementModal from './modules/elementMenu.min.mjs';
+import ElementModal from './modules/elementMenu.js';
 
 let elementMenu1 = new ElementModal(
   /*
@@ -78,7 +78,7 @@ let elementMenu1 = new ElementModal(
 )
 
 // element-modal //
-import ScrollElement from './modules/scrollToElement.min.mjs';
+import ScrollElement from './modules/scrollToElement.js';
 
 // scroll-elements //
 
@@ -101,12 +101,14 @@ let scrollElement = new ScrollElement(
 
 // sliders //
 // You can set your sliders in sliders.js. Try Ctrl + P.
-//? Remove me if you don't need sliders
+//? Remove this strings if you don't need sliders
 import * as sliders from './sliders.js';
+// gulp-typescript removes all unused modules 
+let s = sliders
 
 
 // sidebar //
-import SidebarMenu from './modules/sidebar.min.mjs';
+import SidebarMenu from './modules/sidebar.js';
 
 new SidebarMenu(
   // selector of Sidebar. Should contain id of this sidebar

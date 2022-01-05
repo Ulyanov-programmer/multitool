@@ -2,9 +2,16 @@ export default class Filter {
   filterButtons;
   filterContentElements;
 
+  /**
+  *? this is try to use tsdocs.
+  * Register or update value for specified key.
+  * @param filtButtonsSelector Key to identify value in container.
+  * @param filtElementsSelector Value to inject.
+  * @returns Created new Filter
+  */
   constructor(filtButtonsSelector, filtElementsSelector) {
     if (filtButtonsSelector && filtElementsSelector) {
-      
+
       this.filterButtons = document.querySelectorAll(filtButtonsSelector);
       this.filterContentElements = document.querySelectorAll(filtElementsSelector);;
 
