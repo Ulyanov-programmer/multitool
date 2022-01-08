@@ -1,20 +1,21 @@
+import { isNullOrWhiteSpaces } from "./general.js";
+
 export default class SidebarMenu {
-  sidebars;
-  sidebarButtons;
+  private sidebars: NodeListOf<HTMLElement>;
+  private sidebarButtons: NodeListOf<HTMLElement>;
 
-  constructor(selectorOfSidebars, selectorOfSidebarButtons) {
-    if (selectorOfSidebars && selectorOfSidebarButtons) {
+  constructor(selectorOfSidebars: string, selectorOfSidebarButtons: string) {
+    if (isNullOrWhiteSpaces(selectorOfSidebars, selectorOfSidebarButtons)) {
+      throw '[SIDEBAR] Incorrect arguments!'
+    }
 
-      this.sidebars = document.querySelector(selectorOfSidebars);
-      this.sidebarButtons = document.querySelectorAll(selectorOfSidebarButtons);
+    this.sidebars = document.querySelectorAll(selectorOfSidebars);
+    this.sidebarButtons = document.querySelectorAll(selectorOfSidebarButtons);
 
-      for (const sidebarBtn of this.sidebarButtons) {
-        sidebarBtn.addEventListener('click', () => {
-          this.toggleSidebar(sidebarBtn);
-        });
-      }
-    } else {
-      throw '[SIDEBAR] Length of sidebar elements must be more than zero.'
+    for (const sidebarBtn of this.sidebarButtons) {
+      sidebarBtn.addEventListener('click', () => {
+        this.toggleSidebar(sidebarBtn);
+      });
     }
   }
 

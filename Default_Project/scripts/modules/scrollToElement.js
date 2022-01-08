@@ -1,19 +1,18 @@
+import { isNullOrWhiteSpaces } from "./general.js";
 export default class ScrollElement {
     constructor(scrollButtonsSelector, fixedHeaderSelector = null) {
-        let scrollButtons = document.querySelectorAll(scrollButtonsSelector);
-        if (scrollButtons.length >= 0) {
-            for (let scrollButton of scrollButtons) {
-                scrollButton.addEventListener('click', () => {
-                    this.scrollToElement(scrollButton);
-                });
-            }
-            if (fixedHeaderSelector && fixedHeaderSelector != '') {
-                let heightHeight = document.querySelector(fixedHeaderSelector).clientHeight;
-                ScrollElement.FIXED_HEADER_HEIGHT = heightHeight;
-            }
+        if (isNullOrWhiteSpaces(scrollButtonsSelector)) {
+            throw new Error('[SCROLL-ELEMENTS] Incorrect scroll-buttons selector!');
         }
-        else {
-            throw '[SCROLL-ELEMENTS] The specified elements were not found!';
+        let scrollButtons = document.querySelectorAll(scrollButtonsSelector);
+        for (let scrollButton of scrollButtons) {
+            scrollButton.addEventListener('click', () => {
+                this.scrollToElement(scrollButton);
+            });
+        }
+        if (isNullOrWhiteSpaces(fixedHeaderSelector) == false) {
+            let heightHeight = document.querySelector(fixedHeaderSelector).clientHeight;
+            ScrollElement.FIXED_HEADER_HEIGHT = heightHeight;
         }
     }
     scrollToElement(scrollButton) {

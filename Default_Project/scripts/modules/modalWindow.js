@@ -1,8 +1,12 @@
+import { isNullOrWhiteSpaces, returnScrollbarWidth } from "./general.js";
 let body = document.body;
 export default class ModalWindowMenu {
-    constructor() {
-        ModalWindowMenu.FS_MENU_CLASSLIST = document.querySelector('.fullscreen-navmenu').classList;
-        ModalWindowMenu.modalLinks = document.querySelectorAll('[data-modal-link]');
+    constructor(modalLinksSelector, modalClosersSelector, fsMenuSelector) {
+        if (isNullOrWhiteSpaces(modalLinksSelector, modalClosersSelector, fsMenuSelector)) {
+            throw new Error('[MODALWINDOW] Incorrect arguments!');
+        }
+        ModalWindowMenu.fsMenuClasslist = document.querySelector(fsMenuSelector).classList;
+        ModalWindowMenu.modalLinks = document.querySelectorAll(modalLinksSelector);
         for (let modalLink of ModalWindowMenu.modalLinks) {
             modalLink.addEventListener("click", () => {
                 let popupId = modalLink.dataset.modalLink;
@@ -12,7 +16,7 @@ export default class ModalWindowMenu {
                 }
             });
         }
-        ModalWindowMenu.modalClosers = document.querySelectorAll('.modal-closer');
+        ModalWindowMenu.modalClosers = document.querySelectorAll(modalClosersSelector);
         for (const modalCloser of ModalWindowMenu.modalClosers) {
             modalCloser.addEventListener("click", () => {
                 this.closeModal(modalCloser.closest('.modal-window'), true);
@@ -29,12 +33,7 @@ export default class ModalWindowMenu {
     showOrHideModal(modalElement) {
         if (modalElement && ModalWindowMenu.UNLOCK) {
             let activeModal = document.querySelector('.modal-window.active');
-            if (activeModal) {
-                this.closeModal(activeModal, false);
-            }
-            else {
-                this.toggleBodyScroll(false);
-            }
+            activeModal ? this.closeModal(activeModal, false) : this.toggleBodyScroll(false);
             modalElement.classList.add("active");
         }
         modalElement.addEventListener("click", (e) => {
@@ -47,13 +46,15 @@ export default class ModalWindowMenu {
     closeModal(modalWindow, bodyIsScrollable) {
         if (ModalWindowMenu.UNLOCK) {
             modalWindow.classList.remove("active");
-            if (bodyIsScrollable) {
-                this.toggleBodyScroll(true);
-            }
+            setTimeout(() => {
+                if (bodyIsScrollable) {
+                    this.toggleBodyScroll(true);
+                }
+            }, transitionTimeout * 1000);
         }
     }
     toggleBodyScroll(toggleScrollOn) {
-        if (toggleScrollOn && !ModalWindowMenu.FS_MENU_CLASSLIST.contains('active')) {
+        if (toggleScrollOn && !ModalWindowMenu.fsMenuClasslist.contains('active')) {
             body.style.paddingRight = '0';
             body.classList.remove("scroll-block");
         }
@@ -70,11 +71,5 @@ export default class ModalWindowMenu {
 }
 // This is to prevent the new modal from opening too quickly.
 ModalWindowMenu.UNLOCK = true;
-// When the body loses scrolling, the page may shift.
-// To fix this, it will be padded in the size of the scrollbar.
-function returnScrollbarWidth() {
-    let scrollbarWidth = window.innerWidth - document.querySelector('html').clientWidth;
-    return scrollbarWidth;
-}
 // Transition time FROM modal window style (in seconds or .number).
 const transitionTimeout = 0.5;

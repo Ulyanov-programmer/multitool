@@ -1,19 +1,18 @@
+import { isNullOrWhiteSpaces } from "./general.js";
 export default class ElementModal {
     constructor(contentElementsSelector, modalElementSelector, animationDuration) {
-        if (contentElementsSelector && modalElementSelector && animationDuration >= 0) {
-            this.contentElements = document.querySelectorAll(contentElementsSelector);
-            this.modalElement = document.querySelector(modalElementSelector);
-            for (const contentEl of this.contentElements) {
-                contentEl.addEventListener('mouseenter', () => {
-                    this.appendModalMenu(contentEl, this.modalElement);
-                });
-                contentEl.addEventListener('mouseleave', () => {
-                    this.removeModalMenu(contentEl, animationDuration);
-                });
-            }
+        if (isNullOrWhiteSpaces(contentElementsSelector, modalElementSelector) || animationDuration < 0) {
+            throw '[ELEMENT-MODAL] Incorrect arguments!';
         }
-        else {
-            throw '[ELEMENT-MODAL] The specified elements were not found!';
+        this.contentElements = document.querySelectorAll(contentElementsSelector);
+        this.modalElement = document.querySelector(modalElementSelector);
+        for (const contentEl of this.contentElements) {
+            contentEl.addEventListener('mouseenter', () => {
+                this.appendModalMenu(contentEl, this.modalElement);
+            });
+            contentEl.addEventListener('mouseleave', () => {
+                this.removeModalMenu(contentEl, animationDuration);
+            });
         }
     }
     appendModalMenu(contentElement, modalElement) {

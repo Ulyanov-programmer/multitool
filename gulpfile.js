@@ -33,6 +33,7 @@ let { dest } = require('gulp'),
   gulp = require('gulp'),
   lp = require('gulp-load-plugins')(),
   fileinclude = require('gulp-file-include');
+  fs = require('fs');
 
 lp.browsersync = require('browser-sync').create();
 lp.fileInclude = require('gulp-file-include');
@@ -152,7 +153,6 @@ function fonts() {
     .pipe(dest(paths.build.fonts));
 }
 
-let fs = require('fs');
 
 function fontsStyle() {
   let file_content = fs.readFileSync(fontsFIlePath)

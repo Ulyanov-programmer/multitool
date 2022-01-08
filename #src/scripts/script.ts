@@ -55,7 +55,11 @@ import ModalWindowMenu from './modules/modalWindow.js';
  * it looks for a block with a name inside data-modal-link and gives it the "active" class.
 Also, when pressed, turns off the scrolling body.
 */
-new ModalWindowMenu();
+new ModalWindowMenu(
+  '[data-modal-link]', 
+  '.modal-closer',
+  '.fullscreen-navmenu',
+);
 
 // element-modal //
 import ElementModal from './modules/elementMenu.js';
@@ -77,10 +81,9 @@ let elementMenu1 = new ElementModal(
   300,
 )
 
-// element-modal //
-import ScrollElement from './modules/scrollToElement.js';
 
 // scroll-elements //
+import ScrollElement from './modules/scrollToElement.js';
 
 /*
 ? Use this if you have scroll buttons.
@@ -103,7 +106,6 @@ let scrollElement = new ScrollElement(
 // You can set your sliders in sliders.js. Try Ctrl + P.
 //? Remove this strings if you don't need sliders
 import * as sliders from './sliders.js';
-// gulp-typescript removes all unused modules 
 let s = sliders
 
 

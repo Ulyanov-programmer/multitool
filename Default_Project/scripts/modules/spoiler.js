@@ -1,38 +1,36 @@
+import { isNullOrWhiteSpaces } from "./general.js";
 export default class SpoilerMenu {
-    constructor(spButtonsSelector, spContentBlocksSelector, spoilerVisibleWidth, animationDuration) {
-        if (spButtonsSelector && spContentBlocksSelector && spoilerVisibleWidth >= 0 && animationDuration >= 0) {
-            SpoilerMenu.spoilerButtons = document.querySelectorAll(spButtonsSelector);
-            SpoilerMenu.spoilerContentElements = document.querySelectorAll(spContentBlocksSelector);
-            SpoilerMenu.spoilerVisibleWidth = spoilerVisibleWidth;
-            SpoilerMenu.animationDuration = animationDuration;
-            this.toggleToSpoilers();
+    constructor(btnsSelector, contentBlocksSelector, visibleWidth, animationDuration) {
+        if (isNullOrWhiteSpaces(btnsSelector, contentBlocksSelector)
+            || visibleWidth < 0 || animationDuration < 0) {
+            throw '[SPOILERS] Incorrect arguments!';
         }
-        else {
-            throw '[SPOILERS] Set the necessary classes for buttons and content!';
+        SpoilerMenu.spoilerButtons = document.querySelectorAll(btnsSelector);
+        SpoilerMenu.spoilerContentElements = document.querySelectorAll(contentBlocksSelector);
+        if (SpoilerMenu.spoilerButtons.length != SpoilerMenu.spoilerContentElements.length) {
+            throw '[SPOILERS] The count of spoiler buttons and spoiler content-elements must be more than zero.';
         }
+        SpoilerMenu.spoilerVisibleWidth = visibleWidth;
+        SpoilerMenu.animationDuration = animationDuration;
+        this.toggleToSpoilers();
         //? Determines spoilers when the page is resized.
         window.addEventListener(`resize`, this.toggleToSpoilers);
     }
     toggleToSpoilers() {
-        if (SpoilerMenu.spoilerButtons.length > 0) {
-            for (let i = 0; i < SpoilerMenu.spoilerContentElements.length; i++) {
-                if (window.innerWidth <= SpoilerMenu.spoilerVisibleWidth) {
-                    SpoilerMenu.spoilerContentElements[i].classList.add('uspoiler-content-active');
-                    SpoilerMenu.spoilerContentElements[i].hidden = true;
-                    SpoilerMenu.spoilerButtons[i].classList.add('uspoiler-btn-active');
-                }
-                else {
-                    SpoilerMenu.spoilerContentElements[i].classList.remove('uspoiler-content-active');
-                    SpoilerMenu.spoilerContentElements[i].hidden = false;
-                    SpoilerMenu.spoilerButtons[i].classList.remove('uspoiler-btn-active');
-                }
+        for (let i = 0; i < SpoilerMenu.spoilerContentElements.length; i++) {
+            if (window.innerWidth <= SpoilerMenu.spoilerVisibleWidth) {
+                SpoilerMenu.spoilerContentElements[i].classList.add('uspoiler-content-active');
+                SpoilerMenu.spoilerContentElements[i].hidden = true;
+                SpoilerMenu.spoilerButtons[i].classList.add('uspoiler-btn-active');
             }
-            for (let spoilerButton of SpoilerMenu.spoilerButtons) {
-                spoilerButton.addEventListener('click', this.toggleSpoilerState);
+            else {
+                SpoilerMenu.spoilerContentElements[i].classList.remove('uspoiler-content-active');
+                SpoilerMenu.spoilerContentElements[i].hidden = false;
+                SpoilerMenu.spoilerButtons[i].classList.remove('uspoiler-btn-active');
             }
         }
-        else {
-            throw '[SPOILERS] The length of spoiler buttons and spoiler content-elements must be more than zero.';
+        for (let spoilerButton of SpoilerMenu.spoilerButtons) {
+            spoilerButton.addEventListener('click', this.toggleSpoilerState);
         }
     }
     toggleSpoilerState(event) {
@@ -55,11 +53,11 @@ function spoilerUp(spoilerContainer, duration) {
         containerStyle.height = spoilerContainer.clientHeight + 'px';
         spoilerContainer.clientHeight;
         containerStyle.overflow = 'hidden';
-        containerStyle.height = 0;
-        containerStyle.paddingTop = 0;
-        containerStyle.paddingBottom = 0;
-        containerStyle.marginTop = 0;
-        containerStyle.marginBottom = 0;
+        containerStyle.height = '0';
+        containerStyle.paddingTop = '0';
+        containerStyle.paddingBottom = '0';
+        containerStyle.marginTop = '0';
+        containerStyle.marginBottom = '0';
         window.setTimeout(() => {
             spoilerContainer.hidden = true;
             containerStyle.removeProperty('height');
@@ -83,11 +81,11 @@ function spoilerDown(spoilerContainer, duration) {
         let containerStyle = spoilerContainer.style;
         let height = spoilerContainer.clientHeight;
         containerStyle.overflow = 'hidden';
-        containerStyle.height = 0;
-        containerStyle.paddingTop = 0;
-        containerStyle.paddingBottom = 0;
-        containerStyle.marginTop = 0;
-        containerStyle.marginBottom = 0;
+        containerStyle.height = '0';
+        containerStyle.paddingTop = '0';
+        containerStyle.paddingBottom = '0';
+        containerStyle.marginTop = '0';
+        containerStyle.marginBottom = '0';
         spoilerContainer.clientHeight;
         containerStyle.transitionProperty = 'height, margin, padding';
         containerStyle.transitionDuration = duration + 'ms';

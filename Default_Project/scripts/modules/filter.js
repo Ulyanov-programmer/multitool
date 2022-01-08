@@ -1,24 +1,16 @@
+import { isNullOrWhiteSpaces } from "./general.js";
 export default class Filter {
-    /**
-    *? this is try to use tsdocs.
-    * Register or update value for specified key.
-    * @param filtButtonsSelector Key to identify value in container.
-    * @param filtElementsSelector Value to inject.
-    * @returns Created new Filter
-    */
     constructor(filtButtonsSelector, filtElementsSelector) {
-        if (filtButtonsSelector && filtElementsSelector) {
-            this.filterButtons = document.querySelectorAll(filtButtonsSelector);
-            this.filterContentElements = document.querySelectorAll(filtElementsSelector);
-            ;
-            for (const filtButton of this.filterButtons) {
-                filtButton.addEventListener('click', () => {
-                    this.filtContentByType(filtButton, this.filterContentElements);
-                });
-            }
+        if (isNullOrWhiteSpaces(filtButtonsSelector, filtElementsSelector)) {
+            throw '[FILTER] Count of filter elements must be more than zero.';
         }
-        else {
-            throw '[FILTER] Length of filter elements must be more than zero.';
+        this.filterButtons = document.querySelectorAll(filtButtonsSelector);
+        this.filterContentElements = document.querySelectorAll(filtElementsSelector);
+        ;
+        for (const filtButton of this.filterButtons) {
+            filtButton.addEventListener('click', () => {
+                this.filtContentByType(filtButton, this.filterContentElements);
+            });
         }
     }
     filtContentByType(filterButton, filterContentElements) {

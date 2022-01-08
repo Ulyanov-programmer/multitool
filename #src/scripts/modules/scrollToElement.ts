@@ -1,27 +1,27 @@
+import { isNullOrWhiteSpaces } from "./general.js";
+
 export default class ScrollElement {
-  static FIXED_HEADER_HEIGHT = 0;
+  private static FIXED_HEADER_HEIGHT = 0;
 
-  constructor(scrollButtonsSelector, fixedHeaderSelector = null) {
-    let scrollButtons = document.querySelectorAll(scrollButtonsSelector);
+  constructor(scrollButtonsSelector: string, fixedHeaderSelector: string = null) {
+    if (isNullOrWhiteSpaces(scrollButtonsSelector)) {
+      throw new Error('[SCROLL-ELEMENTS] Incorrect scroll-buttons selector!');
+    }
+    let scrollButtons = document.querySelectorAll<HTMLElement>(scrollButtonsSelector);
 
-    if (scrollButtons.length >= 0) {
-
-      for (let scrollButton of scrollButtons) {
-        scrollButton.addEventListener('click', () => {
-          this.scrollToElement(scrollButton);
-        });
-      }
-      if (fixedHeaderSelector && fixedHeaderSelector != '') {
-        let heightHeight = document.querySelector(fixedHeaderSelector).clientHeight;
-        ScrollElement.FIXED_HEADER_HEIGHT = heightHeight;
-      }
-    } else {
-      throw '[SCROLL-ELEMENTS] The specified elements were not found!'
+    for (let scrollButton of scrollButtons) {
+      scrollButton.addEventListener('click', () => {
+        this.scrollToElement(scrollButton);
+      });
+    }
+    if (isNullOrWhiteSpaces(fixedHeaderSelector) == false) {
+      let heightHeight = document.querySelector(fixedHeaderSelector).clientHeight;
+      ScrollElement.FIXED_HEADER_HEIGHT = heightHeight;
     }
   }
 
 
-  scrollToElement(scrollButton) {
+  scrollToElement(scrollButton: HTMLElement) {
     let scrollElement = document.querySelector(`${scrollButton.dataset.scrollTo}`);
 
     if (scrollElement) {
