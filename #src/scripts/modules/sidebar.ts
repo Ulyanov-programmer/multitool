@@ -4,6 +4,17 @@ export default class SidebarMenu {
   private sidebars: NodeListOf<HTMLElement>;
   private sidebarButtons: NodeListOf<HTMLElement>;
 
+  /**
+   * Provides functionality for sidebar.
+   * 
+   * @param selectorOfSidebars
+   * Selector of sidebars. Should contain id of this sidebar.
+   * @param selectorOfSidebarButtons
+   * Selector for buttons that open some sidebar. Should contains data-open-sidebar='sidebarSelector'.
+   * 
+   * @throws Some selector is null or white spaces - 
+   * This error will be printed to the console if some input argument are null or white spaces.
+   */
   constructor(selectorOfSidebars: string, selectorOfSidebarButtons: string) {
     if (isNullOrWhiteSpaces(selectorOfSidebars, selectorOfSidebarButtons)) {
       throw '[SIDEBAR] Incorrect arguments!'

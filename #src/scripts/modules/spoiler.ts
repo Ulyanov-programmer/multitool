@@ -6,6 +6,38 @@ export default class SpoilerMenu {
   private static spoilerVisibleWidth: number
   private static animationDuration: number
 
+  /**
+   * Provides functionality for spoiler.
+   * 
+   * @param btnsSelector
+   * Selector for ALL buttons that open some spoiler.
+   * @param contentBlocksSelector
+   * Selector of blocks that will appear when the spoiler is activated. 
+   * Blocks should be after spoiler open button in html, see example below.
+   * @param visibleWidth
+   * If the width of the viewport is greater than input width, 
+   * the spoilers will not be active and their styles will not be applied.
+   * If the viewport is smaller than input width, the spoilers will be active.
+   * @param animationDuration
+   * Animation duration in ms, unless you want spoilers to open and close too quickly.
+   * 
+   * @example 
+   * Blocks should be after spoiler button in html like this:
+   * ```html
+   * <div class='spoiler'>
+   *   <div class='spoiler__body'>
+   *     <span class='uspoiler-btn'>Spoiler button</span>
+   *     <!-- spoiler block -->
+   *     <ul class='uspoiler-content'>
+   *       <li></li>
+   *     </ul>
+   *   </div>
+   * </div>
+   * ```
+   * @throws Some selector is null or white spaces - 
+   * This error will be printed to the console if some input argument are null or white spaces.
+   * @throws The count of buttons and content-elements equal zero or less.
+   */
   constructor(btnsSelector: string, contentBlocksSelector: string, visibleWidth: number, animationDuration: number) {
     if (isNullOrWhiteSpaces(btnsSelector, contentBlocksSelector)
       || visibleWidth < 0 || animationDuration < 0) {

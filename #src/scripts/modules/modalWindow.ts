@@ -8,6 +8,32 @@ export default class ModalWindowMenu {
   // This is to prevent the new modal from opening too quickly.
   private static UNLOCK: boolean = true
 
+  /**
+   * Provides functionality for modal windows.
+   
+   * @param modalLinksSelector
+   * Selector of buttons for opening modal windows.
+   * For correct operation, you need to add the attribute [data-modal-link]
+   * @param modalClosersSelector
+   * Selector of buttons for closing modal windows (should be in html of modal).
+   * @param fsMenuSelector
+   * Selector of fullscreen navmenu (burger fs-navmenu), need for correct work with it.
+   * 
+   * @remarks I recommend to use my html-construction of modal-window like this:
+   * @example
+   * ```html
+   *<section id="modal_1" class='modal-window'>
+   *  <div class="modal-window__body">
+   *    <div class="modal-window__content">
+   *      <button type='button' class="modal-closer"></button>
+   *    </div>
+   *  </div>
+   *</section>
+   * ```
+   * 
+   * @throws Some selector is null or white spaces - 
+   * This error will be printed to the console if some input argument are null or white spaces.
+   */
   constructor(modalLinksSelector: string, modalClosersSelector: string, fsMenuSelector: string) {
     if (isNullOrWhiteSpaces(modalLinksSelector, modalClosersSelector, fsMenuSelector)) {
       throw new Error('[MODALWINDOW] Incorrect arguments!');
@@ -33,7 +59,7 @@ export default class ModalWindowMenu {
       });
     }
 
-    
+
     document.addEventListener('keydown', (key) => {
       let keyCode = key.code;
 

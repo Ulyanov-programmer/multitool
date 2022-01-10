@@ -1,12 +1,1 @@
-export function returnScrollbarWidth() {
-    let scrollbarWidth = window.innerWidth - document.querySelector('html').clientWidth;
-    return scrollbarWidth;
-}
-export function isNullOrWhiteSpaces(...strings) {
-    for (const str of strings) {
-        if (!str || str.trim() === '') {
-            return true;
-        }
-    }
-    return false;
-}
+export function returnScrollbarWidth(){return window.innerWidth-document.querySelector("html").clientWidth}export function isNullOrWhiteSpaces(...r){for(const t of r)if(!t||""===t.trim())return!0;return!1}

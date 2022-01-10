@@ -3,6 +3,19 @@ import { isNullOrWhiteSpaces } from "./general.js";
 export default class ScrollElement {
   private static FIXED_HEADER_HEIGHT = 0;
 
+  /**
+   * Provides functionality for scrolling by clicking on buttons.
+   * 
+   * @param scrollButtonsSelector
+   * Selector of buttons for scrolling by click.
+   * For correct work, you need to add the attribute [data-scroll-to='.selectorOfElem']
+   * @param fixedHeaderSelector
+   * Selector of header with position: fixed. Not required.
+   * If you use a fixed header, enter, so that its height is taken into account when scrolling.
+   * 
+   * @throws scrollButtonsSelector is null or white spaces - 
+   * This error will be printed to the console if some input argument are null or white spaces.
+   */
   constructor(scrollButtonsSelector: string, fixedHeaderSelector: string = null) {
     if (isNullOrWhiteSpaces(scrollButtonsSelector)) {
       throw new Error('[SCROLL-ELEMENTS] Incorrect scroll-buttons selector!');

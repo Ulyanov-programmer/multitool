@@ -1,92 +1,69 @@
 //? If you are making a multi-page site, i recommend dividing the contents of this file
 //? into several parts and connecting them to each page separately.
+//? Also, TSDoc is used here, so read the tips. Try hover on some constructor.
 // fsnavmenu //
 import FsNavmenu from './modules/fsNavmenu.js';
-new FsNavmenu(
-// burger Button Selector
-'#burgerButton', 
-// fs Navmenu Selector
-'.fullscreen-navmenu');
+new FsNavmenu('#burgerButton', '.fullscreen-navmenu');
 // spoiler //
 import SpoilerMenu from './modules/spoiler.js';
-new SpoilerMenu(
-// spoiler Buttons Selector
-'.uspoiler-btn', 
-// spoiler Content Blocks Selector
-'.uspoiler-content', 
-// As soon as the screen width is less than this width, 
-// the spoiler(i.e. they will be given the spoiler classes).
-2560, 
-// animation Duration of spoilers, unless you want the spoilers to open and close too quickly.
-// joke, this is a required parameter :3
-500);
+new SpoilerMenu('.uspoiler-btn', '.uspoiler-content', 2560, 500);
 // filter //
 import Filter from './modules/filter.js';
 /*
-? For working add data-attributes [ data-filt-content="type" ] for filter buttons,
-? And [ data-content-type="type" ] for content-blocks.
+  For working add data-attributes [ data-filt-content="type" ] for filter buttons,
+  And [ data-content-type="type" ] for content-blocks.
 
-In theory, you can declare multiple filters to work separately.
-But at the moment this functionality has not been tested in practice.
+  When you press the filter__button, all elements that do not have
+  a value similar to the filter__button attribute value will be hidden.
+  To reset the filter through a filter__button,
+  you should use the 'all' value for the filter__button attribute.
+
+  In theory, you can declare multiple filters to work separately.
+  But at the moment this functionality has not been tested in practice.
 */
-let filter = new Filter(
-// filter Buttons Selector, should contain data-filt-content attribute.
-'.filter__button', 
-// filter Elements Selector, should contain data-content-type attribute.
-'.filter__item');
+let filter = new Filter('.filter__button', '.filter__item');
 // modal window //
 import ModalWindowMenu from './modules/modalWindow.js';
 /*
-? It works like this:
-* Finds all elements that contain data-modal-link and .modal-closer.
-* The first ones trigger the event of opening the modal window, the second ones close it.
-* After clicking on one of these elements,
- * it looks for a block with a name inside data-modal-link and gives it the "active" class.
-Also, when pressed, turns off the scrolling body.
+  It works like this:
+  Finds all elements that contain data-modal-link and .modal-closer.
+  The first ones trigger the event of opening the modal window, the second ones close it.
+  After clicking on one of these elements,
+  it looks for a block with a name inside data-modal-link and gives it the "active" class.
+
+  Also, when pressed, turns off the scrolling body.
 */
-new ModalWindowMenu('[data-modal-link]', '.modal-closer', '.fullscreen-navmenu');
+new ModalWindowMenu(
+// i recommend this value.
+'[data-modal-link]', '.modal-closer', '.fullscreen-navmenu');
 // element-modal //
 import ElementModal from './modules/elementMenu.js';
-let elementMenu1 = new ElementModal(
 /*
-? It works like this:
-* When hovering over a contentElement,
- * clones the modalElement and places it absolutely above the contentElement.
-* Moving the mouse away from the contentElement deletes the pasted modalElement copy.
+  It works like this:
+  When hovering over a contentElement,
+  clones the modalElement and places it absolutely above the contentElement.
+  Moving the mouse away from the contentElement deletes the pasted modalElement copy.
 */
-// content Elements Selector
-'.el-menu__item', 
-// modal Element Selector
-'.el-menu__menu', 
-// animation Duration, unless you want the modal to open and close too quickly.
-// joke, this is a required parameter :3
-300);
+let elementMenu1 = new ElementModal('.el-menu__item', '.el-menu__menu', 300);
 // scroll-elements //
 import ScrollElement from './modules/scrollToElement.js';
 /*
-? Use this if you have scroll buttons.
-How it works?
-* When you press the scrollButton, you scroll to the block
- * indicated in data-scroll-to attribute of this button.
+  Use if you want to use buttons for scrolling.
+  How it works?
+  When you press a scrollButton, you scroll to the block
+  indicated in data-scroll-to attribute of this scrollButton.
 */
 let scrollElement = new ScrollElement(
-// scroll Buttons Selector, should contain data-scroll-to attribute.
 // I recommend use this value.
 '[data-scroll-to]');
+// sidebar //
+import SidebarMenu from './modules/sidebar.js';
+new SidebarMenu('.sidebar', '.sidebar__show-btn');
 // sliders //
 // You can set your sliders in sliders.js. Try Ctrl + P.
 //? Remove this strings if you don't need sliders
 import * as sliders from './sliders.js';
 let s = sliders;
-// sidebar //
-import SidebarMenu from './modules/sidebar.js';
-new SidebarMenu(
-// selector of Sidebar. Should contain id of this sidebar
-'.sidebar', 
-// selector for buttons that open the sidebar. Should contain data-open-sidebar="someSidebar"
-// after clicking, they activate the "active" classes 
-// for the sidebar and the button itself.
-'.sidebar__show-btn');
 //? general //
 function showOrHideSubmenu(e) {
     const menuButton = e.target;

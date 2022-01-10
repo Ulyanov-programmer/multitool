@@ -44,7 +44,7 @@ lp.autoprefixer = require('gulp-autoprefixer');
 lp.groupMedia = require('gulp-group-css-media-queries');
 lp.cleanCss = require('gulp-clean-css');
 lp.rename = require('gulp-rename');
-lp.cleanJs = require('gulp-uglify-es').default;
+lp.terser = require('gulp-terser');
 lp.imagemin = require('gulp-imagemin');
 lp.ttf2woff2 = require('gulp-ttf2woff2');
 lp.webpHTML = require('gulp-webp-html-fix');
@@ -91,7 +91,7 @@ function watchFIles() {
   gulp.watch(paths.watch.html, html);
   gulp.watch([paths.watch.css], css);
   gulp.watch([paths.watch.scripts], scripts);
-  //? if you want work with .mjs modules.
+  //? if you want work with .ts modules.
   // gulp.watch([paths.watch.scriptModules], scripts);
   gulp.watch([paths.watch.images], images);
 }
@@ -99,7 +99,7 @@ function recreate() {
   return lp.del(paths.clean);
 }
 function scripts() {
-  //? saving .ts files
+  //? saving scripts files
   gulp.src(paths.scr.scripts)
     .pipe(fileinclude())
     .pipe(lp.ts({
@@ -110,7 +110,7 @@ function scripts() {
     .pipe(dest(paths.build.scripts))
     .pipe(lp.browsersync.stream());
 
-  //? save .ts modules
+  //? saving modules
   return gulp.src(paths.scr.scriptModules)
     .pipe(fileinclude())
     .pipe(lp.ts({
@@ -118,15 +118,12 @@ function scripts() {
       allowJs: true,
     }))
 
-    // if you want to see not-minify .mjs modules
+    // minimizing. Delete if you want to see not-minify files.
+    .pipe(lp.terser({
+      ecma: 2016,
+      safari10: true,
+    }))
     .pipe(dest(paths.build.scriptModules))
-
-    //save minimize and renaming new .mjs files
-    // .pipe(lp.cleanJs())
-    // .pipe(lp.rename({
-    //   extname: '.min.mjs'
-    // }))
-    // .pipe(dest(paths.build.scriptModules))
     .pipe(lp.browsersync.stream());
 }
 function images() {
