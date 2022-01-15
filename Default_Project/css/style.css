@@ -242,7 +242,7 @@ address {
 
 .navmenu__list .submenu-open-button::after {
   display: inline-block;
-  content: "";
+  content: '';
   width: 4px;
   height: 4px;
   border-top: 1.5px solid #fff;
@@ -447,7 +447,6 @@ address {
 }
 
 .footer {
-  background: #636363;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -458,7 +457,11 @@ address {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   min-height: 100px;
+  background: #636363;
 }
 
 .footer__body a {
@@ -497,7 +500,7 @@ address {
 
 .uspoiler-btn-active:after {
   display: inline-block;
-  content: "";
+  content: '';
   margin: 0 0 0 7px;
   padding: 5px 5px 5px 5px;
   width: 10px;
@@ -515,49 +518,49 @@ address {
 
 @-webkit-keyframes spoiler-arrow-totop {
   0% {
-    -webkit-transform: rotate(135deg) translate(0%,50%);
-            transform: rotate(135deg) translate(0%,50%);
+    -webkit-transform: rotate(135deg) translate(0,50%);
+            transform: rotate(135deg) translate(0,50%);
   }
 
   100% {
-    -webkit-transform: rotate(-45deg) translate(-50%,0%);
-            transform: rotate(-45deg) translate(-50%,0%);
+    -webkit-transform: rotate(-45deg) translate(-50%,0);
+            transform: rotate(-45deg) translate(-50%,0);
   }
 }
 
 @keyframes spoiler-arrow-totop {
   0% {
-    -webkit-transform: rotate(135deg) translate(0%,50%);
-            transform: rotate(135deg) translate(0%,50%);
+    -webkit-transform: rotate(135deg) translate(0,50%);
+            transform: rotate(135deg) translate(0,50%);
   }
 
   100% {
-    -webkit-transform: rotate(-45deg) translate(-50%,0%);
-            transform: rotate(-45deg) translate(-50%,0%);
+    -webkit-transform: rotate(-45deg) translate(-50%,0);
+            transform: rotate(-45deg) translate(-50%,0);
   }
 }
 
 @-webkit-keyframes spoiler-arrow-tobottom {
   0% {
-    -webkit-transform: rotate(-45deg) translate(-50%,0%);
-            transform: rotate(-45deg) translate(-50%,0%);
+    -webkit-transform: rotate(-45deg) translate(-50%,0);
+            transform: rotate(-45deg) translate(-50%,0);
   }
 
   100% {
-    -webkit-transform: rotate(-225deg) translate(0%,50%);
-            transform: rotate(-225deg) translate(0%,50%);
+    -webkit-transform: rotate(-225deg) translate(0,50%);
+            transform: rotate(-225deg) translate(0,50%);
   }
 }
 
 @keyframes spoiler-arrow-tobottom {
   0% {
-    -webkit-transform: rotate(-45deg) translate(-50%,0%);
-            transform: rotate(-45deg) translate(-50%,0%);
+    -webkit-transform: rotate(-45deg) translate(-50%,0);
+            transform: rotate(-45deg) translate(-50%,0);
   }
 
   100% {
-    -webkit-transform: rotate(-225deg) translate(0%,50%);
-            transform: rotate(-225deg) translate(0%,50%);
+    -webkit-transform: rotate(-225deg) translate(0,50%);
+            transform: rotate(-225deg) translate(0,50%);
   }
 }
 
@@ -680,7 +683,7 @@ address {
 body {
   height: 100%;
   color: var(--main-font-color);
-  font: calc((100vw - 20rem)/(62.5 - 20) * (1 - 0.75) + 0.75rem) var(--main-font-family);
+  font: calc((100vw - 20rem)/(90 - 20) * (1 - 0.75) + 0.75rem) var(--main-font-family);
 }
 
 body.scroll-block {
@@ -745,7 +748,7 @@ body button {
 
 .filter__title {
   text-transform: uppercase;
-  font-size: calc((100vw - 20rem)/(62.5 - 20) * (1.5625 - 1.25) + 0.75rem);
+  font-size: calc((100vw - 20rem)/(90 - 20) * (1.5625 - 1.25) + 0.75rem);
 }
 
 .filter__header {
@@ -815,7 +818,7 @@ body button {
 .swiper span {
   display: inline-block;
   text-transform: uppercase;
-  font-size: calc((100vw - 20rem)/(62.5 - 20) * (1.5625 - 1.25) + 0.75rem);
+  font-size: calc((100vw - 20rem)/(90 - 20) * (1.5625 - 1.25) + 0.75rem);
 }
 
 .swiper-slide {
@@ -850,7 +853,7 @@ body button {
 
 .demo-spoiler__title {
   text-transform: uppercase;
-  font-size: calc((100vw - 20rem)/(62.5 - 20) * (1.5625 - 1.25) + 0.75rem);
+  font-size: calc((100vw - 20rem)/(90 - 20) * (1.5625 - 1.25) + 0.75rem);
 }
 
 .el-menu {
@@ -867,7 +870,7 @@ body button {
 
 .el-menu__title {
   text-transform: uppercase;
-  font-size: calc((100vw - 20rem)/(62.5 - 20) * (1.5625 - 1.25) + 0.75rem);
+  font-size: calc((100vw - 20rem)/(90 - 20) * (1.5625 - 1.25) + 0.75rem);
 }
 
 .el-menu__content {
@@ -949,7 +952,7 @@ body button {
   }
 }
 
-@media (min-width:1000px) {
+@media (min-width:1440px) {
   .container {
     width: 70%;
   }
@@ -1035,7 +1038,7 @@ body button {
   }
 }
 
-@media (min-width:768px) and (max-width:1000px) {
+@media (min-width:768px) and (max-width:1440px) {
   .container {
     width: 70%;
   }

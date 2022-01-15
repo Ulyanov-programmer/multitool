@@ -1,53 +1,47 @@
 .uspoiler-btn-active
-  display: inline-flex
+  display inline-flex
   flex-content-position center center
-  position: relative
+  position relative
+  padding 15px 0 15px 0
+  transition all 0.3s ease
+  cursor pointer
 
-  padding: 15px 0px 15px 0px
-  transition: all 0.3s ease
-  cursor: pointer
-
-  @media (max-width: 426px)
-    flex-flow: column nowrap
+  @media (max-width 426px)
+    flex-flow column nowrap
 
   &.active
-    color: #d6d6d6
+    color #d6d6d6
 
     &:after
-      margin: 0px 0px 0px 7px
-      animation: spoiler-arrow-totop 1s
-      animation-fill-mode: forwards
+      margin 0 0 0 7px
+      animation spoiler-arrow-totop 1s
+      animation-fill-mode forwards
 
   &:after
-    display: inline-block
-    content: ""
-
-    margin: 0px 0px 0px 7px
-    padding: 5px 5px 5px 5px
+    display inline-block
+    content ''
+    margin 0 0 0 7px
+    padding 5px 5px 5px 5px
     block-size 10px 10px
+    border-top 2px solid #000
+    border-right 2px solid #000
+    animation spoiler-arrow-tobottom 1s
+    animation-fill-mode forwards
+    transition all 0.3s ease
 
-    border-top: 2px solid #000
-    border-right: 2px solid #000
-    animation: spoiler-arrow-tobottom 1s
-    animation-fill-mode: forwards
-
-    transition: all 0.3s ease
-
-    @media (max-width: 426px)
-      transform: rotate(135deg)
-
-// .uspoiler-content-active
-
-  // &.active
+    @media (max-width 426px)
+      transform rotate(135deg)
 
 @keyframes spoiler-arrow-totop
   0%
-    transform: rotate(135deg) translate(0%, 50%)
+    transform rotate(135deg) translate(0, 50%)
+
   100%
-    transform: rotate(-45deg) translate(-50%, 0%)
+    transform rotate(-45deg) translate(-50%, 0)
 
 @keyframes spoiler-arrow-tobottom
   0%
-    transform: rotate(-45deg) translate(-50%, 0%)
+    transform rotate(-45deg) translate(-50%, 0)
+
   100%
-    transform: rotate(-225deg) translate(0%, 50%)
+    transform rotate(-225deg) translate(0, 50%)

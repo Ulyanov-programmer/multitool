@@ -1,166 +1,165 @@
-$layoutWidth = 1000
+/* Insert layout width below. 
+If this is not done, when using a responsive font, the result will not match the layout.
+Please note that specifying a value less than 425 is dangerous for the psyche. */
+$layoutWidth = 1440
 $mainFontSize = 16
+
 html
-  --main-font-color: #fff
-  --main-font-family: Arial
-  --bg: gray
+  --main-font-color #fff
+  --main-font-family Arial
+  --bg gray
 
-@import "_nullStyle"
-@import "_mixins"
-@import "_header"
-@import "_footer"
-@import "_fonts"
-@import "_spoiler"
-@import "_general"
+@import '_nullStyle'
+@import '_mixins'
+@import '_header'
+@import '_footer'
+@import '_fonts'
+@import '_spoiler'
+@import '_general'
 
-body 
-  height: 100%
-  color: var(--main-font-color)
-  font: adapt-fsize(16) var(--main-font-family)
+body
+  height 100%
+  color var(--main-font-color)
+  font adapt-fsize(16) var(--main-font-family)
 
   &.scroll-block
-    overflow: hidden
+    overflow hidden
 
   button
-    font-family: var(--main-font-family)
-    color: var(--main-font-color)
+    font-family var(--main-font-family)
+    color var(--main-font-color)
 
 .main
-  width: 100%
+  width 100%
 
   &__body
     firstLevelElementsMargin 20
-    background: var(--bg)
+    background var(--bg)
 
 .fullscreen
   flex-set row nowrap
   flex-content-position center center
-  position: relative
-
+  position relative
   block-size auto 90vh
-  adaptive-property 'min-height' 400  300
-
+  adaptive-property 'min-height' 400 300
   // background: url('../img/') no-repeat center / cover
-  background: rgb(54, 54, 54)
+  background rgb(54, 54, 54)
 
   // &__body
-
   &__scroll
-    position: absolute
-    bottom: 5%
+    position absolute
+    bottom 5%
 
 .filter
-  text-align: center
-  background: gray
+  text-align center
+  background gray
 
   &__body
-    padding: 20px 0 20px 0
+    padding 20px 0 20px 0
     firstLevelElementsMargin 20
 
   &__title
-    text-transform: uppercase
-    font-size: adapt-fsize(25, 20)
+    text-transform uppercase
+    font-size adapt-fsize(25, 20)
 
   &__header
     flex-set row wrap
-    justify-content: center
-    gap: 15px
+    justify-content center
+    gap 15px
 
   &__button
-    padding: 10px 7px 10px 7px
-    border: 1px solid #fff
+    padding 10px 7px 10px 7px
+    border 1px solid #fff
+
     &:hover
-      background: #fff
-      color: #000
+      background #fff
+      color #000
 
   &__main
     flex-set row wrap
-    justify-content: center
-    gap: 15px
+    justify-content center
+    gap 15px
 
   &__item
-    padding: 10px 5px 10px 5px
+    padding 10px 5px 10px 5px
 
     &_green
-      background: green
+      background green
 
     &_blue
-      background: blue
+      background blue
 
     &_red
-      background: red
+      background red
 
     &_yellow
-      background: yellow
-      color: #000
+      background yellow
+      color #000
 
 .swiper
-  background: gray
-  text-align: center
+  background gray
+  text-align center
 
   span
-    display: inline-block
-    text-transform: uppercase
-    font-size: adapt-fsize(25, 20)
+    display inline-block
+    text-transform uppercase
+    font-size adapt-fsize(25, 20)
 
   &-slide
-    min-height: 100px
+    min-height 100px
     flex-set row nowrap
     flex-content-position center center
 
 .demo-spoiler
-  background: gray
-  text-align: center
+  background gray
+  text-align center
 
   &__body
-    padding: 20px 0 20px 0
+    padding 20px 0 20px 0
     firstLevelElementsMargin 20
 
   &__title
-    text-transform: uppercase
-    font-size: adapt-fsize(25, 20)
+    text-transform uppercase
+    font-size adapt-fsize(25, 20)
 
 .el-menu
-  text-align: center
+  text-align center
 
   &__body
-    padding: 20px 0 20px 0
+    padding 20px 0 20px 0
     firstLevelElementsMargin(20)
 
   &__title
-    text-transform: uppercase
-    font-size: adapt-fsize(25, 20)
+    text-transform uppercase
+    font-size adapt-fsize(25, 20)
 
   &__content
     flex-set row wrap
-    justify-content: center
+    justify-content center
 
   &__item
-    position: relative
-    border: 1px solid #fff
-    padding: 15px 15px 15px 15px
+    position relative
+    border 1px solid #fff
+    padding 15px 15px 15px 15px
+
     &:not(:last-child)
-      margin: 0 10px 0 0
+      margin 0 10px 0 0
 
   &__menu
-    position: absolute
-    top: 0
-    left: 0
+    position absolute
+    top 0
+    left 0
     block-size 100% 100%
-    background: #000000ab
-
+    background #000000ab
     flex-set row nowrap
     flex-content-position center center
+    transition all 0.3s ease
 
-    transition: all 0.3s ease
     &._non-active
-      visibility: hidden
-      opacity: 0
-      pointer-events: none
+      visibility hidden
+      opacity 0
+      pointer-events none
 
 .uspoiler-content
-
   li
-    padding: 5px 0px 5px 0px
-
-  // &.active
+    padding 5px 0 5px 0
