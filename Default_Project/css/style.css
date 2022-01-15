@@ -411,7 +411,6 @@ address {
           transform-origin: center;
 }
 
-.burger-btn__rect-center,
 .burger-btn__rect-bottom {
   -webkit-transform-origin: center;
       -ms-transform-origin: center;

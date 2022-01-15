@@ -38,7 +38,6 @@ export default class FsNavmenu {
       document.body.classList.toggle('scroll-block');
       document.body.style.paddingRight = `${scrollbarWidth}px`;
 
-      FsNavmenu.header.classList.toggle('fixed-header');
       FsNavmenu.header.style.paddingRight = `${scrollbarWidth}px`;
 
       FsNavmenu.fsNavmenu.classList.toggle('active');
