@@ -7,6 +7,7 @@ export default class ModalWindowMenu {
   private static fsMenuClasslist: DOMTokenList
   // This is to prevent the new modal from opening too quickly.
   private static UNLOCK: boolean = true
+  public static transitionTimeout: number
 
   /**
    * Provides functionality for modal windows.
@@ -16,8 +17,10 @@ export default class ModalWindowMenu {
    * For correct operation, you need to add the attribute [data-modal-link]
    * @param modalClosersSelector
    * Selector of buttons for closing modal windows (should be in html of modal).
-   * @param fsMenuSelector
+   * @param fsMenuSelector 
    * Selector of fullscreen navmenu (burger fs-navmenu), need for correct work with it.
+   * @param transitionTimeout
+   * Transition time from modal window style (in seconds or .number). 
    * 
    * @remarks I recommend to use my html-construction of modal-window like this:
    * @example
@@ -34,10 +37,13 @@ export default class ModalWindowMenu {
    * @throws Some selector is null or white spaces - 
    * This error will be printed to the console if some input argument are null or white spaces.
    */
-  constructor(modalLinksSelector: string, modalClosersSelector: string, fsMenuSelector: string) {
+  constructor(modalLinksSelector: string, modalClosersSelector: string, fsMenuSelector: string,
+    transitionTimeout: number) {
     if (isNullOrWhiteSpaces(modalLinksSelector, modalClosersSelector, fsMenuSelector)) {
       throw new Error('[MODALWINDOW] Incorrect arguments!');
     }
+
+    ModalWindowMenu.transitionTimeout = transitionTimeout;
     ModalWindowMenu.fsMenuClasslist = document.querySelector(fsMenuSelector).classList;
 
     ModalWindowMenu.modalLinks = document.querySelectorAll(modalLinksSelector);
@@ -71,7 +77,7 @@ export default class ModalWindowMenu {
   }
 
 
-  showOrHideModal(modalElement) {
+  private showOrHideModal(modalElement) {
     if (modalElement && ModalWindowMenu.UNLOCK) {
       let activeModal = document.querySelector<HTMLElement>('.modal-window.active');
 
@@ -88,7 +94,7 @@ export default class ModalWindowMenu {
     })
   }
 
-  closeModal(modalWindow: HTMLElement, bodyIsScrollable: boolean) {
+  private closeModal(modalWindow: HTMLElement, bodyIsScrollable: boolean) {
     if (ModalWindowMenu.UNLOCK) {
       modalWindow.classList.remove("active");
 
@@ -96,11 +102,11 @@ export default class ModalWindowMenu {
         if (bodyIsScrollable) {
           this.toggleBodyScroll(true);
         }
-      }, transitionTimeout * 1000);
+      }, ModalWindowMenu.transitionTimeout * 1000);
     }
   }
 
-  toggleBodyScroll(toggleScrollOn: boolean) {
+  private toggleBodyScroll(toggleScrollOn: boolean) {
     if (toggleScrollOn && !ModalWindowMenu.fsMenuClasslist.contains('active')) {
       body.style.paddingRight = '0';
       body.classList.remove("scroll-block");
@@ -113,12 +119,10 @@ export default class ModalWindowMenu {
     // Prevents a new window from opening too quickly.
     setTimeout(() => {
       ModalWindowMenu.UNLOCK = true;
-    }, transitionTimeout * 1000);
+    }, ModalWindowMenu.transitionTimeout * 1000);
   }
 }
 
-// Transition time FROM modal window style (in seconds or .number).
-const transitionTimeout = 0.5;
 
 
 

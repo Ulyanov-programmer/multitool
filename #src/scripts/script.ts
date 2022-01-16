@@ -40,7 +40,6 @@ let filter = new Filter(
   '.filter__button',
   '.filter__item',
 );
-
 // modal window //
 import ModalWindowMenu from './modules/modalWindow.js';
 
@@ -58,6 +57,7 @@ new ModalWindowMenu(
   '[data-modal-link]',
   '.modal-closer',
   '.fullscreen-navmenu',
+  0.5
 );
 
 // element-modal //

@@ -33,7 +33,7 @@ export default class Filter {
   }
 
 
-  filtContentByType(filterButton: HTMLElement, filterContentElements: NodeListOf<HTMLElement>) {
+  private filtContentByType(filterButton: HTMLElement, filterContentElements: NodeListOf<HTMLElement>) {
     let typeOfContent = filterButton.dataset.filtContent;
 
     for (const filtElement of filterContentElements) {

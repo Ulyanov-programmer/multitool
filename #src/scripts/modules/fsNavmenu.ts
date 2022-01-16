@@ -29,7 +29,7 @@ export default class FsNavmenu {
   }
 
 
-  showOrHideFullscreenNav(e: Event) {
+  private showOrHideFullscreenNav(e: Event) {
     let scrollbarWidth = returnScrollbarWidth();
 
     if (FsNavmenu.fsNavmenu !== undefined) {

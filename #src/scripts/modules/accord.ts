@@ -4,6 +4,7 @@ export default class Accordion {
   private accordButtons: NodeListOf<HTMLElement>
   private accordContentElements: Element[]
   private animationDuration: number
+  private isToggling: boolean = false
 
   /**
    * Provides functionality for an accordion.
@@ -69,9 +70,11 @@ export default class Accordion {
   }
 
 
-  toggleActiveElements(activeAccordButton: HTMLElement) {
-    if (activeAccordButton.classList.contains('active')) {
+  private toggleActiveElements(activeAccordButton: HTMLElement) {
+    if (activeAccordButton.classList.contains('active') || this.isToggling) {
       return
+    } else {
+      this.isToggling = true;
     }
     for (let accordBtn of this.accordButtons) {
       accordBtn.classList.remove('active');
@@ -90,11 +93,11 @@ export default class Accordion {
         } else {
           activeContentElement.removeAttribute('hidden');
         }
+        setTimeout(() => {
+          activeContentElement.classList.add('active');
+          this.isToggling = false
+        }, 10);
       }, this.animationDuration);
-    } 
-
-    setTimeout(() => {
-      activeContentElement.classList.add('active');
-    }, this.animationDuration > 0 ? this.animationDuration + 10 : 0);
+    }
   };
 }

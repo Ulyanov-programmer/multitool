@@ -34,7 +34,7 @@ export default class ScrollElement {
   }
 
 
-  scrollToElement(scrollButton: HTMLElement) {
+  private scrollToElement(scrollButton: HTMLElement) {
     let scrollElement = document.querySelector(`${scrollButton.dataset.scrollTo}`);
 
     if (scrollElement) {

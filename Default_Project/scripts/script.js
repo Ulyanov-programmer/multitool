@@ -35,7 +35,7 @@ import ModalWindowMenu from './modules/modalWindow.js';
 */
 new ModalWindowMenu(
 // i recommend this value.
-'[data-modal-link]', '.modal-closer', '.fullscreen-navmenu');
+'[data-modal-link]', '.modal-closer', '.fullscreen-navmenu', 0.5);
 // element-modal //
 import ElementModal from './modules/elementMenu.js';
 /*

@@ -61,7 +61,7 @@ export default class SpoilerMenu {
   }
 
 
-  toggleToSpoilers() {
+   private toggleToSpoilers() {
     for (let i = 0; i < SpoilerMenu.spoilerContentElements.length; i++) {
       if (window.innerWidth <= SpoilerMenu.spoilerVisibleWidth) {
         SpoilerMenu.spoilerContentElements[i].classList.add('uspoiler-content-active');
@@ -79,7 +79,7 @@ export default class SpoilerMenu {
     }
   }
 
-  toggleSpoilerState(event) {
+  private toggleSpoilerState(event) {
     let targetSpoilerButton = event.target;
     let spoilerContainer = targetSpoilerButton.nextElementSibling;
     let animationDuration = SpoilerMenu.animationDuration;

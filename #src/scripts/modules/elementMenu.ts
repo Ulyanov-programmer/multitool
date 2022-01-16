@@ -36,7 +36,7 @@ export default class ElementModal {
   }
 
 
-  appendModalMenu(contentElement: HTMLElement, modalElement: HTMLElement) {
+  private appendModalMenu(contentElement: HTMLElement, modalElement: HTMLElement) {
     let modalElementClone = modalElement.cloneNode(true) as HTMLElement;
 
     contentElement.append(modalElementClone);
@@ -44,7 +44,7 @@ export default class ElementModal {
       modalElementClone.classList.remove('_non-active');
     }, 30)
   }
-  removeModalMenu(contentElement: HTMLElement, animationDuration: number) {
+  private removeModalMenu(contentElement: HTMLElement, animationDuration: number) {
     // Try to get modal block.
     let modalMenu = contentElement.lastElementChild;
 

@@ -30,7 +30,7 @@ export default class SidebarMenu {
     }
   }
 
-  toggleSidebar(eventButton) {
+  private toggleSidebar(eventButton) {
     let parentSidebar = document.getElementById(eventButton.dataset.openSidebar);
     eventButton.classList.toggle('active');
     parentSidebar.classList.toggle('active');
