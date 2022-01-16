@@ -105,6 +105,14 @@ new SidebarMenu(
 import * as sliders from './sliders.js';
 let s = sliders
 
+// element-modal //
+import Accordion from './modules/accord.js';
+
+let someAccrod = new Accordion(
+  '.accordion__btn',
+  '.accordion__item',
+  500
+)
 
 //? general //
 

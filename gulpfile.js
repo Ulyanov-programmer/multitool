@@ -33,7 +33,7 @@ let { dest } = require('gulp'),
   gulp = require('gulp'),
   lp = require('gulp-load-plugins')(),
   fileinclude = require('gulp-file-include');
-  fs = require('fs');
+fs = require('fs');
 
 lp.browsersync = require('browser-sync').create();
 lp.fileInclude = require('gulp-file-include');
@@ -117,6 +117,8 @@ function scripts() {
       target: 'ES6',
       allowJs: true,
     }))
+    // use this if you're also annoyed that the gulp is shutdown due to a compiler error.
+    .on('error', () => { })
 
     // minimizing. Delete if you want to see not-minify files.
     .pipe(lp.terser({

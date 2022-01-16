@@ -18,14 +18,12 @@
         <!-- ? Use if you need a side menu. -->
         <aside id="sidebar1" class="sidebar content__sidebar">
           <button data-open-sidebar="sidebar1" class="sidebar__show-btn" aria-label='show-sidebar' type='button'>
-            <svg id='sidebar-svg' version="1.1" height='50' width='50' xmlns="http://www.w3.org/2000/svg"
-              xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 16 16" xml:space="preserve">
+            <svg id='sidebar-svg' version="1.1" height='50' width='50' xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+              viewBox="0 0 16 16" xml:space="preserve">
               <circle cx="8" cy="8" r="8" class="bg" />
-              <rect x="2.4" y="5.6" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -3.0849 5.733)" class="top-arrow"
-                width='6' height='2' />
+              <rect x="2.4" y="5.6" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -3.0849 5.733)" class="top-arrow" width='6' height='2' />
               <rect x="3.6" y="7" width='10' class="center-arrow" height='2' />
-              <rect x="2.4" y="8.4" transform="matrix(0.7071 0.7071 -0.7071 0.7071 8.2222 -1.0626)" class="bottom-arrow"
-                width='6' height='2' />
+              <rect x="2.4" y="8.4" transform="matrix(0.7071 0.7071 -0.7071 0.7071 8.2222 -1.0626)" class="bottom-arrow" width='6' height='2' />
             </svg>
           </button>
           <div class="sidebar__body">
@@ -37,8 +35,8 @@
         <button class="fullscreen__scroll" type='button' data-scroll-to=".filter">Scroll</button>
       </section>
       <section class='filter'>
-        <div class='filter__body container'>
-          <h6 class='filter__title'>filter</h6>
+        <div class='filter__body body container'>
+          <h6 class='filter__title title'>filter</h6>
           <header class="filter__header">
             <button class='filter__button' data-filt-content="red" type='button'>Red</button>
             <button class='filter__button' data-filt-content="green" type='button'>Green</button>
@@ -55,8 +53,8 @@
         </div>
       </section>
       <section class='demo-spoiler'>
-        <div class='demo-spoiler__body'>
-          <h6 class='demo-spoiler__title'>spoiler</h6>
+        <div class='demo-spoiler__body body'>
+          <h6 class='demo-spoiler__title title'>spoiler</h6>
           <span class='uspoiler-btn'>Spoiler button</span>
           <ul class='uspoiler-content'>
             <li>spoiler element</li>
@@ -88,7 +86,7 @@
       <!--? If you want to use the swiper in a grid container, 
             give some width (minmax, px) for container columns. -->
       <div class="swiper">
-        <span>Slider Swiper</span>
+        <span title>Slider Swiper</span>
         <div class="swiper-wrapper">
           <div class="swiper-slide">
             swipe me
@@ -99,8 +97,8 @@
         </div>
       </div>
       <section class='el-menu'>
-        <div class='el-menu__body'>
-          <h6 class='el-menu__title'>element-menu demo</h6>
+        <div class='el-menu__body body'>
+          <h6 class='el-menu__title title'>element-menu demo</h6>
           <div class="el-menu__content">
             <div class="el-menu__item">
               Lorem ispum <br>
@@ -117,6 +115,53 @@
           </div>
           <div class="el-menu__menu _non-active">
             Lorem ispum ispum lorem!
+          </div>
+        </div>
+      </section>
+      <section class='accordion'>
+        <div class='accordion__body body'>
+          <h6 class='accordion__title title'>Accordion</h6>
+          <div class="accordion__container">
+            <button data-toggle-elem-number="0" class="accordion__btn">1</button>
+            <button data-toggle-elem-number="1" class="accordion__btn">2</button>
+            <button data-toggle-elem-number="2" class="accordion__btn">3</button>
+            <div class="accordion__items">
+              <pre class="accordion__item">
+                1
+                Небо пустого цвета.Нас пожирает листопад
+                Исход из слепого лета и вслед погоня наугад
+                Кипит колокольный лепет,дымят забытые войска
+                
+                А вдруг всё то,что ищем
+                обретается при вскрытии
+                телесного родного дорогого себя</pre>
+              <pre class="accordion__item">
+                2
+                Снега провожают дикий и лихорадочный поход
+                Вечерние густые лики,безостановочный народ
+                Бессмертные и живые в одной оскаленной цепи
+
+                А вдруг всё то,что ищем —
+                далеко за горизонтом
+                на смертельной истребительной дороге всё на север</pre>
+              <pre class="accordion__item">
+                3
+                Зашить ледяную рану и впредь давиться леденцом
+                Шагать тяжело,упрямо или катиться колесом
+                Заглядывать в чужие окна,пытать счастливые дома —
+
+                А вдруг всё то,что ищем
+                прямо где-то здесь смеётся
+                например—внутри зеркально-новогоднего фонарика
+                
+                Вселенская Большая Любовь
+                Вселенская Большая Любовь
+                Вселенская Большая Любовь
+
+                Моя волшебная игрушка в пустоте
+                Моя голодная копилка в пустоте
+                Моя секретная калитка в пустоте</pre>
+            </div>
           </div>
         </div>
       </section>

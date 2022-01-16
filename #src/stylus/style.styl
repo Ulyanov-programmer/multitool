@@ -1,4 +1,4 @@
-/* Insert layout width below. 
+/* Insert layout width below.
 If this is not done, when using a responsive font, the result will not match the layout.
 Please note that specifying a value less than 425 is dangerous for the psyche. */
 $layoutWidth = 1440
@@ -51,16 +51,7 @@ body
     bottom 5%
 
 .filter
-  text-align center
   background gray
-
-  &__body
-    padding 20px 0 20px 0
-    firstLevelElementsMargin 20
-
-  &__title
-    text-transform uppercase
-    font-size adapt-fsize(25, 20)
 
   &__header
     flex-set row wrap
@@ -112,27 +103,8 @@ body
 
 .demo-spoiler
   background gray
-  text-align center
-
-  &__body
-    padding 20px 0 20px 0
-    firstLevelElementsMargin 20
-
-  &__title
-    text-transform uppercase
-    font-size adapt-fsize(25, 20)
 
 .el-menu
-  text-align center
-
-  &__body
-    padding 20px 0 20px 0
-    firstLevelElementsMargin(20)
-
-  &__title
-    text-transform uppercase
-    font-size adapt-fsize(25, 20)
-
   &__content
     flex-set row wrap
     justify-content center
@@ -160,6 +132,32 @@ body
       opacity 0
       pointer-events none
 
-.uspoiler-content
-  li
-    padding 5px 0 5px 0
+.title
+  text-transform uppercase
+  font-size adapt-fsize(25, 20)
+
+.body
+  text-align center
+  padding 20px 0 20px 0
+  firstLevelElementsMargin 20
+
+.accordion
+  // &__container
+  &__btn
+    padding: 10px 10px 10px 10px
+    border: 1px solid #fff
+    &.active
+      transform: scale(1.1, 1.1)
+
+  &__items
+    position relative
+    width 50%
+    margin auto
+
+  &__item
+    text-align left
+    hide()
+    transition all 0.5s ease
+
+    &.active
+      show()

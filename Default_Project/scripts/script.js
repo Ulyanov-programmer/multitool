@@ -64,6 +64,9 @@ new SidebarMenu('.sidebar', '.sidebar__show-btn');
 //? Remove this strings if you don't need sliders
 import * as sliders from './sliders.js';
 let s = sliders;
+// element-modal //
+import Accordion from './modules/accord.js';
+let someAccrod = new Accordion('.accordion__btn', '.accordion__item', 500);
 //? general //
 function showOrHideSubmenu(e) {
     const menuButton = e.target;
