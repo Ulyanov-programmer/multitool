@@ -38,7 +38,7 @@ export default class Accordion {
    * This error will be printed to the console if some input argument are null or white spaces.
    * @throws The count of buttons != the count content-elements.
    */
-  constructor(btnsSelector: string, contentBlockSelector: string, animationDuration: number, 
+  constructor(btnsSelector: string, contentBlockSelector: string, animationDuration: number,
     addActiveForFirstElements: boolean = true) {
     if (isNullOrWhiteSpaces(btnsSelector, contentBlockSelector) || animationDuration < 0) {
       throw '[ACCORDION] Incorrect arguments!'
@@ -46,7 +46,7 @@ export default class Accordion {
 
     this.accordButtons = document.querySelectorAll(btnsSelector);
     this.accordContentElements = Array.from(document.querySelectorAll(contentBlockSelector).values())
-    this.animationDuration = animationDuration;
+    this.animationDuration = animationDuration + 100;
 
     if (this.accordButtons.length != this.accordContentElements.length) {
       throw '[ACCORDION] The count of buttons and content-elements must be more than zero.'
@@ -81,6 +81,7 @@ export default class Accordion {
     }
     activeAccordButton.classList.add('active');
 
+
     let activeContentElement: HTMLElement;
     activeContentElement = this.accordContentElements[activeAccordButton.dataset.toggleElemNumber];
 
@@ -95,9 +96,15 @@ export default class Accordion {
         }
         setTimeout(() => {
           activeContentElement.classList.add('active');
-          this.isToggling = false
         }, 10);
+
+        this.togglingToFalseWithAwait(this)
       }, this.animationDuration);
     }
   };
+  private async togglingToFalseWithAwait(thisAccordion: Accordion) {
+    await new Promise(r => setTimeout(() => {
+      thisAccordion.isToggling = false;
+    }, thisAccordion.animationDuration));
+  }
 }
