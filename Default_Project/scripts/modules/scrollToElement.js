@@ -1,1 +1,42 @@
-import{isNullOrWhiteSpaces}from"./general.js";export default class ScrollElement{constructor(e,l=null){if(isNullOrWhiteSpaces(e))throw new Error("[SCROLL-ELEMENTS] Incorrect scroll-buttons selector!");let t=document.querySelectorAll(e);for(let o of t)o.addEventListener("click",(()=>{this.scrollToElement(o)}));if(0==isNullOrWhiteSpaces(l)){let e=document.querySelector(l).clientHeight;ScrollElement.FIXED_HEADER_HEIGHT=e}}scrollToElement(e){let l=document.querySelector(`${e.dataset.scrollTo}`);if(l){let e=window.pageYOffset+l.getBoundingClientRect().top;window.scrollTo({top:e-ScrollElement.FIXED_HEADER_HEIGHT,behavior:"smooth"})}}}ScrollElement.FIXED_HEADER_HEIGHT=0;
+import { isNullOrWhiteSpaces } from "./general.js";
+export default class ScrollElement {
+    /**
+     * Provides functionality for scrolling by clicking on buttons.
+     *
+     * @param scrollButtonsSelector
+     * Selector of buttons for scrolling by click.
+     * For correct work, you need to add the attribute [data-scroll-to='.selectorOfElem']
+     * @param fixedHeaderSelector
+     * Selector of header with position: fixed. Not required.
+     * If you use a fixed header, enter, so that its height is taken into account when scrolling.
+     *
+     * @throws scrollButtonsSelector is null or white spaces -
+     * This error will be printed to the console if some input argument are null or white spaces.
+     */
+    constructor(scrollButtonsSelector, fixedHeaderSelector = null) {
+        if (isNullOrWhiteSpaces(scrollButtonsSelector)) {
+            throw new Error('[SCROLL-ELEMENTS] Incorrect scroll-buttons selector!');
+        }
+        let scrollButtons = document.querySelectorAll(scrollButtonsSelector);
+        for (let scrollButton of scrollButtons) {
+            scrollButton.addEventListener('click', () => {
+                this.scrollToElement(scrollButton);
+            });
+        }
+        if (isNullOrWhiteSpaces(fixedHeaderSelector) == false) {
+            let heightHeight = document.querySelector(fixedHeaderSelector).clientHeight;
+            ScrollElement.FIXED_HEADER_HEIGHT = heightHeight;
+        }
+    }
+    scrollToElement(scrollButton) {
+        let scrollElement = document.querySelector(`${scrollButton.dataset.scrollTo}`);
+        if (scrollElement) {
+            let scrolltop = window.pageYOffset + scrollElement.getBoundingClientRect().top;
+            window.scrollTo({
+                top: scrolltop - ScrollElement.FIXED_HEADER_HEIGHT,
+                behavior: "smooth"
+            });
+        }
+    }
+}
+ScrollElement.FIXED_HEADER_HEIGHT = 0;

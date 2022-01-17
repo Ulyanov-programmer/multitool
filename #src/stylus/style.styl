@@ -46,9 +46,16 @@ body
   background rgb(54, 54, 54)
 
   // &__body
+
   &__scroll
     position absolute
     bottom 5%
+
+  .adaptive-image
+    padding 0 0 10% 0
+
+    img
+      top -60%
 
 .filter
   background gray
@@ -144,10 +151,11 @@ body
 .accordion
   // &__container
   &__btn
-    padding: 10px 10px 10px 10px
-    border: 1px solid #fff
+    padding 10px 10px 10px 10px
+    border 1px solid #fff
+
     &.active
-      transform: scale(1.1, 1.1)
+      transform scale(1.1, 1.1)
 
   &__items
     position relative

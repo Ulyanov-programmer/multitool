@@ -737,6 +737,14 @@ body button {
   bottom: 5%;
 }
 
+.fullscreen .adaptive-image {
+  padding: 0 0 10% 0;
+}
+
+.fullscreen .adaptive-image img {
+  top: -60%;
+}
+
 .filter {
   background: #808080;
 }

@@ -114,6 +114,15 @@ let someAccrod = new Accordion(
   500
 )
 
+// parallax //
+import { Parallax, ParallaxElement} from './modules/parallax.js';
+
+let someParallaxMenu = new Parallax('.fullscreen__body',
+  new ParallaxElement('.fullscreen__bg-img', 5)
+)
+  
+
+
 //? general //
 
 function showOrHideSubmenu(e) {

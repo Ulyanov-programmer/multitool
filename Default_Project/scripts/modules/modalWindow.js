@@ -1,1 +1,102 @@
-import{isNullOrWhiteSpaces,returnScrollbarWidth}from"./general.js";let body=document.body;export default class ModalWindowMenu{constructor(o,e,l,d){if(isNullOrWhiteSpaces(o,e,l))throw new Error("[MODALWINDOW] Incorrect arguments!");ModalWindowMenu.transitionTimeout=d,ModalWindowMenu.fsMenuClasslist=document.querySelector(l).classList,ModalWindowMenu.modalLinks=document.querySelectorAll(o);for(let t of ModalWindowMenu.modalLinks)t.addEventListener("click",(()=>{let o=t.dataset.modalLink;if(void 0!==o){let e=document.getElementById(o);this.showOrHideModal(e)}}));ModalWindowMenu.modalClosers=document.querySelectorAll(e);for(const t of ModalWindowMenu.modalClosers)t.addEventListener("click",(()=>{this.closeModal(t.closest(".modal-window"),!0)}));document.addEventListener("keydown",(o=>{if("Escape"===o.code){let o=document.querySelector(".modal-window.active");this.closeModal(o,!0)}}))}showOrHideModal(o){if(o&&ModalWindowMenu.UNLOCK){let e=document.querySelector(".modal-window.active");e?this.closeModal(e,!1):this.toggleBodyScroll(!1),o.classList.add("active")}o.addEventListener("click",(e=>{e.target.closest(".modal-window__content")||this.closeModal(o,!0)}))}closeModal(o,e){ModalWindowMenu.UNLOCK&&(o.classList.remove("active"),setTimeout((()=>{e&&this.toggleBodyScroll(!0)}),1e3*ModalWindowMenu.transitionTimeout))}toggleBodyScroll(o){o&&!ModalWindowMenu.fsMenuClasslist.contains("active")?(body.style.paddingRight="0",body.classList.remove("scroll-block")):(body.style.paddingRight=returnScrollbarWidth()+"px",body.classList.add("scroll-block")),ModalWindowMenu.UNLOCK=!1,setTimeout((()=>{ModalWindowMenu.UNLOCK=!0}),1e3*ModalWindowMenu.transitionTimeout)}}ModalWindowMenu.UNLOCK=!0;
+import { isNullOrWhiteSpaces, returnScrollbarWidth } from "./general.js";
+let body = document.body;
+export default class ModalWindowMenu {
+    /**
+     * Provides functionality for modal windows.
+     
+     * @param modalLinksSelector
+     * Selector of buttons for opening modal windows.
+     * For correct operation, you need to add the attribute [data-modal-link]
+     * @param modalClosersSelector
+     * Selector of buttons for closing modal windows (should be in html of modal).
+     * @param fsMenuSelector
+     * Selector of fullscreen navmenu (burger fs-navmenu), need for correct work with it.
+     * @param transitionTimeout
+     * Transition time from modal window style (in seconds or .number).
+     *
+     * @remarks I recommend to use my html-construction of modal-window like this:
+     * @example
+     * ```html
+     *<section id="modal_1" class='modal-window'>
+     *  <div class="modal-window__body">
+     *    <div class="modal-window__content">
+     *      <button type='button' class="modal-closer"></button>
+     *    </div>
+     *  </div>
+     *</section>
+     * ```
+     *
+     * @throws Some selector is null or white spaces -
+     * This error will be printed to the console if some input argument are null or white spaces.
+     */
+    constructor(modalLinksSelector, modalClosersSelector, fsMenuSelector, transitionTimeout) {
+        if (isNullOrWhiteSpaces(modalLinksSelector, modalClosersSelector, fsMenuSelector)) {
+            throw new Error('[MODALWINDOW] Incorrect arguments!');
+        }
+        ModalWindowMenu.transitionTimeout = transitionTimeout;
+        ModalWindowMenu.fsMenuClasslist = document.querySelector(fsMenuSelector).classList;
+        ModalWindowMenu.modalLinks = document.querySelectorAll(modalLinksSelector);
+        for (let modalLink of ModalWindowMenu.modalLinks) {
+            modalLink.addEventListener("click", () => {
+                let popupId = modalLink.dataset.modalLink;
+                if (popupId !== undefined) {
+                    let modal = document.getElementById(popupId);
+                    this.showOrHideModal(modal);
+                }
+            });
+        }
+        ModalWindowMenu.modalClosers = document.querySelectorAll(modalClosersSelector);
+        for (const modalCloser of ModalWindowMenu.modalClosers) {
+            modalCloser.addEventListener("click", () => {
+                this.closeModal(modalCloser.closest('.modal-window'), true);
+            });
+        }
+        document.addEventListener('keydown', (key) => {
+            let keyCode = key.code;
+            if (keyCode === 'Escape') {
+                let activeModal = document.querySelector('.modal-window.active');
+                this.closeModal(activeModal, true);
+            }
+        });
+    }
+    showOrHideModal(modalElement) {
+        if (modalElement && ModalWindowMenu.UNLOCK) {
+            let activeModal = document.querySelector('.modal-window.active');
+            activeModal ? this.closeModal(activeModal, false) : this.toggleBodyScroll(false);
+            modalElement.classList.add("active");
+        }
+        modalElement.addEventListener("click", (e) => {
+            // Checks if the pressed element has a CONTENT parent, if not, closes the modal.
+            if (!e.target.closest('.modal-window__content')) {
+                this.closeModal(modalElement, true);
+            }
+        });
+    }
+    closeModal(modalWindow, bodyIsScrollable) {
+        if (ModalWindowMenu.UNLOCK) {
+            modalWindow.classList.remove("active");
+            setTimeout(() => {
+                if (bodyIsScrollable) {
+                    this.toggleBodyScroll(true);
+                }
+            }, ModalWindowMenu.transitionTimeout * 1000);
+        }
+    }
+    toggleBodyScroll(toggleScrollOn) {
+        if (toggleScrollOn && !ModalWindowMenu.fsMenuClasslist.contains('active')) {
+            body.style.paddingRight = '0';
+            body.classList.remove("scroll-block");
+        }
+        else {
+            body.style.paddingRight = returnScrollbarWidth() + 'px';
+            body.classList.add('scroll-block');
+        }
+        ModalWindowMenu.UNLOCK = false;
+        // Prevents a new window from opening too quickly.
+        setTimeout(() => {
+            ModalWindowMenu.UNLOCK = true;
+        }, ModalWindowMenu.transitionTimeout * 1000);
+    }
+}
+// This is to prevent the new modal from opening too quickly.
+ModalWindowMenu.UNLOCK = true;

@@ -1,1 +1,145 @@
-import{isNullOrWhiteSpaces}from"./general.js";export default class SpoilerMenu{constructor(e,t,o,i){if(isNullOrWhiteSpaces(e,t)||o<0||i<0)throw"[SPOILERS] Incorrect arguments!";if(SpoilerMenu.spoilerButtons=document.querySelectorAll(e),SpoilerMenu.spoilerContentElements=document.querySelectorAll(t),SpoilerMenu.spoilerButtons.length!=SpoilerMenu.spoilerContentElements.length)throw"[SPOILERS] The count of spoiler buttons and spoiler content-elements must be more than zero.";SpoilerMenu.spoilerVisibleWidth=o,SpoilerMenu.animationDuration=i,this.toggleToSpoilers(),window.addEventListener("resize",this.toggleToSpoilers)}toggleToSpoilers(){for(let e=0;e<SpoilerMenu.spoilerContentElements.length;e++)window.innerWidth<=SpoilerMenu.spoilerVisibleWidth?(SpoilerMenu.spoilerContentElements[e].classList.add("uspoiler-content-active"),SpoilerMenu.spoilerContentElements[e].hidden=!0,SpoilerMenu.spoilerButtons[e].classList.add("uspoiler-btn-active")):(SpoilerMenu.spoilerContentElements[e].classList.remove("uspoiler-content-active"),SpoilerMenu.spoilerContentElements[e].hidden=!1,SpoilerMenu.spoilerButtons[e].classList.remove("uspoiler-btn-active"));for(let e of SpoilerMenu.spoilerButtons)e.addEventListener("click",this.toggleSpoilerState)}toggleSpoilerState(e){let t=e.target,o=t.nextElementSibling,i=SpoilerMenu.animationDuration;!1===o.classList.contains("_slide")&&(toggleSpoilerAnimation(o,i),t.classList.toggle("active"),o.classList.toggle("active"))}}function spoilerUp(e,t){if(!1===e.classList.contains("_slide")){e.classList.add("_slide");let o=e.style;o.transitionProperty="height, margin, padding",o.transitionDuration=t+"ms",o.height=e.clientHeight+"px",e.clientHeight,o.overflow="hidden",o.height="0",o.paddingTop="0",o.paddingBottom="0",o.marginTop="0",o.marginBottom="0",window.setTimeout((()=>{e.hidden=!0,o.removeProperty("height"),o.removeProperty("padding-top"),o.removeProperty("padding-bottom"),o.removeProperty("margin-top"),o.removeProperty("margin-bottom"),o.removeProperty("overflow"),o.removeProperty("transition-duration"),o.removeProperty("transition-property"),e.classList.remove("_slide")}),t)}}function spoilerDown(e,t){if(!1===e.classList.contains("_slide")){e.classList.add("_slide"),e.hidden&&(e.hidden=!1);let o=e.style,i=e.clientHeight;o.overflow="hidden",o.height="0",o.paddingTop="0",o.paddingBottom="0",o.marginTop="0",o.marginBottom="0",e.clientHeight,o.transitionProperty="height, margin, padding",o.transitionDuration=t+"ms",o.height=i+"px",o.removeProperty("padding-top"),o.removeProperty("padding-bottom"),o.removeProperty("margin-top"),o.removeProperty("margin-bottom"),window.setTimeout((()=>{o.removeProperty("height"),o.removeProperty("overflow"),o.removeProperty("transition-duration"),o.removeProperty("transition-property"),e.classList.remove("_slide")}),t)}}function toggleSpoilerAnimation(e,t){return e.hidden?spoilerDown(e,t):spoilerUp(e,t)}
+import { isNullOrWhiteSpaces } from "./general.js";
+export default class SpoilerMenu {
+    /**
+     * Provides functionality for spoiler.
+     *
+     * @param btnsSelector
+     * Selector for ALL buttons that open some spoiler.
+     * @param contentBlocksSelector
+     * Selector of blocks that will appear when the spoiler is activated.
+     * Blocks should be after spoiler open button in html, see example below.
+     * @param visibleWidth
+     * If the width of the viewport is greater than input width,
+     * the spoilers will not be active and their styles will not be applied.
+     * If the viewport is smaller than input width, the spoilers will be active.
+     * @param animationDuration
+     * Animation duration in ms, unless you want spoilers to open and close too quickly.
+     *
+     * @example
+     * Blocks should be after spoiler button in html like this:
+     * ```html
+     * <div class='spoiler'>
+     *   <div class='spoiler__body'>
+     *     <span class='uspoiler-btn'>Spoiler button</span>
+     *     <!-- spoiler block -->
+     *     <ul class='uspoiler-content'>
+     *       <li></li>
+     *     </ul>
+     *   </div>
+     * </div>
+     * ```
+     * @throws Some selector is null or white spaces -
+     * This error will be printed to the console if some input argument are null or white spaces.
+     * @throws The count of buttons and content-elements equal zero or less.
+     */
+    constructor(btnsSelector, contentBlocksSelector, visibleWidth, animationDuration) {
+        if (isNullOrWhiteSpaces(btnsSelector, contentBlocksSelector)
+            || visibleWidth < 0 || animationDuration < 0) {
+            throw '[SPOILERS] Incorrect arguments!';
+        }
+        SpoilerMenu.spoilerButtons = document.querySelectorAll(btnsSelector);
+        SpoilerMenu.spoilerContentElements = document.querySelectorAll(contentBlocksSelector);
+        if (SpoilerMenu.spoilerButtons.length != SpoilerMenu.spoilerContentElements.length) {
+            throw '[SPOILERS] The count of spoiler buttons and spoiler content-elements must be more than zero.';
+        }
+        SpoilerMenu.spoilerVisibleWidth = visibleWidth;
+        SpoilerMenu.animationDuration = animationDuration;
+        this.toggleToSpoilers();
+        //? Determines spoilers when the page is resized.
+        window.addEventListener(`resize`, this.toggleToSpoilers);
+    }
+    toggleToSpoilers() {
+        for (let i = 0; i < SpoilerMenu.spoilerContentElements.length; i++) {
+            if (window.innerWidth <= SpoilerMenu.spoilerVisibleWidth) {
+                SpoilerMenu.spoilerContentElements[i].classList.add('uspoiler-content-active');
+                SpoilerMenu.spoilerContentElements[i].hidden = true;
+                SpoilerMenu.spoilerButtons[i].classList.add('uspoiler-btn-active');
+            }
+            else {
+                SpoilerMenu.spoilerContentElements[i].classList.remove('uspoiler-content-active');
+                SpoilerMenu.spoilerContentElements[i].hidden = false;
+                SpoilerMenu.spoilerButtons[i].classList.remove('uspoiler-btn-active');
+            }
+        }
+        for (let spoilerButton of SpoilerMenu.spoilerButtons) {
+            spoilerButton.addEventListener('click', this.toggleSpoilerState);
+        }
+    }
+    toggleSpoilerState(event) {
+        let targetSpoilerButton = event.target;
+        let spoilerContainer = targetSpoilerButton.nextElementSibling;
+        let animationDuration = SpoilerMenu.animationDuration;
+        if (spoilerContainer.classList.contains('_slide') === false) {
+            toggleSpoilerAnimation(spoilerContainer, animationDuration);
+            targetSpoilerButton.classList.toggle('active');
+            spoilerContainer.classList.toggle('active');
+        }
+    }
+}
+function spoilerUp(spoilerContainer, duration) {
+    if (spoilerContainer.classList.contains('_slide') === false) {
+        spoilerContainer.classList.add('_slide');
+        let containerStyle = spoilerContainer.style;
+        containerStyle.transitionProperty = 'height, margin, padding';
+        containerStyle.transitionDuration = duration + 'ms';
+        containerStyle.height = spoilerContainer.clientHeight + 'px';
+        spoilerContainer.clientHeight;
+        containerStyle.overflow = 'hidden';
+        containerStyle.height = '0';
+        containerStyle.paddingTop = '0';
+        containerStyle.paddingBottom = '0';
+        containerStyle.marginTop = '0';
+        containerStyle.marginBottom = '0';
+        window.setTimeout(() => {
+            spoilerContainer.hidden = true;
+            containerStyle.removeProperty('height');
+            containerStyle.removeProperty('padding-top');
+            containerStyle.removeProperty('padding-bottom');
+            containerStyle.removeProperty('margin-top');
+            containerStyle.removeProperty('margin-bottom');
+            containerStyle.removeProperty('overflow');
+            containerStyle.removeProperty('transition-duration');
+            containerStyle.removeProperty('transition-property');
+            spoilerContainer.classList.remove('_slide');
+        }, duration);
+    }
+}
+function spoilerDown(spoilerContainer, duration) {
+    if (spoilerContainer.classList.contains('_slide') === false) {
+        spoilerContainer.classList.add('_slide');
+        if (spoilerContainer.hidden) {
+            spoilerContainer.hidden = false;
+        }
+        let containerStyle = spoilerContainer.style;
+        let height = spoilerContainer.clientHeight;
+        containerStyle.overflow = 'hidden';
+        containerStyle.height = '0';
+        containerStyle.paddingTop = '0';
+        containerStyle.paddingBottom = '0';
+        containerStyle.marginTop = '0';
+        containerStyle.marginBottom = '0';
+        spoilerContainer.clientHeight;
+        containerStyle.transitionProperty = 'height, margin, padding';
+        containerStyle.transitionDuration = duration + 'ms';
+        containerStyle.height = height + 'px';
+        containerStyle.removeProperty('padding-top');
+        containerStyle.removeProperty('padding-bottom');
+        containerStyle.removeProperty('margin-top');
+        containerStyle.removeProperty('margin-bottom');
+        window.setTimeout(() => {
+            containerStyle.removeProperty('height');
+            containerStyle.removeProperty('overflow');
+            containerStyle.removeProperty('transition-duration');
+            containerStyle.removeProperty('transition-property');
+            spoilerContainer.classList.remove('_slide');
+        }, duration);
+    }
+}
+function toggleSpoilerAnimation(spoilerContainer, duration) {
+    if (spoilerContainer.hidden) {
+        return spoilerDown(spoilerContainer, duration);
+    }
+    else {
+        return spoilerUp(spoilerContainer, duration);
+    }
+}
