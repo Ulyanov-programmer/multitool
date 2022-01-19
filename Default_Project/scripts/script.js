@@ -69,7 +69,7 @@ import Accordion from './modules/accord.js';
 let someAccrod = new Accordion('.accordion__btn', '.accordion__item', 500);
 // parallax //
 import { Parallax, ParallaxElement } from './modules/parallax.js';
-let someParallaxMenu = new Parallax('.fullscreen__body', new ParallaxElement('.fullscreen__bg-img', 5));
+let someParallaxMenu = new Parallax('.fullscreen__body', 768, new ParallaxElement('.fullscreen__bg-img', 5));
 //? general //
 function showOrHideSubmenu(e) {
     const menuButton = e.target;

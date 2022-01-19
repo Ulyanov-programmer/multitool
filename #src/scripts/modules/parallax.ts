@@ -11,6 +11,8 @@ export class Parallax {
    * 
    * @param parallaxContainerSelector
    * Selector of a block that contains the elements to be parallaxed.
+   * @param minWorkWidth
+   * Parallax will only work if the window width is greater than or equal to this number.
    * @param parallaxItems
    * Elements that will be subject to parallax 
    * in the form of instances of the `ParallaxElement` class in an arbitrary number,
@@ -18,7 +20,9 @@ export class Parallax {
    * @throws Incorrect args in constructor - 
    * This error will be printed to the console if some input argument are null or white spaces.
    */
-  constructor(parallaxContainerSelector: string, ...parallaxItems: ParallaxElement[]) {
+  constructor(parallaxContainerSelector: string, minWorkWidth: number,
+    ...parallaxItems: ParallaxElement[]
+  ) {
     if (isNullOrWhiteSpaces(parallaxContainerSelector)) {
       throw '[PARALLAX] Incorrect args in constructor.'
     }
@@ -35,7 +39,7 @@ export class Parallax {
     }
 
     this.parallaxContainer.addEventListener('mousemove', (e) => {
-      this.moveElements(e);
+      window.outerWidth >= minWorkWidth ? this.moveElements(e) : false;
     });
   }
 
@@ -79,7 +83,7 @@ export class ParallaxElement {
     } else {
       this.htmlElement = selectorOrElement
     }
-    
+
     this.parallaxCoeff = parallaxCoeff
   }
 
