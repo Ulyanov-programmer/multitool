@@ -70,7 +70,7 @@ let someAccrod = new Accordion('.accordion__btn', '.accordion__item', 500);
 // parallax //
 import { Parallax, ParallaxElement } from './modules/parallax.js';
 let someParallaxMenu = new Parallax('.fullscreen__body', 768, new ParallaxElement('.fullscreen__bg-img', 5));
-// parallax //
+// submenu //
 import Submenu, { SubmenuElement } from './modules/submenu.js';
-new Submenu(new SubmenuElement('.submenu-open-button', '.navmenu__submenu'), new SubmenuElement('#submenu-open-button', '#navmenu__submenu'));
+new Submenu('show', 'active', new SubmenuElement('.submenu-open-button', '.navmenu__submenu'), new SubmenuElement('#submenu-open-button', '#navmenu__submenu'));
 //? your scripts //

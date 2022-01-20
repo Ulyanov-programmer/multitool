@@ -2,6 +2,8 @@ import { isNullOrWhiteSpaces } from "./general.js";
 
 export default class Submenu {
   private static submenuElements: SubmenuElement[] = new Array()
+  public static menuActiveClass: string
+  public static buttonActiveClass: string
 
   /**
    * Provides functionality for buttons with submenu.
@@ -10,7 +12,15 @@ export default class Submenu {
    * @param submenuElements
    * Instances of `SubmenuElement` in an arbitrary number.
    */
-  constructor(...submenuElements: SubmenuElement[]) {
+  constructor(menuActiveClass: string, buttonActiveClass: string,
+    ...submenuElements: SubmenuElement[]) {
+    
+    if (isNullOrWhiteSpaces(menuActiveClass, buttonActiveClass)) {
+      throw new Error('Your input classes is null or white spaces!');
+    }
+
+    Submenu.buttonActiveClass = buttonActiveClass;
+    Submenu.menuActiveClass = menuActiveClass;
     Submenu.submenuElements.push(...submenuElements)
 
     for (let submenuElement of submenuElements) {
@@ -26,11 +36,11 @@ export default class Submenu {
     for (let i = 0; i < Submenu.submenuElements.length; i++) {
 
       if (Submenu.submenuElements[i].buttonElement == submenuElement.buttonElement) {
-        submenuElement.buttonElement.classList.toggle('active');
-        submenuElement.menuElement.classList.toggle('show');
+        submenuElement.buttonElement.classList.toggle(Submenu.buttonActiveClass);
+        submenuElement.menuElement.classList.toggle(Submenu.menuActiveClass);
       } else {
-        Submenu.submenuElements[i].buttonElement.classList.remove('show');
-        Submenu.submenuElements[i].menuElement.classList.remove('show');
+        Submenu.submenuElements[i].buttonElement.classList.remove(Submenu.buttonActiveClass);
+        Submenu.submenuElements[i].menuElement.classList.remove(Submenu.menuActiveClass);
       }
     }
   }

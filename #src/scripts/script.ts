@@ -135,6 +135,7 @@ let someParallaxMenu = new Parallax(
 import Submenu, { SubmenuElement } from './modules/submenu.js';
 
 new Submenu(
+  'show', 'active',
   new SubmenuElement(
     '.submenu-open-button', 
     '.navmenu__submenu',
