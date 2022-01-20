@@ -70,25 +70,7 @@ let someAccrod = new Accordion('.accordion__btn', '.accordion__item', 500);
 // parallax //
 import { Parallax, ParallaxElement } from './modules/parallax.js';
 let someParallaxMenu = new Parallax('.fullscreen__body', 768, new ParallaxElement('.fullscreen__bg-img', 5));
-//? general //
-function showOrHideSubmenu(e) {
-    const menuButton = e.target;
-    const allSubmenu = document.querySelectorAll('.navmenu__submenu');
-    const allMenuButtons = document.querySelectorAll('.submenu-open-button');
-    // Hides all previously active menus and menu buttons.
-    for (let i = 0; i < allSubmenu.length; i++) {
-        if (allSubmenu[i] !== menuButton.firstElementChild &&
-            allMenuButtons[i] !== menuButton) {
-            allMenuButtons[i].classList.remove('show');
-            allSubmenu[i].classList.remove('show');
-        }
-    }
-    if (menuButton.firstElementChild !== undefined) {
-        menuButton.classList.toggle('active');
-        menuButton.firstElementChild.classList.toggle('show');
-    }
-}
-const activateSubmenuButtons = document.querySelectorAll('.submenu-open-button');
-for (let submenuButton of activateSubmenuButtons) {
-    submenuButton.addEventListener('click', showOrHideSubmenu);
-}
+// parallax //
+import Submenu, { SubmenuElement } from './modules/submenu.js';
+new Submenu(new SubmenuElement('.submenu-open-button', '.navmenu__submenu'), new SubmenuElement('#submenu-open-button', '#navmenu__submenu'));
+//? your scripts //
