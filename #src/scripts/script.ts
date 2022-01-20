@@ -131,7 +131,7 @@ let someParallaxMenu = new Parallax(
 )
 
 
-// parallax //
+// submenu //
 import Submenu, { SubmenuElement } from './modules/submenu.js';
 
 new Submenu(
