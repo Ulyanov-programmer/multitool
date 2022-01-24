@@ -35,7 +35,7 @@ import ModalWindowMenu from './modules/modalWindow.js';
 */
 new ModalWindowMenu(
 // i recommend this value.
-'[data-modal-link]', '.modal-closer', '.fullscreen-navmenu', 0.5);
+'[data-modal-link]', '.modal-closer', 0.5, '.fullscreen-navmenu');
 // element-modal //
 import ElementModal from './modules/elementMenu.js';
 /*
@@ -66,6 +66,9 @@ import * as sliders from './sliders.js';
 let s = sliders;
 // element-modal //
 import Accordion from './modules/accord.js';
+// Attention, the display property for inactive accordion elements
+// does not allow them to be hidden.
+// If you need to use it, set it via the active element class.
 let someAccrod = new Accordion('.accordion__btn', '.accordion__item', 500);
 // parallax //
 import { Parallax, ParallaxElement } from './modules/parallax.js';

@@ -14,10 +14,11 @@ adaptive-property($property, $value, $min-value)
   {$property} 'calc(%spx + (%s - %s) * ((100vw - 320px) / (1000 - 320)))' % ($min-value $value $min-value)
 
 adapt-fsize($px-size, $min-size = 12)
+  $minSize = $min-size
   $min-size = remNumber($min-size)
   $lWidthRem = remNumber($layoutWidth)
   $pxSizeRem = remNumber($px-size)
-  $min-size-rem = rem(12)
+  $min-size-rem = rem($minSize)
   return 'calc((100vw - 20rem)/(%s - 20) * (%s - %s) + %s)' % ($lWidthRem $pxSizeRem $min-size $min-size-rem)
 
 rem($px-size)

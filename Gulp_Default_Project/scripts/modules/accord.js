@@ -20,7 +20,7 @@ export default class Accordion {
      * Selector of a block that contains the content-elements of the accordion.
      * @param animationDuration
      * If you use transition, it set animation duration in ms. Can be 0.
-     * @param addActiveForFirstElements
+     * @param activeFirstElements
      * Sets the first element of buttons and content-block the class active. The default is true.
      *
      * @example
@@ -41,27 +41,27 @@ export default class Accordion {
      * This error will be printed to the console if some input argument are null or white spaces.
      * @throws The count of buttons != the count content-elements.
      */
-    constructor(btnsSelector, contentBlockSelector, animationDuration, addActiveForFirstElements = true) {
+    constructor(btnsSelector, contentBlockSelector, animationDuration, activeFirstElements = true) {
         this.isToggling = false;
         if (isNullOrWhiteSpaces(btnsSelector, contentBlockSelector) || animationDuration < 0) {
             throw '[ACCORDION] Incorrect arguments!';
         }
-        this.accordButtons = document.querySelectorAll(btnsSelector);
-        this.accordContentElements = Array.from(document.querySelectorAll(contentBlockSelector).values());
+        this.buttons = document.querySelectorAll(btnsSelector);
+        this.contentElements = Array.from(document.querySelectorAll(contentBlockSelector).values());
         this.animationDuration = animationDuration + 100;
-        if (this.accordButtons.length != this.accordContentElements.length) {
-            throw '[ACCORDION] The count of buttons and content-elements must be more than zero.';
+        if (this.buttons.length != this.contentElements.length) {
+            throw '[ACCORDION] The count of buttons and content-elements is not equal.';
         }
-        if (addActiveForFirstElements) {
-            this.accordButtons[0].classList.add('active');
-            this.accordContentElements[0].classList.add('active');
+        if (activeFirstElements) {
+            this.buttons[0].classList.add('active');
+            this.contentElements[0].classList.add('active');
         }
-        for (let accordButton of this.accordButtons) {
+        for (let accordButton of this.buttons) {
             accordButton.addEventListener('click', () => {
                 this.toggleActiveElements(accordButton);
             });
         }
-        for (const accordContentElem of this.accordContentElements) {
+        for (const accordContentElem of this.contentElements) {
             if (accordContentElem.classList.contains('active') == false) {
                 accordContentElem.setAttribute('hidden', '');
             }
@@ -74,13 +74,12 @@ export default class Accordion {
         else {
             this.isToggling = true;
         }
-        for (let accordBtn of this.accordButtons) {
+        for (let accordBtn of this.buttons) {
             accordBtn.classList.remove('active');
         }
         activeAccordButton.classList.add('active');
-        let activeContentElement;
-        activeContentElement = this.accordContentElements[activeAccordButton.dataset.toggleElemNumber];
-        for (const contentElement of this.accordContentElements) {
+        let activeContentElement = this.contentElements[activeAccordButton.dataset.toggleElemNumber];
+        for (const contentElement of this.contentElements) {
             contentElement.classList.remove('active');
             setTimeout(() => {
                 if (contentElement != activeContentElement) {
@@ -92,16 +91,16 @@ export default class Accordion {
                 setTimeout(() => {
                     activeContentElement.classList.add('active');
                 }, 10);
-                this.togglingToFalseWithAwait(this);
+                this.togglingToFalseWithAwait();
             }, this.animationDuration);
         }
     }
     ;
-    togglingToFalseWithAwait(thisAccordion) {
+    togglingToFalseWithAwait() {
         return __awaiter(this, void 0, void 0, function* () {
             yield new Promise(r => setTimeout(() => {
-                thisAccordion.isToggling = false;
-            }, thisAccordion.animationDuration));
+                this.isToggling = false;
+            }, this.animationDuration));
         });
     }
 }

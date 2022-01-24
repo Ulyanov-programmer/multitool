@@ -3,6 +3,7 @@ If this is not done, when using a responsive font, the result will not match the
 Please note that specifying a value less than 425 is dangerous for the psyche. */
 $layoutWidth = 1440
 $mainFontSize = 16
+$minFontSize = 12
 
 html
   --main-font-color #fff
@@ -20,7 +21,7 @@ html
 body
   height 100%
   color var(--main-font-color)
-  font adapt-fsize(16) var(--main-font-family)
+  font adapt-fsize($mainFontSize, $minFontSize) var(--main-font-family)
 
   &.scroll-block
     overflow hidden
@@ -57,115 +58,4 @@ body
     img
       top -60%
 
-.filter
-  background gray
-
-  &__header
-    flex-set row wrap
-    justify-content center
-    gap 15px
-
-  &__button
-    padding 10px 7px 10px 7px
-    border 1px solid #fff
-
-    &:hover
-      background #fff
-      color #000
-
-  &__main
-    flex-set row wrap
-    justify-content center
-    gap 15px
-
-  &__item
-    padding 10px 5px 10px 5px
-
-    &_green
-      background green
-
-    &_blue
-      background blue
-
-    &_red
-      background red
-
-    &_yellow
-      background yellow
-      color #000
-
-.swiper
-  background gray
-  text-align center
-
-  span
-    display inline-block
-    text-transform uppercase
-    font-size adapt-fsize(25, 20)
-
-  &-slide
-    min-height 100px
-    flex-set row nowrap
-    flex-content-position center center
-
-.demo-spoiler
-  background gray
-
-.el-menu
-  &__content
-    flex-set row wrap
-    justify-content center
-
-  &__item
-    position relative
-    border 1px solid #fff
-    padding 15px 15px 15px 15px
-
-    &:not(:last-child)
-      margin 0 10px 0 0
-
-  &__menu
-    position absolute
-    top 0
-    left 0
-    block-size 100% 100%
-    background #000000ab
-    flex-set row nowrap
-    flex-content-position center center
-    transition all 0.3s ease
-
-    &._non-active
-      visibility hidden
-      opacity 0
-      pointer-events none
-
-.title
-  text-transform uppercase
-  font-size adapt-fsize(25, 20)
-
-.body
-  text-align center
-  padding 20px 0 20px 0
-  firstLevelElementsMargin 20
-
-.accordion
-  // &__container
-  &__btn
-    padding 10px 10px 10px 10px
-    border 1px solid #fff
-
-    &.active
-      transform scale(1.1, 1.1)
-
-  &__items
-    position relative
-    width 50%
-    margin auto
-
-  &__item
-    text-align left
-    hide()
-    transition all 0.5s ease
-
-    &.active
-      show()
+@import '_demoStyles'

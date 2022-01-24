@@ -13,7 +13,7 @@ export default class ScrollElement {
      * @throws scrollButtonsSelector is null or white spaces -
      * This error will be printed to the console if some input argument are null or white spaces.
      */
-    constructor(scrollButtonsSelector, fixedHeaderSelector = null) {
+    constructor(scrollButtonsSelector, fixedHeaderSelector) {
         if (isNullOrWhiteSpaces(scrollButtonsSelector)) {
             throw new Error('[SCROLL-ELEMENTS] Incorrect scroll-buttons selector!');
         }

@@ -1,5 +1,4 @@
 import { isNullOrWhiteSpaces, returnScrollbarWidth } from "./general.js";
-let body = document.body;
 export default class ModalWindowMenu {
     /**
      * Provides functionality for modal windows.
@@ -29,12 +28,14 @@ export default class ModalWindowMenu {
      * @throws Some selector is null or white spaces -
      * This error will be printed to the console if some input argument are null or white spaces.
      */
-    constructor(modalLinksSelector, modalClosersSelector, fsMenuSelector, transitionTimeout) {
-        if (isNullOrWhiteSpaces(modalLinksSelector, modalClosersSelector, fsMenuSelector)) {
+    constructor(modalLinksSelector, modalClosersSelector, transitionTimeout, fsMenuSelector) {
+        if (isNullOrWhiteSpaces(modalLinksSelector, modalClosersSelector)) {
             throw new Error('[MODALWINDOW] Incorrect arguments!');
         }
+        if (fsMenuSelector) {
+            ModalWindowMenu.fsMenuClasslist = document.querySelector(fsMenuSelector).classList;
+        }
         ModalWindowMenu.transitionTimeout = transitionTimeout;
-        ModalWindowMenu.fsMenuClasslist = document.querySelector(fsMenuSelector).classList;
         ModalWindowMenu.modalLinks = document.querySelectorAll(modalLinksSelector);
         for (let modalLink of ModalWindowMenu.modalLinks) {
             modalLink.addEventListener("click", () => {
@@ -83,19 +84,32 @@ export default class ModalWindowMenu {
         }
     }
     toggleBodyScroll(toggleScrollOn) {
-        if (toggleScrollOn && !ModalWindowMenu.fsMenuClasslist.contains('active')) {
-            body.style.paddingRight = '0';
-            body.classList.remove("scroll-block");
+        if (this.chekPossibileSwitchScroll(toggleScrollOn)) {
+            document.body.style.paddingRight = '0';
+            document.body.classList.remove("scroll-block");
         }
         else {
-            body.style.paddingRight = returnScrollbarWidth() + 'px';
-            body.classList.add('scroll-block');
+            document.body.style.paddingRight = returnScrollbarWidth() + 'px';
+            document.body.classList.add('scroll-block');
         }
         ModalWindowMenu.UNLOCK = false;
         // Prevents a new window from opening too quickly.
         setTimeout(() => {
             ModalWindowMenu.UNLOCK = true;
         }, ModalWindowMenu.transitionTimeout * 1000);
+    }
+    chekPossibileSwitchScroll(toggleOnValue) {
+        if (ModalWindowMenu.fsMenuClasslist) {
+            if (!ModalWindowMenu.fsMenuClasslist.contains('active') && toggleOnValue) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+        else {
+            return toggleOnValue;
+        }
     }
 }
 // This is to prevent the new modal from opening too quickly.
