@@ -76,3 +76,23 @@ You will also find the user manual there.
 [этот сайт на githubpages]: https://ulyanov-programmer.github.io/Default_Project/Default_Project
 [wiki]: https://github.com/Ulyanov-programmer/Default_Project/wiki
 [вики]: https://github.com/Ulyanov-programmer/Default_Project/wiki
+
+---
+### The following gulp packages were used:
+- browser-sync: ^2.27.7,
+- del: ^6.0.0,
+- gulp: ^4.0.2,
+- gulp-autoprefixer: ^8.0.0,
+- gulp-avif-webp-html: ^1.0.0,
+- gulp-clean-css: ^4.3.0,
+- gulp-file-include: ^2.3.0,
+- gulp-group-css-media-queries: ^1.2.2,
+- gulp-imagemin: ^8.0.0,
+- gulp-libsquoosh: ^1.0.12,
+- gulp-rename: ^2.0.0,
+- gulp-stylus: ^2.7.1,
+- gulp-terser: ^2.1.0,
+- gulp-ttf2woff2: ^4.0.1,
+- gulp-typescript: ^6.0.0-alpha.1,
+- gulp-util: ^3.0.8,
+- typescript: ^4.5.4

@@ -25,10 +25,10 @@ export function scripts() {
     .on('error', () => { })
 
     // minimizing. Delete if you want to see not-minify files.
-    // .pipe(terser({
-    //   ecma: 2016,
-    //   safari10: true,
-    // }))
+    .pipe(terser({
+      ecma: 2016,
+      safari10: true,
+    }))
     .pipe(gulp.dest(paths.build.scriptModules))
     .pipe(browsersync.stream());
 }

@@ -21,7 +21,6 @@
     "gulp-imagemin": "^8.0.0",
     "gulp-libsquoosh": "^1.0.12",
     "gulp-rename": "^2.0.0",
-    "gulp-sass": "^4.1.0",
     "gulp-stylus": "^2.7.1",
     "gulp-terser": "^2.1.0",
     "gulp-ttf2woff2": "^4.0.1",
