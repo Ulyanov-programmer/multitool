@@ -21,6 +21,11 @@ export function isNullOrWhiteSpaces(...strings) {
     }
     return false;
 }
+/**
+ * Temporarily stops code execution for the specified amount of time.
+ * @param timeMs Awaiting time in ms.
+ * @returns New `Promise`. Pay no attention to it.
+ */
 export function sleep(timeMs) {
     return new Promise(r => setTimeout(r, timeMs));
 }

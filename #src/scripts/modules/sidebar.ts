@@ -3,6 +3,8 @@ import { isNullOrWhiteSpaces } from "./general.js";
 export default class SidebarMenu {
   private sidebars: NodeListOf<HTMLElement>;
   private sidebarButtons: NodeListOf<HTMLElement>;
+  public static sidebarsActiveClass: string = 'active'
+  public static buttonsActiveClass: string = 'active'
 
   /**
    * Provides functionality for sidebar.
@@ -17,7 +19,7 @@ export default class SidebarMenu {
    */
   constructor(selectorOfSidebars: string, selectorOfSidebarButtons: string) {
     if (isNullOrWhiteSpaces(selectorOfSidebars, selectorOfSidebarButtons)) {
-      throw '[SIDEBAR] Incorrect arguments!'
+      throw '[SIDEBAR] Some selector is null or white spaces!'
     }
 
     this.sidebars = document.querySelectorAll(selectorOfSidebars);
@@ -25,15 +27,16 @@ export default class SidebarMenu {
 
     for (const sidebarBtn of this.sidebarButtons) {
       sidebarBtn.addEventListener('click', () => {
-        this.toggleSidebar(sidebarBtn);
-      });
+        this.toggleSidebar(sidebarBtn)
+      })
     }
   }
 
-  private toggleSidebar(eventButton) {
+  private toggleSidebar(eventButton: HTMLElement) {
     let parentSidebar = document.getElementById(eventButton.dataset.openSidebar);
-    eventButton.classList.toggle('active');
-    parentSidebar.classList.toggle('active');
+
+    eventButton.classList.toggle(SidebarMenu.buttonsActiveClass);
+    parentSidebar.classList.toggle(SidebarMenu.sidebarsActiveClass);
   }
 }
 

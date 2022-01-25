@@ -4,7 +4,6 @@ export default class ModalWindowMenu {
   private static modalLinks: NodeListOf<HTMLElement>
   private static modalClosers: NodeListOf<HTMLElement>
   private static fsMenuClasslist: DOMTokenList
-  // This is to prevent the new modal from opening too quickly.
   private static UNLOCK: boolean = true
   public static transitionTimeout: number
 
@@ -18,6 +17,7 @@ export default class ModalWindowMenu {
    * Selector of buttons for closing modal windows (should be in html of modal).
    * @param fsMenuSelector 
    * Selector of fullscreen navmenu (burger fs-navmenu), need for correct work with it.
+   * Not required.
    * @param transitionTimeout
    * Transition time from modal window style (in seconds or .number). 
    * 
@@ -44,9 +44,9 @@ export default class ModalWindowMenu {
     if (fsMenuSelector) {
       ModalWindowMenu.fsMenuClasslist = document.querySelector(fsMenuSelector).classList;
     }
-
     ModalWindowMenu.transitionTimeout = transitionTimeout;
     ModalWindowMenu.modalLinks = document.querySelectorAll(modalLinksSelector);
+
     for (let modalLink of ModalWindowMenu.modalLinks) {
       modalLink.addEventListener("click", () => {
         let popupId = modalLink.dataset.modalLink;
@@ -59,6 +59,7 @@ export default class ModalWindowMenu {
     }
 
     ModalWindowMenu.modalClosers = document.querySelectorAll(modalClosersSelector);
+
     for (const modalCloser of ModalWindowMenu.modalClosers) {
       modalCloser.addEventListener("click", () => {
         this.closeModal(modalCloser.closest('.modal-window'), true);
@@ -67,9 +68,7 @@ export default class ModalWindowMenu {
 
 
     document.addEventListener('keydown', (key) => {
-      let keyCode = key.code;
-
-      if (keyCode === 'Escape') {
+      if (key.code === 'Escape') {
         let activeModal = document.querySelector<HTMLElement>('.modal-window.active');
         this.closeModal(activeModal, true);
       }
@@ -102,7 +101,7 @@ export default class ModalWindowMenu {
         if (bodyIsScrollable) {
           this.toggleBodyScroll(true);
         }
-      }, ModalWindowMenu.transitionTimeout * 1000);
+      }, ModalWindowMenu.transitionTimeout * 2);
     }
   }
 
@@ -116,13 +115,14 @@ export default class ModalWindowMenu {
     }
 
     ModalWindowMenu.UNLOCK = false;
+
     // Prevents a new window from opening too quickly.
     setTimeout(() => {
       ModalWindowMenu.UNLOCK = true;
-    }, ModalWindowMenu.transitionTimeout * 1000);
+    }, ModalWindowMenu.transitionTimeout * 2);
   }
 
-  
+
   private chekPossibileSwitchScroll(toggleOnValue: boolean) {
     if (ModalWindowMenu.fsMenuClasslist) {
       if (!ModalWindowMenu.fsMenuClasslist.contains('active') && toggleOnValue) {

@@ -10,6 +10,7 @@ export default class ModalWindowMenu {
      * Selector of buttons for closing modal windows (should be in html of modal).
      * @param fsMenuSelector
      * Selector of fullscreen navmenu (burger fs-navmenu), need for correct work with it.
+     * Not required.
      * @param transitionTimeout
      * Transition time from modal window style (in seconds or .number).
      *
@@ -53,8 +54,7 @@ export default class ModalWindowMenu {
             });
         }
         document.addEventListener('keydown', (key) => {
-            let keyCode = key.code;
-            if (keyCode === 'Escape') {
+            if (key.code === 'Escape') {
                 let activeModal = document.querySelector('.modal-window.active');
                 this.closeModal(activeModal, true);
             }
@@ -80,7 +80,7 @@ export default class ModalWindowMenu {
                 if (bodyIsScrollable) {
                     this.toggleBodyScroll(true);
                 }
-            }, ModalWindowMenu.transitionTimeout * 1000);
+            }, ModalWindowMenu.transitionTimeout * 2);
         }
     }
     toggleBodyScroll(toggleScrollOn) {
@@ -96,7 +96,7 @@ export default class ModalWindowMenu {
         // Prevents a new window from opening too quickly.
         setTimeout(() => {
             ModalWindowMenu.UNLOCK = true;
-        }, ModalWindowMenu.transitionTimeout * 1000);
+        }, ModalWindowMenu.transitionTimeout * 2);
     }
     chekPossibileSwitchScroll(toggleOnValue) {
         if (ModalWindowMenu.fsMenuClasslist) {
@@ -112,5 +112,4 @@ export default class ModalWindowMenu {
         }
     }
 }
-// This is to prevent the new modal from opening too quickly.
 ModalWindowMenu.UNLOCK = true;

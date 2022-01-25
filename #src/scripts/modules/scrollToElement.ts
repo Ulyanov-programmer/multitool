@@ -1,7 +1,7 @@
 import { isNullOrWhiteSpaces } from "./general.js";
 
 export default class ScrollElement {
-  private static FIXED_HEADER_HEIGHT = 0;
+  private static fixedHeaderHeight = 0;
 
   /**
    * Provides functionality for scrolling by clicking on buttons.
@@ -20,6 +20,7 @@ export default class ScrollElement {
     if (isNullOrWhiteSpaces(scrollButtonsSelector)) {
       throw new Error('[SCROLL-ELEMENTS] Incorrect scroll-buttons selector!');
     }
+
     let scrollButtons = document.querySelectorAll<HTMLElement>(scrollButtonsSelector);
 
     for (let scrollButton of scrollButtons) {
@@ -29,21 +30,23 @@ export default class ScrollElement {
     }
     if (isNullOrWhiteSpaces(fixedHeaderSelector) == false) {
       let heightHeight = document.querySelector(fixedHeaderSelector).clientHeight;
-      ScrollElement.FIXED_HEADER_HEIGHT = heightHeight;
+      ScrollElement.fixedHeaderHeight = heightHeight;
     }
   }
 
 
   private scrollToElement(scrollButton: HTMLElement) {
-    let scrollElement = document.querySelector(`${scrollButton.dataset.scrollTo}`);
+    let scrollElement = document.querySelector(scrollButton.dataset.scrollTo);
 
-    if (scrollElement) {
-      let scrolltop = window.pageYOffset + scrollElement.getBoundingClientRect().top;
-
-      window.scrollTo({
-        top: scrolltop - ScrollElement.FIXED_HEADER_HEIGHT,
-        behavior: "smooth"
-      });
+    if (scrollElement == undefined) {
+      throw new Error('[SCROLL-ELEMENTS] Something wrong with scrollElement!')
     }
+
+    let scrolltop = window.pageYOffset + scrollElement.getBoundingClientRect().top;
+
+    window.scrollTo({
+      top: scrolltop - ScrollElement.fixedHeaderHeight,
+      behavior: "smooth"
+    });
   }
 }

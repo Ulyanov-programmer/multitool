@@ -1,22 +1,12 @@
 @import '_mixins'
-@import '_fsNavmenu';
+@import '_fsNavmenu'
 
 .header
   position relative
   flex-set row nowrap
   justify-content center
   z-index 5
-
-  &:after
-    position absolute
-    top 0
-    left 0
-    content ''
-    block-size 100% 100%
-    /* enter the bgcolor of the header below,
-    this is necessary for correct work with the burger menu. */
-    background rgb(99, 99, 99)
-    z-index 4
+  background #636363
 
   &__body
     flex-set row nowrap

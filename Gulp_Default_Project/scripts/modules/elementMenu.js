@@ -1,4 +1,13 @@
-import { isNullOrWhiteSpaces } from "./general.js";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+import { isNullOrWhiteSpaces, sleep } from "./general.js";
 export default class ElementModal {
     /**
      * Provides the ability to use modals over elements.
@@ -15,7 +24,7 @@ export default class ElementModal {
      */
     constructor(contentElementsSelector, modalElementSelector, animationDuration) {
         if (isNullOrWhiteSpaces(contentElementsSelector, modalElementSelector) || animationDuration < 0) {
-            throw '[ELEMENT-MODAL] Incorrect arguments!';
+            throw '[ELEMENT-MODAL] Some selector is null or white spaces!';
         }
         this.contentElements = document.querySelectorAll(contentElementsSelector);
         this.modalElement = document.querySelector(modalElementSelector);
@@ -29,20 +38,22 @@ export default class ElementModal {
         }
     }
     appendModalMenu(contentElement, modalElement) {
-        let modalElementClone = modalElement.cloneNode(true);
-        contentElement.append(modalElementClone);
-        setTimeout(() => {
+        return __awaiter(this, void 0, void 0, function* () {
+            let modalElementClone = modalElement.cloneNode(true);
+            contentElement.append(modalElementClone);
+            yield sleep(30);
             modalElementClone.classList.remove('_non-active');
-        }, 30);
+        });
     }
     removeModalMenu(contentElement, animationDuration) {
-        // Try to get modal block.
-        let modalMenu = contentElement.lastElementChild;
-        if (modalMenu) {
-            modalMenu.classList.add('_non-active');
-            setTimeout(() => {
+        return __awaiter(this, void 0, void 0, function* () {
+            // Try to get modal block.
+            let modalMenu = contentElement.lastElementChild;
+            if (modalMenu) {
+                modalMenu.classList.add('_non-active');
+                yield sleep(animationDuration + 100);
                 modalMenu.remove();
-            }, animationDuration + 100);
-        }
+            }
+        });
     }
 }

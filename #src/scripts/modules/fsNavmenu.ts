@@ -1,46 +1,52 @@
 import { returnScrollbarWidth, isNullOrWhiteSpaces } from "./general.js";
 
 export default class FsNavmenu {
-  private static burgerBtn: HTMLElement
+  private static burger: HTMLElement
   private static fsNavmenu: HTMLElement
   private static header: HTMLElement = document.querySelector('header')
 
+  public static burgerActiveClass: string = 'active'
+  public static fsNavmenuActiveClass: string = 'active'
+
   /**
    * Provides functionality for burger and fullscreen menu.
-   * @param burgerBtnSelector
+   * 
+   * @param burgerSelector
    * Selctor buttons for burger menu.
    * @param fsNavmenuSelector
    * A fullscreen-menu selector that will be shown when you click on the burger.
+   * 
    * @throws Some selector is null or white spaces - 
    * This error will be printed to the console if some input argument are null or white spaces.
    */
-  constructor(burgerBtnSelector: string, fsNavmenuSelector: string) {
-    if (isNullOrWhiteSpaces(burgerBtnSelector, fsNavmenuSelector)) {
-      throw '[FSNAVMENU] Incorrect selectors for button or menu!'
+  constructor(burgerSelector: string, fsNavmenuSelector: string) {
+    if (isNullOrWhiteSpaces(burgerSelector, fsNavmenuSelector)) {
+      throw '[FSNAVMENU] Some selector is null or white spaces.'
     }
 
-    FsNavmenu.burgerBtn = document.querySelector(burgerBtnSelector);
+    FsNavmenu.burger = document.querySelector(burgerSelector);
     FsNavmenu.fsNavmenu = document.querySelector(fsNavmenuSelector);
+    FsNavmenu.fsNavmenu.style.marginTop = `${FsNavmenu.header.clientHeight}px`;
 
-    let headerBody = FsNavmenu.fsNavmenu.firstElementChild as HTMLElement
-    headerBody.style.marginTop = `${FsNavmenu.header.clientHeight}px`;
-
-    FsNavmenu.burgerBtn.addEventListener('click', this.showOrHideFullscreenNav);
+    FsNavmenu.burger.addEventListener('click', this.showOrHideFullscreenNav);
   }
 
 
-  private showOrHideFullscreenNav(e: Event) {
+  private showOrHideFullscreenNav() {
     let scrollbarWidth = returnScrollbarWidth();
 
-    if (FsNavmenu.fsNavmenu !== undefined) {
-      FsNavmenu.burgerBtn.classList.toggle('active');
-
-      document.body.classList.toggle('scroll-block');
-      document.body.style.paddingRight = `${scrollbarWidth}px`;
-
-      FsNavmenu.header.style.paddingRight = `${scrollbarWidth}px`;
-
-      FsNavmenu.fsNavmenu.classList.toggle('active');
+    if (FsNavmenu.fsNavmenu == undefined) {
+      throw new Error('[FSNAVMENU] Something wrong with fsNavmenu!');
     }
+
+    FsNavmenu.burger.classList.toggle('active');
+
+    document.body.classList.toggle('scroll-block');
+    document.body.style.paddingRight = `${scrollbarWidth}px`;
+
+    FsNavmenu.header.style.paddingRight = `${scrollbarWidth}px`;
+
+    FsNavmenu.fsNavmenu.classList.toggle('active');
+
   }
 }

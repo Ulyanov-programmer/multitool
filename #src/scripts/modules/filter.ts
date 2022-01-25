@@ -19,7 +19,7 @@ export default class Filter {
    */
   constructor(filtButtonsSelector: string, filtElementsSelector: string) {
     if (isNullOrWhiteSpaces(filtButtonsSelector, filtElementsSelector)) {
-      throw '[FILTER] Count of filter elements must be more than zero.'
+      throw '[FILTER] Some argument is null or white spaces!'
     }
 
     this.filterButtons = document.querySelectorAll(filtButtonsSelector);

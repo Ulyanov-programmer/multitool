@@ -1,4 +1,4 @@
-import { isNullOrWhiteSpaces } from "./general.js";
+import { isNullOrWhiteSpaces, sleep } from "./general.js";
 
 export default class ElementModal {
   private contentElements: NodeListOf<HTMLElement>
@@ -19,7 +19,7 @@ export default class ElementModal {
    */
   constructor(contentElementsSelector: string, modalElementSelector: string, animationDuration: number) {
     if (isNullOrWhiteSpaces(contentElementsSelector, modalElementSelector) || animationDuration < 0) {
-      throw '[ELEMENT-MODAL] Incorrect arguments!'
+      throw '[ELEMENT-MODAL] Some selector is null or white spaces!'
     }
 
     this.contentElements = document.querySelectorAll(contentElementsSelector);
@@ -36,23 +36,22 @@ export default class ElementModal {
   }
 
 
-  private appendModalMenu(contentElement: HTMLElement, modalElement: HTMLElement) {
+  private async appendModalMenu(contentElement: HTMLElement, modalElement: HTMLElement) {
     let modalElementClone = modalElement.cloneNode(true) as HTMLElement;
 
     contentElement.append(modalElementClone);
-    setTimeout(() => {
-      modalElementClone.classList.remove('_non-active');
-    }, 30)
+    await sleep(30)
+    modalElementClone.classList.remove('_non-active');
   }
-  private removeModalMenu(contentElement: HTMLElement, animationDuration: number) {
+  private async removeModalMenu(contentElement: HTMLElement, animationDuration: number) {
     // Try to get modal block.
     let modalMenu = contentElement.lastElementChild;
 
     if (modalMenu) {
       modalMenu.classList.add('_non-active')
-      setTimeout(() => {
-        modalMenu.remove();
-      }, animationDuration + 100)
+      
+      await sleep(animationDuration + 100)
+      modalMenu.remove();
     }
   }
 }

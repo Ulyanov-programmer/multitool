@@ -39,8 +39,8 @@ export class Parallax {
     }
 
     this.parallaxContainer.addEventListener('mousemove', (e) => {
-      window.outerWidth >= minWorkWidth ? this.moveElements(e) : false;
-    });
+      window.outerWidth >= minWorkWidth ? this.moveElements(e) : false
+    })
   }
 
 

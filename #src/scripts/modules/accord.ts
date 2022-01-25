@@ -5,6 +5,8 @@ export default class Accordion {
   private contentElements: Element[]
   private animationDuration: number
   private isToggling: boolean = false
+  public buttonsActiveClass: string = 'active'
+  public contentActiveClass: string = 'active'
 
   /**
    * Provides functionality for an accordion.

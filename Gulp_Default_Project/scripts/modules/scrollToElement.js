@@ -25,18 +25,19 @@ export default class ScrollElement {
         }
         if (isNullOrWhiteSpaces(fixedHeaderSelector) == false) {
             let heightHeight = document.querySelector(fixedHeaderSelector).clientHeight;
-            ScrollElement.FIXED_HEADER_HEIGHT = heightHeight;
+            ScrollElement.fixedHeaderHeight = heightHeight;
         }
     }
     scrollToElement(scrollButton) {
-        let scrollElement = document.querySelector(`${scrollButton.dataset.scrollTo}`);
-        if (scrollElement) {
-            let scrolltop = window.pageYOffset + scrollElement.getBoundingClientRect().top;
-            window.scrollTo({
-                top: scrolltop - ScrollElement.FIXED_HEADER_HEIGHT,
-                behavior: "smooth"
-            });
+        let scrollElement = document.querySelector(scrollButton.dataset.scrollTo);
+        if (scrollElement == undefined) {
+            throw new Error('[SCROLL-ELEMENTS] Something wrong with scrollElement!');
         }
+        let scrolltop = window.pageYOffset + scrollElement.getBoundingClientRect().top;
+        window.scrollTo({
+            top: scrolltop - ScrollElement.fixedHeaderHeight,
+            behavior: "smooth"
+        });
     }
 }
-ScrollElement.FIXED_HEADER_HEIGHT = 0;
+ScrollElement.fixedHeaderHeight = 0;

@@ -4,9 +4,13 @@
 // fsnavmenu //
 import FsNavmenu from './modules/fsNavmenu.js';
 new FsNavmenu('#burgerButton', '.fullscreen-navmenu');
+FsNavmenu.fsNavmenuActiveClass = 'active';
+FsNavmenu.burgerActiveClass = 'active';
 // spoiler //
 import SpoilerMenu from './modules/spoiler.js';
 new SpoilerMenu('.uspoiler-btn', '.uspoiler-content', 2560, 500);
+SpoilerMenu.btnActiveClass = 'active';
+SpoilerMenu.contentActiveClass = 'active';
 // filter //
 import Filter from './modules/filter.js';
 /*
@@ -33,9 +37,8 @@ import ModalWindowMenu from './modules/modalWindow.js';
 
   Also, when pressed, turns off the scrolling body.
 */
-new ModalWindowMenu(
-// i recommend this value.
-'[data-modal-link]', '.modal-closer', 0.5, '.fullscreen-navmenu');
+new ModalWindowMenu('[data-modal-link]', // i recommend this value.
+'.modal-closer', 500, '.fullscreen-navmenu');
 // element-modal //
 import ElementModal from './modules/elementMenu.js';
 /*
@@ -53,12 +56,12 @@ import ScrollElement from './modules/scrollToElement.js';
   When you press a scrollButton, you scroll to the block
   indicated in data-scroll-to attribute of this scrollButton.
 */
-let scrollElement = new ScrollElement(
-// I recommend use this value.
-'[data-scroll-to]');
+let scrollElement = new ScrollElement('[data-scroll-to]');
 // sidebar //
 import SidebarMenu from './modules/sidebar.js';
 new SidebarMenu('.sidebar', '.sidebar__show-btn');
+SidebarMenu.sidebarsActiveClass = 'active';
+SidebarMenu.buttonsActiveClass = 'active';
 // sliders //
 // You can set your sliders in sliders.js. Try Ctrl + P.
 //? Remove this strings if you don't need sliders
@@ -66,10 +69,14 @@ import * as sliders from './sliders.js';
 let s = sliders;
 // element-modal //
 import Accordion from './modules/accord.js';
-// Attention, the display property for inactive accordion elements
-// does not allow them to be hidden.
-// If you need to use it, set it via the active element class.
+/* Attention,
+  the display property for inactive accordion elements
+  does not allow them to be hidden.
+  If you need to use it, set it via the active element class.
+*/
 let someAccrod = new Accordion('.accordion__btn', '.accordion__item', 500);
+someAccrod.buttonsActiveClass = 'active';
+someAccrod.contentActiveClass = 'active';
 // parallax //
 import { Parallax, ParallaxElement } from './modules/parallax.js';
 let someParallaxMenu = new Parallax('.fullscreen__body', 768, new ParallaxElement('.fullscreen__bg-img', 5));

@@ -5,6 +5,8 @@ export default class SpoilerMenu {
   private static spoilerContentElements: NodeListOf<HTMLElement>
   private static spoilerVisibleWidth: number
   private static animationDuration: number
+  public static btnActiveClass: string = 'active'
+  public static contentActiveClass: string = 'active'
 
   /**
    * Provides functionality for spoiler.
@@ -61,7 +63,7 @@ export default class SpoilerMenu {
   }
 
 
-   private toggleToSpoilers() {
+  private toggleToSpoilers() {
     for (let i = 0; i < SpoilerMenu.spoilerContentElements.length; i++) {
       if (window.innerWidth <= SpoilerMenu.spoilerVisibleWidth) {
         SpoilerMenu.spoilerContentElements[i].classList.add('uspoiler-content-active');
@@ -79,15 +81,16 @@ export default class SpoilerMenu {
     }
   }
 
-  private toggleSpoilerState(event) {
-    let targetSpoilerButton = event.target;
-    let spoilerContainer = targetSpoilerButton.nextElementSibling;
+  private toggleSpoilerState(event: Event) {
+    let targetSpoilerButton = event.target as HTMLElement;
+    let spoilerContainer = targetSpoilerButton.nextElementSibling as HTMLElement;
     let animationDuration = SpoilerMenu.animationDuration;
 
     if (spoilerContainer.classList.contains('_slide') === false) {
       toggleSpoilerAnimation(spoilerContainer, animationDuration);
-      targetSpoilerButton.classList.toggle('active');
-      spoilerContainer.classList.toggle('active');
+      
+      targetSpoilerButton.classList.toggle(SpoilerMenu.btnActiveClass);
+      spoilerContainer.classList.toggle(SpoilerMenu.contentActiveClass);
     }
   }
 }

@@ -71,11 +71,13 @@ export default class SpoilerMenu {
         let animationDuration = SpoilerMenu.animationDuration;
         if (spoilerContainer.classList.contains('_slide') === false) {
             toggleSpoilerAnimation(spoilerContainer, animationDuration);
-            targetSpoilerButton.classList.toggle('active');
-            spoilerContainer.classList.toggle('active');
+            targetSpoilerButton.classList.toggle(SpoilerMenu.btnActiveClass);
+            spoilerContainer.classList.toggle(SpoilerMenu.contentActiveClass);
         }
     }
 }
+SpoilerMenu.btnActiveClass = 'active';
+SpoilerMenu.contentActiveClass = 'active';
 function spoilerUp(spoilerContainer, duration) {
     if (spoilerContainer.classList.contains('_slide') === false) {
         spoilerContainer.classList.add('_slide');

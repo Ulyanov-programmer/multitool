@@ -13,7 +13,7 @@ export default class SidebarMenu {
      */
     constructor(selectorOfSidebars, selectorOfSidebarButtons) {
         if (isNullOrWhiteSpaces(selectorOfSidebars, selectorOfSidebarButtons)) {
-            throw '[SIDEBAR] Incorrect arguments!';
+            throw '[SIDEBAR] Some selector is null or white spaces!';
         }
         this.sidebars = document.querySelectorAll(selectorOfSidebars);
         this.sidebarButtons = document.querySelectorAll(selectorOfSidebarButtons);
@@ -25,7 +25,9 @@ export default class SidebarMenu {
     }
     toggleSidebar(eventButton) {
         let parentSidebar = document.getElementById(eventButton.dataset.openSidebar);
-        eventButton.classList.toggle('active');
-        parentSidebar.classList.toggle('active');
+        eventButton.classList.toggle(SidebarMenu.buttonsActiveClass);
+        parentSidebar.classList.toggle(SidebarMenu.sidebarsActiveClass);
     }
 }
+SidebarMenu.sidebarsActiveClass = 'active';
+SidebarMenu.buttonsActiveClass = 'active';

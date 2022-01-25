@@ -43,6 +43,8 @@ export default class Accordion {
      */
     constructor(btnsSelector, contentBlockSelector, animationDuration, activeFirstElements = true) {
         this.isToggling = false;
+        this.buttonsActiveClass = 'active';
+        this.contentActiveClass = 'active';
         if (isNullOrWhiteSpaces(btnsSelector, contentBlockSelector) || animationDuration < 0) {
             throw '[ACCORDION] Incorrect arguments!';
         }
