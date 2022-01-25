@@ -1,10 +1,10 @@
-# [EN] Hello, this is my default project.
+# **[EN]** Hello, this is my default gulp project.
 <!-- Ctrl + Shift + V => live view this file in VS Code -->
 
-There is a lot of routine work in website development. Each developer does this in his own way, each creates his own galp solution.
+There is a lot of routine work in website development. Each developer does this in his own way, each creates his own gulp solution.
 I decided to make my assembly as reliable, thoughtful and rich in functionality as possible.
 
-**Gulp**, **js-scripts**, **ready-made elements**, **snippets** and much more - for you *(and me, ofcrs =])*.
+**Gulp**, **ts-scripts**, **ready elements, modules**, **snippets** and much more - for you *(and me, ofcrs =])*.
 
 ## The following technologies were used:
 
@@ -14,8 +14,11 @@ I decided to make my assembly as reliable, thoughtful and rich in functionality 
 <a href='//developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web/HTML_basics'>
 <img src="readmeFiles/readme/html5.png" width=50px alt='html5' />
 </a>
-<a href='//sass-lang.com/'>
-<img src="readmeFiles/readme/sass.png" width=50px alt='sass' />
+<a href='//stylus-lang.com/'>
+<img src="readmeFiles/readme/stylus.png" width=50px alt='stylus' />
+</a>
+<a href='//typescriptlang.org/'>
+<img src="readmeFiles/readme/ts.png" width=50px  alt='typescript'/>
 </a>
 <a href='//developer.mozilla.org/en-US/docs/Web/JavaScript'>
 <img src="readmeFiles/readme/js.png" width=50px  alt='javascript'/>
@@ -32,12 +35,12 @@ Of course, just check out [this site on githubpages].
 See the [wiki].
 You will also find the user manual there.
 
-# [RU] Здравствуй, это мой стартовый проект.
+# **[RU]** Здравствуй, это моя сборка на gulp.
 <!-- Ctrl + Shift + V => live view this file in VS Code -->
-В разработке сайтов много рутинной работы. Каждый разработчик решает её по-своему, каждый создает свой galp-проект.
+В разработке сайтов много рутинной работы. Каждый разработчик решает её по-своему, каждый создает свой gulp-проект.
 Я создал свою сборку, сделав её максимально надежной, продуманной и богатой по функционалу.
 
-**Gulp**, **скрипты**, **готовые блоки и элементы**, **сниппеты** и многое другое - для тебя *(и меня, кнчн =])*.
+**Gulp**, **Typescript**, **готовые блоки, модули и элементы**, **сниппеты** а так же многое другое - для тебя *(и меня, кнчн =])*.
 
 ## Были использованы:
 
@@ -47,8 +50,11 @@ You will also find the user manual there.
 <a href='//developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web/HTML_basics'>
 <img src="readmeFiles/readme/html5.png" width=50px alt='html5' />
 </a>
-<a href='//sass-lang.com/'>
-<img src="readmeFiles/readme/sass.png" width=50px alt='sass' />
+<a href='//stylus-lang.com/'>
+<img src="readmeFiles/readme/stylus.png" width=50px alt='stylus' />
+</a>
+<a href='//typescriptlang.org/'>
+<img src="readmeFiles/readme/ts.png" width=50px  alt='typescript'/>
 </a>
 <a href='//developer.mozilla.org/en-US/docs/Web/JavaScript'>
 <img src="readmeFiles/readme/js.png" width=50px  alt='javascript'/>

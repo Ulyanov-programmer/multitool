@@ -51,4 +51,11 @@
       "${1:cond} ? ${2:true} : ${3:false};",
     ],
   },
+  "full property": {
+    "scope": "typescript",
+    "prefix": "prop",
+    "body": [
+      "${3:public} ${2:static} ${1:name}: ${0:type}",
+    ],
+  },
 }
