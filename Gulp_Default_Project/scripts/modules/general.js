@@ -21,3 +21,6 @@ export function isNullOrWhiteSpaces(...strings) {
     }
     return false;
 }
+export function sleep(timeMs) {
+    return new Promise(r => setTimeout(r, timeMs));
+}

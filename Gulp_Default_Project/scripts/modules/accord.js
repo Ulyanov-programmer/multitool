@@ -7,7 +7,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import { isNullOrWhiteSpaces } from "./general.js";
+import { isNullOrWhiteSpaces, sleep } from "./general.js";
 export default class Accordion {
     /**
      * Provides functionality for an accordion.
@@ -81,26 +81,18 @@ export default class Accordion {
         let activeContentElement = this.contentElements[activeAccordButton.dataset.toggleElemNumber];
         for (const contentElement of this.contentElements) {
             contentElement.classList.remove('active');
-            setTimeout(() => {
+            setTimeout(() => __awaiter(this, void 0, void 0, function* () {
                 if (contentElement != activeContentElement) {
                     contentElement.setAttribute('hidden', '');
                 }
                 else {
                     activeContentElement.removeAttribute('hidden');
                 }
-                setTimeout(() => {
-                    activeContentElement.classList.add('active');
-                }, 10);
-                this.togglingToFalseWithAwait();
-            }, this.animationDuration);
+                yield sleep(10);
+                activeContentElement.classList.add('active');
+                this.isToggling = false;
+            }), this.animationDuration);
         }
     }
     ;
-    togglingToFalseWithAwait() {
-        return __awaiter(this, void 0, void 0, function* () {
-            yield new Promise(r => setTimeout(() => {
-                this.isToggling = false;
-            }, this.animationDuration));
-        });
-    }
 }

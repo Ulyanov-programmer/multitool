@@ -1,4 +1,4 @@
-import { isNullOrWhiteSpaces } from "./general.js";
+import { isNullOrWhiteSpaces, sleep } from "./general.js";
 
 export default class Accordion {
   private buttons: NodeListOf<HTMLElement>
@@ -87,24 +87,18 @@ export default class Accordion {
     for (const contentElement of this.contentElements) {
       contentElement.classList.remove('active');
 
-      setTimeout(() => {
+      setTimeout(async () => {
         if (contentElement != activeContentElement) {
           contentElement.setAttribute('hidden', '');
         } else {
           activeContentElement.removeAttribute('hidden');
         }
-        setTimeout(() => {
-          activeContentElement.classList.add('active');
-        }, 10);
+        
+        await sleep(10)
+        activeContentElement.classList.add('active');
+        this.isToggling = false;
 
-        this.togglingToFalseWithAwait()
       }, this.animationDuration);
     }
   };
-
-  private async togglingToFalseWithAwait() {
-    await new Promise(r => setTimeout(() => {
-      this.isToggling = false;
-    }, this.animationDuration));
-  }
 }
