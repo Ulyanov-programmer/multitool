@@ -118,9 +118,9 @@ address {
       -ms-flex-flow: column nowrap;
           flex-flow: column nowrap;
   background: rgba(0,0,0,0.678);
-  -webkit-transition: all .5s ease;
-  -o-transition: all .5s ease;
-  transition: all .5s ease;
+  -webkit-transition: right .5s ease;
+  -o-transition: right .5s ease;
+  transition: right .5s ease;
 }
 
 .fullscreen-navmenu.active {

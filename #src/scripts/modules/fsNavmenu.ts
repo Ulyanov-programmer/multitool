@@ -27,7 +27,7 @@ export default class FsNavmenu {
     FsNavmenu.burger = document.querySelector(burgerSelector);
     FsNavmenu.fsNavmenu = document.querySelector(fsNavmenuSelector);
     FsNavmenu.fsNavmenu.style.marginTop = `${FsNavmenu.header.clientHeight}px`;
-
+    
     FsNavmenu.burger.addEventListener('click', this.showOrHideFullscreenNav);
   }
 
@@ -38,6 +38,8 @@ export default class FsNavmenu {
     if (FsNavmenu.fsNavmenu == undefined) {
       throw new Error('[FSNAVMENU] Something wrong with fsNavmenu!');
     }
+    
+    FsNavmenu.fsNavmenu.style.marginTop = `${FsNavmenu.header.clientHeight}px`;
 
     FsNavmenu.burger.classList.toggle('active');
 
