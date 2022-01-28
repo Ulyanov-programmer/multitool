@@ -17,10 +17,10 @@ import del from 'del';
 
 
 function watchFIles() {
-  gulp.watch(paths.watch.html, html);
-  gulp.watch([paths.watch.css], css);
-  gulp.watch([paths.watch.scripts], scripts);
-  gulp.watch([paths.watch.images], images);
+  gulp.watch(paths.watch.html, { usePolling: true }, html);
+  gulp.watch(paths.watch.css, { usePolling: true }, css);
+  gulp.watch(paths.watch.scripts, { usePolling: true }, scripts);
+  gulp.watch(paths.watch.images, { usePolling: true }, images);
 }
 function recreate() {
   return del(paths.clean);
