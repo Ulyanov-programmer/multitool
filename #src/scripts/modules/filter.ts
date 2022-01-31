@@ -37,11 +37,14 @@ export default class Filter {
     let typeOfContent = filterButton.dataset.filtContent;
 
     for (const filtElement of filterContentElements) {
-      if (typeOfContent === 'all' || filtElement.dataset.contentType === typeOfContent) {
+      if (typeOfContent == 'all' || filtElement.dataset.contentType.includes(typeOfContent)) {
         filtElement.style.display = '';
       } else {
         filtElement.style.display = 'none';
       }
+    }
+    for (const btn of this.filterButtons) {
+      btn == filterButton ? btn.classList.add('active') : btn.classList.remove('active')
     }
   }
 }

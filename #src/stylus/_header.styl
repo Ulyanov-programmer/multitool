@@ -1,5 +1,6 @@
 @import '_mixins'
-@import '_fsNavmenu'
+@import 'modules/_fsNavmenu'
+@import 'modules/_searchbar'
 
 .header
   position relative
@@ -19,6 +20,7 @@
     @media (max-width 560px)
       .searchbar
         display none
+  // &__container
 
 .fixed-header
   position fixed
@@ -58,67 +60,9 @@
         &:hover, &:focus
           background #dddada62
 
-    .submenu-open-button
-      position relative
-      flex-set row nowrap
-      cursor pointer
+    
 
-      &::after
-        display inline-block
-        content ''
-        block-size 4px 4px
-        border-top 1.5px solid rgb(255, 255, 255)
-        border-right 1.5px solid rgb(255, 255, 255)
-        transform translate(5px, 0) rotate(135deg)
-        transition all 0.3s ease 0s
-
-      &.active
-        &::after
-          transform translate(5px, 0) rotate(-45deg)
-
-  &__submenu
-    z-index 1
-    position absolute
-    display none
-    height 50px
-    background #818181
-
-    &.show
-      position absolute
-      top 100%
-      right 0
-      display flex
-
-      &.navmenu__list
-        li
-          &:hover, &:focus
-            filter brightness(115%)
-
-.searchbar
-  flex-set row nowrap
-  // ? Reverse elements
-  // flex-set row-reverse nowrap
-  background #fff
-  height 30px
-
-  *
-    height 100%
-
-  &__input
-    padding 0 0 0 10px
-
-    &:focus
-      background #d8d5d5
-
-  &__submit
-    padding 0 10px 0 10px
-    transition all 0.3s ease
-
-    &:hover
-      background #acabab
-
-    img
-      block-size(16px, 16px)
+  
 
 .logo
   z-index 10

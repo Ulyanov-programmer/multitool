@@ -1,1 +1,75 @@
-import{isNullOrWhiteSpaces}from"./general.js";export class Parallax{constructor(t,e,...r){if(this.coordProcX=0,this.coordProcY=0,this.parallaxElements=new Array,isNullOrWhiteSpaces(t))throw"[PARALLAX] Incorrect args in constructor.";this.parallaxContainer=document.querySelector(t);for(const l of r)l&&(l.htmlElement||(l.htmlElement=document.querySelector(l.selector)),this.parallaxElements.push(l));this.parallaxContainer.addEventListener("mousemove",(t=>{window.outerWidth>=e&&this.moveElements(t)}))}moveElements(t){let e=this.parallaxContainer.clientWidth,r=this.parallaxContainer.clientHeight,l=t.pageX-e/2,o=t.pageY-r/2;this.coordProcX=l/e*100,this.coordProcY=o/r*100;for(const a of this.parallaxElements)a.htmlElement.style.transform=`translate(${this.coordProcX/a.parallaxCoeff}%, ${this.coordProcY/a.parallaxCoeff}%)`}}export class ParallaxElement{constructor(t,e){if("string"==typeof t){if(isNullOrWhiteSpaces(t)||e<1)throw"[PARALLAX] Incorrect arguments in ParallaxElement.";this.selector=t}else this.htmlElement=t;this.parallaxCoeff=e}}
+import { isNullOrWhiteSpaces } from "./general.js";
+export class Parallax {
+    /**
+     * Provides functionality for parallax of elements.
+     *
+     * @param parallaxContainerSelector
+     * Selector of a block that contains the elements to be parallaxed.
+     * @param minWorkWidth
+     * Parallax will only work if the window width is greater than or equal to this number.
+     * @param parallaxItems
+     * Elements that will be subject to parallax
+     * in the form of instances of the `ParallaxElement` class in an arbitrary number,
+     *
+     * @throws Incorrect args in constructor -
+     * This error will be printed to the console if some input argument are null or white spaces.
+     */
+    constructor(parallaxContainerSelector, minWorkWidth, ...parallaxItems) {
+        this.coordProcX = 0;
+        this.coordProcY = 0;
+        this.parallaxElements = new Array();
+        if (isNullOrWhiteSpaces(parallaxContainerSelector)) {
+            throw '[PARALLAX] Incorrect args in constructor.';
+        }
+        this.parallaxContainer = document.querySelector(parallaxContainerSelector);
+        for (const parallaxItem of parallaxItems) {
+            if (parallaxItem) {
+                if (!parallaxItem.htmlElement) {
+                    parallaxItem.htmlElement = document.querySelector(parallaxItem.selector);
+                }
+                this.parallaxElements.push(parallaxItem);
+            }
+        }
+        this.parallaxContainer.addEventListener('mousemove', (e) => {
+            window.outerWidth >= minWorkWidth ? this.moveElements(e) : false;
+        });
+    }
+    moveElements(e) {
+        let parallaxWidth = this.parallaxContainer.clientWidth;
+        let parallaxheight = this.parallaxContainer.clientHeight;
+        let coordX = e.pageX - parallaxWidth / 2;
+        let coordY = e.pageY - parallaxheight / 2;
+        this.coordProcX = coordX / parallaxWidth * 100;
+        this.coordProcY = coordY / parallaxheight * 100;
+        for (const el of this.parallaxElements) {
+            el.htmlElement.style.transform =
+                `translate(${this.coordProcX / el.parallaxCoeff}%, ${this.coordProcY / el.parallaxCoeff}%)`;
+        }
+    }
+}
+export class ParallaxElement {
+    /**
+     * Contains data about the element that will be parallaxed.
+     *
+     * @param selectorOrElement
+     * Selector of element or `HTMLElement` that will be parallaxed.
+     * @param parallaxCoeff
+     * The power factor of the parallax effect. The smaller, the stronger the effect.
+     *
+     * @throws Incorrect arguments in ParallaxElement -
+     * This error will be printed to the console
+     * if some input argument are null, white spaces or parallaxCoeff is less than 1.
+     */
+    constructor(selectorOrElement, parallaxCoeff) {
+        if (typeof selectorOrElement == 'string') {
+            if (isNullOrWhiteSpaces(selectorOrElement) || parallaxCoeff < 1) {
+                throw '[PARALLAX] Incorrect arguments in ParallaxElement.';
+            }
+            this.selector = selectorOrElement;
+        }
+        else {
+            this.htmlElement = selectorOrElement;
+        }
+        this.parallaxCoeff = parallaxCoeff;
+    }
+}

@@ -1,48 +1,32 @@
 <header class="header">
   <!--! Attention, container and fixed-header classes are mutually exclusive! -->
-  <div class="header__body container">
+  <div class="header__body container header__container">
     <a href="/" class="logo" aria-label="logo-RefToMainPage">
       <img src="img/logo.png" alt="logo" width=50 height=50>
     </a>
-    <form class="searchbar">
+    <!-- <form class="searchbar">
       <input class="searchbar__input" type='text' placeholder='input' required>
       <button class="searchbar__submit" type='submit'>
         <img src="img/icons/loupe.svg" alt="search">
       </button>
-    </form>
+    </form> -->
 
-    <button data-modal-link="modal_1" type='button'>I show modal page</button>
+    <!-- <button data-modal-link="modal_1" type='button'>I show modal page</button> -->
 
     <nav class="navmenu">
       <div class="navmenu__body">
 
         <!-- One Page site navmenu -->
         <ul class='navmenu__list'>
-          <li data-scroll-to="block1">el</li>
-          <li data-scroll-to="block1">el</li>
-          <!-- <li data-scroll-to="block1">ref</li>
-          <li data-scroll-to="block1">ref</li> -->
-          <!-- Subnavmenu -->
-          <li class="submenu-open-button">
-            submenu
-            <!-- <button type='button'></button> -->
-            <ul class='navmenu__submenu navmenu__list'>
-              <li>
-                <a target="_self" rel="noopener" href="#">ref</a>
-              </li>
-              <li data-scroll-to="how-it-works">button</li>
-            </ul>
-          </li>
-          <li id="submenu-open-button" class="submenu-open-button">
-            submenu
-            <!-- <button type='button'></button> -->
-            <ul id="navmenu__submenu" class='navmenu__submenu navmenu__list'>
-              <li>
-                <a target="_self" rel="noopener" href="#">ref</a>
-              </li>
-              <li data-scroll-to="how-it-works">button</li>
-            </ul>
-          </li>
+          <li data-scroll-to=".styles">styles</li>
+          <li data-scroll-to=".scripts">scripts</li>
+          <li data-scroll-to=".images">images</li>
+          <li data-scroll-to=".fonts">fonts</li>
+          <li data-scroll-to=".demo-submenu">submenu</li>
+          <li data-scroll-to=".packages">used packages</li>
+          <li data-scroll-to=".filter">filter</li>
+          <li data-scroll-to=".swiper">slider</li>
+          
         </ul>
         <!--? Multiple page site navmenu
         <ul class='navmenu__list'>

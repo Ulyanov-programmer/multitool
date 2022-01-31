@@ -1,22 +1,42 @@
+.text
+  padding 10px 0 10px 0
+  line-height 1.2
+
+.demo-block
+  background rgba(0, 0, 0, 0.404)
+  padding 20px 20px 20px 20px
+  border-radius 10px
+
+.title
+  font-size adapt-fsize(35, 20)
+
+  &::first-letter
+    text-transform uppercase
+
+.body
+  @extend .container
+  firstLevelElementsMargin 20
+
 .filter
-  background gray
+  &__content
+    flex-set column nowrap
+    flex-content-position center center
+    gap 25px
 
   &__header
     flex-set row wrap
-    justify-content center
     gap 15px
 
   &__button
     padding 10px 7px 10px 7px
     border 1px solid #fff
 
-    &:hover
+    &.active, &:hover, &:focus
       background #fff
       color #000
 
   &__main
     flex-set row wrap
-    justify-content center
     gap 15px
 
   &__item
@@ -35,27 +55,33 @@
       background yellow
       color #000
 
-.swiper
-  background gray
-  text-align center
+.demo-spoiler
+  &__content
+    flex-set row wrap
+    flex-content-position center center
+    gap 25px
 
-  span
+  &__spoiler-block
     display inline-block
-    text-transform uppercase
-    font-size adapt-fsize(25, 20)
+
+.swiper
+  h2
+    margin-bottom 20px
+
+  &__text
+    margin-bottom 20px
 
   &-slide
+    text-align center
+    background rgba(0, 0, 0, 0.404)
     min-height 100px
     flex-set row nowrap
     flex-content-position center center
 
-.demo-spoiler
-  background gray
-
 .el-menu
   &__content
     flex-set row wrap
-    justify-content center
+    flex-content-position space-between center
 
   &__item
     position relative
@@ -80,16 +106,11 @@
       opacity 0
       pointer-events none
 
-.title
-  text-transform uppercase
-  font-size adapt-fsize(25, 20)
-
-.body
-  text-align center
-  padding 20px 0 20px 0
-  firstLevelElementsMargin 20
-
 .accordion
+  &__container
+    text-align center
+    firstLevelElementsMargin 20
+
   &__btn
     padding 10px 10px 10px 10px
     border 1px solid #fff
@@ -99,7 +120,6 @@
 
   &__items
     position relative
-    width 50%
     margin auto
 
   &__item
@@ -109,3 +129,26 @@
 
     &.active
       show()
+
+.demo-submenu
+  &__content
+    flex-set row wrap
+    flex-content-position center center
+
+  &__button
+    padding 5px 10px 5px 10px
+    font-size adapt-fsize(18)
+
+  &__ul
+    padding 10px 10px 10px 10px
+
+    li
+      padding 5px 5px 5px 5px
+
+      a
+        color #fff
+
+.special-thanks__text
+  a
+    text-decoration underline
+    color var(--main-font-color)

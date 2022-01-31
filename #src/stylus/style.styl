@@ -6,17 +6,19 @@ $mainFontSize = 16
 $minFontSize = 12
 
 html
-  --main-font-color #fff
+  --main-font-color #e2e2e2
   --main-font-family Arial
-  --bg gray
+  --bg #5f5e5e
 
-@import '_nullStyle'
-@import '_mixins'
-@import '_header'
+@import 'modules/_nullStyle'
 @import '_footer'
 @import '_fonts'
-@import '_spoiler'
 @import '_general'
+@import '_header'
+@import '_mixins'
+@import 'modules/_submenu'
+@import 'modules/_spoiler'
+@import 'modules/_sidebar'
 
 body
   height 100%
@@ -41,7 +43,7 @@ body
   flex-set row nowrap
   flex-content-position center center
   position relative
-  block-size auto 90vh
+  block-size auto 100vh
   adaptive-property 'min-height' 400 300
   // background: url('../img/') no-repeat center / cover
   background rgb(54, 54, 54)

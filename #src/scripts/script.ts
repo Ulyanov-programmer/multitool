@@ -147,12 +147,12 @@ import Submenu, { SubmenuElement } from './modules/submenu.js';
 new Submenu(
   'show', 'active',
   new SubmenuElement(
-    '.submenu-open-button', 
-    '.navmenu__submenu',
+    '.demo-submenu__button', 
+    '.demo-submenu__ul',
   ),
   new SubmenuElement(
-    '#submenu-open-button',
-    '#navmenu__submenu',
+    '.demo-submenu__button-2',
+    '.demo-submenu__ul-2',
   )
 )
 

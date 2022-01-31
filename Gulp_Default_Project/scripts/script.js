@@ -82,5 +82,5 @@ import { Parallax, ParallaxElement } from './modules/parallax.js';
 let someParallaxMenu = new Parallax('.fullscreen__body', 768, new ParallaxElement('.fullscreen__bg-img', 5));
 // submenu //
 import Submenu, { SubmenuElement } from './modules/submenu.js';
-new Submenu('show', 'active', new SubmenuElement('.submenu-open-button', '.navmenu__submenu'), new SubmenuElement('#submenu-open-button', '#navmenu__submenu'));
+new Submenu('show', 'active', new SubmenuElement('.demo-submenu__button', '.demo-submenu__ul'), new SubmenuElement('.demo-submenu__button-2', '.demo-submenu__ul-2'));
 //? your scripts //

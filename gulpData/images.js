@@ -9,12 +9,8 @@ export function images() {
     }))
     .pipe(gulp.dest(paths.build.images))
     .pipe(gulp.src(paths.scr.images))
-    .pipe(imagemin({
-      progressive: true,
-      svgoPlugins: [{ removeViewBox: false }],
-      interlaced: true,
-      optimizationLevel: 3,
-    }))
+
+    .pipe(imagemin({}))
     .pipe(gulp.dest(paths.build.images))
     .pipe(browsersync.stream());
 }
