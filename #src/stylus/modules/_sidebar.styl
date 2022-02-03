@@ -1,7 +1,6 @@
 .sidebar
   $toMobileWidth = 950px
   height 100%
-  z-index 5
 
   @media (max-width $toMobileWidth)
     position fixed
@@ -9,6 +8,7 @@
     left 100vw
     width 40vw
     top 0
+    z-index 5
     transition all 0.5s ease
 
     &.active

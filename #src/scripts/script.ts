@@ -92,7 +92,7 @@ import ScrollElement from './modules/scrollToElement.js';
 let scrollElement = new ScrollElement(
   '[data-scroll-to]', // i recommend use this value.
 
-  // '.fixed-header',
+  '.fixed-header',
 )
 
 // sidebar //
@@ -111,7 +111,7 @@ SidebarMenu.buttonsActiveClass = 'active'
 import * as sliders from './sliders.js';
 let s = sliders
 
-// element-modal //
+// accordion //
 import Accordion from './modules/accord.js';
 
 /* Attention, 

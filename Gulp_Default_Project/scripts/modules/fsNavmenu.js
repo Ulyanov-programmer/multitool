@@ -11,26 +11,37 @@ export default class FsNavmenu {
      * @throws Some selector is null or white spaces -
      * This error will be printed to the console if some input argument are null or white spaces.
      */
-    constructor(burgerSelector, fsNavmenuSelector) {
-        if (isNullOrWhiteSpaces(burgerSelector, fsNavmenuSelector)) {
+    constructor(burgerSelector, fsNavmenuSelector, buttonsSelector) {
+        if (isNullOrWhiteSpaces(burgerSelector, fsNavmenuSelector, buttonsSelector)) {
             throw '[FSNAVMENU] Some selector is null or white spaces.';
         }
         FsNavmenu.burger = document.querySelector(burgerSelector);
         FsNavmenu.fsNavmenu = document.querySelector(fsNavmenuSelector);
-        FsNavmenu.fsNavmenu.style.marginTop = `${FsNavmenu.header.clientHeight}px`;
+        FsNavmenu.buttons = document.querySelectorAll(buttonsSelector);
+        FsNavmenu.fsNavmenu.style.paddingTop = `${FsNavmenu.header.clientHeight}px`;
         FsNavmenu.burger.addEventListener('click', this.showOrHideFullscreenNav);
+        for (const button of FsNavmenu.buttons) {
+            button.addEventListener('click', this.hideNavmenu);
+        }
     }
     showOrHideFullscreenNav() {
         let scrollbarWidth = returnScrollbarWidth();
         if (FsNavmenu.fsNavmenu == undefined) {
             throw new Error('[FSNAVMENU] Something wrong with fsNavmenu!');
         }
-        FsNavmenu.fsNavmenu.style.marginTop = `${FsNavmenu.header.clientHeight}px`;
-        FsNavmenu.burger.classList.toggle('active');
+        FsNavmenu.fsNavmenu.style.paddingTop = `${FsNavmenu.header.clientHeight}px`;
+        FsNavmenu.burger.classList.toggle(FsNavmenu.burgerActiveClass);
         document.body.classList.toggle('scroll-block');
         document.body.style.paddingRight = `${scrollbarWidth}px`;
         FsNavmenu.header.style.paddingRight = `${scrollbarWidth}px`;
-        FsNavmenu.fsNavmenu.classList.toggle('active');
+        FsNavmenu.fsNavmenu.classList.toggle(FsNavmenu.fsNavmenuActiveClass);
+    }
+    hideNavmenu() {
+        let scrollbarWidth = returnScrollbarWidth();
+        FsNavmenu.burger.classList.remove(FsNavmenu.burgerActiveClass);
+        document.body.classList.toggle('scroll-block');
+        document.body.style.paddingRight = `${scrollbarWidth}px`;
+        FsNavmenu.fsNavmenu.classList.remove(FsNavmenu.fsNavmenuActiveClass);
     }
 }
 FsNavmenu.header = document.querySelector('header');

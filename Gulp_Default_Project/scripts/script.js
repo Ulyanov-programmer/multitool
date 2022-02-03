@@ -3,7 +3,7 @@
 //? Also, TSDoc is used here, so read the tips. Try hover on some constructor.
 // fsnavmenu //
 import FsNavmenu from './modules/fsNavmenu.js';
-new FsNavmenu('#burgerButton', '.fullscreen-navmenu');
+new FsNavmenu('#burgerButton', '.fullscreen-navmenu', '.fs-element');
 FsNavmenu.fsNavmenuActiveClass = 'active';
 FsNavmenu.burgerActiveClass = 'active';
 // spoiler //
@@ -56,7 +56,8 @@ import ScrollElement from './modules/scrollToElement.js';
   When you press a scrollButton, you scroll to the block
   indicated in data-scroll-to attribute of this scrollButton.
 */
-let scrollElement = new ScrollElement('[data-scroll-to]');
+let scrollElement = new ScrollElement('[data-scroll-to]', // i recommend use this value.
+'.fixed-header');
 // sidebar //
 import SidebarMenu from './modules/sidebar.js';
 new SidebarMenu('.sidebar', '.sidebar__show-btn');
@@ -67,7 +68,7 @@ SidebarMenu.buttonsActiveClass = 'active';
 //? Remove this strings if you don't need sliders
 import * as sliders from './sliders.js';
 let s = sliders;
-// element-modal //
+// accordion //
 import Accordion from './modules/accord.js';
 /* Attention,
   the display property for inactive accordion elements

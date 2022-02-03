@@ -20,7 +20,6 @@
     @media (max-width 560px)
       .searchbar
         display none
-  // &__container
 
 .fixed-header
   position fixed
@@ -29,14 +28,11 @@
   width 100%
 
 .navmenu
-  height 50px
-
-  @media (max-width 600px)
+  @media (max-width $burgerMenuShowWidth)
     display none
 
   &__body
     display flex
-    height 100%
 
   &__list
     flex-set row wrap
@@ -48,21 +44,16 @@
       transition all 0.2s ease 0s
 
       &:not(:last-child)
-        padding 0 10px 0 0
+        padding-right 10px
 
       a
         flex-set row nowrap
         flex-content-position center center
         flex 1 0 100%
+        padding 5px 5px 5px 5px
         color #fff
         block-size 100% 100%
-
-        &:hover, &:focus
-          background #dddada62
-
-    
-
-  
+        transition all 0.2s ease 0s
 
 .logo
   z-index 10

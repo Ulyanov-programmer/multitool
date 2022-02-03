@@ -1,5 +1,4 @@
-<header class="header">
-  <!--! Attention, container and fixed-header classes are mutually exclusive! -->
+<header class="header fixed-header">
   <div class="header__body container header__container">
     <a href="/" class="logo" aria-label="logo-RefToMainPage">
       <img src="img/logo.png" alt="logo" width=50 height=50>
@@ -11,8 +10,6 @@
       </button>
     </form> -->
 
-    <!-- <button data-modal-link="modal_1" type='button'>I show modal page</button> -->
-
     <nav class="navmenu">
       <div class="navmenu__body">
 
@@ -21,12 +18,13 @@
           <li data-scroll-to=".styles">styles</li>
           <li data-scroll-to=".scripts">scripts</li>
           <li data-scroll-to=".images">images</li>
-          <li data-scroll-to=".fonts">fonts</li>
+          <li data-scroll-to=".filter">filter</li>
+          <li data-scroll-to=".demo-spoiler">spoiler</li>
+          <li data-scroll-to=".swiper">slider</li>
+          <li data-scroll-to=".el-menu">element modal</li>
+          <li data-scroll-to=".accordion">accordion</li>
           <li data-scroll-to=".demo-submenu">submenu</li>
           <li data-scroll-to=".packages">used packages</li>
-          <li data-scroll-to=".filter">filter</li>
-          <li data-scroll-to=".swiper">slider</li>
-          
         </ul>
         <!--? Multiple page site navmenu
         <ul class='navmenu__list'>
@@ -48,9 +46,16 @@
     <nav class="fullscreen-navmenu">
       <div class="fullscreen-navmenu__body">
         <ul>
-          <li><a href='#' target='_blank' rel='noopener noreferrer'>ref</a></li>
-          <li><a href='#' target='_blank' rel='noopener noreferrer'>ref</a></li>
-          <li><a href='#' target='_blank' rel='noopener noreferrer'>ref</a></li>
+          <li class="fs-element" data-scroll-to=".styles">styles</li>
+          <li class="fs-element" data-scroll-to=".scripts">scripts</li>
+          <li class="fs-element" data-scroll-to=".images">images</li>
+          <li class="fs-element" data-scroll-to=".filter">filter</li>
+          <li class="fs-element" data-scroll-to=".demo-spoiler">spoiler</li>
+          <li class="fs-element" data-scroll-to=".swiper">slider</li>
+          <li class="fs-element" data-scroll-to=".el-menu">element modal</li>
+          <li class="fs-element" data-scroll-to=".accordion">accordion</li>
+          <li class="fs-element" data-scroll-to=".demo-submenu">submenu</li>
+          <li class="fs-element" data-scroll-to=".packages">used packages</li>
         </ul>
       </div>
     </nav>

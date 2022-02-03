@@ -1,6 +1,38 @@
+.header
+  box-shadow: 0 3px 5px rgba(0,0,0,0.1)
+.sidebar
+  z-index 1
+
+  &__body
+    top 100px
+
+.navmenu
+  &__list
+    flex-content-position flex-end center
+
+    li
+      padding 5px 10px 5px 10px
+      border 1px solid #fff
+      border-radius 5px
+      cursor pointer
+      margin 5px 5px 5px 5px
+
+      &:not(:last-child)
+        margin-right 10px
+
+      &:hover, &:focus
+        color #000
+        background #fff
+
 .text
   padding 10px 0 10px 0
   line-height 1.2
+
+.code-block
+  display inline-block
+  background rgba(0, 0, 0, 0.404)
+  padding 10px 20px 10px 20px
+  border-radius 10px
 
 .demo-block
   background rgba(0, 0, 0, 0.404)
@@ -16,6 +48,34 @@
 .body
   @extend .container
   firstLevelElementsMargin 20
+
+.styles
+  // &__body
+
+  // &__title
+
+  // &__text
+  &__content
+    flex-set row wrap
+    justify-content center
+    gap 15px
+
+  &__r-code
+    color rgb(255, 145, 145)
+
+.scripts
+  &__content
+    flex-set row wrap
+    flex-content-position center center
+    gap 15px
+
+.images
+  &__big-text
+    font-weight bold
+  &__content
+    flex-set row wrap
+    flex-content-position center center
+    gap 15px
 
 .filter
   &__content
@@ -81,15 +141,13 @@
 .el-menu
   &__content
     flex-set row wrap
-    flex-content-position space-between center
+    flex-content-position center center
+    gap 15px
 
   &__item
     position relative
     border 1px solid #fff
     padding 15px 15px 15px 15px
-
-    &:not(:last-child)
-      margin 0 10px 0 0
 
   &__menu
     position absolute
@@ -147,6 +205,15 @@
 
       a
         color #fff
+
+.packages
+  &__content
+    flex-set row nowrap
+    flex-content-position center center
+    margin auto
+
+    li
+      padding 5px 0 5px 0
 
 .special-thanks__text
   a
