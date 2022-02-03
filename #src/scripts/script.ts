@@ -9,6 +9,7 @@ import FsNavmenu from './modules/fsNavmenu.js';
 new FsNavmenu(
   '#burgerButton',
   '.fullscreen-navmenu',
+  '.fs-element'
 )
 FsNavmenu.fsNavmenuActiveClass = 'active'
 FsNavmenu.burgerActiveClass = 'active'

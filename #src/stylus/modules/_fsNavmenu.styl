@@ -7,10 +7,9 @@
   font-size 30px
   color #fff
   flex-set column nowrap
-  background #000000ad
   transition right 0.5s ease
 
-  @media (min-width 600px)
+  @media (min-width $burgerMenuShowWidth)
     display none
 
   &.active
@@ -19,33 +18,29 @@
   &__body
     flex-set column nowrap
     overflow auto
+    background #000000ad
+    min-height 100%
 
     ul
       margin 0 auto
       width 100%
 
-      li
-        border-bottom 1px solid #fff
+      .fs-element
+        &:not(:last-child)
+          border-bottom 1px solid #fff
 
-        &:last-child
-          border none
-
-        &:hover, &:focus
-          color #beafaf
-
-        a
-          display flex
-          flex-grow 1
-          justify-content center
-          padding 25px 0 25px 0
-          color #fff
+        display flex
+        flex-grow 1
+        justify-content center
+        padding 25px 0 25px 0
+        color #fff
 
 .burger-btn
   z-index 5
   display block
   cursor pointer
 
-  @media (min-width 600px)
+  @media (min-width $burgerMenuShowWidth)
     display none
 
   &__svg
