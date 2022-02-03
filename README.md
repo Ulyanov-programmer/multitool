@@ -72,10 +72,10 @@ You will also find the user manual there.
 Там же ты найдёшь инструкции по использованию.
 
 
-[this site on githubpages]: https://ulyanov-programmer.github.io/Default_Project/Default_Project
-[этот сайт на githubpages]: https://ulyanov-programmer.github.io/Default_Project/Default_Project
-[wiki]: https://github.com/Ulyanov-programmer/Default_Project/wiki
-[вики]: https://github.com/Ulyanov-programmer/Default_Project/wiki
+[this site on githubpages]: https://ulyanov-programmer.github.io/Gulp_Default_Project/Gulp_Default_Project/
+[этот сайт на githubpages]: https://ulyanov-programmer.github.io/Gulp_Default_Project/Gulp_Default_Project/
+[wiki]: https://github.com/Ulyanov-programmer/Gulp_Default_Project/wiki
+[вики]: https://github.com/Ulyanov-programmer/Gulp_Default_Project/wiki
 
 ---
 ### The following gulp packages were used:
