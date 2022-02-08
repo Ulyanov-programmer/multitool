@@ -30,7 +30,7 @@
       "<section class='$1'>",
       "\t<div class='$1__body'>",
       "\t\t<h${2:6} class='$1__title'>${3:title}</h${2:6}>",
-      "\t\t\t$0",
+      "\t\t$0",
       "\t</div>",
       "</section>"
     ],

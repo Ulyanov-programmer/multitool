@@ -27,46 +27,11 @@
       "margin: $0px 0 $0px 0",
     ],
   },
-  "margin top": {
-    "scope": "sass, stylus",
-    "prefix": "mart",
-    "body": [
-      "margin: $0px 0 0 0",
-    ],
-  },
-  "margin right": {
-    "scope": "sass, stylus",
-    "prefix": "marr",
-    "body": [
-      "margin: 0 $0px 0 0",
-    ],
-  },
-  "margin bottom": {
-    "scope": "sass, stylus",
-    "prefix": "marb",
-    "body": [
-      "margin: 0 0 $0px 0",
-    ],
-  },
-  "margin left": {
-    "scope": "sass, stylus",
-    "prefix": "marl",
-    "body": [
-      "margin: 0 0 0 $0px",
-    ],
-  },
   "padding": {
     "scope": "sass, stylus",
     "prefix": "pad",
     "body": [
       "padding: $0px $0px $0px $0px",
-    ],
-  },
-  "padding bottom": {
-    "scope": "sass, stylus",
-    "prefix": "padb",
-    "body": [
-      "padding: 0 0 $0px 0",
     ],
   },
   "padding gorizontal and vertical": {
@@ -90,36 +55,50 @@
       "padding: 0 $0px 0 $0px",
     ],
   },
-  "padding top": {
-    "scope": "sass, stylus",
-    "prefix": "padt",
-    "body": [
-      "padding: $0px 0 0 0",
-    ],
-  },
-  "padding right": {
-    "scope": "sass, stylus",
-    "prefix": "padr",
-    "body": [
-      "padding: 0 $0px 0 0",
-    ],
-  },
-  "padding left": {
-    "scope": "sass, stylus",
-    "prefix": "padl",
-    "body": [
-      "padding: 0 0 0 $0px",
-    ],
-  },
   "arbitrary media query": {
-    "scope": "sass, stylus",
+    "scope": "stylus",
     "prefix": "med",
     "body": [
-      "@media (max-width: ${1}px)",
+      "@media (max-width: ${1}px) {",
+      "\t$0",
+      "}"
+    ],
+  },
+  "arbitrary media query for stylus with braces": {
+    "scope": "stylus",
+    "prefix": "med",
+    "body": [
+      "@media (max-width: ${1}px) {",
+      "\t$0",
+      "}"
+    ],
+  },
+  "arbitrary media query from min-width": {
+    "scope": "sass, stylus",
+    "prefix": "medmin",
+    "body": [
+      "@media (min-width: ${1}px)",
       "\t$0",
     ],
   },
+  "arbitrary media query from min-width for stylus with braces": {
+    "scope": "sass, stylus",
+    "prefix": "medmin",
+    "body": [
+      "@media (min-width: ${1}px) {",
+      "\t$0",
+      "}"
+    ],
+  },
   "media mobile": {
+    "scope": "sass, stylus",
+    "prefix": "medMOB",
+    "body": [
+      "@media (max-width: ${1|768,426|}px)",
+      "\t$0",
+    ],
+  },
+  "media mobile for stylus with braces": {
     "scope": "sass, stylus",
     "prefix": "medMOB",
     "body": [
@@ -173,14 +152,14 @@
     "scope": "stylus",
     "prefix": "var",
     "body": [
-      "$${1:varName} = ${0:value}",
+      "$${1:varName} = ${0:value};",
     ],
   },
   "css variable": {
     "scope": "sass, css",
     "prefix": "cvar",
     "body": [
-      "--${1:varName}: $0",
+      "--${1:varName}: $0;",
     ],
   },
   "include some css var": {
@@ -191,35 +170,39 @@
     ],
   },
   "hover": {
-    "scope": "sass, stylus",
+    "scope": "stylus",
     "prefix": "hov",
     "body": [
-      "&:hover",
+      "&:hover {",
       "\t$0",
+      "}"
     ],
   },
   "active": {
-    "scope": "sass, stylus",
+    "scope": "stylus",
     "prefix": "act",
     "body": [
-      "&:active",
+      "&:active {",
       "\t$0",
+      "}"
     ],
   },
   "focus": {
-    "scope": "sass, stylus",
+    "scope": "stylus",
     "prefix": "foc",
     "body": [
-      "&:focus",
+      "&:focus {",
       "\t$0",
+      "}"
     ],
   },
   "hover and focus": {
-    "scope": "sass, stylus",
+    "scope": "stylus",
     "prefix": "hovf",
     "body": [
-      "&:hover,&:focus",
+      "&:hover,&:focus {",
       "\t$0",
+      "}"
     ],
   },
   "before": {
@@ -231,11 +214,12 @@
     ],
   },
   "after": {
-    "scope": "sass, stylus",
+    "scope": "stylus",
     "prefix": "afte",
     "body": [
-      "&:after",
+      "&:after {",
       "\tcontent: ${1|'',url('')|}",
+      "}"
     ],
   },
   "size": {
@@ -254,19 +238,21 @@
     ],
   },
   "last child": {
-    "scope": "sass, stylus",
+    "scope": "stylus",
     "prefix": "lc",
     "body": [
-      "&:last-child",
+      "&:last-child {",
       "\t$0",
+      "}"
     ],
   },
   "first child": {
-    "scope": "sass, stylus",
+    "scope": "stylus",
     "prefix": "fc",
     "body": [
-      "&:first-child",
+      "&:first-child {",
       "\t$0",
+      "}"
     ],
   },
   "adaptive font size": {
@@ -299,21 +285,21 @@
   },
   "transform translate": {
     "scope": "sass, stylus",
-    "prefix": "trmt",
+    "prefix": "trmtranslate",
     "body": [
       "transform: translate(${1:xRight}, ${0:yDown})",
     ],
   },
   "transform scale": {
     "scope": "sass, stylus",
-    "prefix": "trmc",
+    "prefix": "trmscale",
     "body": [
       "transform: scale(${1:xCoeff}, ${0:yCoeff})",
     ],
   },
   "transform rotate": {
     "scope": "sass, stylus",
-    "prefix": "trmr",
+    "prefix": "trmrotate",
     "body": [
       "transform: rotate(${0:degrees}deg)",
     ],
@@ -326,7 +312,7 @@
     ],
   },
   "adaptive size": {
-    "scope": "sass, stylus",
+    "scope": "stylus",
     "prefix": "asize",
     "body": [
       "adaptive-property 'width', ${1:max}, ${2:min}",
@@ -334,7 +320,7 @@
     ],
   },
   "absolute block centring": {
-    "scope": "sass, stylus",
+    "scope": "stylus",
     "prefix": "acenter",
     "body": [
       "top: 50%",
@@ -342,82 +328,46 @@
       "transform: translate(-50%, -50%)",
     ],
   },
-  "grid-template sass": {
-    "scope": "sass",
-    "prefix": "gt",
-    "body": [
-      "grid-template: '${1:row1element} row1element' ${2:row1size} 'row2element row2element' row1size / ${3:col1size} col2size",
-    ],
-  },
   "grid-template stylus": {
     "scope": "stylus",
     "prefix": "gtem",
     "body": [
-      "grid-template:", 
-      "\t'${1:row1element} row1element' ${2:row1size} 'row2element row2element' row1size / ${3:col1size} col2size",
-    ],
-  },
-  "hide element": {
-    "scope": "sass",
-    "prefix": "hide",
-    "body": [
-      "visibility: hidden",
-      "opacity: 0",
-      "pointer-events: none",
-    ],
-  },
-  "hide element, stylus": {
-    "scope": "stylus",
-    "prefix": "hide",
-    "body": [
-      "hide()",
-    ],
-  },
-  "show element": {
-    "scope": "sass",
-    "prefix": "show",
-    "body": [
-      "visibility: visible",
-      "opacity: 1",
-      "pointer-events: all",
-    ],
-  },
-  "show element, stylus": {
-    "scope": "stylus",
-    "prefix": "show",
-    "body": [
-      "show()",
+      "grid-template:",
+      "\t'${1:row1el1} ${2:row1el2}' ${3:row1size} 'row2el1 row2el2' row2size / col1size;",
     ],
   },
   "placeholder": {
-    "scope": "sass, stylus",
+    "scope": "stylus",
     "prefix": "place",
     "body": [
-      "&::placeholder",
+      "&::placeholder {",
       "\t$0",
+      "}"
     ],
   },
   "not last child": {
-    "scope": "sass, stylus",
+    "scope": "stylus",
     "prefix": "nlc",
     "body": [
-      "&:not(:last-child)",
+      "&:not(:last-child) {",
       "\t$0",
+      "}"
     ],
   },
-  "padding for all elements but not for last": {
+  "margin for all elements but not for last": {
     "scope": "stylus",
-    "prefix": "bmarb",
+    "prefix": "bmar",
     "body": [
-      "firstLevelElementsMargin $0",
+      "firstLevelElementsMargin '${1:side}' $0",
     ],
   },
   "BEM subclass": {
     "scope": "sass, stylus",
     "prefix": "sclass",
     "body": [
-      "&__${1:class}",
+      "&__${1:class} {",
       "\t$0",
+      "}"
     ],
   },
   "all for position-sticky": {
@@ -441,7 +391,7 @@
     "scope": "stylus",
     "prefix": "fcp",
     "body": [
-      "flex-content-position ${1|center,space-between,space-arrownd,flex-start|} ${2|center,flex-start,flex-end|}",
+      "flex-content-position(\\$jc: ${1|center,space-between,space-arrownd,flex-start|}, \\$ai: ${2|center,flex-start,flex-end|})",
     ],
     "description": "all for position-sticky"
   },
@@ -450,17 +400,28 @@
     "prefix": "bblur",
     "body": [
       "position relative",
-    "&:before",
-      "\tposition absolute",
-      "\ttop 0",
-      "\tleft 0",
-      "\tblock-size 100%",
-      "\tz-index 2",
-      "\tbox-shadow 0 0 15px rgba(0, 0, 0, 0.2)",
-      "\tborder 1px solid #fff",
-      "\tfilter blur(3px)",
-      "\tcontent ''",
+      "&:before {",
+      "\tposition absolute;",
+      "\ttop 0;",
+      "\tleft 0;",
+      "\tblock-size 100%;",
+      "\tz-index 2;",
+      "\tbox-shadow 0 0 15px rgba(0, 0, 0, 0.2);",
+      "\tborder 1px solid #fff;",
+      "\tfilter blur(3px);",
+      "\tcontent '';",
+      "}"
     ],
     "description": "styles to create blurry block edges"
+  },
+  "selector for first elements of a block": {
+    "scope": "stylus",
+    "prefix": "fels",
+    "body": [
+      ">* {",
+      "\t$0",
+      "}"
+    ],
+    "description": "all for position-sticky"
   },
 }
