@@ -32,6 +32,15 @@ export default class ElementModal {
       contentEl.addEventListener('mouseleave', () => {
         this.removeModalMenu(contentEl, animationDuration);
       });
+      
+      if (contentEl.tabIndex != -1) {
+        contentEl.addEventListener('focus', () => {
+          this.appendModalMenu(contentEl, this.modalElement);
+        });
+        contentEl.addEventListener('blur', () => {
+          this.removeModalMenu(contentEl, animationDuration);
+        });
+      }
     }
   }
 
@@ -49,7 +58,7 @@ export default class ElementModal {
 
     if (modalMenu) {
       modalMenu.classList.add('_non-active')
-      
+
       await sleep(animationDuration + 100)
       modalMenu.remove();
     }

@@ -21,12 +21,10 @@ html {
   box-sizing: border-box;
 }
 
-::focus,
 ::active {
   outline: none;
 }
 
-a:focus,
 a:active {
   outline: none;
 }
@@ -51,12 +49,6 @@ body {
 
 html {
   -webkit-tap-highlight-color: rgba(0,0,0,0);
-}
-
-input:focus-visible,
-button:focus-visible,
-textarea:focus-visible {
-  outline: 0px;
 }
 
 input::-ms-clear {
@@ -750,20 +742,23 @@ body button {
           align-items: center;
 }
 
-.navmenu__list li {
+.navmenu__list button {
   padding: 5px 10px 5px 10px;
   border: 1px solid #fff;
   border-radius: 5px;
   cursor: pointer;
   margin: 5px 5px 5px 5px;
+  -webkit-transition: all 0.2s ease;
+  -o-transition: all 0.2s ease;
+  transition: all 0.2s ease;
 }
 
-.navmenu__list li:not(:last-child) {
+.navmenu__list button:not(:last-child) {
   margin-right: 10px;
 }
 
-.navmenu__list li:hover,
-.navmenu__list li:focus {
+.navmenu__list button:hover,
+.navmenu__list button:focus {
   color: #000;
   background: #fff;
 }
