@@ -3,12 +3,12 @@
 //? Also, TSDoc is used here, so read the tips. Try hover on some constructor.
 // fsnavmenu //
 import FsNavmenu from './modules/fsNavmenu.js';
-new FsNavmenu('#burgerButton', '.fullscreen-navmenu', '.fs-element');
+new FsNavmenu('#burgerButton', '.fullscreen-navmenu', '.fs-element', true);
 FsNavmenu.fsNavmenuActiveClass = 'active';
 FsNavmenu.burgerActiveClass = 'active';
 // spoiler //
 import SpoilerMenu from './modules/spoiler.js';
-new SpoilerMenu('.uspoiler-btn', '.uspoiler-content', 2560, 500);
+new SpoilerMenu('.uspoiler-btn', '.uspoiler-content', 5000, 500);
 SpoilerMenu.btnActiveClass = 'active';
 SpoilerMenu.contentActiveClass = 'active';
 // filter //
@@ -22,8 +22,7 @@ import Filter from './modules/filter.js';
   To reset the filter through a filter__button,
   you should use the 'all' value for the filter__button attribute.
 
-  In theory, you can declare multiple filters to work separately.
-  But at the moment this functionality has not been tested in practice.
+  You can declare multiple filters to work separately.
 */
 let filter = new Filter('.filter__button', '.filter__item');
 // modal window //
@@ -35,7 +34,7 @@ import ModalWindowMenu from './modules/modalWindow.js';
   After clicking on one of these elements,
   it looks for a block with a name inside data-modal-link and gives it the "active" class.
 
-  Also, when pressed, turns off the scrolling body.
+  Also, when pressed, turns off the scrolling page.
 */
 new ModalWindowMenu('[data-modal-link]', // i recommend this value.
 '.modal-closer', 500, '.fullscreen-navmenu');
@@ -80,7 +79,7 @@ someAccrod.buttonsActiveClass = 'active';
 someAccrod.contentActiveClass = 'active';
 // parallax //
 import { Parallax, ParallaxElement } from './modules/parallax.js';
-let someParallaxMenu = new Parallax('.fullscreen__body', 768, new ParallaxElement('.fullscreen__bg-img', 5));
+let someParallaxMenu = new Parallax('.fullscreen__body', 768, new ParallaxElement('.parallax-text', 5));
 // submenu //
 import Submenu, { SubmenuElement } from './modules/submenu.js';
 new Submenu('show', 'active', new SubmenuElement('.demo-submenu__button', '.demo-submenu__ul'), new SubmenuElement('.demo-submenu__button-2', '.demo-submenu__ul-2'));

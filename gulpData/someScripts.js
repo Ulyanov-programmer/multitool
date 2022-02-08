@@ -24,7 +24,7 @@ export function scripts() {
     .pipe(
       global.if(global.isProd,
         terser({
-          ecma: 2016,
+          ecma: 2018,
           safari10: true,
         })
       )

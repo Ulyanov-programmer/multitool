@@ -9,7 +9,8 @@ import FsNavmenu from './modules/fsNavmenu.js';
 new FsNavmenu(
   '#burgerButton',
   '.fullscreen-navmenu',
-  '.fs-element'
+  '.fs-element',
+  true
 )
 FsNavmenu.fsNavmenuActiveClass = 'active'
 FsNavmenu.burgerActiveClass = 'active'
@@ -20,7 +21,7 @@ import SpoilerMenu from './modules/spoiler.js';
 new SpoilerMenu(
   '.uspoiler-btn',
   '.uspoiler-content',
-  2560,
+  5000,
   500,
 )
 SpoilerMenu.btnActiveClass = 'active'
@@ -38,8 +39,7 @@ import Filter from './modules/filter.js';
   To reset the filter through a filter__button, 
   you should use the 'all' value for the filter__button attribute.
 
-  In theory, you can declare multiple filters to work separately. 
-  But at the moment this functionality has not been tested in practice.
+  You can declare multiple filters to work separately.
 */
 let filter = new Filter(
   '.filter__button',
@@ -56,7 +56,7 @@ import ModalWindowMenu from './modules/modalWindow.js';
   After clicking on one of these elements, 
   it looks for a block with a name inside data-modal-link and gives it the "active" class.
 
-  Also, when pressed, turns off the scrolling body.
+  Also, when pressed, turns off the scrolling page.
 */
 new ModalWindowMenu(
   '[data-modal-link]', // i recommend this value.
@@ -85,7 +85,7 @@ import ScrollElement from './modules/scrollToElement.js';
 
 /*
   Use if you want to use buttons for scrolling.
-  How it works? 
+  How it works?
   When you press a scrollButton, you scroll to the block 
   indicated in data-scroll-to attribute of this scrollButton.
 */
@@ -135,7 +135,7 @@ let someParallaxMenu = new Parallax(
   768,
 
   new ParallaxElement(
-    '.fullscreen__bg-img', 5),
+    '.parallax-text', 5),
   // another variant 
   // new ParallaxElement(
   //   document.querySelector<HTMLElement>('.fullscreen__bg-img'), 5),
