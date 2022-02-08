@@ -1,3 +1,7 @@
+/* Insert layout width below.
+If this is not done, when using a responsive font, the result will not match the layout.
+Please note that specifying a value less than 425 is dangerous for the psyche. */
+
 html {
   --main-font-color: #e2e2e2;
   --main-font-family: Arial;
@@ -52,7 +56,7 @@ html {
 input:focus-visible,
 button:focus-visible,
 textarea:focus-visible {
-  outline: 0;
+  outline: 0px;
 }
 
 input::-ms-clear {
@@ -102,20 +106,7 @@ address {
 }
 
 .footer {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-      -ms-flex-flow: row nowrap;
-          flex-flow: row nowrap;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  min-height: 100px;
+  padding: 20px 20px 20px 20px;
   background: #636363;
 }
 
@@ -169,9 +160,9 @@ address {
   overflow: hidden;
   opacity: 0;
   pointer-events: none;
-  -webkit-transition: all .5s ease;
-  -o-transition: all .5s ease;
-  transition: all .5s ease;
+  -webkit-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  transition: all 0.5s ease;
 }
 
 .modal-window.active {
@@ -213,9 +204,9 @@ address {
   -webkit-box-direction: normal;
       -ms-flex-flow: column nowrap;
           flex-flow: column nowrap;
-  -webkit-transition: right .5s ease;
-  -o-transition: right .5s ease;
-  transition: right .5s ease;
+  -webkit-transition: right 0.5s ease;
+  -o-transition: right 0.5s ease;
+  transition: right 0.5s ease;
 }
 
 .fullscreen-navmenu.active {
@@ -265,9 +256,9 @@ address {
 }
 
 .burger-btn__svg * {
-  -webkit-transition: all .5s ease;
-  -o-transition: all .5s ease;
-  transition: all .5s ease;
+  -webkit-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  transition: all 0.5s ease;
 }
 
 .burger-btn__rect-top {
@@ -283,9 +274,9 @@ address {
 }
 
 .burger-btn.active .burger-btn__rect-top {
-  -webkit-transform: rotate(45deg) translate(-5%,50%);
-      -ms-transform: rotate(45deg) translate(-5%,50%);
-          transform: rotate(45deg) translate(-5%,50%);
+  -webkit-transform: rotate(45deg) translate(-5%, 50%);
+      -ms-transform: rotate(45deg) translate(-5%, 50%);
+          transform: rotate(45deg) translate(-5%, 50%);
 }
 
 .burger-btn.active .burger-btn__rect-center {
@@ -296,9 +287,9 @@ address {
 }
 
 .burger-btn.active .burger-btn__rect-bottom {
-  -webkit-transform: rotate(-45deg) translate(-5%,-50%);
-      -ms-transform: rotate(-45deg) translate(-5%,-50%);
-          transform: rotate(-45deg) translate(-5%,-50%);
+  -webkit-transform: rotate(-45deg) translate(-5%, -50%);
+      -ms-transform: rotate(-45deg) translate(-5%, -50%);
+          transform: rotate(-45deg) translate(-5%, -50%);
 }
 
 .searchbar {
@@ -327,9 +318,9 @@ address {
 
 .searchbar__submit {
   padding: 0 10px 0 10px;
-  -webkit-transition: all .3s ease;
-  -o-transition: all .3s ease;
-  transition: all .3s ease;
+  -webkit-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  transition: all 0.3s ease;
 }
 
 .searchbar__submit:hover {
@@ -416,9 +407,9 @@ address {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  -webkit-transition: all .2s ease 0s;
-  -o-transition: all .2s ease 0s;
-  transition: all .2s ease 0s;
+  -webkit-transition: all 0.2s ease 0s;
+  -o-transition: all 0.2s ease 0s;
+  transition: all 0.2s ease 0s;
 }
 
 .navmenu__list li:not(:last-child) {
@@ -446,9 +437,9 @@ address {
   color: #fff;
   width: 100%;
   height: 100%;
-  -webkit-transition: all .2s ease 0s;
-  -o-transition: all .2s ease 0s;
-  transition: all .2s ease 0s;
+  -webkit-transition: all 0.2s ease 0s;
+  -o-transition: all 0.2s ease 0s;
+  transition: all 0.2s ease 0s;
 }
 
 .logo {
@@ -485,18 +476,18 @@ address {
   height: 4px;
   border-top: 1.5px solid #fff;
   border-right: 1.5px solid #fff;
-  -webkit-transform: translate(5px,0) rotate(135deg);
-      -ms-transform: translate(5px,0) rotate(135deg);
-          transform: translate(5px,0) rotate(135deg);
-  -webkit-transition: all .3s ease 0s;
-  -o-transition: all .3s ease 0s;
-  transition: all .3s ease 0s;
+  -webkit-transform: translate(5px, 0) rotate(135deg);
+      -ms-transform: translate(5px, 0) rotate(135deg);
+          transform: translate(5px, 0) rotate(135deg);
+  -webkit-transition: all 0.3s ease 0s;
+  -o-transition: all 0.3s ease 0s;
+  transition: all 0.3s ease 0s;
 }
 
 .submenu-open-button.active::after {
-  -webkit-transform: translate(5px,0) rotate(-45deg);
-      -ms-transform: translate(5px,0) rotate(-45deg);
-          transform: translate(5px,0) rotate(-45deg);
+  -webkit-transform: translate(5px, 0) rotate(-45deg);
+      -ms-transform: translate(5px, 0) rotate(-45deg);
+          transform: translate(5px, 0) rotate(-45deg);
 }
 
 .submenu {
@@ -534,9 +525,9 @@ address {
           align-items: center;
   position: relative;
   padding: 15px 0 15px 0;
-  -webkit-transition: all .3s ease;
-  -o-transition: all .3s ease;
-  transition: all .3s ease;
+  -webkit-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  transition: all 0.3s ease;
   cursor: pointer;
 }
 
@@ -564,9 +555,9 @@ address {
           animation: spoiler-arrow-tobottom 1s;
   -webkit-animation-fill-mode: forwards;
           animation-fill-mode: forwards;
-  -webkit-transition: all .3s ease;
-  -o-transition: all .3s ease;
-  transition: all .3s ease;
+  -webkit-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  transition: all 0.3s ease;
 }
 
 .uspoiler-content li {
@@ -575,49 +566,49 @@ address {
 
 @-webkit-keyframes spoiler-arrow-totop {
   0% {
-    -webkit-transform: rotate(135deg) translate(0,50%);
-            transform: rotate(135deg) translate(0,50%);
+    -webkit-transform: rotate(135deg) translate(0, 50%);
+            transform: rotate(135deg) translate(0, 50%);
   }
 
   100% {
-    -webkit-transform: rotate(-45deg) translate(-50%,0);
-            transform: rotate(-45deg) translate(-50%,0);
+    -webkit-transform: rotate(-45deg) translate(-50%, 0);
+            transform: rotate(-45deg) translate(-50%, 0);
   }
 }
 
 @keyframes spoiler-arrow-totop {
   0% {
-    -webkit-transform: rotate(135deg) translate(0,50%);
-            transform: rotate(135deg) translate(0,50%);
+    -webkit-transform: rotate(135deg) translate(0, 50%);
+            transform: rotate(135deg) translate(0, 50%);
   }
 
   100% {
-    -webkit-transform: rotate(-45deg) translate(-50%,0);
-            transform: rotate(-45deg) translate(-50%,0);
+    -webkit-transform: rotate(-45deg) translate(-50%, 0);
+            transform: rotate(-45deg) translate(-50%, 0);
   }
 }
 
 @-webkit-keyframes spoiler-arrow-tobottom {
   0% {
-    -webkit-transform: rotate(-45deg) translate(-50%,0);
-            transform: rotate(-45deg) translate(-50%,0);
+    -webkit-transform: rotate(-45deg) translate(-50%, 0);
+            transform: rotate(-45deg) translate(-50%, 0);
   }
 
   100% {
-    -webkit-transform: rotate(-225deg) translate(0,50%);
-            transform: rotate(-225deg) translate(0,50%);
+    -webkit-transform: rotate(-225deg) translate(0, 50%);
+            transform: rotate(-225deg) translate(0, 50%);
   }
 }
 
 @keyframes spoiler-arrow-tobottom {
   0% {
-    -webkit-transform: rotate(-45deg) translate(-50%,0);
-            transform: rotate(-45deg) translate(-50%,0);
+    -webkit-transform: rotate(-45deg) translate(-50%, 0);
+            transform: rotate(-45deg) translate(-50%, 0);
   }
 
   100% {
-    -webkit-transform: rotate(-225deg) translate(0,50%);
-            transform: rotate(-225deg) translate(0,50%);
+    -webkit-transform: rotate(-225deg) translate(0, 50%);
+            transform: rotate(-225deg) translate(0, 50%);
   }
 }
 
@@ -644,9 +635,9 @@ address {
 }
 
 .sidebar__show-btn svg {
-  -webkit-transition: all .5s ease;
-  -o-transition: all .5s ease;
-  transition: all .5s ease;
+  -webkit-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  transition: all 0.5s ease;
   width: 100%;
   height: 100%;
 }
@@ -657,9 +648,9 @@ address {
 }
 
 .sidebar__show-btn svg rect {
-  -webkit-transition: all .5s ease;
-  -o-transition: all .5s ease;
-  transition: all .5s ease;
+  -webkit-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  transition: all 0.5s ease;
   fill: #ddd;
 }
 
@@ -716,12 +707,25 @@ body button {
   bottom: 5%;
 }
 
-.fullscreen .adaptive-image {
-  padding: 0 0 10% 0;
+.fullscreen__body {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row nowrap;
+          flex-flow: row nowrap;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
-.fullscreen .adaptive-image img {
-  top: -60%;
+.fullscreen h1 {
+  padding: 10% 0 10% 0;
+  font-size: calc((100vw - 20rem)/(90 - 20) * (2.1875 - 1.25) + 1.25rem);
 }
 
 .header {
@@ -792,6 +796,14 @@ body button {
 
 .body >*:not(:last-child) {
   margin-bottom: 20px;
+}
+
+.main__body {
+  padding: 10px 0 10px 0;
+}
+
+.main__body >* {
+  padding: 10px 0 10px 0;
 }
 
 .styles__content {
@@ -867,7 +879,8 @@ body button {
   gap: 25px;
 }
 
-.filter__header {
+.filter__header,
+.filter__main {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -875,6 +888,12 @@ body button {
   -webkit-box-direction: normal;
       -ms-flex-flow: row wrap;
           flex-flow: row wrap;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   gap: 15px;
 }
 
@@ -888,17 +907,6 @@ body button {
 .filter__button:focus {
   background: #fff;
   color: #000;
-}
-
-.filter__main {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-      -ms-flex-flow: row wrap;
-          flex-flow: row wrap;
-  gap: 15px;
 }
 
 .filter__item {
@@ -1013,13 +1021,13 @@ body button {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  -webkit-transition: all .3s ease;
-  -o-transition: all .3s ease;
-  transition: all .3s ease;
+  -webkit-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  transition: all 0.3s ease;
 }
 
 .el-menu__menu._non-active {
-  visibility: hidden;
+  overflow: hidden;
   opacity: 0;
   pointer-events: none;
 }
@@ -1038,9 +1046,9 @@ body button {
 }
 
 .accordion__btn.active {
-  -webkit-transform: scale(1.1,1.1);
-      -ms-transform: scale(1.1,1.1);
-          transform: scale(1.1,1.1);
+  -webkit-transform: scale(1.1, 1.1);
+      -ms-transform: scale(1.1, 1.1);
+          transform: scale(1.1, 1.1);
 }
 
 .accordion__items {
@@ -1053,9 +1061,9 @@ body button {
   overflow: hidden;
   opacity: 0;
   pointer-events: none;
-  -webkit-transition: all .5s ease;
-  -o-transition: all .5s ease;
-  transition: all .5s ease;
+  -webkit-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  transition: all 0.5s ease;
 }
 
 .accordion__item.active {
@@ -1123,7 +1131,7 @@ body button {
   color: var(--main-font-color);
 }
 
-@media (min-width:570px) {
+@media (min-width: 570px) {
   .fullscreen-navmenu {
     display: none;
   }
@@ -1133,7 +1141,7 @@ body button {
   }
 }
 
-@media (min-width:768px) {
+@media (min-width: 768px) {
   html {
     -ms-overflow-style: none;
     scrollbar-width: none;
@@ -1144,14 +1152,14 @@ body button {
   }
 }
 
-@media (min-width:1440px) {
+@media (min-width: 1440px) {
   .container,
   .body {
     width: 70%;
   }
 }
 
-@media (max-width:950px) {
+@media (max-width: 950px) {
   .sidebar {
     position: fixed;
     background: #808080;
@@ -1159,9 +1167,9 @@ body button {
     width: 40vw;
     top: 0;
     z-index: 5;
-    -webkit-transition: all .5s ease;
-    -o-transition: all .5s ease;
-    transition: all .5s ease;
+    -webkit-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
   }
 
   .sidebar.active {
@@ -1183,7 +1191,7 @@ body button {
   }
 }
 
-@media (max-width:600px) {
+@media (max-width: 600px) {
   .sidebar {
     width: 70vw;
   }
@@ -1193,19 +1201,24 @@ body button {
   }
 }
 
-@media (max-width:570px) {
+@media (max-width: 570px) {
   .navmenu {
     display: none;
   }
 }
 
-@media (max-width:560px) {
+@media (max-width: 560px) {
   .header__body .searchbar {
     display: none;
   }
 }
 
-@media (max-width:426px) {
+@media (max-width: 426px) {
+  .container,
+  .body {
+    width: 95%;
+  }
+
   .uspoiler-btn-active {
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
@@ -1228,21 +1241,14 @@ body button {
   }
 }
 
-@media (max-width:425px) {
-  .container,
-  .body {
-    width: 95%;
-  }
-}
-
-@media (min-width:768px) and (max-width:1440px) {
+@media (min-width: 768px) and (max-width: 1440px) {
   .container,
   .body {
     width: 90%;
   }
 }
 
-@media (min-width:426px) and (max-width:768px) {
+@media (min-width: 426px) and (max-width: 768px) {
   .container,
   .body {
     width: 90%;

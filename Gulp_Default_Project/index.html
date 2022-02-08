@@ -138,9 +138,8 @@
   <main class="main">
     <div class="main__body">
       <section class="fullscreen">
-  <div class="fullscreen__body adaptive-image container">
-    <h1 hidden>Hello, developer! This is my default project with gulp.</h1>
-<picture><source srcset="img/demo/fs-bg.avif" type="image/avif"><source srcset="img/demo/fs-bg.webp" type="image/webp"><img class="fullscreen__bg-img" src="img/demo/fs-bg.jpg" loading='lazy' alt='parallaxImg'></picture>
+  <div class="fullscreen__body container">
+    <h1 class="parallax-text">Hello, developer! This is my default project with gulp.</h1>
   </div>
   <!-- ? Use if you need a side menu. -->
   <aside id="sidebar1" class="sidebar content__sidebar">
@@ -243,14 +242,14 @@ let someAccrod = new Accordion(
   500
 )
 someAccrod.buttonsActiveClass = 'active'
-someAccrod.contentActiveClass = 'active'
-)</code>
+someAccrod.contentActiveClass = 'active'</code>
     </pre>
     </div>
   </div>
 </section>
 <section class='images'>
   <div class='images__body body'>
+<picture><source srcset="img/logo.avif" type="image/avif"><source srcset="img/logo.webp" type="image/webp"><img src="img/logo.png" loading='lazy' alt='logo' width=10 height=10></picture>
     <h2 class='images__title title'>images</h2>
     <p class="images__text text">
       All images (with the exception of svg and possibly something else) will be converted to modern formats and minified.
@@ -395,11 +394,11 @@ someAccrod.contentActiveClass = 'active'
       Has the ability to animate, does not allow you to switch when the animation is on.
     </p>
     <div class="accordion__container demo-block">
-      <button data-toggle-elem-number="0" class="accordion__btn">1</button>
-      <button data-toggle-elem-number="1" class="accordion__btn">2</button>
-      <button data-toggle-elem-number="2" class="accordion__btn">3</button>
+      <button aria-label="First element Of accordion" data-toggle-elem-number="0" class="accordion__btn">1</button>
+      <button aria-label="Second element Of accordion" data-toggle-elem-number="1" class="accordion__btn">2</button>
+      <button aria-label="Third element Of accordion" data-toggle-elem-number="2" class="accordion__btn">3</button>
       <div class="accordion__items">
-        <pre class="accordion__item">
+        <pre class="accordion__item" lang="ru_RU">
                 1
                 Небо пустого цвета.Нас пожирает листопад
                 Исход из слепого лета и вслед погоня наугад
@@ -408,7 +407,7 @@ someAccrod.contentActiveClass = 'active'
                 А вдруг всё то,что ищем
                 обретается при вскрытии
                 телесного родного дорогого себя</pre>
-        <pre class="accordion__item">
+        <pre class="accordion__item" lang="ru_RU">
                 2
                 Снега провожают дикий и лихорадочный поход
                 Вечерние густые лики,безостановочный народ
@@ -417,7 +416,7 @@ someAccrod.contentActiveClass = 'active'
                 А вдруг всё то,что ищем —
                 далеко за горизонтом
                 на смертельной истребительной дороге всё на север</pre>
-        <pre class="accordion__item">
+        <pre class="accordion__item" lang="ru_RU">
                 3
                 Зашить ледяную рану и впредь давиться леденцом
                 Шагать тяжело,упрямо или катиться колесом

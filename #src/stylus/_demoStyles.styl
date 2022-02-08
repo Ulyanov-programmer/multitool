@@ -1,221 +1,302 @@
-.header
-  box-shadow: 0 3px 5px rgba(0,0,0,0.1)
-.sidebar
-  z-index 1
+.fullscreen {
+  &__body {
+    flex-set row nowrap;
+    flex-content-position($jc: center, $ai: center);
+  }
 
-  &__body
-    top 100px
+  h1 {
+    padding 10% 0 10% 0;
+    font-size adapt-fsize(35, 20);
+  }
+}
 
-.navmenu
-  &__list
-    flex-content-position flex-end center
+.header {
+  box-shadow 0 3px 5px rgba(0, 0, 0, 0.1);
+}
 
-    li
-      padding 5px 10px 5px 10px
-      border 1px solid #fff
-      border-radius 5px
-      cursor pointer
-      margin 5px 5px 5px 5px
+.sidebar {
+  z-index 1;
 
-      &:not(:last-child)
-        margin-right 10px
+  &__body {
+    top 100px;
+  }
+}
 
-      &:hover, &:focus
-        color #000
-        background #fff
+.navmenu {
+  &__list {
+    flex-content-position flex-end center;
 
-.text
-  padding 10px 0 10px 0
-  line-height 1.2
+    li {
+      padding 5px 10px 5px 10px;
+      border 1px solid #fff;
+      border-radius 5px;
+      cursor pointer;
+      margin 5px 5px 5px 5px;
 
-.code-block
-  display inline-block
-  background rgba(0, 0, 0, 0.404)
-  padding 10px 20px 10px 20px
-  border-radius 10px
+      &:not(:last-child) {
+        margin-right 10px;
+      }
 
-.demo-block
-  background rgba(0, 0, 0, 0.404)
-  padding 20px 20px 20px 20px
-  border-radius 10px
+      &:hover, &:focus {
+        color #000;
+        background #fff;
+      }
+    }
+  }
+}
 
-.title
-  font-size adapt-fsize(35, 20)
+.text {
+  padding 10px 0 10px 0;
+  line-height 1.2;
+}
 
-  &::first-letter
-    text-transform uppercase
+.code-block {
+  display inline-block;
+  background rgba(0, 0, 0, 0.404);
+  padding 10px 20px 10px 20px;
+  border-radius 10px;
+}
 
-.body
-  @extend .container
-  firstLevelElementsMargin 20
+.demo-block {
+  background rgba(0, 0, 0, 0.404);
+  padding 20px 20px 20px 20px;
+  border-radius 10px;
+}
 
-.styles
+.title {
+  font-size adapt-fsize(35, 20);
+
+  &::first-letter {
+    text-transform uppercase;
+  }
+}
+
+.body {
+  @extend .container;
+  firstLevelElementsMargin 'bottom' 20;
+}
+
+.main {
+  &__body {
+    padding 10px 0 10px 0;
+
+    >* {
+      padding 10px 0 10px 0;
+    }
+  }
+}
+
+.styles {
   // &__body
 
   // &__title
 
   // &__text
-  &__content
-    flex-set row wrap
-    justify-content center
-    gap 15px
+  &__content {
+    flex-set row wrap;
+    justify-content center;
+    gap 15px;
+  }
 
-  &__r-code
-    color rgb(255, 145, 145)
+  &__r-code {
+    color rgb(255, 145, 145);
+  }
+}
 
-.scripts
-  &__content
-    flex-set row wrap
-    flex-content-position center center
-    gap 15px
+.scripts {
+  &__content {
+    flex-set row wrap;
+    flex-content-position center center;
+    gap 15px;
+  }
+}
 
-.images
-  &__big-text
-    font-weight bold
-  &__content
-    flex-set row wrap
-    flex-content-position center center
-    gap 15px
+.images {
+  &__big-text {
+    font-weight bold;
+  }
 
-.filter
-  &__content
-    flex-set column nowrap
-    flex-content-position center center
-    gap 25px
+  &__content {
+    flex-set row wrap;
+    flex-content-position center center;
+    gap 15px;
+  }
+}
 
-  &__header
-    flex-set row wrap
-    gap 15px
+.filter {
+  &__content {
+    flex-set column nowrap;
+    flex-content-position center center;
+    gap 25px;
+  }
 
-  &__button
-    padding 10px 7px 10px 7px
-    border 1px solid #fff
+  &__header, &__main {
+    flex-set row wrap;
+    flex-content-position($jc: center, $ai: center);
+    gap 15px;
+  }
 
-    &.active, &:hover, &:focus
-      background #fff
-      color #000
+  &__button {
+    padding 10px 7px 10px 7px;
+    border 1px solid #fff;
 
-  &__main
-    flex-set row wrap
-    gap 15px
+    &.active, &:hover, &:focus {
+      background #fff;
+      color #000;
+    }
+  }
 
-  &__item
-    padding 10px 5px 10px 5px
+  &__item {
+    padding 10px 5px 10px 5px;
 
-    &_green
-      background green
+    &_green {
+      background green;
+    }
 
-    &_blue
-      background blue
+    &_blue {
+      background blue;
+    }
 
-    &_red
-      background red
+    &_red {
+      background red;
+    }
 
-    &_yellow
-      background yellow
-      color #000
+    &_yellow {
+      background yellow;
+      color #000;
+    }
+  }
+}
 
-.demo-spoiler
-  &__content
-    flex-set row wrap
-    flex-content-position center center
-    gap 25px
+.demo-spoiler {
+  &__content {
+    flex-set row wrap;
+    flex-content-position center center;
+    gap 25px;
+  }
 
-  &__spoiler-block
-    display inline-block
+  &__spoiler-block {
+    display inline-block;
+  }
+}
 
-.swiper
-  h2
-    margin-bottom 20px
+.swiper {
+  h2 {
+    margin-bottom 20px;
+  }
 
-  &__text
-    margin-bottom 20px
+  &__text {
+    margin-bottom 20px;
+  }
 
-  &-slide
-    text-align center
-    background rgba(0, 0, 0, 0.404)
-    min-height 100px
-    flex-set row nowrap
-    flex-content-position center center
+  &-slide {
+    text-align center;
+    background rgba(0, 0, 0, 0.404);
+    min-height 100px;
+    flex-set row nowrap;
+    flex-content-position center center;
+  }
+}
 
-.el-menu
-  &__content
-    flex-set row wrap
-    flex-content-position center center
-    gap 15px
+.el-menu {
+  &__content {
+    flex-set row wrap;
+    flex-content-position center center;
+    gap 15px;
+  }
 
-  &__item
-    position relative
-    border 1px solid #fff
-    padding 15px 15px 15px 15px
+  &__item {
+    position relative;
+    border 1px solid #fff;
+    padding 15px 15px 15px 15px;
+  }
 
-  &__menu
-    position absolute
-    top 0
-    left 0
-    block-size 100% 100%
-    background #000000ab
-    flex-set row nowrap
-    flex-content-position center center
-    transition all 0.3s ease
+  &__menu {
+    position absolute;
+    top 0;
+    left 0;
+    block-size 100%;
+    background #000000ab;
+    flex-set row nowrap;
+    flex-content-position($jc: center, $ai: center);
+    transition all 0.3s ease;
 
-    &._non-active
-      visibility hidden
-      opacity 0
-      pointer-events none
+    &._non-active {
+      hide();
+    }
+  }
+}
 
-.accordion
-  &__container
-    text-align center
-    firstLevelElementsMargin 20
+.accordion {
+  &__container {
+    text-align center;
+    firstLevelElementsMargin 'bottom' 20;
+  }
 
-  &__btn
-    padding 10px 10px 10px 10px
-    border 1px solid #fff
+  &__btn {
+    padding 10px 10px 10px 10px;
+    border 1px solid #fff;
 
-    &.active
-      transform scale(1.1, 1.1)
+    &.active {
+      transform scale(1.1, 1.1);
+    }
+  }
 
-  &__items
-    position relative
-    margin auto
+  &__items {
+    position relative;
+    margin auto;
+  }
 
-  &__item
-    text-align left
-    hide()
-    transition all 0.5s ease
+  &__item {
+    text-align left;
+    hide();
+    transition all 0.5s ease;
 
-    &.active
-      show()
+    &.active {
+      show();
+    }
+  }
+}
 
-.demo-submenu
-  &__content
-    flex-set row wrap
-    flex-content-position center center
+.demo-submenu {
+  &__content {
+    flex-set row wrap;
+    flex-content-position($jc: center, $ai: center);
+  }
 
-  &__button
-    padding 5px 10px 5px 10px
-    font-size adapt-fsize(18)
+  &__button {
+    padding 5px 10px 5px 10px;
+    font-size adapt-fsize(18);
+  }
 
-  &__ul
-    padding 10px 10px 10px 10px
+  &__ul {
+    padding 10px 10px 10px 10px;
 
-    li
-      padding 5px 5px 5px 5px
+    li {
+      padding 5px 5px 5px 5px;
 
-      a
-        color #fff
+      a {
+        color #fff;
+      }
+    }
+  }
+}
 
-.packages
-  &__content
-    flex-set row nowrap
-    flex-content-position center center
-    margin auto
+.packages {
+  &__content {
+    flex-set row nowrap;
+    flex-content-position($jc: center, $ai: center);
+    margin auto;
 
-    li
-      padding 5px 0 5px 0
+    li {
+      padding 5px 0 5px 0;
+    }
+  }
+}
 
-.special-thanks__text
-  a
-    text-decoration underline
-    color var(--main-font-color)
+.special-thanks__text {
+  a {
+    text-decoration underline;
+    color var(--main-font-color);
+  }
+}

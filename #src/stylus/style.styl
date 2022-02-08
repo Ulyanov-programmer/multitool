@@ -1,64 +1,65 @@
 /* Insert layout width below.
 If this is not done, when using a responsive font, the result will not match the layout.
 Please note that specifying a value less than 425 is dangerous for the psyche. */
-$layoutWidth = 1440
-$mainFontSize = 16
-$minFontSize = 12
-$burgerMenuShowWidth = 570px
+$layoutWidth = 1440;
+$mainFontSize = 16;
+$minFontSize = 12;
+$burgerMenuShowWidth = 570px;
 
-html
-  --main-font-color #e2e2e2
-  --main-font-family Arial
-  --bg #5f5e5e
+html {
+  --main-font-color #e2e2e2;
+  --main-font-family Arial;
+  --bg #5f5e5e;
+}
 
-@import 'modules/_nullStyle'
-@import '_footer'
-@import '_fonts'
-@import '_general'
-@import '_header'
-@import '_mixins'
-@import 'modules/_submenu'
-@import 'modules/_spoiler'
-@import 'modules/_sidebar'
+@import 'modules/_nullStyle';
+@import '_footer';
+@import '_fonts';
+@import '_general';
+@import '_header';
+@import '_mixins';
+@import 'modules/_submenu';
+@import 'modules/_spoiler';
+@import 'modules/_sidebar';
 
-body
-  height 100%
-  color var(--main-font-color)
-  font adapt-fsize($mainFontSize, $minFontSize) var(--main-font-family)
+body {
+  height 100%;
+  color var(--main-font-color);
+  font adapt-fsize($mainFontSize, $minFontSize) var(--main-font-family);
 
-  &.scroll-block
-    overflow hidden
+  &.scroll-block {
+    overflow hidden;
+  }
 
-  button
-    font-family var(--main-font-family)
-    color var(--main-font-color)
+  button {
+    font-family var(--main-font-family);
+    color var(--main-font-color);
+  }
+}
 
-.main
-  width 100%
+.main {
+  width 100%;
 
-  &__body
-    firstLevelElementsMargin 20
-    background var(--bg)
+  &__body {
+    firstLevelElementsMargin 'bottom' 20;
+    background var(--bg);
+  }
+}
 
-.fullscreen
-  flex-set row nowrap
-  flex-content-position center center
-  position relative
-  block-size auto 100vh
-  adaptive-property 'min-height' 500 400
+.fullscreen {
+  flex-set row nowrap;
+  flex-content-position center center;
+  position relative;
+  block-size auto 100vh;
+  adaptive-property 'min-height' 500 400;
   // background: url('../img/') no-repeat center / cover
-  background rgb(54, 54, 54)
+  background rgb(54, 54, 54);
 
   // &__body
+  &__scroll {
+    position absolute;
+    bottom 5%;
+  }
+}
 
-  &__scroll
-    position absolute
-    bottom 5%
-
-  .adaptive-image
-    padding 0 0 10% 0
-
-    img
-      top -60%
-
-@import '_demoStyles'
+@import '_demoStyles';
