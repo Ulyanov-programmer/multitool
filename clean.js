@@ -31,13 +31,14 @@ const demoHtml = {
 };
 
 deleteFontsGitkeep()
-deleteDemoContent()
+await deleteDemoContent()
 cleanReadmeFilesAndFolders()
 deleteSnippets()
 deleteDemoProject()
 let answer = readline.question('Set script&style modules? (enter [y], if you not, enter [another])')
 answer.toLowerCase() == 'y' ? setModules() : false
 
+console.log('🎆🎆🎆 I wish You a successful job!');
 
 async function setModules() {
   const hint = '(enter [y], if you not, enter [enter or another])';
@@ -77,24 +78,24 @@ async function setModules() {
 }
 function deleteFontsGitkeep() {
   try {
-    fs.remove(pathToProject + fontsGitkeep)
+    fs.removeSync(pathToProject + fontsGitkeep)
 
-    console.log('.gitkeep успешно удален');
+    console.log('✅ .gitkeep in fonts folder have been deleted.');
   } catch (error) {
-    console.log('АШИБКА');
+    console.log('❌' + error);
   }
 }
-function deleteDemoContent() {
+async function deleteDemoContent() {
   try {
     for (const pathToDemo of srcDemoFoldersAndFIles) {
-      fs.remove(pathToProject + pathToDemo)
+      fs.removeSync(pathToProject + pathToDemo)
     }
-    replace(demoStyles)
-    replace(demoHtml)
+    await replace(demoStyles)
+    await replace(demoHtml)
 
-    console.log('Demo успешно удален');
+    console.log('✅ The demo content have been deleted.');
   } catch (error) {
-    console.log('АШИБКА');
+    console.log('❌' + error);
   }
 }
 function cleanReadmeFilesAndFolders() {
@@ -103,27 +104,27 @@ function cleanReadmeFilesAndFolders() {
     fs.removeSync('./README.md')
     fs.createFileSync('README.md')
 
-    console.log('Readme успешно удален');
+    console.log('✅ The readme folder and file are clean.');
   } catch (error) {
-    console.log('АШИБКА');
+    console.log('❌' + error);
   }
 }
 function deleteDemoProject() {
   try {
-    fs.remove(pathToProject + demoProjectFolderName)
+    fs.removeSync(pathToProject + demoProjectFolderName)
 
-    console.log('Demo Project успешно удален');
+    console.log('✅ Demo Project have been deleted.');
   } catch (error) {
-    console.log('АШИБКА');
+    console.log('❌' + error);
   }
 }
 function deleteSnippets() {
   try {
-    fs.remove(pathToProject + snippetsFolderName)
+    fs.removeSync(pathToProject + snippetsFolderName)
 
-    console.log('Snippets успешно удален');
+    console.log('✅ Snippets have been deleted.');
   } catch (error) {
-    console.log('АШИБКА');
+    console.log('❌' + error);
   }
 }
 
