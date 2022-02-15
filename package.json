@@ -10,6 +10,10 @@
   "author": "default",
   "license": "ISC",
   "devDependencies": {
+    "replace-in-file": "^6.3.2",
+    "fs-extra": "^10.0.0",
+    "readline-sync": "^1.4.10",
+    
     "browser-sync": "^2.27.7",
     "del": "^6.0.0",
     "gulp": "^4.0.2",
