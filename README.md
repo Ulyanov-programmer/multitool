@@ -32,8 +32,7 @@ I decided to make my assembly as reliable, thoughtful and rich in functionality 
 Of course, just check out [this site on githubpages].
 
 ## Get started? 
-See the [wiki].
-You will also find the user manual there.
+On this issue, look in the [book].
 
 # **[RU]** Здравствуй, это моя сборка на gulp.
 <!-- Ctrl + Shift + V => live view this file in VS Code -->
@@ -68,14 +67,13 @@ You will also find the user manual there.
 Конечно, можно взглянуть на функционал зайдя на [этот сайт на githubpages].
 
 ## А как сим пользоваться? 
-Глянь [вики].
-Там же ты найдёшь инструкции по использованию.
+Ответ на сий вопрос [здесь].
 
 
 [this site on githubpages]: https://ulyanov-programmer.github.io/Gulp_Default_Project/Gulp_Default_Project/
 [этот сайт на githubpages]: https://ulyanov-programmer.github.io/Gulp_Default_Project/Gulp_Default_Project/
-[wiki]: https://github.com/Ulyanov-programmer/Gulp_Default_Project/wiki
-[вики]: https://github.com/Ulyanov-programmer/Gulp_Default_Project/wiki
+[book]: https://ulyanov-ivan.gitbook.io/gulp_default_project/
+[здесь]: https://ulyanov-ivan.gitbook.io/gulp_default_project/
 
 ---
 ### The following gulp packages were used:
