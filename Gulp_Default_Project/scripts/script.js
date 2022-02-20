@@ -83,4 +83,8 @@ let someParallaxMenu = new Parallax('.fullscreen__body', 768, new ParallaxElemen
 // submenu //
 import Submenu, { SubmenuElement } from './modules/submenu.js';
 new Submenu('show', 'active', new SubmenuElement('.demo-submenu__button', '.demo-submenu__ul'), new SubmenuElement('.demo-submenu__button-2', '.demo-submenu__ul-2'));
+// AnimationByScroll //
+import AnimateByScroll, { AnimationElement, AnimationMediaQuery } from "./modules/animateByScroll.js";
+new AnimateByScroll(true, new AnimationElement('.animation-by-scroll__item', 0.7, 500), new AnimationElement('.animation-by-scroll__item-2', 0.7, 1000, new AnimationMediaQuery(768, 0.8, 500)));
+AnimateByScroll.activeAnimationClass = 'active';
 //? your scripts //

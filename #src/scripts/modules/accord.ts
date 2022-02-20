@@ -37,7 +37,7 @@ export default class Accordion {
    * </div>
    * ```
    * @throws Some selector is null or white spaces - 
-   * This error will be printed to the console if some input argument are null or white spaces.
+   * This error will be printed to the console if some input argument is null or white spaces.
    * @throws The count of buttons != the count content-elements.
    */
   constructor(btnsSelector: string, contentBlockSelector: string, animationDuration: number,

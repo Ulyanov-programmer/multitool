@@ -156,5 +156,16 @@ new Submenu(
     '.demo-submenu__ul-2',
   )
 )
+// AnimationByScroll //
+import AnimateByScroll, { AnimationElement, AnimationMediaQuery } from "./modules/animateByScroll.js";
+
+new AnimateByScroll(
+  true,
+  new AnimationElement('.animation-by-scroll__item', 0.7, 500),
+  new AnimationElement('.animation-by-scroll__item-2', 0.7, 1000,
+    new AnimationMediaQuery(768, 0.8, 500),
+  ),
+)
+AnimateByScroll.activeAnimationClass = 'active'
 
 //? your scripts //

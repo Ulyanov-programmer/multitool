@@ -1,88 +1,92 @@
 .fullscreen {
+  flex-set: row nowrap
+  flex-content-position: center center
+  position: relative
+  block-size: auto 100vh
+  adaptive-property: 'min-height' 500 400
+  background: #363636
+
   &__body {
-    flex-set row nowrap;
-    flex-content-position($jc: center, $ai: center);
+    flex-set: row nowrap
+    flex-content-position($jc: center, $ai: center)
+  }
+
+  &__scroll {
+    position: absolute
+    bottom: 5%
   }
 
   h1 {
-    padding 10% 0 10% 0;
-    font-size adapt-fsize(35, 20);
+    padding: 10% 0 10% 0
+    font-size: adapt-fsize(35, 20)
   }
 }
 
 .header {
-  box-shadow 0 3px 5px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 3px 5px #0000001a
 }
 
 .sidebar {
-  z-index 1;
-
   &__body {
-    top 100px;
+    top: 100px
   }
 }
 
 .navmenu {
   &__list {
-    flex-content-position flex-end center;
+    flex-content-position: flex-end center
 
-    button {
-      padding 5px 10px 5px 10px;
-      border 1px solid #fff;
-      border-radius 5px;
-      cursor pointer;
-      margin 5px 5px 5px 5px;
+    a, button {
+      border: 1px solid #fff
+      border-radius: 3px
+      margin: 5px 5px 5px 5px
       transition: all 0.2s ease
 
-      &:not(:last-child) {
-        margin-right 10px;
-      }
-
       &:hover, &:focus {
-        color #000;
-        background #fff;
+        color: #000
+        background: #fff
       }
     }
   }
 }
 
 .text {
-  padding 10px 0 10px 0;
-  line-height 1.2;
+  padding: 10px 0 10px 0
+  line-height: 1.2
 }
 
 .code-block {
-  display inline-block;
-  background rgba(0, 0, 0, 0.404);
-  padding 10px 20px 10px 20px;
-  border-radius 10px;
+  display: inline-block
+  background: rgba(0, 0, 0, 0.404)
+  padding: 10px 20px 10px 20px
+  border-radius: 10px
 }
 
 .demo-block {
-  background rgba(0, 0, 0, 0.404);
-  padding 20px 20px 20px 20px;
-  border-radius 10px;
+  background: rgba(0, 0, 0, 0.404)
+  padding: 20px 20px 20px 20px
+  border-radius: 10px
 }
 
 .title {
-  font-size adapt-fsize(35, 20);
+  font-size: adapt-fsize(35, 20)
 
   &::first-letter {
-    text-transform uppercase;
+    text-transform: uppercase
   }
 }
 
 .body {
-  @extend .container;
-  firstLevelElementsMargin 'bottom' 20;
+  @extend .container
+  firstLevelElementsMargin: 'bottom' 20
 }
 
 .main {
   &__body {
-    padding 10px 0 10px 0;
+    padding: 10px 0 10px 0
 
     >* {
-      padding 10px 0 10px 0;
+      padding: 10px 0 10px 0
     }
   }
 }
@@ -94,190 +98,190 @@
 
   // &__text
   &__content {
-    flex-set row wrap;
-    justify-content center;
-    gap 15px;
+    flex-set: row wrap
+    justify-content: center
+    gap: 15px
   }
 
   &__r-code {
-    color rgb(255, 145, 145);
+    color: rgb(255, 145, 145)
   }
 }
 
 .scripts {
   &__content {
-    flex-set row wrap;
-    flex-content-position center center;
-    gap 15px;
+    flex-set: row wrap
+    flex-content-position: center center
+    gap: 15px
   }
 }
 
 .images {
   &__big-text {
-    font-weight bold;
+    font-weight: bold
   }
 
   &__content {
-    flex-set row wrap;
-    flex-content-position center center;
-    gap 15px;
+    flex-set: row wrap
+    flex-content-position: center center
+    gap: 15px
   }
 }
 
 .filter {
   &__content {
-    flex-set column nowrap;
-    flex-content-position center center;
-    gap 25px;
+    flex-set: column nowrap
+    flex-content-position: center center
+    gap: 25px
   }
 
   &__header, &__main {
-    flex-set row wrap;
-    flex-content-position($jc: center, $ai: center);
-    gap 15px;
+    flex-set: row wrap
+    flex-content-position($jc: center, $ai: center)
+    gap: 15px
   }
 
   &__button {
-    padding 10px 7px 10px 7px;
-    border 1px solid #fff;
+    padding: 10px 7px 10px 7px
+    border: 1px solid #fff
 
     &.active, &:hover, &:focus {
-      background #fff;
-      color #000;
+      background: #fff
+      color: #000
     }
   }
 
   &__item {
-    padding 10px 5px 10px 5px;
+    padding: 10px 5px 10px 5px
 
     &_green {
-      background green;
+      background: green
     }
 
     &_blue {
-      background blue;
+      background: blue
     }
 
     &_red {
-      background red;
+      background: red
     }
 
     &_yellow {
-      background yellow;
-      color #000;
+      background: yellow
+      color: #000
     }
   }
 }
 
 .demo-spoiler {
   &__content {
-    flex-set row wrap;
-    flex-content-position center center;
-    gap 25px;
+    flex-set: row wrap
+    flex-content-position: center center
+    gap: 25px
   }
 
   &__spoiler-block {
-    display inline-block;
+    display: inline-block
   }
 }
 
 .swiper {
   h2 {
-    margin-bottom 20px;
+    margin-bottom: 20px
   }
 
   &__text {
-    margin-bottom 20px;
+    margin-bottom: 20px
   }
 
   &-slide {
-    text-align center;
-    background rgba(0, 0, 0, 0.404);
-    min-height 100px;
-    flex-set row nowrap;
-    flex-content-position center center;
+    text-align: center
+    background: rgba(0, 0, 0, 0.404)
+    min-height: 100px
+    flex-set: row nowrap
+    flex-content-position: center center
   }
 }
 
 .el-menu {
   &__content {
-    flex-set row wrap;
-    flex-content-position center center;
-    gap 15px;
+    flex-set: row wrap
+    flex-content-position: center center
+    gap: 15px
   }
 
   &__item {
-    position relative;
-    border 1px solid #fff;
-    padding 15px 15px 15px 15px;
+    position: relative
+    border: 1px solid #fff
+    padding: 15px 15px 15px 15px
   }
 
   &__menu {
-    position absolute;
-    top 0;
-    left 0;
-    block-size 100%;
-    background #000000ab;
-    flex-set row nowrap;
-    flex-content-position($jc: center, $ai: center);
-    transition all 0.3s ease;
+    position: absolute
+    top: 0
+    left: 0
+    block-size: 100%
+    background: #000000ab
+    flex-set: row nowrap
+    flex-content-position($jc: center, $ai: center)
+    transition: all 0.3s ease
 
     &._non-active {
-      hide();
+      hide()
     }
   }
 }
 
 .accordion {
   &__container {
-    text-align center;
-    firstLevelElementsMargin 'bottom' 20;
+    text-align: center
+    firstLevelElementsMargin: 'bottom' 20
   }
 
   &__btn {
-    padding 10px 10px 10px 10px;
-    border 1px solid #fff;
+    padding: 10px 10px 10px 10px
+    border: 1px solid #fff
 
     &.active {
-      transform scale(1.1, 1.1);
+      transform: scale(1.1, 1.1)
     }
   }
 
   &__items {
-    position relative;
-    margin auto;
+    position: relative
+    margin: auto
   }
 
   &__item {
-    text-align left;
-    hide();
-    transition all 0.5s ease;
+    text-align: left
+    hide()
+    transition: all 0.5s ease
 
     &.active {
-      show();
+      show()
     }
   }
 }
 
 .demo-submenu {
   &__content {
-    flex-set row wrap;
-    flex-content-position($jc: center, $ai: center);
+    flex-set: row wrap
+    flex-content-position($jc: center, $ai: center)
   }
 
   &__button {
-    padding 5px 10px 5px 10px;
-    font-size adapt-fsize(18);
+    padding: 5px 10px 5px 10px
+    font-size: adapt-fsize(18)
   }
 
   &__ul {
-    padding 10px 10px 10px 10px;
+    padding: 3px 3px 3px 3px
 
     li {
-      padding 5px 5px 5px 5px;
-
       a {
-        color #fff;
+        display: inline-block
+        padding: 5px 5px 5px 5px
+        color: #fff
       }
     }
   }
@@ -285,19 +289,71 @@
 
 .packages {
   &__content {
-    flex-set row nowrap;
-    flex-content-position($jc: center, $ai: center);
-    margin auto;
+    flex-set: row nowrap
+    flex-content-position($jc: center, $ai: center)
+    margin: auto
 
     li {
-      padding 5px 0 5px 0;
+      padding: 5px 0 5px 0
     }
   }
 }
 
 .special-thanks__text {
   a {
-    text-decoration underline;
-    color var(--main-font-color);
+    text-decoration: underline
+    color: var(--main-font-color)
+  }
+}
+
+.logo {
+  @media (max-width: 426px) {
+    img {
+      block-size: 30px
+    }
+  }
+}
+
+.animation-by-scroll {
+  &__body {
+    overflow: hidden
+  }
+
+  &__title {
+  }
+
+  &__content {
+    flex-set: row nowrap
+    flex-content-position($jc: center, $ai: center)
+    gap: 15px
+
+    @media (max-width: 768px) {
+      flex-set: column nowrap
+    }
+  }
+
+  &__item {
+    opacity: 0
+    transform: translate(10%, 10%)
+    transition: all 0.5s ease-in
+
+    @media (max-width: 768px) {
+      transition: all 1s ease-in
+    }
+
+    &.active {
+      opacity: 1
+      transform: translate(0, 0)
+    }
+  }
+
+  &__item-title {
+    text-align: center
+    font-size: adapt-fsize(20, 18)
+    padding-bottom: 10px
+  }
+
+  &__item-text {
+    font-style: italic
   }
 }
