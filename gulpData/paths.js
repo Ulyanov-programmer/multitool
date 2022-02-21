@@ -14,7 +14,7 @@ export const paths = {
   },
   scr: {
     html: [`${sourceFolderName}/*.html`, `!${sourceFolderName}/*.htm`],
-    css: [`${sourceFolderName}/stylus/*.styl`, `!${sourceFolderName}/stylus/_*.styl`],
+    css: [`${sourceFolderName}/styles/*.styl`, `!${sourceFolderName}/styles/_*.styl`],
     scripts: `${sourceFolderName}/scripts/*.{ts,js}`,
     scriptModules: `${sourceFolderName}/scripts/modules/*.{ts,js}`,
     images: `${sourceFolderName}/img/**/*.{jpg,png,svg,gif,ico,webp}`,
@@ -22,11 +22,11 @@ export const paths = {
   },
   watch: {
     html: [`${sourceFolderName}/**/*.html`, `${sourceFolderName}/**/*.htm`],
-    css: `${sourceFolderName}/stylus/**/*.styl`,
+    css: `${sourceFolderName}/styles/**/*.styl`,
     scripts: `${sourceFolderName}/scripts/**/*.{ts,js}`,
     scriptModules: `${sourceFolderName}/scripts/**/*.{ts,js}`,
     images: `${sourceFolderName}/img/**/*.{jpg,png,svg,gif,ico,webp}`,
   },
   clean: `./${projectFolderName}/`,
 }
-export let fontsFIlePath = `${sourceFolderName}/stylus/_fonts.styl`;
+export let fontsFIlePath = `${sourceFolderName}/styles/_fonts.styl`;
