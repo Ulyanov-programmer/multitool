@@ -3,15 +3,16 @@ block-size($width, $height = $width) {
   height: $height
 }
 
-fontStyle($font_name, $file_name, $weight, $style) {
+fontStyle($name, $type, $fileName, $weight, $style) {
   @font-face {
-    font-family: $font_name
+    font-family: $name
     font-display: swap
-    src: 'url("../fonts/%s.woff2") format("woff2")' % $file_name
+    src: 'url("../fonts/%s.woff2") format("%s")' % ($fileName $type)
     font-weight: $weight
     font-style: $style
   }
 }
+
 
 adaptive-property($property, $value, $min-value) {
   {$property}: 'calc(%spx + (%s - %s) * ((100vw - 320px) / (1000 - 320)))' % ($min-value $value $min-value)
