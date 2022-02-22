@@ -10,20 +10,20 @@ const snippetsFolderName = '/mySnippets'
 const readmeFolder = '/readmeFiles'
 const src = '/#src'
 const scriptModules = `${pathToProject}${src}/scripts/modules/`
-const stylesModules = `${pathToProject}${src}/stylus/modules/`
+const stylesModules = `${pathToProject}${src}/styles/modules/`
 
 
 const fontsGitkeep = `${src}/fonts/.gitkeep`
-const mainStyleFile = `${src}/stylus/style.styl`
+const mainStyleFile = `${src}/styles/style.styl`
 const mainHtmlFile = `${src}/index.html`
 const mainScriptFile = `${src}/scripts/script.ts`
 
 const srcDemoFoldersAndFIles =
-  [`${src}/img/demo`, `${src}/stylus/_demoStyles.styl`, `${src}/_demo.htm`,];
+  [`${src}/img/demo`, `${src}/styles/_demoStyles.styl`, `${src}/_demo.htm`,];
 
 const demoStyles = {
   files: pathToProject + mainStyleFile,
-  from: "@import '_demoStyles';", to: '',
+  from: "@import '_demoStyles'", to: '',
 };
 const demoHtml = {
   files: pathToProject + mainHtmlFile,
@@ -36,7 +36,7 @@ cleanReadmeFilesAndFolders()
 deleteSnippets()
 deleteDemoProject()
 let answer = readline.question('Set script&style modules? (enter [y], if you not, enter [another])')
-answer.toLowerCase() == 'y' ? setModules() : false
+answer.toLowerCase() == 'y' ? await setModules() : false
 
 console.log('🎆🎆🎆 I wish You a successful job!');
 
@@ -141,7 +141,7 @@ async function includeModuleByQuestion(questionString, scriptPath, stylePath) {
 
       await replace({
         files: pathToProject + mainStyleFile,
-        from: `@import 'modules/${styleModuleName}';`, to: '',
+        from: `@import 'modules/${styleModuleName}'`, to: '',
       })
     }
   }
