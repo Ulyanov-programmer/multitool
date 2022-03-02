@@ -105,12 +105,6 @@ new SidebarMenu(
 SidebarMenu.sidebarsActiveClass = 'active'
 SidebarMenu.buttonsActiveClass = 'active'
 
-// sliders //
-// You can set your sliders in sliders.js. Try Ctrl + P.
-//? Remove this strings if you don't need sliders
-import * as sliders from './sliders.js';
-let s = sliders
-
 // accordion //
 import Accordion from './modules/accord.js';
 

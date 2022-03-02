@@ -68,8 +68,8 @@
 <body>
   <header class="header fixed-header">
   <div class="header__body container header__container">
-    <a href="/" class="logo" aria-label="logo-RefToMainPage">
-<picture><source srcset="img/logo.avif" type="image/avif"><source srcset="img/logo.webp" type="image/webp"><img src="img/logo.png" alt="logo" width=50 height=50></picture>
+    <a href="/" class="logo" aria-label="logo, reference to main page">
+      <img src="img/logo.png" alt="logo" width=50 height=50>
     </a>
     <!-- <form class="searchbar">
       <input class="searchbar__input" type='text' placeholder='input' required>
@@ -621,10 +621,11 @@ someAccrod.contentActiveClass = 'active'</code>
 
 <script type="module" src="scripts/script.js"></script>
 
-
 <!-- Swiper -->
 <link rel="stylesheet" href="css/swiper-bundle.min.css">
-<script src="scripts/swiper-bundle.min.js"></script>
+<script defer src="scripts/swiper-bundle.min.js"></script>
+<script type="module" src="scripts/sliders.js"></script>
+
 
 </html>
 

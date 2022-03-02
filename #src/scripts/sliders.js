@@ -1,4 +1,4 @@
-export const demoSwiper = new Swiper('.swiper', {
+const demoSlider = new Swiper('.swiper', {
   /*
 
   navigation: {
@@ -20,7 +20,6 @@ export const demoSwiper = new Swiper('.swiper', {
     delay: 3000,
     stopOnLastSlide: false,
   },
-
   Infinite scrolling.
     loop: false,
 
@@ -71,5 +70,4 @@ export const demoSwiper = new Swiper('.swiper', {
       },
     });
   */
-  //! PLEASE TURN ME OFF IF YOU DO NOT NEED ME!
 });
