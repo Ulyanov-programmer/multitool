@@ -14,9 +14,9 @@ export default class Accordion {
    * @param btnsSelector
    * Selector for buttons that open some accordion content element.
    * Must contain data-toggle-elem-number="numberOfContentElement" 
-   * (note, the count starts from zero)
-   * @param contentBlockSelector
-   * Selector of a block that contains the content-elements of the accordion.
+   * `(note, the count starts from zero)`
+   * @param contentBlocksSelector
+   * Selector of blocks that contain the accordion content.
    * @param animationDuration
    * If you use transition, it set animation duration in ms. Can be 0.
    * @param activeFirstElements
@@ -40,14 +40,14 @@ export default class Accordion {
    * This error will be printed to the console if some input argument is null or white spaces.
    * @throws The count of buttons != the count content-elements.
    */
-  constructor(btnsSelector: string, contentBlockSelector: string, animationDuration: number,
+  constructor(btnsSelector: string, contentBlocksSelector: string, animationDuration: number,
     activeFirstElements: boolean = true) {
-    if (isNullOrWhiteSpaces(btnsSelector, contentBlockSelector) || animationDuration < 0) {
+    if (isNullOrWhiteSpaces(btnsSelector, contentBlocksSelector) || animationDuration < 0) {
       throw '[ACCORDION] Incorrect arguments!'
     }
 
     this.buttons = document.querySelectorAll(btnsSelector);
-    this.contentElements = Array.from(document.querySelectorAll(contentBlockSelector).values())
+    this.contentElements = Array.from(document.querySelectorAll(contentBlocksSelector).values())
     this.animationDuration = animationDuration + 100;
 
     if (this.buttons.length != this.contentElements.length) {
@@ -86,7 +86,7 @@ export default class Accordion {
 
     let activeContentElement: HTMLElement = this.contentElements[activeAccordButton.dataset.toggleElemNumber];
 
-    for (const contentElement of this.contentElements) {
+    for (let contentElement of this.contentElements) {
       contentElement.classList.remove('active');
 
       setTimeout(async () => {

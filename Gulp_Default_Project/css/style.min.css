@@ -781,7 +781,7 @@ body button {
   margin: auto;
 }
 .accordion__item {
-  text-align: left;
+  text-align: center;
   overflow: hidden;
   opacity: 0;
   pointer-events: none;
