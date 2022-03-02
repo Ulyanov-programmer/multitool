@@ -1,30 +1,26 @@
 .searchbar {
   flex-set: row nowrap
   background: #fff
-  height: 30px
-
-  * {
-    height: 100%
-  }
 
   &__input {
-    padding: 0 0 0 10px
+    padding: 10px
+    transition: all 0.3s ease
 
-    &:focus {
+    &:hover, &:focus {
       background: #d8d5d5
     }
   }
 
   &__submit {
-    padding: 0 10px 0 10px
+    padding: 10px
     transition: all 0.3s ease
 
-    &:hover {
+    &:hover, &:focus {
       background: #acabab
     }
 
     img {
-      block-size(16px, 16px)
+      block-size: 20px
     }
   }
 }

@@ -77,46 +77,47 @@ address {
   --main-font-family: Arial;
   --bg: #5f5e5e;
 }
-.submenu-open-button {
+.submenu-button {
   position: relative;
   display: flex;
   flex-flow: row nowrap;
   justify-content: center;
   align-items: center;
 }
-.submenu-open-button::after {
+.submenu-button::after {
   display: inline-block;
-  content: '';
   width: 4px;
   height: 4px;
   border-top: 1.5px solid #fff;
   border-right: 1.5px solid #fff;
   transform: translate(5px, 0) rotate(135deg);
   transition: all 0.3s ease 0s;
+  content: '';
 }
-.submenu-open-button.active::after {
+.submenu-button.active::after {
   transform: translate(5px, 0) rotate(-45deg);
 }
 .submenu {
-  z-index: 1;
   position: absolute;
+  z-index: 1;
   display: none;
-  width: 100%;
   background: #818181;
-}
-.submenu a:hover,
-.submenu button:hover,
-.submenu a:focus,
-.submenu button:focus {
-  text-decoration: underline;
+  top: 100%;
+  width: max-content;
 }
 .submenu.show {
   position: absolute;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  top: 100%;
+  display: block;
+}
+.submenu_to-left {
   right: 0;
+}
+.submenu_to-right {
+  left: 0;
+}
+.submenu_center {
+  left: 50%;
+  transform: translate(-50%, 0);
 }
 .uspoiler-btn-active {
   display: inline-flex;
@@ -303,27 +304,26 @@ address {
   display: flex;
   flex-flow: row nowrap;
   background: #fff;
-  height: 30px;
-}
-.searchbar * {
-  height: 100%;
 }
 .searchbar__input {
-  padding: 0 0 0 10px;
+  padding: 10px;
+  transition: all 0.3s ease;
 }
+.searchbar__input:hover,
 .searchbar__input:focus {
   background: #d8d5d5;
 }
 .searchbar__submit {
-  padding: 0 10px 0 10px;
+  padding: 10px;
   transition: all 0.3s ease;
 }
-.searchbar__submit:hover {
+.searchbar__submit:hover,
+.searchbar__submit:focus {
   background: #acabab;
 }
 .searchbar__submit img {
-  width: 16px;
-  height: 16px;
+  width: 20px;
+  height: 20px;
 }
 .fullscreen-navmenu {
   position: fixed;

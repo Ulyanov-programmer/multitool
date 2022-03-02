@@ -1,16 +1,16 @@
-.submenu-open-button {
+.submenu-button {
   position: relative
   flex-set: row nowrap
   flex-content-position: center center
 
   &::after {
     display: inline-block
-    content: ''
-    block-size: 4px 4px
+    block-size: 4px
     border-top: 1.5px solid #ffffff
     border-right: 1.5px solid #ffffff
     transform: translate(5px, 0) rotate(135deg)
     transition: all 0.3s ease 0s
+    content: ''
   }
 
   &.active {
@@ -21,23 +21,28 @@
 }
 
 .submenu {
-  z-index: 1
   position: absolute
+  z-index: 1
   display: none
-  width: 100%
   background: #818181
-
-  a, button {
-    &:hover, &:focus {
-      text-decoration: underline
-    }
-  }
+  top: 100%
+  width: max-content
 
   &.show {
     position: absolute
-    display: flex
-    flex-content-position($jc: center, $ai: center)
-    top: 100%
+    display: block
+  }
+
+  &_to-left {
     right: 0
+  }
+
+  &_to-right {
+    left: 0
+  }
+
+  &_center {
+    left: 50%
+    transform: translate(-50%, 0)
   }
 }
