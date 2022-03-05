@@ -37,15 +37,15 @@
   &__list {
     flex-content-position: flex-end center
 
-    a, button {
-      border: 1px solid #fff
-      border-radius: 3px
-      margin: 5px 5px 5px 5px
-      transition: all 0.2s ease
+    li {
+      a, button {
+        padding: 10px
+        transition: all 0.3s ease
 
-      &:hover, &:focus {
-        color: #000
-        background: #fff
+        &:hover, &:focus {
+          color: #000
+          background: #fff
+        }
       }
     }
   }
@@ -196,6 +196,7 @@
   }
 
   &-slide {
+    border-radius: 10px
     text-align: center
     background: rgba(0, 0, 0, 0.404)
     min-height: 100px

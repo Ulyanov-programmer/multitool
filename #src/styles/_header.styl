@@ -9,14 +9,30 @@
     flex-set: row nowrap
     flex-content-position: space-between center
     padding: 10px 0 10px 0
+  }
+}
 
-    * {
-      z-index: 5
-    }
+.navmenu {
+  @media (max-width: $burgerMenuShowWidth) {
+    display: none
+  }
 
-    @media (max-width: 560px) {
-      .searchbar {
-        display: none
+  &__body {
+  }
+
+  &__list {
+    flex-set: row wrap
+
+    li {
+      :not(:last-child) {
+        margin-right: 10px
+      }
+
+      a, button {
+        display: inline-block
+        padding: 4px 8px 4px 8px
+        color: var(--text-c)
+        transition: all 0.2s ease 0s
       }
     }
   }
@@ -27,32 +43,6 @@
   top: 0
   left: 0
   width: 100%
-}
-
-.navmenu {
-  @media (max-width: $burgerMenuShowWidth) {
-    display: none
-  }
-
-  &__body {
-    display: flex
-  }
-
-  &__list {
-    flex-set: row wrap
-    padding: 0 5px 0 5px
-    margin: 0 -20px 0 0px
-
-    li {
-      margin-right: 10px
-
-      a, button {
-        padding: 4px 8px 4px 8px
-        color: var(--main-font-color)
-        transition: all 0.2s ease 0s
-      }
-    }
-  }
 }
 
 .logo {

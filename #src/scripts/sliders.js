@@ -1,4 +1,5 @@
 const demoSlider = new Swiper('.swiper', {
+  spaceBetween: 15,
   /*
 
   navigation: {
