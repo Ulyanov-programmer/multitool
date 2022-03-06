@@ -40,11 +40,6 @@ flex-set($type = row, $wrap = nowrap) {
   flex-flow: $type $wrap
 }
 
-flex-content-position($jc = flex-start, $ai = flex-start) {
-  justify-content: $jc
-  align-items: $ai
-}
-
 firstLevelElementsMargin($margin-side, $value) {
   >* {
     &:not(:last-child) {
@@ -63,4 +58,8 @@ show() {
   overflow: auto
   opacity: 1
   pointer-events: all
+}
+gridTemplate($gridProp){
+  display grid
+  $gridProp
 }
