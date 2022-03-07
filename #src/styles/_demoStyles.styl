@@ -14,6 +14,8 @@
 
 	&__scroll {
 		position absolute;
+		left 50%;
+		transform translate(-50%, -50%);
 		bottom 5%;
 	}
 
@@ -82,6 +84,11 @@
 	firstLevelElementsMargin 'bottom' 20;
 }
 
+.content {
+	align-items center;
+	justify-content center;
+}
+
 .main {
 	&__body {
 		padding 10px 0 10px 0;
@@ -124,7 +131,6 @@
 
 	&__content {
 		flex-set row wrap;
-		flex-content-position center center;
 		gap 15px;
 	}
 }
@@ -197,11 +203,9 @@
 
 	&-slide {
 		border-radius 10px;
-		text-align center;
 		background rgba(0, 0, 0, 0.404);
 		min-height 100px;
 		flex-set row nowrap;
-		flex-content-position center center;
 	}
 }
 
@@ -272,6 +276,8 @@
 	}
 
 	&__button {
+		display flex;
+		align-items center;
 		padding 5px 10px 5px 10px;
 		font-size adapt-fsize(18);
 	}
