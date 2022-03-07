@@ -28,8 +28,7 @@ export default class SpoilerMenu {
    * ```html
    * <div class='spoiler'>
    *   <div class='spoiler__body'>
-   *     <span class='uspoiler-btn'>Spoiler button</span>
-   *     <!-- spoiler block -->
+   *     <button class='uspoiler-btn' type="button">Spoiler button</button>
    *     <ul class='uspoiler-content'>
    *       <li></li>
    *     </ul>

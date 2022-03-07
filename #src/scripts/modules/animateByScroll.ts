@@ -14,7 +14,7 @@ export default class AnimateByScroll {
    * 
    * @param repeatingAnimations
    * Do you want the animations to be played again if the blocks they leave the screen? 
-   * Set it to true, i don't recommend to use this in production.
+   * Set it to true, i don't recommend to use this as true in production.
    * @param elements
    * An arbitrary number of `AnimationElement`, in fact, the number of elements subject to animation.
    */
@@ -89,7 +89,7 @@ export class AnimationElement {
   * @param selector
   * Selector of the element to which the active animation class will be applied.
   * @param animateStartCoeff
-  * For example, 1 => class is assigned as soon as the element is shown on the screen. 0.5 = as soon as it is shown at half.
+  * For example, 1 => class is assigned as soon as the element is shown on the screen. 0.5 => as soon as it is shown at half.
   * @param timeoutBeforeStart
   * The delay before the animation starts in milliseconds.
   * @param mediaQueries

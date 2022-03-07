@@ -11,6 +11,10 @@ export default class Submenu {
    * 
    * @param submenuElements
    * Instances of `SubmenuElement` in an arbitrary number.
+	 * @param menuActiveClass
+	 * The class for an active spoiler menu.
+	 * @param buttonActiveClass
+	 * The class for an active spoiler button.
    */
   constructor(menuActiveClass: string, buttonActiveClass: string,
     ...submenuElements: SubmenuElement[]) {

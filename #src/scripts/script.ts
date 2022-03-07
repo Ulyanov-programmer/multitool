@@ -31,13 +31,10 @@ SpoilerMenu.contentActiveClass = 'active'
 import Filter from './modules/filter.js';
 
 /*
-  For working add data-attributes [ data-filt-content="type" ] for filter buttons,
-  And [ data-content-type="type" ] for content-blocks.
-
   When you press the filter__button, all elements that do not have 
   a value similar to the filter__button attribute value will be hidden.
   To reset the filter through a filter__button, 
-  you should use the 'all' value for the filter__button attribute.
+  you should use the 'all' value for the data-filt-content attribute.
 
   You can declare multiple filters to work separately.
 */
@@ -128,8 +125,7 @@ let someParallaxMenu = new Parallax(
   '.fullscreen__body',
   768,
 
-  new ParallaxElement(
-    '.parallax-text', 5),
+  new ParallaxElement('.parallax-text', 5),
   // another variant 
   // new ParallaxElement(
   //   document.querySelector<HTMLElement>('.fullscreen__bg-img'), 5),
@@ -150,6 +146,7 @@ new Submenu(
     '.demo-submenu__ul-2',
   )
 )
+
 // AnimationByScroll //
 import AnimateByScroll, { AnimationElement, AnimationMediaQuery } from "./modules/animateByScroll.js";
 

@@ -16,7 +16,7 @@ export default class Accordion {
    * Must contain data-toggle-elem-number="numberOfContentElement" 
    * `(note, the count starts from zero)`
    * @param contentBlocksSelector
-   * Selector of blocks that contain the accordion content.
+   * Selector of blocks that contain some accordion content.
    * @param animationDuration
    * If you use transition, it set animation duration in ms. Can be 0.
    * @param activeFirstElements
