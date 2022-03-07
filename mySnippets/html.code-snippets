@@ -1,121 +1,124 @@
 {
-  "form": {
-    "scope": "html",
-    "prefix": "form",
-    "body": [
-      "<form action='#'>",
-      "\t<input type='${1|text,email,tel,file|}' placeholder='$2' required>",
-      "\t<button aria-label='s' type='submit'>$3</button>",
-      "</form>"
-    ],
-  },
-  "input": {
-    "scope": "html",
-    "prefix": "input",
-    "body": [
-      "<input type='${1|text,email,tel,file|}' placeholder='$0' required>",
-    ],
-  },
-  "button": {
-    "scope": "html",
-    "prefix": "button",
-    "body": [
-      "<button class='$1' aria-label='$2' type='${3|button,submit|}'>$0</button>",
-    ],
-  },
-  "section with class": {
-    "scope": "html",
-    "prefix": "sect",
-    "body": [
-      "<section class='$1'>",
-      "\t<div class='$1__body'>",
-      "\t\t<h${2:6} class='$1__title'>${3:title}</h${2:6}>",
-      "\t\t\t$0",
-      "\t</div>",
-      "</section>"
-    ],
-  },
-  "HTML comment": {
-    "scope": "html",
-    "prefix": "comm",
-    "body": [
-      "<!-- $0 -->",
-    ],
-  },
-  "img in block": {
-    "scope": "html",
-    "prefix": "image",
-    "body": [
-      "<div class='adaptive-image $1'>",
-      "\t<img src=\"img$0\" loading='lazy' alt='$2' width=${3:width} height=${4:width}>",
-      "</div>"
-    ],
-  },
-  "img": {
-    "scope": "html",
-    "prefix": "img",
-    "body": [
-      "<img src=\"img$0\" loading='lazy' alt='$1' width=${2:width} height=${3:width}>",
-    ],
-  },
-  "Swiper slider html construction": {
-    "scope": "html",
-    "prefix": "swiper",
-    "body": [
-      "<div class='swiper'>",
-      "\t<div class='swiper-wrapper'>",
-      "\t\t<div class='swiper-slide'>Slide 1</div>",
-      "\t\t<div class='swiper-slide'>Slide 2</div>",
-      "\t\t<div class='swiper-slide'>Slide 3</div>",
-      "\t</div>\n\n",
-      "\t<div class='swiper-pagination'></div>\n",
-      "\t<div class='swiper-button-prev'></div>",
-      "\t<div class='swiper-button-next'></div>\n",
-      "\t<div class='swiper-scrollbar'></div>",
-      "</div>"
-    ],
-  },
-  "spoiler construction": {
-    "scope": "html",
-    "prefix": "spoiler",
-    "body": [
-      "<div class='${1:class}'>",
-      "\t<span data-spoiler-button>Spoiler button</span>",
-      "\t<ul data-spoiler-content>",
-      "\t\t<li>spoiler element</li>",
-      "\t</ul>",
-      "</div>",
-    ],
-  },
-  "reference": {
-    "scope": "html",
-    "prefix": "ref",
-    "body": [
-      "<a href='$0' target='_blank' rel='noopener noreferrer'></a>",
-    ],
-  },
-  "video construction": {
-    "scope": "html",
-    "prefix": "video",
-    "body": [
-      "<video poster='video$1' controls>",
-      "\t<source src='video/$2.webm' type='video/webm'>",
-      "\t<source src='video/$0.mp4' type='video/mp4'>",
-      "</video>",
-    ],
-  },
-  "tel ref": {
-    "scope": "html",
-    "prefix": "tel",
-    "body": [
-      "<a href='tel:+${1:88005553535}'>$0</a>",
-    ],
-  },
-  "mail ref": {
-    "scope": "html",
-    "prefix": "mail",
-    "body": [
-      "<a href='mailto:${1:someEmail@gmail.com}'>$0</a>",
-    ],
-  },
+	"form": {
+		"scope": "html",
+		"prefix": "form",
+		"body": [
+			"<form action='#'>",
+			"\t<fieldset>",
+			"\t\t<legend></legend>",
+			"\t\t<input type='${1|text,email,tel,file|}' placeholder='$2' required>",
+			"\t\t<button aria-label='s' type='submit'>$3</button>",
+			"\t</fieldset>",
+			"</form>"
+		],
+	},
+	"input": {
+		"scope": "html",
+		"prefix": "input",
+		"body": [
+			"<input type='${1|text,email,tel,file|}' placeholder='$0' required>",
+		],
+	},
+	"button": {
+		"scope": "html",
+		"prefix": "button",
+		"body": [
+			"<button class='$1' aria-label='$2' type='${3|button,submit|}'>$0</button>",
+		],
+	},
+	"section with class": {
+		"scope": "html",
+		"prefix": "sect",
+		"body": [
+			"<section class='$1'>",
+			"\t<div class='$1__body'>",
+			"\t\t<h${2:6} tabindex='0' class='$1__title'>${3:title}</h${2:6}>",
+			"\t\t$0",
+			"\t</div>",
+			"</section>"
+		],
+	},
+	"HTML comment": {
+		"scope": "html",
+		"prefix": "comm",
+		"body": [
+			"<!-- $0 -->",
+		],
+	},
+	"img in block": {
+		"scope": "html",
+		"prefix": "image",
+		"body": [
+			"<div class='adaptive-image $1'>",
+			"\t<img src=\"img$0\" loading='lazy' alt='$2' width=${3:width} height=${4:width}>",
+			"</div>"
+		],
+	},
+	"img": {
+		"scope": "html",
+		"prefix": "img",
+		"body": [
+			"<img src=\"img$0\" loading='lazy' alt='$1' width=${2:width} height=${3:width}>",
+		],
+	},
+	"Swiper slider html construction": {
+		"scope": "html",
+		"prefix": "swiper",
+		"body": [
+			"<div class='swiper'>",
+			"\t<div class='swiper-wrapper'>",
+			"\t\t<div class='swiper-slide'>Slide 1</div>",
+			"\t\t<div class='swiper-slide'>Slide 2</div>",
+			"\t\t<div class='swiper-slide'>Slide 3</div>",
+			"\t</div>\n\n",
+			"\t<div class='swiper-pagination'></div>\n",
+			"\t<div class='swiper-button-prev'></div>",
+			"\t<div class='swiper-button-next'></div>\n",
+			"\t<div class='swiper-scrollbar'></div>",
+			"</div>"
+		],
+	},
+	"spoiler construction": {
+		"scope": "html",
+		"prefix": "spoiler",
+		"body": [
+			"<div class='${1:class}'>",
+			"\t<span data-spoiler-button>Spoiler button</span>",
+			"\t<ul data-spoiler-content>",
+			"\t\t<li>spoiler element</li>",
+			"\t</ul>",
+			"</div>",
+		],
+	},
+	"reference": {
+		"scope": "html",
+		"prefix": "ref",
+		"body": [
+			"<a href='${0:#}' target='_blank' rel='noopener noreferrer'>$1</a>",
+		],
+	},
+	"video construction": {
+		"scope": "html",
+		"prefix": "video",
+		"body": [
+			"<video poster='video$1' controls>",
+			"\t<source src='video/$2.webm' type='video/webm'>",
+			"\t<source src='video/$0.mp4' type='video/mp4'>",
+			"</video>",
+		],
+	},
+	"tel ref": {
+		"scope": "html",
+		"prefix": "tel",
+		"body": [
+			"<a href='tel:+${1:88005553535}'>$0</a>",
+		],
+	},
+	"mail ref": {
+		"scope": "html",
+		"prefix": "mail",
+		"body": [
+			"<a href='mailto:${1:someEmail@gmail.com}'>$0</a>",
+		],
+	},
 }

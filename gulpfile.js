@@ -1,8 +1,11 @@
 import gulp from "gulp";
 import browsersync from 'browser-sync';
+import gulpIf from 'gulp-if';
 import { paths } from "./gulpData/paths.js";
 
 global.gulp = gulp;
+global.if = gulpIf;
+global.isProd = process.argv.includes('--prod');
 global.paths = paths;
 global.browsersync = browsersync;
 

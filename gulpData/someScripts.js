@@ -14,17 +14,21 @@ export function scripts() {
   //? saving modules
   return gulp.src(paths.scr.scriptModules)
     .pipe(ts({
-      target: 'ES6',
+      target: 'es2018',
       allowJs: true,
     }))
     // use this if you're also annoyed that the gulp is shutdown due to a compiler error.
     .on('error', () => { })
 
-    // minimizing. Delete if you want to see not-minify files.
-    // .pipe(terser({
-    //   ecma: 2016,
-    //   safari10: true,
-    // }))
+    // minimizing.
+    .pipe(
+      global.if(global.isProd,
+        terser({
+          ecma: 2018,
+          safari10: true,
+        })
+      )
+    )
     .pipe(gulp.dest(paths.build.scriptModules))
     .pipe(browsersync.stream());
 }

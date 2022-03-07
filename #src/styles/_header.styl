@@ -1,0 +1,50 @@
+.header {
+	position relative;
+	flex-set row nowrap;
+	justify-content center;
+	z-index 5;
+	background #636363;
+
+	&__body {
+		flex-set row nowrap;
+		flex-content-position space-between center;
+		padding 10px 0 10px 0;
+	}
+}
+
+.navmenu {
+	@media (max-width $burgerMenuShowWidth) {
+		display none;
+	}
+
+	&__body {
+	}
+
+	&__list {
+		flex-set row wrap;
+
+		li {
+			:not(:last-child) {
+				margin-right 10px;
+			}
+
+			a, button {
+				display inline-block;
+				padding 4px 8px 4px 8px;
+				color var(--text-c);
+				transition all 0.2s ease 0s;
+			}
+		}
+	}
+}
+
+.fixed-header {
+	position fixed;
+	top 0;
+	left 0;
+	width 100%;
+}
+
+.logo {
+	z-index 10;
+}

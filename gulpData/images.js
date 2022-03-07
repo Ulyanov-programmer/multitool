@@ -3,14 +3,23 @@ import imagemin from 'gulp-imagemin';
 
 export function images() {
   return gulp.src(paths.scr.images)
-    .pipe(squoosh({
-      webp: {},
-      avif: {},
-    }))
+    .pipe(
+      global.if(global.isProd,
+        squoosh({
+          webp: {},
+          avif: {},
+        }),
+      )
+    )
     .pipe(gulp.dest(paths.build.images))
     .pipe(gulp.src(paths.scr.images))
 
-    .pipe(imagemin({}))
+    .pipe(
+      global.if(global.isProd,
+        imagemin({}),
+      )
+    )
+
     .pipe(gulp.dest(paths.build.images))
     .pipe(browsersync.stream());
 }

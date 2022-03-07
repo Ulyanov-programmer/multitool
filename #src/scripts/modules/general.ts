@@ -2,8 +2,8 @@
  * @returns Returns the width of the page scroll bar.
  */
 export function returnScrollbarWidth(): number {
-  let scrollbarWidth = window.innerWidth - document.querySelector('html').clientWidth;
-  return scrollbarWidth;
+	let scrollbarWidth = window.innerWidth - document.querySelector('html').clientWidth;
+	return scrollbarWidth;
 }
 
 /**
@@ -15,12 +15,12 @@ export function returnScrollbarWidth(): number {
  * Strings to be checked.
  */
 export function isNullOrWhiteSpaces(...strings: string[]): boolean {
-  for (const str of strings) {
-    if (!str || str.trim() === '') {
-      return true;
-    }
-  }
-  return false;
+	for (const str of strings) {
+		if (!str || str.trim() === '') {
+			return true;
+		}
+	}
+	return false;
 }
 /**
  * Temporarily stops code execution for the specified amount of time.
@@ -28,5 +28,5 @@ export function isNullOrWhiteSpaces(...strings: string[]): boolean {
  * @returns New `Promise`. Pay no attention to it.
  */
 export function sleep(timeMs: number) {
-  return new Promise(r => setTimeout(r, timeMs))
+	return new Promise(r => setTimeout(r, timeMs))
 }

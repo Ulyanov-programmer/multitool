@@ -1,41 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
 
-@@include('_head.htm', {
-"title": "Main",
-})
+<head>
+	@@include('_headContent.htm', {
+	"title": "Main",
+	})
+	<link rel="stylesheet" href="css/style.min.css">
+</head>
 
 <body>
-  @@include('_header.htm', {})
+	@@include('_header.htm', {})
 
-  <main class="main">
-    <div class="main__body">
-      @@include('_demo.htm')
-    </div>
-  </main>
+	<main class="main">
+		<div class="main__body">
+			@@include('_demo.htm')
+		</div>
+	</main>
 
-  @@include('_footer.htm', {})
+	@@include('_footer.htm', {})
 
-  <section id="modal_1" class='modal-window'>
-    <div class="modal-window__body">
-      <div class="modal-window__content">
-        <button type='button' class="modal-closer">close me</button>
+	<section id="modal1" class='modal-window'>
+		<div class="modal-window__body">
+			<div class="modal-window__content">
+				<button type='button' class="modal-closer">close me</button>
 
-        <form class="searchbar">
-          <input class="searchbar__input" type='text' placeholder='input' required>
-          <button aria-label="search" class="searchbar__submit" type='submit'>
-            <img src="img/demo/loupe.svg" alt="search">
-          </button>
-        </form>
-      </div>
-    </div>
-  </section>
+				<form class="searchbar">
+					<input class="searchbar__input" type='text' placeholder='input' required>
+					<button aria-label="search" class="searchbar__submit" type='submit'>
+						<img src="img/demo/loupe.svg" alt="search">
+					</button>
+				</form>
+			</div>
+		</div>
+	</section>
 </body>
 
-@@include('_scripts.htm', {
-'swiper': true,
-'generalScript': true,
-})
+
+<script type="module" src="scripts/script.js"></script>
+
+<!-- Swiper -->
+<link rel="stylesheet" href="css/swiper-bundle.min.css">
+<script defer src="scripts/swiper-bundle.min.js"></script>
+<script type="module" src="scripts/sliders.js"></script>
+
 
 </html>
 

@@ -1,4 +1,4 @@
-import fs from "fs";
+import fs from 'fs-extra'
 import ttf2woff2 from  'gulp-ttf2woff2';
 import { fontsFIlePath } from "./paths.js";
 
@@ -15,58 +15,39 @@ export function fontsStyle() {
     .toString().replace(/\s/g, "");
 
   if (file_content == "") {
-    fs.writeFile(fontsFIlePath, '', () => { });
     return fs.readdir(paths.build.fonts, (err, items) => {
 
       if (items) {
         for (var i = 0; i < items.length; i++) {
           let c_fontname;
-          let fontFileName = items[i].split('.')[0];
+          let fileName = items[i].split('.')[0];
 
-          if (c_fontname !== fontFileName) {
-            let fontFileNameLC = fontFileName.toLowerCase();
-            let fontWeightName = fontFileNameLC.replace('italic', '').split('-')[1];
+          if (c_fontname !== fileName) {
+            let fileNameLC = fileName.toLowerCase();
+            let fontWeightName = fileNameLC.replace('italic', '').split('-')[1];
 
-            let fontName = fontFileName.split('-')[0] ? fontFileName.split('-')[0] : fontFileName;
-            let fontWeight = fontWeightName ? fontWeightName : fontFileName;
-            let fontStyle = fontFileNameLC.includes('italic') ? 'italic' : 'normal';
+            let fontName = fileName.split('-')[0] ? fileName.split('-')[0] : fileName;
+            let weight = fontWeightName ? fontWeightName : fileName;
+            let style = fileNameLC.includes('italic') ? 'italic' : 'normal';
+            let type = fileNameLC.includes('variablefont') ? 'woff2-variations' : 'woff2';
 
-            fontWeight = getFontWeightFromString(fontWeight);
-            fontName = concatFontWeightWithName(fontName, fontWeightName);
+            weight = getFontWeightFromString(weight);
 
-            fs.appendFile(fontsFIlePath,
-              `fontStyle('${fontName}',${fontFileName}, '${fontWeight}', ${fontStyle});\r\n`,
-              () => { });
+
+            if (type !== 'woff2-variations') {
+              fs.appendFileSync(fontsFIlePath,
+                `fontStyle('${fontName}', ${type}, ${fileName}, ${weight}, ${style})\r\n`);
+            } else {
+              for (let weight = 100; weight <= 900; weight += 100) {
+                fs.appendFileSync(fontsFIlePath,
+                  `fontStyle('${fontName}', ${type}, ${fileName}, ${weight}, ${style})\r\n`);
+              }
+            }
           }
-          c_fontname = fontFileName;
+          c_fontname = fileName;
         }
       }
     })
-  }
-}
-function concatFontWeightWithName(fontName, fontWeightName) {
-  switch (fontWeightName) {
-    case 'thin':
-      return `${fontName}-thin`;
-    case 'extralight':
-      return `${fontName}-el`;
-    case 'light':
-      return `${fontName}-l`;
-    case 'medium':
-      return `${fontName}-med`;
-    case 'semibold':
-      return `${fontName}-sb`;
-    case 'bold':
-      return `${fontName}-b`;
-    case 'extrabold':
-    case 'ultrabold':
-      return `${fontName}-eb`;
-    case 'black':
-    case 'heavy':
-      return `${fontName}-bl`;
-
-    default:
-      return fontName;
   }
 }
 function getFontWeightFromString(filename) {

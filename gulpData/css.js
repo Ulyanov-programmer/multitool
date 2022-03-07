@@ -6,19 +6,29 @@ import rename from 'gulp-rename';
 
 export function css() {
   return gulp.src(paths.scr.css)
-    .pipe(stylus({
-      compress: true,
-    }))
-    .pipe(groupMedia())
-    .pipe(autoprefixer({
-      overrideBrowserslist: ['last 5 versions'],
-      cascade: true,
-    }))
+    .pipe(stylus({}))
+    .pipe(
+      global.if(global.isProd,
+        groupMedia()
+      )
+    )
+    .pipe(
+      global.if(global.isProd,
+        autoprefixer({
+          overrideBrowserslist: ['last 5 versions'],
+          cascade: true,
+        })
+      )
+    )
     //if you want to see not-minify css files
     .pipe(gulp.dest(paths.build.css))
 
     //save cleaning and renaming new css files
-    .pipe(cleanCss())
+    .pipe(
+      global.if(global.isProd,
+        cleanCss()
+      )
+    )
     .pipe(rename({
       extname: '.min.css'
     }))

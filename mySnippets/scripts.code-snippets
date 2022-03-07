@@ -35,27 +35,35 @@
 		],
 		"description": "Add new event for node"
 	},
-  "if construction": {
-    "scope": "javascript,typescript",
-    "prefix": "if",
-    "body": [
-      "if (${0:}) {",
-      "\t",
-      "}"
-    ],
-  },
-  "ternary operator": {
-    "scope": "javascript,typescript",
-    "prefix": "ter",
-    "body": [
-      "${1:cond} ? ${2:true} : ${3:false};",
-    ],
-  },
-  "full property": {
-    "scope": "typescript",
-    "prefix": "prop",
-    "body": [
-      "${3:public} ${2:static} ${1:name}: ${0:type}",
-    ],
-  },
+	"if construction": {
+		"scope": "javascript,typescript",
+		"prefix": "if",
+		"body": [
+			"if (${0:}) {",
+			"\t",
+			"}"
+		],
+	},
+	"ternary operator": {
+		"scope": "javascript,typescript",
+		"prefix": "ter",
+		"body": [
+			"${1:cond} ? ${2:true} : ${3:false};",
+		],
+	},
+	"full property": {
+		"scope": "typescript",
+		"prefix": "prop",
+		"body": [
+			"${3:public} ${2:static} ${1:name}: ${0:type}",
+		],
+	},
+	"console log": {
+		"scope": "typescript",
+		"prefix": "log",
+		"body": [
+			"console.log($0)",
+		],
+		"description": "Add new event for node"
+	},
 }
