@@ -1,36 +1,36 @@
-@import 'modules/_nullStyle'
-@import '_vars'
-@import '_mixins'
-@import '_fonts'
-@import 'modules/_submenu'
-@import 'modules/_spoiler'
-@import 'modules/_sidebar'
-@import 'modules/_searchbar'
-@import 'modules/_fsNavmenu'
-@import '_general'
-@import '_footer'
-@import '_header'
+@import 'modules/_nullStyle';
+@import '_vars';
+@import '_mixins';
+@import '_fonts';
+@import 'modules/_submenu';
+@import 'modules/_spoiler';
+@import 'modules/_sidebar';
+@import 'modules/_searchbar';
+@import 'modules/_fsNavmenu';
+@import '_general';
+@import '_footer';
+@import '_header';
 
 body {
-  height: 100%
-  color: var(--text-c)
-  font: adapt-fsize($mainFontSize, $minFontSize) var(--main-font-family)
+	height 100%;
+	color var(--text-c);
+	font adapt-fsize($mainFontSize, $minFontSize) var(--main-font-family);
+	
+	&.scroll-block {
+		overflow hidden;
+	}
 
-  &.scroll-block {
-    overflow: hidden
-  }
-
-  button {
-    font-family: var(--main-font-family)
-    color: var(--text-c)
-  }
+	button {
+		font-family var(--main-font-family);
+		color var(--text-c);
+	}
 }
 
 .main {
-  background: var(--bg)
+	background var(--bg);
 
-  &__body {
-  }
+	&__body {
+	}
 }
 
-@import '_demoStyles'
+@import '_demoStyles';
