@@ -2,37 +2,37 @@
 <html lang="en">
 
 <head>
-  @@include('_headContent.htm', {
-  "title": "Main",
-  })
-  <link rel="stylesheet" href="css/style.min.css">
+	@@include('_headContent.htm', {
+	"title": "Main",
+	})
+	<link rel="stylesheet" href="css/style.min.css">
 </head>
 
 <body>
-  @@include('_header.htm', {})
+	@@include('_header.htm', {})
 
-  <main class="main">
-    <div class="main__body">
-      @@include('_demo.htm')
-    </div>
-  </main>
+	<main class="main">
+		<div class="main__body">
+			@@include('_demo.htm')
+		</div>
+	</main>
 
-  @@include('_footer.htm', {})
+	@@include('_footer.htm', {})
 
-  <section id="modal1" class='modal-window'>
-    <div class="modal-window__body">
-      <div class="modal-window__content">
-        <button type='button' class="modal-closer">close me</button>
+	<section id="modal1" class='modal-window'>
+		<div class="modal-window__body">
+			<div class="modal-window__content">
+				<button type='button' class="modal-closer">close me</button>
 
-        <form class="searchbar">
-          <input class="searchbar__input" type='text' placeholder='input' required>
-          <button aria-label="search" class="searchbar__submit" type='submit'>
-            <img src="img/demo/loupe.svg" alt="search">
-          </button>
-        </form>
-      </div>
-    </div>
-  </section>
+				<form class="searchbar">
+					<input class="searchbar__input" type='text' placeholder='input' required>
+					<button aria-label="search" class="searchbar__submit" type='submit'>
+						<img src="img/demo/loupe.svg" alt="search">
+					</button>
+				</form>
+			</div>
+		</div>
+	</section>
 </body>
 
 
