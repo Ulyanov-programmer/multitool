@@ -502,7 +502,12 @@ address {
       -ms-flex-flow: row nowrap;
           flex-flow: row nowrap;
   height: 100%;
-  flex-content-position: center center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 
 .footer {
@@ -538,7 +543,12 @@ address {
   -webkit-box-direction: normal;
       -ms-flex-flow: row nowrap;
           flex-flow: row nowrap;
-  flex-content-position: space-between center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   padding: 10px 0 10px 0;
 }
 
@@ -604,7 +614,6 @@ body button {
   -webkit-box-direction: normal;
       -ms-flex-flow: row nowrap;
           flex-flow: row nowrap;
-  flex-content-position: center center;
   position: relative;
   width: auto;
   height: 100vh;
@@ -647,7 +656,12 @@ body button {
 }
 
 .navmenu__list {
-  flex-content-position: flex-end center;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 .navmenu__list li a,
@@ -739,7 +753,6 @@ body button {
   -webkit-box-direction: normal;
       -ms-flex-flow: row wrap;
           flex-flow: row wrap;
-  flex-content-position: center center;
   gap: 15px;
 }
 
@@ -766,7 +779,6 @@ body button {
   -webkit-box-direction: normal;
       -ms-flex-flow: column nowrap;
           flex-flow: column nowrap;
-  flex-content-position: center center;
   gap: 25px;
 }
 
@@ -823,7 +835,6 @@ body button {
   -webkit-box-direction: normal;
       -ms-flex-flow: row wrap;
           flex-flow: row wrap;
-  flex-content-position: center center;
   gap: 25px;
 }
 
@@ -860,7 +871,6 @@ body button {
   -webkit-box-direction: normal;
       -ms-flex-flow: row wrap;
           flex-flow: row wrap;
-  flex-content-position: center center;
   gap: 15px;
 }
 
