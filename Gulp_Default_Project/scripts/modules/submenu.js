@@ -1,1 +1,61 @@
-import{isNullOrWhiteSpaces}from"./general.js";export default class Submenu{constructor(e,u,...t){if(isNullOrWhiteSpaces(e,u))throw new Error("Your input classes is null or white spaces!");Submenu.buttonActiveClass=u,Submenu.menuActiveClass=e,Submenu.submenuElements.push(...t);for(let n of t)n.buttonElement.addEventListener("click",(()=>{Submenu.showOrHideSubmenu(n)}))}static showOrHideSubmenu(e){for(let u=0;u<Submenu.submenuElements.length;u++)Submenu.submenuElements[u].buttonElement==e.buttonElement?(e.buttonElement.classList.toggle(Submenu.buttonActiveClass),e.menuElement.classList.toggle(Submenu.menuActiveClass)):(Submenu.submenuElements[u].buttonElement.classList.remove(Submenu.buttonActiveClass),Submenu.submenuElements[u].menuElement.classList.remove(Submenu.menuActiveClass))}}Submenu.submenuElements=new Array;export class SubmenuElement{constructor(e,u){if(isNullOrWhiteSpaces(e,u))throw"[SUBMENU] Some argument in a SubmenuElement is uncorrect.";this.menuElement=document.querySelector(u),this.buttonElement=document.querySelector(e)}}
+import { isNullOrWhiteSpaces } from "./general.js";
+export default class Submenu {
+    /**
+     * Provides functionality for buttons with submenu.
+     * @remarks Switching occurs by clicking.
+     *
+     * @param submenuElements
+     * Instances of `SubmenuElement` in an arbitrary number.
+     * @param menuActiveClass
+     * The class for an active spoiler menu.
+     * @param buttonActiveClass
+     * The class for an active spoiler button.
+     */
+    constructor(menuActiveClass, buttonActiveClass, ...submenuElements) {
+        if (isNullOrWhiteSpaces(menuActiveClass, buttonActiveClass)) {
+            throw new Error('Your input classes is null or white spaces!');
+        }
+        Submenu.buttonActiveClass = buttonActiveClass;
+        Submenu.menuActiveClass = menuActiveClass;
+        Submenu.submenuElements.push(...submenuElements);
+        for (let submenuElement of submenuElements) {
+            submenuElement.buttonElement.addEventListener('click', () => {
+                Submenu.showOrHideSubmenu(submenuElement);
+            });
+        }
+    }
+    static showOrHideSubmenu(submenuElement) {
+        for (let i = 0; i < Submenu.submenuElements.length; i++) {
+            if (Submenu.submenuElements[i].buttonElement == submenuElement.buttonElement) {
+                submenuElement.buttonElement.classList.toggle(Submenu.buttonActiveClass);
+                submenuElement.menuElement.classList.toggle(Submenu.menuActiveClass);
+            }
+            else {
+                Submenu.submenuElements[i].buttonElement.classList.remove(Submenu.buttonActiveClass);
+                Submenu.submenuElements[i].menuElement.classList.remove(Submenu.menuActiveClass);
+            }
+        }
+    }
+}
+Submenu.submenuElements = new Array();
+export class SubmenuElement {
+    /**
+     * Required for submenu scripts to work.
+     *
+     * @param buttonSelector
+     * Selector of the button that will open the submenu.
+     *
+     * @param menuSelector
+     * Selector of the menu that will open when the button is clicked.
+     *
+     * @throws Some argument in a SubmenuElement is uncorrect -
+     * Throws if some argument is null of white spaces.
+     */
+    constructor(buttonSelector, menuSelector) {
+        if (isNullOrWhiteSpaces(buttonSelector, menuSelector)) {
+            throw '[SUBMENU] Some argument in a SubmenuElement is uncorrect.';
+        }
+        this.menuElement = document.querySelector(menuSelector);
+        this.buttonElement = document.querySelector(buttonSelector);
+    }
+}

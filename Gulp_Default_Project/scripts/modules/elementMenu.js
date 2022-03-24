@@ -1,1 +1,54 @@
-import{isNullOrWhiteSpaces,sleep}from"./general.js";export default class ElementModal{constructor(e,t,n){if(isNullOrWhiteSpaces(e,t)||n<0)throw"[ELEMENT-MODAL] Some selector is null or white spaces!";this.contentElements=document.querySelectorAll(e),this.modalElement=document.querySelector(t);for(const l of this.contentElements)l.addEventListener("mouseenter",(()=>{this.appendModalMenu(l,this.modalElement)})),l.addEventListener("mouseleave",(()=>{this.removeModalMenu(l,n)})),-1!=l.tabIndex&&(l.addEventListener("focus",(()=>{this.appendModalMenu(l,this.modalElement)})),l.addEventListener("blur",(()=>{this.removeModalMenu(l,n)})))}async appendModalMenu(e,t){let n=t.cloneNode(!0);e.append(n),await sleep(30),n.classList.remove("_non-active")}async removeModalMenu(e,t){let n=e.lastElementChild;n&&(n.classList.add("_non-active"),await sleep(t+100),n.remove())}}
+import { isNullOrWhiteSpaces, sleep } from "./general.js";
+export default class ElementModal {
+    /**
+     * Provides the ability to use modals over elements.
+     *
+     * @param contentElementsSelector
+     * Elements over which the modal should be.
+     * @param modalElementSelector
+     * Selector for the modal that will appear above the content elements.
+     * @param animationDuration
+     * Animation duration in ms, unless you want the modal to open and close too quickly.
+     *
+     * @throws Some selector is null or white spaces -
+     * This error will be printed to the console if some input argument are null or white spaces.
+     */
+    constructor(contentElementsSelector, modalElementSelector, animationDuration) {
+        if (isNullOrWhiteSpaces(contentElementsSelector, modalElementSelector) || animationDuration < 0) {
+            throw '[ELEMENT-MODAL] Some selector is null or white spaces!';
+        }
+        this.contentElements = document.querySelectorAll(contentElementsSelector);
+        this.modalElement = document.querySelector(modalElementSelector);
+        for (const contentEl of this.contentElements) {
+            contentEl.addEventListener('mouseenter', () => {
+                this.appendModalMenu(contentEl, this.modalElement);
+            });
+            contentEl.addEventListener('mouseleave', () => {
+                this.removeModalMenu(contentEl, animationDuration);
+            });
+            if (contentEl.tabIndex != -1) {
+                contentEl.addEventListener('focus', () => {
+                    this.appendModalMenu(contentEl, this.modalElement);
+                });
+                contentEl.addEventListener('blur', () => {
+                    this.removeModalMenu(contentEl, animationDuration);
+                });
+            }
+        }
+    }
+    async appendModalMenu(contentElement, modalElement) {
+        let modalElementClone = modalElement.cloneNode(true);
+        contentElement.append(modalElementClone);
+        await sleep(30);
+        modalElementClone.classList.remove('_non-active');
+    }
+    async removeModalMenu(contentElement, animationDuration) {
+        // Try to get modal block.
+        let modalMenu = contentElement.lastElementChild;
+        if (modalMenu) {
+            modalMenu.classList.add('_non-active');
+            await sleep(animationDuration + 100);
+            modalMenu.remove();
+        }
+    }
+}

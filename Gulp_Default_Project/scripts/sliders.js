@@ -1,4 +1,4 @@
-const demoSlider = new Swiper('.swiper', {
+const demoSlider = new Swiper('.demo-swiper', {
     spaceBetween: 15,
     /*
 
