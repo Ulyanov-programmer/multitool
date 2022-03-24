@@ -73,7 +73,7 @@ On this issue, look in the [book].
 [this site on githubpages]: https://ulyanov-programmer.github.io/Gulp_Default_Project/Gulp_Default_Project/
 [этот сайт на githubpages]: https://ulyanov-programmer.github.io/Gulp_Default_Project/Gulp_Default_Project/
 [book]: https://ulyanov-ivan.gitbook.io/gulp_default_project/
-[здесь]: https://ulyanov-ivan.gitbook.io/gulp_default_project/
+[здесь]: https://ulyanov-ivan.gitbook.io/gulp_default_project/home-ru
 
 ---
 ### The following gulp packages were used:
