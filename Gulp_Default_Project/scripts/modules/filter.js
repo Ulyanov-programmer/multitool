@@ -1,1 +1,42 @@
-import{isNullOrWhiteSpaces}from"./general.js";export default class Filter{constructor(t,e){if(isNullOrWhiteSpaces(t,e))throw"[FILTER] Some argument is null or white spaces!";this.filterButtons=document.querySelectorAll(t),this.filterContentElements=document.querySelectorAll(e);for(const s of this.filterButtons)s.addEventListener("click",(()=>{this.filtContentByType(s,this.filterContentElements)}))}filtContentByType(t,e){let s=t.dataset.filtContent;for(const l of e)"all"==s||l.dataset.contentType.includes(s)?l.style.display="":l.style.display="none";for(const l of this.filterButtons)l==t?l.classList.add("active"):l.classList.remove("active")}}
+import { isNullOrWhiteSpaces } from "./general.js";
+export default class Filter {
+    /**
+     * Provides functionality for filtering content on a page.
+     * @remarks Content filtering occurs by hiding elements on the page.
+     *
+     * @param filtButtonsSelector
+     * Selector for the buttons, by clicking on which the filtering occurs.
+     * For correct operation, you need to add the attribute to the element [data-filt-content]
+     * @param filtElementsSelector
+     * Selector for content to be filtered.
+     * For correct operation, you need to add the attribute to the element [data-content-type]
+     * @throws Some selector is null or white spaces -
+     * This error will be printed to the console if some input argument are null or white spaces.
+     */
+    constructor(filtButtonsSelector, filtElementsSelector) {
+        if (isNullOrWhiteSpaces(filtButtonsSelector, filtElementsSelector)) {
+            throw '[FILTER] Some argument is null or white spaces!';
+        }
+        this.filterButtons = document.querySelectorAll(filtButtonsSelector);
+        this.filterContentElements = document.querySelectorAll(filtElementsSelector);
+        for (const filtButton of this.filterButtons) {
+            filtButton.addEventListener('click', () => {
+                this.filtContentByType(filtButton, this.filterContentElements);
+            });
+        }
+    }
+    filtContentByType(filterButton, filterContentElements) {
+        let typeOfContent = filterButton.dataset.filtContent;
+        for (const filtElement of filterContentElements) {
+            if (typeOfContent == 'all' || filtElement.dataset.contentType.includes(typeOfContent)) {
+                filtElement.style.display = '';
+            }
+            else {
+                filtElement.style.display = 'none';
+            }
+        }
+        for (const btn of this.filterButtons) {
+            btn == filterButton ? btn.classList.add('active') : btn.classList.remove('active');
+        }
+    }
+}

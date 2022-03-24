@@ -27,13 +27,13 @@ const srcDemoFoldersAndFIles =
 
 const demoStyles = {
 	files: pathToProject + mainStyleFile,
-	from: "@import '_demoStyles'", to: '',
+	from: "@import '_demoStyles';", to: '',
 };
 const demoHtml = {
 	files: pathToProject + mainHtmlFile,
 	from: "@@include('_demo.htm')", to: '',
 };
-const hint = '(enter [y], if you not, enter [enter or another])';
+const hint = '(enter [y], if you not, enter [key enter or another])';
 
 
 deleteFontsGitkeep()
@@ -162,7 +162,7 @@ async function includeModuleByQuestion(questionString, scriptPath, stylePath) {
 
 			await replace({
 				files: pathToProject + mainStyleFile,
-				from: `@import 'modules/${styleModuleName}'`, to: '',
+				from: `@import 'modules/${styleModuleName}';`, to: '',
 			})
 		}
 	}
