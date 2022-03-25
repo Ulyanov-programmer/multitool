@@ -36,7 +36,7 @@ export default class ModalWindowMenu {
 	 * @throws Some selector is null or white spaces - 
 	 * This error will be printed to the console if some input argument are null or white spaces.
 	 */
-	constructor(modalLinksSelector: string, modalClosersSelector: string, transitionTimeout: number, fsMenuSelector?: string) {
+	constructor({modalLinksSelector, modalClosersSelector, transitionTimeout, fsMenuSelector = undefined}) {
 		if (isNullOrWhiteSpaces(modalLinksSelector, modalClosersSelector)) {
 			throw new Error('[MODALWINDOW] Incorrect arguments!');
 		}

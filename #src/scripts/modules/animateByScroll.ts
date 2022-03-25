@@ -18,7 +18,7 @@ export default class AnimateByScroll {
 	 * @param elements
 	 * An arbitrary number of `AnimationElement`, in fact, the number of elements subject to animation.
 	 */
-	constructor(repeatingAnimations: boolean, ...elements: AnimationElement[]) {
+	constructor({repeatingAnimations}, ...elements: AnimationElement[]) {
 		AnimateByScroll.repeatingAnimations = repeatingAnimations
 		AnimateByScroll.elements = elements
 
@@ -100,8 +100,7 @@ export class AnimationElement {
 	* @throws Selector is null of white spaces! - 
 	* This error will be printed to the console if some input argument is null or white spaces.
 	*/
-	constructor(selector: string, animateStartCoeff: number, timeoutBeforeStart: number,
-		...mediaQueries: AnimationMediaQuery[]) {
+	constructor({selector, animateStartCoeff, timeoutBeforeStart}, ...mediaQueries: AnimationMediaQuery[]) {
 		if (isNullOrWhiteSpaces(selector)) {
 			if (animateStartCoeff <= 0 || animateStartCoeff > 1) {
 				throw new RangeError('animateStartCoeff < 0 or > 1')

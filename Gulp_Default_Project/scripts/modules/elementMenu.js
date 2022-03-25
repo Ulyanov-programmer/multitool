@@ -13,7 +13,7 @@ export default class ElementModal {
      * @throws Some selector is null or white spaces -
      * This error will be printed to the console if some input argument are null or white spaces.
      */
-    constructor(contentElementsSelector, modalElementSelector, animationDuration) {
+    constructor({ contentElementsSelector, modalElementSelector, animationDuration }) {
         if (isNullOrWhiteSpaces(contentElementsSelector, modalElementSelector) || animationDuration < 0) {
             throw '[ELEMENT-MODAL] Some selector is null or white spaces!';
         }

@@ -40,8 +40,7 @@ export default class Accordion {
 	 * This error will be printed to the console if some input argument is null or white spaces.
 	 * @throws The count of buttons != the count content-elements.
 	 */
-	constructor(btnsSelector: string, contentBlocksSelector: string, animationDuration: number,
-		activeFirstElements: boolean = true) {
+	constructor({btnsSelector, contentBlocksSelector, animationDuration, activeFirstElements = true}) {
 		if (isNullOrWhiteSpaces(btnsSelector, contentBlocksSelector) || animationDuration < 0) {
 			throw '[ACCORDION] Incorrect arguments!'
 		}

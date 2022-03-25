@@ -14,7 +14,7 @@ export class Parallax {
      * @throws Incorrect args in constructor -
      * This error will be printed to the console if some input argument are null or white spaces.
      */
-    constructor(parallaxContainerSelector, minWorkWidth, ...parallaxItems) {
+    constructor({ parallaxContainerSelector, minWorkWidth }, ...parallaxItems) {
         this.coordProcX = 0;
         this.coordProcY = 0;
         this.parallaxElements = new Array();
@@ -60,7 +60,7 @@ export class ParallaxElement {
      * This error will be printed to the console
      * if some input argument are null, white spaces or parallaxCoeff is less than 1.
      */
-    constructor(selectorOrElement, parallaxCoeff) {
+    constructor({ selectorOrElement, parallaxCoeff }) {
         if (typeof selectorOrElement == 'string') {
             if (isNullOrWhiteSpaces(selectorOrElement) || parallaxCoeff < 1) {
                 throw '[PARALLAX] Incorrect arguments in ParallaxElement.';

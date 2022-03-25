@@ -1,6 +1,6 @@
 import { isNullOrWhiteSpaces } from "./general.js";
 
-export default class ScrollElement {
+export default class ScrollController {
 	private static fixedHeaderHeight = 0;
 
 	/**
@@ -16,7 +16,7 @@ export default class ScrollElement {
 	 * @throws scrollButtonsSelector is null or white spaces - 
 	 * This error will be printed to the console if some input argument are null or white spaces.
 	 */
-	constructor(scrollButtonsSelector: string, fixedHeaderSelector?: string) {
+	constructor({scrollButtonsSelector, fixedHeaderSelector = undefined}) {
 		if (isNullOrWhiteSpaces(scrollButtonsSelector)) {
 			throw new Error('[SCROLL-ELEMENTS] Incorrect scroll-buttons selector!');
 		}
@@ -30,7 +30,7 @@ export default class ScrollElement {
 		}
 		if (isNullOrWhiteSpaces(fixedHeaderSelector) == false) {
 			let heightHeight = document.querySelector(fixedHeaderSelector).clientHeight;
-			ScrollElement.fixedHeaderHeight = heightHeight;
+			ScrollController.fixedHeaderHeight = heightHeight;
 		}
 	}
 
@@ -45,7 +45,7 @@ export default class ScrollElement {
 		let scrolltop = window.pageYOffset + scrollElement.getBoundingClientRect().top;
 
 		window.scrollTo({
-			top: scrolltop - ScrollElement.fixedHeaderHeight,
+			top: scrolltop - ScrollController.fixedHeaderHeight,
 			behavior: "smooth"
 		});
 	}

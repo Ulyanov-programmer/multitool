@@ -20,9 +20,7 @@ export class Parallax {
 	 * @throws Incorrect args in constructor - 
 	 * This error will be printed to the console if some input argument are null or white spaces.
 	 */
-	constructor(parallaxContainerSelector: string, minWorkWidth: number,
-		...parallaxItems: ParallaxElement[]
-	) {
+	constructor({parallaxContainerSelector, minWorkWidth}, ...parallaxItems: ParallaxElement[]) {
 		if (isNullOrWhiteSpaces(parallaxContainerSelector)) {
 			throw '[PARALLAX] Incorrect args in constructor.'
 		}
@@ -73,7 +71,7 @@ export class ParallaxElement {
 	 * This error will be printed to the console 
 	 * if some input argument are null, white spaces or parallaxCoeff is less than 1.
 	 */
-	constructor(selectorOrElement: string | HTMLElement, parallaxCoeff: number) {
+	constructor({selectorOrElement, parallaxCoeff}) {
 		if (typeof selectorOrElement == 'string') {
 
 			if (isNullOrWhiteSpaces(selectorOrElement) || parallaxCoeff < 1) {

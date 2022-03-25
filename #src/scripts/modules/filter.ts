@@ -17,7 +17,7 @@ export default class Filter {
 	 * @throws Some selector is null or white spaces - 
 	 * This error will be printed to the console if some input argument are null or white spaces.
 	 */
-	constructor(filtButtonsSelector: string, filtElementsSelector: string) {
+	constructor({filtButtonsSelector, filtElementsSelector}) {
 		if (isNullOrWhiteSpaces(filtButtonsSelector, filtElementsSelector)) {
 			throw '[FILTER] Some argument is null or white spaces!'
 		}

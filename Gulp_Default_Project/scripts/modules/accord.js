@@ -32,7 +32,7 @@ export default class Accordion {
      * This error will be printed to the console if some input argument is null or white spaces.
      * @throws The count of buttons != the count content-elements.
      */
-    constructor(btnsSelector, contentBlocksSelector, animationDuration, activeFirstElements = true) {
+    constructor({ btnsSelector, contentBlocksSelector, animationDuration, activeFirstElements = true }) {
         this.isToggling = false;
         this.buttonsActiveClass = 'active';
         this.contentActiveClass = 'active';

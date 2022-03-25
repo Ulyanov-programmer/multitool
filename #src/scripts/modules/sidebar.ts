@@ -17,7 +17,7 @@ export default class SidebarMenu {
 	 * @throws Some selector is null or white spaces - 
 	 * This error will be printed to the console if some input argument are null or white spaces.
 	 */
-	constructor(selectorOfSidebars: string, selectorOfSidebarButtons: string) {
+	constructor({selectorOfSidebars, selectorOfSidebarButtons}) {
 		if (isNullOrWhiteSpaces(selectorOfSidebars, selectorOfSidebarButtons)) {
 			throw '[SIDEBAR] Some selector is null or white spaces!'
 		}

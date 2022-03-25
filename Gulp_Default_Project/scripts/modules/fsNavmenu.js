@@ -15,7 +15,7 @@ export default class FsNavmenu {
      * @throws Some selector is null or white spaces -
      * This error will be printed to the console if some input argument are null or white spaces.
      */
-    constructor(burgerSelector, fsNavmenuSelector, buttonsSelector, autoPadding = true) {
+    constructor({ burgerSelector, fsNavmenuSelector, buttonsSelector, autoPadding = true }) {
         if (isNullOrWhiteSpaces(burgerSelector, fsNavmenuSelector, buttonsSelector)) {
             throw '[FSNAVMENU] Some selector is null or white spaces.';
         }

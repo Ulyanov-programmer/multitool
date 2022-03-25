@@ -89,7 +89,8 @@ address {
   position: relative;
   display: flex;
   flex-flow: row nowrap;
-  flex-content-position: center center;
+  justify-content: center;
+  align-items: center;
 }
 .submenu-button::after {
   display: inline-block;
@@ -128,7 +129,8 @@ address {
 }
 .uspoiler-btn-active {
   display: inline-flex;
-  flex-content-position: center center;
+  justify-content: center;
+  align-items: center;
   position: relative;
   padding: 15px 0 15px 0;
   transition: all 0.3s ease;
@@ -234,7 +236,7 @@ address {
 .sidebar {
   height: 100%;
 }
-@media (max-width: 570px) {
+@media (max-width: 650px) {
   .sidebar {
     position: fixed;
     background: #808080;
@@ -265,7 +267,7 @@ address {
 .sidebar__body >*:not(:last-child) {
   margin-bottom: 30px;
 }
-@media (max-width: 570px) {
+@media (max-width: 650px) {
   .sidebar__body {
     height: 100%;
   }
@@ -275,12 +277,12 @@ address {
   left: -90px;
   top: 76px;
 }
-@media (min-width: 570px) {
+@media (min-width: 650px) {
   .sidebar__show-btn {
     display: none;
   }
 }
-@media (max-width: 570px) {
+@media (max-width: 650px) {
   .sidebar__show-btn.active svg {
     transform: rotate(-180deg);
   }

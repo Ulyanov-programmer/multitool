@@ -11,7 +11,7 @@ export default class Submenu {
      * @param buttonActiveClass
      * The class for an active spoiler button.
      */
-    constructor(menuActiveClass, buttonActiveClass, ...submenuElements) {
+    constructor({ menuActiveClass, buttonActiveClass }, ...submenuElements) {
         if (isNullOrWhiteSpaces(menuActiveClass, buttonActiveClass)) {
             throw new Error('Your input classes is null or white spaces!');
         }
@@ -51,7 +51,7 @@ export class SubmenuElement {
      * @throws Some argument in a SubmenuElement is uncorrect -
      * Throws if some argument is null of white spaces.
      */
-    constructor(buttonSelector, menuSelector) {
+    constructor({ buttonSelector, menuSelector }) {
         if (isNullOrWhiteSpaces(buttonSelector, menuSelector)) {
             throw '[SUBMENU] Some argument in a SubmenuElement is uncorrect.';
         }

@@ -39,9 +39,9 @@ export default class SpoilerMenu {
 	 * This error will be printed to the console if some input argument are null or white spaces.
 	 * @throws The count of buttons and content-elements equal zero or less.
 	 */
-	constructor(btnsSelector: string, contentBlocksSelector: string, visibleWidth: number, animationDuration: number) {
+	constructor({btnsSelector, contentBlocksSelector, maxWorkWidth, animationDuration}) {
 		if (isNullOrWhiteSpaces(btnsSelector, contentBlocksSelector)
-			|| visibleWidth < 0 || animationDuration < 0) {
+			|| maxWorkWidth < 0 || animationDuration < 0) {
 			throw '[SPOILERS] Incorrect arguments!'
 		}
 
@@ -52,7 +52,7 @@ export default class SpoilerMenu {
 			throw '[SPOILERS] The count of spoiler buttons and spoiler content-elements must be more than zero.'
 		}
 
-		SpoilerMenu.spoilerVisibleWidth = visibleWidth;
+		SpoilerMenu.spoilerVisibleWidth = maxWorkWidth;
 		SpoilerMenu.animationDuration = animationDuration;
 
 		this.toggleToSpoilers();
