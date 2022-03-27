@@ -130,18 +130,22 @@ let someParallaxMenu = new Parallax(
 )
 
 // submenu //
-import Submenu, { SubmenuElement } from './modules/submenu.js';
-new Submenu(
-	{ menuActiveClass: 'show', buttonActiveClass: 'active' },
+import Submenu, { SubmenuElementGroup, SubmenuOpenIvents } from './modules/submenu.js';
+new Submenu({
+	menuActiveClass: 'show',
+	buttonActiveClass: 'active',
+},
 
-	new SubmenuElement({
-		buttonSelector: '.demo-submenu__button',
-		menuSelector: '.demo-submenu__ul',
+	new SubmenuElementGroup({
+		openIvent: SubmenuOpenIvents.Hover,
+		buttonSelector: '.demo-submenu__hover-button',
+		menuSelector: '.demo-submenu__hover-ul',
 	}),
-	new SubmenuElement({
-		buttonSelector: '.demo-submenu__button-2',
-		menuSelector: '.demo-submenu__ul-2',
-	})
+	new SubmenuElementGroup({
+		openIvent: SubmenuOpenIvents.Click,
+		buttonSelector: '.demo-submenu__click-button',
+		menuSelector: '.demo-submenu__click-ul',
+	}),
 )
 
 // AnimationByScroll //

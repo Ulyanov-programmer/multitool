@@ -56,7 +56,7 @@ export default class ModalWindowMenu {
         document.addEventListener('keydown', (key) => {
             if (key.code === 'Escape') {
                 let activeModal = document.querySelector('.modal-window.active');
-                this.closeModal(activeModal, true);
+                activeModal ? this.closeModal(activeModal, true) : false;
             }
         });
     }

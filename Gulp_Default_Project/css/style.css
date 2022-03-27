@@ -775,6 +775,7 @@ body button {
 .demo-submenu__content {
   display: flex;
   flex-flow: row wrap;
+  gap: 15px;
 }
 .demo-submenu__button {
   display: flex;
@@ -782,10 +783,10 @@ body button {
   padding: 5px 10px 5px 10px;
   font-size: calc((100vw - 20rem)/(90 - 20) * (1.125 - 0.75) + 0.75rem);
 }
-.demo-submenu__ul {
+.demo-submenu .submenu {
   padding: 3px 3px 3px 3px;
 }
-.demo-submenu__ul li a {
+.demo-submenu .submenu li a {
   display: inline-block;
   padding: 5px 5px 5px 5px;
   color: #fff;

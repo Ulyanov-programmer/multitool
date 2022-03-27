@@ -17,7 +17,7 @@ adaptive-property($property, $value, $min-value) {
 	{$property} 'calc(%spx + (%s - %s) * ((100vw - 320px) / (1000 - 320)))' % ($min-value $value $min-value);
 }
 
-adapt-fsize($px-size, $min-size = 12) {
+adapt-fsize($px-size, $min-size = $minFontSize) {
 	$minSize = $min-size;
 	$min-size = remNumber($min-size);
 	$lWidthRem = remNumber($layoutWidth);

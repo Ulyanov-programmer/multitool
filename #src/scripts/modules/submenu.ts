@@ -1,9 +1,14 @@
 import { isNullOrWhiteSpaces } from "./general.js";
+export enum SubmenuOpenIvents {
+	Click,
+	Hover,
+};
 
 export default class Submenu {
-	private static submenuElements: SubmenuElement[] = new Array()
+	private static submenuElements: SubmenuElementGroup[] = new Array()
 	public static menuActiveClass: string
 	public static buttonActiveClass: string
+
 
 	/**
 	 * Provides functionality for buttons with submenu.
@@ -16,39 +21,53 @@ export default class Submenu {
 	 * @param buttonActiveClass
 	 * The class for an active spoiler button.
 	 */
-	constructor({menuActiveClass, buttonActiveClass}, ...submenuElements: SubmenuElement[]) {
+	constructor({ menuActiveClass, buttonActiveClass, disableOnEsc = true }, ...submenuElements: SubmenuElementGroup[]) {
 		if (isNullOrWhiteSpaces(menuActiveClass, buttonActiveClass)) {
-			throw new Error('Your input classes is null or white spaces!');
+			throw new Error('Your input selectors is null or white spaces!');
 		}
 
 		Submenu.buttonActiveClass = buttonActiveClass;
 		Submenu.menuActiveClass = menuActiveClass;
 		Submenu.submenuElements.push(...submenuElements)
 
-		for (let submenuElement of submenuElements) {
-			submenuElement.buttonElement.addEventListener('click', () => {
-				Submenu.showOrHideSubmenu(submenuElement)
+		if (disableOnEsc) {
+			document.addEventListener('keydown', (key) => {
+				if (key.code === 'Escape') {
+					Submenu.hideAllClickSubmenu();
+				}
 			});
 		}
 	}
 
 
-	private static showOrHideSubmenu(submenuElement: SubmenuElement) {
+	public static showOrHideSubmenu(currentSubmenuGroup: SubmenuElementGroup, activeElement: HTMLElement) {
+		for (let i = 0; i < currentSubmenuGroup.buttonElements.length; i++) {
 
-		for (let i = 0; i < Submenu.submenuElements.length; i++) {
-
-			if (Submenu.submenuElements[i].buttonElement == submenuElement.buttonElement) {
-				submenuElement.buttonElement.classList.toggle(Submenu.buttonActiveClass);
-				submenuElement.menuElement.classList.toggle(Submenu.menuActiveClass);
+			if (currentSubmenuGroup.buttonElements[i] == activeElement) {
+				currentSubmenuGroup.buttonElements[i].classList.toggle(Submenu.buttonActiveClass);
+				currentSubmenuGroup.menuElements[i].classList.toggle(Submenu.menuActiveClass);
 			} else {
-				Submenu.submenuElements[i].buttonElement.classList.remove(Submenu.buttonActiveClass);
-				Submenu.submenuElements[i].menuElement.classList.remove(Submenu.menuActiveClass);
+				currentSubmenuGroup.buttonElements[i].classList.remove(Submenu.buttonActiveClass);
+				currentSubmenuGroup.menuElements[i].classList.remove(Submenu.menuActiveClass);
+			}
+		}
+	}
+
+	private static hideAllClickSubmenu() {
+		for (let submenuGroup of Submenu.submenuElements) {
+
+			if (submenuGroup.openIvent == SubmenuOpenIvents.Click) {
+
+				for (let i = 0; i < submenuGroup.buttonElements.length; i++) {
+					submenuGroup.buttonElements[i].classList.remove(Submenu.buttonActiveClass);
+					submenuGroup.menuElements[i].classList.remove(Submenu.menuActiveClass);
+				}
 			}
 		}
 	}
 }
 
-export class SubmenuElement {
+export class SubmenuElementGroup {
 	/**
 	 * Required for submenu scripts to work.
 	 * 
@@ -61,14 +80,34 @@ export class SubmenuElement {
 	 * @throws Some argument in a SubmenuElement is uncorrect -
 	 * Throws if some argument is null of white spaces.
 	 */
-	constructor({buttonSelector, menuSelector}) {
+	constructor({ openIvent, buttonSelector, menuSelector }) {
 		if (isNullOrWhiteSpaces(buttonSelector, menuSelector)) {
-			throw '[SUBMENU] Some argument in a SubmenuElement is uncorrect.'
+			throw '[SUBMENU GROUP ELS] Some argument in a SubmenuElement is null or white spaces.'
 		}
 
-		this.menuElement = document.querySelector(menuSelector);
-		this.buttonElement = document.querySelector(buttonSelector)
+		this.menuElements = document.querySelectorAll(menuSelector)
+		this.buttonElements = document.querySelectorAll(buttonSelector)
+		this.openIvent = openIvent
+
+		if (this.openIvent == SubmenuOpenIvents.Click) {
+			for (let i = 0; i < this.buttonElements.length; i++) {
+				this.buttonElements[i].addEventListener('click', () => {
+					Submenu.showOrHideSubmenu(this, this.buttonElements[i])
+				});
+			}
+		}
+		else if (this.openIvent == SubmenuOpenIvents.Hover) {
+			for (let i = 0; i < this.buttonElements.length; i++) {
+				this.buttonElements[i].addEventListener('mouseover', () => {
+					Submenu.showOrHideSubmenu(this, this.buttonElements[i])
+				});
+				this.buttonElements[i].addEventListener('mouseout', () => {
+					Submenu.showOrHideSubmenu(this, this.buttonElements[i])
+				});
+			}
+		}
 	}
-	public menuElement: HTMLElement
-	public buttonElement: HTMLElement
+	public menuElements: NodeListOf<HTMLElement>
+	public buttonElements: NodeListOf<HTMLElement>
+	public openIvent: SubmenuOpenIvents
 }
