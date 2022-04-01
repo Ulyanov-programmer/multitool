@@ -136,4 +136,14 @@ new AnimateByScroll({ repeatingAnimations: true }, new AnimationElement({
     timeoutBeforeStart: 1000,
 }, new AnimationMediaQuery(768, 0.8, 500)));
 AnimateByScroll.activeAnimationClass = 'active';
+// TogglingBySwipe //
+import SwipeElement, { ChangePlane } from "./modules/toggleBySwipe.js";
+let demoSwipeEl = new SwipeElement({
+    touchAreaSelector: '.demo-swipe-left',
+    swipableElementSelector: '.demo-swipe-left__el-left',
+    changePlane: ChangePlane.ToRight,
+    swipeSensitivity: 0.6,
+    elementYEndValue: '0%',
+    elementXEndValue: '0px',
+});
 //? your scripts //

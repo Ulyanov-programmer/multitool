@@ -234,21 +234,17 @@ address {
   }
 }
 .sidebar {
+  position: fixed;
+  top: 0;
+  left: 100vw;
   height: 100%;
+  width: 40vw;
+  z-index: 6;
+  background: #808080;
+  transition: all 0.5s ease;
 }
-@media (max-width: 650px) {
-  .sidebar {
-    position: fixed;
-    background: #808080;
-    left: 100vw;
-    width: 40vw;
-    top: 0;
-    z-index: 6;
-    transition: all 0.5s ease;
-  }
-  .sidebar.active {
-    left: 60vw;
-  }
+.sidebar.active {
+  left: 60vw;
 }
 @media (max-width: 600px) {
   .sidebar {
@@ -260,14 +256,12 @@ address {
 }
 .sidebar__body {
   padding: 20px 15px 10px 10px;
-  position: sticky;
-  top: 10px;
   overflow: auto;
 }
 .sidebar__body >*:not(:last-child) {
   margin-bottom: 30px;
 }
-@media (max-width: 650px) {
+@media (max-width: $toMobileWidth) {
   .sidebar__body {
     height: 100%;
   }
@@ -275,17 +269,10 @@ address {
 .sidebar__show-btn {
   position: absolute;
   left: -90px;
-  top: 76px;
+  top: 110px;
 }
-@media (min-width: 650px) {
-  .sidebar__show-btn {
-    display: none;
-  }
-}
-@media (max-width: 650px) {
-  .sidebar__show-btn.active svg {
-    transform: rotate(-180deg);
-  }
+.sidebar__show-btn.active svg {
+  transform: rotate(-180deg);
 }
 @media (max-width: 426px) {
   .sidebar__show-btn {
@@ -844,4 +831,25 @@ body button {
 }
 .animation-by-scroll__item-text {
   font-style: italic;
+}
+.demo-swipe-left {
+  width: 40%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.demo-swipe-left__el-left {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  padding: 10px;
+  width: 300px;
+  height: 100%;
+  background: #363636;
+  transform: translate3d(-100%, 0, 0);
+  transition: all 0.3s ease;
+}
+.demo-swipe-left__el-left.active {
+  transform: translate3d(0, 0, 0);
 }

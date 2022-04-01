@@ -1,83 +1,71 @@
 .sidebar {
-  $toMobileWidth = 650px
-  height: 100%
+	position fixed;
+	top 0;
+	left 100vw;
+	height 100%;
+	width 40vw;
+	z-index 6;
+	background gray;
+	transition all 0.5s ease;
 
-  @media (max-width: $toMobileWidth) {
-    position: fixed
-    background: gray
-    left: 100vw
-    width: 40vw
-    top: 0
-    z-index: 6
-    transition: all 0.5s ease
+	&.active {
+		left 60vw;
+	}
 
-    &.active {
-      left: 60vw
-    }
-  }
+	@media (max-width 600px) {
+		width 70vw;
 
-  @media (max-width: 600px) {
-    width: 70vw
+		&.active {
+			left 30vw;
+		}
+	}
 
-    &.active {
-      left: 30vw
-    }
-  }
+	&__body {
+		padding 20px 15px 10px 10px;
+		overflow auto;
+		firstLevelElementsMargin 'bottom' 30;
 
-  &__body {
-    padding: 20px 15px 10px 10px
-    position: sticky
-    top: 10px
-    overflow: auto
-    firstLevelElementsMargin: 'bottom' 30
+		@media (max-width $toMobileWidth) {
+			height 100%;
+		}
+	}
 
-    @media (max-width: $toMobileWidth) {
-      height: 100%
-    }
-  }
+	// &__block
 
-  // &__block
+	// &-block
+	&__show-btn {
+		position absolute;
+		left -90px;
+		top 110px;
 
-  // &-block
-  &__show-btn {
-    position: absolute
-    left: -90px
-    top: 76px
+		&.active {
+			svg {
+				transform rotate(-180deg);
+			}
+		}
 
-    @media (min-width: $toMobileWidth) {
-      display: none
-    }
+		@media (max-width 426px) {
+			left -35px;
 
-    @media (max-width: $toMobileWidth) {
-      &.active {
-        svg {
-          transform: rotate(-180deg)
-        }
-      }
-    }
+			&.active {
+				left -55px;
+			}
+		}
 
-    @media (max-width: 426px) {
-      left: -35px
+		svg {
+			transition all 0.5s ease;
+			block-size 100%;
 
-      &.active {
-        left: -55px
-      }
-    }
+			&:hover, &:focus {
+				rect {
+					fill #e8663c;
+				}
+			}
 
-    svg {
-      transition: all 0.5s ease
-      block-size: 100% 100%
-
-      &:hover, &:focus {
-        rect {
-          fill: #e8663c
-        }
-      }
-
-      rect {
-        transition: all 0.5s ease
-        fill: #dddddd
-      }
-    }
-  }
+			rect {
+				transition all 0.5s ease;
+				fill #dddddd;
+			}
+		}
+	}
 }
