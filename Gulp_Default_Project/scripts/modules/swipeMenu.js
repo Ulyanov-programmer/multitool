@@ -19,7 +19,7 @@ var ChangeOrientation;
     ChangeOrientation[ChangeOrientation["Horizontal"] = 1] = "Horizontal";
 })(ChangeOrientation || (ChangeOrientation = {}));
 export default class SwipeElement {
-    constructor({ touchAreaSelector, swipableElementSelector, changePlane, swipeSensitivity, elementYEndValue, elementXEndValue }) {
+    constructor({ touchAreaSelector, swipableElementSelector, changePlane, swipeSensitivity }) {
         this.startX = 0;
         this.startY = 0;
         this.deltaX = 0;
@@ -37,10 +37,7 @@ export default class SwipeElement {
         this.touchAreaElement.style.touchAction = 'none';
         this.swipableElement = document.querySelector(swipableElementSelector);
         this.elementStartX = this.getTranslateState('x');
-        this.elementStartY = this.getTranslateState('y');
         this.swipeSensitivity = swipeSensitivity;
-        this.elementYEndValue = elementYEndValue;
-        this.elementXEndValue = elementXEndValue;
         this.baseXStateModifier = this.checkBaseXStateIsNegative() ? -1 : 1;
         this.minSwipeWidth = Math.trunc(this.swipableElement.clientWidth * this.swipeSensitivity);
         this.minSwipeHeight = Math.trunc(this.swipableElement.clientHeight * this.swipeSensitivity);
@@ -109,7 +106,7 @@ export default class SwipeElement {
                 return;
             let operator = this.changePlane == ChangePlane.ToLeft ? '+' : '-';
             this.swipableElement.style.transform = `translate3d(
-				calc(${this.elementXEndValue} ${operator} ${delta}px), 
+				calc(0px ${operator} ${delta}px), 
 				${this.getTranslateState('Y')}px, 
 				0)`;
             this.swipeEnd(delta, false);
@@ -124,7 +121,7 @@ export default class SwipeElement {
             let operator = this.changePlane == ChangePlane.ToBottom ? '-' : '+';
             this.swipableElement.style.transform = `translate3d(
 				${this.getTranslateState('x')}px, 
-				calc(${this.elementStartY}px ${operator} ${delta * this.baseXStateModifier}px), 
+				calc(0px ${operator} ${delta * this.baseXStateModifier}px), 
 				0)`;
             this.swipeEnd(delta, true);
         }
@@ -133,10 +130,10 @@ export default class SwipeElement {
                 return;
             if (this.changePlane == ChangePlane.ToBottom && this.currentSide == SwipeSide.Bottom)
                 return;
-            let operator = this.changePlane == ChangePlane.ToBottom ? '-' : '+';
+            let operator = this.changePlane == ChangePlane.ToBottom ? '+' : '-';
             this.swipableElement.style.transform = `translate3d(
 				${this.getTranslateState('x')}px, 
-				calc(${this.elementYEndValue} ${operator} ${delta * this.baseXStateModifier}px), 
+				calc(0px ${operator} ${delta * this.baseXStateModifier}px), 
 				0)`;
             this.swipeEnd(delta, false);
         }

@@ -170,15 +170,31 @@ new AnimateByScroll(
 AnimateByScroll.activeAnimationClass = 'active'
 
 // TogglingBySwipe //
-import SwipeElement, { ChangePlane } from "./modules/toggleBySwipe.js";
+import SwipeElement, { ChangePlane } from "./modules/swipeMenu.js";
 
-let demoSwipeEl = new SwipeElement({
-	touchAreaSelector: '.demo-swipe-left',
-	swipableElementSelector: '.demo-swipe-left__el-left',
+let demoLeftSwipeEl = new SwipeElement({
+	touchAreaSelector: '.swipe-window__swipe-area_left',
+	swipableElementSelector: '.swipe-window__swipe-el_left',
 	changePlane: ChangePlane.ToRight,
 	swipeSensitivity: 0.6,
-	elementYEndValue: '0%',
-	elementXEndValue: '0px',
+})
+let demoTopSwipeEl = new SwipeElement({
+	touchAreaSelector: '.swipe-window__swipe-area_top',
+	swipableElementSelector: '.swipe-window__swipe-el_top',
+	changePlane: ChangePlane.ToBottom,
+	swipeSensitivity: 0.5,
+})
+let demoRightSwipeEl = new SwipeElement({
+	touchAreaSelector: '.swipe-window__swipe-area_right',
+	swipableElementSelector: '.swipe-window__swipe-el_right',
+	changePlane: ChangePlane.ToLeft,
+	swipeSensitivity: 0.6,
+})
+let demoBottomSwipeEl = new SwipeElement({
+	touchAreaSelector: '.swipe-window__swipe-area_bottom',
+	swipableElementSelector: '.swipe-window__swipe-el_bottom',
+	changePlane: ChangePlane.ToTop,
+	swipeSensitivity: 0.5,
 })
 
 //? your scripts //

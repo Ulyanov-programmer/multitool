@@ -18,43 +18,47 @@ export default class AnimateByScroll {
 	 * @param elements
 	 * An arbitrary number of `AnimationElement`, in fact, the number of elements subject to animation.
 	 */
-	constructor({repeatingAnimations}, ...elements: AnimationElement[]) {
+	constructor({ repeatingAnimations }, ...elements: AnimationElement[]) {
 		AnimateByScroll.repeatingAnimations = repeatingAnimations
 		AnimateByScroll.elements = elements
 
 		this.checkAndToggleAnimationForElements()
-		for (const element of AnimateByScroll.elements) {
+		for (let element of AnimateByScroll.elements) {
 			element.mediaQueries.length > 0 ? element.setMediaProperties() : false;
 		}
+
 
 		window.addEventListener('scroll', () => {
 			this.checkAndToggleAnimationForElements()
 		}, false)
+
 		window.addEventListener('resize', () => {
-			for (const element of AnimateByScroll.elements) {
+			for (let element of AnimateByScroll.elements) {
 				element.setMediaProperties()
 			}
 		}, false)
 	}
 
 	private checkAndToggleAnimationForElements() {
-		if (AnimateByScroll.isScrolling) {
-
-			window.requestAnimationFrame(() => {
-				for (const animateElement of AnimateByScroll.elements) {
-
-					if (this.isPartiallyVisible(animateElement)) {
-						setTimeout(() => {
-							animateElement.htmlElement.classList.add(AnimateByScroll.activeAnimationClass)
-						}, animateElement.timeoutBeforeStart);
-					}
-					else if (AnimateByScroll.repeatingAnimations) {
-						animateElement.htmlElement.classList.remove(AnimateByScroll.activeAnimationClass)
-					}
-					AnimateByScroll.isScrolling = false
-				}
-			})
+		if (AnimateByScroll.isScrolling == false) {
+			AnimateByScroll.isScrolling = true
+			return
 		}
+
+		window.requestAnimationFrame(() => {
+			for (let animateElement of AnimateByScroll.elements) {
+
+				if (this.isPartiallyVisible(animateElement)) {
+					setTimeout(() => {
+						animateElement.htmlElement.classList.add(AnimateByScroll.activeAnimationClass)
+					}, animateElement.timeoutBeforeStart);
+				}
+				else if (AnimateByScroll.repeatingAnimations) {
+					animateElement.htmlElement.classList.remove(AnimateByScroll.activeAnimationClass)
+				}
+				AnimateByScroll.isScrolling = false
+			}
+		})
 
 		AnimateByScroll.isScrolling = true
 	}
@@ -100,7 +104,7 @@ export class AnimationElement {
 	* @throws Selector is null of white spaces! - 
 	* This error will be printed to the console if some input argument is null or white spaces.
 	*/
-	constructor({selector, animateStartCoeff, timeoutBeforeStart}, ...mediaQueries: AnimationMediaQuery[]) {
+	constructor({ selector, animateStartCoeff, timeoutBeforeStart }, ...mediaQueries: AnimationMediaQuery[]) {
 		if (isNullOrWhiteSpaces(selector)) {
 			if (animateStartCoeff <= 0 || animateStartCoeff > 1) {
 				throw new RangeError('animateStartCoeff < 0 or > 1')

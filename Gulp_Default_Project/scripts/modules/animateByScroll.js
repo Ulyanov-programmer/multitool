@@ -14,34 +14,36 @@ export default class AnimateByScroll {
         AnimateByScroll.repeatingAnimations = repeatingAnimations;
         AnimateByScroll.elements = elements;
         this.checkAndToggleAnimationForElements();
-        for (const element of AnimateByScroll.elements) {
+        for (let element of AnimateByScroll.elements) {
             element.mediaQueries.length > 0 ? element.setMediaProperties() : false;
         }
         window.addEventListener('scroll', () => {
             this.checkAndToggleAnimationForElements();
         }, false);
         window.addEventListener('resize', () => {
-            for (const element of AnimateByScroll.elements) {
+            for (let element of AnimateByScroll.elements) {
                 element.setMediaProperties();
             }
         }, false);
     }
     checkAndToggleAnimationForElements() {
-        if (AnimateByScroll.isScrolling) {
-            window.requestAnimationFrame(() => {
-                for (const animateElement of AnimateByScroll.elements) {
-                    if (this.isPartiallyVisible(animateElement)) {
-                        setTimeout(() => {
-                            animateElement.htmlElement.classList.add(AnimateByScroll.activeAnimationClass);
-                        }, animateElement.timeoutBeforeStart);
-                    }
-                    else if (AnimateByScroll.repeatingAnimations) {
-                        animateElement.htmlElement.classList.remove(AnimateByScroll.activeAnimationClass);
-                    }
-                    AnimateByScroll.isScrolling = false;
-                }
-            });
+        if (AnimateByScroll.isScrolling == false) {
+            AnimateByScroll.isScrolling = true;
+            return;
         }
+        window.requestAnimationFrame(() => {
+            for (let animateElement of AnimateByScroll.elements) {
+                if (this.isPartiallyVisible(animateElement)) {
+                    setTimeout(() => {
+                        animateElement.htmlElement.classList.add(AnimateByScroll.activeAnimationClass);
+                    }, animateElement.timeoutBeforeStart);
+                }
+                else if (AnimateByScroll.repeatingAnimations) {
+                    animateElement.htmlElement.classList.remove(AnimateByScroll.activeAnimationClass);
+                }
+                AnimateByScroll.isScrolling = false;
+            }
+        });
         AnimateByScroll.isScrolling = true;
     }
     isPartiallyVisible(animElement) {
