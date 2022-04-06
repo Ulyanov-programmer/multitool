@@ -430,30 +430,6 @@ address {
     width: 95%;
   }
 }
-.adaptive-image {
-  display: block;
-  position: relative;
-  padding: 0 0 100% 0;
-}
-.adaptive-image img {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-.adaptive-video {
-  display: block;
-  position: relative;
-  padding: 0 0 100% 0;
-}
-.adaptive-video video {
-  position: absolute;
-  top: 0;
-  left: 0;
-  object-fit: contain;
-}
 .modal-window {
   position: fixed;
   z-index: 15;

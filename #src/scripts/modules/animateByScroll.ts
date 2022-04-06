@@ -2,7 +2,6 @@ import { isNullOrWhiteSpaces } from "./general.js";
 
 
 export default class AnimateByScroll {
-	private static isScrolling: boolean = true
 	private static repeatingAnimations: boolean
 	private static elements: AnimationElement[]
 	/** This class will be applied when the blocks are sufficiently shown on the display. */
@@ -40,27 +39,21 @@ export default class AnimateByScroll {
 	}
 
 	private checkAndToggleAnimationForElements() {
-		if (AnimateByScroll.isScrolling == false) {
-			AnimateByScroll.isScrolling = true
-			return
-		}
-
 		window.requestAnimationFrame(() => {
 			for (let animateElement of AnimateByScroll.elements) {
 
-				if (this.isPartiallyVisible(animateElement)) {
-					setTimeout(() => {
+				if (this.isPartiallyVisible(animateElement) &&
+					!animateElement.htmlElement.classList.contains(AnimateByScroll.activeAnimationClass)) {
+
+					setTimeout(() =>
 						animateElement.htmlElement.classList.add(AnimateByScroll.activeAnimationClass)
-					}, animateElement.timeoutBeforeStart);
+						, animateElement.timeoutBeforeStart);
 				}
-				else if (AnimateByScroll.repeatingAnimations) {
+				else if (!this.isPartiallyVisible(animateElement) && AnimateByScroll.repeatingAnimations) {
 					animateElement.htmlElement.classList.remove(AnimateByScroll.activeAnimationClass)
 				}
-				AnimateByScroll.isScrolling = false
 			}
 		})
-
-		AnimateByScroll.isScrolling = true
 	}
 	private isPartiallyVisible(animElement: AnimationElement) {
 		/* thanks for this function: 

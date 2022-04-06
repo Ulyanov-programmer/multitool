@@ -27,24 +27,17 @@ export default class AnimateByScroll {
         }, false);
     }
     checkAndToggleAnimationForElements() {
-        if (AnimateByScroll.isScrolling == false) {
-            AnimateByScroll.isScrolling = true;
-            return;
-        }
         window.requestAnimationFrame(() => {
             for (let animateElement of AnimateByScroll.elements) {
-                if (this.isPartiallyVisible(animateElement)) {
-                    setTimeout(() => {
-                        animateElement.htmlElement.classList.add(AnimateByScroll.activeAnimationClass);
-                    }, animateElement.timeoutBeforeStart);
+                if (this.isPartiallyVisible(animateElement) &&
+                    !animateElement.htmlElement.classList.contains(AnimateByScroll.activeAnimationClass)) {
+                    setTimeout(() => animateElement.htmlElement.classList.add(AnimateByScroll.activeAnimationClass), animateElement.timeoutBeforeStart);
                 }
-                else if (AnimateByScroll.repeatingAnimations) {
+                else if (!this.isPartiallyVisible(animateElement) && AnimateByScroll.repeatingAnimations) {
                     animateElement.htmlElement.classList.remove(AnimateByScroll.activeAnimationClass);
                 }
-                AnimateByScroll.isScrolling = false;
             }
         });
-        AnimateByScroll.isScrolling = true;
     }
     isPartiallyVisible(animElement) {
         /* thanks for this function:
@@ -59,7 +52,6 @@ export default class AnimateByScroll {
         return ((top + heightWithCoeff >= 0) && (heightWithCoeff + window.innerHeight >= bottom));
     }
 }
-AnimateByScroll.isScrolling = true;
 /** This class will be applied when the blocks are sufficiently shown on the display. */
 AnimateByScroll.activeAnimationClass = 'active';
 export class AnimationElement {
