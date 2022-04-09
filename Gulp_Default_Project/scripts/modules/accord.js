@@ -4,12 +4,13 @@ export default class Accordion {
         this.isToggling = false;
         this.buttonsActiveClass = 'active';
         this.contentActiveClass = 'active';
-        if (isNullOrWhiteSpaces(arg.btnsSelector, arg.contentBlocksSelector)
-            || arg.animationDuration < 0)
+        if (isNullOrWhiteSpaces(arg.btnsSelector, arg.contentBlocksSelector))
             throw '[ACCORDION] Incorrect arguments!';
         this.buttons = document.querySelectorAll(arg.btnsSelector);
         this.contentElements = Array.from(document.querySelectorAll(arg.contentBlocksSelector).values());
-        this.animationDuration = arg.animationDuration + 100;
+        let someAccordContent = document.querySelector(arg.contentBlocksSelector);
+        this.animationDuration = parseFloat(getComputedStyle(someAccordContent)
+            .getPropertyValue('transition-duration')) * 1000 + 100;
         if (this.buttons.length != this.contentElements.length)
             throw '[ACCORDION] The count of buttons and content-elements is not equal.';
         if (arg.activeFirstElements) {

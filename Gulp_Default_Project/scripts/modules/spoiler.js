@@ -36,9 +36,8 @@ export default class SpoilerMenu {
     toggleSpoilerState(event) {
         let targetSpoilerButton = event.target;
         let spoilerContainer = targetSpoilerButton.nextElementSibling;
-        let animationDuration = SpoilerMenu.animationDuration;
         if (spoilerContainer.classList.contains('_slide') === false) {
-            toggleSpoilerAnimation(spoilerContainer, animationDuration);
+            toggleSpoilerAnimation(spoilerContainer, SpoilerMenu.animationDuration);
             targetSpoilerButton.classList.toggle(SpoilerMenu.btnActiveClass);
             spoilerContainer.classList.toggle(SpoilerMenu.contentActiveClass);
         }

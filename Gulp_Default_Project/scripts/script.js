@@ -17,7 +17,7 @@ new SpoilerMenu({
     btnsSelector: '.uspoiler-btn',
     contentBlocksSelector: '.uspoiler-content',
     maxWorkWidth: 5000,
-    animationDuration: 500,
+    animationDuration: 300,
 });
 SpoilerMenu.btnActiveClass = 'active';
 SpoilerMenu.contentActiveClass = 'active';
@@ -50,6 +50,7 @@ new ModalWindowMenu({
     modalLinksSelector: '[data-modal-link]',
     modalClosersSelector: '.modal-closer',
     fsMenuSelector: '.fullscreen-navmenu',
+    // smooth transition is calculated automatically, specify it for a modal
 });
 // element-modal //
 import ElementModal from './modules/elementModal.js';
@@ -62,7 +63,7 @@ import ElementModal from './modules/elementModal.js';
 let elementMenu = new ElementModal({
     contentElementsSelector: '.el-menu__item',
     modalElementSelector: '.el-menu__menu',
-    animationDuration: 300,
+    // smooth transition is calculated automatically, specify it for a modalElement
 });
 // scroll-elements //
 import ScrollController from './modules/scrollToElement.js';
@@ -95,7 +96,7 @@ import Accordion from './modules/accord.js';
 let someAccrod = new Accordion({
     btnsSelector: '.accordion__btn',
     contentBlocksSelector: '.accordion__item',
-    animationDuration: 500,
+    // smooth transition is calculated automatically, specify it for the contentBlocks
     activeFirstElements: true,
 });
 someAccrod.buttonsActiveClass = 'active';

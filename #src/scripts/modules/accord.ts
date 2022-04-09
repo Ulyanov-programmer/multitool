@@ -9,8 +9,6 @@ interface AccordionArgs {
 	btnsSelector: string
 	/** Selector of blocks that contain some accordion content.	*/
 	contentBlocksSelector: string
-	/** If you use transition, it set animation duration in ms. Can be 0. */
-	animationDuration: number
 	/** Sets the first element of buttons and content-block the class active. */
 	activeFirstElements: boolean
 }
@@ -24,15 +22,16 @@ export default class Accordion {
 	public contentActiveClass: string = 'active'
 
 	constructor(arg: AccordionArgs) {
-		if (isNullOrWhiteSpaces(arg.btnsSelector, arg.contentBlocksSelector)
-			|| arg.animationDuration < 0)
+		if (isNullOrWhiteSpaces(arg.btnsSelector, arg.contentBlocksSelector))
 			throw '[ACCORDION] Incorrect arguments!'
 
 		this.buttons = document.querySelectorAll(arg.btnsSelector);
 		this.contentElements = Array.from
 			(document.querySelectorAll(arg.contentBlocksSelector).values())
 
-		this.animationDuration = arg.animationDuration + 100;
+		let someAccordContent = document.querySelector(arg.contentBlocksSelector);
+		this.animationDuration = parseFloat(getComputedStyle(someAccordContent)
+			.getPropertyValue('transition-duration')) * 1000 + 100
 
 		if (this.buttons.length != this.contentElements.length) 
 			throw '[ACCORDION] The count of buttons and content-elements is not equal.'

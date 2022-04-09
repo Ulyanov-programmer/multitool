@@ -70,10 +70,9 @@ export default class SpoilerMenu {
 	private toggleSpoilerState(event: Event) {
 		let targetSpoilerButton = event.target as HTMLElement;
 		let spoilerContainer = targetSpoilerButton.nextElementSibling as HTMLElement;
-		let animationDuration = SpoilerMenu.animationDuration;
 
 		if (spoilerContainer.classList.contains('_slide') === false) {
-			toggleSpoilerAnimation(spoilerContainer, animationDuration);
+			toggleSpoilerAnimation(spoilerContainer, SpoilerMenu.animationDuration);
 
 			targetSpoilerButton.classList.toggle(SpoilerMenu.btnActiveClass);
 			spoilerContainer.classList.toggle(SpoilerMenu.contentActiveClass);
