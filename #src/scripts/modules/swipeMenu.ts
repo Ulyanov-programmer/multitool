@@ -17,6 +17,31 @@ enum ChangeOrientation {
 	Horizontal,
 }
 
+interface SwipeElementArgs {
+	/** The element by which the swipe activates the opening of the menu. */
+	touchAreaSelector: string
+	/** 
+		The element that will appear when swiping.
+		@example
+		```stylus
+		Must contain the value transform: translate3d(). 
+		For the menus appearing on the 
+		Left: transform translate3d(-100%, 0, 0);
+		Right: transform translate3d(100%, 0, 0);
+		Top: transform translate3d(0, -100%, 0);
+		Bottom: transform translate3d(0, 100%, 0);
+		```
+	*/
+	swipableElementSelector: string
+	/** Which way you need to swipe to make the menu appear. */
+	changePlane: ChangePlane
+	/** 
+		The higher or lower the value, the more or less you need to swipe in order 
+		for the menu to appear. Usually the values range from 0.5 to 0.7.
+	*/
+	swipeSensitivity: number
+}
+
 export default class SwipeElement {
 	private touchAreaElement: HTMLElement
 	private swipableElement: HTMLElement
@@ -36,23 +61,22 @@ export default class SwipeElement {
 	private swipeSensitivity: number
 
 
-	constructor({ touchAreaSelector, swipableElementSelector, changePlane, swipeSensitivity}) {
-		if (isNullOrWhiteSpaces(touchAreaSelector, swipableElementSelector)) {
+	constructor(arg: SwipeElementArgs) {
+		if (isNullOrWhiteSpaces(arg.touchAreaSelector, arg.swipableElementSelector))
 			throw new Error('[SWIPE-ELEMENT Some selector is null or white spaces!]')
-		}
 
-		this.touchAreaElement = document.querySelector(touchAreaSelector)
+		this.touchAreaElement = document.querySelector(arg.touchAreaSelector)
 		this.touchAreaElement.style.touchAction = 'none'
-		this.swipableElement = document.querySelector(swipableElementSelector)
+		this.swipableElement = document.querySelector(arg.swipableElementSelector)
 		this.elementStartX = this.getTranslateState('x')
-		this.swipeSensitivity = swipeSensitivity
+		this.swipeSensitivity = arg.swipeSensitivity
 
 
 		this.baseXStateModifier = this.checkBaseXStateIsNegative() ? -1 : 1
 		this.minSwipeWidth = Math.trunc(this.swipableElement.clientWidth * this.swipeSensitivity)
 		this.minSwipeHeight = Math.trunc(this.swipableElement.clientHeight * this.swipeSensitivity)
 
-		this.changePlane = changePlane
+		this.changePlane = arg.changePlane
 		if (this.changePlane == ChangePlane.ToLeft || this.changePlane == ChangePlane.ToRight) {
 			this.changeOrientation = ChangeOrientation.Horizontal
 		} else {

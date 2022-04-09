@@ -1,63 +1,31 @@
 import { isNullOrWhiteSpaces, returnScrollbarWidth } from "./general.js";
 export default class ModalWindowMenu {
-    /**
-     * Provides functionality for modal windows.
-     
-     * @param modalLinksSelector
-     * Selector of buttons for opening modal windows.
-     * For correct operation, you need to add the attribute [data-modal-link]
-     * @param modalClosersSelector
-     * Selector of buttons for closing modal windows (should be in html of modal).
-     * @param fsMenuSelector
-     * Selector of fullscreen navmenu (burger fs-navmenu), need for correct work with it.
-     * Not required.
-     * @param transitionTimeout
-     * Transition time from modal window style (in seconds or .number).
-     *
-     * @remarks I recommend to use my html-construction of modal-window like this:
-     * @example
-     * ```html
-     *<section id="modal_1" class='modal-window'>
-     *  <div class="modal-window__body">
-     *    <div class="modal-window__content">
-     *      <button type='button' class="modal-closer"></button>
-     *    </div>
-     *  </div>
-     *</section>
-     * ```
-     *
-     * @throws Some selector is null or white spaces -
-     * This error will be printed to the console if some input argument are null or white spaces.
-     */
-    constructor({ modalLinksSelector, modalClosersSelector, transitionTimeout, fsMenuSelector = undefined }) {
-        if (isNullOrWhiteSpaces(modalLinksSelector, modalClosersSelector)) {
+    constructor(arg) {
+        if (isNullOrWhiteSpaces(arg.modalLinksSelector, arg.modalClosersSelector))
             throw new Error('[MODALWINDOW] Incorrect arguments!');
-        }
-        if (fsMenuSelector) {
-            ModalWindowMenu.fsMenuClasslist = document.querySelector(fsMenuSelector).classList;
-        }
-        ModalWindowMenu.transitionTimeout = transitionTimeout;
-        ModalWindowMenu.modalLinks = document.querySelectorAll(modalLinksSelector);
+        if (arg.fsMenuSelector)
+            ModalWindowMenu.fsMenuClasslist = document.querySelector(arg.fsMenuSelector).classList;
+        ModalWindowMenu.modalLinks = document.querySelectorAll(arg.modalLinksSelector);
         for (let modalLink of ModalWindowMenu.modalLinks) {
             modalLink.addEventListener("click", () => {
-                let popupId = modalLink.dataset.modalLink;
-                if (popupId !== undefined) {
-                    let modal = document.getElementById(popupId);
+                let modalId = modalLink.dataset.modalLink;
+                if (modalId) {
+                    let modal = document.getElementById(modalId);
+                    ModalWindowMenu.transitionTimeout = parseFloat(getComputedStyle(modal)
+                        .getPropertyValue('transition-duration')) * 1000;
                     this.showOrHideModal(modal);
                 }
             });
         }
-        ModalWindowMenu.modalClosers = document.querySelectorAll(modalClosersSelector);
-        for (const modalCloser of ModalWindowMenu.modalClosers) {
-            modalCloser.addEventListener("click", () => {
-                this.closeModal(modalCloser.closest('.modal-window'), true);
-            });
+        ModalWindowMenu.modalClosers = document.querySelectorAll(arg.modalClosersSelector);
+        for (let modalCloser of ModalWindowMenu.modalClosers) {
+            modalCloser.addEventListener("click", () => this.closeModal(modalCloser.closest('.modal-window'), true));
         }
         document.addEventListener('keydown', (key) => {
-            if (key.code === 'Escape') {
-                let activeModal = document.querySelector('.modal-window.active');
-                activeModal ? this.closeModal(activeModal, true) : false;
-            }
+            if (key.code != 'Escape')
+                return;
+            let activeModal = document.querySelector('.modal-window.active');
+            activeModal ? this.closeModal(activeModal, true) : false;
         });
     }
     showOrHideModal(modalElement) {
@@ -68,20 +36,18 @@ export default class ModalWindowMenu {
         }
         modalElement.addEventListener("click", (e) => {
             // Checks if the pressed element has a CONTENT parent, if not, closes the modal.
-            if (!e.target.closest('.modal-window__content')) {
+            if (e.target.closest('.modal-window__content') == null) {
                 this.closeModal(modalElement, true);
             }
         });
     }
     closeModal(modalWindow, bodyIsScrollable) {
-        if (ModalWindowMenu.UNLOCK) {
-            modalWindow.classList.remove("active");
-            setTimeout(() => {
-                if (bodyIsScrollable) {
-                    this.toggleBodyScroll(true);
-                }
-            }, ModalWindowMenu.transitionTimeout * 2);
-        }
+        if (ModalWindowMenu.UNLOCK == false)
+            return;
+        modalWindow.classList.remove("active");
+        setTimeout(() => {
+            bodyIsScrollable ? this.toggleBodyScroll(true) : false;
+        }, ModalWindowMenu.transitionTimeout * 2);
     }
     toggleBodyScroll(toggleScrollOn) {
         if (this.chekPossibileSwitchScroll(toggleScrollOn)) {

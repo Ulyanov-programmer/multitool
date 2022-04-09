@@ -1,41 +1,39 @@
 import { returnScrollbarWidth, isNullOrWhiteSpaces } from "./general.js";
 
+interface FsNavmenuArgs {
+	/** Selctor buttons for burger menu. */
+	burgerSelector: string
+	/** A fullscreen-menu selector that will be shown when you click on the burger. */
+	fsNavmenuSelector: string
+	/** 
+		Selector of buttons that are contained in the menu. It is necessary to close the menu when pressing the buttons.
+	*/
+	buttonsSelector: string
+	/** If the value is true, set the automatic padding to the size of a header. */
+	autoPadding?: boolean
+}
+
 export default class FsNavmenu {
 	private static burger: HTMLElement
 	private static fsNavmenu: HTMLElement
 	private static buttons: NodeListOf<HTMLElement>
 	private static header: HTMLElement = document.querySelector('header')
-	private static autoPadding: boolean
+	private static autoPadding: boolean = true
 
 	public static burgerActiveClass: string = 'active'
 	public static fsNavmenuActiveClass: string = 'active'
 
-	/**
-	 * Provides functionality for burger and fullscreen menu.
-	 * 
-	 * @param burgerSelector
-	 * Selctor buttons for burger menu.
-	 * @param fsNavmenuSelector
-	 * A fullscreen-menu selector that will be shown when you click on the burger.
-	 * @param buttonsSelector
-	 * Selector of buttons that are contained in the menu. It is necessary to close the menu when pressing the buttons.
-	 * @param autoPadding
-	 * If the value is true, set the automatic padding to the size of a header.
-	 * 
-	 * @throws Some selector is null or white spaces - 
-	 * This error will be printed to the console if some input argument are null or white spaces.
-	 */
-	constructor({burgerSelector, fsNavmenuSelector, buttonsSelector, autoPadding = true}) {
-		if (isNullOrWhiteSpaces(burgerSelector, fsNavmenuSelector, buttonsSelector)) {
+	constructor(args: FsNavmenuArgs) {
+		if (isNullOrWhiteSpaces(args.burgerSelector, args.fsNavmenuSelector, args.buttonsSelector)) {
 			throw '[FSNAVMENU] Some selector is null or white spaces.'
 		}
 
-		FsNavmenu.burger = document.querySelector(burgerSelector);
-		FsNavmenu.fsNavmenu = document.querySelector(fsNavmenuSelector);
-		FsNavmenu.buttons = document.querySelectorAll(buttonsSelector);
-		FsNavmenu.autoPadding = autoPadding;
+		FsNavmenu.burger = document.querySelector(args.burgerSelector);
+		FsNavmenu.fsNavmenu = document.querySelector(args.fsNavmenuSelector);
+		FsNavmenu.buttons = document.querySelectorAll(args.buttonsSelector);
+		FsNavmenu.autoPadding = args.autoPadding;
 
-		if (autoPadding) {
+		if (args.autoPadding) {
 			FsNavmenu.fsNavmenu.style.paddingTop = `${FsNavmenu.header.clientHeight}px`;
 		}
 

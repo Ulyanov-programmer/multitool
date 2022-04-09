@@ -1,25 +1,12 @@
 import { isNullOrWhiteSpaces } from "./general.js";
 export default class Filter {
-    /**
-     * Provides functionality for filtering content on a page.
-     * @remarks Content filtering occurs by hiding elements on the page.
-     *
-     * @param filtButtonsSelector
-     * Selector for the buttons, by clicking on which the filtering occurs.
-     * For correct operation, you need to add the attribute to the element [data-filt-content]
-     * @param filtElementsSelector
-     * Selector for content to be filtered.
-     * For correct operation, you need to add the attribute to the element [data-content-type]
-     * @throws Some selector is null or white spaces -
-     * This error will be printed to the console if some input argument are null or white spaces.
-     */
-    constructor({ filtButtonsSelector, filtElementsSelector }) {
-        if (isNullOrWhiteSpaces(filtButtonsSelector, filtElementsSelector)) {
+    constructor(arg) {
+        if (isNullOrWhiteSpaces(arg.filtButtonsSelector, arg.filtElementsSelector)) {
             throw '[FILTER] Some argument is null or white spaces!';
         }
-        this.filterButtons = document.querySelectorAll(filtButtonsSelector);
-        this.filterContentElements = document.querySelectorAll(filtElementsSelector);
-        for (const filtButton of this.filterButtons) {
+        this.filterButtons = document.querySelectorAll(arg.filtButtonsSelector);
+        this.filterContentElements = document.querySelectorAll(arg.filtElementsSelector);
+        for (let filtButton of this.filterButtons) {
             filtButton.addEventListener('click', () => {
                 this.filtContentByType(filtButton, this.filterContentElements);
             });
@@ -27,7 +14,7 @@ export default class Filter {
     }
     filtContentByType(filterButton, filterContentElements) {
         let typeOfContent = filterButton.dataset.filtContent;
-        for (const filtElement of filterContentElements) {
+        for (let filtElement of filterContentElements) {
             if (typeOfContent == 'all' || filtElement.dataset.contentType.includes(typeOfContent)) {
                 filtElement.style.display = '';
             }
@@ -35,7 +22,7 @@ export default class Filter {
                 filtElement.style.display = 'none';
             }
         }
-        for (const btn of this.filterButtons) {
+        for (let btn of this.filterButtons) {
             btn == filterButton ? btn.classList.add('active') : btn.classList.remove('active');
         }
     }

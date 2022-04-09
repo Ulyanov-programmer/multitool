@@ -359,13 +359,20 @@
 
 .swipe-window {
 	&__body {
+		padding: 20px 0;
+	}
+
+	&__content {
+		flex-set column nowrap;
+		gap 25px;
+		overflow hidden;
 	}
 
 	&__swipe-area {
 		position relative;
 		border 1px solid #fff;
-		min-height 302px;
-		overflow hidden;
+		min-height 102px;
+		width 100%;
 		cursor grab;
 
 		&:active {
@@ -376,9 +383,13 @@
 		}
 
 		&_left {
+			align-self: start;
+			width 20%;
 		}
 
 		&_right {
+			margin-left: auto;
+			width 20%;
 		}
 
 		&_bottom {
@@ -392,12 +403,17 @@
 		justify-content center;
 		padding 10px;
 		width 300px;
-		height 300px;
+		height 100px;
 		background #363636;
 		user-select none;
 		transition all 0.3s ease;
 
+		&.active {
+			transform translate3d(0, 0, 0);
+		}
+
 		&_top {
+			height 150px;
 			top 0;
 			left 50%;
 			transform translate3d(-50%, -90%, 0);
@@ -411,24 +427,17 @@
 			top 0;
 			left 0;
 			transform translate3d(-90%, 0, 0);
-
-			&.active {
-				transform translate3d(0, 0, 0);
-			}
 		}
 
 		&_right {
 			top 0;
 			right 0;
 			transform translate3d(90%, 0, 0);
-
-			&.active {
-				transform translate3d(0, 0, 0);
-			}
 		}
 
 		&_bottom {
-			bottom: 0;
+			height 150px;
+			bottom 0;
 			left 50%;
 			transform translate3d(-50%, 90%, 0);
 

@@ -1,34 +1,30 @@
 import { isNullOrWhiteSpaces } from "./general.js";
 
+interface SidebarMenuArgs {
+	/** Selector of sidebars. Should contain id of this sidebar. */
+	selectorOfSidebars: string
+	/** 
+		Selector for buttons that open some sidebar. Should contains 
+		`data-open-sidebar='sidebarSelector'`.
+	*/
+	selectorOfSidebarButtons: string
+}
+
 export default class SidebarMenu {
-	private sidebars: NodeListOf<HTMLElement>;
-	private sidebarButtons: NodeListOf<HTMLElement>;
+	private sidebarButtons: NodeListOf<HTMLElement>
 	public static sidebarsActiveClass: string = 'active'
 	public static buttonsActiveClass: string = 'active'
 
-	/**
-	 * Provides functionality for sidebar.
-	 * 
-	 * @param selectorOfSidebars
-	 * Selector of sidebars. Should contain id of this sidebar.
-	 * @param selectorOfSidebarButtons
-	 * Selector for buttons that open some sidebar. Should contains data-open-sidebar='sidebarSelector'.
-	 * 
-	 * @throws Some selector is null or white spaces - 
-	 * This error will be printed to the console if some input argument are null or white spaces.
-	 */
-	constructor({selectorOfSidebars, selectorOfSidebarButtons}) {
-		if (isNullOrWhiteSpaces(selectorOfSidebars, selectorOfSidebarButtons)) {
+	constructor(arg: SidebarMenuArgs) {
+		if (isNullOrWhiteSpaces(arg.selectorOfSidebars, arg.selectorOfSidebarButtons)) 
 			throw '[SIDEBAR] Some selector is null or white spaces!'
-		}
 
-		this.sidebars = document.querySelectorAll(selectorOfSidebars);
-		this.sidebarButtons = document.querySelectorAll(selectorOfSidebarButtons);
+		this.sidebarButtons = document.querySelectorAll(arg.selectorOfSidebarButtons);
 
-		for (const sidebarBtn of this.sidebarButtons) {
-			sidebarBtn.addEventListener('click', () => {
+		for (let sidebarBtn of this.sidebarButtons) {
+			sidebarBtn.addEventListener('click', () => 
 				this.toggleSidebar(sidebarBtn)
-			})
+			)
 		}
 	}
 

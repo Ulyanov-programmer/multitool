@@ -99,6 +99,9 @@
 						<button tabindex='0' type='button' data-scroll-to=".demo-spoiler">Spoiler</button>
 					</li>
 					<li>
+						<button tabindex='0' type='button' data-scroll-to=".swipe-window">Swipe menus</button>
+					</li>
+					<li>
 						<button tabindex='0' type='button' data-scroll-to=".swiper">Slider</button>
 					</li>
 					<li>
@@ -142,6 +145,7 @@
 					<li class="fs-element" data-scroll-to=".images">Images</li>
 					<li class="fs-element" data-scroll-to=".filter">Filter</li>
 					<li class="fs-element" data-scroll-to=".demo-spoiler">Spoiler</li>
+					<li class="fs-element" data-scroll-to=".swipe-window">Swipe menus</li>
 					<li class="fs-element" data-scroll-to=".swiper">Slider</li>
 					<li class="fs-element" data-scroll-to=".el-menu">Element modal</li>
 					<li class="fs-element" data-scroll-to=".accordion">Accordion</li>
@@ -198,6 +202,7 @@
 			I am using Stylus. This preprocessor is productive and suitable for everyone.
 			Write in any convenient syntax:
 		</p>
+		<button data-modal-link="modal1" class='' aria-label='' type='button'>modal1</button>
 		<div class="styles__content">
 			<pre class="styles__code-block code-block">
       <code> Scss syntax:
@@ -365,6 +370,9 @@ someAccrod.contentActiveClass = 'active'</code>
 <section class='swipe-window'>
 	<div class='swipe-window__body body'>
 		<h2 tabindex='0' class='swipe-window__title title'>Swipe menus</h2>
+		<p class="demo-spoiler__text text">
+			Try to swipe in the windows below!
+		</p>
 		<div class="swipe-window__content content">
 			<div class="swipe-window__swipe-area swipe-window__swipe-area_top">
 				<div class="swipe-window__swipe-el swipe-window__swipe-el_top">
@@ -605,10 +613,6 @@ someAccrod.contentActiveClass = 'active'</code>
 <section class='special-thanks'>
 	<div class='special-thanks__body body demo-block'>
 		<h3 tabindex='0' class='special-thanks__title'>Special thanks:</h3>
-		<div class="special-thanks__text">
-			The author of the idea, based on his video, a lot of functionality was made: <br>
-			Фрилансер по жизни: <a href="https://www.youtube.com/c/FreelancerLifeStyle">https://www.youtube.com/c/FreelancerLifeStyle</a>
-		</div>
 		<div class="special-thanks__text">
 			To the authors of all gulp packages used in this build.
 		</div>

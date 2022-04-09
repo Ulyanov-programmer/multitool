@@ -6,30 +6,14 @@ export var SubmenuOpenIvents;
 })(SubmenuOpenIvents || (SubmenuOpenIvents = {}));
 ;
 export default class Submenu {
-    /**
-     * Provides functionality for buttons with submenu.
-     * @remarks Switching occurs by clicking.
-     *
-     * @param submenuElements
-     * Instances of `SubmenuElement` in an arbitrary number.
-     * @param menuActiveClass
-     * The class for an active spoiler menu.
-     * @param buttonActiveClass
-     * The class for an active spoiler button.
-     */
-    constructor({ menuActiveClass, buttonActiveClass, disableOnEsc = true }, ...submenuElements) {
-        if (isNullOrWhiteSpaces(menuActiveClass, buttonActiveClass)) {
+    constructor(args, ...submenuElements) {
+        if (isNullOrWhiteSpaces(args.menuActiveClass, args.buttonActiveClass))
             throw new Error('Your input selectors is null or white spaces!');
-        }
-        Submenu.buttonActiveClass = buttonActiveClass;
-        Submenu.menuActiveClass = menuActiveClass;
+        Submenu.buttonActiveClass = args.buttonActiveClass;
+        Submenu.menuActiveClass = args.menuActiveClass;
         Submenu.submenuElements.push(...submenuElements);
-        if (disableOnEsc) {
-            document.addEventListener('keydown', (key) => {
-                if (key.code === 'Escape') {
-                    Submenu.hideAllClickSubmenu();
-                }
-            });
+        if (args.disableOnEsc) {
+            document.addEventListener('keydown', (key) => key.code == 'Escape' ? Submenu.hideAllClickSubmenu() : false);
         }
     }
     static showOrHideSubmenu(currentSubmenuGroup, activeElement) {
@@ -57,40 +41,21 @@ export default class Submenu {
 }
 Submenu.submenuElements = new Array();
 export class SubmenuElementGroup {
-    /**
-     * Required for submenu scripts to work.
-     *
-     * @param buttonSelector
-     * Selector of the button that will open the submenu.
-     *
-     * @param menuSelector
-     * Selector of the menu that will open when the button is clicked.
-     *
-     * @throws Some argument in a SubmenuElement is uncorrect -
-     * Throws if some argument is null of white spaces.
-     */
-    constructor({ openIvent, buttonSelector, menuSelector }) {
-        if (isNullOrWhiteSpaces(buttonSelector, menuSelector)) {
+    constructor(args) {
+        if (isNullOrWhiteSpaces(args.buttonsSelector, args.menusSelector))
             throw '[SUBMENU GROUP ELS] Some argument in a SubmenuElement is null or white spaces.';
-        }
-        this.menuElements = document.querySelectorAll(menuSelector);
-        this.buttonElements = document.querySelectorAll(buttonSelector);
-        this.openIvent = openIvent;
+        this.menuElements = document.querySelectorAll(args.menusSelector);
+        this.buttonElements = document.querySelectorAll(args.buttonsSelector);
+        this.openIvent = args.openIvent;
         if (this.openIvent == SubmenuOpenIvents.Click) {
-            for (let i = 0; i < this.buttonElements.length; i++) {
-                this.buttonElements[i].addEventListener('click', () => {
-                    Submenu.showOrHideSubmenu(this, this.buttonElements[i]);
-                });
+            for (let buttonEl of this.buttonElements) {
+                buttonEl.addEventListener('click', () => Submenu.showOrHideSubmenu(this, buttonEl));
             }
         }
         else if (this.openIvent == SubmenuOpenIvents.Hover) {
-            for (let i = 0; i < this.buttonElements.length; i++) {
-                this.buttonElements[i].addEventListener('mouseover', () => {
-                    Submenu.showOrHideSubmenu(this, this.buttonElements[i]);
-                });
-                this.buttonElements[i].addEventListener('mouseout', () => {
-                    Submenu.showOrHideSubmenu(this, this.buttonElements[i]);
-                });
+            for (let buttonEl of this.buttonElements) {
+                buttonEl.addEventListener('mouseover', () => Submenu.showOrHideSubmenu(this, buttonEl));
+                buttonEl.addEventListener('mouseout', () => Submenu.showOrHideSubmenu(this, buttonEl));
             }
         }
     }

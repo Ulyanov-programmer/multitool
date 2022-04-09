@@ -261,11 +261,6 @@ address {
 .sidebar__body >*:not(:last-child) {
   margin-bottom: 30px;
 }
-@media (max-width: $toMobileWidth) {
-  .sidebar__body {
-    height: 100%;
-  }
-}
 .sidebar__show-btn {
   position: absolute;
   left: -90px;
@@ -441,7 +436,7 @@ address {
   overflow: hidden;
   opacity: 0;
   pointer-events: none;
-  transition: all 0.5s ease;
+  transition: all 0.3s ease;
 }
 .modal-window.active {
   overflow: auto;
@@ -808,15 +803,32 @@ body button {
 .animation-by-scroll__item-text {
   font-style: italic;
 }
+.swipe-window__body {
+  padding: 20px 0;
+}
+.swipe-window__content {
+  display: flex;
+  flex-flow: column nowrap;
+  gap: 25px;
+  overflow: hidden;
+}
 .swipe-window__swipe-area {
   position: relative;
   border: 1px solid #fff;
-  min-height: 302px;
-  overflow: hidden;
+  min-height: 102px;
+  width: 100%;
   cursor: grab;
 }
 .swipe-window__swipe-area:active {
   cursor: grabbing;
+}
+.swipe-window__swipe-area_left {
+  align-self: start;
+  width: 20%;
+}
+.swipe-window__swipe-area_right {
+  margin-left: auto;
+  width: 20%;
 }
 .swipe-window__swipe-el {
   position: absolute;
@@ -826,12 +838,16 @@ body button {
   justify-content: center;
   padding: 10px;
   width: 300px;
-  height: 300px;
+  height: 100px;
   background: #363636;
   user-select: none;
   transition: all 0.3s ease;
 }
+.swipe-window__swipe-el.active {
+  transform: translate3d(0, 0, 0);
+}
 .swipe-window__swipe-el_top {
+  height: 150px;
   top: 0;
   left: 50%;
   transform: translate3d(-50%, -90%, 0);
@@ -844,18 +860,13 @@ body button {
   left: 0;
   transform: translate3d(-90%, 0, 0);
 }
-.swipe-window__swipe-el_left.active {
-  transform: translate3d(0, 0, 0);
-}
 .swipe-window__swipe-el_right {
   top: 0;
   right: 0;
   transform: translate3d(90%, 0, 0);
 }
-.swipe-window__swipe-el_right.active {
-  transform: translate3d(0, 0, 0);
-}
 .swipe-window__swipe-el_bottom {
+  height: 150px;
   bottom: 0;
   left: 50%;
   transform: translate3d(-50%, 90%, 0);

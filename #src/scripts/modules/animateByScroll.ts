@@ -1,5 +1,12 @@
 import { isNullOrWhiteSpaces } from "./general.js";
 
+interface AnimateByScrollArgs {
+	/**
+		Do you want the animations to be played again if the blocks they leave the screen? 
+		Set it to true, but i don't recommend to use this as true in production.
+	*/
+	repeatingAnimations: boolean
+}
 
 export default class AnimateByScroll {
 	private static repeatingAnimations: boolean
@@ -7,18 +14,8 @@ export default class AnimateByScroll {
 	/** This class will be applied when the blocks are sufficiently shown on the display. */
 	public static activeAnimationClass: string = 'active'
 
-	/**
-	 * Provides functionality for creating animations when scrolling to a block. 
-	 * To be more precise, it sets active animation class to the elements, so animations need to be set in css.
-	 * 
-	 * @param repeatingAnimations
-	 * Do you want the animations to be played again if the blocks they leave the screen? 
-	 * Set it to true, i don't recommend to use this as true in production.
-	 * @param elements
-	 * An arbitrary number of `AnimationElement`, in fact, the number of elements subject to animation.
-	 */
-	constructor({ repeatingAnimations }, ...elements: AnimationElement[]) {
-		AnimateByScroll.repeatingAnimations = repeatingAnimations
+	constructor(arg: AnimateByScrollArgs, ...elements: AnimationElement[]) {
+		AnimateByScroll.repeatingAnimations = arg.repeatingAnimations
 		AnimateByScroll.elements = elements
 
 		this.checkAndToggleAnimationForElements()
@@ -72,6 +69,18 @@ export default class AnimateByScroll {
 	}
 }
 
+interface AnimationElementArgs {
+	/** Selector of the element to which the active animation class will be applied. */
+	selector: string
+	/** 
+		For example, 1 => class is assigned as soon as the element is shown on the screen. 
+		0.5 => as soon as it is shown at half. 
+	*/
+	animateStartCoeff: number
+	/** The delay before the animation starts in milliseconds. */
+	timeoutBeforeStart: number
+}
+
 export class AnimationElement {
 	public htmlElement: HTMLElement
 	public animStartCoeff: number
@@ -81,14 +90,6 @@ export class AnimationElement {
 	private defTimeoutBeforeStart: number
 
 	/**
-	* Contains animation settings for specific elements.
-	* 
-	* @param selector
-	* Selector of the element to which the active animation class will be applied.
-	* @param animateStartCoeff
-	* For example, 1 => class is assigned as soon as the element is shown on the screen. 0.5 => as soon as it is shown at half.
-	* @param timeoutBeforeStart
-	* The delay before the animation starts in milliseconds.
 	* @param mediaQueries
 	* If you need to change the animation assignment settings at a certain width, set the objects of `AnimationMediaQuery` here.
 	* 
@@ -97,20 +98,20 @@ export class AnimationElement {
 	* @throws Selector is null of white spaces! - 
 	* This error will be printed to the console if some input argument is null or white spaces.
 	*/
-	constructor({ selector, animateStartCoeff, timeoutBeforeStart }, ...mediaQueries: AnimationMediaQuery[]) {
-		if (isNullOrWhiteSpaces(selector)) {
-			if (animateStartCoeff <= 0 || animateStartCoeff > 1) {
+	constructor(arg: AnimationElementArgs, ...mediaQueries: AnimationMediaQuery[]) {
+		if (isNullOrWhiteSpaces(arg.selector)) {
+			if (arg.animateStartCoeff <= 0 || arg.animateStartCoeff > 1) 
 				throw new RangeError('animateStartCoeff < 0 or > 1')
-			}
+			
 			throw new RangeError('Selector is null of white spaces!')
 		}
 
-		this.timeoutBeforeStart = timeoutBeforeStart
-		this.htmlElement = document.querySelector(selector)
-		this.animStartCoeff = animateStartCoeff
+		this.timeoutBeforeStart = arg.timeoutBeforeStart
+		this.htmlElement = document.querySelector(arg.selector)
+		this.animStartCoeff = arg.animateStartCoeff
 
-		this.defTimeoutBeforeStart = timeoutBeforeStart
-		this.defAnimStartCoeff = animateStartCoeff
+		this.defTimeoutBeforeStart = arg.timeoutBeforeStart
+		this.defAnimStartCoeff = arg.animateStartCoeff
 		this.mediaQueries = mediaQueries
 	}
 

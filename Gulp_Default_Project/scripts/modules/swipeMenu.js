@@ -19,7 +19,7 @@ var ChangeOrientation;
     ChangeOrientation[ChangeOrientation["Horizontal"] = 1] = "Horizontal";
 })(ChangeOrientation || (ChangeOrientation = {}));
 export default class SwipeElement {
-    constructor({ touchAreaSelector, swipableElementSelector, changePlane, swipeSensitivity }) {
+    constructor(arg) {
         this.startX = 0;
         this.startY = 0;
         this.deltaX = 0;
@@ -30,18 +30,17 @@ export default class SwipeElement {
         this.pointerUpHandler = (function () {
             this.swipeEnd(0, false, true);
         }).bind(this);
-        if (isNullOrWhiteSpaces(touchAreaSelector, swipableElementSelector)) {
+        if (isNullOrWhiteSpaces(arg.touchAreaSelector, arg.swipableElementSelector))
             throw new Error('[SWIPE-ELEMENT Some selector is null or white spaces!]');
-        }
-        this.touchAreaElement = document.querySelector(touchAreaSelector);
+        this.touchAreaElement = document.querySelector(arg.touchAreaSelector);
         this.touchAreaElement.style.touchAction = 'none';
-        this.swipableElement = document.querySelector(swipableElementSelector);
+        this.swipableElement = document.querySelector(arg.swipableElementSelector);
         this.elementStartX = this.getTranslateState('x');
-        this.swipeSensitivity = swipeSensitivity;
+        this.swipeSensitivity = arg.swipeSensitivity;
         this.baseXStateModifier = this.checkBaseXStateIsNegative() ? -1 : 1;
         this.minSwipeWidth = Math.trunc(this.swipableElement.clientWidth * this.swipeSensitivity);
         this.minSwipeHeight = Math.trunc(this.swipableElement.clientHeight * this.swipeSensitivity);
-        this.changePlane = changePlane;
+        this.changePlane = arg.changePlane;
         if (this.changePlane == ChangePlane.ToLeft || this.changePlane == ChangePlane.ToRight) {
             this.changeOrientation = ChangeOrientation.Horizontal;
         }

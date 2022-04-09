@@ -49,11 +49,10 @@ import ModalWindowMenu from './modules/modalWindow.js';
 new ModalWindowMenu({
     modalLinksSelector: '[data-modal-link]',
     modalClosersSelector: '.modal-closer',
-    transitionTimeout: 500,
     fsMenuSelector: '.fullscreen-navmenu',
 });
 // element-modal //
-import ElementModal from './modules/elementMenu.js';
+import ElementModal from './modules/elementModal.js';
 /*
     It works like this:
     When hovering over a contentElement,
@@ -76,7 +75,7 @@ import ScrollController from './modules/scrollToElement.js';
 let scrollController = new ScrollController({
     scrollButtonsSelector: '[data-scroll-to]',
     // Use it so that a fixed header is taken into account when scrolling.
-    // fixedHeaderSelector: '.fixed-header', 
+    fixedHeaderSelector: '.fixed-header',
 });
 // sidebar //
 import SidebarMenu from './modules/sidebar.js';
@@ -97,32 +96,27 @@ let someAccrod = new Accordion({
     btnsSelector: '.accordion__btn',
     contentBlocksSelector: '.accordion__item',
     animationDuration: 500,
+    activeFirstElements: true,
 });
 someAccrod.buttonsActiveClass = 'active';
 someAccrod.contentActiveClass = 'active';
 // parallax //
 import { Parallax, ParallaxElement } from './modules/parallax.js';
-let someParallaxMenu = new Parallax({
-    parallaxContainerSelector: '.fullscreen__body',
-    minWorkWidth: 768,
-}, new ParallaxElement({
+let someParallaxMenu = new Parallax({ parallaxContainerSelector: '.fullscreen__body', minWorkWidth: 768, }, new ParallaxElement({
     selectorOrElement: '.parallax-text',
     // The smaller, the stronger the effect.
     parallaxCoeff: 5,
 }));
 // submenu //
 import Submenu, { SubmenuElementGroup, SubmenuOpenIvents } from './modules/submenu.js';
-new Submenu({
-    menuActiveClass: 'show',
-    buttonActiveClass: 'active',
-}, new SubmenuElementGroup({
+new Submenu({ menuActiveClass: 'show', buttonActiveClass: 'active', disableOnEsc: true }, new SubmenuElementGroup({
     openIvent: SubmenuOpenIvents.Hover,
-    buttonSelector: '.demo-submenu__hover-button',
-    menuSelector: '.demo-submenu__hover-ul',
+    buttonsSelector: '.demo-submenu__hover-button',
+    menusSelector: '.demo-submenu__hover-ul',
 }), new SubmenuElementGroup({
     openIvent: SubmenuOpenIvents.Click,
-    buttonSelector: '.demo-submenu__click-button',
-    menuSelector: '.demo-submenu__click-ul',
+    buttonsSelector: '.demo-submenu__click-button',
+    menusSelector: '.demo-submenu__click-ul',
 }));
 // AnimationByScroll //
 import AnimateByScroll, { AnimationElement, AnimationMediaQuery } from "./modules/animateByScroll.js";
@@ -136,30 +130,30 @@ new AnimateByScroll({ repeatingAnimations: true }, new AnimationElement({
     timeoutBeforeStart: 1000,
 }, new AnimationMediaQuery(768, 0.8, 500)));
 AnimateByScroll.activeAnimationClass = 'active';
-// TogglingBySwipe //
+// SwipeMenu //
 import SwipeElement, { ChangePlane } from "./modules/swipeMenu.js";
-let demoLeftSwipeEl = new SwipeElement({
+new SwipeElement({
     touchAreaSelector: '.swipe-window__swipe-area_left',
     swipableElementSelector: '.swipe-window__swipe-el_left',
     changePlane: ChangePlane.ToRight,
-    swipeSensitivity: 0.6,
+    swipeSensitivity: 0.15,
 });
-let demoTopSwipeEl = new SwipeElement({
+new SwipeElement({
     touchAreaSelector: '.swipe-window__swipe-area_top',
     swipableElementSelector: '.swipe-window__swipe-el_top',
     changePlane: ChangePlane.ToBottom,
-    swipeSensitivity: 0.5,
+    swipeSensitivity: 0.2,
 });
-let demoRightSwipeEl = new SwipeElement({
+new SwipeElement({
     touchAreaSelector: '.swipe-window__swipe-area_right',
     swipableElementSelector: '.swipe-window__swipe-el_right',
     changePlane: ChangePlane.ToLeft,
-    swipeSensitivity: 0.6,
+    swipeSensitivity: 0.15,
 });
-let demoBottomSwipeEl = new SwipeElement({
+new SwipeElement({
     touchAreaSelector: '.swipe-window__swipe-area_bottom',
     swipableElementSelector: '.swipe-window__swipe-el_bottom',
     changePlane: ChangePlane.ToTop,
-    swipeSensitivity: 0.5,
+    swipeSensitivity: 0.2,
 });
 //? your scripts //

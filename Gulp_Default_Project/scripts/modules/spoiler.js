@@ -1,48 +1,17 @@
 import { isNullOrWhiteSpaces } from "./general.js";
 export default class SpoilerMenu {
-    /**
-     * Provides functionality for spoiler.
-     *
-     * @param btnsSelector
-     * Selector for ALL buttons that open some spoiler.
-     * @param contentBlocksSelector
-     * Selector of blocks that will appear when the spoiler is activated.
-     * Blocks should be after spoiler open button in html, see example below.
-     * @param visibleWidth
-     * If the width of the viewport is greater than input width,
-     * the spoilers will not be active and their styles will not be applied.
-     * If the viewport is smaller than input width, the spoilers will be active.
-     * @param animationDuration
-     * Animation duration in ms, unless you want spoilers to open and close too quickly.
-     *
-     * @example
-     * Blocks should be after spoiler button in html like this:
-     * ```html
-     * <div class='spoiler'>
-     *   <div class='spoiler__body'>
-     *     <button class='uspoiler-btn' type="button">Spoiler button</button>
-     *     <ul class='uspoiler-content'>
-     *       <li></li>
-     *     </ul>
-     *   </div>
-     * </div>
-     * ```
-     * @throws Some selector is null or white spaces -
-     * This error will be printed to the console if some input argument are null or white spaces.
-     * @throws The count of buttons and content-elements equal zero or less.
-     */
-    constructor({ btnsSelector, contentBlocksSelector, maxWorkWidth, animationDuration }) {
-        if (isNullOrWhiteSpaces(btnsSelector, contentBlocksSelector)
-            || maxWorkWidth < 0 || animationDuration < 0) {
+    constructor(args) {
+        if (isNullOrWhiteSpaces(args.btnsSelector, args.contentBlocksSelector)
+            || args.maxWorkWidth < 0 || args.animationDuration < 0) {
             throw '[SPOILERS] Incorrect arguments!';
         }
-        SpoilerMenu.spoilerButtons = document.querySelectorAll(btnsSelector);
-        SpoilerMenu.spoilerContentElements = document.querySelectorAll(contentBlocksSelector);
+        SpoilerMenu.spoilerButtons = document.querySelectorAll(args.btnsSelector);
+        SpoilerMenu.spoilerContentElements = document.querySelectorAll(args.contentBlocksSelector);
         if (SpoilerMenu.spoilerButtons.length != SpoilerMenu.spoilerContentElements.length) {
             throw '[SPOILERS] The count of spoiler buttons and spoiler content-elements must be more than zero.';
         }
-        SpoilerMenu.spoilerVisibleWidth = maxWorkWidth;
-        SpoilerMenu.animationDuration = animationDuration;
+        SpoilerMenu.spoilerVisibleWidth = args.maxWorkWidth;
+        SpoilerMenu.animationDuration = args.animationDuration;
         this.toggleToSpoilers();
         //? Determines spoilers when the page is resized.
         window.addEventListener(`resize`, this.toggleToSpoilers);
