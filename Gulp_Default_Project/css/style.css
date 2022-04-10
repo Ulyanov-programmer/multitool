@@ -505,9 +505,6 @@ body {
   color: var(--text-c);
   font: calc((100vw - 20rem)/(90 - 20) * (1 - 0.75) + 0.75rem) var(--main-font-family);
 }
-body.scroll-block {
-  overflow: hidden;
-}
 body button {
   color: var(--text-c);
   font-size: calc((100vw - 20rem)/(90 - 20) * (1 - 0.75) + 0.75rem);
