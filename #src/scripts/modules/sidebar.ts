@@ -4,8 +4,8 @@ interface SidebarMenuArgs {
 	/** Selector of sidebars. Should contain id of this sidebar. */
 	selectorOfSidebars: string
 	/** 
-		Selector for buttons that open some sidebar. Should contains 
-		`data-open-sidebar='sidebarSelector'`.
+		Selector for buttons that open some sidebar. 
+		Should contains `data-open-sidebar='sidebarId'`.
 	*/
 	selectorOfSidebarButtons: string
 }
@@ -29,10 +29,10 @@ export default class SidebarMenu {
 	}
 
 	private toggleSidebar(eventButton: HTMLElement) {
-		let parentSidebar = document.getElementById(eventButton.dataset.openSidebar);
+		let sidebar = document.getElementById(eventButton.dataset.openSidebar);
 
 		eventButton.classList.toggle(SidebarMenu.buttonsActiveClass);
-		parentSidebar.classList.toggle(SidebarMenu.sidebarsActiveClass);
+		sidebar.classList.toggle(SidebarMenu.sidebarsActiveClass);
 	}
 }
 

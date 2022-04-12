@@ -9,9 +9,9 @@ export default class SidebarMenu {
         }
     }
     toggleSidebar(eventButton) {
-        let parentSidebar = document.getElementById(eventButton.dataset.openSidebar);
+        let sidebar = document.getElementById(eventButton.dataset.openSidebar);
         eventButton.classList.toggle(SidebarMenu.buttonsActiveClass);
-        parentSidebar.classList.toggle(SidebarMenu.sidebarsActiveClass);
+        sidebar.classList.toggle(SidebarMenu.sidebarsActiveClass);
     }
 }
 SidebarMenu.sidebarsActiveClass = 'active';

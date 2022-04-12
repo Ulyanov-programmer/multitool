@@ -93,7 +93,7 @@ import SidebarMenu from './modules/sidebar.js';
 
 new SidebarMenu({
 	selectorOfSidebars: '.sidebar',
-	selectorOfSidebarButtons: '.sidebar__show-btn',
+	selectorOfSidebarButtons: '[data-open-sidebar]',
 })
 SidebarMenu.sidebarsActiveClass = 'active'
 SidebarMenu.buttonsActiveClass = 'active'
@@ -170,28 +170,28 @@ AnimateByScroll.activeAnimationClass = 'active'
 import SwipeElement, { ChangePlane } from "./modules/swipeMenu.js";
 
 new SwipeElement({
-	touchAreaSelector: '.swipe-window__swipe-area_left',
+	touchStartAreaSelector: '.swipe-window__swipe-area_left',
 	swipableElementSelector: '.swipe-window__swipe-el_left',
 	changePlane: ChangePlane.ToRight,
-	swipeSensitivity: 0.15,
+	swipeSensitivity: 0.5,
 })
 new SwipeElement({
-	touchAreaSelector: '.swipe-window__swipe-area_top',
+	touchStartAreaSelector: '.swipe-window__swipe-area_top',
 	swipableElementSelector: '.swipe-window__swipe-el_top',
 	changePlane: ChangePlane.ToBottom,
-	swipeSensitivity: 0.2,
+	swipeSensitivity: 0.5,
 })
 new SwipeElement({
-	touchAreaSelector: '.swipe-window__swipe-area_right',
+	touchStartAreaSelector: '.swipe-window__swipe-area_right',
 	swipableElementSelector: '.swipe-window__swipe-el_right',
 	changePlane: ChangePlane.ToLeft,
-	swipeSensitivity: 0.15,
+	swipeSensitivity: 0.5,
 })
 new SwipeElement({
-	touchAreaSelector: '.swipe-window__swipe-area_bottom',
+	touchStartAreaSelector: '.swipe-window__swipe-area_bottom',
 	swipableElementSelector: '.swipe-window__swipe-el_bottom',
 	changePlane: ChangePlane.ToTop,
-	swipeSensitivity: 0.2,
+	swipeSensitivity: 0.5,
 })
 
 //? your scripts //

@@ -25,19 +25,23 @@ export default class SwipeElement {
         this.deltaX = 0;
         this.deltaY = 0;
         this.pointerMoveHandler = (function (e) {
+            this.swipableElement.style.userSelect = 'none';
             this.swipeMove(e);
         }).bind(this);
         this.pointerUpHandler = (function () {
+            this.swipableElement.style.userSelect = '';
             this.swipeEnd(0, false, true);
         }).bind(this);
-        if (isNullOrWhiteSpaces(arg.touchAreaSelector, arg.swipableElementSelector))
+        if (isNullOrWhiteSpaces(arg.touchStartAreaSelector, arg.swipableElementSelector))
             throw new Error('[SWIPE-ELEMENT Some selector is null or white spaces!]');
-        this.touchAreaElement = document.querySelector(arg.touchAreaSelector);
+        this.touchAreaElement = document.querySelector(arg.touchStartAreaSelector);
         this.touchAreaElement.style.touchAction = 'none';
         this.swipableElement = document.querySelector(arg.swipableElementSelector);
         this.elementStartX = this.getTranslateState('x');
+        this.elementStartY = this.getTranslateState('y');
         this.swipeSensitivity = arg.swipeSensitivity;
-        this.baseXStateModifier = this.checkBaseXStateIsNegative() ? -1 : 1;
+        this.baseXStateModifier = this.checkBaseStateIsNegative('x') ? -1 : 1;
+        this.baseYStateModifier = this.checkBaseStateIsNegative('y') ? -1 : 1;
         this.minSwipeWidth = Math.trunc(this.swipableElement.clientWidth * this.swipeSensitivity);
         this.minSwipeHeight = Math.trunc(this.swipableElement.clientHeight * this.swipeSensitivity);
         this.changePlane = arg.changePlane;
@@ -51,8 +55,8 @@ export default class SwipeElement {
             if (e.button != 0)
                 return;
             this.swipeStart(e);
-            this.touchAreaElement.addEventListener('pointermove', this.pointerMoveHandler, false);
-            this.touchAreaElement.addEventListener('pointerup', this.pointerUpHandler, false);
+            window.addEventListener('pointermove', this.pointerMoveHandler, false);
+            window.addEventListener('pointerup', this.pointerUpHandler, false);
         }, false);
     }
     swipeStart(e) {
@@ -77,12 +81,13 @@ export default class SwipeElement {
         if (this.changeOrientation == ChangeOrientation.Horizontal && delta > this.minSwipeWidth
             || this.changeOrientation == ChangeOrientation.Vertical && delta > this.minSwipeHeight) {
             changeTo ? this.swipableElement.classList.add('active') : this.swipableElement.classList.remove('active');
+            this.touchAreaElement.classList.toggle('active');
             this.swipableElement.style.transform = ``;
-            this.touchAreaElement.removeEventListener('pointermove', this.pointerMoveHandler, false);
+            window.removeEventListener('pointermove', this.pointerMoveHandler, false);
         }
         if (isSwipeEnd) {
             this.swipableElement.style.transform = ``;
-            this.touchAreaElement.removeEventListener('pointermove', this.pointerMoveHandler, false);
+            window.removeEventListener('pointermove', this.pointerMoveHandler, false);
         }
     }
     moveX(delta = this.deltaX) {
@@ -104,8 +109,9 @@ export default class SwipeElement {
             if (this.changePlane == ChangePlane.ToRight && this.currentSide == SwipeSide.Right)
                 return;
             let operator = this.changePlane == ChangePlane.ToLeft ? '+' : '-';
+            let result = `${operator}${delta}`;
             this.swipableElement.style.transform = `translate3d(
-				calc(0px ${operator} ${delta}px), 
+				${result}px,
 				${this.getTranslateState('Y')}px, 
 				0)`;
             this.swipeEnd(delta, false);
@@ -117,10 +123,10 @@ export default class SwipeElement {
                 return;
             if (this.changePlane == ChangePlane.ToTop && this.currentSide == SwipeSide.Bottom)
                 return;
-            let operator = this.changePlane == ChangePlane.ToBottom ? '-' : '+';
+            let result = this.elementStartY - delta * this.baseYStateModifier;
             this.swipableElement.style.transform = `translate3d(
 				${this.getTranslateState('x')}px, 
-				calc(0px ${operator} ${delta * this.baseXStateModifier}px), 
+				${result}px, 
 				0)`;
             this.swipeEnd(delta, true);
         }
@@ -129,10 +135,11 @@ export default class SwipeElement {
                 return;
             if (this.changePlane == ChangePlane.ToBottom && this.currentSide == SwipeSide.Bottom)
                 return;
-            let operator = this.changePlane == ChangePlane.ToBottom ? '+' : '-';
+            let operator = this.changePlane == ChangePlane.ToBottom ? '-' : '+';
+            let result = `${operator}${delta}`;
             this.swipableElement.style.transform = `translate3d(
 				${this.getTranslateState('x')}px, 
-				calc(0px ${operator} ${delta * this.baseXStateModifier}px), 
+				${result}px, 
 				0)`;
             this.swipeEnd(delta, false);
         }
@@ -145,8 +152,8 @@ export default class SwipeElement {
             .match(/(-?[0-9\.]+)/g)[valueIndex]);
         return state;
     }
-    checkBaseXStateIsNegative() {
-        let translateX = this.getTranslateState('x');
+    checkBaseStateIsNegative(xOrY = 'x') {
+        let translateX = this.getTranslateState(xOrY);
         let xStateIsNegative = translateX >= 0 ? false : true;
         return xStateIsNegative;
     }
