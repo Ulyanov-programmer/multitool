@@ -12,7 +12,7 @@
 		"scope": "javascript,typescript",
 		"prefix": "que",
 		"body": [
-			"let ${1:element} = document.querySelector('$0');",
+			"${2:let} ${0:element} = document.querySelector('$1');",
 		],
 	},
 	"Js function and variables": {
@@ -29,41 +29,48 @@
 	},
 	"Add new Event": {
 		"scope": "javascript,typescript",
-		"prefix": "addEvent",
+		"prefix": "event",
 		"body": [
 			"${1:varName}.addEventListener('${2:mouseEvent}', ${0:function});",
 		],
 		"description": "Add new event for node"
 	},
-	"if construction": {
-		"scope": "javascript,typescript",
-		"prefix": "if",
-		"body": [
-			"if (${0:}) {",
-			"\t",
-			"}"
-		],
-	},
-	"ternary operator": {
-		"scope": "javascript,typescript",
-		"prefix": "ter",
-		"body": [
-			"${1:cond} ? ${2:true} : ${3:false};",
-		],
-	},
-	"full property": {
+  "if construction": {
+    "scope": "javascript,typescript",
+    "prefix": "if",
+    "body": [
+      "if (${0:}) {",
+      "\t",
+      "}"
+    ],
+  },
+  "ternary operator": {
+    "scope": "javascript,typescript",
+    "prefix": "ter",
+    "body": [
+      "${1:cond} ? ${2:true} : ${3:false};",
+    ],
+  },
+  "full property": {
+    "scope": "typescript",
+    "prefix": "prop",
+    "body": [
+      "${3:public} ${2:static} ${1:name}: ${0:type}",
+    ],
+  },
+  "console log": {
+    "scope": "typescript",
+    "prefix": "log",
+    "body": [
+      "console.log($0)",
+    ],
+    "description": "Add new event for node"
+  },
+	"TsDoc a commentary": {
 		"scope": "typescript",
-		"prefix": "prop",
+		"prefix": "comm",
 		"body": [
-			"${3:public} ${2:static} ${1:name}: ${0:type}",
+			"/** $0 */",
 		],
-	},
-	"console log": {
-		"scope": "typescript",
-		"prefix": "log",
-		"body": [
-			"console.log($0)",
-		],
-		"description": "Add new event for node"
 	},
 }

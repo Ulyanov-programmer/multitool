@@ -127,6 +127,83 @@ address {
   left: 50%;
   transform: translate(-50%, 0);
 }
+label {
+  cursor: pointer;
+}
+input[type=number] {
+  -moz-appearance: textfield;
+}
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  appearance: none;
+  margin: 0;
+/*
+					If necessary, create additional buttons to zoom in and out and use this code in your js:
+			
+					let counter = document.querySelector('#productCounter') // as HTMLInputElement 
+					let decreaser = document.querySelector('#decreaser') 
+					let increaser = document.querySelector('#increaser') 
+					decreaser ? decreaser.addEventListener('click', decraseCounterValue) : false;
+					increaser ? increaser.addEventListener('click', increaseCounterValue) : false;
+			
+					function decraseCounterValue() {
+						let counterValue = parseInt(counter.value) 
+						counterValue = counterValue - parseInt(counter.step)
+			
+						counterValue >= 1 ? counter.value = `${counterValue}` : false
+					}
+			
+					function increaseCounterValue() {
+						let counterValue = parseInt(counter.value) 
+						counterValue = counterValue + parseInt(counter.step)
+			
+						counterValue >= 1 ? counter.value = `${counterValue}` : false
+					}
+				*/
+}
+input[type=checkbox] {
+  display: none;
+}
+input[type=radio] {
+  display: none;
+}
+input[type=file] {
+  display: none;
+}
+select {
+  cursor: pointer;
+  appearance: none;
+  background: #fff;
+}
+textarea {
+  scrollbar-width: 0;
+  resize: none;
+}
+textarea::-webkit-scrollbar {
+  width: 0;
+}
+input[type=date]::-webkit-datetime-edit {
+/* all input, but not calendar button */
+  background: #adff2f;
+}
+input[type=date]::-webkit-datetime-edit-fields-wrapper {
+/* only date values */
+  background: #ff0;
+}
+input[type=date]::-webkit-datetime-edit-text {
+/* elements between numbers */
+  background: #808080;
+}
+input[type=date]::-webkit-inner-spin-button {
+/* i don't now what is that */
+  display: none;
+}
+input[type=date]::-webkit-calendar-picker-indicator {
+/* calendar button */
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 .uspoiler-btn-active {
   display: inline-flex;
   justify-content: center;
@@ -359,7 +436,7 @@ address {
     -ms-overflow-style: none;
     scrollbar-width: none;
   }
-  html ::-webkit-scrollbar {
+  html::-webkit-scrollbar {
     width: 0;
   }
 }

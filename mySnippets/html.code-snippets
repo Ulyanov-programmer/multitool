@@ -1,124 +1,228 @@
 {
-	"form": {
+  "form": {
+    "scope": "html",
+    "prefix": "form",
+    "body": [
+      "<form class='' action='#'>",
+      "\t<fieldset class=''>",
+      "\t\t<legend class=''></legend>",
+      "\t</fieldset>",
+      "\t<button aria-label='submit this form' type='submit'>submit</button>",
+      "</form>"
+    ],
+  },
+  "button": {
+    "scope": "html",
+    "prefix": "button",
+    "body": [
+      "<button class='$1' aria-label='$2' type='${3|button,submit|}'>$0</button>",
+    ],
+  },
+  "section with class": {
+    "scope": "html",
+    "prefix": "sect",
+    "body": [
+      "<section class='$1'>",
+      "\t<div class='$1__body'>",
+      "\t\t<h${2:6} tabindex='0' class='$1__title'>${3:title}</h${2:6}>",
+      "\t\t$0",
+      "\t</div>",
+      "</section>"
+    ],
+  },
+  "HTML comment": {
+    "scope": "html",
+    "prefix": "comm",
+    "body": [
+      "<!-- $0 -->",
+    ],
+  },
+  "img in block": {
+    "scope": "html",
+    "prefix": "image",
+    "body": [
+      "<div class='adaptive-image $1'>",
+      "\t<img src=\"img$0\" loading='lazy' alt='$2' width=${3:width} height=${4:width}>",
+      "</div>"
+    ],
+  },
+  "img": {
+    "scope": "html",
+    "prefix": "img",
+    "body": [
+      "<img src=\"img$0\" loading='lazy' alt='$1' width=${2:width} height=${3:width}>",
+    ],
+  },
+  "Swiper slider html construction": {
+    "scope": "html",
+    "prefix": "swiper",
+    "body": [
+      "<div class='swiper'>",
+      "\t<div class='swiper-wrapper'>",
+      "\t\t<div class='swiper-slide'>Slide 1</div>",
+      "\t</div>\n\n",
+      "\t<div class='swiper-pagination'></div>\n",
+      "\t<div class='swiper-button-prev'></div>",
+      "\t<div class='swiper-button-next'></div>\n",
+      "\t<div class='swiper-scrollbar'></div>",
+      "</div>"
+    ],
+  },
+  "spoiler construction": {
+    "scope": "html",
+    "prefix": "spoiler",
+    "body": [
+      "<div class='${1:class}'>",
+      "\t<span data-spoiler-button>Spoiler button</span>",
+      "\t<ul data-spoiler-content>",
+      "\t\t<li>spoiler element</li>",
+      "\t</ul>",
+      "</div>",
+    ],
+  },
+  "reference": {
+    "scope": "html",
+    "prefix": "ref",
+    "body": [
+      "<a href='${0:#}' target='_blank' rel='noopener noreferrer'>$1</a>",
+    ],
+  },
+  "video construction": {
+    "scope": "html",
+    "prefix": "video",
+    "body": [
+      "<video poster='video$1' controls>",
+      "\t<source src='video/$2.webm' type='video/webm'>",
+      "\t<source src='video/$0.mp4' type='video/mp4'>",
+      "</video>",
+    ],
+  },
+  "tel ref": {
+    "scope": "html",
+    "prefix": "tel",
+    "body": [
+      "<a href='tel:+${1:88005553535}'>$0</a>",
+    ],
+  },
+  "mail ref": {
+    "scope": "html",
+    "prefix": "mail",
+    "body": [
+      "<a href='mailto:${1:someEmail@gmail.com}'>$0</a>",
+    ],
+  },
+	"html include construction": {
+    "scope": "html",
+    "prefix": "inc",
+    "body": [
+      "@@include('_$0.htm', {",
+			"\t",
+			"})"
+    ],
+  },
+	"submit button": {
 		"scope": "html",
-		"prefix": "form",
+		"prefix": "submit",
 		"body": [
-			"<form action='#'>",
-			"\t<fieldset>",
-			"\t\t<legend></legend>",
-			"\t\t<input type='${1|text,email,tel,file|}' placeholder='$2' required>",
-			"\t\t<button aria-label='s' type='submit'>$3</button>",
-			"\t</fieldset>",
-			"</form>"
+			"<button class='' aria-label='$1' type='submit'>$0</button>",
 		],
 	},
 	"input": {
 		"scope": "html",
 		"prefix": "input",
 		"body": [
-			"<input type='${1|text,email,tel,file|}' placeholder='$0' required>",
+			"<input class='' type='${1|text,password,tel,email|}' name='$0' placeholder='$2' ${3:required}>",
 		],
 	},
-	"button": {
+	"input number": {
 		"scope": "html",
-		"prefix": "button",
+		"prefix": "inum",
 		"body": [
-			"<button class='$1' aria-label='$2' type='${3|button,submit|}'>$0</button>",
+			"<input class='' type='number' step='$4' min='$2' max='$3' name='$0' value='$1'>",
 		],
 	},
-	"section with class": {
+	"input range": {
 		"scope": "html",
-		"prefix": "sect",
+		"prefix": "irange",
 		"body": [
-			"<section class='$1'>",
-			"\t<div class='$1__body'>",
-			"\t\t<h${2:6} tabindex='0' class='$1__title'>${3:title}</h${2:6}>",
-			"\t\t$0",
-			"\t</div>",
-			"</section>"
+			"<input type='range' step='$3' min='$1' max='$2' name='$0'/>",
 		],
 	},
-	"HTML comment": {
+	"input search": {
 		"scope": "html",
-		"prefix": "comm",
+		"prefix": "isearch, select",
 		"body": [
-			"<!-- $0 -->",
+			"<label for='$1'>$0</label>",
+			"<select id='$1' name='$2'>",
+			"\t<optgroup label='labelName'>",
+			"\t\t<option value=''></option>",
+			"\t</optgroup>",
+			"</select>",
 		],
 	},
-	"img in block": {
+	"input checkbox": {
 		"scope": "html",
-		"prefix": "image",
+		"prefix": "ichek",
 		"body": [
-			"<div class='adaptive-image $1'>",
-			"\t<img src=\"img$0\" loading='lazy' alt='$2' width=${3:width} height=${4:width}>",
-			"</div>"
+			"<input type='checkbox' id='$1' name='${0:value}'/>",
+			"<label for='$1'>$0</label>",
 		],
 	},
-	"img": {
+	"input radio": {
 		"scope": "html",
-		"prefix": "img",
+		"prefix": "iradio",
 		"body": [
-			"<img src=\"img$0\" loading='lazy' alt='$1' width=${2:width} height=${3:width}>",
+			"<input class='' type='radio' id='$2' value='$1' name='${0:radioGroup}'/>",
+			"<label for='$2'>$1</label>"
 		],
 	},
-	"Swiper slider html construction": {
+	"input date": {
 		"scope": "html",
-		"prefix": "swiper",
+		"prefix": "idate",
 		"body": [
-			"<div class='swiper'>",
-			"\t<div class='swiper-wrapper'>",
-			"\t\t<div class='swiper-slide'>Slide 1</div>",
-			"\t\t<div class='swiper-slide'>Slide 2</div>",
-			"\t\t<div class='swiper-slide'>Slide 3</div>",
-			"\t</div>\n\n",
-			"\t<div class='swiper-pagination'></div>\n",
-			"\t<div class='swiper-button-prev'></div>",
-			"\t<div class='swiper-button-next'></div>\n",
-			"\t<div class='swiper-scrollbar'></div>",
-			"</div>"
+			"<label for='$2'>$0</label>",
+			"<input type='date' id='$2' name='$1' min='' max='' required>",
 		],
 	},
-	"spoiler construction": {
+	"input file": {
 		"scope": "html",
-		"prefix": "spoiler",
+		"prefix": "ifile",
 		"body": [
-			"<div class='${1:class}'>",
-			"\t<span data-spoiler-button>Spoiler button</span>",
-			"\t<ul data-spoiler-content>",
-			"\t\t<li>spoiler element</li>",
-			"\t</ul>",
-			"</div>",
+			"<input type='file' id='$2' name='$1' ${3:multiple}",
+			"\taccept='$4'>",
+			"<label class='$0' for='$2'>$5</label>"
 		],
 	},
-	"reference": {
+	"datalist": {
 		"scope": "html",
-		"prefix": "ref",
+		"prefix": "datalist",
 		"body": [
-			"<a href='${0:#}' target='_blank' rel='noopener noreferrer'>$1</a>",
+			"<datalist id='someId'>",
+			"\t<option value='someValue'>",
+			"</datalist>",
 		],
 	},
-	"video construction": {
+	"textarea": {
 		"scope": "html",
-		"prefix": "video",
+		"prefix": "textarea",
 		"body": [
-			"<video poster='video$1' controls>",
-			"\t<source src='video/$2.webm' type='video/webm'>",
-			"\t<source src='video/$0.mp4' type='video/mp4'>",
-			"</video>",
+			"<textarea class='' name='$0' id='textarea' placeholder='$1' style='resize: none;'></textarea>",
 		],
 	},
-	"tel ref": {
+	"label": {
 		"scope": "html",
-		"prefix": "tel",
+		"prefix": "label",
 		"body": [
-			"<a href='tel:+${1:88005553535}'>$0</a>",
+			"<label class='' for='someInputId'>$0</label>",
 		],
 	},
-	"mail ref": {
+	"fieldset and legend": {
 		"scope": "html",
-		"prefix": "mail",
+		"prefix": "fieldset",
 		"body": [
-			"<a href='mailto:${1:someEmail@gmail.com}'>$0</a>",
+			"<fieldset class=''>",
+			"\t<legend class=''>$0</legend>",
+			"</fieldset>",
 		],
 	},
 }

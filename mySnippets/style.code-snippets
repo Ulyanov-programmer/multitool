@@ -26,21 +26,21 @@
 			"}"
 		],
 	},
-	"border": {
+	"border property": {
 		"scope": "stylus",
 		"prefix": "bor",
 		"body": [
 			"border $1px ${2|solid,dashed,dotted,inset|} #${3:};",
 		],
 	},
-	"box shadow": {
+	"box-shadow": {
 		"scope": "stylus",
 		"prefix": "bsh",
 		"body": [
 			"box-shadow ${1:xRight} ${2:yDown} ${3:blur}px rgba(0,0,0,0.${0:color});",
 		],
 	},
-	"flex flow": {
+	"flex-flow": {
 		"scope": "stylus",
 		"prefix": "ffl",
 		"body": [
@@ -54,7 +54,14 @@
 			"background url('../img/$0') no-repeat center / cover;",
 		],
 	},
-	"flex settings": {
+	"background property": {
+		"scope": "stylus",
+		"prefix": "bg",
+		"body": [
+			"background #$0;",
+		],
+	},
+	"flex property": {
 		"scope": "stylus",
 		"prefix": "fl",
 		"body": [
@@ -113,7 +120,7 @@
 		"scope": "stylus",
 		"prefix": "hovf",
 		"body": [
-			"&:hover,&:focus {",
+			"&:hover, &:focus {",
 			"\t$0",
 			"}"
 		],
@@ -122,7 +129,7 @@
 		"scope": "stylus",
 		"prefix": "ahovf",
 		"body": [
-			"&.active,&:hover,&:focus {",
+			"&.active, &:hover, &:focus {",
 			"\t$0",
 			"}"
 		],
@@ -132,6 +139,7 @@
 		"prefix": "befor",
 		"body": [
 			"&:before {",
+			"\t$0",
 			"\tcontent ${1|'',url('')|};",
 			"}"
 		],
@@ -141,19 +149,20 @@
 		"prefix": "afte",
 		"body": [
 			"&:after {",
+			"\t$0",
 			"\tcontent ${1|'',url('')|};",
 			"}"
 		],
 	},
-	"size": {
+	"size of element (mixin)": {
 		"scope": "stylus",
-		"prefix": "size",
+		"prefix": ["size", "bsize"],
 		"body": [
 			"block-size ${1:width} ${0:height};",
 		],
 		"description": "width and height of object"
 	},
-	"transition": {
+	"transition property": {
 		"scope": "stylus",
 		"prefix": "trn",
 		"body": [
@@ -206,23 +215,32 @@
 			"color #$0;",
 		],
 	},
-	"transform translate": {
+	"transform translate 3D": {
 		"scope": "stylus",
-		"prefix": "trmtranslate",
+		"prefix": [
+			"trmtranslate",
+			"translate"
+		],
 		"body": [
-			"transform translate(${1:xRight}, ${0:yDown});",
+			"transform translate3d(${1:xRight}, ${0:yDown}, 0);",
 		],
 	},
 	"transform scale": {
 		"scope": "stylus",
-		"prefix": "trmscale",
+		"prefix": [
+			"trmscale",
+			"scale"
+		],
 		"body": [
 			"transform scale(${1:xCoeff}, ${0:yCoeff});",
 		],
 	},
 	"transform rotate": {
 		"scope": "stylus",
-		"prefix": "trmrotate",
+		"prefix": [
+			"trmrotate",
+			"rotate"
+		],
 		"body": [
 			"transform rotate(${0:degrees}deg);",
 		],
@@ -251,14 +269,14 @@
 			"transform translate(-50%, -50%);",
 		],
 	},
-	"grid-template stylus": {
+	"grid-template property": {
 		"scope": "stylus",
 		"prefix": "gtem",
 		"body": [
-			"gridTemplate '${1:rowEls}' ${2:rowSize} / ${3:columnCountAndSize};",
+			"grid-template '${1:rowEls}' ${2:rowSize} / ${3:columnCountAndSize};",
 		],
 	},
-	"placeholder": {
+	"placeholder constuction": {
 		"scope": "stylus",
 		"prefix": "place",
 		"body": [
@@ -267,30 +285,30 @@
 			"}"
 		],
 	},
-	"not last child": {
+	"not last child constuction": {
 		"scope": "stylus",
 		"prefix": "nlc",
 		"body": [
-			":not(:last-child) {",
+			"&:not(:last-child) {",
 			"\t$0",
 			"}"
 		],
 	},
-	"margin for all elements but not for last": {
+	"margin for all elements, but not for last (mixin)": {
 		"scope": "stylus",
 		"prefix": "bmar",
 		"body": [
 			"firstLevelElementsMargin '${1:side}' $0;",
 		],
 	},
-	"margin-right for all elements but not for last": {
+	"margin-right for all elements but not for last (mixin)": {
 		"scope": "stylus",
 		"prefix": "bmarr",
 		"body": [
-			"firstLevelElementsMargin '${1:right}' $0;",
+			"firstLevelElementsMargin 'right' $0;",
 		],
 	},
-	"margin-bottom for all elements but not for last": {
+	"margin-bottom for all elements but not for last (mixin)": {
 		"scope": "stylus",
 		"prefix": "bmarb",
 		"body": [
@@ -370,6 +388,39 @@
 		"prefix": "fzr",
 		"body": [
 			"font-size rem($0);",
+		],
+	},
+	"flex-centring properties": {
+		"scope": "stylus",
+		"prefix": "fcenter",
+		"body": [
+			"justify-content center;",
+			"align-items center;",
+		],
+	},
+	"props for styling scrollbar": {
+		"scope": "stylus",
+		"prefix": "scrollbar",
+		"body": [
+			"// 'auto', 'thin' or other value.",
+			"scrollbar-width thin;",
+			"// button / track",
+			"scrollbar-color blue orange;",
+			"&::-webkit-scrollbar {",
+			"\twidth auto;",
+			"}",
+			"&::-webkit-scrollbar-track {",
+			"\t// track color",
+			"\tbackground orange;",
+			"}",
+			"&::-webkit-scrollbar-thumb {",
+			"\t// button color",
+			"\tbackground-color blue;",
+			"\t// round, round, round...",
+			"\tborder-radius 20px;",
+			"\t// ...padding",
+			"\tborder 0px solid orange;",
+			"}",
 		],
 	},
 }
