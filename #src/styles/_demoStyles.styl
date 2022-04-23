@@ -41,7 +41,7 @@
 		li {
 			a, button {
 				padding 10px;
-				transition all 0.3s ease;
+				transition all .3s ease;
 
 				&:hover, &:focus {
 					color #000;
@@ -59,13 +59,13 @@
 
 .code-block {
 	display inline-block;
-	background rgba(0, 0, 0, 0.404);
+	background rgba(0, 0, 0, .404);
 	padding 10px 20px 10px 20px;
 	border-radius 10px;
 }
 
 .demo-block {
-	background rgba(0, 0, 0, 0.404);
+	background rgba(0, 0, 0, .404);
 	padding 20px 20px 20px 20px;
 	border-radius 10px;
 }
@@ -198,7 +198,7 @@
 
 	&-slide {
 		border-radius 10px;
-		background rgba(0, 0, 0, 0.404);
+		background rgba(0, 0, 0, .404);
 		min-height 100px;
 		flex-set row nowrap;
 	}
@@ -223,7 +223,7 @@
 		block-size 100%;
 		background #000000ab;
 		flex-set row nowrap;
-		transition all 0.3s ease;
+		transition all .3s ease;
 
 		&._non-active {
 			hide();
@@ -254,7 +254,7 @@
 	&__item {
 		text-align center;
 		hide();
-		transition all 0.4s ease;
+		transition all .4s ease;
 
 		&.active {
 			show();
@@ -334,7 +334,7 @@
 	&__item {
 		opacity 0;
 		transform translate(10%, 10%);
-		transition all 0.5s ease-in;
+		transition all .5s ease-in;
 
 		@media (max-width 768px) {
 			transition all 1s ease-in;
@@ -414,7 +414,7 @@
 		height 100px;
 		background #363636;
 		user-select none;
-		transition all 0.3s ease;
+		transition all .3s ease;
 
 		&.active {
 			transform translate3d(0, 0, 0);
@@ -454,4 +454,8 @@
 			}
 		}
 	}
+}
+
+.modal-window__closer {
+	color rgb(125, 125, 125);
 }

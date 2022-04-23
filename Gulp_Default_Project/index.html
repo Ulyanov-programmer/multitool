@@ -56,11 +56,6 @@
     <meta name="twitter: image" content="path">
   -->
 
-
-<!--? Use this if you want set multiple files. -->
-<!-- (a)(a)if(swiper) {
-    <link rel="stylesheet" href="css/.min.css">} -->
-
 <title>Main</title>
 	<link rel="stylesheet" href="css/style.min.css">
 </head>
@@ -77,7 +72,7 @@
         <img src="img/icons/loupe.svg" alt="search">
       </button>
     </form> -->
-
+		<button data-open-modal-id="modal" class='' aria-label='' type='button'> open</button>
 		<nav class="navmenu">
 			<div class="navmenu__body">
 
@@ -636,17 +631,12 @@ someAccrod.contentActiveClass = 'active'</code>
   </div>
 </footer> -->
 
-	<section id="modal1" class='modal-window'>
+	<section id="modal" class='modal-window'>
 	<div class="modal-window__body">
 		<div class="modal-window__content">
-			<button type='button' class="modal-closer">close me</button>
+			<button class="modal-window__closer" type='button' data-modal-close>close window</button>
 
-			<form class="searchbar">
-				<input class="searchbar__input" type='text' placeholder='input' required>
-				<button aria-label="search" class="searchbar__submit" type='submit'>
-					<img src="img/demo/loupe.svg" alt="search">
-				</button>
-			</form>
+			some content!
 		</div>
 	</div>
 </section>

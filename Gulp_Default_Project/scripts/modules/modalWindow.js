@@ -8,7 +8,7 @@ export default class ModalWindowMenu {
         ModalWindowMenu.modalLinks = document.querySelectorAll(arg.modalLinksSelector);
         for (let modalLink of ModalWindowMenu.modalLinks) {
             modalLink.addEventListener("click", () => {
-                let modalId = modalLink.dataset.modalLink;
+                let modalId = modalLink.dataset.openModalId;
                 if (modalId) {
                     let modal = document.getElementById(modalId);
                     ModalWindowMenu.transitionTimeout = parseFloat(getComputedStyle(modal)
@@ -52,11 +52,11 @@ export default class ModalWindowMenu {
     toggleBodyScroll(toggleScrollOn) {
         if (this.chekPossibileSwitchScroll(toggleScrollOn)) {
             document.body.style.paddingRight = '0';
-            document.body.classList.remove("scroll-block");
+            document.body.style.overflow = 'auto';
         }
         else {
             document.body.style.paddingRight = returnScrollbarWidth() + 'px';
-            document.body.classList.add('scroll-block');
+            document.body.style.overflow = 'hidden';
         }
         ModalWindowMenu.UNLOCK = false;
         // Prevents a new window from opening too quickly.

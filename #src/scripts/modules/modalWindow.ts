@@ -34,7 +34,7 @@ export default class ModalWindowMenu {
 
 		for (let modalLink of ModalWindowMenu.modalLinks) {
 			modalLink.addEventListener("click", () => {
-				let modalId = modalLink.dataset.modalLink;
+				let modalId = modalLink.dataset.openModalId;
 
 				if (modalId) {
 					let modal = document.getElementById(modalId);
@@ -96,10 +96,10 @@ export default class ModalWindowMenu {
 	private toggleBodyScroll(toggleScrollOn: boolean) {
 		if (this.chekPossibileSwitchScroll(toggleScrollOn)) {
 			document.body.style.paddingRight = '0';
-			document.body.classList.remove("scroll-block");
+			document.body.style.overflow = 'auto'
 		} else {
 			document.body.style.paddingRight = returnScrollbarWidth() + 'px';
-			document.body.classList.add('scroll-block');
+			document.body.style.overflow = 'hidden'
 		}
 
 		ModalWindowMenu.UNLOCK = false;

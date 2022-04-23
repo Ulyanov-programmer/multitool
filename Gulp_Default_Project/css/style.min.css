@@ -178,6 +178,7 @@ select {
 textarea {
   scrollbar-width: 0;
   resize: none;
+  outline: none;
 }
 textarea::-webkit-scrollbar {
   width: 0;
@@ -404,6 +405,7 @@ input[type=date]::-webkit-calendar-picker-indicator {
   z-index: 5;
   display: block;
   cursor: pointer;
+  padding: 10px;
 }
 @media (min-width: 700px) {
   .burger-btn {
@@ -413,9 +415,7 @@ input[type=date]::-webkit-calendar-picker-indicator {
 .burger-btn__svg * {
   transition: all 0.5s ease;
 }
-.burger-btn__rect-top {
-  transform-origin: center;
-}
+.burger-btn__rect-top,
 .burger-btn__rect-bottom {
   transform-origin: center;
 }
@@ -423,7 +423,7 @@ input[type=date]::-webkit-calendar-picker-indicator {
   transform: rotate(45deg) translate(-5%, 50%);
 }
 .burger-btn.active .burger-btn__rect-center {
-  visibility: hidden;
+  overflow: hidden;
   opacity: 0;
   pointer-events: none;
   height: 0;
@@ -487,11 +487,23 @@ input[type=date]::-webkit-calendar-picker-indicator {
   pointer-events: all;
 }
 .modal-window__body {
-  display: flex;
-  flex-flow: row nowrap;
+  display: grid;
   height: 100%;
   align-items: center;
   justify-content: center;
+}
+.modal-window__content {
+  background: #3e3e3e;
+}
+.contain-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.cover-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 .footer {
   padding: 20px 20px 20px 20px;
@@ -919,4 +931,7 @@ body button {
 }
 .swipe-window__swipe-el_bottom.active {
   transform: translate3d(-50%, 0, 0);
+}
+.modal-window__closer {
+  color: #7d7d7d;
 }

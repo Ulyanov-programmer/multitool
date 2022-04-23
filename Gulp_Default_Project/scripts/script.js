@@ -47,8 +47,8 @@ import ModalWindowMenu from './modules/modalWindow.js';
     Also, when pressed, turns off the scrolling page.
 */
 new ModalWindowMenu({
-    modalLinksSelector: '[data-modal-link]',
-    modalClosersSelector: '.modal-closer',
+    modalLinksSelector: '[data-open-modal-id]',
+    modalClosersSelector: '[data-modal-close]',
     fsMenuSelector: '.fullscreen-navmenu',
     // smooth transition is calculated automatically, specify it for a modal
 });

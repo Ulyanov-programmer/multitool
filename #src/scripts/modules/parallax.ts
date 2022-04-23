@@ -46,7 +46,7 @@ export class Parallax {
 
 		for (let el of this.parallaxElements) {
 			el.htmlElement.style.transform =
-				`translate(${this.coordProcX / el.parallaxCoeff}%, ${this.coordProcY / el.parallaxCoeff}%)`
+				`translate3d(${this.coordProcX / el.parallaxCoeff}%, ${this.coordProcY / el.parallaxCoeff}%, 0)`
 		}
 	}
 }
@@ -64,9 +64,9 @@ export class ParallaxElement {
 	constructor(arg: ParallaxElementArgs) {
 		if (typeof arg.selectorOrElement == 'string') {
 
-			if (isNullOrWhiteSpaces(arg.selectorOrElement) || arg.parallaxCoeff < 1) {
+			if (isNullOrWhiteSpaces(arg.selectorOrElement) || arg.parallaxCoeff < 1)
 				throw '[PARALLAX] Incorrect arguments in ParallaxElement.'
-			}
+
 			this.selector = arg.selectorOrElement
 		} else {
 			this.htmlElement = arg.selectorOrElement

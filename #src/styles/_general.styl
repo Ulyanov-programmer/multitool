@@ -39,16 +39,37 @@ html {
 	background #00000046;
 	block-size 100%;
 	hide();
-	transition all 0.3s ease;
+	transition all .3s ease;
 
 	&.active {
 		show();
 	}
 
 	&__body {
-		flex-set row nowrap;
+		display grid;
 		height 100%;
 		align-items center;
 		justify-content center;
+	}
+
+	&__content {
+		background rgb(62, 62, 62);
+	}
+
+	&__closer {
+	}
+}
+
+.contain-img {
+	img {
+		block-size 100%;
+		object-fit contain;
+	}
+}
+
+.cover-img {
+	img {
+		block-size 100%;
+		object-fit cover;
 	}
 }
