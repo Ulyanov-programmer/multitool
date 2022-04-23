@@ -15,7 +15,7 @@ interface AccordionArgs {
 
 export default class Accordion {
 	private buttons: NodeListOf<HTMLElement>
-	private contentElements: Element[]
+	private contentElements: NodeListOf<HTMLElement>
 	private animationDuration: number
 	private isToggling: boolean = false
 	public buttonsActiveClass: string = 'active'
@@ -26,8 +26,7 @@ export default class Accordion {
 			throw '[ACCORDION] Incorrect arguments!'
 
 		this.buttons = document.querySelectorAll(arg.btnsSelector);
-		this.contentElements = Array.from
-			(document.querySelectorAll(arg.contentBlocksSelector).values())
+		this.contentElements = document.querySelectorAll(arg.contentBlocksSelector)
 
 		let someAccordContent = document.querySelector(arg.contentBlocksSelector);
 		this.animationDuration = parseFloat(getComputedStyle(someAccordContent)
@@ -49,6 +48,7 @@ export default class Accordion {
 		for (let accordContentElem of this.contentElements) {
 			if (accordContentElem.classList.contains('active') == false) {
 				accordContentElem.setAttribute('hidden', '');
+				accordContentElem.style.display = 'none'
 			}
 		}
 	}
@@ -74,11 +74,14 @@ export default class Accordion {
 			setTimeout(async () => {
 				if (contentElement != activeContentElement) {
 					contentElement.setAttribute('hidden', '');
+					contentElement.style.display = 'none'
 				} else {
-					activeContentElement.removeAttribute('hidden');
+					contentElement.removeAttribute('hidden');
+					contentElement.style.display = ''
 				}
 
-				await sleep(10)
+				await sleep(30)
+
 				activeContentElement.classList.add('active');
 				this.isToggling = false;
 

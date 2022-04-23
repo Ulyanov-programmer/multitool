@@ -51,8 +51,8 @@ export default class ModalWindowMenu {
     }
     toggleBodyScroll(toggleScrollOn) {
         if (this.chekPossibileSwitchScroll(toggleScrollOn)) {
-            document.body.style.paddingRight = '0';
-            document.body.style.overflow = 'auto';
+            document.body.style.paddingRight = '';
+            document.body.style.overflow = '';
         }
         else {
             document.body.style.paddingRight = returnScrollbarWidth() + 'px';

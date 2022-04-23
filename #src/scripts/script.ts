@@ -1,7 +1,7 @@
 //? If you are making a multi-page site, i recommend dividing the contents of this file
 //? into several parts and connecting them to each page separately.
 
-//? Also, TSDoc is used here, so read the tips. Try hover on some constructor.
+//? Also, TSDoc is used here, so read the tips. Try hover on some property.
 
 // fsnavmenu //
 import FsNavmenu from './modules/fsNavmenu.js';
@@ -101,11 +101,6 @@ SidebarMenu.buttonsActiveClass = 'active'
 // accordion //
 import Accordion from './modules/accord.js';
 
-/* Attention, 
-	the display property for inactive accordion elements
-	does not allow them to be hidden.
-	If you need to use it, set it via the active element class.
-*/
 let someAccrod = new Accordion({
 	btnsSelector: '.accordion__btn',
 	contentBlocksSelector: '.accordion__item',

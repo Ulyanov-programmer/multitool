@@ -10,7 +10,7 @@ interface ModalWindowMenuArgs {
 	/** Selector of buttons for closing modal windows (should be in html of modal). */
 	modalClosersSelector: string
 	/** 
-			Selector of fullscreen navmenu (burger fs-navmenu), need for correct work with it.
+		Selector of fullscreen navmenu (burger fs-navmenu), need for correct work with it.
 		Not required.
 	*/
 	fsMenuSelector?: string
@@ -95,8 +95,8 @@ export default class ModalWindowMenu {
 
 	private toggleBodyScroll(toggleScrollOn: boolean) {
 		if (this.chekPossibileSwitchScroll(toggleScrollOn)) {
-			document.body.style.paddingRight = '0';
-			document.body.style.overflow = 'auto'
+			document.body.style.paddingRight = '';
+			document.body.style.overflow = ''
 		} else {
 			document.body.style.paddingRight = returnScrollbarWidth() + 'px';
 			document.body.style.overflow = 'hidden'

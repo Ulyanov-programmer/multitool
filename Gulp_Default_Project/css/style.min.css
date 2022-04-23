@@ -495,6 +495,9 @@ input[type=date]::-webkit-calendar-picker-indicator {
 .modal-window__content {
   background: #3e3e3e;
 }
+.modal-window__closer {
+  color: #7d7d7d;
+}
 .contain-img img {
   width: 100%;
   height: 100%;
@@ -775,7 +778,7 @@ body button {
   overflow: hidden;
   opacity: 0;
   pointer-events: none;
-  transition: all 0.4s ease;
+  transition: all 0.3s ease;
 }
 .accordion__item.active {
   overflow: auto;
