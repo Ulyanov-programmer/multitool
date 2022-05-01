@@ -1,0 +1,15 @@
+<script type="module">
+	// scroll-elements //
+	import ScrollController from '../scripts/modules/scrollToElement.js';
+
+	let scrollController = new ScrollController({
+		scrollButtonsSelector: '[data-scroll-to]',
+		fixedHeaderSelector: '.refbar',
+	})
+	
+	window.onload = function () {
+		const urlParams = new URLSearchParams(window.location.search);
+		const blockValue = urlParams.get('b');
+		document.querySelector(`[data-scroll-to='#${blockValue}']`).click();
+	}
+</script>

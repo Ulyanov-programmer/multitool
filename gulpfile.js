@@ -21,7 +21,7 @@ import del from 'del';
 
 function watchFIles() {
   gulp.watch(paths.watch.html, { usePolling: true }, html);
-  gulp.watch(paths.watch.css, { usePolling: true }, css);
+  gulp.watch([paths.watch.css, paths.watch.demoCss], { usePolling: true }, css);
   gulp.watch(paths.watch.scripts, { usePolling: true }, scripts);
   gulp.watch(paths.watch.images, { usePolling: true }, images);
 }

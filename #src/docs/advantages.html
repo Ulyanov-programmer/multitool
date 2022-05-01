@@ -1,0 +1,162 @@
+@@include('_head.htm', {
+'title': 'Advantages'
+})
+
+<body>
+	@@include('_header.htm', {
+	'title': 'Advantages'
+	})
+	<main class="main">
+		<div class="main__body">
+			<div class="refbar block">
+				<button class='refbar__item' type='button' data-scroll-to="#stylus">Stylus</button>
+				<button class='refbar__item' type='button' data-scroll-to="#scripts">Scripts</button>
+				<button class='refbar__item' type='button' data-scroll-to="#img">Images</button>
+				<button class='refbar__item' type='button' data-scroll-to="#swiper">Swiper</button>
+				<button class='refbar__item' type='button' data-scroll-to="#required">Required</button>
+				<button class='refbar__item' type='button' data-scroll-to="#structure">Structure</button>
+			</div>
+			<section id="stylus" class='advantage'>
+				<div class='advantage__body'>
+					<h2 tabindex='0' class='advantage__title title'>Stylus</h2>
+					<p class="advantage__text">Stylus is the most progressive preprocessor for CSS. Fast, flexible, no extra syntax. <span class="fat-text"> You
+							will find ready mixins.</span></p>
+
+					<p class="codepen" data-height="400" data-theme-id="dark" data-default-tab="html,result" data-slug-hash="mdpYEBP" data-editable="true"
+						data-user="ulyanov-programmer"
+						style="height: 300px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
+						<span>See the Pen <a href="https://codepen.io/ulyanov-programmer/pen/mdpYEBP">
+								Power of Stylus</a> by Ulyanov Ivan (<a href="https://codepen.io/ulyanov-programmer">@ulyanov-programmer</a>)
+							on <a href="https://codepen.io">CodePen</a>.</span>
+					</p>
+					<script async src="https://cpwebassets.codepen.io/assets/embed/ei.js"></script>
+				</div>
+			</section>
+			<section id="scripts" class='advantage'>
+				<div class='advantage__body'>
+					<h2 tabindex='0' class='advantage__title title'>Scripts (Typescript)</h2>
+					<p class="advantage__text">Like JS, only better. Prevents errors <span class="fat-text">at the compilation stage</span>, hints work fine in
+						VS Code.
+						Moreover, you will find many, <span class="fat-text">MANY useful</span> scripts here, and some of them you can watch below (don't be
+						afraid, play with the settings). <br>
+						Alas, Codepen does not allow me to show its advantages, but it should be enough for familiarization.</p>
+
+					<h2 tabindex='0' class='advantage__title'>Swipe</h2>
+
+					<p class="codepen" data-height="500" data-default-tab="result" data-slug-hash="NWyWajM" data-preview="true" data-editable="true" data-user="ulyanov-programmer"
+						style="height: 500px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
+						<span>See the Pen <a href="https://codepen.io/ulyanov-programmer/pen/NWyWajM">
+								Swipe</a> by Ulyanov Ivan (<a href="https://codepen.io/ulyanov-programmer">@ulyanov-programmer</a>)
+							on <a href="https://codepen.io">CodePen</a>.</span>
+					</p>
+					<script async src="https://cpwebassets.codepen.io/assets/embed/ei.js"></script>
+
+					<h2 tabindex='0' class='advantage__title'>Animate by scroll</h2>
+
+					<p class="codepen" data-height="500" data-theme-id="dark" data-default-tab="js,result" data-slug-hash="LYeKLWq" data-preview="true"
+						data-editable="true" data-user="ulyanov-programmer"
+						style="height: 500px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
+						<span>See the Pen <a href="https://codepen.io/ulyanov-programmer/pen/LYeKLWq">
+								Power Of Modules (animByScroll)</a> by Ulyanov Ivan (<a href="https://codepen.io/ulyanov-programmer">@ulyanov-programmer</a>)
+							on <a href="https://codepen.io">CodePen</a>.</span>
+					</p>
+					<script async src="https://cpwebassets.codepen.io/assets/embed/ei.js" type="module"></script>
+				</div>
+			</section>
+			<section id="img" class='advantage'>
+				<div class='advantage__body'>
+					<h2 tabindex='0' class='advantage__title title'>Images</h2>
+					<p class="advantage__text">As usual - your PNG, JPG and others will be optimized, translated into webp... And <span
+							class="code">avif</span>. Yes, it's time to use it.</p>
+					<div class="section__content">
+						<div class="advantage__preview-block">
+							<code>&lt;img src="img/icons/img.png" alt='yourImg'&gt;</code>
+						</div>
+						<div class="advantage__preview-block">
+							<code>
+								<pre>&lt;picture&gt;
+ &lt;source srcset="img/icons/img.avif" 
+  type="image/avif"&gt;
+ &lt;source srcset="img/icons/img.webp" 
+  type="image/webp"&gt;
+ &lt;img src="img/icons/img.png" 
+  alt='yourImg'&gt;
+&lt;/picture&gt;</pre></code>
+						</div>
+					</div>
+				</div>
+			</section>
+			<section id="swiper" class='advantage'>
+				<div class='advantage__body'>
+					<h2 tabindex='0' class='advantage__title title'>Autoincluding the Swiper slider</h2>
+					<p class="advantage__text text-center">The assembly automatically connects the <a class="fat-text blue-text ref" href='//swiperjs.com/' target='_blank' rel='noopener noreferrer'>Swiper slider</a> to the project, its styles and scripts, if necessary. <br>
+					This can be disabled when <a class="ref orange-text" href='//localhost:3000/docs/getStarted.html?b=clear' target='_blank' rel='noopener noreferrer'>cleaning</a> the build.</p>
+				</div>
+			</section>
+			<section id="required" class='advantage'>
+				<div class='advantage__body'>
+					<h2 tabindex='0' class='advantage__title title'>And of course - the required content.</h2>
+					<p class="advantage__text text-center">Of course, you will find here such common things as: <a href="//www.npmjs.com/package/gulp-file-include" class="fat-text ref">fileInclude</a>, <a href="//www.npmjs.com/package/gulp-autoprefixer" class="fat-text ref">autoprefixer</a>, <a href="//www.npmjs.com/package/gulp-terser" class="fat-text ref">optimization / 
+						cleaning styles and scripts (terser)</a> and <a href="//www.npmjs.com/package/gulp-ttf2woff2" class="fat-text ref">font converter (ttf2woff2)</a>. And something else that I forgot or considered not very necessary. <br>
+
+						If you are interested in the packages used, look <a href="index.html#packages" class="fat-text ref">here</a>.</p>
+				</div>
+			</section>
+			<section id="structure" class='advantage'>
+				<div class='advantage__body'>
+					<h2 tabindex='0' class='advantage__title title'>Structure</h2>
+					<p class="advantage__text text-center">It's useful to know this, isn't it?</p>
+						<div class="advantage__preview-block">
+							<code>
+<pre>
+📦#src
+┣ 📂docs
+┃ ┣ ...
+┣ 📂fonts
+┃ ┗ <img src="../img/demo/font.png" alt="stylus" width=20 height=20> yourFonts.ttf/otf
+┣ 📂img
+┃ ┗ <img src="../img/demo/image.png" alt="image" width=20 height=20> yourImages.jpg/png/svg/gif/ico/webp
+┣ 📂scripts
+┃ ┣ 📂modules
+┃ ┃ ┗ <img src="../img/demo/ts-js.png" alt="typescript and javascript" width=40 height=20> yourModules.ts/js
+┃ ┣ <img src="../img/demo/ts-js.png" alt="typescript and javascript" width=40 height=20> generalScript.ts/js
+┃ ┗ <img src="../img/demo/ts-js.png" alt="typescript and javascript" width=40 height=20> sliders.js/js
+┣ 📂styles
+┃ ┣ 📂modules
+┃ ┃ ┣ <img src="../img/demo/stylus.png" alt="stylus" width=20 height=20> _nullStyle.styl
+┃ ┃ ┗ <img src="../img/demo/stylus.png" alt="stylus" width=20 height=20> yourStyleModules.styl
+┃ ┣ 📂other
+┃ ┃ ┣ <img src="../img/demo/stylus.png" alt="stylus" width=20 height=20> _fonts.styl
+┃ ┃ ┣ <img src="../img/demo/stylus.png" alt="stylus" width=20 height=20> _general.styl
+┃ ┃ ┣ <img src="../img/demo/stylus.png" alt="stylus" width=20 height=20> _mixins.styl
+┃ ┃ ┗ <img src="../img/demo/stylus.png" alt="stylus" width=20 height=20> _vars.styl
+┃ ┣ <img src="../img/demo/stylus.png" alt="stylus" width=20 height=20> style.styl
+┃ ┣ <img src="../img/demo/stylus.png" alt="stylus" width=20 height=20> _footer.styl
+┃ ┗ <img src="../img/demo/stylus.png" alt="stylus" width=20 height=20> _header.styl
+┣ 📂components
+┃ ┣ <img src="../img/demo/html.png" alt="html" width=20 height=20> _header.htm
+┃ ┣ <img src="../img/demo/html.png" alt="html" width=20 height=20> _footer.htm
+┃ ┣ <img src="../img/demo/html.png" alt="html" width=20 height=20> _headContent.htm
+┃ ┗ <img src="../img/demo/html.png" alt="html" width=20 height=20> _modals.htm
+┣ <img src="../img/demo/html.png" alt="html" width=20 height=20> index.html
+┗ <img src="../img/demo/html.png" alt="html" width=20 height=20> otherPages.html
+
+📦Result
+</pre>
+							</code>
+						</div>
+				</div>
+			</section>
+		</div>
+	</main>
+</body>
+
+</html>
+
+@@include('_scripts.htm', {
+
+})
+
+<!-- 
+  Made in Russia, with ❤, by Ivan Ulyanov. 
+-->

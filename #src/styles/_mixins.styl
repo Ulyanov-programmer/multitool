@@ -39,10 +39,10 @@ flex-set($type = row, $wrap = nowrap) {
 	flex-flow $type $wrap;
 }
 
-firstLevelElementsMargin($margin-side, $value) {
+notLastChildMargin($values...) {
 	>* {
 		&:not(:last-child) {
-			margin-{$margin-side} unit($value, px);
+			margin $values;
 		}
 	}
 }

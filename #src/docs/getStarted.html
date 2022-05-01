@@ -1,0 +1,160 @@
+@@include('_head.htm', {
+'title': 'Get started'
+})
+
+<body>
+	@@include('_header.htm', {
+	'title': 'Get started'
+	})
+	<main class="main">
+		<div class="main__body">
+			<div class="refbar block">
+				<button class='refbar__item' type='button' data-scroll-to="#load">Load</button>
+				<button class='refbar__item' type='button' data-scroll-to="#launch">Launch</button>
+				<button class='refbar__item' type='button' data-scroll-to="#clear">Clear</button>
+				<button class='refbar__item' type='button' data-scroll-to="#production">Production mode</button>
+			</div>
+			<section id="load" class='section block'>
+				<div class='section__body'>
+					<h2 tabindex='0' class='section__title title'>Load</h2>
+					<ol class="section__list section__list_big-margins">
+						<li class="section__li">
+							<p class="section__text">
+								Copy the path to the repository: <span class="code">https://github.com/Ulyanov-programmer/Gulp_Default_Project.git</span>
+							</p>
+							<div class="section__image">
+								<img src="../img/demo/howToLaunch_vsc1.png" loading='lazy'>
+							</div>
+						</li>
+						<li class="section__li">
+							<p class="section__text">
+								Start Visual Studio Code, where by selecting the <span class="fat-text">Explorer</span> item, select Clone repository
+							</p>
+							<div class="section__image">
+								<img src="../img/demo/howToLaunch_vsc2.png" loading='lazy'>
+							</div>
+						</li>
+						<li class="section__li section__li_end">
+							<p class="section__text">
+								In the pop-up window, enter the previously copied path to the repository and select the folder where you want to save the files.
+							</p>
+							<div class="section__image">
+								<img src="../img/demo/howToLaunch_vsc3.png" loading='lazy'>
+							</div>
+						</li>
+					</ol>
+				</div>
+			</section>
+			<section id="launch" class='section block'>
+				<div class='section__body'>
+					<h2 tabindex='0' class='section__title title'>Launch</h2>
+					<ol class="section__list section__list_big-margins">
+						<li class="section__li">
+							<p class="section__text">
+								<span class="fat-text">Make sure: path to the current project folder is specified in the terminal!</span>
+							</p>
+						</li>
+						<li class="section__li">
+							<p class="section__text">
+								Enter in the terminal (<span class="orange-text">ctrl + j</span> or <span class="orange-text">view => terminal</span>) <span
+									class="orange-text code">npm i</span> command.
+								If there are no errors in the process, you will see something like this:
+							</p>
+							<div class="section__image">
+								<img src="../img/demo/howToLaunch_vsc4.png" loading='lazy'>
+							</div>
+						</li>
+						<li class="section__li section__li_end">
+							<p class="section__text">
+								Start Gulp from the terminal by entering the <span class="code orange-text">gulp</span> command. <br>
+								(If this command doesn't work (you find something like "this command do not founded"), try installing gulp-cli via <span
+									class="code orange-text">npm -g install
+									gulp-cli</span> )
+								<br> <br>
+								A window with the main page of the project will open in the browser by default (if it does not load correctly, you may need to update
+								it using ctrl + f5).
+							</p>
+						</li>
+					</ol>
+				</div>
+			</section>
+			<section id="clear" class='section block'>
+				<div class='section__body'>
+					<h2 tabindex='0' class='section__title title'>Clearing</h2>
+					<p class="section__text">
+						The build contains the script that will help you remove unnecessary (including my demo and slider connection).<br> <br>
+						To do this, enter the node clean command in the terminal, and follow the text in the console.
+					</p>
+					<ol class="section__list">
+						<li class="section__li">
+							It delete the demo content.
+						</li>
+						<li class="section__li">
+							It will prompt you to delete the connection of the slider files and their settings file.
+						</li>
+						<li class="section__li">
+							It will offer to remove scripts and styles for certain purposes (for example, burger menu or filters).
+						</li>
+						<figure>
+							<div class="section__image">
+								<img src="../img/demo/2022-03-07_09-09-52.png" loading='lazy'>
+							</div>
+							<figcaption>You should see something like this.</figcaption>
+						</figure>
+					</ol>
+				</div>
+			</section>
+			<section id="production" class='section block'>
+				<div class='section__body'>
+					<h2 tabindex='0' class='section__title title'>Production mode</h2>
+					<p class="section__text">
+						If you run the build through the <span class="code orange-text">gulp</span> command, you will see that some of the functionality does not
+						work. <br>
+						This is normal, the build can be run in one of <span class="fat-text">two modes</span>:
+					</p>
+					<ol class="section__list section__list_not-style">
+						<li class="section__li">
+							<span class="fat-text">Default</span>: Started via the <span class="code orange-text">gulp</span> command entered in the terminal.<br>
+							<span class="fat-text">Production</span>: Started via the <span class="code orange-text">gulp --prod</span> command entered into the
+							terminal.
+						</li>
+						<li class="section__li">
+							<span class="fat-text">Default</span>: Quick start of the build.<br>
+							<span class="fat-text">Production</span>: Slow start of the build.
+						</li>
+						<li class="section__li">
+							<span class="fat-text">Default</span>: Images are <span class="fat-text">not</span> converted or optimized.<br>
+							<span class="fat-text">Production</span>: Images are converted and optimized.
+						</li>
+						<li class="section__li">
+							<span class="fat-text">Default</span>: Prefixes are <span class="fat-text">not</span> added to css properties. <br>
+							<span class="fat-text">Production</span>: Prefixes are added to css properties.
+						</li>
+						<li class="section__li">
+							<span class="fat-text">Default</span>: Media queries are <span class="fat-text">not</span> grouped. <br>
+							<span class="fat-text">Production</span>: Media queries are grouped.
+						</li>
+						<li class="section__li">
+							<span class="fat-text">Default</span>: Scripts are <span class="fat-text">not</span> compressed. <br>
+							<span class="fat-text">Production</span>: Scripts are compressed.
+						</li>
+						<li class="section__li">
+							<span class="fat-text">Default</span>: Automatically converted images are <span class="fat-text">not</span> connected.<br>
+							<span class="fat-text">Production</span>: Automatically converted images are connected.
+						</li>
+					</ol>
+				</div>
+			</section>
+		</div>
+	</main>
+</body>
+
+</html>
+
+@@include('_scripts.htm', {
+
+})
+
+<!-- 
+	Made in Russia, with ❤, by Ivan Ulyanov. 
+-->
