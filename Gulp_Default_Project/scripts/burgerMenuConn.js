@@ -1,9 +1,9 @@
-import FsNavmenu from './modules/burgerMenu.js';
-new FsNavmenu({
+import BurgerMenu from './modules/burgerMenu.js';
+new BurgerMenu({
     burgerSelector: '#burgerButton',
     fsNavmenuSelector: '.fullscreen-navmenu',
     buttonsSelector: '.fs-element',
     autoPadding: true,
 });
-FsNavmenu.fsNavmenuActiveClass = 'active';
-FsNavmenu.burgerActiveClass = 'active';
+BurgerMenu.fsNavmenuActiveClass = 'active';
+BurgerMenu.burgerActiveClass = 'active';
