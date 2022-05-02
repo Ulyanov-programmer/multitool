@@ -58,12 +58,12 @@
 	<main class="main">
 		<div class="main__body">
 			<div class="refbar block">
-				<button class='refbar__item' type='button' data-scroll-to="#load">Load</button>
-				<button class='refbar__item' type='button' data-scroll-to="#launch">Launch</button>
-				<button class='refbar__item' type='button' data-scroll-to="#clear">Clear</button>
-				<button class='refbar__item' type='button' data-scroll-to="#production">Production mode</button>
+				<button class='refbar__item' type='button' data-scroll-to="._load">Load</button>
+				<button class='refbar__item' type='button' data-scroll-to="._launch">Launch</button>
+				<button class='refbar__item' type='button' data-scroll-to="._clear">Clear</button>
+				<button class='refbar__item' type='button' data-scroll-to="._production">Production mode</button>
 			</div>
-			<section id="load" class='section block'>
+			<section class='section block _load'>
 				<div class='section__body'>
 					<h2 tabindex='0' class='section__title title'>Load</h2>
 					<ol class="section__list section__list_big-margins">
@@ -94,7 +94,7 @@
 					</ol>
 				</div>
 			</section>
-			<section id="launch" class='section block'>
+			<section class='section block _launch'>
 				<div class='section__body'>
 					<h2 tabindex='0' class='section__title title'>Launch</h2>
 					<ol class="section__list section__list_big-margins">
@@ -127,7 +127,7 @@
 					</ol>
 				</div>
 			</section>
-			<section id="clear" class='section block'>
+			<section class='section block _clear'>
 				<div class='section__body'>
 					<h2 tabindex='0' class='section__title title'>Clearing</h2>
 					<p class="section__text">
@@ -153,7 +153,7 @@
 					</ol>
 				</div>
 			</section>
-			<section id="production" class='section block'>
+			<section class='section block _production'>
 				<div class='section__body'>
 					<h2 tabindex='0' class='section__title title'>Production mode</h2>
 					<p class="section__text">
@@ -207,13 +207,8 @@
 	let scrollController = new ScrollController({
 		scrollButtonsSelector: '[data-scroll-to]',
 		fixedElementSelector: '.refbar',
+		scrollByAdressURL: true,
 	})
-	
-	window.onload = function () {
-		const urlParams = new URLSearchParams(window.location.search);
-		const blockValue = urlParams.get('b');
-		document.querySelector(`[data-scroll-to='#${blockValue}']`).click();
-	}
 </script>
 
 <!-- 

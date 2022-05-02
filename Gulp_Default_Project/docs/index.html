@@ -62,10 +62,11 @@
 					<h2 tabindex='0' class='section__title'>In summary</h2>
 					<div class="section__buttons">
 						<a href="advantages.html" class="section__ref-block block">CSS</a>
-						<a href="advantages.html?b=scripts" class="section__ref-block block">Scripts</a>
-						<a href="advantages.html?b=img" class="section__ref-block block">Images</a>
-						<a href="advantages.html?b=required" class="section__ref-block block">Another required</a>
-						<a href="advantages.html?b=structure" class="section__ref-block block">Structure</a>
+						<a href="advantages.html?b=._scripts" class="section__ref-block block">Scripts</a>
+						<a href="advantages.html?b=._img" class="section__ref-block block">Images</a>
+						<a href="advantages.html?b=._swiper" class="section__ref-block block">Autoincluding swiper</a>
+						<a href="advantages.html?b=._required" class="section__ref-block block">Another required</a>
+						<a href="advantages.html?b=._structure" class="section__ref-block block">Structure</a>
 					</div>
 				</div>
 			</section>
@@ -73,15 +74,15 @@
 				<div class='section__body'>
 					<h2 tabindex='0' class='section__title'>Ready-to-use code</h2>
 					<div class="section__buttons">
-						<a href="scripts.html?b=submenu" class="section__ref-block block">Submenu</a>
-						<a href="scripts.html?b=animByScroll" class="section__ref-block block">AnimByScroll</a>
-						<a href="scripts.html?b=tabs" class="section__ref-block block">Tabs</a>
-						<a href="scripts.html?b=elemModal" class="section__ref-block block">Element-Modal</a>
-						<a href="scripts.html?b=filter" class="section__ref-block block">Filter</a>
-						<a href="scripts.html?b=parallax" class="section__ref-block block">Parallax</a>
-						<a href="scripts.html?b=scroll" class="section__ref-block block">Scroll</a>
-						<a href="scripts.html?b=spoilers" class="section__ref-block block">Spoilers</a>
-						<a href="scripts.html?b=swipe" class="section__ref-block block">Swipe</a>
+						<a href="scripts.html?b=._submenu" class="section__ref-block block">Submenu</a>
+						<a href="scripts.html?b=._animByScroll" class="section__ref-block block">AnimByScroll</a>
+						<a href="scripts.html?b=._tabs" class="section__ref-block block">Tabs</a>
+						<a href="scripts.html?b=._elemModal" class="section__ref-block block">Element-Modal</a>
+						<a href="scripts.html?b=._filter" class="section__ref-block block">Filter</a>
+						<a href="scripts.html?b=._parallax" class="section__ref-block block">Parallax</a>
+						<a href="scripts.html?b=._scroll" class="section__ref-block block">Scroll</a>
+						<a href="scripts.html?b=._spoilers" class="section__ref-block block">Spoilers</a>
+						<a href="scripts.html?b=._swipe" class="section__ref-block block">Swipe</a>
 					</div>
 				</div>
 			</section>
@@ -89,10 +90,10 @@
 				<div class='section__body'>
 					<h2 tabindex='0' class='section__title'>Get started</h2>
 					<div class="section__buttons">
-						<a href="getStarted.html" class="section__ref-block block">Load</a>
-						<a href="getStarted.html?b=launch" class="section__ref-block block">Launch</a>
-						<a href="getStarted.html?b=clear" class="section__ref-block block">Clear</a>
-						<a href="getStarted.html?b=production" class="section__ref-block block">Production mode</a>
+						<a href="getStarted.html?b=._load" class="section__ref-block block">Load</a>
+						<a href="getStarted.html?b=._launch" class="section__ref-block block">Launch</a>
+						<a href="getStarted.html?b=._clear" class="section__ref-block block">Clear</a>
+						<a href="getStarted.html?b=._production" class="section__ref-block block">Production mode</a>
 					</div>
 				</div>
 			</section>
@@ -178,13 +179,8 @@
 	let scrollController = new ScrollController({
 		scrollButtonsSelector: '[data-scroll-to]',
 		fixedElementSelector: '.refbar',
+		scrollByAdressURL: true,
 	})
-	
-	window.onload = function () {
-		const urlParams = new URLSearchParams(window.location.search);
-		const blockValue = urlParams.get('b');
-		document.querySelector(`[data-scroll-to='#${blockValue}']`).click();
-	}
 </script>
 
 </html>

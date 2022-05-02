@@ -58,14 +58,14 @@
 	<main class="main">
 		<div class="main__body">
 			<div class="refbar block">
-				<button class='refbar__item' type='button' data-scroll-to="#stylus">Stylus</button>
-				<button class='refbar__item' type='button' data-scroll-to="#scripts">Scripts</button>
-				<button class='refbar__item' type='button' data-scroll-to="#img">Images</button>
-				<button class='refbar__item' type='button' data-scroll-to="#swiper">Swiper</button>
-				<button class='refbar__item' type='button' data-scroll-to="#required">Required</button>
-				<button class='refbar__item' type='button' data-scroll-to="#structure">Structure</button>
+				<button class='refbar__item' type='button' data-scroll-to="._stylus">Stylus</button>
+				<button class='refbar__item' type='button' data-scroll-to="._scripts">Scripts</button>
+				<button class='refbar__item' type='button' data-scroll-to="._img">Images</button>
+				<button class='refbar__item' type='button' data-scroll-to="._swiper">Swiper</button>
+				<button class='refbar__item' type='button' data-scroll-to="._required">Required</button>
+				<button class='refbar__item' type='button' data-scroll-to="._structure">Structure</button>
 			</div>
-			<section id="stylus" class='advantage'>
+			<section class='advantage _stylus'>
 				<div class='advantage__body'>
 					<h2 tabindex='0' class='advantage__title title'>Stylus</h2>
 					<p class="advantage__text">Stylus is the most progressive preprocessor for CSS. Fast, flexible, no extra syntax. <span class="fat-text"> You
@@ -81,7 +81,7 @@
 					<script async src="https://cpwebassets.codepen.io/assets/embed/ei.js"></script>
 				</div>
 			</section>
-			<section id="scripts" class='advantage'>
+			<section class='advantage _scripts'>
 				<div class='advantage__body'>
 					<h2 tabindex='0' class='advantage__title title'>Scripts (Typescript)</h2>
 					<p class="advantage__text">Like JS, only better. Prevents errors <span class="fat-text">at the compilation stage</span>, hints work fine in
@@ -112,7 +112,7 @@
 					<script async src="https://cpwebassets.codepen.io/assets/embed/ei.js" type="module"></script>
 				</div>
 			</section>
-			<section id="img" class='advantage'>
+			<section class='advantage _img'>
 				<div class='advantage__body'>
 					<h2 tabindex='0' class='advantage__title title'>Images</h2>
 					<p class="advantage__text">As usual - your PNG, JPG and others will be optimized, translated into webp... And <span
@@ -135,14 +135,14 @@
 					</div>
 				</div>
 			</section>
-			<section id="swiper" class='advantage'>
+			<section class='advantage _swiper'>
 				<div class='advantage__body'>
 					<h2 tabindex='0' class='advantage__title title'>Autoincluding the Swiper slider</h2>
 					<p class="advantage__text text-center">The assembly automatically connects the <a class="fat-text blue-text ref" href='//swiperjs.com/' target='_blank' rel='noopener noreferrer'>Swiper slider</a> to the project, its styles and scripts, if necessary. <br>
 					This can be disabled when <a class="ref orange-text" href='//localhost:3000/docs/getStarted.html?b=clear' target='_blank' rel='noopener noreferrer'>cleaning</a> the build.</p>
 				</div>
 			</section>
-			<section id="required" class='advantage'>
+			<section class='advantage _required'>
 				<div class='advantage__body'>
 					<h2 tabindex='0' class='advantage__title title'>And of course - the required content.</h2>
 					<p class="advantage__text text-center">Of course, you will find here such common things as: <a href="//www.npmjs.com/package/gulp-file-include" class="fat-text ref">fileInclude</a>, <a href="//www.npmjs.com/package/gulp-autoprefixer" class="fat-text ref">autoprefixer</a>, <a href="//www.npmjs.com/package/gulp-terser" class="fat-text ref">optimization / 
@@ -151,7 +151,7 @@
 						If you are interested in the packages used, look <a href="index.html#packages" class="fat-text ref">here</a>.</p>
 				</div>
 			</section>
-			<section id="structure" class='advantage'>
+			<section class='advantage _structure'>
 				<div class='advantage__body'>
 					<h2 tabindex='0' class='advantage__title title'>Structure</h2>
 					<p class="advantage__text text-center">It's useful to know this, isn't it?</p>
@@ -209,13 +209,8 @@
 	let scrollController = new ScrollController({
 		scrollButtonsSelector: '[data-scroll-to]',
 		fixedElementSelector: '.refbar',
+		scrollByAdressURL: true,
 	})
-	
-	window.onload = function () {
-		const urlParams = new URLSearchParams(window.location.search);
-		const blockValue = urlParams.get('b');
-		document.querySelector(`[data-scroll-to='#${blockValue}']`).click();
-	}
 </script>
 
 <!-- 

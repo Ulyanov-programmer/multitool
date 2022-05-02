@@ -5,15 +5,18 @@ export default class ScrollController {
             throw new Error('[SCROLL-ELEMENTS] Incorrect scroll-buttons selector!');
         let scrollButtons = document.querySelectorAll(arg.scrollButtonsSelector);
         for (let scrollButton of scrollButtons) {
-            scrollButton.addEventListener('click', () => this.scrollToElement(scrollButton));
+            scrollButton.addEventListener('click', () => ScrollController.scrollToElement(scrollButton.dataset.scrollTo));
         }
         if (isNullOrWhiteSpaces(arg.fixedElementSelector) == false) {
             let heightHeight = document.querySelector(arg.fixedElementSelector).clientHeight;
             ScrollController.fixedElementHeight = heightHeight;
         }
+        if (arg.scrollByAdressURL) {
+            window.addEventListener('load', this.scrollToElementByAdress);
+        }
     }
-    scrollToElement(scrollButton) {
-        let scrollElement = document.querySelector(scrollButton.dataset.scrollTo);
+    static scrollToElement(scrollTo) {
+        let scrollElement = document.querySelector(scrollTo);
         if (scrollElement == undefined)
             throw new Error('[SCROLL-ELEMENTS] Something wrong with scrollElement!');
         let scrolltop = window.pageYOffset + scrollElement.getBoundingClientRect().top;
@@ -21,6 +24,16 @@ export default class ScrollController {
             top: scrolltop - ScrollController.fixedElementHeight,
             behavior: "smooth"
         });
+    }
+    scrollToElementByAdress() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const selector = urlParams.get('b');
+        ScrollController.scrollToElement(selector);
+        // deleting the get block in URL
+        const url = new URL(window.location.href);
+        const searchParams = url.searchParams;
+        searchParams.delete("b");
+        window.history.pushState({}, '', url.toString());
     }
 }
 ScrollController.fixedElementHeight = 0;

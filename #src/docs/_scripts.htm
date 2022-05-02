@@ -5,11 +5,6 @@
 	let scrollController = new ScrollController({
 		scrollButtonsSelector: '[data-scroll-to]',
 		fixedElementSelector: '.refbar',
+		scrollByAdressURL: true,
 	})
-	
-	window.onload = function () {
-		const urlParams = new URLSearchParams(window.location.search);
-		const blockValue = urlParams.get('b');
-		document.querySelector(`[data-scroll-to='#${blockValue}']`).click();
-	}
 </script>

@@ -58,17 +58,17 @@
 	<main class="main">
 		<div class="main__body">
 			<div class="refbar block">
-				<button class='refbar__item' type='button' data-scroll-to="#submenu">Submenu</button>
-				<button class='refbar__item' type='button' data-scroll-to="#animByScroll">AnimByScroll</button>
-				<button class='refbar__item' type='button' data-scroll-to="#tabs">Tabs</button>
-				<button class='refbar__item' type='button' data-scroll-to="#elemModal">Element-Modal</button>
-				<button class='refbar__item' type='button' data-scroll-to="#filter">Filter</button>
-				<button class='refbar__item' type='button' data-scroll-to="#parallax">Parallax</button>
-				<button class='refbar__item' type='button' data-scroll-to="#scroll">Scroll</button>
-				<button class='refbar__item' type='button' data-scroll-to="#spoilers">Spoilers</button>
-				<button class='refbar__item' type='button' data-scroll-to="#swipe">Swipe</button>
+				<button class='refbar__item' type='button' data-scroll-to="._submenu">Submenu</button>
+				<button class='refbar__item' type='button' data-scroll-to="._animByScroll">AnimByScroll</button>
+				<button class='refbar__item' type='button' data-scroll-to="._tabs">Tabs</button>
+				<button class='refbar__item' type='button' data-scroll-to="._elemModal">Element-Modal</button>
+				<button class='refbar__item' type='button' data-scroll-to="._filter">Filter</button>
+				<button class='refbar__item' type='button' data-scroll-to="._parallax">Parallax</button>
+				<button class='refbar__item' type='button' data-scroll-to="._scroll">Scroll</button>
+				<button class='refbar__item' type='button' data-scroll-to="._spoilers">Spoilers</button>
+				<button class='refbar__item' type='button' data-scroll-to="._swipe">Swipe</button>
 			</div>
-			<section id="submenu" class='advantage'>
+			<section class='advantage _submenu'>
 				<div class='advantage__body'>
 					<h2 tabindex='0' class='advantage__title title'>Submenu</h2>
 					<p class="advantage__text"></p>
@@ -82,7 +82,7 @@
 					<script async src="https://cpwebassets.codepen.io/assets/embed/ei.js"></script>
 				</div>
 			</section>
-			<section id="animByScroll" class='advantage'>
+			<section class='advantage _animByScroll'>
 				<div class='advantage__body'>
 					<h2 tabindex='0' class='advantage__title title'>Animations by scroll</h2>
 					<p class="advantage__text"></p>
@@ -96,7 +96,7 @@
 					<script async src="https://cpwebassets.codepen.io/assets/embed/ei.js"></script>
 				</div>
 			</section>
-			<section id="tabs" class='advantage'>
+			<section class='advantage _tabs'>
 				<div class='advantage__body'>
 					<h2 tabindex='0' class='advantage__title title'>Tabs</h2>
 
@@ -109,7 +109,7 @@
 					<script async src="https://cpwebassets.codepen.io/assets/embed/ei.js"></script>
 				</div>
 			</section>
-			<section id="elemModal" class='advantage'>
+			<section class='advantage _elemModal'>
 				<div class='advantage__body'>
 					<h2 tabindex='0' class='advantage__title title'>Modal in a element</h2>
 
@@ -122,7 +122,7 @@
 					<script async src="https://cpwebassets.codepen.io/assets/embed/ei.js"></script>
 				</div>
 			</section>
-			<section id="filter" class='advantage'>
+			<section class='advantage _filter'>
 				<div class='advantage__body'>
 					<h2 tabindex='0' class='advantage__title title'>Filter</h2>
 
@@ -135,7 +135,7 @@
 					<script async src="https://cpwebassets.codepen.io/assets/embed/ei.js"></script>
 				</div>
 			</section>
-			<section id="parallax" class='advantage'>
+			<section class='advantage _parallax'>
 				<div class='advantage__body'>
 					<h2 tabindex='0' class='advantage__title title'>Parallax</h2>
 
@@ -148,14 +148,14 @@
 					<script async src="https://cpwebassets.codepen.io/assets/embed/ei.js"></script>
 				</div>
 			</section>
-			<section id="scroll" class='advantage'>
+			<section class='advantage _scroll'>
 				<div class='advantage__body'>
 					<h2 tabindex='0' class='advantage__title title'>Scroll buttons</h2>
 					<p class="advantage__text fat-text" style="text-align: center;">If you use the buttons at the top of the page, you will immediately test this module. It works simply, but reliably. <br>
 						When scrolling, you can take into account the height of fixed blocks as well as scroll immediately when you go to the page</p>
 				</div>
 			</section>
-			<section id="spoilers" class='advantage'>
+			<section class='advantage _spoilers'>
 				<div class='advantage__body'>
 					<h2 tabindex='0' class='advantage__title title'>Spoilers</h2>
 
@@ -168,7 +168,7 @@
 					<script async src="https://cpwebassets.codepen.io/assets/embed/ei.js"></script>
 				</div>
 			</section>
-			<section id="swipe" class='advantage'>
+			<section class='advantage _swipe'>
 				<div class='advantage__body'>
 					<h2 tabindex='0' class='advantage__title title'>Swipe</h2>
 
@@ -194,13 +194,8 @@
 	let scrollController = new ScrollController({
 		scrollButtonsSelector: '[data-scroll-to]',
 		fixedElementSelector: '.refbar',
+		scrollByAdressURL: true,
 	})
-	
-	window.onload = function () {
-		const urlParams = new URLSearchParams(window.location.search);
-		const blockValue = urlParams.get('b');
-		document.querySelector(`[data-scroll-to='#${blockValue}']`).click();
-	}
 </script>
 
 <!-- 

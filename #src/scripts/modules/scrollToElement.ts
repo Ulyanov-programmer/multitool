@@ -2,7 +2,7 @@ import { isNullOrWhiteSpaces } from "./general.js";
 
 interface SpoilerMenuArgs {
 	/** 
-	 	Selector of buttons for scrolling by click.
+		Selector of buttons for scrolling by click.
 		For correct work, you need to add the attribute `data-scroll-to=".selectorOfElem"`
 	*/
 	scrollButtonsSelector: string
@@ -11,6 +11,10 @@ interface SpoilerMenuArgs {
 		If you use a fixed element, enter, so that its height is taken into account when scrolling.
 	*/
 	fixedElementSelector?: string
+	/**
+		If you want to scroll to the block when you go to the page, set this parameter to true and specify `href='page.html?b=selectorOfBlock'` in the attribute.
+	 */
+	scrollByAdressURL?: boolean
 }
 
 export default class ScrollController {
@@ -24,18 +28,21 @@ export default class ScrollController {
 
 		for (let scrollButton of scrollButtons) {
 			scrollButton.addEventListener('click', () =>
-				this.scrollToElement(scrollButton)
+				ScrollController.scrollToElement(scrollButton.dataset.scrollTo)
 			)
 		}
 		if (isNullOrWhiteSpaces(arg.fixedElementSelector) == false) {
 			let heightHeight = document.querySelector(arg.fixedElementSelector).clientHeight;
 			ScrollController.fixedElementHeight = heightHeight;
 		}
+		if (arg.scrollByAdressURL) {
+			window.addEventListener('load', this.scrollToElementByAdress);
+		}
 	}
 
 
-	private scrollToElement(scrollButton: HTMLElement) {
-		let scrollElement = document.querySelector(scrollButton.dataset.scrollTo);
+	private static scrollToElement(scrollTo: string) {
+		let scrollElement = document.querySelector(scrollTo);
 
 		if (scrollElement == undefined)
 			throw new Error('[SCROLL-ELEMENTS] Something wrong with scrollElement!')
@@ -45,6 +52,19 @@ export default class ScrollController {
 		window.scrollTo({
 			top: scrolltop - ScrollController.fixedElementHeight,
 			behavior: "smooth"
-		});
+		})
+	}
+
+	private scrollToElementByAdress() {
+		const urlParams = new URLSearchParams(window.location.search)
+		const selector = urlParams.get('b')
+
+		ScrollController.scrollToElement(selector)
+
+		// deleting the get block in URL
+		const url = new URL(window.location.href)
+		const searchParams = url.searchParams
+		searchParams.delete("b")
+		window.history.pushState({}, '', url.toString())
 	}
 }
