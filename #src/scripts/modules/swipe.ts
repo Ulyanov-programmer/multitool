@@ -40,6 +40,8 @@ interface SwipeElementArgs {
 		for the menu to appear. Usually the values range from 0.5 to 0.7.
 	*/
 	swipeSensitivity: number
+	/** The maximum width of the window when the swipe will work. */
+	maxWorkWidth: number
 }
 
 export default class SwipeElement {
@@ -61,11 +63,16 @@ export default class SwipeElement {
 	private baseXStateModifier: number
 	private baseYStateModifier: number
 	private swipeSensitivity: number
+	private maxWorkWidth: number
 
 
 	constructor(arg: SwipeElementArgs) {
 		if (isNullOrWhiteSpaces(arg.touchStartAreaSelector, arg.swipableElementSelector))
 			throw new Error('[SWIPE-ELEMENT Some selector is null or white spaces!]')
+
+		window.addEventListener(`resize`, () => {
+			this.checkMaxWorkWidth();
+		})
 
 		this.touchAreaElement = document.querySelector(arg.touchStartAreaSelector)
 		this.touchAreaElement.style.touchAction = 'none'
@@ -73,7 +80,7 @@ export default class SwipeElement {
 		this.elementStartX = this.getTranslateState('x')
 		this.elementStartY = this.getTranslateState('y')
 		this.swipeSensitivity = arg.swipeSensitivity
-
+		this.maxWorkWidth = arg.maxWorkWidth
 
 		this.baseXStateModifier = this.checkBaseStateIsNegative('x') ? -1 : 1
 		this.baseYStateModifier = this.checkBaseStateIsNegative('y') ? -1 : 1
@@ -87,7 +94,7 @@ export default class SwipeElement {
 			this.changeOrientation = ChangeOrientation.Vertical
 		}
 
-
+		this.checkMaxWorkWidth()
 		this.touchAreaElement.addEventListener('pointerdown', (e) => {
 			if (e.button != 0) return
 
@@ -209,12 +216,16 @@ export default class SwipeElement {
 
 	private getTranslateState(xOrY: string = 'x') {
 		let valueIndex = xOrY == 'x' ? 4 : 5;
+		let state
 
 		// get a value of transformX or transformY of swipableElement
-		let state = parseInt(
-			window.getComputedStyle(this.swipableElement)
+		try {
+			state = parseInt(window.getComputedStyle(this.swipableElement)
 				.getPropertyValue("transform")
 				.match(/(-?[0-9\.]+)/g)[valueIndex])
+		} catch (error) {
+			state = 0
+		}
 
 		return state
 	}
@@ -227,5 +238,12 @@ export default class SwipeElement {
 	}
 	private checkSwipableElementContainActive() {
 		return this.swipableElement.classList.contains('active')
+	}
+	private checkMaxWorkWidth() {
+		if (window.innerWidth <= this.maxWorkWidth) {
+			this.touchAreaElement.style.pointerEvents = 'auto'
+		} else {
+			this.touchAreaElement.style.pointerEvents = 'none'
+		}
 	}
 }
