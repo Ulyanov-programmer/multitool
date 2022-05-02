@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-	@@include('_headContent.htm', {
+	@@include('components/_headContent.htm', {
 	"title": "Main",
 	})
 	<link rel="stylesheet" href="css/style.min.css">
@@ -13,17 +13,19 @@
 
 	<main class="main">
 		<div class="main__body">
+			
 		</div>
 	</main>
 
 	@@include('_footer.htm', {})
 
-	@@include('_modals.htm', {})
+	@@include('components/_modals.htm', {})
 
 </body>
 
 
-<script type="module" src="scripts/script.js"></script>
+<script type="module" src="scripts/#generalScript.js"></script>
+<script type="module" src="scripts/filterConn.js"></script>
 
 <!-- Swiper -->
 <link rel="stylesheet" href="css/swiper-bundle.min.css">

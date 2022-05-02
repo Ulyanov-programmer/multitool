@@ -35,8 +35,6 @@ const demoHtml = {
 };
 const hint = '(enter [y], if you not, enter [key enter or another])';
 
-
-deleteFontsGitkeep()
 await deleteDemoContent()
 cleanReadmeFilesAndFolders()
 deleteSnippets()
@@ -83,15 +81,6 @@ async function setModules() {
 
 	await includeModuleByQuestion(`Include Searchbar styles? ${hint}`,
 		``, `${stylesModules}_searchbar.styl`)
-}
-function deleteFontsGitkeep() {
-	try {
-		fs.removeSync(pathToProject + fontsGitkeep)
-
-		console.log('✅ .gitkeep in fonts folder have been deleted.');
-	} catch (error) {
-		console.log('❌' + error);
-	}
 }
 async function deleteDemoContent() {
 	try {

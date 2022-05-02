@@ -1,19 +1,11 @@
 import ts from 'gulp-typescript';
 import terser from 'gulp-terser';
+import gulpChanged from "gulp-changed";
 
-export function scripts() {
-	//? saving scripts files
-	gulp.src(paths.scr.scripts)
-		.pipe(ts({
-			target: 'ES6',
-			allowJs: true,
-		}))
-
-		.pipe(gulp.dest(paths.build.scripts))
-		.pipe(browsersync.stream());
-
-	//? saving modules
+export function scriptModules() {
 	return gulp.src(paths.scr.scriptModules)
+		.pipe(gulpChanged(paths.build.scriptModules, { extension: '.js' }))
+		
 		.pipe(ts({
 			target: 'es2018',
 			allowJs: true,
@@ -21,7 +13,6 @@ export function scripts() {
 		// use this if you're also annoyed that the gulp is shutdown due to a compiler error.
 		.on('error', () => { })
 
-		// minimizing.
 		.pipe(
 			global.if(global.isProd,
 				terser({

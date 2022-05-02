@@ -7,7 +7,9 @@ import rename from 'gulp-rename';
 export function css() {
 	return gulp.src(paths.scr.css)
 		.pipe(stylus({}))
+
 		.pipe(global.if(global.isProd, groupMedia()))
+
 		.pipe(
 			global.if(global.isProd,
 				autoprefixer({

@@ -61,8 +61,8 @@
 </head>
 
 <body>
-	<header class="header fixed-header">
-	<div class="header__body container header__container">
+	<header class="header">
+	<div class="header__body container">
 		<a href="index.html" class="logo" aria-label="logo, reference to main page">
 			<img src="img/logo.png" alt="logo" width=50 height=50>
 		</a>
@@ -100,18 +100,7 @@
 		<nav class="fullscreen-navmenu">
 			<div class="fullscreen-navmenu__body">
 				<ul>
-					<li class="fs-element" data-scroll-to=".styles">Styles</li>
-					<li class="fs-element" data-scroll-to=".scripts">Scripts</li>
-					<li class="fs-element" data-scroll-to=".images">Images</li>
-					<li class="fs-element" data-scroll-to=".filter">Filter</li>
-					<li class="fs-element" data-scroll-to=".demo-spoiler">Spoiler</li>
-					<li class="fs-element" data-scroll-to=".swipe-window">Swipe menus</li>
-					<li class="fs-element" data-scroll-to=".swiper">Slider</li>
-					<li class="fs-element" data-scroll-to=".el-menu">Element modal</li>
-					<li class="fs-element" data-scroll-to=".accordion">Accordion</li>
-					<li class="fs-element" data-scroll-to=".demo-submenu">Submenu</li>
-					<li class="fs-element" data-scroll-to=".animation-by-scroll">Animation by scroll</li>
-					<li class="fs-element" data-scroll-to=".packages">Used packages</li>
+					<li class="fs-element">Styles</li>
 				</ul>
 			</div>
 		</nav>
@@ -130,21 +119,12 @@
 
 	<main class="main">
 		<div class="main__body">
+			
 		</div>
 	</main>
 
 	<footer class="footer">
 	<div class="footer__body container">
-		<div class="contacts-block">
-			<ul class='contacts-block__list list'>
-				<li class='list__item'>
-					<a class="email" target="_blank" href="mailto:ccoldatheinrich@yandex.ru" rel="noopener noreferrer">ccoldatheinrich@yandex.ru</a>
-				</li>
-				<li class='list__item'>
-					<a class="email" target="_blank" href="//github.com/Ulyanov-programmer" rel="noopener noreferrer">Me on GitHub</a>
-				</li>
-			</ul>
-		</div>
 	</div>
 </footer>
 
@@ -180,7 +160,8 @@
 </body>
 
 
-<script type="module" src="scripts/script.js"></script>
+<script type="module" src="scripts/#generalScript.js"></script>
+<script type="module" src="scripts/filterConn.js"></script>
 
 <!-- Swiper -->
 <link rel="stylesheet" href="css/swiper-bundle.min.css">

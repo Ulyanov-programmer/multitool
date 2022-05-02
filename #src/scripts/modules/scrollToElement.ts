@@ -7,14 +7,14 @@ interface SpoilerMenuArgs {
 	*/
 	scrollButtonsSelector: string
 	/** 
-		Selector of header with position: fixed. Not required.
-		If you use a fixed header, enter, so that its height is taken into account when scrolling.
+		Selector of an element with position: fixed or sticky. Not required.
+		If you use a fixed element, enter, so that its height is taken into account when scrolling.
 	*/
-	fixedHeaderSelector?: string
+	fixedElementSelector?: string
 }
 
 export default class ScrollController {
-	private static fixedHeaderHeight = 0;
+	private static fixedElementHeight = 0;
 
 	constructor(arg: SpoilerMenuArgs) {
 		if (isNullOrWhiteSpaces(arg.scrollButtonsSelector))
@@ -27,9 +27,9 @@ export default class ScrollController {
 				this.scrollToElement(scrollButton)
 			)
 		}
-		if (isNullOrWhiteSpaces(arg.fixedHeaderSelector) == false) {
-			let heightHeight = document.querySelector(arg.fixedHeaderSelector).clientHeight;
-			ScrollController.fixedHeaderHeight = heightHeight;
+		if (isNullOrWhiteSpaces(arg.fixedElementSelector) == false) {
+			let heightHeight = document.querySelector(arg.fixedElementSelector).clientHeight;
+			ScrollController.fixedElementHeight = heightHeight;
 		}
 	}
 
@@ -43,7 +43,7 @@ export default class ScrollController {
 		let scrolltop = window.pageYOffset + scrollElement.getBoundingClientRect().top;
 
 		window.scrollTo({
-			top: scrolltop - ScrollController.fixedHeaderHeight,
+			top: scrolltop - ScrollController.fixedElementHeight,
 			behavior: "smooth"
 		});
 	}

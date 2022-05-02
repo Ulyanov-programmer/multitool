@@ -1,19 +1,19 @@
 import { isNullOrWhiteSpaces, sleep } from "./general.js";
 
-interface AccordionArgs {
+interface TabArgs {
 	/**
-		Selector for buttons that open some accordion content element.
+		Selector for buttons that open some tab content element.
 		Must contain `data-toggle-elem-number="numberOfContentElement"`
 		`(note, the count starts from zero)`
 	*/
 	btnsSelector: string
-	/** Selector of blocks that contain some accordion content.	*/
+	/** Selector of blocks that contain some tab content.	*/
 	contentBlocksSelector: string
 	/** Sets the first element of buttons and content-block the class active. */
 	activeFirstElements: boolean
 }
 
-export default class Accordion {
+export default class Tab {
 	private buttons: NodeListOf<HTMLElement>
 	private contentElements: NodeListOf<HTMLElement>
 	private animationDuration: number
@@ -21,7 +21,7 @@ export default class Accordion {
 	public buttonsActiveClass: string = 'active'
 	public contentActiveClass: string = 'active'
 
-	constructor(arg: AccordionArgs) {
+	constructor(arg: TabArgs) {
 		if (isNullOrWhiteSpaces(arg.btnsSelector, arg.contentBlocksSelector))
 			throw '[ACCORDION] Incorrect arguments!'
 
@@ -32,7 +32,7 @@ export default class Accordion {
 		this.animationDuration = parseFloat(getComputedStyle(someAccordContent)
 			.getPropertyValue('transition-duration')) * 1000 + 100
 
-		if (this.buttons.length != this.contentElements.length) 
+		if (this.buttons.length != this.contentElements.length)
 			throw '[ACCORDION] The count of buttons and content-elements is not equal.'
 
 		if (arg.activeFirstElements) {
@@ -41,7 +41,7 @@ export default class Accordion {
 		}
 
 		for (let accordButton of this.buttons) {
-			accordButton.addEventListener('click', () => 
+			accordButton.addEventListener('click', () =>
 				this.toggleActiveElements(accordButton)
 			)
 		}

@@ -85,69 +85,6 @@ address {
   --main-font-family: Arial;
   --bg: #5f5e5e;
 }
-@font-face {
-  font-family: 'AzeretMono';
-  font-display: swap;
-  src: url("../fonts/AzeretMono-VariableFont_wght.woff2") format("woff2-variations");
-  font-weight: 100;
-  font-style: normal;
-}
-@font-face {
-  font-family: 'AzeretMono';
-  font-display: swap;
-  src: url("../fonts/AzeretMono-VariableFont_wght.woff2") format("woff2-variations");
-  font-weight: 200;
-  font-style: normal;
-}
-@font-face {
-  font-family: 'AzeretMono';
-  font-display: swap;
-  src: url("../fonts/AzeretMono-VariableFont_wght.woff2") format("woff2-variations");
-  font-weight: 300;
-  font-style: normal;
-}
-@font-face {
-  font-family: 'AzeretMono';
-  font-display: swap;
-  src: url("../fonts/AzeretMono-VariableFont_wght.woff2") format("woff2-variations");
-  font-weight: 400;
-  font-style: normal;
-}
-@font-face {
-  font-family: 'AzeretMono';
-  font-display: swap;
-  src: url("../fonts/AzeretMono-VariableFont_wght.woff2") format("woff2-variations");
-  font-weight: 500;
-  font-style: normal;
-}
-@font-face {
-  font-family: 'AzeretMono';
-  font-display: swap;
-  src: url("../fonts/AzeretMono-VariableFont_wght.woff2") format("woff2-variations");
-  font-weight: 600;
-  font-style: normal;
-}
-@font-face {
-  font-family: 'AzeretMono';
-  font-display: swap;
-  src: url("../fonts/AzeretMono-VariableFont_wght.woff2") format("woff2-variations");
-  font-weight: 700;
-  font-style: normal;
-}
-@font-face {
-  font-family: 'AzeretMono';
-  font-display: swap;
-  src: url("../fonts/AzeretMono-VariableFont_wght.woff2") format("woff2-variations");
-  font-weight: 800;
-  font-style: normal;
-}
-@font-face {
-  font-family: 'AzeretMono';
-  font-display: swap;
-  src: url("../fonts/AzeretMono-VariableFont_wght.woff2") format("woff2-variations");
-  font-weight: 900;
-  font-style: normal;
-}
 .submenu-button {
   position: relative;
   display: flex;
@@ -566,11 +503,7 @@ input[type=date]::-webkit-calendar-picker-indicator {
   height: 100%;
   object-fit: cover;
 }
-.footer {
-  padding: 20px 20px 20px 20px;
-  background: #636363;
-}
-.footer__body a {
+.footer__body {
   color: #fff;
 }
 .header {
@@ -579,14 +512,12 @@ input[type=date]::-webkit-calendar-picker-indicator {
   flex-flow: row nowrap;
   justify-content: center;
   z-index: 5;
-  background: #636363;
 }
 .header__body {
   display: flex;
   flex-flow: row nowrap;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 0 10px 0;
 }
 @media (max-width: 700px) {
   .navmenu {

@@ -7,7 +7,7 @@ interface ParallaxArgs {
 	minWorkWidth: number
 }
 
-export class Parallax {
+export default class Parallax {
 	private parallaxContainer: HTMLElement
 	private coordProcX: number = 0
 	private coordProcY: number = 0

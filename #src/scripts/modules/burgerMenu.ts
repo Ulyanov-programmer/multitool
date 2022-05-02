@@ -1,6 +1,6 @@
 import { returnScrollbarWidth, isNullOrWhiteSpaces } from "./general.js";
 
-interface FsNavmenuArgs {
+interface BurgerMenuArgs {
 	/** Selctor buttons for burger menu. */
 	burgerSelector: string
 	/** A fullscreen-menu selector that will be shown when you click on the burger. */
@@ -13,9 +13,9 @@ interface FsNavmenuArgs {
 	autoPadding?: boolean
 }
 
-export default class FsNavmenu {
+export default class BurgerMenu {
 	private static burger: HTMLElement
-	private static fsNavmenu: HTMLElement
+	private static menu: HTMLElement
 	private static buttons: NodeListOf<HTMLElement>
 	private static header: HTMLElement = document.querySelector('header')
 	private static autoPadding: boolean = true
@@ -23,21 +23,21 @@ export default class FsNavmenu {
 	public static burgerActiveClass: string = 'active'
 	public static fsNavmenuActiveClass: string = 'active'
 
-	constructor(args: FsNavmenuArgs) {
+	constructor(args: BurgerMenuArgs) {
 		if (isNullOrWhiteSpaces(args.burgerSelector, args.fsNavmenuSelector, args.buttonsSelector))
 			throw '[FSNAVMENU] Some selector is null or white spaces.'
 
-		FsNavmenu.burger = document.querySelector(args.burgerSelector);
-		FsNavmenu.fsNavmenu = document.querySelector(args.fsNavmenuSelector);
-		FsNavmenu.buttons = document.querySelectorAll(args.buttonsSelector);
-		FsNavmenu.autoPadding = args.autoPadding;
+		BurgerMenu.burger = document.querySelector(args.burgerSelector);
+		BurgerMenu.menu = document.querySelector(args.fsNavmenuSelector);
+		BurgerMenu.buttons = document.querySelectorAll(args.buttonsSelector);
+		BurgerMenu.autoPadding = args.autoPadding;
 
 		if (args.autoPadding)
-			FsNavmenu.fsNavmenu.style.paddingTop = `${FsNavmenu.header.clientHeight}px`
+			BurgerMenu.menu.style.paddingTop = `${BurgerMenu.header.clientHeight}px`
 
-		FsNavmenu.burger.addEventListener('click', this.toggleNavmenu);
+		BurgerMenu.burger.addEventListener('click', this.toggleNavmenu);
 
-		for (let button of FsNavmenu.buttons) {
+		for (let button of BurgerMenu.buttons) {
 			button.addEventListener('click', this.hideNavmenu);
 		}
 	}
@@ -46,13 +46,13 @@ export default class FsNavmenu {
 	private toggleNavmenu() {
 		let scrollbarWidth = returnScrollbarWidth();
 
-		if (FsNavmenu.fsNavmenu == undefined)
+		if (BurgerMenu.menu == undefined)
 			throw new Error('[FSNAVMENU] Something wrong with fsNavmenu!');
 
-		if (FsNavmenu.autoPadding)
-			FsNavmenu.fsNavmenu.style.paddingTop = `${FsNavmenu.header.clientHeight}px`;
+		if (BurgerMenu.autoPadding)
+		BurgerMenu.menu.style.paddingTop = `${BurgerMenu.header.clientHeight}px`;
 
-		FsNavmenu.burger.classList.toggle(FsNavmenu.burgerActiveClass);
+		BurgerMenu.burger.classList.toggle(BurgerMenu.burgerActiveClass);
 
 		if (document.body.style.overflow != 'hidden') {
 			document.body.style.overflow = 'hidden'
@@ -61,15 +61,15 @@ export default class FsNavmenu {
 		}
 		document.body.style.paddingRight = `${scrollbarWidth}px`;
 
-		FsNavmenu.header.style.paddingRight = `${scrollbarWidth}px`;
+		BurgerMenu.header.style.paddingRight = `${scrollbarWidth}px`;
 
-		FsNavmenu.fsNavmenu.classList.toggle(FsNavmenu.fsNavmenuActiveClass);
+		BurgerMenu.menu.classList.toggle(BurgerMenu.fsNavmenuActiveClass);
 	}
 
 	private hideNavmenu() {
 		let scrollbarWidth = returnScrollbarWidth();
 
-		FsNavmenu.burger.classList.remove(FsNavmenu.burgerActiveClass);
+		BurgerMenu.burger.classList.remove(BurgerMenu.burgerActiveClass);
 
 		if (document.body.style.overflow.includes('hidden')) {
 			document.body.style.overflow = ''
@@ -78,6 +78,6 @@ export default class FsNavmenu {
 		}
 		document.body.style.paddingRight = `${scrollbarWidth}px`;
 
-		FsNavmenu.fsNavmenu.classList.remove(FsNavmenu.fsNavmenuActiveClass);
+		BurgerMenu.menu.classList.remove(BurgerMenu.fsNavmenuActiveClass);
 	}
 }

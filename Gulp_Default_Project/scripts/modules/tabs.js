@@ -1,5 +1,5 @@
 import { isNullOrWhiteSpaces, sleep } from "./general.js";
-export default class Accordion {
+export default class Tab {
     constructor(arg) {
         this.isToggling = false;
         this.buttonsActiveClass = 'active';

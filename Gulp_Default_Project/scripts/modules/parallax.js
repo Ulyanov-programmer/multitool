@@ -1,5 +1,5 @@
 import { isNullOrWhiteSpaces } from "./general.js";
-export class Parallax {
+export default class Parallax {
     constructor(arg, ...parallaxItems) {
         this.coordProcX = 0;
         this.coordProcY = 0;

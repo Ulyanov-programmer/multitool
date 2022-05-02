@@ -7,9 +7,9 @@ export default class ScrollController {
         for (let scrollButton of scrollButtons) {
             scrollButton.addEventListener('click', () => this.scrollToElement(scrollButton));
         }
-        if (isNullOrWhiteSpaces(arg.fixedHeaderSelector) == false) {
-            let heightHeight = document.querySelector(arg.fixedHeaderSelector).clientHeight;
-            ScrollController.fixedHeaderHeight = heightHeight;
+        if (isNullOrWhiteSpaces(arg.fixedElementSelector) == false) {
+            let heightHeight = document.querySelector(arg.fixedElementSelector).clientHeight;
+            ScrollController.fixedElementHeight = heightHeight;
         }
     }
     scrollToElement(scrollButton) {
@@ -18,9 +18,9 @@ export default class ScrollController {
             throw new Error('[SCROLL-ELEMENTS] Something wrong with scrollElement!');
         let scrolltop = window.pageYOffset + scrollElement.getBoundingClientRect().top;
         window.scrollTo({
-            top: scrolltop - ScrollController.fixedHeaderHeight,
+            top: scrolltop - ScrollController.fixedElementHeight,
             behavior: "smooth"
         });
     }
 }
-ScrollController.fixedHeaderHeight = 0;
+ScrollController.fixedElementHeight = 0;

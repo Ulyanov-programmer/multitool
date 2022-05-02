@@ -13,22 +13,22 @@ export const paths = {
 		fonts: `${projectFolderName}/fonts/`,
 	},
 	scr: {
-		html: [`${sourceFolderName}/**/*.html`, `!${sourceFolderName}/**/*.htm`],
-		css: [`${sourceFolderName}/styles/*.styl`, `!${sourceFolderName}/styles/_*.styl`,
+		html: [`${sourceFolderName}/**/*.html`, `!${sourceFolderName}/**/*.htm}`],
+		css: [`${sourceFolderName}/styles/**/*.styl`, `!${sourceFolderName}/styles/**/_*.styl`,
 		`${sourceFolderName}/docs/*.styl`],
 		scripts: `${sourceFolderName}/scripts/*.{ts,js}`,
 		scriptModules: `${sourceFolderName}/scripts/modules/*.{ts,js}`,
-		images: `${sourceFolderName}/img/**/*.{jpg,png,svg,gif,ico,webp}`,
-		fonts: `${sourceFolderName}/fonts/*`,
+		images: `${sourceFolderName}/img/**/*.{jpg,png,svg,gif,ico,webp,avif}`,
+		fonts: `${sourceFolderName}/fonts/*.{ttf,otf,woff,woff2}`,
 	},
 	watch: {
-		html: [`${sourceFolderName}/**/*.html`, `${sourceFolderName}/**/_*.htm`],
+		html: `${sourceFolderName}/**/*.{html,htm}`,
 		css: `${sourceFolderName}/styles/**/*.styl`,
 		demoCss: `${sourceFolderName}/docs/*.styl`,
-		scripts: `${sourceFolderName}/scripts/**/*.{ts,js}`,
-		scriptModules: `${sourceFolderName}/scripts/**/*.{ts,js}`,
-		images: `${sourceFolderName}/img/**/*.{jpg,png,svg,gif,ico,webp}`,
+		scripts: `${sourceFolderName}/scripts/*.{ts,js}`,
+		scriptModules: `${sourceFolderName}/scripts/modules/*.{ts,js}`,
+		images: `${sourceFolderName}/img/**/*.{jpg,png,svg,gif,ico,webp,avif}`,
 	},
 	clean: `./${projectFolderName}/`,
 }
-export let fontsFIlePath = `${sourceFolderName}/styles/_fonts.styl`;
+export let fontsFIlePath = `${sourceFolderName}/styles/other/_fonts.styl`;
