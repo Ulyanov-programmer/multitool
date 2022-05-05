@@ -4,6 +4,7 @@ export default class SidebarMenu {
         if (isNullOrWhiteSpaces(arg.selectorOfSidebars, arg.selectorOfSidebarButtons))
             throw '[SIDEBAR] Some selector is null or white spaces!';
         this.sidebarButtons = document.querySelectorAll(arg.selectorOfSidebarButtons);
+        SidebarMenu.swipeArea = document.querySelector(arg.swipeAreaSelector);
         for (let sidebarBtn of this.sidebarButtons) {
             sidebarBtn.addEventListener('click', () => this.toggleSidebar(sidebarBtn));
         }
@@ -12,6 +13,7 @@ export default class SidebarMenu {
         let sidebar = document.getElementById(eventButton.dataset.openSidebar);
         eventButton.classList.toggle(SidebarMenu.buttonsActiveClass);
         sidebar.classList.toggle(SidebarMenu.sidebarsActiveClass);
+        SidebarMenu.swipeArea.classList.toggle('active');
     }
 }
 SidebarMenu.sidebarsActiveClass = 'active';

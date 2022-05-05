@@ -8,10 +8,12 @@ interface SidebarMenuArgs {
 		Should contains `data-open-sidebar='sidebarId'`.
 	*/
 	selectorOfSidebarButtons: string
+	swipeAreaSelector?: string
 }
 
 export default class SidebarMenu {
 	private sidebarButtons: NodeListOf<HTMLElement>
+	private static swipeArea: HTMLElement
 	public static sidebarsActiveClass: string = 'active'
 	public static buttonsActiveClass: string = 'active'
 
@@ -21,6 +23,8 @@ export default class SidebarMenu {
 
 		this.sidebarButtons = document.querySelectorAll(arg.selectorOfSidebarButtons);
 
+		SidebarMenu.swipeArea = document.querySelector(arg.swipeAreaSelector)
+
 		for (let sidebarBtn of this.sidebarButtons) {
 			sidebarBtn.addEventListener('click', () => 
 				this.toggleSidebar(sidebarBtn)
@@ -29,10 +33,11 @@ export default class SidebarMenu {
 	}
 
 	private toggleSidebar(eventButton: HTMLElement) {
-		let sidebar = document.getElementById(eventButton.dataset.openSidebar);
+		let sidebar = document.getElementById(eventButton.dataset.openSidebar)
 
-		eventButton.classList.toggle(SidebarMenu.buttonsActiveClass);
-		sidebar.classList.toggle(SidebarMenu.sidebarsActiveClass);
+		eventButton.classList.toggle(SidebarMenu.buttonsActiveClass)
+		sidebar.classList.toggle(SidebarMenu.sidebarsActiveClass)
+		SidebarMenu.swipeArea.classList.toggle('active')
 	}
 }
 

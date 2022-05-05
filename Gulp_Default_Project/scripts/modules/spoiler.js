@@ -19,14 +19,18 @@ export default class SpoilerMenu {
     toggleToSpoilers() {
         for (let i = 0; i < SpoilerMenu.spoilerContentElements.length; i++) {
             if (window.innerWidth <= SpoilerMenu.spoilerVisibleWidth) {
-                SpoilerMenu.spoilerContentElements[i].classList.add('uspoiler-content-active');
-                SpoilerMenu.spoilerContentElements[i].hidden = true;
-                SpoilerMenu.spoilerButtons[i].classList.add('uspoiler-btn-active');
+                SpoilerMenu.spoilerContentElements[i].classList.add('spoiler-content-active');
+                SpoilerMenu.spoilerButtons[i].classList.add('spoiler-btn-active');
             }
             else {
-                SpoilerMenu.spoilerContentElements[i].classList.remove('uspoiler-content-active');
+                SpoilerMenu.spoilerContentElements[i].classList.remove('spoiler-content-active');
+                SpoilerMenu.spoilerButtons[i].classList.remove('spoiler-btn-active');
+            }
+            if (SpoilerMenu.spoilerButtons[i].classList.contains(SpoilerMenu.btnActiveClass)) {
                 SpoilerMenu.spoilerContentElements[i].hidden = false;
-                SpoilerMenu.spoilerButtons[i].classList.remove('uspoiler-btn-active');
+            }
+            else {
+                SpoilerMenu.spoilerContentElements[i].hidden = true;
             }
         }
         for (let spoilerButton of SpoilerMenu.spoilerButtons) {
@@ -34,7 +38,7 @@ export default class SpoilerMenu {
         }
     }
     toggleSpoilerState(event) {
-        let targetSpoilerButton = event.target;
+        let targetSpoilerButton = event.currentTarget;
         let spoilerContainer = targetSpoilerButton.nextElementSibling;
         if (spoilerContainer.classList.contains('_slide') === false) {
             toggleSpoilerAnimation(spoilerContainer, SpoilerMenu.animationDuration);

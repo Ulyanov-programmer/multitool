@@ -45,20 +45,23 @@ export default class SpoilerMenu {
 		this.toggleToSpoilers();
 
 		//? Determines spoilers when the page is resized.
-		window.addEventListener(`resize`, this.toggleToSpoilers);
+		window.addEventListener(`resize`, this.toggleToSpoilers)
 	}
 
 
 	private toggleToSpoilers() {
 		for (let i = 0; i < SpoilerMenu.spoilerContentElements.length; i++) {
 			if (window.innerWidth <= SpoilerMenu.spoilerVisibleWidth) {
-				SpoilerMenu.spoilerContentElements[i].classList.add('uspoiler-content-active');
-				SpoilerMenu.spoilerContentElements[i].hidden = true;
-				SpoilerMenu.spoilerButtons[i].classList.add('uspoiler-btn-active');
+				SpoilerMenu.spoilerContentElements[i].classList.add('spoiler-content-active');
+				SpoilerMenu.spoilerButtons[i].classList.add('spoiler-btn-active');
 			} else {
-				SpoilerMenu.spoilerContentElements[i].classList.remove('uspoiler-content-active');
-				SpoilerMenu.spoilerContentElements[i].hidden = false;
-				SpoilerMenu.spoilerButtons[i].classList.remove('uspoiler-btn-active');
+				SpoilerMenu.spoilerContentElements[i].classList.remove('spoiler-content-active');
+				SpoilerMenu.spoilerButtons[i].classList.remove('spoiler-btn-active');
+			}
+			if (SpoilerMenu.spoilerButtons[i].classList.contains(SpoilerMenu.btnActiveClass)) {
+				SpoilerMenu.spoilerContentElements[i].hidden = false
+			} else {
+				SpoilerMenu.spoilerContentElements[i].hidden = true
 			}
 		}
 
@@ -68,7 +71,7 @@ export default class SpoilerMenu {
 	}
 
 	private toggleSpoilerState(event: Event) {
-		let targetSpoilerButton = event.target as HTMLElement;
+		let targetSpoilerButton = event.currentTarget as HTMLElement;
 		let spoilerContainer = targetSpoilerButton.nextElementSibling as HTMLElement;
 
 		if (spoilerContainer.classList.contains('_slide') === false) {
