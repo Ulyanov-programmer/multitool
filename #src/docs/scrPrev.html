@@ -1,0 +1,195 @@
+@@include('_head.htm', {
+'title': 'gulp-multitool'
+})
+<link rel="stylesheet" href="../css/scrStyles.min.css">
+
+<body>
+	@@include('_header.htm', {
+	'title': 'demo'
+	})
+	<main class="main">
+		<div class="main__body">
+			<section class='section block'>
+				<div class='section__body'>
+					<button class="demo-submenu__hover_button submenu-button">
+						hover submenu
+						<div class='demo-submenu__hover submenu submenu_center'>
+							here could be your content
+						</div>
+					</button>
+					<button class="demo-submenu__hover_button submenu-button">
+						hover submenu
+						<div class='demo-submenu__hover submenu submenu_center'>
+							here could be your content
+						</div>
+					</button>
+					<button class="demo-submenu__click_button submenu-button">
+						click submenu
+						<div class='demo-submenu__click submenu submenu_center'>
+							here could be your content
+						</div>
+					</button>
+					<button class="demo-submenu__click_button submenu-button">
+						click submenu
+						<div class='demo-submenu__click submenu submenu_center'>
+							here could be your content
+						</div>
+					</button>
+				</div>
+			</section>
+			<section class='section block'>
+				<div class='section__body'>
+					<div class="anim-wrapper">
+						<div class="animation_by_scroll__item">
+							<pre class="animation-by-scroll__item-text" lang="ru_RU">
+Мы хотим видеть дальше
+Чем окна дома напротив
+Мы хотим жить, мы живучи как кошки
+И вот мы пришли заявить
+О своих правах, да
+Слышишь шелест плащей, это мы
+Дальше действовать будем мы
+</pre>
+						</div>
+						<div class="animation_by_scroll__item animation_by_scroll__item_2">
+							<pre class="anim-by-scr__item-text" lang="ru_RU">
+Мы родились в тесных квартирах
+Новых районов
+Мы потеряли невинность
+В боях за любовь
+Нам уже стали тесны одежды
+Сшитые вами для нас одежды
+И вот мы пришли сказать вам о том
+Что дальше 
+Дальше действовать будем мы
+</pre>
+						</div>
+					</div>
+				</div>
+			</section>
+			<section class='section block'>
+				<div class='section__body'>
+					<div class="accordion__container demo-block">
+						<button aria-label="First element Of accordion" data-toggle-elem-number="0" class="accordion__btn">1</button>
+						<button aria-label="Second element Of accordion" data-toggle-elem-number="1" class="accordion__btn">2</button>
+						<button aria-label="Third element Of accordion" data-toggle-elem-number="2" class="accordion__btn">3</button>
+						<div class="accordion__items">
+							<pre class="accordion__item" lang="ru_RU">
+1
+Небо пустого цвета.Нас пожирает листопад
+Исход из слепого лета и вслед погоня наугад
+Кипит колокольный лепет,дымят забытые войска
+					
+А вдруг всё то,что ищем
+обретается при вскрытии
+телесного родного дорогого себя</pre>
+							<pre class="accordion__item" lang="ru_RU">
+2
+Снега провожают дикий и лихорадочный поход
+Вечерние густые лики,безостановочный народ
+Бессмертные и живые в одной оскаленной цепи
+
+А вдруг всё то,что ищем —
+далеко за горизонтом
+на смертельной истребительной дороге всё на север</pre>
+							<pre class="accordion__item" lang="ru_RU">
+3
+Зашить ледяную рану и впредь давиться леденцом
+Шагать тяжело,упрямо или катиться колесом
+Заглядывать в чужие окна,пытать счастливые дома —
+
+А вдруг всё то,что ищем
+прямо где-то здесь смеётся
+например—внутри зеркально-новогоднего фонарика
+
+Вселенская Большая Любовь
+Вселенская Большая Любовь
+Вселенская Большая Любовь
+
+Моя волшебная игрушка в пустоте
+Моя голодная копилка в пустоте
+Моя секретная калитка в пустоте</pre>
+						</div>
+					</div>
+				</div>
+			</section>
+			<section class='section block'>
+				<div class='section__body'>
+					<p class="el-menu__text text">
+						Sometimes we are required to have a pop-up window in an object, and this is not a problem.
+					</p>
+					<div class="el-menu__content demo-block content">
+						<div tabindex='0' class="el-menu__item">
+							Lorem ispum <br>
+							Ispum lorem <br>
+							Ispum Ispum Ispum Ispum <br>
+							Lorem Lorem Lorem Lorem
+						</div>
+						<div tabindex='0' class="el-menu__item">
+							Lorem ispum <br>
+							Ispum lorem <br>
+							Ispum Ispum Ispum Ispum <br>
+							Lorem Lorem Lorem Lorem
+						</div>
+						<div tabindex='0' class="el-menu__item">
+							Lorem ispum <br>
+							Ispum lorem <br>
+							Ispum Ispum Ispum Ispum <br>
+							Lorem Lorem Lorem Lorem
+						</div>
+						<div tabindex='0' class="el-menu__item">
+							Lorem ispum <br>
+							Ispum lorem <br>
+							Ispum Ispum Ispum Ispum <br>
+							Lorem Lorem Lorem Lorem
+						</div>
+					</div>
+					<div class="el-menu__menu _non-active">
+						Hidden Lorem ispum ispum lorem!
+					</div>
+				</div>
+			</section>
+			<section class='section block'>
+				<div class='section__body'>
+					<div class="filter__content demo-block content">
+						<header class="filter__header">
+							<button class='filter__button' data-filt-content="red" type='button'>Red</button>
+							<button class='filter__button' data-filt-content="green" type='button'>Green</button>
+							<button class='filter__button' data-filt-content="yellow" type='button'>Yellow</button>
+							<button class='filter__button' data-filt-content="blue" type='button'>Blue</button>
+							<button class='filter__button' data-filt-content="all" type='button'>All</button>
+						</header>
+						<div class="filter__main">
+							<div class="filter__item filter__item_green" data-content-type="green">green</div>
+							<div class="filter__item filter__item_green" data-content-type="green blue">green & blue</div>
+							<div class="filter__item filter__item_blue" data-content-type="blue">blue</div>
+							<div class="filter__item filter__item_red" data-content-type="red">red</div>
+							<div class="filter__item filter__item_yellow" data-content-type="yellow">yellow</div>
+						</div>
+					</div>
+				</div>
+			</section>
+			<section class='section block'>
+				<div class='section__body'>
+					<div class="par-wrapper">
+						<span class="parallax_el">PARALLAX</span>
+						<span class="parallax_el parallax_el_2">PARALLAX 2</span>
+					</div>
+				</div>
+			</section>
+		</div>
+	</main>
+</body>
+
+<script type="module" src="../scripts/submenusConn.js"></script>
+<script type="module" src="../scripts/animByScrollConn.js"></script>
+<script type="module" src="../scripts/tabsConn.js"></script>
+<script type="module" src="../scripts/elementModalConn.js"></script>
+<script type="module" src="../scripts/filterConn.js"></script>
+<script type="module" src="../scripts/parallaxConn.js"></script>
+
+</html>
+
+<!-- 
+		Made in Russia, with ❤, by Ivan Ulyanov. 
+	-->

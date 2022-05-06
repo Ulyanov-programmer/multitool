@@ -1,9 +1,8 @@
-import { isNullOrWhiteSpaces } from "./general.js";
+import { isNullOrWhiteSpaces, elementIsExistWithLog } from "./general.js";
 export enum SubmenuOpenIvents {
 	Click,
 	Hover,
 };
-
 
 interface SubmenuArgs {
 	/** The class for an active submenu menu. */
@@ -21,7 +20,7 @@ export default class Submenu {
 
 	constructor(args: SubmenuArgs, ...submenuElements: SubmenuElementGroup[]) {
 		if (isNullOrWhiteSpaces(args.menuActiveClass, args.buttonActiveClass))
-			throw new Error('Your input selectors is null or white spaces!')
+			console.log('[Submenu] Please specify the classes for the elements when they are active.')
 
 		Submenu.buttonActiveClass = args.buttonActiveClass;
 		Submenu.menuActiveClass = args.menuActiveClass;
@@ -75,10 +74,9 @@ interface SubmenuElementGroupArgs {
 	menusSelector: string
 }
 export class SubmenuElementGroup {
-
 	constructor(args: SubmenuElementGroupArgs) {
-		if (isNullOrWhiteSpaces(args.buttonsSelector, args.menusSelector))
-			throw '[SUBMENU GROUP ELS] Some argument in a SubmenuElement is null or white spaces.'
+		if (!elementIsExistWithLog('SubmenuElementGroup', args.buttonsSelector, args.menusSelector))
+			return
 
 		this.menuElements = document.querySelectorAll(args.menusSelector)
 		this.buttonElements = document.querySelectorAll(args.buttonsSelector)

@@ -1,4 +1,4 @@
-import { isNullOrWhiteSpaces } from "./general.js";
+import { elementIsExistWithLog } from "./general.js";
 
 interface SidebarMenuArgs {
 	/** Selector of sidebars. Should contain id of this sidebar. */
@@ -18,15 +18,17 @@ export default class SidebarMenu {
 	public static buttonsActiveClass: string = 'active'
 
 	constructor(arg: SidebarMenuArgs) {
-		if (isNullOrWhiteSpaces(arg.selectorOfSidebars, arg.selectorOfSidebarButtons)) 
-			throw '[SIDEBAR] Some selector is null or white spaces!'
+		if (!elementIsExistWithLog('SidebarMenu',
+			arg.selectorOfSidebars, arg.selectorOfSidebarButtons)) {
+			return
+		}
 
 		this.sidebarButtons = document.querySelectorAll(arg.selectorOfSidebarButtons);
 
 		SidebarMenu.swipeArea = document.querySelector(arg.swipeAreaSelector)
 
 		for (let sidebarBtn of this.sidebarButtons) {
-			sidebarBtn.addEventListener('click', () => 
+			sidebarBtn.addEventListener('click', () =>
 				this.toggleSidebar(sidebarBtn)
 			)
 		}

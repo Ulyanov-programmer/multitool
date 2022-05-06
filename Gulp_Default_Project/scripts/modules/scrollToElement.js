@@ -1,13 +1,13 @@
-import { isNullOrWhiteSpaces } from "./general.js";
+import { elementIsExistWithLog, elementsIsExist } from "./general.js";
 export default class ScrollController {
     constructor(arg) {
-        if (isNullOrWhiteSpaces(arg.scrollButtonsSelector))
-            throw new Error('[SCROLL-ELEMENTS] Incorrect scroll-buttons selector!');
+        if (!elementIsExistWithLog('ScrollController', arg.scrollButtonsSelector))
+            return;
         let scrollButtons = document.querySelectorAll(arg.scrollButtonsSelector);
         for (let scrollButton of scrollButtons) {
             scrollButton.addEventListener('click', () => ScrollController.scrollToElement(scrollButton.dataset.scrollTo));
         }
-        if (isNullOrWhiteSpaces(arg.fixedElementSelector) == false) {
+        if (elementsIsExist(arg.fixedElementSelector)) {
             let heightHeight = document.querySelector(arg.fixedElementSelector).clientHeight;
             ScrollController.fixedElementHeight = heightHeight;
         }

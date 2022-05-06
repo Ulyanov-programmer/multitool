@@ -1,4 +1,4 @@
-import { isNullOrWhiteSpaces } from "./general.js";
+import { isNullOrWhiteSpaces, elementIsExistWithLog } from "./general.js";
 export var SubmenuOpenIvents;
 (function (SubmenuOpenIvents) {
     SubmenuOpenIvents[SubmenuOpenIvents["Click"] = 0] = "Click";
@@ -8,7 +8,7 @@ export var SubmenuOpenIvents;
 export default class Submenu {
     constructor(args, ...submenuElements) {
         if (isNullOrWhiteSpaces(args.menuActiveClass, args.buttonActiveClass))
-            throw new Error('Your input selectors is null or white spaces!');
+            console.log('[Submenu] Please specify the classes for the elements when they are active.');
         Submenu.buttonActiveClass = args.buttonActiveClass;
         Submenu.menuActiveClass = args.menuActiveClass;
         Submenu.submenuElements.push(...submenuElements);
@@ -42,8 +42,8 @@ export default class Submenu {
 Submenu.submenuElements = new Array();
 export class SubmenuElementGroup {
     constructor(args) {
-        if (isNullOrWhiteSpaces(args.buttonsSelector, args.menusSelector))
-            throw '[SUBMENU GROUP ELS] Some argument in a SubmenuElement is null or white spaces.';
+        if (!elementIsExistWithLog('SubmenuElementGroup', args.buttonsSelector, args.menusSelector))
+            return;
         this.menuElements = document.querySelectorAll(args.menusSelector);
         this.buttonElements = document.querySelectorAll(args.buttonsSelector);
         this.openIvent = args.openIvent;

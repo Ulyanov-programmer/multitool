@@ -1,8 +1,9 @@
-import { returnScrollbarWidth, isNullOrWhiteSpaces } from "./general.js";
+import { returnScrollbarWidth, elementIsExistWithLog } from "./general.js";
 export default class BurgerMenu {
     constructor(args) {
-        if (isNullOrWhiteSpaces(args.burgerSelector, args.fsNavmenuSelector, args.buttonsSelector))
-            throw '[FSNAVMENU] Some selector is null or white spaces.';
+        if (!elementIsExistWithLog('BurgerMenu', args.burgerSelector, args.fsNavmenuSelector, args.buttonsSelector)) {
+            return;
+        }
         BurgerMenu.burger = document.querySelector(args.burgerSelector);
         BurgerMenu.menu = document.querySelector(args.fsNavmenuSelector);
         BurgerMenu.buttons = document.querySelectorAll(args.buttonsSelector);

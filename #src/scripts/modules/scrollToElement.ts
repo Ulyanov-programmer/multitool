@@ -1,4 +1,4 @@
-import { isNullOrWhiteSpaces } from "./general.js";
+import { elementIsExistWithLog, elementsIsExist } from "./general.js";
 
 interface SpoilerMenuArgs {
 	/** 
@@ -21,8 +21,8 @@ export default class ScrollController {
 	private static fixedElementHeight = 0;
 
 	constructor(arg: SpoilerMenuArgs) {
-		if (isNullOrWhiteSpaces(arg.scrollButtonsSelector))
-			throw new Error('[SCROLL-ELEMENTS] Incorrect scroll-buttons selector!');
+		if (!elementIsExistWithLog('ScrollController', arg.scrollButtonsSelector))
+			return
 
 		let scrollButtons = document.querySelectorAll<HTMLElement>(arg.scrollButtonsSelector);
 
@@ -31,7 +31,8 @@ export default class ScrollController {
 				ScrollController.scrollToElement(scrollButton.dataset.scrollTo)
 			)
 		}
-		if (isNullOrWhiteSpaces(arg.fixedElementSelector) == false) {
+
+		if (elementsIsExist(arg.fixedElementSelector)) {
 			let heightHeight = document.querySelector(arg.fixedElementSelector).clientHeight;
 			ScrollController.fixedElementHeight = heightHeight;
 		}

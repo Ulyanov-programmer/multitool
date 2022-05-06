@@ -1,4 +1,4 @@
-import { isNullOrWhiteSpaces } from "./general.js";
+import { elementIsExistWithLog } from "./general.js";
 
 interface FilterArgs {
 	/**
@@ -18,9 +18,8 @@ export default class Filter {
 	private filterContentElements: NodeListOf<HTMLElement>
 
 	constructor(arg: FilterArgs) {
-		if (isNullOrWhiteSpaces(arg.filtButtonsSelector, arg.filtElementsSelector)) {
-			throw '[FILTER] Some argument is null or white spaces!'
-		}
+		if (!elementIsExistWithLog('Filter', arg.filtButtonsSelector, arg.filtElementsSelector)) 
+			return
 
 		this.filterButtons = document.querySelectorAll(arg.filtButtonsSelector);
 		this.filterContentElements = document.querySelectorAll(arg.filtElementsSelector);

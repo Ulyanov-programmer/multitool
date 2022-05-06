@@ -1,11 +1,11 @@
-import { isNullOrWhiteSpaces, sleep } from "./general.js";
+import { sleep, elementIsExistWithLog } from "./general.js";
 export default class Tab {
     constructor(arg) {
         this.isToggling = false;
         this.buttonsActiveClass = 'active';
         this.contentActiveClass = 'active';
-        if (isNullOrWhiteSpaces(arg.btnsSelector, arg.contentBlocksSelector))
-            throw '[ACCORDION] Incorrect arguments!';
+        if (!elementIsExistWithLog('Tab', arg.btnsSelector, arg.contentBlocksSelector))
+            return;
         this.buttons = document.querySelectorAll(arg.btnsSelector);
         this.contentElements = document.querySelectorAll(arg.contentBlocksSelector);
         let someAccordContent = document.querySelector(arg.contentBlocksSelector);

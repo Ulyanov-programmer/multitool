@@ -1,4 +1,4 @@
-import { isNullOrWhiteSpaces, returnScrollbarWidth } from "./general.js";
+import { elementIsExistWithLog, returnScrollbarWidth } from "./general.js";
 
 interface ModalWindowMenuArgs {
 	/** 
@@ -24,8 +24,10 @@ export default class ModalWindowMenu {
 	public static transitionTimeout: number
 
 	constructor(arg: ModalWindowMenuArgs) {
-		if (isNullOrWhiteSpaces(arg.modalLinksSelector, arg.modalClosersSelector))
-			throw new Error('[MODALWINDOW] Incorrect arguments!');
+		if (!elementIsExistWithLog('ModalWindowMenu',
+			arg.modalLinksSelector, arg.modalClosersSelector)) {
+			return
+		}
 
 		if (arg.fsMenuSelector)
 			ModalWindowMenu.fsMenuClasslist = document.querySelector(arg.fsMenuSelector).classList;

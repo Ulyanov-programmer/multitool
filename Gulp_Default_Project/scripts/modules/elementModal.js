@@ -1,8 +1,9 @@
-import { isNullOrWhiteSpaces, sleep } from "./general.js";
+import { elementIsExistWithLog, sleep } from "./general.js";
 export default class ElementModal {
     constructor(arg) {
-        if (isNullOrWhiteSpaces(arg.contentElementsSelector, arg.modalElementSelector))
-            throw '[ELEMENT-MODAL] Some selector is null or white spaces!';
+        if (!elementIsExistWithLog('ElementModal', arg.contentElementsSelector, arg.modalElementSelector)) {
+            return;
+        }
         this.contentElements = document.querySelectorAll(arg.contentElementsSelector);
         this.modalElement = document.querySelector(arg.modalElementSelector);
         this.animationDuration = parseFloat(getComputedStyle(this.modalElement)

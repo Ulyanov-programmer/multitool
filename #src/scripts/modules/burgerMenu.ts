@@ -1,4 +1,4 @@
-import { returnScrollbarWidth, isNullOrWhiteSpaces } from "./general.js";
+import { returnScrollbarWidth, elementIsExistWithLog } from "./general.js";
 
 interface BurgerMenuArgs {
 	/** Selctor buttons for burger menu. */
@@ -24,13 +24,15 @@ export default class BurgerMenu {
 	public static fsNavmenuActiveClass: string = 'active'
 
 	constructor(args: BurgerMenuArgs) {
-		if (isNullOrWhiteSpaces(args.burgerSelector, args.fsNavmenuSelector, args.buttonsSelector))
-			throw '[FSNAVMENU] Some selector is null or white spaces.'
+		if (!elementIsExistWithLog('BurgerMenu',
+			args.burgerSelector, args.fsNavmenuSelector, args.buttonsSelector)) {
+			return
+		}
 
-		BurgerMenu.burger = document.querySelector(args.burgerSelector);
-		BurgerMenu.menu = document.querySelector(args.fsNavmenuSelector);
-		BurgerMenu.buttons = document.querySelectorAll(args.buttonsSelector);
-		BurgerMenu.autoPadding = args.autoPadding;
+		BurgerMenu.burger = document.querySelector(args.burgerSelector)
+		BurgerMenu.menu = document.querySelector(args.fsNavmenuSelector)
+		BurgerMenu.buttons = document.querySelectorAll(args.buttonsSelector)
+		BurgerMenu.autoPadding = args.autoPadding
 
 		if (args.autoPadding)
 			BurgerMenu.menu.style.paddingTop = `${BurgerMenu.header.clientHeight}px`
@@ -50,7 +52,7 @@ export default class BurgerMenu {
 			throw new Error('[FSNAVMENU] Something wrong with fsNavmenu!');
 
 		if (BurgerMenu.autoPadding)
-		BurgerMenu.menu.style.paddingTop = `${BurgerMenu.header.clientHeight}px`;
+			BurgerMenu.menu.style.paddingTop = `${BurgerMenu.header.clientHeight}px`;
 
 		BurgerMenu.burger.classList.toggle(BurgerMenu.burgerActiveClass);
 

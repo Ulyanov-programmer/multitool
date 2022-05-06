@@ -1,8 +1,9 @@
-import { isNullOrWhiteSpaces } from "./general.js";
+import { elementIsExistWithLog } from "./general.js";
 export default class SidebarMenu {
     constructor(arg) {
-        if (isNullOrWhiteSpaces(arg.selectorOfSidebars, arg.selectorOfSidebarButtons))
-            throw '[SIDEBAR] Some selector is null or white spaces!';
+        if (!elementIsExistWithLog('SidebarMenu', arg.selectorOfSidebars, arg.selectorOfSidebarButtons)) {
+            return;
+        }
         this.sidebarButtons = document.querySelectorAll(arg.selectorOfSidebarButtons);
         SidebarMenu.swipeArea = document.querySelector(arg.swipeAreaSelector);
         for (let sidebarBtn of this.sidebarButtons) {

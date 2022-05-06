@@ -1,4 +1,4 @@
-import { isNullOrWhiteSpaces, sleep } from "./general.js";
+import { sleep, elementIsExistWithLog } from "./general.js";
 
 interface TabArgs {
 	/**
@@ -22,8 +22,8 @@ export default class Tab {
 	public contentActiveClass: string = 'active'
 
 	constructor(arg: TabArgs) {
-		if (isNullOrWhiteSpaces(arg.btnsSelector, arg.contentBlocksSelector))
-			throw '[ACCORDION] Incorrect arguments!'
+		if (!elementIsExistWithLog('Tab', arg.btnsSelector, arg.contentBlocksSelector))
+			return
 
 		this.buttons = document.querySelectorAll(arg.btnsSelector);
 		this.contentElements = document.querySelectorAll(arg.contentBlocksSelector)

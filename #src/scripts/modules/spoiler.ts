@@ -1,4 +1,4 @@
-import { isNullOrWhiteSpaces } from "./general.js";
+import { elementIsExistWithLog } from "./general.js";
 
 interface SpoilerMenuArgs {
 	/** Selector for ALL buttons that open some spoiler. */
@@ -27,16 +27,17 @@ export default class SpoilerMenu {
 	public static contentActiveClass: string = 'active'
 
 	constructor(args: SpoilerMenuArgs) {
-		if (isNullOrWhiteSpaces(args.btnsSelector, args.contentBlocksSelector)
-			|| args.maxWorkWidth < 0 || args.animationDuration < 0) {
-			throw '[SPOILERS] Incorrect arguments!'
+		if (!elementIsExistWithLog('SpoilerMenu', args.btnsSelector, args.contentBlocksSelector)) {
+			return
+		} else if (args.maxWorkWidth < 0 || args.animationDuration < 0) {
+			console.log('[SpoilerMenu] maxWorkWidth < 0 or animationDuration < 0!')
 		}
 
 		SpoilerMenu.spoilerButtons = document.querySelectorAll(args.btnsSelector);
 		SpoilerMenu.spoilerContentElements = document.querySelectorAll(args.contentBlocksSelector);
 
 		if (SpoilerMenu.spoilerButtons.length != SpoilerMenu.spoilerContentElements.length) {
-			throw '[SPOILERS] The count of spoiler buttons and spoiler content-elements must be more than zero.'
+			throw '[SpoilerMenu] The count of buttons and content-elements must be equal.'
 		}
 
 		SpoilerMenu.spoilerVisibleWidth = args.maxWorkWidth;

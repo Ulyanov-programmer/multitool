@@ -1,4 +1,4 @@
-import { isNullOrWhiteSpaces, sleep } from "./general.js";
+import { elementIsExistWithLog, sleep } from "./general.js";
 
 interface ElementModalArgs {
 	/** Elements over which the modal should be. */
@@ -13,8 +13,10 @@ export default class ElementModal {
 	private animationDuration: number
 
 	constructor(arg: ElementModalArgs) {
-		if (isNullOrWhiteSpaces(arg.contentElementsSelector, arg.modalElementSelector)) 
-			throw '[ELEMENT-MODAL] Some selector is null or white spaces!'
+		if (!elementIsExistWithLog('ElementModal',
+			arg.contentElementsSelector, arg.modalElementSelector)) {
+			return
+		}
 
 		this.contentElements = document.querySelectorAll(arg.contentElementsSelector);
 		this.modalElement = document.querySelector(arg.modalElementSelector);
