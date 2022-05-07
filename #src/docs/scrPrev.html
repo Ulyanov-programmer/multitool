@@ -69,12 +69,12 @@
 			</section>
 			<section class='section block'>
 				<div class='section__body'>
-					<div class="accordion__container demo-block">
-						<button aria-label="First element Of accordion" data-toggle-elem-number="0" class="accordion__btn">1</button>
-						<button aria-label="Second element Of accordion" data-toggle-elem-number="1" class="accordion__btn">2</button>
-						<button aria-label="Third element Of accordion" data-toggle-elem-number="2" class="accordion__btn">3</button>
-						<div class="accordion__items">
-							<pre class="accordion__item" lang="ru_RU">
+					<div class="tab__container demo-block">
+						<button aria-label="First element of tabs" data-toggle-elem-number="0" class="tab__btn">1</button>
+						<button aria-label="Second element of tabs" data-toggle-elem-number="1" class="tab__btn">2</button>
+						<button aria-label="Third element of tabs" data-toggle-elem-number="2" class="tab__btn">3</button>
+						<div class="tab__items">
+							<pre class="tab__item" lang="ru_RU">
 1
 Небо пустого цвета.Нас пожирает листопад
 Исход из слепого лета и вслед погоня наугад
@@ -83,7 +83,7 @@
 А вдруг всё то,что ищем
 обретается при вскрытии
 телесного родного дорогого себя</pre>
-							<pre class="accordion__item" lang="ru_RU">
+							<pre class="tab__item" lang="ru_RU">
 2
 Снега провожают дикий и лихорадочный поход
 Вечерние густые лики,безостановочный народ
@@ -92,7 +92,7 @@
 А вдруг всё то,что ищем —
 далеко за горизонтом
 на смертельной истребительной дороге всё на север</pre>
-							<pre class="accordion__item" lang="ru_RU">
+							<pre class="tab__item" lang="ru_RU">
 3
 Зашить ледяную рану и впредь давиться леденцом
 Шагать тяжело,упрямо или катиться колесом
@@ -177,6 +177,56 @@
 					</div>
 				</div>
 			</section>
+			<section class='section block'>
+				<div class='section__body'>
+					<div class="demo-spoiler__content demo-block content">
+						<div class="demo-spoiler__spoiler-block">
+							<button type="button" class='spoiler_btn'>Spoiler button</button>
+							<div class='spoiler_content'>
+								<span>spoiler content</span>
+							</div>
+						</div>
+						<div class="demo-spoiler__spoiler-block">
+							<button type="button" class='spoiler_btn'>Spoiler button</button>
+							<div class='spoiler_content'>
+								<span>spoiler content</span>
+							</div>
+						</div>
+						<div class="demo-spoiler__spoiler-block">
+							<button type="button" class='spoiler_btn'>Spoiler button</button>
+							<div class='spoiler_content'>
+								<span>spoiler content</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+			<section class='section block'>
+				<div class='section__body'>
+					<div class="swipe_window__content content">
+						<div class="swipe_window__swipe_area swipe_window__swipe_area_top">
+							<div class="swipe_window__swipe_el swipe_window__swipe_el_top">
+								I am swipable element from top!
+							</div>
+						</div>
+						<div class="swipe_window__swipe_area swipe_window__swipe_area_left">
+							<div class="swipe_window__swipe_el swipe_window__swipe_el_left">
+								I am swipable element from left!
+							</div>
+						</div>
+						<div class="swipe_window__swipe_area swipe_window__swipe_area_right">
+							<div class="swipe_window__swipe_el swipe_window__swipe_el_right">
+								I am swipable element from right!
+							</div>
+						</div>
+						<div class="swipe_window__swipe_area swipe_window__swipe_area_bottom">
+							<div class="swipe_window__swipe_el swipe_window__swipe_el_bottom">
+								I am swipable element from bottom!
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
 		</div>
 	</main>
 </body>
@@ -187,6 +237,8 @@
 <script type="module" src="../scripts/elementModalConn.js"></script>
 <script type="module" src="../scripts/filterConn.js"></script>
 <script type="module" src="../scripts/parallaxConn.js"></script>
+<script type="module" src="../scripts/spoilerConn.js"></script>
+<script type="module" src="../scripts/swipeConn.js"></script>
 
 </html>
 

@@ -87,23 +87,6 @@ address {
 }
 .submenu-button {
   position: relative;
-  display: flex;
-  flex-flow: row nowrap;
-  justify-content: center;
-  align-items: center;
-}
-.submenu-button::after {
-  display: inline-block;
-  width: 4px;
-  height: 4px;
-  border-top: 1.5px solid #fff;
-  border-right: 1.5px solid #fff;
-  transform: translate(5px, 0) rotate(135deg);
-  transition: all 0.3s ease 0s;
-  content: '';
-}
-.submenu-button.active::after {
-  transform: translate(5px, 0) rotate(-45deg);
 }
 .submenu {
   position: absolute;

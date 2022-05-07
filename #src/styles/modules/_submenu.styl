@@ -1,23 +1,7 @@
 .submenu-button {
 	position relative;
-	flex-set row nowrap;
-	justify-content center;
-	align-items center;
-
-	&::after {
-		display inline-block;
-		block-size 4px;
-		border-top 1.5px solid #ffffff;
-		border-right 1.5px solid #ffffff;
-		transform translate(5px, 0) rotate(135deg);
-		transition all 0.3s ease 0s;
-		content '';
-	}
 
 	&.active {
-		&::after {
-			transform translate(5px, 0) rotate(-45deg);
-		}
 	}
 }
 

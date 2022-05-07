@@ -44,30 +44,30 @@
   opacity: 1;
   transform: translate(0, 0);
 }
-.accordion__container {
+.tab__container {
   text-align: center;
   firstLevelElementsMargin: 'bottom' 20;
 }
-.accordion__btn {
+.tab__btn {
   padding: 10px 10px 10px 10px;
   border: 1px solid #000;
   cursor: pointer;
 }
-.accordion__btn.active {
+.tab__btn.active {
   transform: scale(1.1, 1.1);
 }
-.accordion__items {
+.tab__items {
   position: relative;
   margin: auto;
 }
-.accordion__item {
+.tab__item {
   text-align: center;
   overflow: hidden;
   opacity: 0;
   pointer-events: none;
   transition: all 0.3s ease;
 }
-.accordion__item.active {
+.tab__item.active {
   overflow: auto;
   opacity: 1;
   pointer-events: all;
@@ -152,4 +152,87 @@
   padding: 5px;
   transition: all 0.1s ease;
   font-size: 35px;
+}
+.spoiler_btn {
+  width: 100%;
+}
+.swipe_window__body {
+  padding: 20px 0;
+}
+.swipe_window__content {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  overflow: hidden;
+}
+.swipe_window__swipe_area {
+  position: relative;
+  z-index: 1;
+  border: 1px solid #000;
+  min-height: 100px;
+  width: 100%;
+  cursor: grab;
+}
+.swipe_window__swipe_area:active {
+  cursor: grabbing;
+}
+.swipe_window__swipe_area_left {
+  align-self: start;
+  width: 20%;
+}
+.swipe_window__swipe_area_left.active {
+  width: 100%;
+}
+.swipe_window__swipe_area_right {
+  margin-left: auto;
+  width: 20%;
+}
+.swipe_window__swipe_area_right.active {
+  width: 100%;
+}
+.swipe_window__swipe_el {
+  position: absolute;
+  z-index: 3;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  width: 300px;
+  height: 100px;
+  color: #fff;
+  background: #363636;
+  transition: all 0.3s ease;
+}
+.swipe_window__swipe_el.active {
+  transform: translate3d(0, 0, 0);
+}
+.swipe_window__swipe_el_top {
+  height: 150px;
+  top: 0;
+  left: 50%;
+  transform: translate3d(-50%, -90%, 0);
+}
+.swipe_window__swipe_el_top.active {
+  transform: translate3d(-50%, 0, 0);
+}
+.swipe_window__swipe_el_left {
+  top: 0;
+  left: 0;
+  transform: translate3d(-90%, 0, 0);
+}
+.swipe_window__swipe_el_right {
+  top: 0;
+  right: 0;
+  transform: translate3d(90%, 0, 0);
+}
+.swipe_window__swipe_el_bottom {
+  height: 150px;
+  bottom: 0;
+  left: 50%;
+  transform: translate3d(-50%, 90%, 0);
+}
+.swipe_window__swipe_el_bottom.active {
+  transform: translate3d(-50%, 0, 0);
 }

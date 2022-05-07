@@ -11,8 +11,10 @@ export default class Tab {
         let someAccordContent = document.querySelector(arg.contentBlocksSelector);
         this.animationDuration = parseFloat(getComputedStyle(someAccordContent)
             .getPropertyValue('transition-duration')) * 1000 + 100;
-        if (this.buttons.length != this.contentElements.length)
-            throw '[ACCORDION] The count of buttons and content-elements is not equal.';
+        if (this.buttons.length != this.contentElements.length) {
+            console.log('[Tab] The count of buttons and content-elements is not equal.');
+            return;
+        }
         if (arg.activeFirstElements) {
             this.buttons[0].classList.add('active');
             this.contentElements[0].classList.add('active');

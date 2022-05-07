@@ -17,8 +17,10 @@ export default class ScrollController {
     }
     static scrollToElement(scrollTo) {
         let scrollElement = document.querySelector(scrollTo);
-        if (scrollElement == undefined)
-            throw new Error('[SCROLL-ELEMENTS] Something wrong with scrollElement!');
+        if (scrollElement == undefined) {
+            console.log('[ScrollController] Something wrong with scrollElement!');
+            return;
+        }
         let scrolltop = window.pageYOffset + scrollElement.getBoundingClientRect().top;
         window.scrollTo({
             top: scrolltop - ScrollController.fixedElementHeight,

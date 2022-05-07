@@ -10,7 +10,8 @@ export default class SpoilerMenu {
         SpoilerMenu.spoilerButtons = document.querySelectorAll(args.btnsSelector);
         SpoilerMenu.spoilerContentElements = document.querySelectorAll(args.contentBlocksSelector);
         if (SpoilerMenu.spoilerButtons.length != SpoilerMenu.spoilerContentElements.length) {
-            throw '[SpoilerMenu] The count of buttons and content-elements must be equal.';
+            console.log('[SpoilerMenu] The count of buttons and content-elements must be equal.');
+            ret;
         }
         SpoilerMenu.spoilerVisibleWidth = args.maxWorkWidth;
         SpoilerMenu.animationDuration = args.animationDuration;
