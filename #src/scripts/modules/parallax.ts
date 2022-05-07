@@ -5,7 +5,6 @@ interface ParallaxArgs {
 	parallaxContainerSelector: string
 	/** Parallax will only work if the window width is greater than or equal to this number.	*/
 	minWorkWidth: number
-	reverse?: boolean
 }
 
 export default class Parallax {
@@ -14,7 +13,6 @@ export default class Parallax {
 	private containerCenterCoordX: number
 	private containerCenterCoordY: number
 	private parallaxElements: ParallaxElement[] = new Array()
-	private reverse: boolean = false
 
 	constructor(arg: ParallaxArgs, ...parallaxItems: ParallaxElement[]) {
 		if (!elementIsExistWithLog('Parallax', arg.parallaxContainerSelector))
@@ -24,7 +22,6 @@ export default class Parallax {
 		this.containerRect = this.parallaxContainer.getBoundingClientRect()
 		this.containerCenterCoordX = Math.round(this.containerRect.width / 2)
 		this.containerCenterCoordY = Math.round(this.containerRect.height / 2)
-		this.reverse = arg.reverse
 
 		for (let parallaxItem of parallaxItems) {
 			if (!parallaxItem) return
@@ -48,13 +45,8 @@ export default class Parallax {
 		let relativeCoordX = mouseX - this.containerCenterCoordX
 		let relativeCoordY = mouseY - this.containerCenterCoordY
 
-		if (this.reverse) {   
-			relativeCoordX *= -1  
-			relativeCoordY *= -1
-		}
 		for (let el of this.parallaxElements) {
-			el.htmlElement.style.transform =
-				`translate3d(${relativeCoordX * el.parallaxCoeffX}px, ${relativeCoordY * el.parallaxCoeffY}px, 0)`
+			el.parallax(relativeCoordX, relativeCoordY)
 		}
 	}
 }
@@ -63,12 +55,23 @@ export default class Parallax {
 interface ParallaxElementArgs {
 	/** Selector of element or `HTMLElement` that will be parallaxed. */
 	selectorOrElement: string
-	/** The power factor of the parallax effect. The smaller, the stronger the effect. */
+	/** 
+	 * The value of the parallax power along the X-axis. 
+	 * If the value is 1, the element will be behind the cursor, set a lower value. 
+	*/
 	parallaxCoeffX: number
+	/**
+	 * The value of the parallax power along the Y-axis. 
+	 * If the value is 1, the element will be behind the cursor, set a lower value. 
+	*/
 	parallaxCoeffY: number
+	/** Move the mouse up - the element moves down, etc. Not required, default = false. */
+	reverseMode?: boolean
 }
 
 export class ParallaxElement {
+	private reverseMode: boolean = false
+
 	constructor(arg: ParallaxElementArgs) {
 		if (typeof arg.selectorOrElement == 'string') {
 
@@ -82,10 +85,22 @@ export class ParallaxElement {
 
 		this.parallaxCoeffX = arg.parallaxCoeffX
 		this.parallaxCoeffY = arg.parallaxCoeffY
+
+		this.reverseMode = arg.reverseMode
 	}
 
 	public htmlElement: HTMLElement
 	public selector: string
 	public parallaxCoeffX: number
 	public parallaxCoeffY: number
+
+	public parallax(relativeCoordX: number, relativeCoordY: number) {
+		if (this.reverseMode) {
+			relativeCoordX *= -1
+			relativeCoordY *= -1
+		}
+
+		this.htmlElement.style.transform =
+			`translate3d(${relativeCoordX * this.parallaxCoeffX}px, ${relativeCoordY * this.parallaxCoeffY}px, 0)`
+	}
 }

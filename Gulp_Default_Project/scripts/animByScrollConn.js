@@ -5,7 +5,7 @@ new AnimateByScroll({ repeatingAnimations: true }, new AnimationElement({
     timeoutBeforeStart: 500,
 }, new AnimationMediaQuery(768, 0.8, 500)), new AnimationElement({
     selector: '.animation_by_scroll__item_2',
-    animateStartCoeff: 0.9,
+    animateStartCoeff: 0.8,
     timeoutBeforeStart: 500,
 }));
 AnimateByScroll.activeAnimationClass = 'active';
