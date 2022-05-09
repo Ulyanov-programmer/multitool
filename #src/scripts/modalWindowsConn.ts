@@ -11,6 +11,6 @@ import ModalWindowMenu from './modules/modalWindow.js';
 new ModalWindowMenu({
 	modalLinksSelector: '[data-open-modal-id]',
 	modalClosersSelector: '[data-modal-close]',
-	fsMenuSelector: '.fullscreen-navmenu',
+	burgerMenuSelector: '.fullscreen-navmenu',
 	// smooth transition is calculated automatically, specify it for a modal
 })

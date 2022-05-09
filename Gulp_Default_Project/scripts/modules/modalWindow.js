@@ -4,8 +4,8 @@ export default class ModalWindowMenu {
         if (!elementIsExistWithLog('ModalWindowMenu', arg.modalLinksSelector, arg.modalClosersSelector)) {
             return;
         }
-        if (arg.fsMenuSelector)
-            ModalWindowMenu.fsMenuClasslist = document.querySelector(arg.fsMenuSelector).classList;
+        if (arg.burgerMenuSelector)
+            ModalWindowMenu.burgerMenuClasslist = document.querySelector(arg.burgerMenuSelector).classList;
         ModalWindowMenu.modalLinks = document.querySelectorAll(arg.modalLinksSelector);
         for (let modalLink of ModalWindowMenu.modalLinks) {
             modalLink.addEventListener("click", () => {
@@ -66,8 +66,8 @@ export default class ModalWindowMenu {
         }, ModalWindowMenu.transitionTimeout * 2);
     }
     chekPossibileSwitchScroll(toggleOnValue) {
-        if (ModalWindowMenu.fsMenuClasslist) {
-            if (!ModalWindowMenu.fsMenuClasslist.contains('active') && toggleOnValue) {
+        if (ModalWindowMenu.burgerMenuClasslist) {
+            if (!ModalWindowMenu.burgerMenuClasslist.contains('active') && toggleOnValue) {
                 return true;
             }
             else {

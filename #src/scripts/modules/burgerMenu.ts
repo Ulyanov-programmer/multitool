@@ -48,9 +48,6 @@ export default class BurgerMenu {
 	private toggleNavmenu() {
 		let scrollbarWidth = returnScrollbarWidth();
 
-		if (BurgerMenu.menu == undefined)
-			throw new Error('[FSNAVMENU] Something wrong with fsNavmenu!');
-
 		if (BurgerMenu.autoPadding)
 			BurgerMenu.menu.style.paddingTop = `${BurgerMenu.header.clientHeight}px`;
 

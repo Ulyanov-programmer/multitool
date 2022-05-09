@@ -10,16 +10,16 @@ interface ModalWindowMenuArgs {
 	/** Selector of buttons for closing modal windows (should be in html of modal). */
 	modalClosersSelector: string
 	/** 
-		Selector of fullscreen navmenu (burger fs-navmenu), need for correct work with it.
+		Selector of burger-menu, need for correct work with it.
 		Not required.
 	*/
-	fsMenuSelector?: string
+	burgerMenuSelector?: string
 }
 
 export default class ModalWindowMenu {
 	private static modalLinks: NodeListOf<HTMLElement>
 	private static modalClosers: NodeListOf<HTMLElement>
-	private static fsMenuClasslist: DOMTokenList
+	private static burgerMenuClasslist: DOMTokenList
 	private static UNLOCK: boolean = true
 	public static transitionTimeout: number
 
@@ -29,8 +29,8 @@ export default class ModalWindowMenu {
 			return
 		}
 
-		if (arg.fsMenuSelector)
-			ModalWindowMenu.fsMenuClasslist = document.querySelector(arg.fsMenuSelector).classList;
+		if (arg.burgerMenuSelector)
+			ModalWindowMenu.burgerMenuClasslist = document.querySelector(arg.burgerMenuSelector).classList;
 
 		ModalWindowMenu.modalLinks = document.querySelectorAll(arg.modalLinksSelector);
 
@@ -114,8 +114,8 @@ export default class ModalWindowMenu {
 
 
 	private chekPossibileSwitchScroll(toggleOnValue: boolean) {
-		if (ModalWindowMenu.fsMenuClasslist) {
-			if (!ModalWindowMenu.fsMenuClasslist.contains('active') && toggleOnValue) {
+		if (ModalWindowMenu.burgerMenuClasslist) {
+			if (!ModalWindowMenu.burgerMenuClasslist.contains('active') && toggleOnValue) {
 				return true
 			} else {
 				return false
