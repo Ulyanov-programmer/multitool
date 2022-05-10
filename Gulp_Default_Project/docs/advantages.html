@@ -26,8 +26,8 @@
 		<h1 class="header__title">Advantages</h1>
 		<div class="header__socials">
 			<a target='_blank' href="//github.com/Ulyanov-programmer/Gulp_Default_Project" aria-label="this project on GitHub" class="header__github">
-				<svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="30px"
-					height="30px" viewBox="0 0 438.549 438.549" style="enable-background:new 0 0 438.549 438.549;" xml:space="preserve">
+				<svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="30px" height="30px" viewBox="0 0 438.549 438.549"
+					style="enable-background:new 0 0 438.549 438.549;" xml:space="preserve">
 					<g>
 						<path d="M409.132,114.573c-19.608-33.596-46.205-60.194-79.798-79.8C295.736,15.166,259.057,5.365,219.271,5.365
 		c-39.781,0-76.472,9.804-110.063,29.408c-33.596,19.605-60.192,46.204-79.8,79.8C9.803,148.168,0,184.854,0,224.63
@@ -55,6 +55,26 @@
 		</div>
 	</div>
 </header>
+
+<button class='top-btn' type='button' data-scroll-to="body">
+	<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24" viewBox="0 0 24 24">
+		<defs>
+			<path id="top-a"
+				d="M2.29289322,0.292893219 C2.68341751,-0.0976310729 3.31658249,-0.0976310729 3.70710678,0.292893219 C4.09763107,0.683417511 4.09763107,1.31658249 3.70710678,1.70710678 L1.70710678,3.70710678 C1.31658249,4.09763107 0.683417511,4.09763107 0.292893219,3.70710678 C-0.0976310729,3.31658249 -0.0976310729,2.68341751 0.292893219,2.29289322 L2.29289322,0.292893219 Z" />
+			<path id="top-c"
+				d="M3.41421356,4 L13.0014708,4 C13.5529433,4 14,4.44771525 14,5 C14,5.55228475 13.5529433,6 13.0014708,6 L3.41421356,6 L5.70710678,8.29289322 C6.09763107,8.68341751 6.09763107,9.31658249 5.70710678,9.70710678 C5.31658249,10.0976311 4.68341751,10.0976311 4.29289322,9.70710678 L0.292893219,5.70710678 C-0.0976310729,5.31658249 -0.0976310729,4.68341751 0.292893219,4.29289322 L4.29289322,0.292893219 C4.68341751,-0.0976310729 5.31658249,-0.0976310729 5.70710678,0.292893219 C6.09763107,0.683417511 6.09763107,1.31658249 5.70710678,1.70710678 L3.41421356,4 Z" />
+		</defs>
+		<g fill="none" fill-rule="evenodd" transform="matrix(0 1 1 0 7 5)">
+			<mask id="top-d" fill="#fff">
+				<use xlink:href="#top-c" />
+			</mask>
+			<use fill="#000" fill-rule="nonzero" xlink:href="#top-c" />
+			<g fill="#7600FF" mask="url(#top-d)">
+				<rect width="24" height="24" transform="translate(-5 -7)" />
+			</g>
+		</g>
+	</svg>
+</button>
 	<main class="main">
 		<div class="main__body">
 			<div class="refbar block">
@@ -62,6 +82,7 @@
 				<button class='refbar__item' type='button' data-scroll-to="._scripts">Scripts</button>
 				<button class='refbar__item' type='button' data-scroll-to="._img">Images</button>
 				<button class='refbar__item' type='button' data-scroll-to="._swiper">Swiper</button>
+				<button class='refbar__item' type='button' data-scroll-to="._fonts">Fonts</button>
 				<button class='refbar__item' type='button' data-scroll-to="._required">Required</button>
 				<button class='refbar__item' type='button' data-scroll-to="._structure">Structure</button>
 			</div>
@@ -110,16 +131,17 @@
 					<p class="advantage__text text-center">As usual - your PNG, JPG and others will be optimized, translated into webp... And <span class="code">avif</span>. Yes, it's time to use it.</p>
 					<div class="section__content">
 						<div class="advantage__preview-block">
-							<code>&lt;img src="img/icons/img.png" alt='yourImg'&gt;</code>
+							<code>&lt;img src="img/img.png" alt='yourImg'&gt;</code>
 						</div>
+						<span class="arrow-next">→</span>
 						<div class="advantage__preview-block">
 							<code>
 								<pre>&lt;picture&gt;
- &lt;source srcset="img/icons/img.avif" 
+ &lt;source srcset="img/img.avif" 
   type="image/avif"&gt;
- &lt;source srcset="img/icons/img.webp" 
+ &lt;source srcset="img/img.webp" 
   type="image/webp"&gt;
- &lt;img src="img/icons/img.png" 
+ &lt;img src="img/img.png" 
   alt='yourImg'&gt;
 &lt;/picture&gt;</pre></code>
 						</div>
@@ -132,6 +154,36 @@
 					<p class="advantage__text text-center">The assembly automatically connects the <a class="fat-text blue-text ref" href='//swiperjs.com/' target='_blank' rel='noopener noreferrer'>Swiper
 							slider</a> to the project, its styles and scripts, if necessary. <br>
 						This can be disabled when <a class="ref orange-text" href='//localhost:3000/docs/getStarted.html?b=clear' target='_blank' rel='noopener noreferrer'>cleaning</a> the build.</p>
+				</div>
+			</section>
+			<section class='advantage _fonts'>
+				<div class='advantage__body'>
+					<h2 tabindex='0' class='advantage__title title'>Fast connection of fonts</h2>
+					<p class="advantage__text text-center">To the point that you don't have to do anything at all! Seriously, even adaptive fonts are connected automatically.</p>
+
+					<div class="section__content_vertical">
+						<div class="advantage__preview-block">
+							<code>Just put a file in the folder</code>
+						</div>
+						<span class="arrow-next">↓</span>
+						<div class="advantage__preview-block">
+							<code>
+<pre>@font-face {
+  <span class="fat-text">↓ Based on the file name</span>
+  font-family: 'fontName';
+  font-display: swap;
+  <span class="fat-text">↓ You do not need to specify the path to the font</span>
+  src: url("../fonts/fontName.woff2") format("woff2");
+  <span class="fat-text">↓ It detects automatically</span>
+  font-weight: 900; 
+  <span class="fat-text">↓ It's to</span>
+  font-style: italic;
+
+  If the font is adaptive, it will be 
+  connected in the same way, but with many different font weights.
+}</pre></code>
+						</div>
+					</div>
 				</div>
 			</section>
 			<section class='advantage _required'>
@@ -226,6 +278,8 @@
 		scrollByAdressURL: true,
 	})
 </script>
+
+
 
 <!-- 
   Made in Russia, with ❤, by Ivan Ulyanov. 

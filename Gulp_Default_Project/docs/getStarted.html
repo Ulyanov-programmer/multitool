@@ -26,8 +26,8 @@
 		<h1 class="header__title">Get started</h1>
 		<div class="header__socials">
 			<a target='_blank' href="//github.com/Ulyanov-programmer/Gulp_Default_Project" aria-label="this project on GitHub" class="header__github">
-				<svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="30px"
-					height="30px" viewBox="0 0 438.549 438.549" style="enable-background:new 0 0 438.549 438.549;" xml:space="preserve">
+				<svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="30px" height="30px" viewBox="0 0 438.549 438.549"
+					style="enable-background:new 0 0 438.549 438.549;" xml:space="preserve">
 					<g>
 						<path d="M409.132,114.573c-19.608-33.596-46.205-60.194-79.798-79.8C295.736,15.166,259.057,5.365,219.271,5.365
 		c-39.781,0-76.472,9.804-110.063,29.408c-33.596,19.605-60.192,46.204-79.8,79.8C9.803,148.168,0,184.854,0,224.63
@@ -55,6 +55,26 @@
 		</div>
 	</div>
 </header>
+
+<button class='top-btn' type='button' data-scroll-to="body">
+	<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24" viewBox="0 0 24 24">
+		<defs>
+			<path id="top-a"
+				d="M2.29289322,0.292893219 C2.68341751,-0.0976310729 3.31658249,-0.0976310729 3.70710678,0.292893219 C4.09763107,0.683417511 4.09763107,1.31658249 3.70710678,1.70710678 L1.70710678,3.70710678 C1.31658249,4.09763107 0.683417511,4.09763107 0.292893219,3.70710678 C-0.0976310729,3.31658249 -0.0976310729,2.68341751 0.292893219,2.29289322 L2.29289322,0.292893219 Z" />
+			<path id="top-c"
+				d="M3.41421356,4 L13.0014708,4 C13.5529433,4 14,4.44771525 14,5 C14,5.55228475 13.5529433,6 13.0014708,6 L3.41421356,6 L5.70710678,8.29289322 C6.09763107,8.68341751 6.09763107,9.31658249 5.70710678,9.70710678 C5.31658249,10.0976311 4.68341751,10.0976311 4.29289322,9.70710678 L0.292893219,5.70710678 C-0.0976310729,5.31658249 -0.0976310729,4.68341751 0.292893219,4.29289322 L4.29289322,0.292893219 C4.68341751,-0.0976310729 5.31658249,-0.0976310729 5.70710678,0.292893219 C6.09763107,0.683417511 6.09763107,1.31658249 5.70710678,1.70710678 L3.41421356,4 Z" />
+		</defs>
+		<g fill="none" fill-rule="evenodd" transform="matrix(0 1 1 0 7 5)">
+			<mask id="top-d" fill="#fff">
+				<use xlink:href="#top-c" />
+			</mask>
+			<use fill="#000" fill-rule="nonzero" xlink:href="#top-c" />
+			<g fill="#7600FF" mask="url(#top-d)">
+				<rect width="24" height="24" transform="translate(-5 -7)" />
+			</g>
+		</g>
+	</svg>
+</button>
 	<main class="main">
 		<div class="main__body">
 			<div class="refbar block">
@@ -66,8 +86,9 @@
 			<section class='section block _load'>
 				<div class='section__body'>
 					<h2 tabindex='0' class='section__title title'>Load</h2>
+
 					<ol class="section__list section__list_big-margins">
-						<li class="section__li">
+						<li class="section__li section__li_vertical">
 							<p class="section__text">
 								Copy the path to the repository: <span class="code">https://github.com/Ulyanov-programmer/Gulp_Default_Project.git</span>
 							</p>
@@ -75,7 +96,7 @@
 								<img src="../img/demo/howToLaunch_vsc1.png" loading='lazy'>
 							</div>
 						</li>
-						<li class="section__li">
+						<li class="section__li section__li_vertical">
 							<p class="section__text">
 								Start Visual Studio Code, where by selecting the <span class="fat-text">Explorer</span> item, select Clone repository
 							</p>
@@ -83,7 +104,7 @@
 								<img src="../img/demo/howToLaunch_vsc2.png" loading='lazy'>
 							</div>
 						</li>
-						<li class="section__li section__li_end">
+						<li class="section__li section__li_vertical">
 							<p class="section__text">
 								In the pop-up window, enter the previously copied path to the repository and select the folder where you want to save the files.
 							</p>
@@ -97,27 +118,26 @@
 			<section class='section block _launch'>
 				<div class='section__body'>
 					<h2 tabindex='0' class='section__title title'>Launch</h2>
+
 					<ol class="section__list section__list_big-margins">
-						<li class="section__li">
+						<li class="section__li section__li_vertical">
 							<p class="section__text">
 								<span class="fat-text">Make sure: path to the current project folder is specified in the terminal!</span>
 							</p>
 						</li>
-						<li class="section__li">
+						<li class="section__li section__li_vertical">
 							<p class="section__text">
-								Enter in the terminal (<span class="orange-text">ctrl + j</span> or <span class="orange-text">view => terminal</span>) <span
-									class="orange-text code">npm i</span> command.
+								Enter in the terminal (<span class="orange-text">ctrl + j</span> or <span class="orange-text">view => terminal</span>) <span class="orange-text code">npm i</span> command.
 								If there are no errors in the process, you will see something like this:
 							</p>
 							<div class="section__image">
 								<img src="../img/demo/howToLaunch_vsc4.png" loading='lazy'>
 							</div>
 						</li>
-						<li class="section__li section__li_end">
-							<p class="section__text">
+						<li class="section__li section__li_vertical section__li_end">
+							<p class="section__text text-center">
 								Start Gulp from the terminal by entering the <span class="code orange-text">gulp</span> command. <br>
-								(If this command doesn't work (you find something like "this command do not founded"), try installing gulp-cli via <span
-									class="code orange-text">npm -g install
+								(If this command doesn't work (you find something like "this command do not founded"), try installing gulp-cli via <span class="code orange-text">npm -g install
 									gulp-cli</span> )
 								<br> <br>
 								A window with the main page of the project will open in the browser by default (if it does not load correctly, you may need to update
@@ -130,11 +150,13 @@
 			<section class='section block _clear'>
 				<div class='section__body'>
 					<h2 tabindex='0' class='section__title title'>Clearing</h2>
+
 					<p class="section__text">
 						The build contains the script that will help you remove unnecessary (including my demo and slider connection).<br> <br>
 						To do this, enter the node clean command in the terminal, and follow the text in the console.
 					</p>
-					<ol class="section__list">
+
+					<ul class="section__list section__list_centred">
 						<li class="section__li">
 							It delete the demo content.
 						</li>
@@ -150,7 +172,7 @@
 							</div>
 							<figcaption>You should see something like this.</figcaption>
 						</figure>
-					</ol>
+					</ul>
 				</div>
 			</section>
 			<section class='section block _production'>
@@ -161,37 +183,95 @@
 						work. <br>
 						This is normal, the build can be run in one of <span class="fat-text">two modes</span>:
 					</p>
-					<ol class="section__list section__list_not-style">
-						<li class="section__li">
-							<span class="fat-text">Default</span>: Started via the <span class="code orange-text">gulp</span> command entered in the terminal.<br>
-							<span class="fat-text">Production</span>: Started via the <span class="code orange-text">gulp --prod</span> command entered into the
-							terminal.
-						</li>
-						<li class="section__li">
-							<span class="fat-text">Default</span>: Quick start of the build.<br>
-							<span class="fat-text">Production</span>: Slow start of the build.
-						</li>
-						<li class="section__li">
-							<span class="fat-text">Default</span>: Images are <span class="fat-text">not</span> converted or optimized.<br>
-							<span class="fat-text">Production</span>: Images are converted and optimized.
-						</li>
-						<li class="section__li">
-							<span class="fat-text">Default</span>: Prefixes are <span class="fat-text">not</span> added to css properties. <br>
-							<span class="fat-text">Production</span>: Prefixes are added to css properties.
-						</li>
-						<li class="section__li">
-							<span class="fat-text">Default</span>: Media queries are <span class="fat-text">not</span> grouped. <br>
-							<span class="fat-text">Production</span>: Media queries are grouped.
-						</li>
-						<li class="section__li">
-							<span class="fat-text">Default</span>: Scripts are <span class="fat-text">not</span> compressed. <br>
-							<span class="fat-text">Production</span>: Scripts are compressed.
-						</li>
-						<li class="section__li">
-							<span class="fat-text">Default</span>: Automatically converted images are <span class="fat-text">not</span> connected.<br>
-							<span class="fat-text">Production</span>: Automatically converted images are connected.
-						</li>
-					</ol>
+
+					<div class="tab__container demo-block">
+						<div class="tab__buttons">
+							<button aria-label="Default" data-toggle-elem-number="0" class="tab__btn fat-text">Default</button>
+							<button aria-label="Production" data-toggle-elem-number="1" class="tab__btn fat-text">Production</button>
+						</div>
+
+						<div class="tab__items">
+							<div class="tab__item">
+								<ul class="section__list section__list_all-style">
+									<li class="section__li">
+										<div>
+											Started via the <span class="code orange-text">gulp</span> command entered in the terminal.
+										</div>
+									</li>
+									<li class="section__li">
+										<div>
+											Quick start of the build.
+										</div>
+									</li>
+									<li class="section__li">
+										<div>
+											Images are <span class="fat-text">not</span> converted or optimized.
+										</div>
+									</li>
+									<li class="section__li">
+										<div>
+											Prefixes are <span class="fat-text">not</span> added to css properties.
+										</div>
+									</li>
+									<li class="section__li">
+										<div>
+											Media queries are <span class="fat-text">not</span> grouped.
+										</div>
+									</li>
+									<li class="section__li">
+										<div>
+											Scripts are <span class="fat-text">not</span> compressed.
+										</div>
+									</li>
+									<li class="section__li">
+										<div>
+											Automatically converted images are <span class="fat-text">not</span> connected.
+										</div>
+									</li>
+								</ul>
+							</div>
+							<div class="tab__item">
+								<ul class="section__list section__list_all-style">
+									<li class="section__li">
+										<div>
+											Started via the <span class="code orange-text">gulp --prod</span> command entered into the
+											terminal.
+										</div>
+									</li>
+									<li class="section__li">
+										<div>
+											Slow start of the build.
+										</div>
+									</li>
+									<li class="section__li">
+										<div>
+											Images are converted and optimized.
+										</div>
+									</li>
+									<li class="section__li">
+										<div>
+											Prefixes are added to css properties.
+										</div>
+									</li>
+									<li class="section__li">
+										<div>
+											Media queries are grouped.
+										</div>
+									</li>
+									<li class="section__li">
+										<div>
+											Scripts are compressed.
+										</div>
+									</li>
+									<li class="section__li">
+										<div>
+											Automatically converted images are connected.
+										</div>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
 				</div>
 			</section>
 		</div>
@@ -210,6 +290,10 @@
 		scrollByAdressURL: true,
 	})
 </script>
+
+
+<script type="module" src="../scripts/tabsConn.js"></script>
+
 
 <!-- 
 	Made in Russia, with ❤, by Ivan Ulyanov. 

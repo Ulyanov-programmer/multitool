@@ -75,6 +75,30 @@ body {
 	}
 }
 
+.top-btn {
+	position fixed;
+	bottom 20px;
+	right 50px;
+
+	svg {
+		block-size 30px;
+		transition all .1s ease;
+
+		&:active {
+			transform translate3d(0, -3px, 0);
+		}
+	}
+
+	rect {
+		fill rgb(93, 93, 93);
+		transition all .2s ease;
+
+		&:hover, &:focus {
+			fill #000;
+		}
+	}
+}
+
 h2 {
 	font-size 28px;
 }
@@ -107,7 +131,6 @@ figure {
 .code {
 	padding 2px 5px;
 	border-radius 10%;
-	color #000;
 	background #e4e4e4;
 }
 
@@ -121,6 +144,43 @@ figure {
 
 .title {
 	font-weight 600;
+
+	&_padding {
+		padding 40px 10px 10px 10px;
+	}
+}
+
+.tab {
+	&__buttons {
+		flex-set row nowrap;
+		justify-content center;
+		gap 15px;
+		padding-bottom 10px;
+	}
+
+	&__btn {
+		padding 3px;
+		border 1px solid #000;
+		cursor pointer;
+
+		&.active {
+			transform scale(1.1, 1.1);
+		}
+	}
+
+	&__item {
+		text-align center;
+		overflow hidden;
+		opacity 0;
+		pointer-events none;
+		transition all .3s ease;
+
+		&.active {
+			overflow auto;
+			opacity 1;
+			pointer-events all;
+		}
+	}
 }
 
 .section {
@@ -137,6 +197,12 @@ figure {
 		justify-content space-around;
 		align-items center;
 		notLastChildMargin 0 10px 0 0;
+
+		&_vertical {
+			flex-set column nowrap;
+			align-items center;
+			notLastChildMargin 0 0 10px 0;
+		}
 	}
 
 	&__buttons {
@@ -192,22 +258,66 @@ figure {
 			notLastChildMargin 0 0 25px 0;
 		}
 
+		&_left {
+			justify-content start;
+		}
+
 		&_not-style {
 			li {
-				list-style none;
+				&:before {
+					display none;
+				}
+			}
+		}
+
+		&_centred {
+			width 70%;
+			margin auto;
+		}
+
+		&_all-style {
+			li {
+				&:last-child {
+					&:before {
+						display: inline-block;
+					}
+				}
 			}
 		}
 	}
 
 	&__li {
-		text-align center;
-		list-style inside;
+		flex-set row nowrap;
+		align-items center;
 		notLastChildMargin 0 0 25px 0;
 
-		&_end {
-			flex-set column nowrap;
+		&:before {
+			display inline-block;
+			min-height 5px;
+			min-width 5px;
+			background #000;
+			border-radius 50%;
+			margin-right 10px;
+			content '';
+		}
+
+		&:last-child {
+			&:before {
+				display none;
+			}
+		}
+
+		&_centred {
 			justify-content center;
-			align-items center;
+		}
+
+		&_vertical {
+			flex-set column nowrap;
+
+			&:before {
+				display none;
+				content '';
+			}
 		}
 	}
 
@@ -229,12 +339,19 @@ figure {
 	}
 }
 
+.arrow-next {
+	font-size 25px;
+	font-weight 600;
+	font-family Arial;
+}
+
 .advantage {
 	padding-top 20px;
 
 	&__body {
 		flex-set column nowrap;
 		justify-content center;
+		padding 20px 50px;
 
 		>* {
 			margin-bottom 20px;
@@ -256,23 +373,26 @@ figure {
 		border-radius 4px;
 		background #939393;
 		color #fff;
-	}
-}
 
-.codepen {
+		&_inline {
+			display inline-block;
+			text-align left;
+		}
+	}
 }
 
 .refbar {
 	position sticky;
 	top 0;
-	display flex;
-	flex-flow row wrap;
+	flex-set row wrap;
+	justify-content center;
 	overflow-x auto;
 	overflow-y hidden;
 	box-shadow 0 1px 10px rgba(0, 0, 0, .1);
 
 	&__item {
 		flex 1 1 150px;
+		max-width 300px;
 		text-align center;
 		color inherit;
 		padding 7px 12px;

@@ -13,6 +13,7 @@
 				<button class='refbar__item' type='button' data-scroll-to="._scripts">Scripts</button>
 				<button class='refbar__item' type='button' data-scroll-to="._img">Images</button>
 				<button class='refbar__item' type='button' data-scroll-to="._swiper">Swiper</button>
+				<button class='refbar__item' type='button' data-scroll-to="._fonts">Fonts</button>
 				<button class='refbar__item' type='button' data-scroll-to="._required">Required</button>
 				<button class='refbar__item' type='button' data-scroll-to="._structure">Structure</button>
 			</div>
@@ -61,16 +62,17 @@
 					<p class="advantage__text text-center">As usual - your PNG, JPG and others will be optimized, translated into webp... And <span class="code">avif</span>. Yes, it's time to use it.</p>
 					<div class="section__content">
 						<div class="advantage__preview-block">
-							<code>&lt;img src="img/icons/img.png" alt='yourImg'&gt;</code>
+							<code>&lt;img src="img/img.png" alt='yourImg'&gt;</code>
 						</div>
+						<span class="arrow-next">→</span>
 						<div class="advantage__preview-block">
 							<code>
 								<pre>&lt;picture&gt;
- &lt;source srcset="img/icons/img.avif" 
+ &lt;source srcset="img/img.avif" 
   type="image/avif"&gt;
- &lt;source srcset="img/icons/img.webp" 
+ &lt;source srcset="img/img.webp" 
   type="image/webp"&gt;
- &lt;img src="img/icons/img.png" 
+ &lt;img src="img/img.png" 
   alt='yourImg'&gt;
 &lt;/picture&gt;</pre></code>
 						</div>
@@ -83,6 +85,36 @@
 					<p class="advantage__text text-center">The assembly automatically connects the <a class="fat-text blue-text ref" href='//swiperjs.com/' target='_blank' rel='noopener noreferrer'>Swiper
 							slider</a> to the project, its styles and scripts, if necessary. <br>
 						This can be disabled when <a class="ref orange-text" href='//localhost:3000/docs/getStarted.html?b=clear' target='_blank' rel='noopener noreferrer'>cleaning</a> the build.</p>
+				</div>
+			</section>
+			<section class='advantage _fonts'>
+				<div class='advantage__body'>
+					<h2 tabindex='0' class='advantage__title title'>Fast connection of fonts</h2>
+					<p class="advantage__text text-center">To the point that you don't have to do anything at all! Seriously, even adaptive fonts are connected automatically.</p>
+
+					<div class="section__content_vertical">
+						<div class="advantage__preview-block">
+							<code>Just put a file in the folder</code>
+						</div>
+						<span class="arrow-next">↓</span>
+						<div class="advantage__preview-block">
+							<code>
+<pre>@font-face {
+  <span class="fat-text">↓ Based on the file name</span>
+  font-family: 'fontName';
+  font-display: swap;
+  <span class="fat-text">↓ You do not need to specify the path to the font</span>
+  src: url("../fonts/fontName.woff2") format("woff2");
+  <span class="fat-text">↓ It detects automatically</span>
+  font-weight: 900; 
+  <span class="fat-text">↓ It's to</span>
+  font-style: italic;
+
+  If the font is adaptive, it will be 
+  connected in the same way, but with many different font weights.
+}</pre></code>
+						</div>
+					</div>
 				</div>
 			</section>
 			<section class='advantage _required'>
@@ -168,7 +200,8 @@
 </html>
 
 @@include('_scripts.htm', {
-
+	'spoilers': false,
+	'tabs': false,
 })
 
 <!-- 

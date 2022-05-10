@@ -2,12 +2,12 @@ import AnimateByScroll, { AnimationElement, AnimationMediaQuery } from "./module
 
 new AnimateByScroll(
 	{ repeatingAnimations: true },
+
 	new AnimationElement({
 		selector: '.animation_by_scroll__item',
 		animateStartCoeff: 0.8,
 		timeoutBeforeStart: 500,
-	},
-		new AnimationMediaQuery(768, 0.8, 500),
+	}, new AnimationMediaQuery(768, 0.8, 500),
 	),
 	new AnimationElement({
 		selector: '.animation_by_scroll__item_2',
