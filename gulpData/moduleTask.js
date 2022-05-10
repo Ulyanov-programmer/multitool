@@ -1,17 +1,19 @@
 import ts from 'gulp-typescript';
 import terser from 'gulp-terser';
 import gulpChanged from "gulp-changed";
+import plumber from "gulp-plumber";
 
 export function scriptModules() {
 	return gulp.src(paths.scr.scriptModules)
+		.pipe(plumber())
 		.pipe(gulpChanged(paths.build.scriptModules, { extension: '.js' }))
 		
 		.pipe(ts({
 			target: 'es2018',
 			allowJs: true,
+			noEmitOnError: true,
+			isolatedModules: true,
 		}))
-		// use this if you're also annoyed that the gulp is shutdown due to a compiler error.
-		.on('error', () => { })
 
 		.pipe(
 			global.if(global.isProd,
