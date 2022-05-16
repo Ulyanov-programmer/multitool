@@ -10,6 +10,7 @@ const snippetsFolderName = `${pathToProject}/snippets`
 const readmeFolder = `${pathToProject}/readmeFiles`
 const src = '/#src'
 const scriptModules = `${pathToProject}${src}/scripts/modules/`
+const scriptGeneral = `${pathToProject}${src}/scripts/`
 const stylesModules = `${pathToProject}${src}/styles/modules/`
 
 
@@ -65,7 +66,7 @@ async function setModules() {
 		`${scriptModules}submenu.ts`, `${stylesModules}_submenu.styl`)
 
 	await includeModuleByQuestion(`Include Accordion? ${hint}`,
-		`${scriptModules}accord.ts`)
+		`${scriptModules}tab.ts`)
 
 	await includeModuleByQuestion(`Include Element-modal? ${hint}`,
 		`${scriptModules}elementMenu.ts`)
@@ -139,18 +140,25 @@ async function setSlider(questionString) {
 async function includeModuleByQuestion(questionString, scriptPath, stylePath) {
 	let answer = readline.question(questionString).toLowerCase()
 
-	if (answer !== 'y') {
+	if (answer === 'y')
+		return
+
+	if (scriptPath) {
 		fs.removeSync(scriptPath)
 
-		if (stylePath) {
-			fs.removeSync(stylePath)
+		let scriptNameWithoutExp = path.basename(scriptPath, '.ts')
+		let scriptConnFileName = `${scriptNameWithoutExp}Conn.ts`
 
-			let styleModuleName = path.basename(stylePath, '.styl')
+		fs.removeSync(scriptGeneral + scriptConnFileName)
+	}
+	if (stylePath) {
+		fs.removeSync(stylePath)
 
-			await replace({
-				files: mainStyleFile,
-				from: `@import 'modules/${styleModuleName}';\n`, to: '',
-			})
-		}
+		let styleModuleName = path.basename(stylePath, '.styl')
+
+		await replace({
+			files: mainStyleFile,
+			from: `@import 'modules/${styleModuleName}';`, to: '',
+		})
 	}
 }

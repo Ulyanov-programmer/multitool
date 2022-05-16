@@ -1,4 +1,4 @@
-import Tab from './modules/tabs.js';
+import Tab from './modules/tab.js';
 
 new Tab({
 	btnsSelector: '.tab__btn',
