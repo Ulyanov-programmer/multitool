@@ -5,16 +5,16 @@ import * as readline from "readline-sync";
 
 
 const pathToProject = path.resolve('./');
-const demoProjectFolderName = '/Gulp_Default_Project'
-const snippetsFolderName = '/mySnippets'
-const readmeFolder = '/readmeFiles'
+const demoProjectFolderName = `${pathToProject}/Gulp_Default_Project`
+const snippetsFolderName = `${pathToProject}/snippets`
+const readmeFolder = `${pathToProject}/readmeFiles`
 const src = '/#src'
 const scriptModules = `${pathToProject}${src}/scripts/modules/`
 const stylesModules = `${pathToProject}${src}/styles/modules/`
 
 
 const fontsGitkeep = `${src}/fonts/.gitkeep`
-const mainStyleFile = `${src}/styles/style.styl`
+const mainStyleFile = `${pathToProject}${src}/styles/style.styl`
 const mainHtmlFile = `${src}/index.html`
 const mainScriptFile = `${src}/scripts/script.ts`
 const gulpSliderConnectionFile = `${pathToProject}/gulpfile.js`
@@ -23,31 +23,31 @@ const slidersFile = `${pathToProject}${src}/scripts/sliders.js`
 
 
 const srcDemoFoldersAndFIles =
-	[`${src}/img/demo`, `${src}/styles/_demoStyles.styl`, `${src}/_demo.htm`,];
+	[`${pathToProject}${src}/docs`, `${pathToProject}${src}/img/demo`,]
 
 const demoStyles = {
 	files: pathToProject + mainStyleFile,
 	from: "@import '_demoStyles';", to: '',
-};
+}
 const demoHtml = {
 	files: pathToProject + mainHtmlFile,
 	from: "@@include('_demo.htm')", to: '',
-};
-const hint = '(enter [y], if you not, enter [key enter or another])';
+}
+const hint = '(enter [y], if you not, enter [enter] or another key and [enter])';
 
-await deleteDemoContent()
-cleanReadmeFilesAndFolders()
-deleteSnippets()
-deleteDemoProject()
-console.log('Initialize the slider? ' + hint);
-await setSlider()
+// deleteDemoContent()
+// cleanReadmeFilesAndFolders()
+// deleteSnippets()
+// deleteDemoProject()
+// console.log('Initialize the slider? ' + hint)
+// await setSlider()
 await setModules()
 
 console.log('🎆🎆🎆 I wish You a successful job!');
 
 async function setModules() {
 	await includeModuleByQuestion(`Include Burger Menu? ${hint}`,
-		`${scriptModules}fsNavmenu.ts`, `${stylesModules}_fsNavmenu.styl`)
+		`${scriptModules}burgerMenu.ts`, `${stylesModules}_burgerMenu.styl`)
 
 	await includeModuleByQuestion(`Include Filter? ${hint}`,
 		`${scriptModules}filter.ts`)
@@ -82,23 +82,21 @@ async function setModules() {
 	await includeModuleByQuestion(`Include Searchbar styles? ${hint}`,
 		``, `${stylesModules}_searchbar.styl`)
 }
-async function deleteDemoContent() {
+function deleteDemoContent() {
 	try {
-		for (const pathToDemo of srcDemoFoldersAndFIles) {
-			fs.removeSync(pathToProject + pathToDemo)
+		for (let pathToDemo of srcDemoFoldersAndFIles) {
+			fs.removeSync(pathToDemo)
 		}
-		await replace(demoStyles)
-		await replace(demoHtml)
 
 		console.log('✅ The demo content have been deleted.');
 	} catch (error) {
-		console.log('❌' + error);
+		console.log('❌' + error)
 	}
 }
 function cleanReadmeFilesAndFolders() {
 	try {
-		fs.emptyDir(pathToProject + readmeFolder)
-		fs.removeSync('./README.md')
+		fs.emptyDir(readmeFolder)
+		fs.removeSync(`${pathToProject}README.md`)
 		fs.createFileSync('README.md')
 
 		console.log('✅ The readme folder and file are clean.');
@@ -108,7 +106,7 @@ function cleanReadmeFilesAndFolders() {
 }
 function deleteDemoProject() {
 	try {
-		fs.removeSync(pathToProject + demoProjectFolderName)
+		fs.removeSync(demoProjectFolderName)
 
 		console.log('✅ Demo Project have been deleted.');
 	} catch (error) {
@@ -117,7 +115,7 @@ function deleteDemoProject() {
 }
 function deleteSnippets() {
 	try {
-		fs.removeSync(pathToProject + snippetsFolderName)
+		fs.removeSync(snippetsFolderName)
 
 		console.log('✅ Snippets have been deleted.');
 	} catch (error) {
@@ -150,8 +148,8 @@ async function includeModuleByQuestion(questionString, scriptPath, stylePath) {
 			let styleModuleName = path.basename(stylePath, '.styl')
 
 			await replace({
-				files: pathToProject + mainStyleFile,
-				from: `@import 'modules/${styleModuleName}';`, to: '',
+				files: mainStyleFile,
+				from: `@import 'modules/${styleModuleName}';\n`, to: '',
 			})
 		}
 	}
