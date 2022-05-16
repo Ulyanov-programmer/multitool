@@ -46,7 +46,7 @@
 }
 .tab__container {
   text-align: center;
-  firstLevelElementsMargin: 'bottom' 20;
+  width: 100%;
 }
 .tab__btn {
   padding: 10px 10px 10px 10px;
@@ -56,21 +56,10 @@
 .tab__btn.active {
   transform: scale(1.1, 1.1);
 }
-.tab__items {
-  position: relative;
-  margin: auto;
-}
 .tab__item {
-  text-align: center;
-  overflow: hidden;
-  opacity: 0;
-  pointer-events: none;
-  transition: all 0.3s ease;
-}
-.tab__item.active {
-  overflow: auto;
-  opacity: 1;
-  pointer-events: all;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .el-menu__content {
   display: grid;

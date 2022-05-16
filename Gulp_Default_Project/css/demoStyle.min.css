@@ -214,16 +214,9 @@ figure {
   transform: scale(1.1, 1.1);
 }
 .tab__item {
-  text-align: center;
-  overflow: hidden;
-  opacity: 0;
-  pointer-events: none;
-  transition: all 0.3s ease;
-}
-.tab__item.active {
-  overflow: auto;
-  opacity: 1;
-  pointer-events: all;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .section__body {
   display: flex;

@@ -169,17 +169,9 @@ figure {
 	}
 
 	&__item {
-		text-align center;
-		overflow hidden;
-		opacity 0;
-		pointer-events none;
-		transition all .3s ease;
-
-		&.active {
-			overflow auto;
-			opacity 1;
-			pointer-events all;
-		}
+		display flex;
+		justify-content center;
+		align-items center;
 	}
 }
 
@@ -279,7 +271,7 @@ figure {
 			li {
 				&:last-child {
 					&:before {
-						display: inline-block;
+						display inline-block;
 					}
 				}
 			}

@@ -2,61 +2,158 @@ import { sleep, elementIsExistWithLog } from "./general.js";
 export default class Tab {
     constructor(arg) {
         this.isToggling = false;
+        this.autoHeight = false;
+        this.containerheight = 0;
         this.buttonsActiveClass = 'active';
         this.contentActiveClass = 'active';
         if (!elementIsExistWithLog('Tab', arg.btnsSelector, arg.contentBlocksSelector))
             return;
         this.buttons = document.querySelectorAll(arg.btnsSelector);
         this.contentElements = document.querySelectorAll(arg.contentBlocksSelector);
-        let someAccordContent = document.querySelector(arg.contentBlocksSelector);
-        this.animationDuration = parseFloat(getComputedStyle(someAccordContent)
-            .getPropertyValue('transition-duration')) * 1000 + 100;
         if (this.buttons.length != this.contentElements.length) {
             console.log('[Tab] The count of buttons and content-elements is not equal.');
             return;
         }
-        if (arg.activeFirstElements) {
-            this.buttons[0].classList.add('active');
-            this.contentElements[0].classList.add('active');
+        if (arg.buttonsActiveClass)
+            this.buttonsActiveClass = arg.buttonsActiveClass;
+        if (arg.contentActiveClass)
+            this.contentActiveClass = arg.contentActiveClass;
+        this.buttons[0].classList.add(this.buttonsActiveClass);
+        this.contentElements[0].classList.add(this.contentActiveClass);
+        if (arg.autoHeight)
+            this.autoHeight = arg.autoHeight;
+        let someTabElement = document.querySelector(arg.contentBlocksSelector);
+        this.parentOfContentElements = someTabElement.parentElement;
+        if (arg.animationDuration) {
+            this.animationDuration = arg.animationDuration;
         }
-        for (let accordButton of this.buttons) {
-            accordButton.addEventListener('click', () => this.toggleActiveElements(accordButton));
+        else {
+            this.animationDuration = parseFloat(getComputedStyle(someTabElement)
+                .getPropertyValue('transition-duration')) * 1000;
         }
-        for (let accordContentElem of this.contentElements) {
-            if (accordContentElem.classList.contains('active') == false) {
-                accordContentElem.setAttribute('hidden', '');
-                accordContentElem.style.display = 'none';
+        if (arg.fadeEffect) {
+            this.setFadeTabs();
+            for (let tabButton of this.buttons) {
+                tabButton.addEventListener('click', () => this.toggleTabsFade(tabButton));
+            }
+        }
+        else {
+            this.setDefaultTabs();
+            for (let tabButton of this.buttons) {
+                tabButton.addEventListener('click', () => this.toggleTabs(tabButton));
             }
         }
     }
-    toggleActiveElements(activeAccordButton) {
-        if (activeAccordButton.classList.contains('active') || this.isToggling) {
+    setFadeTabs() {
+        let marginForCurrentElement = 0;
+        for (let contentElement of this.contentElements) {
+            if (!this.autoHeight && contentElement.clientHeight > this.containerheight) {
+                this.containerheight = contentElement.clientHeight;
+            }
+            else if (this.autoHeight && this.containerheight <= 0) {
+                this.containerheight = this.contentElements[0].clientHeight;
+            }
+            if (contentElement.classList.contains(this.contentActiveClass) == false)
+                contentElement.style.opacity = '0';
+            contentElement.style.transform = `translateY(-${marginForCurrentElement}px)`;
+            marginForCurrentElement += contentElement.clientHeight;
+        }
+        this.parentOfContentElements.style.display = 'flex';
+        this.parentOfContentElements.style.flexDirection = 'column';
+        this.parentOfContentElements.style.overflow = 'hidden';
+        this.setContainerHeight(this.containerheight);
+        this.parentOfContentElements.style.transition = `height ${this.animationDuration}ms`;
+        for (let contentElement of this.contentElements) {
+            contentElement.style.transition = `opacity ${this.animationDuration}ms`;
+        }
+    }
+    setDefaultTabs() {
+        for (let contentElement of this.contentElements) {
+            if (contentElement.classList.contains(this.contentActiveClass) == false) {
+                contentElement.setAttribute('hidden', '');
+                contentElement.style.display = 'none';
+                contentElement.style.opacity = '0';
+            }
+            contentElement.style.transition = `opacity ${this.animationDuration}ms`;
+            this.setContainerHeight();
+            this.parentOfContentElements.style.transition = `height ${this.animationDuration}ms`;
+        }
+    }
+    toggleTabsFade(activeTabButton) {
+        if (this.toggleTogglingStateIfPossible(activeTabButton) == false) {
             return;
+        }
+        this.toggleTabButtons(activeTabButton);
+        let currentActiveElement = this.getCurrentActiveTab();
+        let nextContentElement = this.getTabByPressedButton(activeTabButton);
+        currentActiveElement.style.opacity = '0';
+        if (this.autoHeight) {
+            this.setContainerHeight(nextContentElement.clientHeight);
+        }
+        nextContentElement.style.opacity = '1';
+        currentActiveElement.classList.remove(this.contentActiveClass);
+        nextContentElement.classList.add(this.contentActiveClass);
+        setTimeout(() => {
+            this.isToggling = false;
+        }, this.animationDuration);
+    }
+    async toggleTabs(activeTabButton) {
+        if (this.toggleTogglingStateIfPossible(activeTabButton) == false) {
+            return;
+        }
+        this.toggleTabButtons(activeTabButton);
+        let currentActiveElement = this.getCurrentActiveTab();
+        let nextContentElement = this.getTabByPressedButton(activeTabButton);
+        currentActiveElement.classList.remove(this.contentActiveClass);
+        currentActiveElement.style.opacity = '0';
+        await sleep(this.animationDuration);
+        currentActiveElement.setAttribute('hidden', '');
+        currentActiveElement.style.display = 'none';
+        nextContentElement.removeAttribute('hidden');
+        nextContentElement.style.display = '';
+        this.setContainerHeight(nextContentElement.clientHeight);
+        await sleep(20);
+        nextContentElement.style.opacity = '1';
+        nextContentElement.classList.add(this.contentActiveClass);
+        setTimeout(() => {
+            this.isToggling = false;
+        }, this.animationDuration);
+    }
+    toggleTabButtons(activeTabButton) {
+        for (let accordBtn of this.buttons) {
+            if (accordBtn != activeTabButton) {
+                accordBtn.classList.remove(this.buttonsActiveClass);
+            }
+            else {
+                accordBtn.classList.add(this.buttonsActiveClass);
+            }
+        }
+    }
+    toggleTogglingStateIfPossible(activeTabButton) {
+        if (activeTabButton.classList.contains(this.buttonsActiveClass) || this.isToggling) {
+            return false;
         }
         else {
             this.isToggling = true;
-        }
-        for (let accordBtn of this.buttons) {
-            accordBtn.classList.remove('active');
-        }
-        activeAccordButton.classList.add('active');
-        let activeContentElement = this.contentElements[activeAccordButton.dataset.toggleElemNumber];
-        for (let contentElement of this.contentElements) {
-            contentElement.classList.remove('active');
-            setTimeout(async () => {
-                if (contentElement != activeContentElement) {
-                    contentElement.setAttribute('hidden', '');
-                    contentElement.style.display = 'none';
-                }
-                else {
-                    contentElement.removeAttribute('hidden');
-                    contentElement.style.display = '';
-                }
-                await sleep(30);
-                activeContentElement.classList.add('active');
-                this.isToggling = false;
-            }, this.animationDuration);
+            return true;
         }
     }
-    ;
+    getCurrentActiveTab() {
+        for (let contElem of this.contentElements) {
+            if (contElem.classList.contains(this.contentActiveClass)) {
+                return contElem;
+            }
+        }
+    }
+    getTabByPressedButton(activeTabButton) {
+        return this.contentElements[activeTabButton.dataset.toggleElemNumber];
+    }
+    setContainerHeight(height) {
+        if (height) {
+            this.parentOfContentElements.style.height = `${height}px`;
+        }
+        else {
+            this.parentOfContentElements.style.height = `${this.contentElements[0].clientHeight}px`;
+        }
+    }
 }

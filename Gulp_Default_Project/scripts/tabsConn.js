@@ -1,9 +1,10 @@
 import Tab from './modules/tabs.js';
-let someAccrod = new Tab({
+new Tab({
     btnsSelector: '.tab__btn',
     contentBlocksSelector: '.tab__item',
-    // smooth transition is calculated automatically, specify it for the contentBlocks
-    activeFirstElements: true,
+    fadeEffect: true,
+    buttonsActiveClass: 'active',
+    contentActiveClass: 'active',
+    autoHeight: true,
+    animationDuration: 500,
 });
-someAccrod.buttonsActiveClass = 'active';
-someAccrod.contentActiveClass = 'active';
