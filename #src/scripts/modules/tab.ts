@@ -9,10 +9,23 @@ interface TabArgs {
 	btnsSelector: string
 	/** Selector of blocks that contain some tab content.	*/
 	contentBlocksSelector: string
+	/**
+	 * Enables the Fade effect (when one element is superimposed on another when switching).
+	 */
 	fadeEffect?: boolean
 	buttonsActiveClass?: string
 	contentActiveClass?: string
+	/**
+	 * Changes the height of the tab container when switching. 
+	 * If false, the block size for tabs will be equal to the size of the largest tab.
+	 * @remarks Please note that it works exclusively for the Fade-effect, in other cases it is always true.
+	 */
 	autoHeight?: boolean
+	/**
+	 * Duration of tab animations. 
+	 * @remarks It can be specified both through this argument and in the CSS property of the tabs.
+	 * Specifying through this argument has a higher priority.
+	 */
 	animationDuration?: number
 }
 
@@ -59,7 +72,6 @@ export default class Tab {
 			this.animationDuration = parseFloat(getComputedStyle(someTabElement)
 				.getPropertyValue('transition-duration')) * 1000
 		}
-
 
 		if (arg.fadeEffect) {
 			this.setFadeTabs()
