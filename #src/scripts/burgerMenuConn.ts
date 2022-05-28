@@ -2,7 +2,7 @@ import BurgerMenu from './modules/burgerMenu.js';
 
 new BurgerMenu({
 	burgerSelector: '#burgerButton',
-	fsNavmenuSelector: '.fullscreen-navmenu',
+	burgerMenuSelector: '.burger-menu',
 	buttonsSelector: '.fs-element',
 	autoPadding: true,
 })

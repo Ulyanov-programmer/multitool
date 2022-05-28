@@ -4,7 +4,7 @@ interface BurgerMenuArgs {
 	/** Selctor buttons for burger menu. */
 	burgerSelector: string
 	/** A fullscreen-menu selector that will be shown when you click on the burger. */
-	fsNavmenuSelector: string
+	burgerMenuSelector: string
 	/** 
 		Selector of buttons that are contained in the menu. It is necessary to close the menu when pressing the buttons.
 	*/
@@ -25,12 +25,12 @@ export default class BurgerMenu {
 
 	constructor(args: BurgerMenuArgs) {
 		if (!elementIsExistWithLog('BurgerMenu',
-			args.burgerSelector, args.fsNavmenuSelector, args.buttonsSelector)) {
+			args.burgerSelector, args.burgerMenuSelector, args.buttonsSelector)) {
 			return
 		}
 
 		BurgerMenu.burger = document.querySelector(args.burgerSelector)
-		BurgerMenu.menu = document.querySelector(args.fsNavmenuSelector)
+		BurgerMenu.menu = document.querySelector(args.burgerMenuSelector)
 		BurgerMenu.buttons = document.querySelectorAll(args.buttonsSelector)
 		BurgerMenu.autoPadding = args.autoPadding
 
