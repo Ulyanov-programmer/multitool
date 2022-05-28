@@ -12,11 +12,12 @@ const src = '/#src'
 const scriptModules = `${pathToProject}${src}/scripts/modules/`
 const scriptGeneral = `${pathToProject}${src}/scripts/`
 const stylesModules = `${pathToProject}${src}/styles/modules/`
+const componentsFolder = `${pathToProject}${src}/components/`
 
 
 const fontsGitkeep = `${src}/fonts/.gitkeep`
 const mainStyleFile = `${pathToProject}${src}/styles/style.styl`
-const mainHtmlFile = `${src}/index.html`
+const mainHtmlFile = `${pathToProject}${src}/index.html`
 const mainScriptFile = `${src}/scripts/script.ts`
 const gulpSliderConnectionFile = `${pathToProject}/gulpfile.js`
 const slidersFile = `${pathToProject}${src}/scripts/sliders.js`
@@ -37,9 +38,20 @@ await setModules()
 console.log('🎆🎆🎆 I wish You a successful job!');
 
 async function setModules() {
+	await includeModuleByQuestion(
+		'Modal-Window',
+		`${scriptModules}modalWindow.ts`,
+		null,
+		`${componentsFolder}_modals.htm`,
+		async () => {
+			await replace({
+				files: mainHtmlFile,
+				from: `@@include('components/_modals.htm', {})`, to: '',
+			})
+		})
 	await includeModuleByQuestion('Burger-menu', `${scriptModules}burgerMenu.ts`, `${stylesModules}_burgerMenu.styl`)
 	await includeModuleByQuestion('Filter', `${scriptModules}filter.ts`)
-	await includeModuleByQuestion('Modal-Window', `${scriptModules}modalWindow.ts`)
+
 	await includeModuleByQuestion('Spoilers', `${scriptModules}spoiler.ts`, `${stylesModules}_spoiler.styl`)
 	await includeModuleByQuestion('Sidebar', `${scriptModules}sidebar.ts`, `${stylesModules}_sidebar.styl`)
 	await includeModuleByQuestion('Submenu', `${scriptModules}submenu.ts`, `${stylesModules}_submenu.styl`)
@@ -103,11 +115,19 @@ async function setSlider(questionString) {
 			from: `let build = gulp.series(recreate, setupSwiperCss, setupSwiperJs,`,
 			to: 'let build = gulp.series(recreate,',
 		})
+		await replace({
+			files: mainHtmlFile,
+			from: ['<!-- Swiper -->',
+				'<link rel="stylesheet" href="css/swiper-bundle.min.css">',
+				'<script defer src="scripts/swiper-bundle.min.js"></script>',
+				'<script type="module" src="scripts/sliders.js"></script>'],
+			to: '',
+		})
 		fs.removeSync(slidersFile)
 	}
 }
 
-async function includeModuleByQuestion(moduleName, scriptPath, stylePath) {
+async function includeModuleByQuestion(moduleName, scriptPath, stylePath, htmlPath, replaceFunc) {
 	let questionString = `Include the ${moduleName}? ${hint}`
 	let answer = readline.question(questionString).toLowerCase()
 
@@ -131,5 +151,11 @@ async function includeModuleByQuestion(moduleName, scriptPath, stylePath) {
 			files: mainStyleFile,
 			from: `@import 'modules/${styleModuleName}';`, to: '',
 		})
+	}
+	if (htmlPath) {
+		fs.removeSync(htmlPath)
+	}
+	if (replaceFunc) {
+		await replaceFunc()
 	}
 }
