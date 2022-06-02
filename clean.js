@@ -138,7 +138,7 @@ async function includeModuleByQuestion(moduleName, scriptPath, stylePath, htmlPa
 		fs.removeSync(scriptPath)
 
 		let scriptNameWithoutExp = path.basename(scriptPath, '.ts')
-		let scriptConnFileName = `${scriptNameWithoutExp}Conn.ts`
+		let scriptConnFileName = `${scriptNameWithoutExp}API.ts`
 
 		fs.removeSync(scriptGeneral + scriptConnFileName)
 	}

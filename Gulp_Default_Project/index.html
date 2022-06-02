@@ -74,33 +74,29 @@
     </form> -->
 		<nav class="navmenu">
 			<div class="navmenu__body">
-				<!-- One Page site navmenu -->
 				<ul class='navmenu__list'>
 					<li>
-						<button tabindex='0' type='button' data-scroll-to=".styles">Styles</button>
+						<button type='button' data-scroll-to=".block">block</button>
+						<a target="_self" rel="noopener" href="#">ref</a>
 					</li>
 				</ul>
-				<!--? Multiple page site navmenu
-        <ul class='navmenu__list'>
-          <li>
-            <a target="_self" rel="noopener" href="#">ссылка2</a>
-          </li>
-        </ul> 
-        -->
 			</div>
 		</nav>
 
-		<button aria-label="burger-menu" type="button" id="burgerButton" class="header__burger burger-btn">
-			<svg class="burger-btn__svg" width="30" height="30" viewBox="0 0 150 100" xmlns="http://www.w3.org/2000/svg">
-				<rect class="burger-btn__rect-top" width="100%" height="10%" x="0" y="0%" fill="#fff" />
-				<rect class="burger-btn__rect-center" width="100%" height="10%" x="0" y="45%" fill="#fff" />
-				<rect class="burger-btn__rect-bottom" width="100%" height="10%" x="0" y="90%" fill="#fff" />
+		<button type="button" id="burgerButton" class="header__burger burger-btn" aria-label="burger-menu show button">
+			<svg class="burger-btn__svg" width="40" height="30" viewBox="0 0 40 30" xmlns="http://www.w3.org/2000/svg">
+				<rect class="burger-btn__rect-top" width="95%" height="10%" x="5%" y="0%" fill="#fff" />
+				<rect class="burger-btn__rect-center" width="95%" height="10%" x="5%" y="45%" fill="#fff" />
+				<rect class="burger-btn__rect-bottom" width="95%" height="10%" x="5%" y="90%" fill="#fff" />
 			</svg>
 		</button>
-		<nav class="fullscreen-navmenu">
-			<div class="fullscreen-navmenu__body">
+		<nav class="burger-menu">
+			<div class="burger-menu__body">
 				<ul>
-					<li class="fs-element">Styles</li>
+					<li class="fs-element">
+						<button type='button' data-scroll-to=".block">block</button>
+						<a href='#' target='_blank' rel='noopener noreferrer'>ref</a>
+					</li>
 				</ul>
 			</div>
 		</nav>
@@ -119,7 +115,7 @@
 
 	<main class="main">
 		<div class="main__body">
-			<div class="main__hello"></div>
+			
 		</div>
 	</main>
 
@@ -160,14 +156,13 @@
 </body>
 
 
-<script type="module" src="scripts/_generalScript.js"></script>
+<script type="module" src="scripts/generalScript.js"></script>
 
 
 <!-- Swiper -->
 <link rel="stylesheet" href="css/swiper-bundle.min.css">
 <script defer src="scripts/swiper-bundle.min.js"></script>
 <script type="module" src="scripts/sliders.js"></script>
-
 
 </html>
 

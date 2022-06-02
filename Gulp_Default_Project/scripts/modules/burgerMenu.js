@@ -1,11 +1,11 @@
 import { returnScrollbarWidth, elementIsExistWithLog } from "./general.js";
 export default class BurgerMenu {
     constructor(args) {
-        if (!elementIsExistWithLog('BurgerMenu', args.burgerSelector, args.fsNavmenuSelector, args.buttonsSelector)) {
+        if (!elementIsExistWithLog('BurgerMenu', args.burgerSelector, args.burgerMenuSelector, args.buttonsSelector)) {
             return;
         }
         BurgerMenu.burger = document.querySelector(args.burgerSelector);
-        BurgerMenu.menu = document.querySelector(args.fsNavmenuSelector);
+        BurgerMenu.menu = document.querySelector(args.burgerMenuSelector);
         BurgerMenu.buttons = document.querySelectorAll(args.buttonsSelector);
         BurgerMenu.autoPadding = args.autoPadding;
         if (args.autoPadding)
