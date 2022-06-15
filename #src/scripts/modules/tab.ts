@@ -1,4 +1,9 @@
-import { sleep, elementIsExistWithLog } from "./general.js";
+import { sleep, elementIsExistWithLog } from "./general.js"
+
+export enum ToggleTabsEvent {
+	Click,
+	Hover,
+}
 
 interface TabArgs {
 	/**
@@ -27,6 +32,8 @@ interface TabArgs {
 	 * Specifying through this argument has a higher priority.
 	 */
 	animationDuration?: number
+	firstButtonIsNotActive?: boolean
+	toggleTabsBy?: ToggleTabsEvent
 }
 
 export default class Tab {
@@ -34,8 +41,10 @@ export default class Tab {
 	private contentElements: NodeListOf<HTMLElement>
 	private parentOfContentElements: HTMLElement
 	private animationDuration: number
+	private switchingLockTime: number
 	private isToggling: boolean = false
 	private autoHeight: boolean = false
+	private toggleTabsEvent: string = 'click'
 	private containerheight: number = 0
 	public buttonsActiveClass: string = 'active'
 	public contentActiveClass: string = 'active'
@@ -56,15 +65,16 @@ export default class Tab {
 			this.buttonsActiveClass = arg.buttonsActiveClass
 		if (arg.contentActiveClass)
 			this.contentActiveClass = arg.contentActiveClass
+		if (arg.firstButtonIsNotActive == undefined || arg.firstButtonIsNotActive == false)
+			this.buttons[0].classList.add(this.buttonsActiveClass)
 
-		this.buttons[0].classList.add(this.buttonsActiveClass)
 		this.contentElements[0].classList.add(this.contentActiveClass)
 
 		if (arg.autoHeight)
 			this.autoHeight = arg.autoHeight
 
 		let someTabElement = document.querySelector<HTMLElement>(arg.contentBlocksSelector)
-		this.parentOfContentElements = someTabElement.parentElement
+		this.parentOfContentElements = someTabElement.parentElement as HTMLElement
 
 		if (arg.animationDuration) {
 			this.animationDuration = arg.animationDuration
@@ -72,12 +82,18 @@ export default class Tab {
 			this.animationDuration = parseFloat(getComputedStyle(someTabElement)
 				.getPropertyValue('transition-duration')) * 1000
 		}
+		this.switchingLockTime = this.animationDuration
+
+		this.setToggleTabsEvent(arg.toggleTabsBy)
+
 
 		if (arg.fadeEffect) {
 			this.setFadeTabs()
 
+			window.addEventListener('resize', this.resizeFadeTabs.bind(this))
+
 			for (let tabButton of this.buttons) {
-				tabButton.addEventListener('click', () =>
+				tabButton.addEventListener(this.toggleTabsEvent, () =>
 					this.toggleTabsFade(tabButton)
 				)
 			}
@@ -85,7 +101,7 @@ export default class Tab {
 			this.setDefaultTabs()
 
 			for (let tabButton of this.buttons) {
-				tabButton.addEventListener('click', () =>
+				tabButton.addEventListener(this.toggleTabsEvent, () =>
 					this.toggleTabs(tabButton)
 				)
 			}
@@ -134,6 +150,21 @@ export default class Tab {
 		}
 	}
 
+	private resizeFadeTabs() {
+		let currentActiveElement = this.getCurrentActiveTab()
+		let marginForCurrentElement = 0
+
+		if (currentActiveElement) {
+			this.parentOfContentElements.style.height = `${currentActiveElement.clientHeight}px`
+		} else {
+			this.parentOfContentElements.style.height = `${this.contentElements[0].clientHeight}px`
+		}
+		for (let contentElement of this.contentElements) {
+			contentElement.style.transform = `translateY(-${marginForCurrentElement}px)`
+			marginForCurrentElement += contentElement.clientHeight
+		}
+	}
+
 	private toggleTabsFade(activeTabButton: HTMLElement) {
 		if (this.toggleTogglingStateIfPossible(activeTabButton) == false) {
 			return
@@ -154,7 +185,7 @@ export default class Tab {
 
 		setTimeout(() => {
 			this.isToggling = false
-		}, this.animationDuration)
+		}, this.switchingLockTime)
 	}
 	private async toggleTabs(activeTabButton: HTMLElement) {
 		if (this.toggleTogglingStateIfPossible(activeTabButton) == false) {
@@ -182,7 +213,7 @@ export default class Tab {
 
 		setTimeout(() => {
 			this.isToggling = false
-		}, this.animationDuration)
+		}, this.switchingLockTime)
 	}
 
 	private toggleTabButtons(activeTabButton: HTMLElement) {
@@ -198,7 +229,7 @@ export default class Tab {
 		if (activeTabButton.classList.contains(this.buttonsActiveClass) || this.isToggling) {
 			return false
 		} else {
-			this.isToggling = true;
+			this.isToggling = true
 			return true
 		}
 	}
@@ -217,6 +248,17 @@ export default class Tab {
 			this.parentOfContentElements.style.height = `${height}px`
 		} else {
 			this.parentOfContentElements.style.height = `${this.contentElements[0].clientHeight}px`
+		}
+	}
+	private setToggleTabsEvent(toggleTabsEvent: ToggleTabsEvent): void {
+		switch (toggleTabsEvent) {
+			case ToggleTabsEvent.Hover:
+				this.toggleTabsEvent = 'mouseenter'
+				this.switchingLockTime = 0
+				break
+			default:
+				this.toggleTabsEvent = 'click'
+				break
 		}
 	}
 }

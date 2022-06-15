@@ -1,8 +1,14 @@
 import { sleep, elementIsExistWithLog } from "./general.js";
+export var ToggleTabsEvent;
+(function (ToggleTabsEvent) {
+    ToggleTabsEvent[ToggleTabsEvent["Click"] = 0] = "Click";
+    ToggleTabsEvent[ToggleTabsEvent["Hover"] = 1] = "Hover";
+})(ToggleTabsEvent || (ToggleTabsEvent = {}));
 export default class Tab {
     constructor(arg) {
         this.isToggling = false;
         this.autoHeight = false;
+        this.toggleTabsEvent = 'click';
         this.containerheight = 0;
         this.buttonsActiveClass = 'active';
         this.contentActiveClass = 'active';
@@ -18,7 +24,8 @@ export default class Tab {
             this.buttonsActiveClass = arg.buttonsActiveClass;
         if (arg.contentActiveClass)
             this.contentActiveClass = arg.contentActiveClass;
-        this.buttons[0].classList.add(this.buttonsActiveClass);
+        if (arg.firstButtonIsNotActive == undefined || arg.firstButtonIsNotActive == false)
+            this.buttons[0].classList.add(this.buttonsActiveClass);
         this.contentElements[0].classList.add(this.contentActiveClass);
         if (arg.autoHeight)
             this.autoHeight = arg.autoHeight;
@@ -31,16 +38,19 @@ export default class Tab {
             this.animationDuration = parseFloat(getComputedStyle(someTabElement)
                 .getPropertyValue('transition-duration')) * 1000;
         }
+        this.switchingLockTime = this.animationDuration;
+        this.setToggleTabsEvent(arg.toggleTabsBy);
         if (arg.fadeEffect) {
             this.setFadeTabs();
+            window.addEventListener('resize', this.resizeFadeTabs.bind(this));
             for (let tabButton of this.buttons) {
-                tabButton.addEventListener('click', () => this.toggleTabsFade(tabButton));
+                tabButton.addEventListener(this.toggleTabsEvent, () => this.toggleTabsFade(tabButton));
             }
         }
         else {
             this.setDefaultTabs();
             for (let tabButton of this.buttons) {
-                tabButton.addEventListener('click', () => this.toggleTabs(tabButton));
+                tabButton.addEventListener(this.toggleTabsEvent, () => this.toggleTabs(tabButton));
             }
         }
     }
@@ -79,6 +89,20 @@ export default class Tab {
             this.parentOfContentElements.style.transition = `height ${this.animationDuration}ms`;
         }
     }
+    resizeFadeTabs() {
+        let currentActiveElement = this.getCurrentActiveTab();
+        let marginForCurrentElement = 0;
+        if (currentActiveElement) {
+            this.parentOfContentElements.style.height = `${currentActiveElement.clientHeight}px`;
+        }
+        else {
+            this.parentOfContentElements.style.height = `${this.contentElements[0].clientHeight}px`;
+        }
+        for (let contentElement of this.contentElements) {
+            contentElement.style.transform = `translateY(-${marginForCurrentElement}px)`;
+            marginForCurrentElement += contentElement.clientHeight;
+        }
+    }
     toggleTabsFade(activeTabButton) {
         if (this.toggleTogglingStateIfPossible(activeTabButton) == false) {
             return;
@@ -95,7 +119,7 @@ export default class Tab {
         nextContentElement.classList.add(this.contentActiveClass);
         setTimeout(() => {
             this.isToggling = false;
-        }, this.animationDuration);
+        }, this.switchingLockTime);
     }
     async toggleTabs(activeTabButton) {
         if (this.toggleTogglingStateIfPossible(activeTabButton) == false) {
@@ -117,7 +141,7 @@ export default class Tab {
         nextContentElement.classList.add(this.contentActiveClass);
         setTimeout(() => {
             this.isToggling = false;
-        }, this.animationDuration);
+        }, this.switchingLockTime);
     }
     toggleTabButtons(activeTabButton) {
         for (let accordBtn of this.buttons) {
@@ -154,6 +178,17 @@ export default class Tab {
         }
         else {
             this.parentOfContentElements.style.height = `${this.contentElements[0].clientHeight}px`;
+        }
+    }
+    setToggleTabsEvent(toggleTabsEvent) {
+        switch (toggleTabsEvent) {
+            case ToggleTabsEvent.Hover:
+                this.toggleTabsEvent = 'mouseenter';
+                this.switchingLockTime = 0;
+                break;
+            default:
+                this.toggleTabsEvent = 'click';
+                break;
         }
     }
 }

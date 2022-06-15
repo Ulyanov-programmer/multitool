@@ -332,6 +332,9 @@ input[type=date]::-webkit-calendar-picker-indicator {
 .burger-btn.active .burger-btn__rect-bottom {
   transform: rotate(-45deg);
 }
+html {
+  scroll-behavior: smooth;
+}
 .container {
   margin: auto;
 }

@@ -1,4 +1,4 @@
-import Tab from './modules/tab.js';
+import Tab, { ToggleTabsEvent } from './modules/tab.js';
 
 new Tab({
 	btnsSelector: '.tab__btn',
@@ -8,4 +8,5 @@ new Tab({
 	contentActiveClass: 'active',
 	autoHeight: true,
 	animationDuration: 500,
+	toggleTabsBy: ToggleTabsEvent.Click
 })
