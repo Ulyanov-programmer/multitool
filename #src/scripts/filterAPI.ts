@@ -1,4 +1,4 @@
-import Filter from './modules/filter.js';
+import Filter from './modules/filter.js'
 /*
 	When you press the filter__button, all elements that do not have 
 	a value similar to the filter__button attribute value will be hidden.

@@ -1,4 +1,4 @@
-import ScrollController from './modules/scrollToElement.js';
+import ScrollController from './modules/scrollToElement.js'
 /*
 	Use if you want to use buttons for scrolling.
 	How it works?
@@ -8,6 +8,6 @@ import ScrollController from './modules/scrollToElement.js';
 new ScrollController({
 	scrollButtonsSelector: '[data-scroll-to]',
 	// Use it so that a fixed header is taken into account when scrolling.
-	fixedElementSelector: '.fixed-header', 
+	fixedElementSelector: '.fixed-header',
 	scrollByAdressURL: true,
 })

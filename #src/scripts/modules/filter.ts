@@ -1,4 +1,4 @@
-import { elementIsExistWithLog } from "./general.js";
+import { elementIsExistWithLog } from "./general.js"
 
 interface FilterArgs {
 	/**
@@ -18,28 +18,28 @@ export default class Filter {
 	private filterContentElements: NodeListOf<HTMLElement>
 
 	constructor(arg: FilterArgs) {
-		if (!elementIsExistWithLog('Filter', arg.filtButtonsSelector, arg.filtElementsSelector)) 
+		if (!elementIsExistWithLog('Filter', arg.filtButtonsSelector, arg.filtElementsSelector))
 			return
 
-		this.filterButtons = document.querySelectorAll(arg.filtButtonsSelector);
-		this.filterContentElements = document.querySelectorAll(arg.filtElementsSelector);
+		this.filterButtons = document.querySelectorAll(arg.filtButtonsSelector)
+		this.filterContentElements = document.querySelectorAll(arg.filtElementsSelector)
 
 		for (let filtButton of this.filterButtons) {
 			filtButton.addEventListener('click', () => {
 				this.filtContentByType(filtButton, this.filterContentElements)
-			});
+			})
 		}
 	}
 
 
 	private filtContentByType(filterButton: HTMLElement, filterContentElements: NodeListOf<HTMLElement>) {
-		let typeOfContent = filterButton.dataset.filtContent;
+		let typeOfContent = filterButton.dataset.filtContent
 
 		for (let filtElement of filterContentElements) {
 			if (typeOfContent == 'all' || filtElement.dataset.contentType.includes(typeOfContent)) {
-				filtElement.style.display = '';
+				filtElement.style.display = ''
 			} else {
-				filtElement.style.display = 'none';
+				filtElement.style.display = 'none'
 			}
 		}
 		for (let btn of this.filterButtons) {

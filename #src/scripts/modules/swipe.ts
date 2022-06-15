@@ -1,4 +1,4 @@
-import { isNullOrWhiteSpaces } from "./general.js";
+import { isNullOrWhiteSpaces } from "./general.js"
 
 enum SwipeSide {
 	Top,
@@ -71,7 +71,7 @@ export default class SwipeElement {
 			throw new Error('[SWIPE-ELEMENT Some selector is null or white spaces!]')
 
 		window.addEventListener(`resize`, () => {
-			this.checkMaxWorkWidth();
+			this.checkMaxWorkWidth()
 		})
 
 		this.touchAreaElement = document.querySelector(arg.touchStartAreaSelector)
@@ -215,7 +215,7 @@ export default class SwipeElement {
 
 
 	private getTranslateState(xOrY: string = 'x') {
-		let valueIndex = xOrY == 'x' ? 4 : 5;
+		let valueIndex = xOrY == 'x' ? 4 : 5
 		let state
 
 		// get a value of transformX or transformY of swipableElement

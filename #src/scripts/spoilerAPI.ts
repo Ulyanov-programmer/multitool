@@ -1,4 +1,4 @@
-import SpoilerMenu from './modules/spoiler.js';
+import SpoilerMenu from './modules/spoiler.js'
 
 new SpoilerMenu({
 	btnsSelector: '.spoiler_btn',

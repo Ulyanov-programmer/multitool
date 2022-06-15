@@ -1,4 +1,4 @@
-import { returnScrollbarWidth, elementIsExistWithLog } from "./general.js";
+import { returnScrollbarWidth, elementIsExistWithLog } from "./general.js"
 
 interface BurgerMenuArgs {
 	/** Selctor buttons for burger menu. */
@@ -37,46 +37,46 @@ export default class BurgerMenu {
 		if (args.autoPadding)
 			BurgerMenu.menu.style.paddingTop = `${BurgerMenu.header.clientHeight}px`
 
-		BurgerMenu.burger.addEventListener('click', this.toggleNavmenu);
+		BurgerMenu.burger.addEventListener('click', this.toggleNavmenu)
 
 		for (let button of BurgerMenu.buttons) {
-			button.addEventListener('click', this.hideNavmenu);
+			button.addEventListener('click', this.hideNavmenu)
 		}
 	}
 
 
 	private toggleNavmenu() {
-		let scrollbarWidth = returnScrollbarWidth();
+		let scrollbarWidth = returnScrollbarWidth()
 
 		if (BurgerMenu.autoPadding)
-			BurgerMenu.menu.style.paddingTop = `${BurgerMenu.header.clientHeight}px`;
+			BurgerMenu.menu.style.paddingTop = `${BurgerMenu.header.clientHeight}px`
 
-		BurgerMenu.burger.classList.toggle(BurgerMenu.burgerActiveClass);
+		BurgerMenu.burger.classList.toggle(BurgerMenu.burgerActiveClass)
 
 		if (document.body.style.overflow != 'hidden') {
 			document.body.style.overflow = 'hidden'
 		} else {
 			document.body.style.overflow = ''
 		}
-		document.body.style.paddingRight = `${scrollbarWidth}px`;
+		document.body.style.paddingRight = `${scrollbarWidth}px`
 
-		BurgerMenu.header.style.paddingRight = `${scrollbarWidth}px`;
+		BurgerMenu.header.style.paddingRight = `${scrollbarWidth}px`
 
-		BurgerMenu.menu.classList.toggle(BurgerMenu.fsNavmenuActiveClass);
+		BurgerMenu.menu.classList.toggle(BurgerMenu.fsNavmenuActiveClass)
 	}
 
 	private hideNavmenu() {
-		let scrollbarWidth = returnScrollbarWidth();
+		let scrollbarWidth = returnScrollbarWidth()
 
-		BurgerMenu.burger.classList.remove(BurgerMenu.burgerActiveClass);
+		BurgerMenu.burger.classList.remove(BurgerMenu.burgerActiveClass)
 
 		if (document.body.style.overflow.includes('hidden')) {
 			document.body.style.overflow = ''
 		} else {
 			document.body.style.overflow = 'hidden'
 		}
-		document.body.style.paddingRight = `${scrollbarWidth}px`;
+		document.body.style.paddingRight = `${scrollbarWidth}px`
 
-		BurgerMenu.menu.classList.remove(BurgerMenu.fsNavmenuActiveClass);
+		BurgerMenu.menu.classList.remove(BurgerMenu.fsNavmenuActiveClass)
 	}
 }

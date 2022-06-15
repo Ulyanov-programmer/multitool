@@ -1,4 +1,4 @@
-import { elementsIsExist } from "./general.js";
+import { elementsIsExist } from "./general.js"
 
 interface AnimateByScrollArgs {
 	/**
@@ -64,14 +64,14 @@ export default class AnimateByScroll {
 			ru: http://webupblog.ru/animatsiya-pri-prokrutke-stranitsy-na-javascript-i-css/
 		*/
 
-		var elementBoundary = animElement.htmlElement.getBoundingClientRect();
+		var elementBoundary = animElement.htmlElement.getBoundingClientRect()
 
-		var top = elementBoundary.top;
-		var bottom = elementBoundary.bottom;
-		var height = elementBoundary.height;
+		var top = elementBoundary.top
+		var bottom = elementBoundary.bottom
+		var height = elementBoundary.height
 		let heightWithCoeff = height * animElement.animStartCoeff
 
-		return ((top + heightWithCoeff >= 0) && (heightWithCoeff + window.innerHeight >= bottom));
+		return ((top + heightWithCoeff >= 0) && (heightWithCoeff + window.innerHeight >= bottom))
 	}
 }
 

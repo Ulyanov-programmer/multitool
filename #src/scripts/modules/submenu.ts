@@ -1,4 +1,4 @@
-import { isNullOrWhiteSpaces, elementIsExistWithLog } from "./general.js";
+import { isNullOrWhiteSpaces, elementIsExistWithLog } from "./general.js"
 export enum SubmenuOpenIvents {
 	Click,
 	Hover,
@@ -22,8 +22,8 @@ export default class Submenu {
 		if (isNullOrWhiteSpaces(args.menuActiveClass, args.buttonActiveClass))
 			console.log('[Submenu] Please specify the classes for the elements when they are active.')
 
-		Submenu.buttonActiveClass = args.buttonActiveClass;
-		Submenu.menuActiveClass = args.menuActiveClass;
+		Submenu.buttonActiveClass = args.buttonActiveClass
+		Submenu.menuActiveClass = args.menuActiveClass
 		Submenu.submenuElements.push(...submenuElements)
 
 		if (args.disableOnEsc) {
@@ -38,11 +38,11 @@ export default class Submenu {
 		for (let i = 0; i < currentSubmenuGroup.buttonElements.length; i++) {
 
 			if (currentSubmenuGroup.buttonElements[i] == activeElement) {
-				currentSubmenuGroup.buttonElements[i].classList.toggle(Submenu.buttonActiveClass);
-				currentSubmenuGroup.menuElements[i].classList.toggle(Submenu.menuActiveClass);
+				currentSubmenuGroup.buttonElements[i].classList.toggle(Submenu.buttonActiveClass)
+				currentSubmenuGroup.menuElements[i].classList.toggle(Submenu.menuActiveClass)
 			} else {
-				currentSubmenuGroup.buttonElements[i].classList.remove(Submenu.buttonActiveClass);
-				currentSubmenuGroup.menuElements[i].classList.remove(Submenu.menuActiveClass);
+				currentSubmenuGroup.buttonElements[i].classList.remove(Submenu.buttonActiveClass)
+				currentSubmenuGroup.menuElements[i].classList.remove(Submenu.menuActiveClass)
 			}
 		}
 	}
@@ -53,8 +53,8 @@ export default class Submenu {
 			if (submenuGroup.openIvent == SubmenuOpenIvents.Click) {
 
 				for (let i = 0; i < submenuGroup.buttonElements.length; i++) {
-					submenuGroup.buttonElements[i].classList.remove(Submenu.buttonActiveClass);
-					submenuGroup.menuElements[i].classList.remove(Submenu.menuActiveClass);
+					submenuGroup.buttonElements[i].classList.remove(Submenu.buttonActiveClass)
+					submenuGroup.menuElements[i].classList.remove(Submenu.menuActiveClass)
 				}
 			}
 		}
@@ -86,7 +86,7 @@ export class SubmenuElementGroup {
 			case SubmenuOpenIvents.Hover:
 				for (let button of this.buttonElements) {
 					let wrapper = button.parentElement as HTMLElement
-	
+
 					button.addEventListener('focus', () =>
 						Submenu.showOrHideSubmenu(this, button)
 					)

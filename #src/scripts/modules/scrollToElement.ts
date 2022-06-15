@@ -1,4 +1,4 @@
-import { elementIsExistWithLog, elementsIsExist } from "./general.js";
+import { elementIsExistWithLog, elementsIsExist } from "./general.js"
 
 interface SpoilerMenuArgs {
 	/** 
@@ -24,7 +24,7 @@ export default class ScrollController {
 		if (!elementIsExistWithLog('ScrollController', arg.scrollButtonsSelector))
 			return
 
-		let scrollButtons = document.querySelectorAll<HTMLElement>(arg.scrollButtonsSelector);
+		let scrollButtons = document.querySelectorAll<HTMLElement>(arg.scrollButtonsSelector)
 
 		for (let scrollButton of scrollButtons) {
 			scrollButton.addEventListener('click', () =>
@@ -33,24 +33,24 @@ export default class ScrollController {
 		}
 
 		if (elementsIsExist(arg.fixedElementSelector)) {
-			let heightHeight = document.querySelector(arg.fixedElementSelector).clientHeight;
-			ScrollController.fixedElementHeight = heightHeight;
+			let heightHeight = document.querySelector(arg.fixedElementSelector).clientHeight
+			ScrollController.fixedElementHeight = heightHeight
 		}
 		if (arg.scrollByAdressURL) {
-			window.addEventListener('load', this.scrollToElementByAdress);
+			window.addEventListener('load', this.scrollToElementByAdress)
 		}
 	}
 
 
 	private static scrollToElement(scrollTo: string) {
-		let scrollElement = document.querySelector(scrollTo);
+		let scrollElement = document.querySelector(scrollTo)
 
 		if (scrollElement == undefined) {
 			console.log('[ScrollController] Something wrong with scrollElement!')
 			return
 		}
 
-		let scrolltop = window.pageYOffset + scrollElement.getBoundingClientRect().top;
+		let scrolltop = window.pageYOffset + scrollElement.getBoundingClientRect().top
 
 		window.scrollTo({
 			top: scrolltop - ScrollController.fixedElementHeight,

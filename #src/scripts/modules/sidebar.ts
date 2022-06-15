@@ -1,4 +1,4 @@
-import { elementIsExistWithLog } from "./general.js";
+import { elementIsExistWithLog } from "./general.js"
 
 interface SidebarMenuArgs {
 	/** Selector of sidebars. Should contain id of this sidebar. */
@@ -23,7 +23,7 @@ export default class SidebarMenu {
 			return
 		}
 
-		this.sidebarButtons = document.querySelectorAll(arg.selectorOfSidebarButtons);
+		this.sidebarButtons = document.querySelectorAll(arg.selectorOfSidebarButtons)
 
 		SidebarMenu.swipeArea = document.querySelector(arg.swipeAreaSelector)
 

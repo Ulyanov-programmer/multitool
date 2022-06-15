@@ -2,8 +2,8 @@
  * @returns Returns the width of the page scroll bar.
  */
 export function returnScrollbarWidth(): number {
-	let scrollbarWidth = window.innerWidth - document.querySelector('html').clientWidth;
-	return scrollbarWidth;
+	let scrollbarWidth = window.innerWidth - document.querySelector('html').clientWidth
+	return scrollbarWidth
 }
 /**
  * @returns 
@@ -16,10 +16,10 @@ export function returnScrollbarWidth(): number {
 export function isNullOrWhiteSpaces(...strings: string[]): boolean {
 	for (const str of strings) {
 		if (!str || str.trim() === '') {
-			return true;
+			return true
 		}
 	}
-	return false;
+	return false
 }
 /**
  * Temporarily stops code execution for the specified amount of time.

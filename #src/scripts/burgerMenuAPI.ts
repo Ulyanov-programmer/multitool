@@ -1,4 +1,4 @@
-import BurgerMenu from './modules/burgerMenu.js';
+import BurgerMenu from './modules/burgerMenu.js'
 
 new BurgerMenu({
 	burgerSelector: '#burgerButton',

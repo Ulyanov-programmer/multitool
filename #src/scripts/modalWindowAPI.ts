@@ -1,4 +1,4 @@
-import ModalWindowMenu from './modules/modalWindow.js';
+import ModalWindowMenu from './modules/modalWindow.js'
 /*
 	It works like this:
 	Finds all elements that contain data-modal-link and .modal-closer.

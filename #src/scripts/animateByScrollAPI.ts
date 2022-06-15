@@ -1,4 +1,4 @@
-import AnimateByScroll, { AnimationElement, AnimationMediaQuery } from "./modules/animateByScroll.js";
+import AnimateByScroll, { AnimationElement, AnimationMediaQuery } from "./modules/animateByScroll.js"
 
 new AnimateByScroll(
 	{ repeatingAnimations: true },

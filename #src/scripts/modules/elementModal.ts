@@ -1,4 +1,4 @@
-import { elementIsExistWithLog, sleep } from "./general.js";
+import { elementIsExistWithLog, sleep } from "./general.js"
 
 interface ElementModalArgs {
 	/** Elements over which the modal should be. */
@@ -18,8 +18,8 @@ export default class ElementModal {
 			return
 		}
 
-		this.contentElements = document.querySelectorAll(arg.contentElementsSelector);
-		this.modalElement = document.querySelector(arg.modalElementSelector);
+		this.contentElements = document.querySelectorAll(arg.contentElementsSelector)
+		this.modalElement = document.querySelector(arg.modalElementSelector)
 
 		this.animationDuration = parseFloat(getComputedStyle(this.modalElement)
 			.getPropertyValue('transition-duration')) * 1000
@@ -45,21 +45,21 @@ export default class ElementModal {
 
 
 	private async appendModalMenu(contentElement: HTMLElement, modalElement: HTMLElement) {
-		let modalElementClone = modalElement.cloneNode(true) as HTMLElement;
+		let modalElementClone = modalElement.cloneNode(true) as HTMLElement
 
-		contentElement.append(modalElementClone);
+		contentElement.append(modalElementClone)
 		await sleep(30)
-		modalElementClone.classList.remove('_non-active');
+		modalElementClone.classList.remove('_non-active')
 	}
 	private async removeModalMenu(contentElement: HTMLElement, animationDuration: number) {
 		// Try to get modal block.
-		let modalMenu = contentElement.lastElementChild;
+		let modalMenu = contentElement.lastElementChild
 
 		if (modalMenu) {
 			modalMenu.classList.add('_non-active')
 
 			await sleep(animationDuration + 100)
-			modalMenu.remove();
+			modalMenu.remove()
 		}
 	}
 }
