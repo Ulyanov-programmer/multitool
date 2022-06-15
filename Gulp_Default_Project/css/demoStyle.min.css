@@ -13,6 +13,9 @@
 ::active {
   outline: none;
 }
+*:focus-visible {
+  outline: 1px solid;
+}
 nav,
 footer,
 header,

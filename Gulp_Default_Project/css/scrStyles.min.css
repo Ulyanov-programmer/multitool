@@ -9,25 +9,29 @@
   padding: 5px;
   border: 1px solid #000;
 }
-.submenu {
+.submenu-wrapper {
+  position: relative;
+}
+.submenu-menu {
   position: absolute;
   z-index: 1;
   display: none;
   background: #818181;
   top: 100%;
-  width: 100%;
+  width: max-content;
   color: #fff;
+  padding: 5px 10px;
 }
-.submenu.show {
+.submenu-menu.show {
   display: block;
 }
-.submenu_to-left {
+.submenu-menu_to-left {
   right: 0;
 }
-.submenu_to-right {
+.submenu-menu_to-right {
   left: 0;
 }
-.submenu_center {
+.submenu-menu_center {
   left: 50%;
   transform: translate(-50%, 0);
 }

@@ -13,6 +13,9 @@
 ::active {
   outline: none;
 }
+*:focus-visible {
+  outline: 1px solid;
+}
 nav,
 footer,
 header,
@@ -85,10 +88,10 @@ address {
   --main-font-family: Arial;
   --bg: #5f5e5e;
 }
-.submenu-button {
+.submenu-wrapper {
   position: relative;
 }
-.submenu {
+.submenu-menu {
   position: absolute;
   z-index: 1;
   display: none;
@@ -96,17 +99,16 @@ address {
   top: 100%;
   width: max-content;
 }
-.submenu.show {
-  position: absolute;
+.submenu-menu.show {
   display: block;
 }
-.submenu_to-left {
+.submenu-menu_to-left {
   right: 0;
 }
-.submenu_to-right {
+.submenu-menu_to-right {
   left: 0;
 }
-.submenu_center {
+.submenu-menu_center {
   left: 50%;
   transform: translate(-50%, 0);
 }

@@ -47,16 +47,21 @@ export class SubmenuElementGroup {
         this.menuElements = document.querySelectorAll(args.menusSelector);
         this.buttonElements = document.querySelectorAll(args.buttonsSelector);
         this.openIvent = args.openIvent;
-        if (this.openIvent == SubmenuOpenIvents.Click) {
-            for (let buttonEl of this.buttonElements) {
-                buttonEl.addEventListener('click', () => Submenu.showOrHideSubmenu(this, buttonEl));
-            }
-        }
-        else if (this.openIvent == SubmenuOpenIvents.Hover) {
-            for (let buttonEl of this.buttonElements) {
-                buttonEl.addEventListener('mouseover', () => Submenu.showOrHideSubmenu(this, buttonEl));
-                buttonEl.addEventListener('mouseout', () => Submenu.showOrHideSubmenu(this, buttonEl));
-            }
+        switch (this.openIvent) {
+            case SubmenuOpenIvents.Hover:
+                for (let button of this.buttonElements) {
+                    let wrapper = button.parentElement;
+                    button.addEventListener('focus', () => Submenu.showOrHideSubmenu(this, button));
+                    button.addEventListener('focusout', () => Submenu.showOrHideSubmenu(this, button));
+                    button.addEventListener('mouseenter', () => Submenu.showOrHideSubmenu(this, button));
+                    wrapper.addEventListener('mouseleave', () => Submenu.showOrHideSubmenu(this, button));
+                }
+                break;
+            default:
+                for (let buttonEl of this.buttonElements) {
+                    buttonEl.addEventListener('click', () => Submenu.showOrHideSubmenu(this, buttonEl));
+                }
+                break;
         }
     }
 }

@@ -11,14 +11,19 @@
 	border 1px solid #000;
 }
 
-.submenu {
+.submenu-wrapper {
+	position relative;
+}
+
+.submenu-menu {
 	position absolute;
 	z-index 1;
 	display none;
 	background #818181;
 	top 100%;
-	width 100%;
-	color #fff;
+	width max-content;
+	color: #fff;
+	padding: 5px 10px;
 
 	&.show {
 		display block;
