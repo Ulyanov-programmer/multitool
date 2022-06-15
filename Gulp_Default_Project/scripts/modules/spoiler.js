@@ -20,27 +20,27 @@ export default class SpoilerMenu {
         window.addEventListener(`resize`, this.toggleToSpoilers);
     }
     toggleToSpoilers() {
-        for (let i = 0; i < SpoilerMenu.spoilerContentElements.length; i++) {
-            if (window.innerWidth <= SpoilerMenu.spoilerVisibleWidth) {
-                SpoilerMenu.spoilerContentElements[i].classList.add('spoiler-content-active');
-                SpoilerMenu.spoilerButtons[i].classList.add('spoiler-btn-active');
-            }
-            else {
-                SpoilerMenu.spoilerContentElements[i].classList.remove('spoiler-content-active');
-                SpoilerMenu.spoilerButtons[i].classList.remove('spoiler-btn-active');
-            }
-            if (SpoilerMenu.spoilerButtons[i].classList.contains(SpoilerMenu.btnActiveClass)) {
-                SpoilerMenu.spoilerContentElements[i].hidden = false;
-            }
-            else {
-                SpoilerMenu.spoilerContentElements[i].hidden = true;
+        if (window.innerWidth <= SpoilerMenu.spoilerVisibleWidth) {
+            for (let i = 0; i < SpoilerMenu.spoilerContentElements.length; i++) {
+                if (SpoilerMenu.spoilerButtons[i].classList.contains(SpoilerMenu.btnActiveClass)) {
+                    SpoilerMenu.spoilerContentElements[i].hidden = false;
+                }
+                else {
+                    SpoilerMenu.spoilerContentElements[i].hidden = true;
+                }
+                SpoilerMenu.spoilerButtons[i].addEventListener('click', SpoilerMenu.toggleSpoilerState);
+                SpoilerMenu.spoilerButtons[i].style.cursor = 'pointer';
             }
         }
-        for (let spoilerButton of SpoilerMenu.spoilerButtons) {
-            spoilerButton.addEventListener('click', this.toggleSpoilerState);
+        else {
+            for (let i = 0; i < SpoilerMenu.spoilerContentElements.length; i++) {
+                SpoilerMenu.spoilerContentElements[i].hidden = false;
+                SpoilerMenu.spoilerButtons[i].removeEventListener('click', SpoilerMenu.toggleSpoilerState);
+                SpoilerMenu.spoilerButtons[i].style.cursor = 'default';
+            }
         }
     }
-    toggleSpoilerState(event) {
+    static toggleSpoilerState(event) {
         let targetSpoilerButton = event.currentTarget;
         let spoilerContainer = targetSpoilerButton.nextElementSibling;
         if (spoilerContainer.classList.contains('_slide') === false) {
