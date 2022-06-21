@@ -138,6 +138,8 @@ body >* {
   align-items: center;
 }
 .header__socials >* {
+  display: flex;
+  flex-flow: row nowrap;
   padding: 5px;
 }
 .top-btn {

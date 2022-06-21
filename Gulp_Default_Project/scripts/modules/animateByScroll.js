@@ -23,49 +23,53 @@ export default class AnimateByScroll {
     checkAndToggleAnimationForElements() {
         window.requestAnimationFrame(() => {
             for (let animateElement of AnimateByScroll.elements) {
-                if (this.isPartiallyVisible(animateElement) &&
-                    !animateElement.htmlElement.classList.contains(AnimateByScroll.activeAnimationClass)) {
-                    setTimeout(() => {
-                        animateElement.htmlElement.classList.add(AnimateByScroll.activeAnimationClass);
-                    }, animateElement.timeoutBeforeStart);
-                }
-                else if (!this.isPartiallyVisible(animateElement) && AnimateByScroll.repeatingAnimations) {
-                    animateElement.htmlElement.classList.remove(AnimateByScroll.activeAnimationClass);
+                for (const animateHtml of animateElement.htmlElements) {
+                    if (this.isPartiallyVisible(animateElement, animateHtml) &&
+                        !animateHtml.classList.contains(AnimateByScroll.activeAnimationClass)) {
+                        setTimeout(() => {
+                            animateHtml.classList.add(AnimateByScroll.activeAnimationClass);
+                        }, parseInt(animateHtml.dataset.timeout));
+                    }
+                    else if (!this.isPartiallyVisible(animateElement, animateHtml) && AnimateByScroll.repeatingAnimations) {
+                        animateHtml.classList.remove(AnimateByScroll.activeAnimationClass);
+                    }
                 }
             }
         });
     }
-    isPartiallyVisible(animElement) {
+    isPartiallyVisible(animElement, animHtml) {
         /* thanks for this function:
             en: https://www.kirupa.com/animations/creating_scroll_activated_animations.htm
             ru: http://webupblog.ru/animatsiya-pri-prokrutke-stranitsy-na-javascript-i-css/
         */
-        var elementBoundary = animElement.htmlElement.getBoundingClientRect();
+        var elementBoundary = animHtml.getBoundingClientRect();
         var top = elementBoundary.top;
         var bottom = elementBoundary.bottom;
         var height = elementBoundary.height;
-        let heightWithCoeff = height * animElement.animStartCoeff;
+        let heightWithCoeff = height * parseFloat(animHtml.dataset.viewStartCoeff);
         return ((top + heightWithCoeff >= 0) && (heightWithCoeff + window.innerHeight >= bottom));
     }
 }
 AnimateByScroll.repeatingAnimations = false;
 /** This class will be applied when the blocks are sufficiently shown on the display. */
 AnimateByScroll.activeAnimationClass = 'active';
-export class AnimationElement {
+export class AnimationGroup {
     /**
     * @param mediaQueries
     * If you need to change the animation assignment settings at a certain width, set the objects of `AnimationMediaQuery`.
     */
     constructor(arg, ...mediaQueries) {
-        if (elementsIsExist(arg.selector) == false) {
-            console.log('[AnimationElement] Element is not exist!');
+        if (elementsIsExist(arg.selectors) == false) {
+            console.log('[AnimationGroup] Element is not exist!');
         }
         else if (arg.animateStartCoeff <= 0 || arg.animateStartCoeff > 1) {
-            console.log('[AnimationElement] AnimateStartCoeff <= 0 or > 1');
+            console.log('[AnimationGroup] AnimateStartCoeff <= 0 or > 1');
         }
-        this.timeoutBeforeStart = arg.timeoutBeforeStart;
-        this.htmlElement = document.querySelector(arg.selector);
-        this.animStartCoeff = arg.animateStartCoeff;
+        this.htmlElements = document.querySelectorAll(arg.selectors);
+        for (let htmlElement of this.htmlElements) {
+            htmlElement.setAttribute('data-timeout', arg.timeoutBeforeStart.toString());
+            htmlElement.setAttribute('data-view-start-coeff', arg.animateStartCoeff.toString());
+        }
         this.defTimeoutBeforeStart = arg.timeoutBeforeStart;
         this.defAnimStartCoeff = arg.animateStartCoeff;
         this.mediaQueries = mediaQueries;
@@ -73,12 +77,16 @@ export class AnimationElement {
     setMediaProperties() {
         for (let media of this.mediaQueries) {
             if (window.innerWidth <= media.activeWitdh) {
-                this.animStartCoeff = media.animateStartCoeff;
-                this.timeoutBeforeStart = media.timeoutBeforeStart;
+                for (let htmlElement of this.htmlElements) {
+                    htmlElement.setAttribute('data-timeout', media.timeoutBeforeStart.toString());
+                    htmlElement.setAttribute('data-view-start-coeff', media.animateStartCoeff.toString());
+                }
             }
             else {
-                this.animStartCoeff = this.defAnimStartCoeff;
-                this.timeoutBeforeStart = this.defTimeoutBeforeStart;
+                for (let htmlElement of this.htmlElements) {
+                    htmlElement.setAttribute('data-timeout', this.defTimeoutBeforeStart.toString());
+                    htmlElement.setAttribute('data-view-start-coeff', this.defAnimStartCoeff.toString());
+                }
             }
         }
     }
