@@ -6,6 +6,10 @@ export default class SidebarMenu {
         }
         this.sidebarButtons = document.querySelectorAll(arg.selectorOfSidebarButtons);
         SidebarMenu.swipeArea = document.querySelector(arg.swipeAreaSelector);
+        if (arg.buttonsActiveClass)
+            SidebarMenu.buttonsActiveClass = arg.buttonsActiveClass;
+        if (arg.sidebarsActiveClass)
+            SidebarMenu.sidebarsActiveClass = arg.sidebarsActiveClass;
         for (let sidebarBtn of this.sidebarButtons) {
             sidebarBtn.addEventListener('click', () => this.toggleSidebar(sidebarBtn));
         }

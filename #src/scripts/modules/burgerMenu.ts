@@ -11,17 +11,19 @@ interface BurgerMenuArgs {
 	buttonsSelector: string
 	/** If the value is true, set the automatic padding to the size of a header. */
 	autoPadding?: boolean
+	burgerActiveClass?: string
+	menuActiveClass?: string
 }
 
 export default class BurgerMenu {
 	private static burger: HTMLElement
 	private static menu: HTMLElement
 	private static buttons: NodeListOf<HTMLElement>
-	private static header: HTMLElement = document.querySelector('header')
+	private static header = document.querySelector('header') as HTMLElement
 	private static autoPadding: boolean = true
 
 	public static burgerActiveClass: string = 'active'
-	public static fsNavmenuActiveClass: string = 'active'
+	public static menuActiveClass: string = 'active'
 
 	constructor(args: BurgerMenuArgs) {
 		if (!elementIsExistWithLog('BurgerMenu',
@@ -29,10 +31,16 @@ export default class BurgerMenu {
 			return
 		}
 
-		BurgerMenu.burger = document.querySelector(args.burgerSelector)
-		BurgerMenu.menu = document.querySelector(args.burgerMenuSelector)
+		BurgerMenu.burger = document.querySelector(args.burgerSelector) as HTMLElement
+		BurgerMenu.menu = document.querySelector(args.burgerMenuSelector) as HTMLElement
 		BurgerMenu.buttons = document.querySelectorAll(args.buttonsSelector)
 		BurgerMenu.autoPadding = args.autoPadding
+
+
+		if (args.burgerActiveClass)
+			BurgerMenu.burgerActiveClass = args.burgerActiveClass
+		if (args.menuActiveClass)
+			BurgerMenu.menuActiveClass = args.menuActiveClass
 
 		if (args.autoPadding)
 			BurgerMenu.menu.style.paddingTop = `${BurgerMenu.header.clientHeight}px`
@@ -62,7 +70,7 @@ export default class BurgerMenu {
 
 		BurgerMenu.header.style.paddingRight = `${scrollbarWidth}px`
 
-		BurgerMenu.menu.classList.toggle(BurgerMenu.fsNavmenuActiveClass)
+		BurgerMenu.menu.classList.toggle(BurgerMenu.menuActiveClass)
 	}
 
 	private hideNavmenu() {
@@ -77,6 +85,6 @@ export default class BurgerMenu {
 		}
 		document.body.style.paddingRight = `${scrollbarWidth}px`
 
-		BurgerMenu.menu.classList.remove(BurgerMenu.fsNavmenuActiveClass)
+		BurgerMenu.menu.classList.remove(BurgerMenu.menuActiveClass)
 	}
 }

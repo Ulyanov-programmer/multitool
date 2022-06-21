@@ -73,7 +73,7 @@ export default class Tab {
 		if (arg.autoHeight)
 			this.autoHeight = arg.autoHeight
 
-		let someTabElement = document.querySelector<HTMLElement>(arg.contentBlocksSelector)
+		let someTabElement = document.querySelector(arg.contentBlocksSelector) as HTMLElement
 		this.parentOfContentElements = someTabElement.parentElement as HTMLElement
 
 		if (arg.animationDuration) {
@@ -239,6 +239,7 @@ export default class Tab {
 				return contElem
 			}
 		}
+		return this.contentElements[0]
 	}
 	private getTabByPressedButton(activeTabButton: HTMLElement): HTMLElement {
 		return this.contentElements[activeTabButton.dataset.toggleElemNumber]

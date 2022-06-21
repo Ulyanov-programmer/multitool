@@ -1,11 +1,14 @@
 import { elementsIsExist } from "./general.js";
 export default class AnimateByScroll {
     constructor(arg, ...elements) {
+        this.activeAnimationClass = 'active';
         AnimateByScroll.repeatingAnimations = arg.repeatingAnimations;
         if (elements.length <= 0) {
             console.log('[AnimateByScroll] No elements have been created.');
             return;
         }
+        if (arg.activeAnimationClass)
+            this.activeAnimationClass = arg.activeAnimationClass;
         AnimateByScroll.elements = elements;
         this.checkAndToggleAnimationForElements();
         for (let element of AnimateByScroll.elements) {
@@ -25,13 +28,13 @@ export default class AnimateByScroll {
             for (let animateElement of AnimateByScroll.elements) {
                 for (const animateHtml of animateElement.htmlElements) {
                     if (this.isPartiallyVisible(animateElement, animateHtml) &&
-                        !animateHtml.classList.contains(AnimateByScroll.activeAnimationClass)) {
+                        !animateHtml.classList.contains(this.activeAnimationClass)) {
                         setTimeout(() => {
-                            animateHtml.classList.add(AnimateByScroll.activeAnimationClass);
+                            animateHtml.classList.add(this.activeAnimationClass);
                         }, parseInt(animateHtml.dataset.timeout));
                     }
                     else if (!this.isPartiallyVisible(animateElement, animateHtml) && AnimateByScroll.repeatingAnimations) {
-                        animateHtml.classList.remove(AnimateByScroll.activeAnimationClass);
+                        animateHtml.classList.remove(this.activeAnimationClass);
                     }
                 }
             }
@@ -51,8 +54,6 @@ export default class AnimateByScroll {
     }
 }
 AnimateByScroll.repeatingAnimations = false;
-/** This class will be applied when the blocks are sufficiently shown on the display. */
-AnimateByScroll.activeAnimationClass = 'active';
 export class AnimationGroup {
     /**
     * @param mediaQueries

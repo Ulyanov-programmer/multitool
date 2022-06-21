@@ -168,6 +168,7 @@ export default class Tab {
                 return contElem;
             }
         }
+        return this.contentElements[0];
     }
     getTabByPressedButton(activeTabButton) {
         return this.contentElements[activeTabButton.dataset.toggleElemNumber];

@@ -16,6 +16,8 @@ interface SpoilerMenuArgs {
 	maxWorkWidth: number
 	/** Animation duration in ms, unless you want spoilers to open and close too quickly. */
 	animationDuration: number
+	buttonActiveClass?: string
+	contentActiveClass?: string
 }
 
 export default class SpoilerMenu {
@@ -35,6 +37,12 @@ export default class SpoilerMenu {
 
 		SpoilerMenu.spoilerButtons = document.querySelectorAll(args.btnsSelector)
 		SpoilerMenu.spoilerContentElements = document.querySelectorAll(args.contentBlocksSelector)
+
+		if (args.buttonActiveClass)
+			SpoilerMenu.btnActiveClass = args.buttonActiveClass
+		if (args.contentActiveClass)
+			SpoilerMenu.contentActiveClass = args.contentActiveClass
+
 
 		if (SpoilerMenu.spoilerButtons.length != SpoilerMenu.spoilerContentElements.length) {
 			console.log('[SpoilerMenu] The count of buttons and content-elements must be equal.')

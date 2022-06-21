@@ -8,6 +8,10 @@ export default class BurgerMenu {
         BurgerMenu.menu = document.querySelector(args.burgerMenuSelector);
         BurgerMenu.buttons = document.querySelectorAll(args.buttonsSelector);
         BurgerMenu.autoPadding = args.autoPadding;
+        if (args.burgerActiveClass)
+            BurgerMenu.burgerActiveClass = args.burgerActiveClass;
+        if (args.menuActiveClass)
+            BurgerMenu.menuActiveClass = args.menuActiveClass;
         if (args.autoPadding)
             BurgerMenu.menu.style.paddingTop = `${BurgerMenu.header.clientHeight}px`;
         BurgerMenu.burger.addEventListener('click', this.toggleNavmenu);
@@ -28,7 +32,7 @@ export default class BurgerMenu {
         }
         document.body.style.paddingRight = `${scrollbarWidth}px`;
         BurgerMenu.header.style.paddingRight = `${scrollbarWidth}px`;
-        BurgerMenu.menu.classList.toggle(BurgerMenu.fsNavmenuActiveClass);
+        BurgerMenu.menu.classList.toggle(BurgerMenu.menuActiveClass);
     }
     hideNavmenu() {
         let scrollbarWidth = returnScrollbarWidth();
@@ -40,10 +44,10 @@ export default class BurgerMenu {
             document.body.style.overflow = 'hidden';
         }
         document.body.style.paddingRight = `${scrollbarWidth}px`;
-        BurgerMenu.menu.classList.remove(BurgerMenu.fsNavmenuActiveClass);
+        BurgerMenu.menu.classList.remove(BurgerMenu.menuActiveClass);
     }
 }
 BurgerMenu.header = document.querySelector('header');
 BurgerMenu.autoPadding = true;
 BurgerMenu.burgerActiveClass = 'active';
-BurgerMenu.fsNavmenuActiveClass = 'active';
+BurgerMenu.menuActiveClass = 'active';

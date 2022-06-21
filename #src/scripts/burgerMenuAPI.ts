@@ -5,6 +5,6 @@ new BurgerMenu({
 	burgerMenuSelector: '.burger-menu',
 	buttonsSelector: '.fs-element',
 	autoPadding: true,
+	menuActiveClass: 'active',
+	burgerActiveClass: 'active',
 })
-BurgerMenu.fsNavmenuActiveClass = 'active'
-BurgerMenu.burgerActiveClass = 'active'

@@ -6,13 +6,14 @@ interface AnimateByScrollArgs {
 		Set it to true, but i don't recommend to use this as true in production.
 	*/
 	repeatingAnimations: boolean
+	/** This class will be applied when the blocks are sufficiently shown on the display. */
+	activeAnimationClass?: string
 }
 
 export default class AnimateByScroll {
 	private static repeatingAnimations: boolean = false
 	private static elements: AnimationGroup[]
-	/** This class will be applied when the blocks are sufficiently shown on the display. */
-	public static activeAnimationClass: string = 'active'
+	public activeAnimationClass: string = 'active'
 
 	constructor(arg: AnimateByScrollArgs, ...elements: AnimationGroup[]) {
 		AnimateByScroll.repeatingAnimations = arg.repeatingAnimations
@@ -21,6 +22,8 @@ export default class AnimateByScroll {
 			console.log('[AnimateByScroll] No elements have been created.')
 			return
 		}
+		if (arg.activeAnimationClass)
+			this.activeAnimationClass = arg.activeAnimationClass
 
 		AnimateByScroll.elements = elements
 
@@ -48,14 +51,14 @@ export default class AnimateByScroll {
 				for (const animateHtml of animateElement.htmlElements) {
 
 					if (this.isPartiallyVisible(animateElement, animateHtml) &&
-						!animateHtml.classList.contains(AnimateByScroll.activeAnimationClass)) {
+						!animateHtml.classList.contains(this.activeAnimationClass)) {
 
 						setTimeout(() => {
-							animateHtml.classList.add(AnimateByScroll.activeAnimationClass)
+							animateHtml.classList.add(this.activeAnimationClass)
 						}, parseInt(animateHtml.dataset.timeout as string))
 					}
 					else if (!this.isPartiallyVisible(animateElement, animateHtml) && AnimateByScroll.repeatingAnimations) {
-						animateHtml.classList.remove(AnimateByScroll.activeAnimationClass)
+						animateHtml.classList.remove(this.activeAnimationClass)
 					}
 				}
 			}

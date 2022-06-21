@@ -9,6 +9,8 @@ interface SidebarMenuArgs {
 	*/
 	selectorOfSidebarButtons: string
 	swipeAreaSelector?: string
+	sidebarsActiveClass?: string
+	buttonsActiveClass?: string
 }
 
 export default class SidebarMenu {
@@ -25,7 +27,13 @@ export default class SidebarMenu {
 
 		this.sidebarButtons = document.querySelectorAll(arg.selectorOfSidebarButtons)
 
-		SidebarMenu.swipeArea = document.querySelector(arg.swipeAreaSelector)
+		SidebarMenu.swipeArea = document.querySelector(arg.swipeAreaSelector) as HTMLElement
+
+		if (arg.buttonsActiveClass)
+			SidebarMenu.buttonsActiveClass = arg.buttonsActiveClass
+		if (arg.sidebarsActiveClass)
+			SidebarMenu.sidebarsActiveClass = arg.sidebarsActiveClass
+
 
 		for (let sidebarBtn of this.sidebarButtons) {
 			sidebarBtn.addEventListener('click', () =>
@@ -35,7 +43,7 @@ export default class SidebarMenu {
 	}
 
 	private toggleSidebar(eventButton: HTMLElement) {
-		let sidebar = document.getElementById(eventButton.dataset.openSidebar)
+		let sidebar = document.getElementById(eventButton.dataset.openSidebar) as HTMLElement
 
 		eventButton.classList.toggle(SidebarMenu.buttonsActiveClass)
 		sidebar.classList.toggle(SidebarMenu.sidebarsActiveClass)

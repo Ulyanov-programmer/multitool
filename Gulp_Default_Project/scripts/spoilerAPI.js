@@ -4,6 +4,6 @@ new SpoilerMenu({
     contentBlocksSelector: '.spoiler_content',
     maxWorkWidth: 5000,
     animationDuration: 300,
+    buttonActiveClass: 'active',
+    contentActiveClass: 'active',
 });
-SpoilerMenu.btnActiveClass = 'active';
-SpoilerMenu.contentActiveClass = 'active';
