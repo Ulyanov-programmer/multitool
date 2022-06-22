@@ -63,12 +63,14 @@ bg-img-multi-type($url, $params) {
 	background url($url) $params;
 
 	/* The variable gulpHashes.canIncludeConvertedBg is available to you
-	in the file gulpData/css.js .
+	in the file gulpData/css.js (see the stylus pipe).
 	Its value depends on whether this gulp is running in normal or production mode.
 	*/
-	if (gulpHashes.canIncludeConvertedBg) {
-		$webpUrl = replace('.jpg', '.webp', $url);
-		$avifUrl = replace('.jpg', '.avif', $url);
+	if (gulpHashes.canIncludeConvertedBg == false) {
+		// Creating new paths, removing extensions.jpg and .png
+		$webpUrl = replace('.png', '.webp', replace('.jpg', '.webp', $url));
+		$avifUrl = replace('.png', '.avif', replace('.jpg', '.avif', $url));
+		// Embedding new paths
 		background-image -webkit-image-set(
 			url($avifUrl) 1x,
 			url($webpUrl) 1x,

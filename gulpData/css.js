@@ -6,7 +6,7 @@ import rename from 'gulp-rename';
 
 export function css() {
 	return gulp.src(paths.scr.css)
-		.pipe(stylus({ rawDefine: { gulpHashes: {canIncludeConvertedBg: global.isProd} }}))
+		.pipe(stylus({ rawDefine: { gulpHashes: { canIncludeConvertedBg: global.isProd } } }))
 
 		.pipe(global.if(global.isProd, groupMedia()))
 
