@@ -58,3 +58,26 @@ show() {
 	opacity 1;
 	pointer-events all;
 }
+
+bg-img-multi-type($url, $params) {
+	background url($url) $params;
+
+	/* The variable gulpHashes.canIncludeConvertedBg is available to you
+	in the file gulpData/css.js .
+	Its value depends on whether this gulp is running in normal or production mode.
+	*/
+	if (gulpHashes.canIncludeConvertedBg) {
+		$webpUrl = replace('.jpg', '.webp', $url);
+		$avifUrl = replace('.jpg', '.avif', $url);
+		background-image -webkit-image-set(
+			url($avifUrl) 1x,
+			url($webpUrl) 1x,
+			url($url) 1x
+		);
+		background-image image-set(
+			url($avifUrl) 1x,
+			url($webpUrl) 1x,
+			url($url) 1x
+		);
+	}
+}
