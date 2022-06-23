@@ -1,125 +1,113 @@
 {
-  "form": {
-    "scope": "html",
-    "prefix": "form",
-    "body": [
-      "<form class='' action='#'>",
-      "\t<fieldset class=''>",
-      "\t\t<legend class=''></legend>",
-      "\t</fieldset>",
-      "\t<button aria-label='submit this form' type='submit'>submit</button>",
-      "</form>"
-    ],
-  },
-  "button": {
-    "scope": "html",
-    "prefix": "button",
-    "body": [
-      "<button class='$1' aria-label='$2' type='${3|button,submit|}'>$0</button>",
-    ],
-  },
-  "section with class": {
-    "scope": "html",
-    "prefix": "sect",
-    "body": [
-      "<section class='$1'>",
-      "\t<div class='$1__body'>",
-      "\t\t<h${2:6} tabindex='0' class='$1__title'>${3:title}</h${2:6}>",
-      "\t\t$0",
-      "\t</div>",
-      "</section>"
-    ],
-  },
-  "HTML comment": {
-    "scope": "html",
-    "prefix": "comm",
-    "body": [
-      "<!-- $0 -->",
-    ],
-  },
-  "img in block": {
-    "scope": "html",
-    "prefix": "image",
-    "body": [
-      "<div class='adaptive-image $1'>",
-      "\t<img src=\"img$0\" loading='lazy' alt='$2' width=${3:width} height=${4:width}>",
-      "</div>"
-    ],
-  },
-  "img": {
-    "scope": "html",
-    "prefix": "img",
-    "body": [
-      "<img src=\"img$0\" loading='lazy' alt='$1' width=${2:width} height=${3:width}>",
-    ],
-  },
-  "Swiper slider html construction": {
-    "scope": "html",
-    "prefix": "swiper",
-    "body": [
-      "<div class='swiper'>",
-      "\t<div class='swiper-wrapper'>",
-      "\t\t<div class='swiper-slide'>Slide 1</div>",
-      "\t</div>\n\n",
-      "\t<div class='swiper-pagination'></div>\n",
-      "\t<div class='swiper-button-prev'></div>",
-      "\t<div class='swiper-button-next'></div>\n",
-      "\t<div class='swiper-scrollbar'></div>",
-      "</div>"
-    ],
-  },
-  "spoiler construction": {
-    "scope": "html",
-    "prefix": "spoiler",
-    "body": [
-      "<div class='${1:class}'>",
-      "\t<span data-spoiler-button>Spoiler button</span>",
-      "\t<ul data-spoiler-content>",
-      "\t\t<li>spoiler element</li>",
-      "\t</ul>",
-      "</div>",
-    ],
-  },
-  "reference": {
-    "scope": "html",
-    "prefix": "ref",
-    "body": [
-      "<a href='${0:#}' target='_blank' rel='noopener noreferrer'>$1</a>",
-    ],
-  },
-  "video construction": {
-    "scope": "html",
-    "prefix": "video",
-    "body": [
-      "<video poster='video$1' controls>",
-      "\t<source src='video/$2.webm' type='video/webm'>",
-      "\t<source src='video/$0.mp4' type='video/mp4'>",
-      "</video>",
-    ],
-  },
-  "tel ref": {
-    "scope": "html",
-    "prefix": "tel",
-    "body": [
-      "<a href='tel:+${1:88005553535}'>$0</a>",
-    ],
-  },
-  "mail ref": {
-    "scope": "html",
-    "prefix": "mail",
-    "body": [
-      "<a href='mailto:${1:someEmail@gmail.com}'>$0</a>",
-    ],
-  },
+	"form": {
+		"scope": "html",
+		"prefix": "form",
+		"body": [
+			"<form class='' action='#'>",
+			"\t<fieldset class=''>",
+			"\t\t<legend class=''></legend>",
+			"\t\t<button aria-label='submit this form' type='submit'>submit</button>",
+			"\t</fieldset>",
+			"</form>"
+		],
+	},
+	"button": {
+		"scope": "html",
+		"prefix": "button",
+		"body": [
+			"<button class='$1' aria-label='$2' type='${3|button,submit|}'>$0</button>",
+		],
+	},
+	"section with class": {
+		"scope": "html",
+		"prefix": "sect",
+		"body": [
+			"<section class='$1'>",
+			"\t<div class='$1__body'>",
+			"\t\t<h${2:6} tabindex='0' class='$1__title'>${3:title}</h${2:6}>",
+			"\t\t$0",
+			"\t</div>",
+			"</section>"
+		],
+	},
+	"HTML comment": {
+		"scope": "html",
+		"prefix": "comm",
+		"body": [
+			"<!-- $0 -->",
+		],
+	},
+	"img in block": {
+		"scope": "html",
+		"prefix": "image",
+		"body": [
+			"<div class='adaptive-image $1'>",
+			"\t<img src=\"img$0\" loading='lazy' alt='$2' width=${3:width} height=${4:width}>",
+			"</div>"
+		],
+	},
+	"img": {
+		"scope": "html",
+		"prefix": "img",
+		"body": [
+			"<img src=\"img$0\" loading='lazy' alt='$1' width=${2:width} height=${3:width}>",
+		],
+	},
+	"Swiper slider html construction": {
+		"scope": "html",
+		"prefix": "swiper",
+		"body": [
+			"<div class='swiper'>",
+			"\t<div class='swiper-wrapper'>",
+			"\t\t<div class='swiper-slide'>Slide 1</div>",
+			"\t</div>\n\n",
+			"\t<div class='swiper-pagination'></div>\n",
+			"\t<div class='swiper-button-prev'></div>",
+			"\t<div class='swiper-button-next'></div>\n",
+			"\t<div class='swiper-scrollbar'></div>",
+			"</div>"
+		],
+	},
+	"reference": {
+		"scope": "html",
+		"prefix": "ref",
+		"body": [
+			"<a href='${0:#}' target='_blank' rel='noopener noreferrer'>$1</a>",
+		],
+	},
+	"video construction": {
+		"scope": "html",
+		"prefix": "video",
+		"body": [
+			"<video poster='video/$1' controls>",
+			"\t<source src='video/$0.webm' type='video/webm'>",
+			"\t<source src='video/$0.mp4' type='video/mp4'>",
+			"</video>",
+		],
+	},
+	"tel ref": {
+		"scope": "html",
+		"prefix": "tel",
+		"body": [
+			"<a href='tel:+${1:88005553535}'>$0</a>",
+		],
+	},
+	"mail ref": {
+		"scope": "html",
+		"prefix": "mail",
+		"body": [
+			"<a href='mailto:${1:someEmail@gmail.com}'>$0</a>",
+		],
+	},
 	"html include construction": {
-    "scope": "html",
-    "prefix": "inc",
-    "body": [
-      "@@include('_$0.htm', {",
+		"scope": "html",
+		"prefix": "inc",
+		"body": [
+			"@@include('components/_$0.htm', {",
 			"\t",
 			"})"
-    ],
-  },
+		],
+	},
 	"submit button": {
 		"scope": "html",
 		"prefix": "submit",
@@ -220,9 +208,101 @@
 		"scope": "html",
 		"prefix": "fieldset",
 		"body": [
-			"<fieldset class=''>",
-			"\t<legend class=''>$0</legend>",
+			"<fieldset class='$1'>",
+			"\t<legend class='$2'>$0</legend>",
 			"</fieldset>",
+		],
+	},
+	"spoiler by Me": {
+		"scope": "html",
+		"prefix": "spoiler by me",
+		"body": [
+			"<button type='button' class='spoiler_btn $1'>$2</button>",
+			"<div class='spoiler_content $3'>",
+			"\t${0:content}",
+			"</div>",
+		],
+	},
+	"tab by Me": {
+		"scope": "html",
+		"prefix": "tabs",
+		"body": [
+			"<button aria-label='Button, tab number 1' data-toggle-elem-number='0' type='button' class='$1'>$2</button>",
+			"<div class='tab__items'>",
+			"\t<div class='tab__item'>",
+			"\t$0",
+			"\t</div>",
+			"</div>",
+		],
+	},
+	"hover menu by Me": {
+		"scope": "html",
+		"prefix": "hovsubmenu",
+		"body": [
+			"<div class='submenu-wrapper'>",
+			"\t<button type='button' class='menu__hover_button submenu-button'>$1</button>,",
+			"\t<div class='menu__hover submenu-menu ${2|submenu-menu_center,submenu-menu_to-left,submenu-menu_to-right|}'>",
+			"\t\t${0:content}",
+			"\t</div>",
+			"</div>",
+		],
+	},
+	"click submenu by Me": {
+		"scope": "html",
+		"prefix": "submenu",
+		"body": [
+			"<div class='submenu-wrapper'>",
+			"\t<button type='button' class='submenu__click_button submenu-button'>$1</button>,",
+			"\t<div class='menu__click submenu-menu ${2|submenu-menu_center,submenu-menu_to-left,submenu-menu_to-right|}'>",
+			"\t\t${0:content}",
+			"\t</div>",
+			"</div>",
+		],
+	},
+	"php expanded tag": {
+		"scope": "html",
+		"prefix": "php",
+		"body": [
+			"<?php",
+			"\t$0",
+			"?>"
+		],
+	},
+	"php tag": {
+		"scope": "html",
+		"prefix": "ph",
+		"body": [
+			"<?php $0 ?>",
+		],
+	},
+	"php variable": {
+		"scope": "php",
+		"prefix": "var",
+		"body": [
+			"$$value = $0;",
+		],
+	},
+	"php string variable": {
+		"scope": "php",
+		"prefix": "str",
+		"body": [
+			"$$value = '$0';",
+		],
+	},
+	"php constant": {
+		"scope": "php",
+		"prefix": "const",
+		"body": [
+			"const ${1:CONST_NAME} = ${0:constValue};",
+		],
+	},
+	"php function": {
+		"scope": "php",
+		"prefix": "func",
+		"body": [
+			"function ${1:name}($2) {",
+			"\t$0",
+			"}",
 		],
 	},
 }

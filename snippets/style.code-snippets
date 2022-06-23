@@ -1,6 +1,6 @@
 {
 	"arbitrary media query for stylus with braces": {
-		"scope": "stylus",
+		"scope": "stylus, css",
 		"prefix": "med",
 		"body": [
 			"@media (max-width: ${1}px) {",
@@ -9,63 +9,79 @@
 		],
 	},
 	"arbitrary media query from min-width for stylus with braces": {
-		"scope": "stylus",
-		"prefix": "medmin",
+		"scope": "stylus, css",
+		"prefix": "medMin",
 		"body": [
 			"@media (min-width: ${1}px) {",
 			"\t$0",
 			"}"
 		],
 	},
-	"media mobile for stylus with braces": {
-		"scope": "stylus",
-		"prefix": "medMOB",
+	"media query for mobiles": {
+		"scope": "stylus, css",
+		"prefix": "medMobiles",
 		"body": [
-			"@media (max-width: ${1|768,426|}px) {",
+			"@media (max-width: 426px) {",
+			"\t$0",
+			"}"
+		],
+	},
+	"media query for tablets": {
+		"scope": "stylus, css",
+		"prefix": "medTablets",
+		"body": [
+			"@media (max-width: 768px) {",
 			"\t$0",
 			"}"
 		],
 	},
 	"border property": {
-		"scope": "stylus",
+		"scope": "stylus, css",
 		"prefix": "bor",
 		"body": [
-			"border $1px ${2|solid,dashed,dotted,inset|} #${3:};",
+			"border: $1px ${2|solid,dashed,dotted,inset|} #${3:};",
 		],
 	},
 	"box-shadow": {
-		"scope": "stylus",
+		"scope": "stylus, css",
 		"prefix": "bsh",
 		"body": [
-			"box-shadow ${1:xRight} ${2:yDown} ${3:blur}px rgba(0,0,0,0.${0:color});",
+			"box-shadow: ${1:xRight} ${2:yDown} ${3:blur}px rgba(0,0,0,0.${0:color});",
 		],
 	},
 	"flex-flow": {
-		"scope": "stylus",
+		"scope": "stylus, css",
 		"prefix": "ffl",
 		"body": [
-			"flex-flow ${1|column,row,column-reverse,row-reverse|} ${2|nowrap,wrap|};",
+			"flex-flow: ${1|column,row,column-reverse,row-reverse|} ${2|nowrap,wrap|};",
 		],
 	},
 	"background image": {
+		"scope": "css",
+		"prefix": "bgi",
+		"body": [
+			"background: url('../img/$0') no-repeat center / cover;",
+		],
+	},
+	"The mixin for embedding several types of background images": {
 		"scope": "stylus",
 		"prefix": "bgi",
 		"body": [
-			"background url('../img/$0') no-repeat center / cover;",
+			"bg-img-multi-type '../img/$1', ${2|no-repeat,repeat|} ${3|center,0px 0px|} / ${4|contain,cover,0% 0%|};"
 		],
 	},
 	"background property": {
-		"scope": "stylus",
+		"scope": "stylus, css",
 		"prefix": "bg",
 		"body": [
-			"background #$0;",
+			"background: $0;",
 		],
 	},
 	"flex property": {
-		"scope": "stylus",
+		"scope": "stylus, css",
 		"prefix": "fl",
 		"body": [
-			"flex ${1:canBigger} ${2:canSmaller} ${0:defaultSize};",
+			"flex: ${1:canBigger} ${2:canSmaller} ${0:defaultSize};",
 		],
 	},
 	"stylus variable": {
@@ -83,14 +99,14 @@
 		],
 	},
 	"include some css var": {
-		"scope": "stylus",
+		"scope": "stylus, css",
 		"prefix": "evar",
 		"body": [
 			"var(--$0)",
 		],
 	},
 	"hover": {
-		"scope": "stylus",
+		"scope": "stylus, css",
 		"prefix": "hov",
 		"body": [
 			"&:hover {",
@@ -118,7 +134,7 @@
 	},
 	"hover and focus": {
 		"scope": "stylus",
-		"prefix": "hovf",
+		"prefix": "hovf, hf",
 		"body": [
 			"&:hover, &:focus {",
 			"\t$0",
@@ -140,7 +156,7 @@
 		"body": [
 			"&:before {",
 			"\t$0",
-			"\tcontent ${1|'',url('')|};",
+			"\tcontent ${1|'',url('../img/')|};",
 			"}"
 		],
 	},
@@ -150,7 +166,7 @@
 		"body": [
 			"&:after {",
 			"\t$0",
-			"\tcontent ${1|'',url('')|};",
+			"\tcontent ${1|'',url('../img/')|};",
 			"}"
 		],
 	},
@@ -163,7 +179,7 @@
 		"description": "width and height of object"
 	},
 	"transition property": {
-		"scope": "stylus",
+		"scope": "stylus, css",
 		"prefix": "trn",
 		"body": [
 			"transition all $0s ease;",
@@ -173,7 +189,7 @@
 		"scope": "stylus",
 		"prefix": "lc",
 		"body": [
-			"&:last-child {",
+			">:last-child {",
 			"\t$0",
 			"}"
 		],
@@ -182,23 +198,23 @@
 		"scope": "stylus",
 		"prefix": "fc",
 		"body": [
-			"&:first-child {",
+			">:first-child {",
 			"\t$0",
 			"}"
 		],
 	},
 	"adaptive font size": {
 		"scope": "sass, stylus",
-		"prefix": "fz",
+		"prefix": "afz",
 		"body": [
 			"font-size adapt-fsize(${0:layoutSize, min-size});",
 		],
 	},
 	"font property": {
-		"scope": "stylus",
+		"scope": "stylus, css",
 		"prefix": "font",
 		"body": [
-			"font adapt-fsize(${1:layoutSize, min-size}) ${0:fontFamily};",
+			"font: adapt-fsize(${1:layoutSize, min-size}) ${0:fontFamily};",
 		],
 	},
 	"adaptive property": {
@@ -209,47 +225,47 @@
 		],
 	},
 	"color": {
-		"scope": "stylus",
+		"scope": "stylus, css",
 		"prefix": "col",
 		"body": [
-			"color #$0;",
+			"color: #$0;",
 		],
 	},
 	"transform translate 3D": {
-		"scope": "stylus",
+		"scope": "stylus, css",
 		"prefix": [
 			"trmtranslate",
 			"translate"
 		],
 		"body": [
-			"transform translate3d(${1:xRight}, ${0:yDown}, 0);",
+			"transform: translate3d(${1:xRight}, ${0:yDown}, 0);",
 		],
 	},
 	"transform scale": {
-		"scope": "stylus",
+		"scope": "stylus, css",
 		"prefix": [
 			"trmscale",
 			"scale"
 		],
 		"body": [
-			"transform scale(${1:xCoeff}, ${0:yCoeff});",
+			"transform: scale(${1:xCoeff}, ${0:yCoeff});",
 		],
 	},
 	"transform rotate": {
-		"scope": "stylus",
+		"scope": "stylus, css",
 		"prefix": [
 			"trmrotate",
 			"rotate"
 		],
 		"body": [
-			"transform rotate(${0:degrees}deg);",
+			"transform: rotate(${0:degrees}deg);",
 		],
 	},
 	"transform property": {
-		"scope": "stylus",
+		"scope": "stylus, css",
 		"prefix": "trm",
 		"body": [
-			"transform ${1|translate(xy), scale(xy), rotate(deg)|};",
+			"transform: ${1|translate(xy), scale(xy), rotate(deg)|};",
 		],
 	},
 	"adaptive size": {
@@ -261,19 +277,33 @@
 		],
 	},
 	"absolute block centring": {
-		"scope": "stylus",
+		"scope": "stylus, css",
 		"prefix": "acenter",
 		"body": [
-			"top 50%;",
-			"left 50%;",
-			"transform translate(-50%, -50%);",
+			"top: 50%;",
+			"left: 50%;",
+			"transform: translate(-50%, -50%);",
 		],
 	},
 	"grid-template property": {
-		"scope": "stylus",
-		"prefix": "gtem",
+		"scope": "stylus, css",
+		"prefix": "gt",
 		"body": [
-			"grid-template '${1:rowEls}' ${2:rowSize} / ${3:columnCountAndSize};",
+			"grid-template: '${2:rowEls}' ${0:rowSize} / ${1:columnCountAndSize};",
+		],
+	},
+	"grid-template - row in property": {
+		"scope": "stylus, css",
+		"prefix": "gtr",
+		"body": [
+			"'${1:rowEl}' ${0:rowSize}",
+		],
+	},
+	"grid wrap construction": {
+		"scope": "stylus, css",
+		"prefix": "gridwrap",
+		"body": [
+			"grid-template-columns: repeat(auto-fill, minmax(${1:min}, ${0:max}));",
 		],
 	},
 	"placeholder constuction": {
@@ -289,30 +319,32 @@
 		"scope": "stylus",
 		"prefix": "nlc",
 		"body": [
-			"&:not(:last-child) {",
-			"\t$0",
-			"}"
+			">* {",
+				"\t&:not(:last-child) {",
+					"\t\t$0",
+				"\t}",
+			"}",
 		],
 	},
-	"margin for all elements, but not for last (mixin)": {
+	"margin for all childs, but not for last (mixin)": {
 		"scope": "stylus",
-		"prefix": "bmar",
+		"prefix": "nlcm",
 		"body": [
-			"firstLevelElementsMargin '${1:side}' $0;",
+			"notLastChildMargin ${0:values};",
 		],
 	},
-	"margin-right for all elements but not for last (mixin)": {
+	"margin-right for all childs but not for last (mixin)": {
 		"scope": "stylus",
-		"prefix": "bmarr",
+		"prefix": "nlcr",
 		"body": [
-			"firstLevelElementsMargin 'right' $0;",
+			"notLastChildMargin 0 ${0:value}px 0 0;",
 		],
 	},
-	"margin-bottom for all elements but not for last (mixin)": {
+	"margin-bottom for all childs but not for last (mixin)": {
 		"scope": "stylus",
-		"prefix": "bmarb",
+		"prefix": "nlcb",
 		"body": [
-			"firstLevelElementsMargin 'bottom' $0;",
+			"notLastChildMargin 0 0 ${0:value}px 0;",
 		],
 	},
 	"BEM subclass": {
@@ -325,11 +357,11 @@
 		],
 	},
 	"all for position-sticky": {
-		"scope": "sass, stylus",
+		"scope": "stylus, css",
 		"prefix": "posst",
 		"body": [
-			"position sticky;",
-			"top $0;",
+			"position: sticky;",
+			"top: $0;",
 		],
 		"description": "all for position-sticky"
 	},
@@ -341,10 +373,10 @@
 		],
 	},
 	"grid-content-position": {
-		"scope": "stylus",
+		"scope": "stylus, css",
 		"prefix": "gcp",
 		"body": [
-			"place-content ${1:align-items} ${0:justify-items};",
+			"place-content: ${1:align-items} ${0:justify-items};",
 		],
 	},
 	"blurred borders": {
@@ -385,17 +417,17 @@
 	},
 	"font size in rem": {
 		"scope": "stylus",
-		"prefix": "fzr",
+		"prefix": "fz",
 		"body": [
 			"font-size rem($0);",
 		],
 	},
 	"flex-centring properties": {
-		"scope": "stylus",
+		"scope": "stylus, css",
 		"prefix": "fcenter",
 		"body": [
-			"justify-content center;",
-			"align-items center;",
+			"justify-content: center;",
+			"align-items: center;",
 		],
 	},
 	"props for styling scrollbar": {
@@ -406,14 +438,14 @@
 			"scrollbar-width thin;",
 			"// button / track",
 			"scrollbar-color blue orange;",
-			"&::-webkit-scrollbar {",
+			"::-webkit-scrollbar {",
 			"\twidth auto;",
 			"}",
-			"&::-webkit-scrollbar-track {",
+			"::-webkit-scrollbar-track {",
 			"\t// track color",
 			"\tbackground orange;",
 			"}",
-			"&::-webkit-scrollbar-thumb {",
+			"::-webkit-scrollbar-thumb {",
 			"\t// button color",
 			"\tbackground-color blue;",
 			"\t// round, round, round...",
@@ -421,6 +453,13 @@
 			"\t// ...padding",
 			"\tborder 0px solid orange;",
 			"}",
+		],
+	},
+	"background linear-gradient": {
+		"scope": "stylus, css",
+		"prefix": "bggrad",
+		"body": [
+			"background: linear-gradient($1deg, ${2:color}, ${0:color});",
 		],
 	},
 }

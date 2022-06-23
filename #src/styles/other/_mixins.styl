@@ -66,7 +66,7 @@ bg-img-multi-type($url, $params) {
 	in the file gulpData/css.js (see the stylus pipe).
 	Its value depends on whether this gulp is running in normal or production mode.
 	*/
-	if (gulpHashes.canIncludeConvertedBg == false) {
+	if (gulpHashes.canIncludeConvertedBg) {
 		// Creating new paths, removing extensions.jpg and .png
 		$webpUrl = replace('.png', '.webp', replace('.jpg', '.webp', $url));
 		$avifUrl = replace('.png', '.avif', replace('.jpg', '.avif', $url));
