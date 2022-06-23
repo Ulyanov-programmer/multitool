@@ -216,7 +216,7 @@ figure {
   cursor: pointer;
 }
 .tab__btn.active {
-  transform: scale(1.1, 1.1);
+  transform: scale(1.1);
 }
 .tab__item {
   display: flex;
@@ -391,6 +391,7 @@ figure {
 .refbar {
   position: sticky;
   top: 0;
+  z-index: 10;
   display: flex;
   flex-flow: row wrap;
   justify-content: center;
@@ -408,8 +409,11 @@ figure {
   font-weight: 600;
   transition: all 0.2s ease;
 }
-.refbar__item:hover,
 .refbar__item:focus {
+  background: #ccc;
+  filter: invert();
+}
+.refbar__item:hover {
   background: #939393;
   filter: invert();
 }

@@ -21,7 +21,7 @@
 				<div class='advantage__body'>
 					<h2 tabindex='0' class='advantage__title title'>Stylus</h2>
 					<p class="advantage__text text-center">Stylus is the most progressive preprocessor for CSS. Fast, flexible, no extra syntax. <span class="fat-text"> You
-							will find ready mixins.</span></p>
+							will find ready mixins.</span> <br> You can learn more about the language <a href="https://stylus-lang.com/" class="fat-text blue-text ref">here</a>.</p>
 
 					<p class="codepen" data-height="500" data-default-tab="css,result" data-slug-hash="abqdeWZ" data-preview="true" data-editable="true" data-user="ulyanov-programmer"
 						style="height: 500px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
@@ -35,25 +35,14 @@
 			<section class='advantage _scripts'>
 				<div class='advantage__body'>
 					<h2 tabindex='0' class='advantage__title title'>Scripts (Typescript)</h2>
-					<p class="advantage__text">Like JS, only better. Prevents errors <span class="fat-text">at the compilation stage</span>, hints work fine in
-						VS Code.
-						Moreover, you will find many, <span class="fat-text">MANY useful</span> scripts here, and some of them you can watch below (don't be
-						afraid, play with the settings). <br>
-						Alas, Codepen does not allow me to show its advantages, but it should be enough for familiarization.</p>
-
-					<h2 tabindex='0' class='advantage__title'>Swipe</h2>
-
-					<iframe src="https://codesandbox.io/embed/swipe-up3bbc?codemirror=1&fontsize=14&hidenavigation=1&module=%2Fsrc%2Findex.js&theme=dark&view=preview&runonclick=1"
-						style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" title="Swipe"
-						allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
-						sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"></iframe>
-
-					<h2 tabindex='0' class='advantage__title'>Animate by scroll</h2>
-
-					<iframe src="https://codesandbox.io/embed/sparkling-dawn-xrv0wj?codemirror=1&fontsize=14&hidenavigation=1&module=%2Fsrc%2Findex.js&theme=dark&view=preview&runonclick=1" loading="lazy"
-						style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" title="sparkling-dawn-xrv0wj"
-						allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
-						sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"></iframe>
+					<p class="advantage__text text-center">Like JS, only better. Prevents errors <span class="fat-text">at the compilation stage</span>, hints work fine in VS Code.
+						Moreover, you will find many useful scripts in the assembly.
+						<br>
+						You can get acquainted with the built-in scripts in this gulp <a class="fat-text blue-text ref" href='http://localhost:3000/docs/scripts.html' target='_self'
+							rel='noopener noreferrer'>here</a>.
+						<br>
+						Try playing with TypeScript <a class="fat-text blue-text ref" href='https://www.typescriptlang.org/play' target='_blank' rel='noopener noreferrer'>here</a>.
+					</p>
 				</div>
 			</section>
 			<section class='advantage _img'>
@@ -77,6 +66,7 @@
 &lt;/picture&gt;</pre></code>
 						</div>
 					</div>
+					<p class="advantage__text text-center">This also works with <span class="fat-text">background images</span>.</p>
 				</div>
 			</section>
 			<section class='advantage _swiper'>
@@ -171,7 +161,7 @@
  ┣ 📂css
  ┃ ┣ <img src="../img/demo/css.svg" alt="stylus" width=20 height=20>style.css
  ┃ ┣ <img src="../img/demo/css.svg" alt="stylus" width=20 height=20>style.min.css
- ┃ ┗ <img src="../img/demo/css.svg" alt="stylus" width=20 height=20>swiper-bundle.min.css //optional
+ ┃ ┗ <img src="../img/demo/css.svg" alt="stylus" width=20 height=20>swiper-styles.css //optional
  ┣ 📂docs //optional
  ┃ ┗ ...
  ┣ 📂fonts
@@ -182,12 +172,11 @@
  ┃ ┣ 📂modules
  ┃ ┃ ┣ <img src="../img/demo/js.png" alt="image" width=20 height=20> module.js
  ┃ ┃ ┗ <img src="../img/demo/js.png" alt="image" width=20 height=20> module.js
- ┃ ┣ <img src="../img/demo/js.png" alt="image" width=20 height=20> swiper-bundle.min.js //optional
- ┃ ┣ <img src="../img/demo/js.png" alt="image" width=20 height=20> swiper-bundle.min.js.map //optional
  ┃ ┣ <img src="../img/demo/js.png" alt="image" width=20 height=20> moduleAPI.js
+ ┃ ┣ <img src="../img/demo/js.png" alt="image" width=20 height=20> swiper-scripts.js //optional
  ┃ ┗ <img src="../img/demo/js.png" alt="image" width=20 height=20> yourScripts.js
- ┃ <img src="../img/demo/html.png" alt="html" width=20 height=20> pageTwo.html
- ┗ <img src="../img/demo/html.png" alt="html" width=20 height=20> index.html
+ ┃ <img src="../img/demo/html.png" alt="html" width=20 height=20> index.html
+ ┗ <img src="../img/demo/html.png" alt="html" width=20 height=20> otherPages.html
 </pre>
 							</code>
 					</div>
@@ -200,8 +189,8 @@
 </html>
 
 @@include('_scripts.htm', {
-	'spoilers': false,
-	'tabs': false,
+'spoilers': false,
+'tabs': false,
 })
 
 <!-- 
