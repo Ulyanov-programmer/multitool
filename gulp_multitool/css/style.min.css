@@ -1,0 +1,458 @@
+* {
+  padding: 0;
+  margin: 0;
+  border: 0;
+}
+*,
+*:before,
+*:after {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+::active {
+  outline: none;
+}
+*:focus-visible {
+  outline: 1px solid;
+}
+nav,
+footer,
+header,
+aside {
+  display: block;
+}
+html,
+body {
+  height: 100%;
+  width: 100%;
+  font-size: 100%;
+  line-height: 1;
+  -ms-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+input::-ms-clear {
+  display: none;
+}
+input:focus-visible {
+  outline: none;
+}
+button {
+  cursor: pointer;
+  background: none;
+}
+::-moz-focus-inner {
+  padding: 0;
+  border: 0;
+}
+input,
+button,
+textarea {
+  font-family: inherit;
+}
+a {
+  display: inline-block;
+  text-decoration: none;
+}
+a:hover,
+a:visited {
+  text-decoration: none;
+}
+a:active,
+a:focus {
+  outline: none;
+}
+ul,
+li {
+  list-style: none;
+}
+img {
+  vertical-align: top;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-size: inherit;
+  font-weight: 400;
+}
+address {
+  font-style: normal;
+}
+:root {
+  --text-c: #f3f3f3;
+  --main-font-family: Arial;
+  --bg: #5f5e5e;
+}
+.submenu-wrapper {
+  position: relative;
+}
+.submenu-menu {
+  position: absolute;
+  z-index: 1;
+  display: none;
+  background: #818181;
+  top: 100%;
+  width: max-content;
+}
+.submenu-menu.show {
+  display: block;
+}
+.submenu-menu_to-left {
+  right: 0;
+}
+.submenu-menu_to-right {
+  left: 0;
+}
+.submenu-menu_center {
+  left: 50%;
+  transform: translate(-50%, 0);
+}
+label {
+  cursor: pointer;
+}
+input[type=number] {
+  -moz-appearance: textfield;
+}
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  appearance: none;
+  margin: 0;
+/*
+					If necessary, create additional buttons to zoom in and out and use this code in your js:
+			
+					let counter = document.querySelector('#productCounter') // as HTMLInputElement 
+					let decreaser = document.querySelector('#decreaser') 
+					let increaser = document.querySelector('#increaser') 
+					decreaser ? decreaser.addEventListener('click', decraseCounterValue) : false;
+					increaser ? increaser.addEventListener('click', increaseCounterValue) : false;
+			
+					function decraseCounterValue() {
+						let counterValue = parseInt(counter.value) 
+						counterValue = counterValue - parseInt(counter.step)
+			
+						counterValue >= 1 ? counter.value = `${counterValue}` : false
+					}
+			
+					function increaseCounterValue() {
+						let counterValue = parseInt(counter.value) 
+						counterValue = counterValue + parseInt(counter.step)
+			
+						counterValue >= 1 ? counter.value = `${counterValue}` : false
+					}
+				*/
+}
+input[type=checkbox] {
+  display: none;
+}
+input[type=radio] {
+  display: none;
+}
+input[type=file] {
+  display: none;
+}
+select {
+  cursor: pointer;
+  appearance: none;
+  background: #fff;
+}
+textarea {
+  scrollbar-width: 0;
+  resize: none;
+  outline: none;
+}
+textarea::-webkit-scrollbar {
+  width: 0;
+}
+input[type=date]::-webkit-datetime-edit {
+/* all input, but not calendar button */
+  background: #adff2f;
+}
+input[type=date]::-webkit-datetime-edit-fields-wrapper {
+/* only date values */
+  background: #ff0;
+}
+input[type=date]::-webkit-datetime-edit-text {
+/* elements between numbers */
+  background: #808080;
+}
+input[type=date]::-webkit-inner-spin-button {
+/* i don't now what is that */
+  display: none;
+}
+input[type=date]::-webkit-calendar-picker-indicator {
+/* calendar button */
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.spoiler {
+  position: relative;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+.spoiler-content li {
+  padding: 5px 0 5px 0;
+}
+.sidebar {
+  z-index: 6;
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: 40vw;
+  transform: translate3d(100%, 0, 0);
+  background: #808080;
+  transition: all 0.5s ease;
+}
+.sidebar.active {
+  transform: translate3d(0, 0, 0);
+}
+@media (max-width: 600px) {
+  .sidebar {
+    width: 70vw;
+  }
+}
+.sidebar__body {
+  padding: 20px 15px 10px 10px;
+  overflow: auto;
+}
+.swipe_window__swipe_area {
+  z-index: 5;
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100vh;
+  width: 20vw;
+  user-select: none;
+}
+.swipe_window__swipe_area:hover {
+  cursor: grab;
+}
+.swipe_window__swipe_area:active {
+  cursor: grabbing;
+}
+.swipe_window__swipe_area.active {
+  width: 100vw;
+}
+.searchbar {
+  display: flex;
+  flex-flow: row nowrap;
+  background: #fff;
+}
+.searchbar__input {
+  padding: 10px;
+  transition: all 0.3s ease;
+}
+.searchbar__input:hover,
+.searchbar__input:focus {
+  background: #d8d5d5;
+}
+.searchbar__submit {
+  padding: 10px;
+  transition: all 0.3s ease;
+}
+.searchbar__submit:hover,
+.searchbar__submit:focus {
+  background: #acabab;
+}
+.searchbar__submit img {
+  width: 20px;
+  height: 20px;
+}
+.burger-menu {
+  position: fixed;
+  top: 0;
+  right: -100%;
+  z-index: 4 !important;
+  width: 100%;
+  height: 100%;
+  font-size: 30px;
+  color: #fff;
+  display: flex;
+  flex-flow: column nowrap;
+  transition: right 0.5s ease;
+}
+@media (min-width: 768px) {
+  .burger-menu {
+    display: none;
+  }
+}
+.burger-menu.active {
+  right: 0;
+}
+.burger-menu__body {
+  display: flex;
+  flex-flow: column nowrap;
+  overflow: auto;
+  background: rgba(0,0,0,0.678);
+  min-height: 100%;
+}
+.burger-menu__body ul {
+  margin: 0 auto;
+  width: 100%;
+}
+.burger-menu__body ul .fs-element {
+  display: flex;
+  flex-grow: 1;
+  justify-content: center;
+  padding: 25px 0 25px 0;
+  color: #fff;
+}
+.burger-menu__body ul .fs-element:not(:last-child) {
+  border-bottom: 1px solid #fff;
+}
+.burger-btn {
+  z-index: 5;
+  display: block;
+  cursor: pointer;
+  padding: 10px;
+}
+@media (min-width: 768px) {
+  .burger-btn {
+    display: none;
+  }
+}
+.burger-btn__svg * {
+  transform-origin: left;
+  transform-box: fill-box;
+  transition: all 0.5s ease;
+}
+.burger-btn.active .burger-btn__rect-top {
+  transform: rotate(45deg);
+}
+.burger-btn.active .burger-btn__rect-center {
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+  height: 0;
+}
+.burger-btn.active .burger-btn__rect-bottom {
+  transform: rotate(-45deg);
+}
+html {
+  scroll-behavior: smooth;
+}
+.container {
+  margin: auto;
+}
+@media (min-width: 1440px) {
+  .container {
+    width: 70%;
+  }
+}
+@media (min-width: 768px) and (max-width: 1440px) {
+  .container {
+    width: 90%;
+  }
+}
+@media (min-width: 426px) and (max-width: 768px) {
+  .container {
+    width: 90%;
+  }
+}
+@media (max-width: 426px) {
+  .container {
+    width: 95%;
+  }
+}
+.modal-window {
+  position: fixed;
+  z-index: 15;
+  top: 0;
+  left: 0;
+  background: rgba(0,0,0,0.275);
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s ease;
+}
+.modal-window.active {
+  overflow: auto;
+  opacity: 1;
+  pointer-events: all;
+}
+.modal-window__body {
+  display: grid;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+}
+.modal-window__content {
+  background: #3e3e3e;
+}
+.modal-window__closer {
+  color: #7d7d7d;
+}
+._contain-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+._cover-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.footer__body {
+  color: #fff;
+}
+.header {
+  position: relative;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  z-index: 5;
+}
+.header__body {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: center;
+}
+@media (max-width: 768px) {
+  .navmenu {
+    display: none;
+  }
+}
+.navmenu__list {
+  display: flex;
+  flex-flow: row wrap;
+}
+.navmenu__list li :not(:last-child) {
+  margin-right: 10px;
+}
+.navmenu__list li a,
+.navmenu__list li button {
+  display: inline-block;
+  padding: 4px 8px 4px 8px;
+  color: var(--text-c);
+  transition: all 0.2s ease 0s;
+}
+.fixed-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+.logo {
+  z-index: 10;
+}
+body {
+  height: 100%;
+  color: var(--text-c);
+  font: calc((100vw - 20rem)/(90 - 20) * (1 - 0.75) + 0.75rem) var(--main-font-family);
+}
+body button {
+  color: var(--text-c);
+  font-size: calc((100vw - 20rem)/(90 - 20) * (1 - 0.75) + 0.75rem);
+}
+.main {
+  background: var(--bg);
+}

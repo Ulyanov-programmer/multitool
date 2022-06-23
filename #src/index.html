@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-	@@include('_headContent.htm', {
+	@@include('components/_headContent.htm', {
 	"title": "Main",
 	})
 	<link rel="stylesheet" href="css/style.min.css">
@@ -13,24 +13,24 @@
 
 	<main class="main">
 		<div class="main__body">
-			@@include('_demo.htm')
+			
 		</div>
 	</main>
 
 	@@include('_footer.htm', {})
 
-	@@include('_modals.htm', {})
+	@@include('components/_modals.htm', {})
 
 </body>
 
 
-<script type="module" src="scripts/script.js"></script>
+<script type="module" src="scripts/generalScript.js"></script>
+
 
 <!-- Swiper -->
 <link rel="stylesheet" href="css/swiper-bundle.min.css">
 <script defer src="scripts/swiper-bundle.min.js"></script>
 <script type="module" src="scripts/sliders.js"></script>
-
 
 </html>
 

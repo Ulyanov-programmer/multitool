@@ -1,93 +1,106 @@
-import { isNullOrWhiteSpaces } from "./general.js";
+import { elementIsExistWithLog } from "./general.js"
 
-export class Parallax {
+interface ParallaxArgs {
+	/** Selector of a block that contains the elements to be parallaxed. */
+	parallaxContainerSelector: string
+	/** Parallax will only work if the window width is greater than or equal to this number.	*/
+	minWorkWidth: number
+}
+
+export default class Parallax {
 	private parallaxContainer: HTMLElement
-	private coordProcX: number = 0
-	private coordProcY: number = 0
+	private containerRect: DOMRect
+	private containerCenterCoordX: number
+	private containerCenterCoordY: number
 	private parallaxElements: ParallaxElement[] = new Array()
 
-	/**
-	 * Provides functionality for parallax of elements.
-	 * 
-	 * @param parallaxContainerSelector
-	 * Selector of a block that contains the elements to be parallaxed.
-	 * @param minWorkWidth
-	 * Parallax will only work if the window width is greater than or equal to this number.
-	 * @param parallaxItems
-	 * Elements that will be subject to parallax 
-	 * in the form of instances of the `ParallaxElement` class in an arbitrary number,
-	 * 
-	 * @throws Incorrect args in constructor - 
-	 * This error will be printed to the console if some input argument are null or white spaces.
-	 */
-	constructor(parallaxContainerSelector: string, minWorkWidth: number,
-		...parallaxItems: ParallaxElement[]
-	) {
-		if (isNullOrWhiteSpaces(parallaxContainerSelector)) {
-			throw '[PARALLAX] Incorrect args in constructor.'
-		}
+	constructor(arg: ParallaxArgs, ...parallaxItems: ParallaxElement[]) {
+		if (!elementIsExistWithLog('Parallax', arg.parallaxContainerSelector))
+			return
 
-		this.parallaxContainer = document.querySelector(parallaxContainerSelector);
+		this.parallaxContainer = document.querySelector(arg.parallaxContainerSelector)
+		this.containerRect = this.parallaxContainer.getBoundingClientRect()
+		this.containerCenterCoordX = Math.round(this.containerRect.width / 2)
+		this.containerCenterCoordY = Math.round(this.containerRect.height / 2)
 
-		for (const parallaxItem of parallaxItems) {
-			if (parallaxItem) {
-				if (!parallaxItem.htmlElement) {
-					parallaxItem.htmlElement = document.querySelector(parallaxItem.selector);
-				}
-				this.parallaxElements.push(parallaxItem)
+		for (let parallaxItem of parallaxItems) {
+			if (!parallaxItem) return
+
+			if (!parallaxItem.htmlElement) {
+				parallaxItem.htmlElement = document.querySelector(parallaxItem.selector)
 			}
+			this.parallaxElements.push(parallaxItem)
 		}
 
-		this.parallaxContainer.addEventListener('mousemove', (e) => {
-			window.outerWidth >= minWorkWidth ? this.moveElements(e) : false
-		})
+		this.parallaxContainer.addEventListener('mousemove', (e) =>
+			window.outerWidth >= arg.minWorkWidth ? this.moveElements(e) : false
+		)
 	}
 
 
 	moveElements(e: MouseEvent) {
-		let parallaxWidth = this.parallaxContainer.clientWidth
-		let parallaxheight = this.parallaxContainer.clientHeight
+		let mouseX = e.pageX - this.parallaxContainer.offsetLeft
+		let mouseY = e.pageY - this.parallaxContainer.offsetTop
 
-		let coordX = e.pageX - parallaxWidth / 2
-		let coordY = e.pageY - parallaxheight / 2
+		let relativeCoordX = mouseX - this.containerCenterCoordX
+		let relativeCoordY = mouseY - this.containerCenterCoordY
 
-		this.coordProcX = coordX / parallaxWidth * 100
-		this.coordProcY = coordY / parallaxheight * 100
-
-		for (const el of this.parallaxElements) {
-			el.htmlElement.style.transform =
-				`translate(${this.coordProcX / el.parallaxCoeff}%, ${this.coordProcY / el.parallaxCoeff}%)`
+		for (let el of this.parallaxElements) {
+			el.parallax(relativeCoordX, relativeCoordY)
 		}
 	}
 }
-export class ParallaxElement {
-	/**
-	 * Contains data about the element that will be parallaxed.
-	 * 
-	 * @param selectorOrElement
-	 * Selector of element or `HTMLElement` that will be parallaxed.
-	 * @param parallaxCoeff
-	 * The power factor of the parallax effect. The smaller, the stronger the effect.
-	 * 
-	 * @throws Incorrect arguments in ParallaxElement - 
-	 * This error will be printed to the console 
-	 * if some input argument are null, white spaces or parallaxCoeff is less than 1.
-	 */
-	constructor(selectorOrElement: string | HTMLElement, parallaxCoeff: number) {
-		if (typeof selectorOrElement == 'string') {
 
-			if (isNullOrWhiteSpaces(selectorOrElement) || parallaxCoeff < 1) {
-				throw '[PARALLAX] Incorrect arguments in ParallaxElement.'
-			}
-			this.selector = selectorOrElement
+
+interface ParallaxElementArgs {
+	/** Selector of element or `HTMLElement` that will be parallaxed. */
+	selectorOrElement: string
+	/** 
+	 * The value of the parallax power along the X-axis. 
+	 * If the value is 1, the element will be behind the cursor, set a lower value. 
+	*/
+	parallaxCoeffX: number
+	/**
+	 * The value of the parallax power along the Y-axis. 
+	 * If the value is 1, the element will be behind the cursor, set a lower value. 
+	*/
+	parallaxCoeffY: number
+	/** Move the mouse up - the element moves down, etc. Not required, default = false. */
+	reverseMode?: boolean
+}
+
+export class ParallaxElement {
+	private reverseMode: boolean = false
+
+	constructor(arg: ParallaxElementArgs) {
+		if (typeof arg.selectorOrElement == 'string') {
+
+			if (!elementIsExistWithLog('ParallaxElement'))
+				return
+
+			this.selector = arg.selectorOrElement
 		} else {
-			this.htmlElement = selectorOrElement
+			this.htmlElement = arg.selectorOrElement
 		}
 
-		this.parallaxCoeff = parallaxCoeff
+		this.parallaxCoeffX = arg.parallaxCoeffX
+		this.parallaxCoeffY = arg.parallaxCoeffY
+
+		this.reverseMode = arg.reverseMode
 	}
 
 	public htmlElement: HTMLElement
 	public selector: string
-	public parallaxCoeff: number
+	public parallaxCoeffX: number
+	public parallaxCoeffY: number
+
+	public parallax(relativeCoordX: number, relativeCoordY: number) {
+		if (this.reverseMode) {
+			relativeCoordX *= -1
+			relativeCoordY *= -1
+		}
+
+		this.htmlElement.style.transform =
+			`translate3d(${relativeCoordX * this.parallaxCoeffX}px, ${relativeCoordY * this.parallaxCoeffY}px, 0)`
+	}
 }

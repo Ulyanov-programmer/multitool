@@ -1,0 +1,76 @@
+{
+	"Function": {
+		"scope": "javascript,typescript",
+		"prefix": "func",
+		"body": [
+			"function ${1:func}(${2:arg}) {",
+			"\t$0",
+			"}"
+		],
+	},
+	"query": {
+		"scope": "javascript,typescript",
+		"prefix": "que",
+		"body": [
+			"${2:let} ${0:element} = document.querySelector('$1');",
+		],
+	},
+	"Js function and variables": {
+		"scope": "javascript,typescript",
+		"prefix": "newaction",
+		"body": [
+			"function ${1:func}(${2:arg}) {",
+			"\t$0",
+			"}",
+			"const ${3:els} = document.querySelectorAll('.$4');",
+			"const ${5:el} = document.querySelector('.$6');",
+		],
+		"description": "Js function and variables"
+	},
+	"Add new Event": {
+		"scope": "javascript,typescript",
+		"prefix": "event",
+		"body": [
+			"${1:varName}.addEventListener('${2:mouseEvent}', ${0:function});",
+		],
+		"description": "Add new event for node"
+	},
+  "if construction": {
+    "scope": "javascript,typescript",
+    "prefix": "if",
+    "body": [
+      "if (${0:}) {",
+      "\t",
+      "}"
+    ],
+  },
+  "ternary operator": {
+    "scope": "javascript,typescript",
+    "prefix": "ter",
+    "body": [
+      "${1:cond} ? ${2:true} : ${3:false};",
+    ],
+  },
+  "full property": {
+    "scope": "typescript",
+    "prefix": "prop",
+    "body": [
+      "${3:public} ${2:static} ${1:name}: ${0:type}",
+    ],
+  },
+  "console log": {
+    "scope": "typescript",
+    "prefix": "log",
+    "body": [
+      "console.log($0)",
+    ],
+    "description": "Add new event for node"
+  },
+	"TsDoc a commentary": {
+		"scope": "typescript",
+		"prefix": "comm",
+		"body": [
+			"/** $0 */",
+		],
+	},
+}

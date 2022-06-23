@@ -1,27 +1,8 @@
-.submenu-button {
+.submenu-wrapper {
 	position relative;
-	flex-set row nowrap;
-	justify-content center;
-	align-items center;
-
-	&::after {
-		display inline-block;
-		block-size 4px;
-		border-top 1.5px solid #ffffff;
-		border-right 1.5px solid #ffffff;
-		transform translate(5px, 0) rotate(135deg);
-		transition all 0.3s ease 0s;
-		content '';
-	}
-
-	&.active {
-		&::after {
-			transform translate(5px, 0) rotate(-45deg);
-		}
-	}
 }
 
-.submenu {
+.submenu-menu {
 	position absolute;
 	z-index 1;
 	display none;
@@ -30,7 +11,6 @@
 	width max-content;
 
 	&.show {
-		position absolute;
 		display block;
 	}
 

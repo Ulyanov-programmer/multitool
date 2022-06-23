@@ -1,0 +1,198 @@
+@@include('_head.htm', {
+'title': 'Advantages'
+})
+
+<body>
+	@@include('_header.htm', {
+	'title': 'Advantages'
+	})
+	<main class="main">
+		<div class="main__body">
+			<div class="refbar block">
+				<button class='refbar__item' type='button' data-scroll-to="._stylus">Stylus</button>
+				<button class='refbar__item' type='button' data-scroll-to="._scripts">Scripts</button>
+				<button class='refbar__item' type='button' data-scroll-to="._img">Images</button>
+				<button class='refbar__item' type='button' data-scroll-to="._swiper">Swiper</button>
+				<button class='refbar__item' type='button' data-scroll-to="._fonts">Fonts</button>
+				<button class='refbar__item' type='button' data-scroll-to="._required">Required</button>
+				<button class='refbar__item' type='button' data-scroll-to="._structure">Structure</button>
+			</div>
+			<section class='advantage _stylus'>
+				<div class='advantage__body'>
+					<h2 tabindex='0' class='advantage__title title'>Stylus</h2>
+					<p class="advantage__text text-center">Stylus is the most progressive preprocessor for CSS. Fast, flexible, no extra syntax. <span class="fat-text"> You
+							will find ready mixins.</span> <br> You can learn more about the language <a href="https://stylus-lang.com/" class="fat-text blue-text ref">here</a>.</p>
+
+					<p class="codepen" data-height="500" data-default-tab="css,result" data-slug-hash="abqdeWZ" data-preview="true" data-editable="true" data-user="ulyanov-programmer"
+						style="height: 500px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
+						<span>See the Pen <a href="https://codepen.io/ulyanov-programmer/pen/abqdeWZ">
+								Stylus</a> by Ulyanov Ivan (<a href="https://codepen.io/ulyanov-programmer">@ulyanov-programmer</a>)
+							on <a href="https://codepen.io">CodePen</a>.</span>
+					</p>
+					<script async src="https://cpwebassets.codepen.io/assets/embed/ei.js"></script>
+				</div>
+			</section>
+			<section class='advantage _scripts'>
+				<div class='advantage__body'>
+					<h2 tabindex='0' class='advantage__title title'>Scripts (Typescript)</h2>
+					<p class="advantage__text text-center">Like JS, only better. Prevents errors <span class="fat-text">at the compilation stage</span>, hints work fine in VS Code.
+						Moreover, you will find many useful scripts in the assembly.
+						<br>
+						You can get acquainted with the built-in scripts in this gulp <a class="fat-text blue-text ref" href='http://localhost:3000/docs/scripts.html' target='_self'
+							rel='noopener noreferrer'>here</a>.
+						<br>
+						Try playing with TypeScript <a class="fat-text blue-text ref" href='https://www.typescriptlang.org/play' target='_blank' rel='noopener noreferrer'>here</a>.
+					</p>
+				</div>
+			</section>
+			<section class='advantage _img'>
+				<div class='advantage__body'>
+					<h2 tabindex='0' class='advantage__title title'>Images</h2>
+					<p class="advantage__text text-center">As usual - your PNG, JPG and others will be optimized, translated into webp... And <span class="code">avif</span>. Yes, it's time to use it.</p>
+					<div class="section__content">
+						<div class="advantage__preview-block">
+							<code>&lt;img src="img/img.png" alt='yourImg'&gt;</code>
+						</div>
+						<span class="arrow-next">→</span>
+						<div class="advantage__preview-block">
+							<code>
+								<pre>&lt;picture&gt;
+ &lt;source srcset="img/img.avif" 
+  type="image/avif"&gt;
+ &lt;source srcset="img/img.webp" 
+  type="image/webp"&gt;
+ &lt;img src="img/img.png" 
+  alt='yourImg'&gt;
+&lt;/picture&gt;</pre></code>
+						</div>
+					</div>
+					<p class="advantage__text text-center">This also works with <span class="fat-text">background images</span>.</p>
+				</div>
+			</section>
+			<section class='advantage _swiper'>
+				<div class='advantage__body'>
+					<h2 tabindex='0' class='advantage__title title'>Autoincluding the Swiper slider</h2>
+					<p class="advantage__text text-center">The assembly automatically connects the <a class="fat-text blue-text ref" href='//swiperjs.com/' target='_blank' rel='noopener noreferrer'>Swiper
+							slider</a> to the project, its styles and scripts, if necessary. <br>
+						This can be disabled when <a class="ref orange-text" href='//localhost:3000/docs/getStarted.html?b=clear' target='_blank' rel='noopener noreferrer'>cleaning</a> the build.</p>
+				</div>
+			</section>
+			<section class='advantage _fonts'>
+				<div class='advantage__body'>
+					<h2 tabindex='0' class='advantage__title title'>Fast connection of fonts</h2>
+					<p class="advantage__text text-center">To the point that you don't have to do anything at all! Seriously, even adaptive fonts are connected automatically.</p>
+
+					<div class="section__content_vertical">
+						<div class="advantage__preview-block">
+							<code>Just put a file in the folder</code>
+						</div>
+						<span class="arrow-next">↓</span>
+						<div class="advantage__preview-block">
+							<code>
+<pre>@font-face {
+  <span class="fat-text">↓ Based on the file name</span>
+  font-family: 'fontName';
+  font-display: swap;
+  <span class="fat-text">↓ You do not need to specify the path to the font</span>
+  src: url("../fonts/fontName.woff2") format("woff2");
+  <span class="fat-text">↓ It detects automatically</span>
+  font-weight: 900; 
+  <span class="fat-text">↓ It's to</span>
+  font-style: italic;
+
+  If the font is adaptive, it will be 
+  connected in the same way, but with many different font weights.
+}</pre></code>
+						</div>
+					</div>
+				</div>
+			</section>
+			<section class='advantage _required'>
+				<div class='advantage__body'>
+					<h2 tabindex='0' class='advantage__title title'>And of course - the required content.</h2>
+					<p class="advantage__text text-center">Of course, you will find here such common things as: <a href="//www.npmjs.com/package/gulp-file-include" class="fat-text ref">fileInclude</a>, <a
+							href="//www.npmjs.com/package/gulp-autoprefixer" class="fat-text ref">autoprefixer</a>, <a href="//www.npmjs.com/package/gulp-terser" class="fat-text ref">optimization /
+							cleaning styles and scripts (terser)</a> and <a href="//www.npmjs.com/package/gulp-ttf2woff2" class="fat-text ref">font converter (ttf2woff2)</a>. And something else that I forgot or
+						considered not very necessary. <br>
+
+						If you are interested in the packages used, look <a href="index.html#packages" class="fat-text ref">here</a>.</p>
+				</div>
+			</section>
+			<section class='advantage _structure'>
+				<div class='advantage__body'>
+					<h2 tabindex='0' class='advantage__title title'>Structure</h2>
+					<p class="advantage__text text-center">It's useful to know this, isn't it?</p>
+					<div class="advantage__preview-block">
+						<code>
+<pre>
+📦#src
+┣ 📂docs
+┃ ┣ ...
+┣ 📂fonts
+┃ ┗ <img src="../img/demo/font.png" alt="stylus" width=20 height=20> yourFonts.ttf/otf/woff/woff2
+┣ 📂img
+┃ ┗ <img src="../img/demo/image.png" alt="image" width=20 height=20> yourImages.jpg/png/svg/gif/ico/webp/avif
+┣ 📂scripts
+┃ ┣ 📂modules
+┃ ┃ ┗ <img src="../img/demo/ts-js.png" alt="typescript and javascript" width=40 height=20> yourModules.ts/js
+┃ ┣ <img src="../img/demo/ts-js.png" alt="typescript and javascript" width=40 height=20> generalScript.ts/js
+┃ ┗ <img src="../img/demo/ts-js.png" alt="typescript and javascript" width=40 height=20> sliders.js/js
+┣ 📂styles
+┃ ┣ 📂modules
+┃ ┃ ┣ <img src="../img/demo/stylus.png" alt="stylus" width=20 height=20> _nullStyle.styl
+┃ ┃ ┗ <img src="../img/demo/stylus.png" alt="stylus" width=20 height=20> yourStyleModules.styl
+┃ ┣ 📂other
+┃ ┃ ┣ <img src="../img/demo/stylus.png" alt="stylus" width=20 height=20> _fonts.styl
+┃ ┃ ┣ <img src="../img/demo/stylus.png" alt="stylus" width=20 height=20> _general.styl
+┃ ┃ ┣ <img src="../img/demo/stylus.png" alt="stylus" width=20 height=20> _mixins.styl
+┃ ┃ ┗ <img src="../img/demo/stylus.png" alt="stylus" width=20 height=20> _vars.styl
+┃ ┣ <img src="../img/demo/stylus.png" alt="stylus" width=20 height=20> style.styl
+┃ ┣ <img src="../img/demo/stylus.png" alt="stylus" width=20 height=20> _footer.styl
+┃ ┗ <img src="../img/demo/stylus.png" alt="stylus" width=20 height=20> _header.styl
+┣ 📂components
+┃ ┣ <img src="../img/demo/html.png" alt="html" width=20 height=20> _header.htm
+┃ ┣ <img src="../img/demo/html.png" alt="html" width=20 height=20> _footer.htm
+┃ ┣ <img src="../img/demo/html.png" alt="html" width=20 height=20> _headContent.htm
+┃ ┗ <img src="../img/demo/html.png" alt="html" width=20 height=20> _modals.htm
+┣ <img src="../img/demo/html.png" alt="html" width=20 height=20> index.html
+┗ <img src="../img/demo/html.png" alt="html" width=20 height=20> otherPages.html
+
+📦Result
+ ┣ 📂css
+ ┃ ┣ <img src="../img/demo/css.svg" alt="stylus" width=20 height=20>style.css
+ ┃ ┣ <img src="../img/demo/css.svg" alt="stylus" width=20 height=20>style.min.css
+ ┃ ┗ <img src="../img/demo/css.svg" alt="stylus" width=20 height=20>swiper-styles.css //optional
+ ┣ 📂docs //optional
+ ┃ ┗ ...
+ ┣ 📂fonts
+ ┃ ┗ <img src="../img/demo/font.png" alt="stylus" width=20 height=20> yourFonts.woff2
+ ┣ 📂img
+ ┃ ┗ <img src="../img/demo/image.png" alt="image" width=20 height=20> yourImages.jpg/png/svg/webp/avif
+ ┣ 📂scripts
+ ┃ ┣ 📂modules
+ ┃ ┃ ┣ <img src="../img/demo/js.png" alt="image" width=20 height=20> module.js
+ ┃ ┃ ┗ <img src="../img/demo/js.png" alt="image" width=20 height=20> module.js
+ ┃ ┣ <img src="../img/demo/js.png" alt="image" width=20 height=20> moduleAPI.js
+ ┃ ┣ <img src="../img/demo/js.png" alt="image" width=20 height=20> swiper-scripts.js //optional
+ ┃ ┗ <img src="../img/demo/js.png" alt="image" width=20 height=20> yourScripts.js
+ ┃ <img src="../img/demo/html.png" alt="html" width=20 height=20> index.html
+ ┗ <img src="../img/demo/html.png" alt="html" width=20 height=20> otherPages.html
+</pre>
+							</code>
+					</div>
+				</div>
+			</section>
+		</div>
+	</main>
+</body>
+
+</html>
+
+@@include('_scripts.htm', {
+'spoilers': false,
+'tabs': false,
+})
+
+<!-- 
+  Made in Russia, with ❤, by Ivan Ulyanov. 
+-->

@@ -1,0 +1,75 @@
+html {
+	// @media (min-width 768px) {
+	// -ms-overflow-style none;
+	// scrollbar-width none; 
+	// &::-webkit-scrollbar { width: 0; } }
+	::selection {
+	}
+
+	scroll-behavior smooth;
+}
+
+.container {
+	margin auto;
+
+	@media (min-width unit($layoutWidth, px)) {
+		// Insert the width of the container as a percentage of the width of the layout.
+		width 70%;
+	}
+
+	@media (min-width 768px) and (max-width unit($layoutWidth, px)) {
+		width 90%;
+	}
+
+	@media (min-width 426px) and (max-width 768px) {
+		width 90%;
+	}
+
+	@media (max-width 426px) {
+		width 95%;
+	}
+}
+
+.modal-window {
+	position fixed;
+	z-index 15;
+	top 0;
+	left 0;
+	background #00000046;
+	block-size 100%;
+	hide();
+	transition all .3s ease;
+
+	&.active {
+		show();
+	}
+
+	&__body {
+		display grid;
+		height 100%;
+		align-items center;
+		justify-content center;
+	}
+
+	&__content {
+		background #3e3e3e;
+	}
+
+	&__closer {
+		color #7d7d7d;
+	}
+}
+
+._contain-img {
+	img {
+		block-size 100%;
+		object-fit contain;
+	}
+}
+
+._cover-img {
+	img {
+		block-size 100%;
+		object-fit cover;
+	}
+}

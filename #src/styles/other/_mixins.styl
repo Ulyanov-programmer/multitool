@@ -1,0 +1,85 @@
+block-size($width, $height = $width) {
+	width $width;
+	height $height;
+}
+
+fontStyle($name, $type, $fileName, $weight, $style) {
+	@font-face {
+		font-family $name;
+		font-display swap;
+		src 'url("../fonts/%s.woff2") format("%s")' % ($fileName $type);
+		font-weight $weight;
+		font-style $style;
+	}
+}
+
+adaptive-property($property, $value, $min-value) {
+	{$property} 'calc(%spx + (%s - %s) * ((100vw - 320px) / (1000 - 320)))' % ($min-value $value $min-value);
+}
+
+adapt-fsize($px-size, $min-size = $minFontSize) {
+	$minSize = $min-size;
+	$min-size = remNumber($min-size);
+	$lWidthRem = remNumber($layoutWidth);
+	$pxSizeRem = remNumber($px-size);
+	$min-size-rem = rem($minSize);
+	return 'calc((100vw - 20rem)/(%s - 20) * (%s - %s) + %s)' % ($lWidthRem $pxSizeRem $min-size $min-size-rem);
+}
+
+rem($px-size) {
+	return unit(($px-size / $mainFontSize), 'rem');
+}
+
+remNumber($px-size) {
+	return ($px-size / $mainFontSize);
+}
+
+flex-set($type = row, $wrap = nowrap) {
+	display flex;
+	flex-flow $type $wrap;
+}
+
+notLastChildMargin($values...) {
+	>* {
+		&:not(:last-child) {
+			margin $values;
+		}
+	}
+}
+
+hide() {
+	overflow hidden;
+	opacity 0;
+	pointer-events none;
+}
+
+show() {
+	overflow auto;
+	opacity 1;
+	pointer-events all;
+}
+
+bg-img-multi-type($url, $params) {
+	background url($url) $params;
+
+	/* The variable gulpHashes.canIncludeConvertedBg is available to you
+	in the file gulpData/css.js (see the stylus pipe).
+	Its value depends on whether this gulp is running in normal or production mode.
+	*/
+	if (gulpHashes.canIncludeConvertedBg) {
+		// Creating new paths, removing extensions.jpg and .png
+		$webpUrl = replace('.png', '.webp', replace('.jpg', '.webp', $url));
+		$avifUrl = replace('.png', '.avif', replace('.jpg', '.avif', $url));
+		// Embedding new paths
+		background-image -webkit-image-set(
+			url($avifUrl) 1x,
+			url($webpUrl) 1x,
+			url($url) 1x
+		);
+		background-image image-set(
+			url($avifUrl) 1x,
+			url($webpUrl) 1x,
+			url($url) 1x
+		);
+	}
+}

@@ -1,0 +1,134 @@
+form {
+}
+
+fieldset {
+}
+
+label {
+	cursor pointer;
+}
+
+input {
+	&:disabled {
+	}
+
+	&:invalid {
+	}
+
+	&:checked + label {
+	}
+
+	&[type=text] {
+	}
+
+	&[type=email] {
+	}
+
+	&[type=tel] {
+	}
+
+	&[type=number] {
+		-moz-appearance textfield;
+
+		&::-webkit-inner-spin-button, &::-webkit-outer-spin-button {
+			appearance none;
+			margin 0;
+			/*
+					If necessary, create additional buttons to zoom in and out and use this code in your js:
+			
+					let counter = document.querySelector('#productCounter') // as HTMLInputElement 
+					let decreaser = document.querySelector('#decreaser') 
+					let increaser = document.querySelector('#increaser') 
+					decreaser ? decreaser.addEventListener('click', decraseCounterValue) : false;
+					increaser ? increaser.addEventListener('click', increaseCounterValue) : false;
+			
+					function decraseCounterValue() {
+						let counterValue = parseInt(counter.value) 
+						counterValue = counterValue - parseInt(counter.step)
+			
+						counterValue >= 1 ? counter.value = `${counterValue}` : false
+					}
+			
+					function increaseCounterValue() {
+						let counterValue = parseInt(counter.value) 
+						counterValue = counterValue + parseInt(counter.step)
+			
+						counterValue >= 1 ? counter.value = `${counterValue}` : false
+					}
+				*/
+		}
+	}
+
+	&[type=checkbox] {
+		display none;
+	}
+
+	&[type=radio] {
+		display none;
+	}
+}
+
+input[type=file] {
+	display none;
+
+	& + label {
+	}
+}
+
+select {
+	cursor pointer;
+	appearance none;
+	background #fff;
+}
+
+textarea {
+	scrollbar-width 0;
+	resize none;
+
+	&::-webkit-scrollbar {
+		width 0;
+	}
+
+	outline none;
+}
+
+input[type=date] {
+	&::-webkit-datetime-edit {
+		/* all input, but not calendar button */
+		background greenyellow;
+	}
+
+	&::-webkit-datetime-edit-fields-wrapper {
+		/* only date values */
+		background yellow;
+	}
+
+	&::-webkit-datetime-edit-text {
+		/* elements between numbers */
+		background gray;
+	}
+
+	&::-webkit-datetime-edit-month-field {
+		/* month */
+	}
+
+	&::-webkit-datetime-edit-day-field {
+		/* day */
+	}
+
+	&::-webkit-datetime-edit-year-field {
+		/* year */
+	}
+
+	&::-webkit-inner-spin-button {
+		/* i don't now what is that */
+		display none;
+	}
+
+	&::-webkit-calendar-picker-indicator {
+		/* calendar button */
+		margin 0;
+		padding 0;
+		box-sizing border-box;
+	}
+}

@@ -5,111 +5,81 @@ import * as readline from "readline-sync";
 
 
 const pathToProject = path.resolve('./');
-const demoProjectFolderName = '/Gulp_Default_Project'
-const snippetsFolderName = '/mySnippets'
-const readmeFolder = '/readmeFiles'
+const demoProjectFolderName = `${pathToProject}/gulp_multitool`
+const snippetsFolderName = `${pathToProject}/snippets`
+const readmeFolder = `${pathToProject}/readmeFiles`
 const src = '/#src'
 const scriptModules = `${pathToProject}${src}/scripts/modules/`
+const scriptGeneral = `${pathToProject}${src}/scripts/`
 const stylesModules = `${pathToProject}${src}/styles/modules/`
+const componentsFolder = `${pathToProject}${src}/components/`
 
 
 const fontsGitkeep = `${src}/fonts/.gitkeep`
-const mainStyleFile = `${src}/styles/style.styl`
-const mainHtmlFile = `${src}/index.html`
+const mainStyleFile = `${pathToProject}${src}/styles/style.styl`
+const mainHtmlFile = `${pathToProject}${src}/index.html`
 const mainScriptFile = `${src}/scripts/script.ts`
 const gulpSliderConnectionFile = `${pathToProject}/gulpfile.js`
 const slidersFile = `${pathToProject}${src}/scripts/sliders.js`
 
-
-
 const srcDemoFoldersAndFIles =
-	[`${src}/img/demo`, `${src}/styles/_demoStyles.styl`, `${src}/_demo.htm`,];
+	[`${pathToProject}${src}/docs`, `${pathToProject}${src}/img/demo`,]
 
-const demoStyles = {
-	files: pathToProject + mainStyleFile,
-	from: "@import '_demoStyles';", to: '',
-};
-const demoHtml = {
-	files: pathToProject + mainHtmlFile,
-	from: "@@include('_demo.htm')", to: '',
-};
-const hint = '(enter [y], if you not, enter [key enter or another])';
+const hint = '(enter [y], if you not, enter [enter] or another key and [enter])';
 
-
-deleteFontsGitkeep()
-await deleteDemoContent()
+deleteDemoContent()
 cleanReadmeFilesAndFolders()
 deleteSnippets()
 deleteDemoProject()
-console.log('Initialize the slider? ' + hint);
+console.log('Initialize the swiper-slider? ' + hint)
 await setSlider()
 await setModules()
 
 console.log('🎆🎆🎆 I wish You a successful job!');
 
 async function setModules() {
-	await includeModuleByQuestion(`Include Burger Menu? ${hint}`,
-		`${scriptModules}fsNavmenu.ts`, `${stylesModules}_fsNavmenu.styl`)
+	await includeModuleByQuestion(
+		'Modal-Window',
+		`${scriptModules}modalWindow.ts`,
+		null,
+		`${componentsFolder}_modals.htm`,
+		async () => {
+			await replace({
+				files: mainHtmlFile,
+				from: `@@include('components/_modals.htm', {})`, to: '',
+			})
+		})
+	await includeModuleByQuestion('Burger-menu', `${scriptModules}burgerMenu.ts`, `${stylesModules}_burgerMenu.styl`)
+	await includeModuleByQuestion('Filter', `${scriptModules}filter.ts`)
 
-	await includeModuleByQuestion(`Include Filter? ${hint}`,
-		`${scriptModules}filter.ts`)
+	await includeModuleByQuestion('Spoilers', `${scriptModules}spoiler.ts`, `${stylesModules}_spoiler.styl`)
+	await includeModuleByQuestion('Sidebar', `${scriptModules}sidebar.ts`, `${stylesModules}_sidebar.styl`)
+	await includeModuleByQuestion('Submenu', `${scriptModules}submenu.ts`, `${stylesModules}_submenu.styl`)
+	await includeModuleByQuestion('Tabs', `${scriptModules}tab.ts`)
+	await includeModuleByQuestion('Element-modal', `${scriptModules}elementModal.ts`)
+	await includeModuleByQuestion('Parallax', `${scriptModules}parallax.ts`)
+	await includeModuleByQuestion('ScrollToElement', `${scriptModules}scrollToElement.ts`)
+	await includeModuleByQuestion('Animations by scroll', `${scriptModules}animateByScroll.ts`)
+	await includeModuleByQuestion('Swipe module', `${scriptModules}swipe.ts`)
+	await includeModuleByQuestion('Searchbar styles', ``, `${stylesModules}_searchbar.styl`)
+	await includeModuleByQuestion('Form styles', ``, `${stylesModules}_form.styl`)
 
-	await includeModuleByQuestion(`Include Modal-Window? ${hint}`,
-		`${scriptModules}modalWindow.ts`)
-
-	await includeModuleByQuestion(`Include Spoilers? ${hint}`,
-		`${scriptModules}spoiler.ts`, `${stylesModules}_spoiler.styl`)
-
-	await includeModuleByQuestion(`Include Sidebar? ${hint}`,
-		`${scriptModules}sidebar.ts`, `${stylesModules}_sidebar.styl`)
-
-	await includeModuleByQuestion(`Include Submenu? ${hint}`,
-		`${scriptModules}submenu.ts`, `${stylesModules}_submenu.styl`)
-
-	await includeModuleByQuestion(`Include Accordion? ${hint}`,
-		`${scriptModules}accord.ts`)
-
-	await includeModuleByQuestion(`Include Element-modal? ${hint}`,
-		`${scriptModules}elementMenu.ts`)
-
-	await includeModuleByQuestion(`Include Parallax? ${hint}`,
-		`${scriptModules}parallax.ts`)
-
-	await includeModuleByQuestion(`Include ScrollToElement? ${hint}`,
-		`${scriptModules}scrollToElement.ts`)
-
-	await includeModuleByQuestion(`Include Animations by scroll? ${hint}`,
-		`${scriptModules}animateByScroll.ts`)
-
-	await includeModuleByQuestion(`Include Searchbar styles? ${hint}`,
-		``, `${stylesModules}_searchbar.styl`)
 }
-function deleteFontsGitkeep() {
+function deleteDemoContent() {
 	try {
-		fs.removeSync(pathToProject + fontsGitkeep)
-
-		console.log('✅ .gitkeep in fonts folder have been deleted.');
-	} catch (error) {
-		console.log('❌' + error);
-	}
-}
-async function deleteDemoContent() {
-	try {
-		for (const pathToDemo of srcDemoFoldersAndFIles) {
-			fs.removeSync(pathToProject + pathToDemo)
+		for (let pathToDemo of srcDemoFoldersAndFIles) {
+			fs.removeSync(pathToDemo)
 		}
-		await replace(demoStyles)
-		await replace(demoHtml)
 
 		console.log('✅ The demo content have been deleted.');
 	} catch (error) {
-		console.log('❌' + error);
+		console.log('❌' + error)
 	}
 }
 function cleanReadmeFilesAndFolders() {
 	try {
-		fs.emptyDir(pathToProject + readmeFolder)
-		fs.removeSync('./README.md')
+		fs.emptyDirSync(readmeFolder)
+		fs.removeSync(`${pathToProject}/README.md`)
 		fs.createFileSync('README.md')
 
 		console.log('✅ The readme folder and file are clean.');
@@ -119,7 +89,7 @@ function cleanReadmeFilesAndFolders() {
 }
 function deleteDemoProject() {
 	try {
-		fs.removeSync(pathToProject + demoProjectFolderName)
+		fs.removeSync(demoProjectFolderName)
 
 		console.log('✅ Demo Project have been deleted.');
 	} catch (error) {
@@ -128,7 +98,7 @@ function deleteDemoProject() {
 }
 function deleteSnippets() {
 	try {
-		fs.removeSync(pathToProject + snippetsFolderName)
+		fs.removeSync(snippetsFolderName)
 
 		console.log('✅ Snippets have been deleted.');
 	} catch (error) {
@@ -145,25 +115,47 @@ async function setSlider(questionString) {
 			from: `let build = gulp.series(recreate, setupSwiperCss, setupSwiperJs,`,
 			to: 'let build = gulp.series(recreate,',
 		})
+		await replace({
+			files: mainHtmlFile,
+			from: ['<!-- Swiper -->',
+				'<link rel="stylesheet" href="css/swiper-bundle.min.css">',
+				'<script defer src="scripts/swiper-bundle.min.js"></script>',
+				'<script type="module" src="scripts/sliders.js"></script>'],
+			to: '',
+		})
 		fs.removeSync(slidersFile)
 	}
 }
 
-async function includeModuleByQuestion(questionString, scriptPath, stylePath) {
+async function includeModuleByQuestion(moduleName, scriptPath, stylePath, htmlPath, replaceFunc) {
+	let questionString = `Include the ${moduleName}? ${hint}`
 	let answer = readline.question(questionString).toLowerCase()
 
-	if (answer !== 'y') {
+	if (answer === 'y')
+		return
+
+	if (scriptPath) {
 		fs.removeSync(scriptPath)
 
-		if (stylePath) {
-			fs.removeSync(stylePath)
+		let scriptNameWithoutExp = path.basename(scriptPath, '.ts')
+		let scriptConnFileName = `${scriptNameWithoutExp}API.ts`
 
-			let styleModuleName = path.basename(stylePath, '.styl')
+		fs.removeSync(scriptGeneral + scriptConnFileName)
+	}
+	if (stylePath) {
+		fs.removeSync(stylePath)
 
-			await replace({
-				files: pathToProject + mainStyleFile,
-				from: `@import 'modules/${styleModuleName}';`, to: '',
-			})
-		}
+		let styleModuleName = path.basename(stylePath, '.styl')
+
+		await replace({
+			files: mainStyleFile,
+			from: `@import 'modules/${styleModuleName}';`, to: '',
+		})
+	}
+	if (htmlPath) {
+		fs.removeSync(htmlPath)
+	}
+	if (replaceFunc) {
+		await replaceFunc()
 	}
 }

@@ -1,0 +1,15 @@
+<script type="module">
+	import ScrollController from '../scripts/modules/scrollToElement.js';
+
+	let scrollController = new ScrollController({
+		scrollButtonsSelector: '[data-scroll-to]',
+		fixedElementSelector: '.refbar',
+		scrollByAdressURL: true,
+	})
+</script>
+@@if (spoilers) {
+<script type="module" src="../scripts/spoilerAPI.js"></script>
+}
+@@if (tabs) {
+<script type="module" src="../scripts/tabAPI.js"></script>
+}

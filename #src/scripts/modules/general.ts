@@ -2,10 +2,9 @@
  * @returns Returns the width of the page scroll bar.
  */
 export function returnScrollbarWidth(): number {
-	let scrollbarWidth = window.innerWidth - document.querySelector('html').clientWidth;
-	return scrollbarWidth;
+	let scrollbarWidth = window.innerWidth - document.querySelector('html').clientWidth
+	return scrollbarWidth
 }
-
 /**
  * @returns 
  * If at least one of the input strings is null or contain only white spaces, 
@@ -17,10 +16,10 @@ export function returnScrollbarWidth(): number {
 export function isNullOrWhiteSpaces(...strings: string[]): boolean {
 	for (const str of strings) {
 		if (!str || str.trim() === '') {
-			return true;
+			return true
 		}
 	}
-	return false;
+	return false
 }
 /**
  * Temporarily stops code execution for the specified amount of time.
@@ -29,4 +28,21 @@ export function isNullOrWhiteSpaces(...strings: string[]): boolean {
  */
 export function sleep(timeMs: number) {
 	return new Promise(r => setTimeout(r, timeMs))
+}
+export function elementsIsExist(...selectors: string[]): boolean {
+	for (let selector of selectors) {
+		if (document.querySelector(selector) == null) {
+			return false
+		}
+	}
+	return true
+}
+export function elementIsExistWithLog(nameOfErrorRoot: string, ...selectors: string[]): boolean {
+	for (let selector of selectors) {
+		if (document.querySelector(selector) == null) {
+			console.log(`[${nameOfErrorRoot}] Some element is not exist.`)
+			return false
+		}
+	}
+	return true
 }

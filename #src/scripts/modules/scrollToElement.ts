@@ -1,52 +1,73 @@
-import { isNullOrWhiteSpaces } from "./general.js";
+import { elementIsExistWithLog, elementsIsExist } from "./general.js"
 
-export default class ScrollElement {
-	private static fixedHeaderHeight = 0;
-
+interface SpoilerMenuArgs {
+	/** 
+		Selector of buttons for scrolling by click.
+		For correct work, you need to add the attribute `data-scroll-to=".selectorOfElem"`
+	*/
+	scrollButtonsSelector: string
+	/** 
+		Selector of an element with position: fixed or sticky. Not required.
+		If you use a fixed element, enter, so that its height is taken into account when scrolling.
+	*/
+	fixedElementSelector?: string
 	/**
-	 * Provides functionality for scrolling by clicking on buttons.
-	 * 
-	 * @param scrollButtonsSelector
-	 * Selector of buttons for scrolling by click.
-	 * For correct work, you need to add the attribute [data-scroll-to='.selectorOfElem']
-	 * @param fixedHeaderSelector
-	 * Selector of header with position: fixed. Not required.
-	 * If you use a fixed header, enter, so that its height is taken into account when scrolling.
-	 * 
-	 * @throws scrollButtonsSelector is null or white spaces - 
-	 * This error will be printed to the console if some input argument are null or white spaces.
+		If you want to scroll to the block when you go to the page, set this parameter to true and specify `href='page.html?b=selectorOfBlock'` in the attribute.
 	 */
-	constructor(scrollButtonsSelector: string, fixedHeaderSelector?: string) {
-		if (isNullOrWhiteSpaces(scrollButtonsSelector)) {
-			throw new Error('[SCROLL-ELEMENTS] Incorrect scroll-buttons selector!');
-		}
+	scrollByAdressURL?: boolean
+}
 
-		let scrollButtons = document.querySelectorAll<HTMLElement>(scrollButtonsSelector);
+export default class ScrollController {
+	private static fixedElementHeight = 0;
+
+	constructor(arg: SpoilerMenuArgs) {
+		if (!elementIsExistWithLog('ScrollController', arg.scrollButtonsSelector))
+			return
+
+		let scrollButtons = document.querySelectorAll<HTMLElement>(arg.scrollButtonsSelector)
 
 		for (let scrollButton of scrollButtons) {
-			scrollButton.addEventListener('click', () => {
-				this.scrollToElement(scrollButton);
-			});
+			scrollButton.addEventListener('click', () =>
+				ScrollController.scrollToElement(scrollButton.dataset.scrollTo)
+			)
 		}
-		if (isNullOrWhiteSpaces(fixedHeaderSelector) == false) {
-			let heightHeight = document.querySelector(fixedHeaderSelector).clientHeight;
-			ScrollElement.fixedHeaderHeight = heightHeight;
+
+		if (elementsIsExist(arg.fixedElementSelector)) {
+			let heightHeight = document.querySelector(arg.fixedElementSelector).clientHeight
+			ScrollController.fixedElementHeight = heightHeight
+		}
+		if (arg.scrollByAdressURL) {
+			window.addEventListener('load', this.scrollToElementByAdress)
 		}
 	}
 
 
-	private scrollToElement(scrollButton: HTMLElement) {
-		let scrollElement = document.querySelector(scrollButton.dataset.scrollTo);
+	private static scrollToElement(scrollTo: string) {
+		let scrollElement = document.querySelector(scrollTo)
 
 		if (scrollElement == undefined) {
-			throw new Error('[SCROLL-ELEMENTS] Something wrong with scrollElement!')
+			console.log('[ScrollController] Something wrong with scrollElement!')
+			return
 		}
 
-		let scrolltop = window.pageYOffset + scrollElement.getBoundingClientRect().top;
+		let scrolltop = window.pageYOffset + scrollElement.getBoundingClientRect().top
 
 		window.scrollTo({
-			top: scrolltop - ScrollElement.fixedHeaderHeight,
+			top: scrolltop - ScrollController.fixedElementHeight,
 			behavior: "smooth"
-		});
+		})
+	}
+
+	private scrollToElementByAdress() {
+		const urlParams = new URLSearchParams(window.location.search)
+		const selector = urlParams.get('b')
+
+		ScrollController.scrollToElement(selector)
+
+		// deleting the get block in URL
+		const url = new URL(window.location.href)
+		const searchParams = url.searchParams
+		searchParams.delete("b")
+		window.history.pushState({}, '', url.toString())
 	}
 }

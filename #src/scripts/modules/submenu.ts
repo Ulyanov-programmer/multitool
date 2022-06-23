@@ -1,76 +1,117 @@
-import { isNullOrWhiteSpaces } from "./general.js";
+import { isNullOrWhiteSpaces, elementIsExistWithLog } from "./general.js"
+export enum SubmenuOpenIvents {
+	Click,
+	Hover,
+};
+
+interface SubmenuArgs {
+	/** The class for an active submenu menu. */
+	menuActiveClass: string
+	/** The class for an active submenu button. */
+	buttonActiveClass: string
+	/** If true, all menus that open with a click will be closed by pressing Esc. */
+	disableOnEsc?: boolean
+}
 
 export default class Submenu {
-	private static submenuElements: SubmenuElement[] = new Array()
+	private static submenuElements: SubmenuElementGroup[] = new Array()
 	public static menuActiveClass: string
 	public static buttonActiveClass: string
 
-	/**
-	 * Provides functionality for buttons with submenu.
-	 * @remarks Switching occurs by clicking.
-	 * 
-	 * @param submenuElements
-	 * Instances of `SubmenuElement` in an arbitrary number.
-	 * @param menuActiveClass
-	 * The class for an active spoiler menu.
-	 * @param buttonActiveClass
-	 * The class for an active spoiler button.
-	 */
-	constructor(menuActiveClass: string, buttonActiveClass: string,
-		...submenuElements: SubmenuElement[]) {
+	constructor(args: SubmenuArgs, ...submenuElements: SubmenuElementGroup[]) {
+		if (isNullOrWhiteSpaces(args.menuActiveClass, args.buttonActiveClass))
+			console.log('[Submenu] Please specify the classes for the elements when they are active.')
 
-		if (isNullOrWhiteSpaces(menuActiveClass, buttonActiveClass)) {
-			throw new Error('Your input classes is null or white spaces!');
-		}
-
-		Submenu.buttonActiveClass = buttonActiveClass;
-		Submenu.menuActiveClass = menuActiveClass;
+		Submenu.buttonActiveClass = args.buttonActiveClass
+		Submenu.menuActiveClass = args.menuActiveClass
 		Submenu.submenuElements.push(...submenuElements)
 
-		for (let submenuElement of submenuElements) {
-			submenuElement.buttonElement.addEventListener('click', () => {
-				Submenu.showOrHideSubmenu(submenuElement)
-			});
+		if (args.disableOnEsc) {
+			document.addEventListener('keydown', (key) =>
+				key.code == 'Escape' ? Submenu.hideAllClickSubmenu() : false
+			)
 		}
 	}
 
 
-	private static showOrHideSubmenu(submenuElement: SubmenuElement) {
+	public static showOrHideSubmenu(currentSubmenuGroup: SubmenuElementGroup, activeElement: HTMLElement) {
+		for (let i = 0; i < currentSubmenuGroup.buttonElements.length; i++) {
 
-		for (let i = 0; i < Submenu.submenuElements.length; i++) {
-
-			if (Submenu.submenuElements[i].buttonElement == submenuElement.buttonElement) {
-				submenuElement.buttonElement.classList.toggle(Submenu.buttonActiveClass);
-				submenuElement.menuElement.classList.toggle(Submenu.menuActiveClass);
+			if (currentSubmenuGroup.buttonElements[i] == activeElement) {
+				currentSubmenuGroup.buttonElements[i].classList.toggle(Submenu.buttonActiveClass)
+				currentSubmenuGroup.menuElements[i].classList.toggle(Submenu.menuActiveClass)
 			} else {
-				Submenu.submenuElements[i].buttonElement.classList.remove(Submenu.buttonActiveClass);
-				Submenu.submenuElements[i].menuElement.classList.remove(Submenu.menuActiveClass);
+				currentSubmenuGroup.buttonElements[i].classList.remove(Submenu.buttonActiveClass)
+				currentSubmenuGroup.menuElements[i].classList.remove(Submenu.menuActiveClass)
+			}
+		}
+	}
+
+	private static hideAllClickSubmenu() {
+		for (let submenuGroup of Submenu.submenuElements) {
+
+			if (submenuGroup.openIvent == SubmenuOpenIvents.Click) {
+
+				for (let i = 0; i < submenuGroup.buttonElements.length; i++) {
+					submenuGroup.buttonElements[i].classList.remove(Submenu.buttonActiveClass)
+					submenuGroup.menuElements[i].classList.remove(Submenu.menuActiveClass)
+				}
 			}
 		}
 	}
 }
 
-export class SubmenuElement {
-	/**
-	 * Required for submenu scripts to work.
-	 * 
-	 * @param buttonSelector
-	 * Selector of the button that will open the submenu.
-	 * 
-	 * @param menuSelector
-	 * Selector of the menu that will open when the button is clicked.
-	 * 
-	 * @throws Some argument in a SubmenuElement is uncorrect -
-	 * Throws if some argument is null of white spaces.
-	 */
-	constructor(buttonSelector: string, menuSelector: string) {
-		if (isNullOrWhiteSpaces(buttonSelector, menuSelector)) {
-			throw '[SUBMENU] Some argument in a SubmenuElement is uncorrect.'
-		}
 
-		this.menuElement = document.querySelector(menuSelector);
-		this.buttonElement = document.querySelector(buttonSelector)
+interface SubmenuElementGroupArgs {
+	/** 
+		The value of the SubmenuOpenIvents enumeration, depending on what you specify,
+		the menu will open either by mouse hover or by click. 
+	*/
+	openIvent: SubmenuOpenIvents
+	/** Selector of the buttons that will open a submenu. */
+	buttonsSelector: string
+	/** Selector of the menus that will open when a button is clicked. */
+	menusSelector: string
+}
+export class SubmenuElementGroup {
+	constructor(args: SubmenuElementGroupArgs) {
+		if (!elementIsExistWithLog('SubmenuElementGroup', args.buttonsSelector, args.menusSelector))
+			return
+
+		this.menuElements = document.querySelectorAll(args.menusSelector)
+		this.buttonElements = document.querySelectorAll(args.buttonsSelector)
+		this.openIvent = args.openIvent
+
+		switch (this.openIvent) {
+			case SubmenuOpenIvents.Hover:
+				for (let button of this.buttonElements) {
+					let wrapper = button.parentElement as HTMLElement
+
+					button.addEventListener('focus', () =>
+						Submenu.showOrHideSubmenu(this, button)
+					)
+					button.addEventListener('focusout', () =>
+						Submenu.showOrHideSubmenu(this, button)
+					)
+					button.addEventListener('mouseenter', () =>
+						Submenu.showOrHideSubmenu(this, button)
+					)
+					wrapper.addEventListener('mouseleave', () =>
+						Submenu.showOrHideSubmenu(this, button)
+					)
+				}
+				break
+			default:
+				for (let buttonEl of this.buttonElements) {
+					buttonEl.addEventListener('click', () =>
+						Submenu.showOrHideSubmenu(this, buttonEl)
+					)
+				}
+				break
+		}
 	}
-	public menuElement: HTMLElement
-	public buttonElement: HTMLElement
+
+	public menuElements: NodeListOf<HTMLElement>
+	public buttonElements: NodeListOf<HTMLElement>
+	public openIvent: SubmenuOpenIvents
 }

@@ -1,39 +1,41 @@
 {
-  "name": "defaultproject",
-  "version": "1.0.0",
-  "description": "Default project for work",
-  "main": "index.html",
-  "type": "module",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "default",
-  "license": "ISC",
-  "devDependencies": {
-    "replace-in-file": "^6.3.2",
-    "fs-extra": "^10.0.0",
-    "readline-sync": "^1.4.10",
-    
-    "browser-sync": "^2.27.7",
-    "del": "^6.0.0",
-    "gulp": "^4.0.2",
-    "gulp-autoprefixer": "^8.0.0",
-    "gulp-avif-webp-html": "^1.0.0",
-    "gulp-clean-css": "^4.3.0",
-    "gulp-file-include": "^2.3.0",
-    "gulp-group-css-media-queries": "^1.2.2",
-    "gulp-if": "^3.0.0",
-    "gulp-imagemin": "^8.0.0",
-    "gulp-libsquoosh": "^1.0.12",
-    "gulp-rename": "^2.0.0",
-    "gulp-stylus": "^2.7.1",
-    "gulp-terser": "^2.1.0",
-    "gulp-ttf2woff2": "^4.0.1",
-    "gulp-typescript": "^6.0.0-alpha.1",
-    "gulp-util": "^3.0.8",
-    "typescript": "^4.5.4"
-  },
-  "dependencies": {
-    "swiper": "^7.4.1"
-  }
+	"name": "defaultproject",
+	"version": "1.0.0",
+	"description": "Default project for work",
+	"main": "index.html",
+	"type": "module",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"author": "default",
+	"license": "ISC",
+	"devDependencies": {
+		"browser-sync": "^2.27.9",
+		"chokidar": "^3.5.3",
+		"del": "^6.0.0",
+		"fs-extra": "^10.0.0",
+		"gulp": "^4.0.2",
+		"gulp-autoprefixer": "^8.0.0",
+		"gulp-changed": "^4.0.3",
+		"gulp-clean-css": "^4.3.0",
+		"gulp-file-include": "^2.3.0",
+		"gulp-group-css-media-queries": "^1.2.2",
+		"gulp-html-img-to-picture": "^1.0.2",
+		"gulp-if": "^3.0.0",
+		"gulp-imagemin": "^8.0.0",
+		"gulp-libsquoosh": "^1.1.2",
+		"gulp-plumber": "^1.2.1",
+		"gulp-rename": "^2.0.0",
+		"gulp-stylus": "^2.7.1",
+		"gulp-terser": "^2.1.0",
+		"gulp-ttf2woff2": "^4.0.1",
+		"gulp-typescript": "^6.0.0-alpha.1",
+		"readline-sync": "^1.4.10",
+		"replace-in-file": "^6.3.2",
+		"typescript": "^4.6.3",
+		"uuid": "^8.3.2"
+	},
+	"dependencies": {
+		"swiper": "^8.1.4"
+	}
 }
