@@ -5,7 +5,7 @@ import * as readline from "readline-sync";
 
 
 const pathToProject = path.resolve('./');
-const demoProjectFolderName = `${pathToProject}/Gulp_Default_Project`
+const demoProjectFolderName = `${pathToProject}/gulp_multitool`
 const snippetsFolderName = `${pathToProject}/snippets`
 const readmeFolder = `${pathToProject}/readmeFiles`
 const src = '/#src'
