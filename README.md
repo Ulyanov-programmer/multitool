@@ -7,8 +7,6 @@ I decided to make my assembly as reliable, thoughtful and rich in functionality 
 
 **Gulp**, **ts-scripts**, **ready elements, modules**, **snippets** and much more.
 
-<br>
-
 ### Can i see how it works?
 Of course, just check out [this site on githubpages].
 
@@ -16,13 +14,13 @@ Of course, just check out [this site on githubpages].
 See the [wiki].
 You will also find the user manual there.
 
+---
+
 ## **[RU]**
 В разработке сайтов много рутинной работы. Каждый разработчик решает её по-своему, каждый создает свой gulp-проект.
 Я создал свою сборку, сделав её максимально надежной, продуманной и богатой по функционалу.
 
 **Gulp**, **Typescript**, **готовые блоки, модули и элементы**, **сниппеты** а так же многое другое.
-
-<br>
 
 ### А можно посмотреть?
 Конечно, можно взглянуть на функционал зайдя на [этот сайт на githubpages].
@@ -38,6 +36,8 @@ You will also find the user manual there.
 [вики]: https://github.com/Ulyanov-programmer/Default_Project/wiki
 
 ---
+---
+
 
 ### The following technologies were used:
 
