@@ -7,11 +7,8 @@ I decided to make my assembly as reliable, thoughtful and rich in functionality 
 
 **Gulp**, **ts-scripts**, **ready elements, modules**, **snippets** and much more.
 
-### Can i see how it works?
-Of course, just check out [this site on githubpages].
-
 ### Get started? 
-See the [wiki].
+See the [githubpages].
 You will also find the user manual there.
 
 ---
@@ -22,18 +19,13 @@ You will also find the user manual there.
 
 **Gulp**, **Typescript**, **готовые блоки, модули и элементы**, **сниппеты** а так же многое другое.
 
-### А можно посмотреть?
-Конечно, можно взглянуть на функционал зайдя на [этот сайт на githubpages].
-
 ### А как сим пользоваться? 
-Глянь [вики].
+Тогда тебе дорога [сюда].
 Там же ты найдёшь инструкции по использованию.
 
 
-[this site on githubpages]: https://ulyanov-programmer.github.io/Default_Project/Default_Project
-[этот сайт на githubpages]: https://ulyanov-programmer.github.io/Default_Project/Default_Project
-[wiki]: https://github.com/Ulyanov-programmer/Default_Project/wiki
-[вики]: https://github.com/Ulyanov-programmer/Default_Project/wiki
+[githubpages]: https://ulyanov-programmer.github.io/gulp_multitool/gulp_multitool/docs/
+[сюда]: https://ulyanov-programmer.github.io/gulp_multitool/gulp_multitool/docs/
 
 ---
 ---
