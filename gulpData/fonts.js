@@ -36,11 +36,11 @@ export function fontsStyle() {
 
             if (type !== 'woff2-variations') {
               fs.appendFileSync(fontsFIlePath,
-                `fontStyle('${fontName}', ${type}, ${fileName}, ${weight}, ${style})\r\n`);
+                `+fontStyle('${fontName}', ${type}, ${fileName}, ${weight}, ${style})\r\n`);
             } else {
               for (let weight = 100; weight <= 900; weight += 100) {
                 fs.appendFileSync(fontsFIlePath,
-                  `fontStyle('${fontName}', ${type}, ${fileName}, ${weight}, ${style})\r\n`);
+                  `+fontStyle('${fontName}', ${type}, ${fileName}, ${weight}, ${style})\r\n`);
               }
             }
           }

@@ -1,0 +1,23 @@
+.submenu-wrapper
+	position: relative
+
+.submenu-menu
+	position: absolute
+	z-index: 1
+	display: none
+	background: #818181
+	top: 100%
+	width: max-content
+
+	&.show
+		display: block
+
+	&_to-left
+		right: 0
+
+	&_to-right
+		left: 0
+
+	&_center
+		left: 50%
+		transform: translate(-50%, 0)

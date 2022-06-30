@@ -16,7 +16,7 @@ const componentsFolder = `${pathToProject}${src}/components/`
 
 
 const fontsGitkeep = `${src}/fonts/.gitkeep`
-const mainStyleFile = `${pathToProject}${src}/styles/style.styl`
+const mainStyleFile = `${pathToProject}${src}/styles/style.sass`
 const mainHtmlFile = `${pathToProject}${src}/index.html`
 const mainScriptFile = `${src}/scripts/script.ts`
 const gulpSliderConnectionFile = `${pathToProject}/gulpfile.js`
@@ -49,20 +49,20 @@ async function setModules() {
 				from: `@@include('components/_modals.htm', {})`, to: '',
 			})
 		})
-	await includeModuleByQuestion('Burger-menu', `${scriptModules}burgerMenu.ts`, `${stylesModules}_burgerMenu.styl`)
+	await includeModuleByQuestion('Burger-menu', `${scriptModules}burgerMenu.ts`, `${stylesModules}_burgerMenu.sass`)
 	await includeModuleByQuestion('Filter', `${scriptModules}filter.ts`)
 
-	await includeModuleByQuestion('Spoilers', `${scriptModules}spoiler.ts`, `${stylesModules}_spoiler.styl`)
-	await includeModuleByQuestion('Sidebar', `${scriptModules}sidebar.ts`, `${stylesModules}_sidebar.styl`)
-	await includeModuleByQuestion('Submenu', `${scriptModules}submenu.ts`, `${stylesModules}_submenu.styl`)
+	await includeModuleByQuestion('Spoilers', `${scriptModules}spoiler.ts`, `${stylesModules}_spoiler.sass`)
+	await includeModuleByQuestion('Sidebar', `${scriptModules}sidebar.ts`, `${stylesModules}_sidebar.sass`)
+	await includeModuleByQuestion('Submenu', `${scriptModules}submenu.ts`, `${stylesModules}_submenu.sass`)
 	await includeModuleByQuestion('Tabs', `${scriptModules}tab.ts`)
 	await includeModuleByQuestion('Element-modal', `${scriptModules}elementModal.ts`)
 	await includeModuleByQuestion('Parallax', `${scriptModules}parallax.ts`)
 	await includeModuleByQuestion('ScrollToElement', `${scriptModules}scrollToElement.ts`)
 	await includeModuleByQuestion('Animations by scroll', `${scriptModules}animateByScroll.ts`)
 	await includeModuleByQuestion('Swipe module', `${scriptModules}swipe.ts`)
-	await includeModuleByQuestion('Searchbar styles', ``, `${stylesModules}_searchbar.styl`)
-	await includeModuleByQuestion('Form styles', ``, `${stylesModules}_form.styl`)
+	await includeModuleByQuestion('Searchbar styles', ``, `${stylesModules}_searchbar.sass`)
+	await includeModuleByQuestion('Form styles', ``, `${stylesModules}_form.sass`)
 
 }
 function deleteDemoContent() {
@@ -145,7 +145,7 @@ async function includeModuleByQuestion(moduleName, scriptPath, stylePath, htmlPa
 	if (stylePath) {
 		fs.removeSync(stylePath)
 
-		let styleModuleName = path.basename(stylePath, '.styl')
+		let styleModuleName = path.basename(stylePath, '.sass')
 
 		await replace({
 			files: mainStyleFile,

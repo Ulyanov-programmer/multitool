@@ -1,12 +1,14 @@
-import stylus from 'gulp-stylus';
+import dartSass from 'sass';
+import gulpSass from 'gulp-sass';
 import cleanCss from 'gulp-clean-css';
 import groupMedia from 'gulp-group-css-media-queries';
 import autoprefixer from 'gulp-autoprefixer';
 import rename from 'gulp-rename';
+const sass = gulpSass(dartSass);
 
 export function css() {
 	return gulp.src(paths.scr.css)
-		.pipe(stylus({ rawDefine: { gulpHashes: { canIncludeConvertedBg: global.isProd } } }))
+		.pipe(sass())
 
 		.pipe(global.if(global.isProd, groupMedia()))
 

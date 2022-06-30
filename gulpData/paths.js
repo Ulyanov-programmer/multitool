@@ -14,8 +14,8 @@ export const paths = {
 	},
 	scr: {
 		html: [`${sourceFolderName}/**/*.html`, `!${sourceFolderName}/**/*.htm}`],
-		css: [`${sourceFolderName}/styles/**/*.styl`, `!${sourceFolderName}/styles/**/_*.styl`,
-		`${sourceFolderName}/docs/*.styl`],
+		css: [`${sourceFolderName}/styles/**/*.sass`, `!${sourceFolderName}/styles/**/_*.sass`,
+		`${sourceFolderName}/docs/*.sass`],
 		scripts: `${sourceFolderName}/scripts/*.{ts,js}`,
 		scriptModules: `${sourceFolderName}/scripts/modules/*.{ts,js}`,
 		images: `${sourceFolderName}/img/**/*.{jpg,png,svg,gif,ico,webp,avif}`,
@@ -23,12 +23,12 @@ export const paths = {
 	},
 	watch: {
 		html: `${sourceFolderName}/**/*.{html,htm}`,
-		css: `${sourceFolderName}/styles/**/*.styl`,
-		demoCss: `${sourceFolderName}/docs/*.styl`,
+		css: `${sourceFolderName}/styles/**/*.sass`,
+		demoCss: `${sourceFolderName}/docs/*.sass`,
 		scripts: `${sourceFolderName}/scripts/*.{ts,js}`,
 		scriptModules: `${sourceFolderName}/scripts/modules/*.{ts,js}`,
 		images: `${sourceFolderName}/img/**/*.{jpg,png,svg,gif,ico,webp,avif}`,
 	},
 	clean: `./${projectFolderName}/`,
 }
-export let fontsFIlePath = `${sourceFolderName}/styles/other/_fonts.styl`;
+export let fontsFIlePath = `${sourceFolderName}/styles/other/_fonts.sass`;

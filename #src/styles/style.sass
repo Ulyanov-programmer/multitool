@@ -1,0 +1,27 @@
+@import 'other/_mixins'
+@import 'other/_fonts'
+@import 'other/_vars'
+@import 'modules/_nullStyle'
+@import'other/_general'
+@import '_header'
+// @import'_footer'
+// @import'modules/_submenu'
+// @import'modules/_form'
+// @import'modules/_spoiler'
+// @import'modules/_sidebar'
+// @import'modules/_searchbar'
+// @import'modules/_burgerMenu'
+
+body
+	height: 100%
+	color: var(--text-c)
+	font: adaptiveFontSize($mainFontSize, $minFontSize) var(--main-font-family)
+	
+	button
+		color: var(--text-c)
+		font-size: adaptiveFontSize($mainFontSize, $minFontSize)
+
+.main
+	background: var(--bg)
+
+	// &__body
