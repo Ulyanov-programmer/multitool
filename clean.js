@@ -148,7 +148,7 @@ async function includeModuleByQuestion(moduleName, scriptPath, stylePath, htmlPa
 
 		await replace({
 			files: mainStyleFile,
-			from: `@import 'modules/${styleModuleName}';`, to: '',
+			from: `@import 'modules/${styleModuleName}'`, to: '',
 		})
 	}
 	if (htmlPath) {
