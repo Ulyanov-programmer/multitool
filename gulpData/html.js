@@ -1,6 +1,7 @@
 import fileInclude from 'gulp-file-include';
 import plumber from "gulp-plumber"
 import imgToPicture from "gulp-html-img-to-picture"
+import versionNumber from "gulp-version-number"
 
 export function html() {
 	return gulp.src(paths.scr.html)
@@ -22,6 +23,18 @@ export function html() {
 						{ extension: 'avif', mimetype: 'image/avif', },
 					],
 				}))
+			)
+		)
+		.pipe(
+			global.if(global.isProd,
+				versionNumber({
+					'value': '%DT%',
+					'append': {
+						'key': '_v',
+						'cover': 0,
+						'to': ['css', 'js']
+					}
+				})
 			)
 		)
 		.pipe(gulp.dest(paths.build.html))
