@@ -6,9 +6,6 @@
 		+flex-set(row, nowrap)
 
 .navmenu
-	@media (max-width $burgerMenuShowWidth)
-		display: none
-
 	// &__body
 
 	&__list
@@ -18,8 +15,11 @@
 			a, button
 				display: inline-block
 				padding: 4px 8px 4px 8px
-				color: var(--text-c)
+				color: inherit
 				transition: all .2s ease 0s
+
+				&:hover, &:focus
+					text-decoration: underline
 
 .fixed-header
 	position: fixed

@@ -1,6 +1,5 @@
 .searchbar
-	display: flex
-	flex-flow: row nowrap
+	+flex-set(row, nowrap)
 	background: #fff
 
 	&__input
@@ -18,5 +17,4 @@
 			background: #acabab
 
 		img
-			height: 20px
-			width: 20px
+			+block-size(20px)

@@ -1,8 +1,9 @@
 @use "sass:math"
+@use "sass:string"
 
 @mixin block-size($width, $height: $width)
-	width: $width
-	height: $height
+		width: $width
+		height: $height
 
 @mixin fontStyle($name, $type, $fileName, $weight, $style)
 	@font-face
@@ -13,7 +14,6 @@
 		font-style: $style
 
 @function adaptiveProperty($value, $min-value)
-
 	@return calc(#{$min-value + px} + (#{$value} - #{$min-value}) * ((100vw - 320px) / (#{$layoutWidth} - 320)))
 
 @function adaptiveFontSize($size-max, $size-min)
@@ -67,3 +67,10 @@
 	// Embedding new paths
 	background-image: image-set(url($avifUrl) 1x, url($webpUrl) 1x, url($url) 1x )
 	background-image: -webkit-image-set(url($avifUrl) 1x, url($webpUrl) 1x, url($url) 1x)
+
+@mixin advansedPosition($position, $top, $right, $bottom, $left)
+	position: $position
+	top: $top
+	right: $right
+	bottom: $bottom
+	left: $left

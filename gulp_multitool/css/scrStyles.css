@@ -1,6 +1,7 @@
 * {
   font-size: 20px;
 }
+
 .submenu-button {
   position: relative;
   display: flex;
@@ -9,9 +10,11 @@
   padding: 5px;
   border: 1px solid #000;
 }
+
 .submenu-wrapper {
   position: relative;
 }
+
 .submenu-menu {
   position: absolute;
   z-index: 1;
@@ -35,9 +38,11 @@
   left: 50%;
   transform: translate(-50%, 0);
 }
+
 .anim-wrapper {
   margin-top: 300px;
 }
+
 .animation_by_scroll__item {
   padding-bottom: 20px;
   opacity: 0;
@@ -48,6 +53,7 @@
   opacity: 1;
   transform: translate(0, 0);
 }
+
 .tab__container {
   text-align: center;
   width: 100%;
@@ -65,6 +71,7 @@
   justify-content: center;
   align-items: center;
 }
+
 .el-menu__content {
   display: grid;
   gap: 15px;
@@ -80,7 +87,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0,0,0,0.671);
+  background: rgba(0, 0, 0, 0.6705882353);
   color: #fff;
   display: flex;
   align-items: center;
@@ -93,14 +100,14 @@
   opacity: 0;
   pointer-events: none;
 }
+
 .filter__content {
   display: flex;
   flex-flow: column nowrap;
   gap: 25px;
   font-family: Arial;
 }
-.filter__header,
-.filter__main {
+.filter__header, .filter__main {
   display: flex;
   gap: 15px;
   justify-content: center;
@@ -109,9 +116,7 @@
   padding: 10px 7px 10px 7px;
   border: 1px solid #000;
 }
-.filter__button.active,
-.filter__button:hover,
-.filter__button:focus {
+.filter__button.active, .filter__button:hover, .filter__button:focus {
   background: #000;
   color: #fff;
   cursor: pointer;
@@ -121,18 +126,19 @@
   padding: 10px 5px 10px 5px;
 }
 .filter__item_green {
-  background: #008000;
+  background: green;
 }
 .filter__item_blue {
-  background: #00f;
+  background: blue;
 }
 .filter__item_red {
-  background: #f00;
+  background: red;
 }
 .filter__item_yellow {
-  background: #ff0;
+  background: yellow;
   color: #000;
 }
+
 .par-wrapper {
   display: flex;
   align-items: center;
@@ -141,14 +147,17 @@
   height: 500px;
   font-family: Arial;
 }
+
 .parallax_el {
   padding: 5px;
   transition: all 0.1s ease;
   font-size: 35px;
 }
+
 .spoiler_btn {
   width: 100%;
 }
+
 .swipe_window__body {
   padding: 20px 0;
 }

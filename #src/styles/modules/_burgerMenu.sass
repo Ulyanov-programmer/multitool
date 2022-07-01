@@ -6,17 +6,17 @@
 	block-size: 100% 100%
 	font-size: 30px
 	color: #fff
-	flex-set: column nowrap
+	+flex-set(column, nowrap)
 	transition: right .5s ease
 
-	@media (min-width $burgerMenuShowWidth)
+	@media (min-width: $burgerMenuShowWidth)
 		display: none
 
 	&.active
 		right: 0
 
 	&__body
-		flex-set: column nowrap
+		+flex-set(column, nowrap)
 		overflow: auto
 		background: #000000ad
 		min-height: 100%
@@ -41,7 +41,7 @@
 	cursor: pointer
 	padding: 10px
 
-	@media (min-width $burgerMenuShowWidth)
+	@media (min-width: $burgerMenuShowWidth)
 		display: none
 
 	&__svg
@@ -57,9 +57,11 @@
 
 			&__rect-center
 				overflow: hidden
-				opacity: 0
-				pointer-events: none
-				height: 0
+				+hide()
 
 			&__rect-bottom
 				transform: rotate(-45deg)
+
+.navmenu
+	@media (max-width: $burgerMenuShowWidth)
+		display: none

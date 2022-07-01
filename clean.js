@@ -63,7 +63,6 @@ async function setModules() {
 	await includeModuleByQuestion('Swipe module', `${scriptModules}swipe.ts`)
 	await includeModuleByQuestion('Searchbar styles', ``, `${stylesModules}_searchbar.sass`)
 	await includeModuleByQuestion('Form styles', ``, `${stylesModules}_form.sass`)
-
 }
 function deleteDemoContent() {
 	try {
