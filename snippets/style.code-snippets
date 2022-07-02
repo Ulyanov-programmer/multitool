@@ -439,7 +439,7 @@
 		"scope": "sass",
 		"prefix": "advposition",
 		"body": [
-			"+advansedPosition(fixed, ${1:auto}, ${2:auto}, ${3:auto}, ${4:auto})",
+			"+advansedPosition(${1:fixed}, ${2:auto}, ${3:auto}, ${4:auto}, ${5:auto})",
 		],
 	},
 }
