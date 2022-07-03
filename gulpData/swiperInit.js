@@ -1,11 +1,12 @@
 import fs from "fs";
 
+const mainJsFilePath = 'node_modules/swiper/swiper-bundle.min.js'
+const mainCssFilePath = 'node_modules/swiper/swiper-bundle.min.css'
+
 export function setupSwiperJs() {
-  if (fs.existsSync('node_modules/swiper/swiper-bundle.min.js')) {
-    const modules = [
-      'node_modules/swiper/swiper-bundle.min.js',
-      'node_modules/swiper/swiper-bundle.min.js.map',
-    ];
+  if (fs.existsSync(mainJsFilePath)) {
+    const modules = [mainJsFilePath, `${mainJsFilePath}.map`];
+
     return gulp.src(modules)
       .pipe(gulp.dest(paths.build.scripts));
   } else {
@@ -13,10 +14,9 @@ export function setupSwiperJs() {
   }
 };
 export function setupSwiperCss() {
-  if (fs.existsSync('node_modules/swiper/swiper-bundle.min.css')) {
-    const swiperCss = [
-      'node_modules/swiper/swiper-bundle.min.css',
-    ];
+  if (fs.existsSync(mainCssFilePath)) {
+    const swiperCss = [mainCssFilePath];
+		
     return gulp.src(swiperCss)
       .pipe(gulp.dest(paths.build.css));
   } else {

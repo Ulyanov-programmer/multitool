@@ -31,8 +31,11 @@ function watchFIles() {
 function recreate() {
 	return del(paths.clean);
 }
+let importModuleGulpTasks = [
+	setupSwiperCss, setupSwiperJs, setupValidateJs,
+]
 
-let build = gulp.series(recreate, setupSwiperCss, setupSwiperJs, setupValidateJs,
+let build = gulp.series(recreate, importModuleGulpTasks,
 	gulp.parallel(scripts, scriptModules, css, html, images, fonts), fontsStyle);
 
 let watch = gulp.parallel(build, watchFIles, browserSyncFunc);

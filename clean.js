@@ -14,25 +14,42 @@ const scriptGeneral = `${pathToProject}${src}/scripts/`
 const stylesModules = `${pathToProject}${src}/styles/modules/`
 const componentsFolder = `${pathToProject}${src}/components/`
 
-
 const fontsGitkeep = `${src}/fonts/.gitkeep`
 const mainStyleFile = `${pathToProject}${src}/styles/style.sass`
 const mainHtmlFile = `${pathToProject}${src}/index.html`
 const mainScriptFile = `${src}/scripts/script.ts`
-const gulpSliderConnectionFile = `${pathToProject}/gulpfile.js`
+const gulpFile = `${pathToProject}/gulpfile.js`
 const slidersFile = `${pathToProject}${src}/scripts/sliders.js`
+const justValidateFile = `${pathToProject}${src}/scripts/justValidate.js`
 
 const srcDemoFoldersAndFIles =
 	[`${pathToProject}${src}/docs`, `${pathToProject}${src}/img/demo`,]
 
 const hint = '(enter [y], if you not, enter [enter] or another key and [enter])';
 
+
 deleteDemoContent()
 cleanReadmeFilesAndFolders()
 deleteSnippets()
 deleteDemoProject()
-console.log('Initialize the swiper-slider? ' + hint)
-await setSlider()
+
+await setImportModule(
+	`just-validate`,
+	'setupValidateJs,',
+	['<!-- JustValidate -->',
+		'<script defer src="scripts/just-validate.production.min.js"></script>',
+		'<script type="module" src="scripts/justValidate.js"></script>'],
+	justValidateFile)
+
+await setImportModule(
+	`swiper-slider`,
+	'setupSwiperCss, setupSwiperJs,',
+	['<!-- Swiper -->',
+		'<link rel="stylesheet" href="css/swiper-bundle.min.css">',
+		'<script defer src="scripts/swiper-bundle.min.js"></script>',
+		'<script type="module" src="scripts/sliders.js"></script>'],
+	slidersFile)
+
 await setModules()
 
 console.log('🎆🎆🎆 I wish You a successful job!');
@@ -105,24 +122,21 @@ function deleteSnippets() {
 	}
 }
 
-async function setSlider(questionString) {
-	let answer = readline.question(questionString).toLowerCase()
+async function setImportModule(importModuleName, importModuleGulpTasksString, htmlConnectStrings, fileToDelete) {
+	let answer = readline.question(`Import the ${importModuleName}? ${hint}`).toLowerCase()
 
 	if (answer !== 'y') {
 		await replace({
-			files: gulpSliderConnectionFile,
-			from: `let build = gulp.series(recreate, setupSwiperCss, setupSwiperJs,`,
-			to: 'let build = gulp.series(recreate,',
+			files: gulpFile,
+			from: importModuleGulpTasksString,
+			to: '',
 		})
 		await replace({
 			files: mainHtmlFile,
-			from: ['<!-- Swiper -->',
-				'<link rel="stylesheet" href="css/swiper-bundle.min.css">',
-				'<script defer src="scripts/swiper-bundle.min.js"></script>',
-				'<script type="module" src="scripts/sliders.js"></script>'],
+			from: htmlConnectStrings,
 			to: '',
 		})
-		fs.removeSync(slidersFile)
+		fs.removeSync(fileToDelete)
 	}
 }
 
