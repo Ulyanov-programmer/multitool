@@ -30,14 +30,15 @@
 		"gulp-terser": "^2.1.0",
 		"gulp-ttf2woff2": "^4.0.1",
 		"gulp-typescript": "^6.0.0-alpha.1",
+		"gulp-version-number": "^0.2.4",
 		"readline-sync": "^1.4.10",
 		"replace-in-file": "^6.3.2",
 		"sass": "^1.53.0",
 		"typescript": "^4.6.3",
-		"gulp-version-number": "^0.2.4",
 		"uuid": "^8.3.2"
 	},
 	"dependencies": {
+		"just-validate": "^3.8.1",
 		"swiper": "^8.1.4"
 	}
 }

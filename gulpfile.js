@@ -16,6 +16,7 @@ import { scriptModules } from "./gulpData/moduleTask.js";
 import { fontsStyle, fonts } from "./gulpData/fonts.js";
 import { images } from "./gulpData/images.js";
 import { setupSwiperCss, setupSwiperJs } from "./gulpData/swiperInit.js";
+import { setupValidateJs } from "./gulpData/jvInit.js";
 import browserSyncFunc from "./gulpData/browserSync.js";
 import del from 'del';
 
@@ -31,8 +32,7 @@ function recreate() {
 	return del(paths.clean);
 }
 
-
-let build = gulp.series(recreate, setupSwiperCss, setupSwiperJs,
+let build = gulp.series(recreate, setupSwiperCss, setupSwiperJs, setupValidateJs,
 	gulp.parallel(scripts, scriptModules, css, html, images, fonts), fontsStyle);
 
 let watch = gulp.parallel(build, watchFIles, browserSyncFunc);
