@@ -167,7 +167,8 @@ html ::selection {
 }
 
 .navmenu__list {
-  flex-set: row wrap;
+  display: flex;
+  flex-flow: row wrap;
 }
 .navmenu__list li a, .navmenu__list li button {
   display: inline-block;

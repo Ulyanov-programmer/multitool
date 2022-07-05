@@ -10,6 +10,7 @@ global.paths = paths;
 global.browsersync = browsersync;
 
 import { html } from "./gulpData/html.js";
+import { php } from "./gulpData/php.js";
 import { css } from "./gulpData/css.js";
 import { scripts } from "./gulpData/scriptTask.js";
 import { scriptModules } from "./gulpData/moduleTask.js";
@@ -23,6 +24,7 @@ import del from 'del';
 
 function watchFIles() {
 	gulp.watch(paths.watch.html, { usePolling: true }, html);
+	gulp.watch(paths.watch.php, { usePolling: true }, php);
 	gulp.watch([paths.watch.css, paths.watch.demoCss], { usePolling: true }, css);
 	gulp.watch(paths.watch.scripts, { usePolling: true }, scripts);
 	gulp.watch(paths.watch.scriptModules, { usePolling: true }, scriptModules);
@@ -36,7 +38,7 @@ let importModuleGulpTasks = [
 ]
 
 let build = gulp.series(recreate, importModuleGulpTasks,
-	gulp.parallel(scripts, scriptModules, css, html, images, fonts), fontsStyle);
+	gulp.parallel(scripts, scriptModules, css, html, php, images, fonts), fontsStyle);
 
 let watch = gulp.parallel(build, watchFIles, browserSyncFunc);
 

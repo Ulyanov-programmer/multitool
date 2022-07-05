@@ -1,34 +1,37 @@
 import * as nodePath from 'path';
 
-export const projectFolderName = nodePath.basename(nodePath.resolve())
-export const sourceFolderName = '#src';
+export const project = nodePath.basename(nodePath.resolve())
+export const source = '#src';
 
 export const paths = {
 	build: {
-		html: `${projectFolderName}/`,
-		css: `${projectFolderName}/css/`,
-		scripts: `${projectFolderName}/scripts/`,
-		scriptModules: `${projectFolderName}/scripts/modules/`,
-		images: `${projectFolderName}/img/`,
-		fonts: `${projectFolderName}/fonts/`,
+		html: `${project}/`,
+		php: `${project}/php/`,
+		css: `${project}/css/`,
+		scripts: `${project}/scripts/`,
+		scriptModules: `${project}/scripts/modules/`,
+		images: `${project}/img/`,
+		fonts: `${project}/fonts/`,
 	},
 	scr: {
-		html: [`${sourceFolderName}/**/*.html`, `!${sourceFolderName}/**/*.htm}`],
-		css: [`${sourceFolderName}/styles/**/*.sass`, `!${sourceFolderName}/styles/**/_*.sass`,
-		`${sourceFolderName}/docs/*.sass`],
-		scripts: `${sourceFolderName}/scripts/*.{ts,js}`,
-		scriptModules: `${sourceFolderName}/scripts/modules/*.{ts,js}`,
-		images: `${sourceFolderName}/img/**/*.{jpg,png,svg,gif,ico,webp,avif}`,
-		fonts: `${sourceFolderName}/fonts/*.{ttf,otf,woff,woff2}`,
+		html: [`${source}/**/*.html`, `!${source}/**/*.htm`],
+		php: `${source}/php/*.php`,
+		css: [`${source}/styles/**/*.sass`, `!${source}/styles/**/_*.sass`,
+		`${source}/docs/*.sass`],
+		scripts: `${source}/scripts/*.{ts,js}`,
+		scriptModules: `${source}/scripts/modules/*.{ts,js}`,
+		images: `${source}/img/**/*.{jpg,png,svg,gif,ico,webp,avif}`,
+		fonts: `${source}/fonts/*.{ttf,otf,woff,woff2}`,
 	},
 	watch: {
-		html: `${sourceFolderName}/**/*.{html,htm}`,
-		css: `${sourceFolderName}/styles/**/*.sass`,
-		demoCss: `${sourceFolderName}/docs/*.sass`,
-		scripts: `${sourceFolderName}/scripts/*.{ts,js}`,
-		scriptModules: `${sourceFolderName}/scripts/modules/*.{ts,js}`,
-		images: `${sourceFolderName}/img/**/*.{jpg,png,svg,gif,ico,webp,avif}`,
+		html: `${source}/**/*.{html,htm,php}`,
+		css: `${source}/styles/**/*.sass`,
+		php: `${source}/php/*.php`,
+		demoCss: `${source}/docs/*.sass`,
+		scripts: `${source}/scripts/*.{ts,js}`,
+		scriptModules: `${source}/scripts/modules/*.{ts,js}`,
+		images: `${source}/img/**/*.{jpg,png,svg,gif,ico,webp,avif}`,
 	},
-	clean: `./${projectFolderName}/`,
+	clean: `./${project}/`,
 }
-export let fontsFIlePath = `${sourceFolderName}/styles/other/_fonts.sass`;
+export let fontsFIlePath = `${source}/styles/other/_fonts.sass`;
