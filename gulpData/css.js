@@ -20,8 +20,7 @@ export function css() {
 				})
 			)
 		)
-		//if you want to see not-minify css files
-		.pipe(gulp.dest(paths.build.css))
+		.pipe(global.if(global.isProd, gulp.dest(paths.build.css)))
 
 		//save cleaning and renaming new css files
 		.pipe(global.if(global.isProd, cleanCss()))
