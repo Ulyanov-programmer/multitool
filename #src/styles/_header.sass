@@ -2,30 +2,22 @@
 	position: relative
 	z-index: 5
 
-	&__body
-		+flex-set(row, nowrap)
-
-.navmenu
 	// &__body
 
-	&__list
+.navmenu
+	&__body
 		+flex-set(row, wrap)
+		+notLastChildMargin(0 15px 0 0)
 
 		li
 			a, button
 				display: inline-block
-				padding: 4px 8px 4px 8px
+				padding: 8px
 				color: inherit
 				transition: all .2s ease 0s
 
 				&:hover, &:focus
 					text-decoration: underline
-
-.fixed-header
-	position: fixed
-	top: 0
-	left: 0
-	width: 100%
 
 .logo
 	z-index: 10

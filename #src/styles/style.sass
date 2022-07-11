@@ -2,7 +2,7 @@
 @import 'other/_fonts'
 @import 'other/_vars'
 @import 'modules/_nullStyle'
-@import'other/_general'
+@import 'other/_general'
 @import '_header'
 @import '_footer'
 @import 'modules/_submenu'
@@ -13,7 +13,7 @@
 @import 'modules/_burgerMenu'
 
 body
-	height: 100%
+	height: max-content
 	color: var(--text-c)
 	font: adaptiveFontSize($mainFontSize, $minFontSize) var(--main-font-family)
 
@@ -23,5 +23,4 @@ body
 
 .main
 	background: var(--bg)
-
 	// &__body

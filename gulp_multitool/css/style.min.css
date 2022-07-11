@@ -1,7 +1,7 @@
 :root {
-  --text-c: #f3f3f3;
   --main-font-family: Arial;
-  --bg: #5f5e5e;
+  --text-c: black;
+  --bg: white;
 }
 
 * {
@@ -87,31 +87,30 @@ address {
   font-style: normal;
 }
 
-html ::selection {
+html {
   scroll-behavior: smooth;
 }
-
 .container {
   margin: auto;
 }
 @media (min-width: 1440px) {
   .container {
-    width: 70%;
+    width: 70vw;
   }
 }
 @media (min-width: 768px) and (max-width: 1440px) {
   .container {
-    width: 90%;
+    width: 90vw;
   }
 }
 @media (min-width: 426px) and (max-width: 768px) {
   .container {
-    width: 90%;
+    width: 90vw;
   }
 }
 @media (max-width: 426px) {
   .container {
-    width: 95%;
+    width: 95vw;
   }
 }
 
@@ -121,7 +120,8 @@ html ::selection {
   top: 0;
   left: 0;
   background: rgba(0, 0, 0, 0.2745098039);
-  block-size: 100%;
+  width: 100vw;
+  height: 100vh;
   overflow: hidden;
   opacity: 0;
   pointer-events: none;
@@ -161,30 +161,22 @@ html ::selection {
   position: relative;
   z-index: 5;
 }
-.header__body {
-  display: flex;
-  flex-flow: row nowrap;
-}
 
-.navmenu__list {
+.navmenu__body {
   display: flex;
   flex-flow: row wrap;
 }
-.navmenu__list li a, .navmenu__list li button {
+.navmenu__body > *:not(:last-child) {
+  margin: 0 15px 0 0;
+}
+.navmenu__body li a, .navmenu__body li button {
   display: inline-block;
-  padding: 4px 8px 4px 8px;
+  padding: 8px;
   color: inherit;
   transition: all 0.2s ease 0s;
 }
-.navmenu__list li a:hover, .navmenu__list li a:focus, .navmenu__list li button:hover, .navmenu__list li button:focus {
+.navmenu__body li a:hover, .navmenu__body li a:focus, .navmenu__body li button:hover, .navmenu__body li button:focus {
   text-decoration: underline;
-}
-
-.fixed-header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
 }
 
 .logo {
@@ -198,13 +190,18 @@ html ::selection {
 .submenu-menu {
   position: absolute;
   z-index: 1;
-  display: none;
-  background: #818181;
+  background: white;
   top: 100%;
   width: max-content;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.2s ease;
 }
 .submenu-menu.show {
-  display: block;
+  overflow: auto;
+  opacity: 1;
+  pointer-events: all;
 }
 .submenu-menu_to-left {
   right: 0;
@@ -294,11 +291,12 @@ html ::selection {
   top: 0;
   right: -100%;
   z-index: 4 !important;
-  block-size: 100% 100%;
-  font-size: 30px;
-  color: #fff;
   display: flex;
   flex-flow: column nowrap;
+  width: 100vw;
+  height: 100vh;
+  font-size: 30px;
+  color: #fff;
   transition: right 0.5s ease;
 }
 @media (min-width: 768px) {
@@ -332,8 +330,6 @@ html ::selection {
 .burger-btn {
   z-index: 5;
   display: block;
-  cursor: pointer;
-  padding: 10px;
 }
 @media (min-width: 768px) {
   .burger-btn {
@@ -365,7 +361,7 @@ html ::selection {
 }
 
 body {
-  height: 100%;
+  height: max-content;
   color: var(--text-c);
   font: calc( 0.0035714286 * 100vw + 10.8571428571px ) var(--main-font-family);
 }

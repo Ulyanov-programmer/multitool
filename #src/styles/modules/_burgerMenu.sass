@@ -3,10 +3,10 @@
 	top: 0
 	right: -100%
 	z-index: 4 !important
-	block-size: 100% 100%
+	+flex-set(column, nowrap)
+	+block-size(100vw, 100vh)
 	font-size: 30px
 	color: #fff
-	+flex-set(column, nowrap)
 	transition: right .5s ease
 
 	@media (min-width: $burgerMenuShowWidth)
@@ -38,8 +38,6 @@
 .burger-btn
 	z-index: 5
 	display: block
-	cursor: pointer
-	padding: 10px
 
 	@media (min-width: $burgerMenuShowWidth)
 		display: none

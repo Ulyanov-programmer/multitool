@@ -1,27 +1,31 @@
 html
+	scroll-behavior: smooth
+
 	// @media (min-width: 768px)
 	// 	-ms-overflow-style: none
 	// 	scrollbar-width: none
 	// 	&::-webkit-scrollbar
 	// 		width: 0
+
 	::selection
-		scroll-behavior: smooth
+		// background: gray
+		// color: white
 
 .container
 	margin: auto
 
 	@media (min-width: #{$layoutWidth + px})
 		// Insert the width of the container as a percentage of the width of the layout.
-		width: 70%
+		width: 70vw
 
 	@media (min-width: 768px) and (max-width: #{$layoutWidth + px})
-		width: 90%
+		width: 90vw
 
 	@media (min-width: 426px) and (max-width: 768px)
-		width: 90%
+		width: 90vw
 
 	@media (max-width: 426px)
-		width: 95%
+		width: 95vw
 
 .modal-window
 	position: fixed
@@ -29,7 +33,7 @@ html
 	top: 0
 	left: 0
 	background: #00000046
-	block-size: 100%
+	+block-size(100vw, 100vh)
 	+hide()
 	transition: all .3s ease
 

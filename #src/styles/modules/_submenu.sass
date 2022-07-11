@@ -4,13 +4,14 @@
 .submenu-menu
 	position: absolute
 	z-index: 1
-	display: none
-	background: #818181
+	background: white
 	top: 100%
 	width: max-content
+	+hide()
+	transition: all .2s ease
 
 	&.show
-		display: block
+		+show()
 
 	&_to-left
 		right: 0

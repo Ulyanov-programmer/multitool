@@ -1,10 +1,8 @@
 import esbuild from 'gulp-esbuild';
 import gulpChanged from "gulp-changed";
-import plumber from "gulp-plumber";
 
 export function scriptModules() {
 	return gulp.src(paths.scr.scriptModules)
-		.pipe(plumber())
 		.pipe(gulpChanged(paths.build.scriptModules, { extension: '.js' }))
 
 		.pipe(
