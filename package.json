@@ -10,10 +10,9 @@
 	"author": "default",
 	"license": "ISC",
 	"devDependencies": {
-		"browser-sync": "^2.27.9",
-		"chokidar": "^3.5.3",
-		"del": "^6.0.0",
-		"fs-extra": "^10.0.0",
+		"browser-sync": "^2.27.10",
+		"del": "^6.1.1",
+		"fs-extra": "^10.1.0",
 		"gulp": "^4.0.2",
 		"gulp-autoprefixer": "^8.0.0",
 		"gulp-changed": "^4.0.3",
@@ -21,7 +20,7 @@
 		"gulp-esbuild": "^0.10.4",
 		"gulp-file-include": "^2.3.0",
 		"gulp-group-css-media-queries": "^1.2.2",
-		"gulp-html-img-to-picture": "^1.0.2",
+		"gulp-html-img-to-picture": "^1.0.3",
 		"gulp-if": "^3.0.0",
 		"gulp-imagemin": "^8.0.0",
 		"gulp-libsquoosh": "^1.1.2",
@@ -31,12 +30,11 @@
 		"gulp-ttf2woff2": "^4.0.1",
 		"gulp-version-number": "^0.2.4",
 		"readline-sync": "^1.4.10",
-		"replace-in-file": "^6.3.2",
-		"sass": "^1.53.0",
-		"uuid": "^8.3.2"
+		"replace-in-file": "^6.3.5",
+		"sass": "^1.53.0"
 	},
 	"dependencies": {
 		"just-validate": "^3.8.1",
-		"swiper": "^8.1.4"
+		"swiper": "^8.3.1"
 	}
 }
