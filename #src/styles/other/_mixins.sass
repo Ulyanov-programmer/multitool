@@ -2,8 +2,8 @@
 @use "sass:string"
 
 @mixin block-size($width, $height: $width)
-		width: $width
-		height: $height
+	width: $width
+	height: $height
 
 @mixin fontStyle($name, $type, $fileName, $weight, $style)
 	@font-face
@@ -60,13 +60,15 @@
 @mixin bg-img-multi-type($url, $params: null)
 	background: url($url) $params
 
-	// if (gulpHashes.canIncludeConvertedBg)
-	// Creating new paths, removing extensions: .jpg and .png
-	$webpUrl: replace('.png', '.webp', replace('.jpg', '.webp', $url))
-	$avifUrl: replace('.png', '.avif', replace('.jpg', '.avif', $url))
-	// Embedding new paths
-	background-image: image-set(url($avifUrl) 1x, url($webpUrl) 1x, url($url) 1x )
-	background-image: -webkit-image-set(url($avifUrl) 1x, url($webpUrl) 1x, url($url) 1x)
+	// This variable is set by gulp. Search in the file css.js
+	// Because of this, including of paths to new images is performed only in production mode.
+	@if $addPathsToConvertedBgImages
+		// Creating new paths, removing extensions: .jpg and .png
+		$webpUrl: replace('.png', '.webp', replace('.jpg', '.webp', $url))
+		$avifUrl: replace('.png', '.avif', replace('.jpg', '.avif', $url))
+		// Embedding new paths
+		background-image: image-set(url($avifUrl) 1x, url($webpUrl) 1x, url($url) 1x )
+		background-image: -webkit-image-set(url($avifUrl) 1x, url($webpUrl) 1x, url($url) 1x)
 
 @mixin advansedPosition($position, $top, $right, $bottom, $left)
 	position: $position

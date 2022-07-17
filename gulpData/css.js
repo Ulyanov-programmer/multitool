@@ -4,12 +4,12 @@ import cleanCss from 'gulp-clean-css';
 import groupMedia from 'gulp-group-css-media-queries';
 import autoprefixer from 'gulp-autoprefixer';
 import rename from 'gulp-rename';
-import gulpChanged from "gulp-changed";
-import plumber from "gulp-plumber";
+import header from 'gulp-header';
 const sass = gulpSass(dartSass);
 
 export function css() {
 	return gulp.src(paths.scr.css)
+		.pipe(header(`$addPathsToConvertedBgImages: ${global.isProd}\n`))
 		.pipe(sass())
 
 		.pipe(global.if(global.isProd, groupMedia()))

@@ -20,6 +20,7 @@
 		"gulp-esbuild": "^0.10.4",
 		"gulp-file-include": "^2.3.0",
 		"gulp-group-css-media-queries": "^1.2.2",
+		"gulp-header": "^2.0.9",
 		"gulp-html-img-to-picture": "^1.0.3",
 		"gulp-if": "^3.0.0",
 		"gulp-imagemin": "^8.0.0",
