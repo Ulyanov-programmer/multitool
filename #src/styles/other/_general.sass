@@ -47,10 +47,26 @@ html
 		justify-items: center
 
 	&__content
-		background: #3e3e3e
+		background: #fff
 
 	&__closer
 		color: #7d7d7d
+
+.searchbar
+	+flex-set(row, nowrap)
+
+	&__input
+		transition: all 0.3s ease
+
+		&:hover, &:focus
+
+	&__submit
+		transition: all 0.3s ease
+
+		&:hover, &:focus
+
+		img
+			+block-size(20px)
 
 ._contain-img
 	img
