@@ -1,5 +1,5 @@
 import squoosh from 'gulp-libsquoosh';
-import imagemin from 'gulp-imagemin';
+import path from 'path';
 
 export function images() {
 	return gulp.src(paths.scr.images)
@@ -8,14 +8,61 @@ export function images() {
 		)
 		.pipe(
 			global.if(global.isProd,
-				imagemin({}),
-			)
-		)
-		.pipe(
-			global.if(global.isProd,
-				squoosh({
-					webp: {},
-					avif: {},
+				squoosh((src) => {
+					let extname = path.extname(src.path)
+
+					let options = { encodeOptions: squoosh.DefaultEncodeOptions[extname], }
+
+					switch (extname) {
+						case '.jpg':
+							options = {
+								encodeOptions: {
+									mozjpeg: {},
+									avif: {},
+									webp: {},
+								},
+							}
+							break
+						case '.png':
+							options = {
+								encodeOptions: {
+									oxipng: {},
+									avif: {},
+									webp: {},
+								},
+							}
+							break
+						default:
+							break
+					}
+
+					return options
+				}),
+				squoosh((src) => {
+					let extname = path.extname(src.path)
+
+					let options = { encodeOptions: squoosh.DefaultEncodeOptions[extname], }
+
+					switch (extname) {
+						case '.jpg':
+							options = {
+								encodeOptions: {
+									mozjpeg: {},
+								},
+							}
+							break
+						case '.png':
+							options = {
+								encodeOptions: {
+									oxipng: {},
+								},
+							}
+							break
+						default:
+							break
+					}
+
+					return options
 				}),
 			)
 		)

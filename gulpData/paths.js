@@ -1,7 +1,7 @@
-import * as nodePath from 'path';
+import * as nodePath from 'path'
 
 export const project = nodePath.basename(nodePath.resolve())
-export const source = '#src';
+export const source = '#src'
 
 export const paths = {
 	build: {
@@ -34,4 +34,4 @@ export const paths = {
 	},
 	clean: `./${project}/`,
 }
-export let fontsFIlePath = `${source}/styles/other/_fonts.sass`;
+export const fontsFIlePath = `${source}/styles/other/_fonts.sass`

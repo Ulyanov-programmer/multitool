@@ -139,10 +139,25 @@ html {
   justify-items: center;
 }
 .modal-window__content {
-  background: #3e3e3e;
+  background: #fff;
 }
 .modal-window__closer {
   color: #7d7d7d;
+}
+
+.searchbar {
+  display: flex;
+  flex-flow: row nowrap;
+}
+.searchbar__input {
+  transition: all 0.3s ease;
+}
+.searchbar__submit {
+  transition: all 0.3s ease;
+}
+.searchbar__submit img {
+  width: 20px;
+  height: 20px;
 }
 
 ._contain-img img {
@@ -260,30 +275,6 @@ html {
 }
 .swipe_window__swipe_area.active {
   width: 100vw;
-}
-
-.searchbar {
-  display: flex;
-  flex-flow: row nowrap;
-  background: #fff;
-}
-.searchbar__input {
-  padding: 10px;
-  transition: all 0.3s ease;
-}
-.searchbar__input:hover, .searchbar__input:focus {
-  background: #d8d5d5;
-}
-.searchbar__submit {
-  padding: 10px;
-  transition: all 0.3s ease;
-}
-.searchbar__submit:hover, .searchbar__submit:focus {
-  background: #acabab;
-}
-.searchbar__submit img {
-  width: 20px;
-  height: 20px;
 }
 
 .burger-menu {
