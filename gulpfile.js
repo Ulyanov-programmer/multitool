@@ -15,7 +15,7 @@ import { css } from "./gulpData/css.js";
 import { scripts } from "./gulpData/scriptTask.js";
 import { scriptModules } from "./gulpData/moduleTask.js";
 import { fontsStyle, fonts } from "./gulpData/fonts.js";
-import { images } from "./gulpData/images.js";
+import { images, imagesSvg } from "./gulpData/images.js";
 import { setupSwiperCss, setupSwiperJs } from "./gulpData/swiperInit.js";
 import { setupValidateJs } from "./gulpData/jvInit.js";
 import browserSyncFunc from "./gulpData/browserSync.js";
@@ -29,6 +29,7 @@ function watchFIles() {
 	gulp.watch(paths.watch.scripts, { usePolling: true }, scripts);
 	gulp.watch(paths.watch.scriptModules, { usePolling: true }, scriptModules);
 	gulp.watch(paths.watch.images, { usePolling: true }, images);
+	gulp.watch(paths.watch.imagesSvg, { usePolling: true }, imagesSvg);
 }
 function recreate() {
 	return del(paths.clean);
@@ -38,7 +39,7 @@ let importModuleGulpTasks = [
 ]
 
 let build = gulp.series(recreate, importModuleGulpTasks,
-	gulp.parallel(scripts, scriptModules, css, html, php, images, fonts), fontsStyle);
+	gulp.parallel(scripts, scriptModules, css, html, php, images, imagesSvg, fonts), fontsStyle);
 
 let watch = gulp.parallel(build, watchFIles, browserSyncFunc);
 

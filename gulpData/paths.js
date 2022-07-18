@@ -20,7 +20,8 @@ export const paths = {
 		`${source}/docs/*.sass`],
 		scripts: `${source}/scripts/*.{ts,js}`,
 		scriptModules: `${source}/scripts/modules/*.{ts,js}`,
-		images: `${source}/img/**/*.{jpg,png,svg,gif,ico,webp,avif}`,
+		images: `${source}/img/**/*.{jpg,png,gif,ico,webp,avif}`,
+		imagesSvg: `${source}/img/**/*.svg`,
 		fonts: `${source}/fonts/*.{ttf,otf,woff,woff2}`,
 	},
 	watch: {
@@ -30,7 +31,8 @@ export const paths = {
 		demoCss: `${source}/docs/*.sass`,
 		scripts: `${source}/scripts/*.{ts,js}`,
 		scriptModules: `${source}/scripts/modules/*.{ts,js}`,
-		images: `${source}/img/**/*.{jpg,png,svg,gif,ico,webp,avif}`,
+		images: `${source}/img/**/*.{jpg,png,gif,ico,webp,avif}`,
+		imagesSvg: `${source}/img/**/*.svg`,
 	},
 	clean: `./${project}/`,
 }

@@ -1,11 +1,9 @@
 import squoosh from 'gulp-libsquoosh';
 import path from 'path';
+import svgmin from 'gulp-svgmin';
 
 export function images() {
 	return gulp.src(paths.scr.images)
-		.pipe(
-			global.if(global.isProd, gulp.dest(paths.build.images))
-		)
 		.pipe(
 			global.if(global.isProd,
 				squoosh((src) => {
@@ -38,33 +36,17 @@ export function images() {
 
 					return options
 				}),
-				squoosh((src) => {
-					let extname = path.extname(src.path)
-
-					let options = { encodeOptions: squoosh.DefaultEncodeOptions[extname], }
-
-					switch (extname) {
-						case '.jpg':
-							options = {
-								encodeOptions: {
-									mozjpeg: {},
-								},
-							}
-							break
-						case '.png':
-							options = {
-								encodeOptions: {
-									oxipng: {},
-								},
-							}
-							break
-						default:
-							break
-					}
-
-					return options
-				}),
 			)
+		)
+
+		.pipe(gulp.dest(paths.build.images))
+		.pipe(browsersync.stream());
+}
+
+export function imagesSvg() {
+	return gulp.src(paths.scr.imagesSvg)
+		.pipe(
+			global.if(global.isProd, svgmin())
 		)
 
 		.pipe(gulp.dest(paths.build.images))
