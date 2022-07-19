@@ -6,23 +6,26 @@ const _BurgerMenu = class {
     }
     _BurgerMenu.burger = document.querySelector(args.burgerSelector);
     _BurgerMenu.menu = document.querySelector(args.burgerMenuSelector);
-    _BurgerMenu.buttons = document.querySelectorAll(args.buttonsSelector);
-    _BurgerMenu.autoPadding = args.autoPadding;
+    _BurgerMenu.autoPaddingOptions = args.autoPadding;
+    _BurgerMenu.closingByClickOnElement = args.closingByClickOnElement;
     if (args.burgerActiveClass)
       _BurgerMenu.burgerActiveClass = args.burgerActiveClass;
     if (args.menuActiveClass)
       _BurgerMenu.menuActiveClass = args.menuActiveClass;
     if (args.autoPadding)
-      _BurgerMenu.menu.style.paddingTop = `${_BurgerMenu.header.clientHeight}px`;
+      _BurgerMenu.menu.style.paddingTop = `${_BurgerMenu.autoPaddingOptions.elementHeight}px`;
     _BurgerMenu.burger.addEventListener("click", this.toggleNavmenu);
-    for (let button of _BurgerMenu.buttons) {
-      button.addEventListener("click", this.hideNavmenu);
+    if (_BurgerMenu.closingByClickOnElement) {
+      _BurgerMenu.buttons = document.querySelectorAll(args.buttonsSelector);
+      for (let button of _BurgerMenu.buttons) {
+        button.addEventListener("click", this.hideNavmenu);
+      }
     }
   }
   toggleNavmenu() {
     let scrollbarWidth = returnScrollbarWidth();
-    if (_BurgerMenu.autoPadding)
-      _BurgerMenu.menu.style.paddingTop = `${_BurgerMenu.header.clientHeight}px`;
+    if (_BurgerMenu.autoPaddingOptions)
+      _BurgerMenu.menu.style.paddingTop = `${_BurgerMenu.autoPaddingOptions.elementHeight}px`;
     _BurgerMenu.burger.classList.toggle(_BurgerMenu.burgerActiveClass);
     if (document.body.style.overflow != "hidden") {
       document.body.style.overflow = "hidden";
@@ -36,7 +39,7 @@ const _BurgerMenu = class {
   hideNavmenu() {
     let scrollbarWidth = returnScrollbarWidth();
     _BurgerMenu.burger.classList.remove(_BurgerMenu.burgerActiveClass);
-    if (document.body.style.overflow.includes("hidden")) {
+    if (document.body.style.overflow == "hidden") {
       document.body.style.overflow = "";
     } else {
       document.body.style.overflow = "hidden";
@@ -47,9 +50,17 @@ const _BurgerMenu = class {
 };
 let BurgerMenu = _BurgerMenu;
 BurgerMenu.header = document.querySelector("header");
-BurgerMenu.autoPadding = true;
+BurgerMenu.closingByClickOnElement = true;
 BurgerMenu.burgerActiveClass = "active";
 BurgerMenu.menuActiveClass = "active";
 export {
   BurgerMenu as default
 };
+export class autoPaddingOptions {
+  constructor(selectorOfElement) {
+    if (elementIsExistWithLog("autoPaddingOptions", selectorOfElement)) {
+      let element = document.querySelector(selectorOfElement);
+      this.elementHeight = element.clientHeight;
+    }
+  }
+}

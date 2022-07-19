@@ -10,9 +10,10 @@ interface BurgerMenuArgs {
 	*/
 	buttonsSelector: string
 	/** If the value is true, set the automatic padding to the size of a header. */
-	autoPadding?: boolean
+	autoPadding?: autoPaddingOptions
 	burgerActiveClass?: string
 	menuActiveClass?: string
+	closingByClickOnElement?: boolean
 }
 
 export default class BurgerMenu {
@@ -20,7 +21,8 @@ export default class BurgerMenu {
 	private static menu: HTMLElement
 	private static buttons: NodeListOf<HTMLElement>
 	private static header = document.querySelector('header') as HTMLElement
-	private static autoPadding: boolean = true
+	private static autoPaddingOptions: autoPaddingOptions
+	private static closingByClickOnElement: boolean = true
 
 	public static burgerActiveClass: string = 'active'
 	public static menuActiveClass: string = 'active'
@@ -30,11 +32,10 @@ export default class BurgerMenu {
 			args.burgerSelector, args.burgerMenuSelector, args.buttonsSelector)) {
 			return
 		}
-
 		BurgerMenu.burger = document.querySelector(args.burgerSelector) as HTMLElement
 		BurgerMenu.menu = document.querySelector(args.burgerMenuSelector) as HTMLElement
-		BurgerMenu.buttons = document.querySelectorAll(args.buttonsSelector)
-		BurgerMenu.autoPadding = args.autoPadding
+		BurgerMenu.autoPaddingOptions = args.autoPadding
+		BurgerMenu.closingByClickOnElement = args.closingByClickOnElement
 
 
 		if (args.burgerActiveClass)
@@ -43,12 +44,15 @@ export default class BurgerMenu {
 			BurgerMenu.menuActiveClass = args.menuActiveClass
 
 		if (args.autoPadding)
-			BurgerMenu.menu.style.paddingTop = `${BurgerMenu.header.clientHeight}px`
+			BurgerMenu.menu.style.paddingTop = `${BurgerMenu.autoPaddingOptions.elementHeight}px`
 
 		BurgerMenu.burger.addEventListener('click', this.toggleNavmenu)
 
-		for (let button of BurgerMenu.buttons) {
-			button.addEventListener('click', this.hideNavmenu)
+		if (BurgerMenu.closingByClickOnElement) {
+			BurgerMenu.buttons = document.querySelectorAll(args.buttonsSelector)
+			for (let button of BurgerMenu.buttons) {
+				button.addEventListener('click', this.hideNavmenu)
+			}
 		}
 	}
 
@@ -56,8 +60,8 @@ export default class BurgerMenu {
 	private toggleNavmenu() {
 		let scrollbarWidth = returnScrollbarWidth()
 
-		if (BurgerMenu.autoPadding)
-			BurgerMenu.menu.style.paddingTop = `${BurgerMenu.header.clientHeight}px`
+		if (BurgerMenu.autoPaddingOptions)
+			BurgerMenu.menu.style.paddingTop = `${BurgerMenu.autoPaddingOptions.elementHeight}px`
 
 		BurgerMenu.burger.classList.toggle(BurgerMenu.burgerActiveClass)
 
@@ -78,7 +82,7 @@ export default class BurgerMenu {
 
 		BurgerMenu.burger.classList.remove(BurgerMenu.burgerActiveClass)
 
-		if (document.body.style.overflow.includes('hidden')) {
+		if (document.body.style.overflow == 'hidden') {
 			document.body.style.overflow = ''
 		} else {
 			document.body.style.overflow = 'hidden'
@@ -86,5 +90,15 @@ export default class BurgerMenu {
 		document.body.style.paddingRight = `${scrollbarWidth}px`
 
 		BurgerMenu.menu.classList.remove(BurgerMenu.menuActiveClass)
+	}
+}
+export class autoPaddingOptions {
+	public elementHeight: number
+
+	constructor(selectorOfElement: string) {
+		if (elementIsExistWithLog('autoPaddingOptions', selectorOfElement)) {
+			let element = document.querySelector(selectorOfElement)
+			this.elementHeight = element.clientHeight
+		}
 	}
 }

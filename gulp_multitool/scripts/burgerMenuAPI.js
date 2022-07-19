@@ -1,9 +1,10 @@
-import BurgerMenu from "./modules/burgerMenu.js";
+import BurgerMenu, { autoPaddingOptions } from "./modules/burgerMenu.js";
 new BurgerMenu({
   burgerSelector: "#burgerButton",
   burgerMenuSelector: ".burger-menu",
   buttonsSelector: ".fs-element",
-  autoPadding: true,
+  autoPadding: new autoPaddingOptions(".header"),
   menuActiveClass: "active",
-  burgerActiveClass: "active"
+  burgerActiveClass: "active",
+  closingByClickOnElement: true
 });
