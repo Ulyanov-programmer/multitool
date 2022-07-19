@@ -45,7 +45,7 @@ export default class SpoilerMenu {
 
 
 		if (SpoilerMenu.spoilerButtons.length != SpoilerMenu.spoilerContentElements.length) {
-			console.log('[SpoilerMenu] The count of buttons and content-elements must be equal.')
+			console.log('[SpoilerMenu] The count of buttons and content-elements is not equal!')
 			return
 		}
 
@@ -64,18 +64,26 @@ export default class SpoilerMenu {
 			for (let i = 0; i < SpoilerMenu.spoilerContentElements.length; i++) {
 
 				if (SpoilerMenu.spoilerButtons[i].classList.contains(SpoilerMenu.btnActiveClass)) {
-					SpoilerMenu.spoilerContentElements[i].hidden = false
+					SpoilerMenu.spoilerContentElements[i].style.removeProperty('height')
+					SpoilerMenu.spoilerContentElements[i].style.height = SpoilerMenu.spoilerContentElements[i].clientHeight + 'px'
+					SpoilerMenu.spoilerContentElements[i].style.opacity = '1'
+					SpoilerMenu.spoilerContentElements[i].style.pointerEvents = 'all'
 				} else {
-					SpoilerMenu.spoilerContentElements[i].hidden = true
+					SpoilerMenu.spoilerContentElements[i].style.height = '0px'
+					SpoilerMenu.spoilerContentElements[i].style.opacity = '0'
+					SpoilerMenu.spoilerContentElements[i].style.pointerEvents = 'none'
 				}
-
+				SpoilerMenu.spoilerContentElements[i].style.overflow = 'hidden'
 				SpoilerMenu.spoilerButtons[i].addEventListener('click', SpoilerMenu.toggleSpoilerState)
 				SpoilerMenu.spoilerButtons[i].style.cursor = 'pointer'
-
 			}
 		} else {
 			for (let i = 0; i < SpoilerMenu.spoilerContentElements.length; i++) {
-				SpoilerMenu.spoilerContentElements[i].hidden = false
+				SpoilerMenu.spoilerContentElements[i].style.removeProperty('height')
+				SpoilerMenu.spoilerContentElements[i].style.removeProperty('opacity')
+				SpoilerMenu.spoilerContentElements[i].style.removeProperty('pointer-events')
+				SpoilerMenu.spoilerContentElements[i].style.removeProperty('overflow')
+
 				SpoilerMenu.spoilerButtons[i].removeEventListener('click', SpoilerMenu.toggleSpoilerState)
 				SpoilerMenu.spoilerButtons[i].style.cursor = 'default'
 			}
@@ -95,75 +103,47 @@ export default class SpoilerMenu {
 	}
 }
 
-function spoilerUp(spoilerContainer: HTMLElement, duration: number) {
-	if (spoilerContainer.classList.contains('_slide') === false) {
+function canToggleSpoiler(spoilerContainer: HTMLElement): boolean {
+	if (spoilerContainer.classList.contains('_slide')) {
+		return false
+	} else {
 		spoilerContainer.classList.add('_slide')
-		let containerStyle = spoilerContainer.style
-
-		containerStyle.transitionProperty = 'height, margin, padding'
-		containerStyle.transitionDuration = duration + 'ms'
-		containerStyle.height = spoilerContainer.clientHeight + 'px'
-		spoilerContainer.clientHeight
-		containerStyle.overflow = 'hidden'
-		containerStyle.height = '0'
-		containerStyle.paddingTop = '0'
-		containerStyle.paddingBottom = '0'
-		containerStyle.marginTop = '0'
-		containerStyle.marginBottom = '0'
-
-		window.setTimeout(() => {
-			spoilerContainer.hidden = true
-			containerStyle.removeProperty('height')
-			containerStyle.removeProperty('padding-top')
-			containerStyle.removeProperty('padding-bottom')
-			containerStyle.removeProperty('margin-top')
-			containerStyle.removeProperty('margin-bottom')
-			containerStyle.removeProperty('overflow')
-			containerStyle.removeProperty('transition-duration')
-			containerStyle.removeProperty('transition-property')
-			spoilerContainer.classList.remove('_slide')
-		}, duration)
+		return true
 	}
+}
+function spoilerUp(spoilerContainer: HTMLElement, duration: number) {
+	if (canToggleSpoiler(spoilerContainer) == false)
+		return
+
+	spoilerContainer.style.transitionProperty = 'height, opacity'
+	spoilerContainer.style.transitionDuration = `${duration}ms`
+	spoilerContainer.style.height = '0px'
+	spoilerContainer.style.opacity = '0'
+	spoilerContainer.style.pointerEvents = 'none'
+
+	window.setTimeout(() => {
+		spoilerContainer.classList.remove('_slide')
+	}, duration)
 }
 function spoilerDown(spoilerContainer: HTMLElement, duration: number) {
-	if (spoilerContainer.classList.contains('_slide') === false) {
-		spoilerContainer.classList.add('_slide')
+	if (canToggleSpoiler(spoilerContainer) == false)
+		return
 
-		if (spoilerContainer.hidden) {
-			spoilerContainer.hidden = false
-		}
-		let containerStyle = spoilerContainer.style
-		let height = spoilerContainer.clientHeight
+	let heightOfContent = spoilerContainer.scrollHeight
 
-		containerStyle.overflow = 'hidden'
-		containerStyle.height = '0'
-		containerStyle.paddingTop = '0'
-		containerStyle.paddingBottom = '0'
-		containerStyle.marginTop = '0'
-		containerStyle.marginBottom = '0'
-		spoilerContainer.clientHeight
+	spoilerContainer.style.transitionProperty = 'height, opacity'
+	spoilerContainer.style.transitionDuration = `${duration}ms`
+	spoilerContainer.style.height = `${heightOfContent}px`
+	spoilerContainer.style.opacity = '1'
+	spoilerContainer.style.pointerEvents = 'all'
 
-		containerStyle.transitionProperty = 'height, margin, padding'
-		containerStyle.transitionDuration = duration + 'ms'
-		containerStyle.height = height + 'px'
-		containerStyle.removeProperty('padding-top')
-		containerStyle.removeProperty('padding-bottom')
-		containerStyle.removeProperty('margin-top')
-		containerStyle.removeProperty('margin-bottom')
-
-		window.setTimeout(() => {
-			containerStyle.removeProperty('height')
-			containerStyle.removeProperty('overflow')
-			containerStyle.removeProperty('transition-duration')
-			containerStyle.removeProperty('transition-property')
-			spoilerContainer.classList.remove('_slide')
-		}, duration)
-	}
+	window.setTimeout(() => {
+		spoilerContainer.classList.remove('_slide')
+	}, duration)
 }
 function toggleSpoilerAnimation(spoilerContainer: HTMLElement, duration: number) {
-	if (spoilerContainer.hidden) {
-		return spoilerDown(spoilerContainer, duration)
-	} else {
-		return spoilerUp(spoilerContainer, duration)
-	}
+	if (spoilerContainer.style.height == '0px')
+		spoilerDown(spoilerContainer, duration)
+	else
+		spoilerUp(spoilerContainer, duration)
 }

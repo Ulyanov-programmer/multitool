@@ -13,7 +13,7 @@ const _SpoilerMenu = class {
     if (args.contentActiveClass)
       _SpoilerMenu.contentActiveClass = args.contentActiveClass;
     if (_SpoilerMenu.spoilerButtons.length != _SpoilerMenu.spoilerContentElements.length) {
-      console.log("[SpoilerMenu] The count of buttons and content-elements must be equal.");
+      console.log("[SpoilerMenu] The count of buttons and content-elements is not equal!");
       return;
     }
     _SpoilerMenu.spoilerVisibleWidth = args.maxWorkWidth;
@@ -25,16 +25,25 @@ const _SpoilerMenu = class {
     if (window.innerWidth <= _SpoilerMenu.spoilerVisibleWidth) {
       for (let i = 0; i < _SpoilerMenu.spoilerContentElements.length; i++) {
         if (_SpoilerMenu.spoilerButtons[i].classList.contains(_SpoilerMenu.btnActiveClass)) {
-          _SpoilerMenu.spoilerContentElements[i].hidden = false;
+          _SpoilerMenu.spoilerContentElements[i].style.removeProperty("height");
+          _SpoilerMenu.spoilerContentElements[i].style.height = _SpoilerMenu.spoilerContentElements[i].clientHeight + "px";
+          _SpoilerMenu.spoilerContentElements[i].style.opacity = "1";
+          _SpoilerMenu.spoilerContentElements[i].style.pointerEvents = "all";
         } else {
-          _SpoilerMenu.spoilerContentElements[i].hidden = true;
+          _SpoilerMenu.spoilerContentElements[i].style.height = "0px";
+          _SpoilerMenu.spoilerContentElements[i].style.opacity = "0";
+          _SpoilerMenu.spoilerContentElements[i].style.pointerEvents = "none";
         }
+        _SpoilerMenu.spoilerContentElements[i].style.overflow = "hidden";
         _SpoilerMenu.spoilerButtons[i].addEventListener("click", _SpoilerMenu.toggleSpoilerState);
         _SpoilerMenu.spoilerButtons[i].style.cursor = "pointer";
       }
     } else {
       for (let i = 0; i < _SpoilerMenu.spoilerContentElements.length; i++) {
-        _SpoilerMenu.spoilerContentElements[i].hidden = false;
+        _SpoilerMenu.spoilerContentElements[i].style.removeProperty("height");
+        _SpoilerMenu.spoilerContentElements[i].style.removeProperty("opacity");
+        _SpoilerMenu.spoilerContentElements[i].style.removeProperty("pointer-events");
+        _SpoilerMenu.spoilerContentElements[i].style.removeProperty("overflow");
         _SpoilerMenu.spoilerButtons[i].removeEventListener("click", _SpoilerMenu.toggleSpoilerState);
         _SpoilerMenu.spoilerButtons[i].style.cursor = "default";
       }
@@ -56,69 +65,42 @@ SpoilerMenu.contentActiveClass = "active";
 export {
   SpoilerMenu as default
 };
-function spoilerUp(spoilerContainer, duration) {
-  if (spoilerContainer.classList.contains("_slide") === false) {
+function canToggleSpoiler(spoilerContainer) {
+  if (spoilerContainer.classList.contains("_slide")) {
+    return false;
+  } else {
     spoilerContainer.classList.add("_slide");
-    let containerStyle = spoilerContainer.style;
-    containerStyle.transitionProperty = "height, margin, padding";
-    containerStyle.transitionDuration = duration + "ms";
-    containerStyle.height = spoilerContainer.clientHeight + "px";
-    spoilerContainer.clientHeight;
-    containerStyle.overflow = "hidden";
-    containerStyle.height = "0";
-    containerStyle.paddingTop = "0";
-    containerStyle.paddingBottom = "0";
-    containerStyle.marginTop = "0";
-    containerStyle.marginBottom = "0";
-    window.setTimeout(() => {
-      spoilerContainer.hidden = true;
-      containerStyle.removeProperty("height");
-      containerStyle.removeProperty("padding-top");
-      containerStyle.removeProperty("padding-bottom");
-      containerStyle.removeProperty("margin-top");
-      containerStyle.removeProperty("margin-bottom");
-      containerStyle.removeProperty("overflow");
-      containerStyle.removeProperty("transition-duration");
-      containerStyle.removeProperty("transition-property");
-      spoilerContainer.classList.remove("_slide");
-    }, duration);
+    return true;
   }
+}
+function spoilerUp(spoilerContainer, duration) {
+  if (canToggleSpoiler(spoilerContainer) == false)
+    return;
+  spoilerContainer.style.transitionProperty = "height, opacity";
+  spoilerContainer.style.transitionDuration = `${duration}ms`;
+  spoilerContainer.style.height = "0px";
+  spoilerContainer.style.opacity = "0";
+  spoilerContainer.style.pointerEvents = "none";
+  window.setTimeout(() => {
+    spoilerContainer.classList.remove("_slide");
+  }, duration);
 }
 function spoilerDown(spoilerContainer, duration) {
-  if (spoilerContainer.classList.contains("_slide") === false) {
-    spoilerContainer.classList.add("_slide");
-    if (spoilerContainer.hidden) {
-      spoilerContainer.hidden = false;
-    }
-    let containerStyle = spoilerContainer.style;
-    let height = spoilerContainer.clientHeight;
-    containerStyle.overflow = "hidden";
-    containerStyle.height = "0";
-    containerStyle.paddingTop = "0";
-    containerStyle.paddingBottom = "0";
-    containerStyle.marginTop = "0";
-    containerStyle.marginBottom = "0";
-    spoilerContainer.clientHeight;
-    containerStyle.transitionProperty = "height, margin, padding";
-    containerStyle.transitionDuration = duration + "ms";
-    containerStyle.height = height + "px";
-    containerStyle.removeProperty("padding-top");
-    containerStyle.removeProperty("padding-bottom");
-    containerStyle.removeProperty("margin-top");
-    containerStyle.removeProperty("margin-bottom");
-    window.setTimeout(() => {
-      containerStyle.removeProperty("height");
-      containerStyle.removeProperty("overflow");
-      containerStyle.removeProperty("transition-duration");
-      containerStyle.removeProperty("transition-property");
-      spoilerContainer.classList.remove("_slide");
-    }, duration);
-  }
+  if (canToggleSpoiler(spoilerContainer) == false)
+    return;
+  let heightOfContent = spoilerContainer.scrollHeight;
+  spoilerContainer.style.transitionProperty = "height, opacity";
+  spoilerContainer.style.transitionDuration = `${duration}ms`;
+  spoilerContainer.style.height = `${heightOfContent}px`;
+  spoilerContainer.style.opacity = "1";
+  spoilerContainer.style.pointerEvents = "all";
+  window.setTimeout(() => {
+    spoilerContainer.classList.remove("_slide");
+  }, duration);
 }
 function toggleSpoilerAnimation(spoilerContainer, duration) {
-  if (spoilerContainer.hidden) {
-    return spoilerDown(spoilerContainer, duration);
-  } else {
-    return spoilerUp(spoilerContainer, duration);
-  }
+  if (spoilerContainer.style.height == "0px")
+    spoilerDown(spoilerContainer, duration);
+  else
+    spoilerUp(spoilerContainer, duration);
 }
