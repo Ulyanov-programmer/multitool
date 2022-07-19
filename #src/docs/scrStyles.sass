@@ -47,6 +47,10 @@
 	transform: translate(10%, 10%)
 	transition: all 1s ease
 
+	@media (max-width: 600px)
+		>*
+			font-size: 14px
+
 	&.active
 		opacity: 1
 		transform: translate(0, 0)
@@ -109,8 +113,12 @@
 
 	&__header, &__main
 		display: flex
+		flex-flow: row wrap
 		gap: 15px
 		justify-content: center
+	&__main
+		display: flex
+		flex-flow: row wrap
 
 	&__button
 		padding: 10px 7px 10px 7px
@@ -150,6 +158,9 @@
 	padding: 5px
 	transition: all .1s ease
 	font-size: 35px
+
+	@media (max-width: 600px)
+		font-size: 24px
 
 .spoiler_btn
 	width: 100%
