@@ -52,6 +52,11 @@
   transform: translate(10%, 10%);
   transition: all 1s ease;
 }
+@media (max-width: 600px) {
+  .animation_by_scroll__item > * {
+    font-size: 14px;
+  }
+}
 .animation_by_scroll__item.active {
   opacity: 1;
   transform: translate(0, 0);
@@ -73,6 +78,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+@media (max-width: 768px) {
+  .tab__item p {
+    font-size: 16px;
+  }
 }
 
 .el-menu__content {
@@ -112,8 +122,13 @@
 }
 .filter__header, .filter__main {
   display: flex;
+  flex-flow: row wrap;
   gap: 15px;
   justify-content: center;
+}
+.filter__main {
+  display: flex;
+  flex-flow: row wrap;
 }
 .filter__button {
   padding: 10px 7px 10px 7px;
@@ -155,6 +170,11 @@
   padding: 5px;
   transition: all 0.1s ease;
   font-size: 35px;
+}
+@media (max-width: 600px) {
+  .parallax_el {
+    font-size: 24px;
+  }
 }
 
 .spoiler_btn {

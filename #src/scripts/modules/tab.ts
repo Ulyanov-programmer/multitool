@@ -100,6 +100,8 @@ export default class Tab {
 		} else {
 			this.setDefaultTabs()
 
+			window.addEventListener('resize', this.resizeTabs.bind(this))
+
 			for (let tabButton of this.buttons) {
 				tabButton.addEventListener(this.toggleTabsEvent, () =>
 					this.toggleTabs(tabButton)
@@ -118,8 +120,10 @@ export default class Tab {
 				this.containerheight = this.contentElements[0].clientHeight
 			}
 
-			if (contentElement.classList.contains(this.contentActiveClass) == false)
+			if (contentElement.classList.contains(this.contentActiveClass) == false) {
 				contentElement.style.opacity = '0'
+				contentElement.style.pointerEvents = 'none'
+			}
 
 			contentElement.style.transform = `translateY(-${marginForCurrentElement}px)`
 			marginForCurrentElement += contentElement.clientHeight
@@ -142,6 +146,7 @@ export default class Tab {
 				contentElement.setAttribute('hidden', '')
 				contentElement.style.display = 'none'
 				contentElement.style.opacity = '0'
+				contentElement.style.pointerEvents = 'none'
 			}
 			contentElement.style.transition = `opacity ${this.animationDuration}ms`
 
@@ -164,6 +169,15 @@ export default class Tab {
 			marginForCurrentElement += contentElement.clientHeight
 		}
 	}
+	private resizeTabs() {
+		let currentActiveElement = this.getCurrentActiveTab()
+
+		if (currentActiveElement) {
+			this.parentOfContentElements.style.height = `${currentActiveElement.clientHeight}px`
+		} else {
+			this.parentOfContentElements.style.height = `${this.contentElements[0].clientHeight}px`
+		}
+	}
 
 	private toggleTabsFade(activeTabButton: HTMLElement) {
 		if (this.toggleTogglingStateIfPossible(activeTabButton) == false) {
@@ -175,10 +189,12 @@ export default class Tab {
 		let nextContentElement = this.getTabByPressedButton(activeTabButton)
 
 		currentActiveElement.style.opacity = '0'
+		currentActiveElement.style.pointerEvents = 'none'
 		if (this.autoHeight) {
 			this.setContainerHeight(nextContentElement.clientHeight)
 		}
 		nextContentElement.style.opacity = '1'
+		nextContentElement.style.removeProperty('pointer-events')
 
 		currentActiveElement.classList.remove(this.contentActiveClass)
 		nextContentElement.classList.add(this.contentActiveClass)
@@ -198,12 +214,14 @@ export default class Tab {
 
 		currentActiveElement.classList.remove(this.contentActiveClass)
 		currentActiveElement.style.opacity = '0'
+		currentActiveElement.style.pointerEvents = 'none'
 		await sleep(this.animationDuration)
 		currentActiveElement.setAttribute('hidden', '')
 		currentActiveElement.style.display = 'none'
 
 
 		nextContentElement.removeAttribute('hidden')
+		nextContentElement.style.removeProperty('pointer-events')
 		nextContentElement.style.display = ''
 		this.setContainerHeight(nextContentElement.clientHeight)
 
