@@ -2,6 +2,7 @@ import gulp from "gulp";
 import browsersync from 'browser-sync';
 import gulpIf from 'gulp-if';
 import { paths } from "./gulpData/paths.js";
+import fs from 'fs-extra';
 
 global.gulp = gulp;
 global.if = gulpIf;
@@ -19,7 +20,6 @@ import { images, imagesSvg } from "./gulpData/images.js";
 import { setupSwiperCss, setupSwiperJs } from "./gulpData/swiperInit.js";
 import { setupValidateJs } from "./gulpData/jvInit.js";
 import browserSyncFunc from "./gulpData/browserSync.js";
-import del from 'del';
 
 
 function watchFIles() {
@@ -32,7 +32,8 @@ function watchFIles() {
 	gulp.watch(paths.watch.imagesSvg, { usePolling: true }, imagesSvg);
 }
 function recreate() {
-	return del(paths.clean);
+	fs.removeSync(paths.clean)
+	return gulp.src(paths.scr.html)
 }
 let importModuleGulpTasks = [
 	setupSwiperCss, setupSwiperJs, setupValidateJs,
