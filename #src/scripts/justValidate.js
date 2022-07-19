@@ -1,11 +1,11 @@
-const someValidation = new JustValidate('#buy-form', {
+const someValidation = new JustValidate('#form', {
 	errorFieldCssClass: 'invalid',
 	errorLabelCssClass: 'invalid',
 	errorLabelStyle: {
 		fontSize: '14px', 
 		color: 'white',
 	},
-	errorsContainer: '#errors-container',
+	errorsContainer: '#errors_container',
 })
 
 someValidation
