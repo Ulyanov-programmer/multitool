@@ -1,64 +1,97 @@
-const someValidation = new JustValidate('#form', {
+const someValidation = new JustValidate('#buy-form', {
 	errorFieldCssClass: 'invalid',
 	errorLabelCssClass: 'invalid',
-	errorContainer: '#errors_container',
+	errorLabelStyle: {
+		fontSize: '14px', 
+		color: 'white',
+	},
+	errorsContainer: '#errors-container',
 })
 
 someValidation
-	.addField('[type="email"]', [
-		{
-			rule: 'required',
-			errorMessage: '',
-		},
-		{
-			rule: 'minLength',
-			value: 3,
-			errorMessage: '',
-		},
-		{
-			rule: 'email',
-			errorMessage: '',
-		},
-		// {
-		// 	// For phone numbers with input mask
-		// 	rule: 'function',
-		// 	validator: () => {
-		//		return true
-		// 	},
-		// 	required: true,
-		// 	errorMessage: '',
-		// },
-		// {
-		// 	rule: 'files',
-		// 	files: {
-		// 		extensions: ['.jpg', 'png'],
-		// 		types: ['image/jpeg', 'image/png'],
-		// 		// in bytes.
-		// 		minSize: 1000,
-		// 		maxSize: 25000,
-		// 	},
-		// 	errorMessage: '',
-		// },
-		{
-			rule: 'function',
-			// Custom validating.
-			validator: (value) => {
-				return true
-			},
-			errorMessage: '',
-		},
-	]).onSuccess((e) => {
-		let formData = new FormData(e.target);
+	// .addField('.selector', [
+	// 	
+	// ])
 
-		fetch('../php/mail.php', { method: "POST", body: formData, })
-			.then((response) => {
-				if (response.ok) {
-					console.log('The letter was send.');
-				} else {
-					console.log('The letter was not sended!');
-				}
-			})
-			.catch((error) => {
-				console.log('Mail error!' + error);
-			});
+	// {
+	// 	rule: 'required',
+	// 	errorMessage: '',
+	// },
+	// {
+	// 	rule: 'minLength',
+	// 	value: 3,
+	// 	errorMessage: '',
+	// },
+	// {
+	// 	rule: 'maxLength',
+	// 	value: 30,
+	// 	errorMessage: '',
+	// },
+	// {
+	// 	rule: 'email',
+	// 	errorMessage: '',
+	// },
+	// // Write below the selector of CONTAINER with radio/checkbox inputs.
+	// .addRequiredGroup(
+	// 	'.selector',
+	// 	'Message'
+	// )
+	// {
+	// 	// only letters, with spaces.
+	// 	rule: 'function',
+	// 	validator: (str) => {
+	// 		return /^[a-zA-Z() ]+$/.test(str)
+	// 	},
+	// 	errorMessage: '',
+	// },
+	// {
+	// 	// only capital letters, with spaces.
+	// 	rule: 'function',
+	// 	validator: (str) => {
+	// 		return /^[A-Z() ]+$/.test(str)
+	// 	},
+	// 	errorMessage: '',
+	// },
+	// {
+	// 	rule: 'function',
+	// 	validator: () => {
+	// 		return true
+	// 	},
+	// 	errorMessage: '',
+	// },
+	// {
+	// 	rule: 'function',
+	// 	validator: (number) => {
+	// 		// Checking for a number
+	// 		return Number(number) > 0
+	// 	},
+	// 	errorMessage: '',
+	// },
+	// {
+	// 	rule: 'files',
+	// 	files: {
+	// 		extensions: ['.jpg', 'png'],
+	// 		types: ['image/jpeg', 'image/png'],
+	// 	// in bytes.
+	// 		minSize: 1000,
+	// 		maxSize: 25000,
+	// 	},
+	// 	errorMessage: '',
+	// }
+	.onSuccess((e) => {
+		//? Sending a mail, just for lulz.
+
+		// let formData = new FormData(e.target);
+
+		// fetch('../php/mail.php', { method: "POST", body: formData, })
+		// 	.then((response) => {
+		// 		if (response.ok) {
+		// 			console.log('The letter was send.');
+		// 		} else {
+		// 			console.log('The letter was not sended!');
+		// 		}
+		// 	})
+		// 	.catch((error) => {
+		// 		console.log('Mail error!' + error);
+		// 	});
 	});
