@@ -11,73 +11,19 @@ interface AnimateByScrollArgs {
 }
 
 export default class AnimateByScroll {
-	private static repeatingAnimations: boolean = false
-	private static elements: AnimationGroup[]
-	public activeAnimationClass: string = 'active'
+	public static repeatingAnimations: boolean = false
+	public static activeAnimationClass: string = 'active'
 
 	constructor(arg: AnimateByScrollArgs, ...elements: AnimationGroup[]) {
 		AnimateByScroll.repeatingAnimations = arg.repeatingAnimations
 
 		if (elements.length <= 0) {
-			console.log('[AnimateByScroll] No elements have been created.')
+			console.error('[AnimateByScroll] No one AnimationGroup have been created.')
 			return
 		}
-		if (arg.activeAnimationClass)
-			this.activeAnimationClass = arg.activeAnimationClass
-
-		AnimateByScroll.elements = elements
-
-		this.checkAndToggleAnimationForElements()
-		for (let element of AnimateByScroll.elements) {
-			element.mediaQueries.length > 0 ? element.setMediaProperties() : false
+		if (arg.activeAnimationClass) {
+			AnimateByScroll.activeAnimationClass = arg.activeAnimationClass
 		}
-
-
-		window.addEventListener('scroll', () => {
-			this.checkAndToggleAnimationForElements()
-		}, false)
-
-		window.addEventListener('resize', () => {
-			for (let element of AnimateByScroll.elements) {
-				element.setMediaProperties()
-			}
-		}, false)
-	}
-
-	private checkAndToggleAnimationForElements() {
-		window.requestAnimationFrame(() => {
-			for (let animateElement of AnimateByScroll.elements) {
-
-				for (const animateHtml of animateElement.htmlElements) {
-
-					if (this.isPartiallyVisible(animateElement, animateHtml) &&
-						!animateHtml.classList.contains(this.activeAnimationClass)) {
-
-						setTimeout(() => {
-							animateHtml.classList.add(this.activeAnimationClass)
-						}, parseInt(animateHtml.dataset.timeout as string))
-					}
-					else if (!this.isPartiallyVisible(animateElement, animateHtml) && AnimateByScroll.repeatingAnimations) {
-						animateHtml.classList.remove(this.activeAnimationClass)
-					}
-				}
-			}
-		})
-	}
-	private isPartiallyVisible(animElement: AnimationGroup, animHtml: HTMLElement) {
-		/* thanks for this function: 
-			en: https://www.kirupa.com/animations/creating_scroll_activated_animations.htm
-			ru: http://webupblog.ru/animatsiya-pri-prokrutke-stranitsy-na-javascript-i-css/
-		*/
-
-		var elementBoundary = animHtml.getBoundingClientRect()
-
-		var top = elementBoundary.top
-		var bottom = elementBoundary.bottom
-		var height = elementBoundary.height
-		let heightWithCoeff = height * parseFloat(animHtml.dataset.viewStartCoeff as string) 
-
-		return ((top + heightWithCoeff >= 0) && (heightWithCoeff + window.innerHeight >= bottom))
 	}
 }
 
@@ -88,15 +34,14 @@ interface AnimationGroupArgs {
 		For example, 1 => class is assigned as soon as the element is shown on the screen. 
 		0.5 => as soon as it is shown at half. 
 	*/
-	animateStartCoeff: number
+	animateStartCoeff: number[]
 	/** The delay before the animation starts in milliseconds. */
 	timeoutBeforeStart: number
 }
-
 export class AnimationGroup {
 	public htmlElements: NodeListOf<HTMLElement>
 	public mediaQueries: AnimationMediaQuery[]
-	private defAnimStartCoeff: number
+	private defAnimStartCoeffs: number[]
 	private defTimeoutBeforeStart: number
 
 	/**
@@ -106,8 +51,6 @@ export class AnimationGroup {
 	constructor(arg: AnimationGroupArgs, ...mediaQueries: AnimationMediaQuery[]) {
 		if (elementsIsExist(arg.selectors) == false) {
 			console.log('[AnimationGroup] Element is not exist!')
-		} else if (arg.animateStartCoeff <= 0 || arg.animateStartCoeff > 1) {
-			console.log('[AnimationGroup] AnimateStartCoeff <= 0 or > 1')
 		}
 
 		this.htmlElements = document.querySelectorAll(arg.selectors)
@@ -117,30 +60,67 @@ export class AnimationGroup {
 		}
 
 		this.defTimeoutBeforeStart = arg.timeoutBeforeStart
-		this.defAnimStartCoeff = arg.animateStartCoeff
+		this.defAnimStartCoeffs = arg.animateStartCoeff
 		this.mediaQueries = mediaQueries
+		this.setMediaProperties()
+		this.createIntersectionObserver()
+
+		window.addEventListener('resize', () => {
+			this.setMediaProperties()
+		}, false)
 	}
 
 	setMediaProperties() {
-		for (let media of this.mediaQueries) {
-			if (window.innerWidth <= media.activeWitdh) {
+		if (this.mediaQueries.length <= 0)
+			return
+
+		for (let mediaQuery of this.mediaQueries) {
+			if (window.innerWidth <= mediaQuery.activationWitdh) {
 
 				for (let htmlElement of this.htmlElements) {
-					htmlElement.setAttribute('data-timeout', media.timeoutBeforeStart.toString())
-					htmlElement.setAttribute('data-view-start-coeff', media.animateStartCoeff.toString())
+					htmlElement.setAttribute('data-timeout', mediaQuery.timeoutBeforeStart.toString())
+					htmlElement.setAttribute('data-view-start-coeff', mediaQuery.defAnimStartCoeffs.toString())
 				}
 			} else {
 				for (let htmlElement of this.htmlElements) {
 					htmlElement.setAttribute('data-timeout', this.defTimeoutBeforeStart.toString())
-					htmlElement.setAttribute('data-view-start-coeff', this.defAnimStartCoeff.toString())
+					htmlElement.setAttribute('data-view-start-coeff', this.defAnimStartCoeffs.toString())
 				}
 			}
 		}
 	}
+	createIntersectionObserver() {
+		let observerOptions = { threshold: this.defAnimStartCoeffs }
+		let observerFunction = function (entries: IntersectionObserverEntry[]) {
+			for (let entry of entries) {
+				let animateHtml = entry.target as HTMLElement
+
+				if (entry.isIntersecting && !animateHtml.classList.contains(AnimateByScroll.activeAnimationClass)) {
+					setTimeout(() => {
+						animateHtml.classList.add(AnimateByScroll.activeAnimationClass)
+					}, parseInt(animateHtml.dataset.timeout))
+
+
+					if (AnimateByScroll.repeatingAnimations == false) {
+						observer.unobserve(entry.target)
+					}
+				}
+				else if (entry.isIntersecting == false && AnimateByScroll.repeatingAnimations) {
+					animateHtml.classList.remove(AnimateByScroll.activeAnimationClass)
+				}
+			}
+		}
+
+		const observer = new IntersectionObserver(observerFunction, observerOptions)
+		for (let htmlElement of this.htmlElements) {
+			observer.observe(htmlElement)
+		}
+	}
 }
+
 export class AnimationMediaQuery {
-	public activeWitdh: number
-	public animateStartCoeff: number
+	public activationWitdh: number
+	public defAnimStartCoeffs: number[]
 	public timeoutBeforeStart: number
 
 	/**
@@ -156,13 +136,9 @@ export class AnimationMediaQuery {
 	* @throws animateStartCoeff < 0 or > 1 - 
 	* Specify the animation start factor greater than 0 and less than 1.
 	*/
-	constructor(activeWitdh: number, animateStartCoeff: number, timeoutBeforeStart: number) {
-		if (animateStartCoeff <= 0 || animateStartCoeff > 1) {
-			console.log('[AnimationMediaQuery] AnimateStartCoeff <= 0 or > 1')
-		}
-
-		this.activeWitdh = activeWitdh
-		this.animateStartCoeff = animateStartCoeff
+	constructor(activationWitdh: number, defAnimStartCoeffs: number[], timeoutBeforeStart: number) {
+		this.activationWitdh = activationWitdh
+		this.defAnimStartCoeffs = defAnimStartCoeffs
 		this.timeoutBeforeStart = timeoutBeforeStart
 	}
 }
