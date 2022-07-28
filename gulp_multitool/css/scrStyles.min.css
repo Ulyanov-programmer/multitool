@@ -74,6 +74,9 @@
 .tab__btn.active {
   transform: scale(1.1, 1.1);
 }
+.tab__tab-container > *:not(:last-child) {
+  margin-bottom: 50px;
+}
 .tab__item {
   display: flex;
   justify-content: center;
@@ -260,4 +263,16 @@
 }
 .swipe_window__swipe_el_bottom.active {
   transform: translate3d(-50%, 0, 0);
+}
+
+.horizontal-scroll {
+  justify-content: start;
+  width: 400px;
+  overflow-x: scroll;
+}
+.horizontal-scroll__element {
+  width: 150vw;
+}
+.horizontal-scroll-wrapper {
+  overflow: hidden;
 }

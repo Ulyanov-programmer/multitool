@@ -119,7 +119,7 @@ html {
   z-index: 15;
   top: 0;
   left: 0;
-  background: rgba(0, 0, 0, 0.2745098039);
+  background: rgba(0, 0, 0, 0.275);
   width: 100vw;
   height: 100vh;
   overflow: hidden;
