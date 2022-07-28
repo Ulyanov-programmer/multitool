@@ -17,8 +17,7 @@ import { scripts } from "./gulp/scriptTask.js";
 import { scriptModules } from "./gulp/moduleTask.js";
 import { fontsStyle, fonts } from "./gulp/fonts.js";
 import { images, imagesSvg } from "./gulp/images.js";
-import { setupSwiperCss, setupSwiperJs } from "./gulp/swiperInit.js";
-import { setupValidateJs } from "./gulp/jvInit.js";
+import { setupSwiperCss, setupSwiperJs, setupValidateJs } from "./gulp/importModules.js";
 import browserSyncFunc from "./gulp/browserSync.js";
 
 
