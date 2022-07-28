@@ -1,11 +1,11 @@
 html
 	scroll-behavior: smooth
 
-	// @media (min-width: 768px)
-	// 	-ms-overflow-style: none
-	// 	scrollbar-width: none
-	// 	&::-webkit-scrollbar
-	// 		width: 0
+	@media (min-width: 768px)
+		// scrollbar-width: none
+		// &::-webkit-scrollbar
+		// 	width: 0
+		// 	height: 0
 
 	::selection
 		// background: gray
@@ -32,7 +32,7 @@ html
 	z-index: 15
 	top: 0
 	left: 0
-	background: #00000046
+	background: rgba(0, 0, 0, 0.275)
 	+block-size(100vw, 100vh)
 	+hide()
 	transition: all .3s ease
