@@ -68,7 +68,10 @@
 		&.active
 			transform: scale(1.1, 1.1)
 
-	// &__items
+	&__tab-container
+		>*
+			&:not(:last-child)
+				margin-bottom: 50px
 
 	&__item
 		display: flex

@@ -89,6 +89,7 @@ export default class Tab {
 
 		if (arg.fadeEffect) {
 			this.setFadeTabs()
+			this.resizeFadeTabs()
 
 			window.addEventListener('resize', this.resizeFadeTabs.bind(this))
 
@@ -99,7 +100,8 @@ export default class Tab {
 			}
 		} else {
 			this.setDefaultTabs()
-
+			this.resizeTabs()
+			
 			window.addEventListener('resize', this.resizeTabs.bind(this))
 
 			for (let tabButton of this.buttons) {
