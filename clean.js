@@ -77,6 +77,7 @@ async function setModules() {
 	await includeModuleByQuestion('Parallax', `${scriptModules}parallax.ts`)
 	await includeModuleByQuestion('ScrollToElement', `${scriptModules}scrollToElement.ts`)
 	await includeModuleByQuestion('Animations by scroll', `${scriptModules}animateByScroll.ts`)
+	await includeModuleByQuestion('Horizontal scroll', `${scriptGeneral}horizontalScroll.ts`)
 	await includeModuleByQuestion('Swipe module', `${scriptModules}swipe.ts`)
 	await includeModuleByQuestion('Form styles', ``, `${stylesModules}_form.sass`)
 }
