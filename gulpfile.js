@@ -1,7 +1,7 @@
 import gulp from "gulp";
 import browsersync from 'browser-sync';
 import gulpIf from 'gulp-if';
-import { paths } from "./gulpData/paths.js";
+import { paths } from "./gulp/paths.js";
 import fs from 'fs-extra';
 
 global.gulp = gulp;
@@ -10,16 +10,16 @@ global.isProd = process.argv.includes('--prod');
 global.paths = paths;
 global.browsersync = browsersync;
 
-import { html } from "./gulpData/html.js";
-import { php } from "./gulpData/php.js";
-import { css } from "./gulpData/css.js";
-import { scripts } from "./gulpData/scriptTask.js";
-import { scriptModules } from "./gulpData/moduleTask.js";
-import { fontsStyle, fonts } from "./gulpData/fonts.js";
-import { images, imagesSvg } from "./gulpData/images.js";
-import { setupSwiperCss, setupSwiperJs } from "./gulpData/swiperInit.js";
-import { setupValidateJs } from "./gulpData/jvInit.js";
-import browserSyncFunc from "./gulpData/browserSync.js";
+import { html } from "./gulp/html.js";
+import { php } from "./gulp/php.js";
+import { css } from "./gulp/css.js";
+import { scripts } from "./gulp/scriptTask.js";
+import { scriptModules } from "./gulp/moduleTask.js";
+import { fontsStyle, fonts } from "./gulp/fonts.js";
+import { images, imagesSvg } from "./gulp/images.js";
+import { setupSwiperCss, setupSwiperJs } from "./gulp/swiperInit.js";
+import { setupValidateJs } from "./gulp/jvInit.js";
+import browserSyncFunc from "./gulp/browserSync.js";
 
 
 function watchFIles() {
