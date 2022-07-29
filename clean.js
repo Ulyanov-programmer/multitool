@@ -17,7 +17,6 @@ const componentsFolder = `${pathToProject}${src}/components/`
 const fontsGitkeep = `${src}/fonts/.gitkeep`
 const mainStyleFile = `${pathToProject}${src}/styles/style.sass`
 const mainHtmlFile = `${pathToProject}${src}/index.html`
-const mainScriptFile = `${src}/scripts/script.ts`
 const gulpFile = `${pathToProject}/gulpfile.js`
 const slidersFile = `${pathToProject}${src}/scripts/sliders.js`
 const justValidateFile = `${pathToProject}${src}/scripts/justValidate.js`
@@ -33,27 +32,42 @@ cleanReadmeFilesAndFolders()
 deleteSnippets()
 deleteDemoProject()
 
-await setImportModule(
-	`just-validate`,
-	'setupValidateJs,',
-	['<!-- JustValidate -->',
-		'<script defer src="scripts/just-validate.production.min.js"></script>',
-		'<script type="module" src="scripts/justValidate.js"></script>'],
-	justValidateFile)
-
-await setImportModule(
-	`swiper-slider`,
-	'setupSwiperCss, setupSwiperJs,',
-	['<!-- Swiper -->',
-		'<link rel="stylesheet" href="css/swiper-bundle.min.css">',
-		'<script defer src="scripts/swiper-bundle.min.js"></script>',
-		'<script type="module" src="scripts/sliders.js"></script>'],
-	slidersFile)
-
+await setImportModules()
 await setModules()
 
-console.log('🎆🎆🎆 I wish You a successful job!');
+console.log('I wish You a successful job! 🎆🎆🎆')
 
+
+async function setImportModules() {
+	await setImportModule(
+		`Just-validate`,
+		'// setupValidateJs,',
+		['<!-- JustValidate -->',
+			'<script defer src="scripts/just-validate.production.min.js"></script>',
+			'<script type="module" src="scripts/justValidate.js"></script>'],
+		justValidateFile)
+
+	await setImportModule(
+		`Swiper-slider`,
+		'// setupSwiperCss, setupSwiperJs,',
+		['<!-- Swiper -->',
+			'<link rel="stylesheet" href="css/swiper-bundle.min.css">',
+			'<script defer src="scripts/swiper-bundle.min.js"></script>',
+			'<script type="module" src="scripts/sliders.js"></script>'],
+		slidersFile)
+
+	await setImportModule(
+		`Typed`,
+		'// setupTypedJs,', [])
+
+	await setImportModule(
+		`Input Mask`,
+		'// setupInputMaskJs,', [])
+
+	await setImportModule(
+		`Air Date Picker`,
+		'// setupAirDatePickerJs, setupAirDatePickerCss,', [])
+}
 async function setModules() {
 	await includeModuleByQuestion(
 		'Modal-Window',
@@ -127,16 +141,20 @@ async function setImportModule(importModuleName, importModuleGulpTasksString, ht
 
 	if (answer !== 'y') {
 		await replace({
-			files: gulpFile,
-			from: importModuleGulpTasksString,
-			to: '',
-		})
-		await replace({
 			files: mainHtmlFile,
 			from: htmlConnectStrings,
 			to: '',
 		})
+
 		fs.removeSync(fileToDelete)
+	} else {
+		let connectScring = importModuleGulpTasksString.replace('// ', '')
+
+		await replace({
+			files: gulpFile,
+			from: importModuleGulpTasksString,
+			to: connectScring,
+		})
 	}
 }
 

@@ -18,9 +18,11 @@ import { scriptModules } from "./gulp/moduleTask.js";
 import { fontsStyle, fonts } from "./gulp/fonts.js";
 import { images, imagesSvg } from "./gulp/images.js";
 import {
-	setupSwiperCss, setupSwiperJs, setupValidateJs,
-	setupInputMaskJs, setupTypedJs, setupAirDatePickerJs,
-	setupAirDatePickerCss
+	setupSwiperCss, setupSwiperJs,
+	setupValidateJs,
+	setupInputMaskJs,
+	setupTypedJs,
+	setupAirDatePickerJs, setupAirDatePickerCss,
 } from "./gulp/importModules.js";
 import browserSyncFunc from "./gulp/browserSync.js";
 
@@ -39,8 +41,11 @@ function recreate() {
 	return gulp.src(paths.scr.html)
 }
 let importModuleGulpTasks = [
-	setupSwiperCss, setupSwiperJs, setupValidateJs, setupInputMaskJs, setupTypedJs,
-	setupAirDatePickerJs, setupAirDatePickerCss
+	// setupSwiperCss, setupSwiperJs,
+	// setupValidateJs,
+	// setupInputMaskJs,
+	// setupTypedJs,
+	// setupAirDatePickerJs, setupAirDatePickerCss,
 ]
 
 let build = gulp.series(recreate, importModuleGulpTasks,
