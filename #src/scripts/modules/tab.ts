@@ -43,11 +43,11 @@ export default class Tab {
 	private animationDuration: number
 	private switchingLockTime: number
 	private isToggling: boolean = false
-	private autoHeight: boolean = false
+	private autoHeight: boolean
 	private toggleTabsEvent: string = 'click'
 	private containerheight: number = 0
-	public buttonsActiveClass: string = 'active'
-	public contentActiveClass: string = 'active'
+	public buttonsActiveClass: string
+	public contentActiveClass: string
 
 	constructor(arg: TabArgs) {
 		if (!elementIsExistWithLog('Tab', arg.btnsSelector, arg.contentBlocksSelector))
@@ -61,17 +61,15 @@ export default class Tab {
 			return
 		}
 
-		if (arg.buttonsActiveClass)
-			this.buttonsActiveClass = arg.buttonsActiveClass
-		if (arg.contentActiveClass)
-			this.contentActiveClass = arg.contentActiveClass
-		if (arg.firstButtonIsNotActive == undefined || arg.firstButtonIsNotActive == false)
+		this.buttonsActiveClass = arg.buttonsActiveClass ? arg.buttonsActiveClass : 'active'
+		this.contentActiveClass = arg.contentActiveClass ? arg.contentActiveClass : 'active'
+		this.autoHeight = arg.autoHeight ? arg.autoHeight : false
+
+		if (!arg.firstButtonIsNotActive)
 			this.buttons[0].classList.add(this.buttonsActiveClass)
 
 		this.contentElements[0].classList.add(this.contentActiveClass)
 
-		if (arg.autoHeight)
-			this.autoHeight = arg.autoHeight
 
 		let someTabElement = document.querySelector(arg.contentBlocksSelector) as HTMLElement
 		this.parentOfContentElements = someTabElement.parentElement as HTMLElement

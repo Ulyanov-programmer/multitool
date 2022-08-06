@@ -25,8 +25,8 @@ export default class SpoilerMenu {
 	private static spoilerContentElements: NodeListOf<HTMLElement>
 	private static spoilerVisibleWidth: number
 	private static animationDuration: number
-	public static btnActiveClass: string = 'active'
-	public static contentActiveClass: string = 'active'
+	public static btnActiveClass: string
+	public static contentActiveClass: string
 
 	constructor(args: SpoilerMenuArgs) {
 		if (!elementIsExistWithLog('SpoilerMenu', args.btnsSelector, args.contentBlocksSelector)) {
@@ -38,11 +38,8 @@ export default class SpoilerMenu {
 		SpoilerMenu.spoilerButtons = document.querySelectorAll(args.btnsSelector)
 		SpoilerMenu.spoilerContentElements = document.querySelectorAll(args.contentBlocksSelector)
 
-		if (args.buttonActiveClass)
-			SpoilerMenu.btnActiveClass = args.buttonActiveClass
-		if (args.contentActiveClass)
-			SpoilerMenu.contentActiveClass = args.contentActiveClass
-
+		SpoilerMenu.btnActiveClass = args.buttonActiveClass ? args.buttonActiveClass : 'active'
+		SpoilerMenu.contentActiveClass = args.contentActiveClass ? args.contentActiveClass : 'active'
 
 		if (SpoilerMenu.spoilerButtons.length != SpoilerMenu.spoilerContentElements.length) {
 			console.log('[SpoilerMenu] The count of buttons and content-elements is not equal!')

@@ -13,8 +13,7 @@ export default class ElementModal {
 	private animationDuration: number
 
 	constructor(arg: ElementModalArgs) {
-		if (!elementIsExistWithLog('ElementModal',
-			arg.contentElementsSelector, arg.modalElementSelector)) {
+		if (!elementIsExistWithLog('ElementModal', arg.contentElementsSelector, arg.modalElementSelector)) {
 			return
 		}
 

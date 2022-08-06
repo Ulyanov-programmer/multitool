@@ -16,7 +16,7 @@ interface SidebarMenuArgs {
 export default class SidebarMenu {
 	private sidebarButtons: NodeListOf<HTMLElement>
 	private static swipeArea: HTMLElement
-	public static sidebarsActiveClass: string = 'active'
+	public static sidebarsActiveClass: string
 	public static buttonsActiveClass: string = 'active'
 
 	constructor(arg: SidebarMenuArgs) {
@@ -28,12 +28,8 @@ export default class SidebarMenu {
 		this.sidebarButtons = document.querySelectorAll(arg.selectorOfSidebarButtons)
 
 		SidebarMenu.swipeArea = document.querySelector(arg.swipeAreaSelector) as HTMLElement
-
-		if (arg.buttonsActiveClass)
-			SidebarMenu.buttonsActiveClass = arg.buttonsActiveClass
-		if (arg.sidebarsActiveClass)
-			SidebarMenu.sidebarsActiveClass = arg.sidebarsActiveClass
-
+		SidebarMenu.buttonsActiveClass = arg.buttonsActiveClass ? arg.buttonsActiveClass : 'active'
+		SidebarMenu.sidebarsActiveClass = arg.sidebarsActiveClass ? arg.sidebarsActiveClass : 'active'
 
 		for (let sidebarBtn of this.sidebarButtons) {
 			sidebarBtn.addEventListener('click', () =>

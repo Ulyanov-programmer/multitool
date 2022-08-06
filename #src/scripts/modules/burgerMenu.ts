@@ -24,8 +24,8 @@ export default class BurgerMenu {
 	private static autoPaddingOptions: autoPaddingOptions
 	private static closingByClickOnElement: boolean = true
 
-	public static burgerActiveClass: string = 'active'
-	public static menuActiveClass: string = 'active'
+	public static burgerActiveClass: string
+	public static menuActiveClass: string
 
 	constructor(args: BurgerMenuArgs) {
 		if (!elementIsExistWithLog('BurgerMenu',
@@ -37,19 +37,15 @@ export default class BurgerMenu {
 		BurgerMenu.autoPaddingOptions = args.autoPadding
 		BurgerMenu.closingByClickOnElement = args.closingByClickOnElement
 
-
-		if (args.burgerActiveClass)
-			BurgerMenu.burgerActiveClass = args.burgerActiveClass
-		if (args.menuActiveClass)
-			BurgerMenu.menuActiveClass = args.menuActiveClass
-
-		if (args.autoPadding)
-			BurgerMenu.menu.style.paddingTop = `${BurgerMenu.autoPaddingOptions.elementHeight}px`
+		BurgerMenu.burgerActiveClass = args.burgerActiveClass ? args.burgerActiveClass : 'active'
+		BurgerMenu.menuActiveClass = args.menuActiveClass ? args.menuActiveClass : 'active'
+		BurgerMenu.menu.style.paddingTop = args.autoPadding ? `${BurgerMenu.autoPaddingOptions.elementHeight}px` : '0'
 
 		BurgerMenu.burger.addEventListener('click', this.toggleNavmenu)
 
 		if (BurgerMenu.closingByClickOnElement) {
 			BurgerMenu.buttons = document.querySelectorAll(args.buttonsSelector)
+			
 			for (let button of BurgerMenu.buttons) {
 				button.addEventListener('click', this.hideNavmenu)
 			}
