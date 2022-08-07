@@ -1,9 +1,10 @@
 import { elementsIsExist } from "./general.js";
+import "https://flackr.github.io/scroll-timeline/dist/scroll-timeline.js";
 const _AnimateByScroll = class {
   constructor(arg, ...elements) {
     _AnimateByScroll.repeatingAnimations = arg.repeatingAnimations;
     if (elements.length <= 0) {
-      console.error("[AnimateByScroll] No one AnimationGroup have been created.");
+      console.error("[AnimateByScroll] No one AnimationGroup or AnimationTimeline have been created.");
       return;
     }
     if (arg.activeAnimationClass) {
@@ -40,7 +41,7 @@ export class AnimationGroup {
     if (this.mediaQueries.length <= 0)
       return;
     for (let mediaQuery of this.mediaQueries) {
-      if (window.innerWidth <= mediaQuery.activationWitdh) {
+      if (window.outerWidth <= mediaQuery.activationWitdh) {
         for (let htmlElement of this.htmlElements) {
           htmlElement.setAttribute("data-timeout", mediaQuery.timeoutBeforeStart.toString());
           htmlElement.setAttribute("data-view-start-coeff", mediaQuery.defAnimStartCoeffs.toString());
@@ -81,5 +82,24 @@ export class AnimationMediaQuery {
     this.activationWitdh = activationWitdh;
     this.defAnimStartCoeffs = defAnimStartCoeffs;
     this.timeoutBeforeStart = timeoutBeforeStart;
+  }
+}
+export class AnimationTimeline {
+  constructor(arg) {
+    if (elementsIsExist(arg.selectors) == false) {
+      console.log("[AnimationTimeline] No one element is exist!");
+    }
+    this.animatedElements = document.querySelectorAll(arg.selectors);
+    this.animatedProperties = arg.animatedProperties;
+    this.animateSettings = arg.animateSettings;
+    this.setDefaultanimateSettingsIfNull(arg.animateSettings);
+    for (let animatedHtml of this.animatedElements) {
+      animatedHtml.animate(this.animatedProperties, this.animateSettings);
+    }
+  }
+  setDefaultanimateSettingsIfNull(animateSettings) {
+    if (!animateSettings.fill) {
+      animateSettings.fill = "forwards";
+    }
   }
 }

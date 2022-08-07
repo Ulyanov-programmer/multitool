@@ -1,4 +1,6 @@
 import { elementsIsExist } from "./general.js"
+import 'https://flackr.github.io/scroll-timeline/dist/scroll-timeline.js'
+
 
 interface AnimateByScrollArgs {
 	/**
@@ -14,11 +16,11 @@ export default class AnimateByScroll {
 	public static repeatingAnimations: boolean = false
 	public static activeAnimationClass: string = 'active'
 
-	constructor(arg: AnimateByScrollArgs, ...elements: AnimationGroup[]) {
+	constructor(arg: AnimateByScrollArgs, ...elements: (AnimationGroup | AnimationTimeline)[]) {
 		AnimateByScroll.repeatingAnimations = arg.repeatingAnimations
 
 		if (elements.length <= 0) {
-			console.error('[AnimateByScroll] No one AnimationGroup have been created.')
+			console.error('[AnimateByScroll] No one AnimationGroup or AnimationTimeline have been created.')
 			return
 		}
 		if (arg.activeAnimationClass) {
@@ -39,8 +41,8 @@ interface AnimationGroupArgs {
 	timeoutBeforeStart: number
 }
 export class AnimationGroup {
-	public htmlElements: NodeListOf<HTMLElement>
-	public mediaQueries: AnimationMediaQuery[]
+	private htmlElements: NodeListOf<HTMLElement>
+	private mediaQueries: AnimationMediaQuery[]
 	private defAnimStartCoeffs: number[]
 	private defTimeoutBeforeStart: number
 
@@ -71,11 +73,10 @@ export class AnimationGroup {
 	}
 
 	setMediaProperties() {
-		if (this.mediaQueries.length <= 0)
-			return
+		if (this.mediaQueries.length <= 0) return
 
 		for (let mediaQuery of this.mediaQueries) {
-			if (window.innerWidth <= mediaQuery.activationWitdh) {
+			if (window.outerWidth <= mediaQuery.activationWitdh) {
 
 				for (let htmlElement of this.htmlElements) {
 					htmlElement.setAttribute('data-timeout', mediaQuery.timeoutBeforeStart.toString())
@@ -126,9 +127,9 @@ export class AnimationMediaQuery {
 	/**
 	* At a certain width, it changes the settings for applying the animation class.
 	* 
-	* @param activeWitdh
+	* @param activationWitdh
 	* If the viewport width is less than or equal to this value, new settings for applying the animation class will be applied.
-	* @param animateStartCoeff
+	* @param defAnimStartCoeffs
 	* For example, 1 => class is assigned as soon as the element is shown on the screen. 0.5 = as soon as it is shown at half.
 	* @param timeoutBeforeStart
 	* The delay before the animation starts in milliseconds.
@@ -140,5 +141,55 @@ export class AnimationMediaQuery {
 		this.activationWitdh = activationWitdh
 		this.defAnimStartCoeffs = defAnimStartCoeffs
 		this.timeoutBeforeStart = timeoutBeforeStart
+	}
+}
+
+
+
+interface AnimateTimelineProperties {
+	[cssPropertyName: string]: [string, string]
+}
+
+interface AnimateTimelineSettings {
+	duration?: number
+	fill?: FillMode
+	timeline: object
+	timeRange?: string
+}
+
+
+interface AnimationTimelineArgs {
+	selectors: string
+	animatedProperties: AnimateTimelineProperties
+	animateSettings: AnimateTimelineSettings
+}
+export class AnimationTimeline {
+	private animatedElements: NodeListOf<HTMLElement>
+	private animatedProperties: AnimateTimelineProperties
+	private animateSettings: AnimateTimelineSettings
+
+	constructor(arg: AnimationTimelineArgs) {
+		if (elementsIsExist(arg.selectors) == false) {
+			console.log('[AnimationTimeline] No one element is exist!')
+		}
+
+		this.animatedElements = document.querySelectorAll(arg.selectors)
+		this.animatedProperties = arg.animatedProperties
+		this.animateSettings = arg.animateSettings
+		this.setDefaultanimateSettingsIfNull(arg.animateSettings)
+
+
+		for (let animatedHtml of this.animatedElements) {
+			animatedHtml.animate(
+				this.animatedProperties,
+				this.animateSettings,
+			)
+		}
+	}
+
+	setDefaultanimateSettingsIfNull(animateSettings: AnimateTimelineSettings) {
+		if (!animateSettings.fill) {
+			animateSettings.fill = 'forwards'
+		}
 	}
 }
