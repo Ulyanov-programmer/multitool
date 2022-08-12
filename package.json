@@ -1,7 +1,7 @@
 {
-	"name": "defaultproject",
-	"version": "1.0.0",
-	"description": "Default project for work",
+	"name": "gulp_multitool",
+	"version": "4.0.0",
+	"description": "Default project for work with gulp",
 	"main": "index.html",
 	"type": "module",
 	"scripts": {
