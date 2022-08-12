@@ -17,11 +17,11 @@ new AnimateByScroll(
 	new AnimationTimeline({
 		selectors: '.text',
 		animatedProperties: {
-			transform: ['rotate(0deg)', 'rotate(90deg)']
+			color: ['black', 'white']
 		},
 		animateSettings: {
 			timeline: new ViewTimeline({
-				subject: document.querySelector('.block-2'),
+				subject: document.querySelector('.container'),
 			}),
 			// timeline: new ScrollTimeline({
 			// 	orientation: 'block',
