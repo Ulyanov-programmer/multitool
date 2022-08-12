@@ -23,6 +23,7 @@ import {
 	setupInputMaskJs,
 	setupTypedJs,
 	setupAirDatePickerJs, setupAirDatePickerCss,
+	setupPhotoSwipeJs, setupPhotoSwipeCss,
 } from "./gulp/importModules.js";
 import browserSyncFunc from "./gulp/browserSync.js";
 
@@ -46,6 +47,7 @@ let importModuleGulpTasks = [
 	// setupInputMaskJs,
 	// setupTypedJs,
 	// setupAirDatePickerJs, setupAirDatePickerCss,
+	// setupPhotoSwipeJs, setupPhotoSwipeCss,
 ]
 
 let build = gulp.series(recreate, importModuleGulpTasks,

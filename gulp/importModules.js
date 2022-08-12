@@ -8,7 +8,9 @@ const inputMaskMainJsFilePath = 'node_modules/inputmask/dist/inputmask.min.js'
 const typedMainJsFilePath = 'node_modules/typed.js/lib/typed.min.js'
 const airDatePickerMainJsFilePath = 'node_modules/air-datepicker/air-datepicker.js'
 const airDatePickerMainCssFilePath = 'node_modules/air-datepicker/air-datepicker.css'
-
+const photoSwipeMainCssFilePath = 'node_modules/photoswipe/dist/photoswipe.css'
+const photoSwipeMainJsFilePath = 'node_modules/photoswipe/dist/photoswipe-lightbox.esm.min.js'
+const photoSwipeSecondJsFilePath = 'node_modules/photoswipe/dist/photoswipe.esm.min.js'
 
 
 function scriptLoadErrorFallback(fileName) {
@@ -98,6 +100,26 @@ export function setupAirDatePickerCss() {
 	}
 
 	let css = [airDatePickerMainCssFilePath]
+
+	return styleLoadReturnGulpStream(css)
+}
+
+
+export function setupPhotoSwipeJs() {
+	if (fs.existsSync(photoSwipeMainJsFilePath) == false) {
+		return scriptLoadErrorFallback(photoSwipeMainJsFilePath)
+	}
+
+	let scripts = [photoSwipeMainJsFilePath, photoSwipeSecondJsFilePath]
+
+	return scriptLoadReturnGulpStream(scripts)
+}
+export function setupPhotoSwipeCss() {
+	if (fs.existsSync(photoSwipeMainCssFilePath) == false) {
+		return styleLoadErrorFallback(photoSwipeMainCssFilePath)
+	}
+
+	let css = [photoSwipeMainCssFilePath]
 
 	return styleLoadReturnGulpStream(css)
 }

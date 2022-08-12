@@ -67,6 +67,9 @@ async function setImportModules() {
 	await setImportModule(
 		`Air Date Picker`,
 		'// setupAirDatePickerJs, setupAirDatePickerCss,', [])
+	await setImportModule(
+		`Photo Swipe`,
+		'// setupAirDatePickerJs, setupAirDatePickerCss,', [])
 }
 async function setModules() {
 	await includeModuleByQuestion(
