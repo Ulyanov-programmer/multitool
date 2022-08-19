@@ -1,5 +1,5 @@
 import { elementsIsExist } from "./general.js"
-import 'https://flackr.github.io/scroll-timeline/dist/scroll-timeline.js'
+import "../scroll-timeline.js"
 
 
 interface AnimateByScrollArgs {
