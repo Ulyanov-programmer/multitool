@@ -2,12 +2,14 @@
 	<ul class='navmenu__body'>
 		@@for (let i = 0; i < links.length; i++) { 
 			<li>
-				<a class='' target='`+links[i].target+`' rel='noopener' href='#'>`+links[i].title+`</a>
+				<a class='`+links[i].classes+`' target='`+links[i].target+`' rel='noopener' href='#'>
+					`+links[i].title+`
+				</a>
 			</li>
 		}
 		@@for (let i = 0; i < buttons.length; i++) { 
 			<li>
-				<button class='' type='button' data-scroll-to='`+buttons[i].dataScrollTo+`'>
+				<button class='`+buttons[i].classes+`' type='button' data-scroll-to='`+buttons[i].dataScrollTo+`'>
 					`+buttons[i].title+`
 				</button>
 			</li>
@@ -28,12 +30,14 @@
 		<ul>
 			@@for (let i = 0; i < links.length; i++) { 
 				<li class="fs-element">
-					<a class='' target='`+links[i].target+`' rel='noopener' href='#'>`+links[i].title+`</a>
+					<a class='`+links[i].classes+`' target='`+links[i].target+`' rel='noopener' href='#'>
+						`+links[i].title+`
+					</a>
 				</li>
 			}
 			@@for (let i = 0; i < buttons.length; i++) { 
 				<li class="fs-element">
-					<button class='' type='button' data-scroll-to='`+buttons[i].dataScrollTo+`'>
+					<button class='`+buttons[i].classes+`' type='button' data-scroll-to='`+buttons[i].dataScrollTo+`'>
 						`+buttons[i].title+`
 					</button>
 				</li>
