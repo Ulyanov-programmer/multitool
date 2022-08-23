@@ -1,3 +1,10 @@
+import "./just-validate.production.min.js";
+// import "./inputmask.min.js"
+
+// const inputMask = new Inputmask("+7 (999) 999-99-99");
+// const formTel = requestForm.querySelector('input[type="tel"]');
+// inputMask.mask(formTel);
+
 const someValidation = new JustValidate('#form', {
 	errorFieldCssClass: 'invalid',
 	errorLabelCssClass: 'invalid',

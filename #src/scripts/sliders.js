@@ -1,6 +1,9 @@
+import "./swiper-bundle.min.js";
+
 const demoSlider = new Swiper('.demo-swiper', {
 	spaceBetween: 15,
 	/*
+	grabCursor: true,
 
 	navigation: {
 		nextEl: ".nextNavButton", prevEl: ".prevNavButton",
