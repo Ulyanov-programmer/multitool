@@ -2,7 +2,7 @@
 	<ul class='navmenu__body'>
 		@@for (let i = 0; i < links.length; i++) { 
 			<li>
-				<a class='`+links[i].classes+`' target='`+links[i].target+`' rel='noopener' href='#'>
+				<a class='`+links[i].classes+`' target='`+links[i].target+`' rel='noopener' href='`+links[i].href+`'>
 					`+links[i].title+`
 				</a>
 			</li>
@@ -30,7 +30,7 @@
 		<ul>
 			@@for (let i = 0; i < links.length; i++) { 
 				<li class="fs-element">
-					<a class='`+links[i].classes+`' target='`+links[i].target+`' rel='noopener' href='#'>
+					<a class='`+links[i].classes+`' target='`+links[i].target+`' rel='noopener' href='`+links[i].href+`'>
 						`+links[i].title+`
 					</a>
 				</li>
