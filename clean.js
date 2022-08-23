@@ -42,34 +42,29 @@ async function setImportModules() {
 	await setImportModule(
 		`Just-validate`,
 		'// setupValidateJs,',
-		['<!-- JustValidate -->',
-			'<script defer src="scripts/just-validate.production.min.js"></script>',
-			'<script type="module" src="scripts/justValidate.js"></script>'],
+		'justValidate: true',
 		justValidateFile)
 
 	await setImportModule(
 		`Swiper-slider`,
 		'// setupSwiperCss, setupSwiperJs,',
-		['<!-- Swiper -->',
-			'<link rel="stylesheet" href="css/swiper-bundle.min.css">',
-			'<script defer src="scripts/swiper-bundle.min.js"></script>',
-			'<script type="module" src="scripts/sliders.js"></script>'],
+		'swiper: true',
 		slidersFile)
 
 	await setImportModule(
 		`Typed`,
-		'// setupTypedJs,', [])
+		'// setupTypedJs,', '')
 
 	await setImportModule(
 		`Input Mask`,
-		'// setupInputMaskJs,', [])
+		'// setupInputMaskJs,', '')
 
 	await setImportModule(
 		`Air Date Picker`,
-		'// setupAirDatePickerJs, setupAirDatePickerCss,', [])
+		'// setupAirDatePickerJs, setupAirDatePickerCss,', '')
 	await setImportModule(
 		`Photo Swipe`,
-		'// setupAirDatePickerJs, setupAirDatePickerCss,', [])
+		'// setupAirDatePickerJs, setupAirDatePickerCss,', '')
 }
 async function setModules() {
 	await includeModuleByQuestion(
@@ -139,14 +134,16 @@ function deleteSnippets() {
 	}
 }
 
-async function setImportModule(importModuleName, importModuleGulpTasksString, htmlConnectStrings, fileToDelete) {
+async function setImportModule(importModuleName, importModuleGulpTasksString, htmlConnectString, fileToDelete) {
 	let answer = readline.question(`Import the ${importModuleName}? ${hint}`).toLowerCase()
 
 	if (answer !== 'y') {
+		let newHtmlConnectString = htmlConnectString.replace('true', 'false')
+
 		await replace({
 			files: mainHtmlFile,
-			from: htmlConnectStrings,
-			to: '',
+			from: htmlConnectString,
+			to: newHtmlConnectString,
 		})
 
 		fs.removeSync(fileToDelete)
