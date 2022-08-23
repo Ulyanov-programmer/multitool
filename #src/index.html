@@ -1,28 +1,30 @@
-<!DOCTYPE html>
-<html lang="en">
+@@include('components/_headContent.htm', {
+pageTitle: 'Main',
+lang: 'en',
+preloadedFontName: 'NameOfYourMainFont',
+})
 
-<head>
-	@@include('components/_headContent.htm', {
-	title: "Main",
-	})
-	<link rel="stylesheet" href="css/style.min.css">
+@@include('_importModules.htm', {
+generalScripts: true,
+swiper: true,
+justValidate: true,
+})
+
+<link rel="stylesheet" href="css/style.min.css">
 </head>
 
 <body>
-	@@include('_header.htm', {})
+	@@include('_header.htm')
 
 	<main class="main">
-		
+
 	</main>
 
-	@@include('_footer.htm', {})
+	@@include('_footer.htm')
 
 	@@include('components/_modals.htm', {})
 
 </body>
 
-<script type="module" src="scripts/generalScript.js"></script>
-
 </html>
-
 <!-- Made in Russia, with ❤, by Ivan Ulyanov. -->
