@@ -78,7 +78,7 @@ async function setModules() {
 				from: `@@include('components/_modals.htm', {})`, to: '',
 			})
 		})
-	await includeModuleByQuestion('Burger-menu', `${scriptModules}burgerMenu.ts`, `${stylesModules}_burgerMenu.sass`)
+	await includeModuleByQuestion('Burger-menu', `${scriptModules}burgerMenu.ts`, `${stylesModules}burgerMenu.sass`)
 	await includeModuleByQuestion('Filter', `${scriptModules}filter.ts`)
 
 	await includeModuleByQuestion('Spoilers', `${scriptModules}spoiler.ts`, `${stylesModules}_spoiler.sass`)
