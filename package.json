@@ -31,7 +31,7 @@
 		"gulp-version-number": "^0.2.4",
 		"readline-sync": "^1.4.10",
 		"replace-in-file": "^6.3.5",
-		"sass": "^1.53.0"
+		"sass": "^1.54.5"
 	},
 	"dependencies": {
 		"air-datepicker": "^3.2.0",
