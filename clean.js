@@ -67,6 +67,8 @@ async function setImportModules() {
 		'// setupAirDatePickerJs, setupAirDatePickerCss,', '')
 }
 async function setModules() {
+	await includeModuleByQuestion('Burger-menu', `${scriptModules}burgerMenu.ts`, `${stylesModules}_burgerMenu.sass`)
+	await includeModuleByQuestion('Spoilers', `${scriptModules}spoiler.ts`, `${stylesModules}_spoiler.sass`)
 	await includeModuleByQuestion(
 		'Modal-Window',
 		`${scriptModules}modalWindow.ts`,
@@ -78,10 +80,7 @@ async function setModules() {
 				from: `@@include('components/_modals.htm', {})`, to: '',
 			})
 		})
-	await includeModuleByQuestion('Burger-menu', `${scriptModules}burgerMenu.ts`, `${stylesModules}burgerMenu.sass`)
 	await includeModuleByQuestion('Filter', `${scriptModules}filter.ts`)
-
-	await includeModuleByQuestion('Spoilers', `${scriptModules}spoiler.ts`, `${stylesModules}_spoiler.sass`)
 	await includeModuleByQuestion('Sidebar', `${scriptModules}sidebar.ts`, `${stylesModules}_sidebar.sass`)
 	await includeModuleByQuestion('Submenu', `${scriptModules}submenu.ts`, `${stylesModules}_submenu.sass`)
 	await includeModuleByQuestion('Tabs', `${scriptModules}tab.ts`)
@@ -180,7 +179,7 @@ async function includeModuleByQuestion(moduleName, scriptPath, stylePath, htmlPa
 
 		await replace({
 			files: mainStyleFile,
-			from: `@import 'modules/${styleModuleName}'`, to: '',
+			from: `@use 'modules/${styleModuleName}'`, to: '',
 		})
 	}
 	if (htmlPath) {
