@@ -4,11 +4,12 @@ lang: 'en',
 preloadedFontName: 'NameOfYourMainFont',
 })
 
-@@include('_importModules.htm', {
-generalScripts: true,
-swiper: true,
-justValidate: true,
-})
+@@include('components/_connectModules.htm', { modules: {
+generalScripts: false,
+justValidate: false,
+swiper: false,
+}})
+
 <!-- /-/ Stylesheets and scripts for this page -->
 <link rel="stylesheet" href="css/style.min.css">
 </head>

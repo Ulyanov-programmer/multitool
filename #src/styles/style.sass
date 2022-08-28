@@ -1,6 +1,4 @@
 @use 'connectHelper' as *
-@use 'other/fonts'
-@use 'modules/nullStyle'
 @use 'modules/_submenu'
 @use 'modules/_form'
 @use 'modules/_spoiler'
@@ -12,7 +10,3 @@ body
 	color: var(--text-c)
 	background: var(--bg)
 	font: adaptiveFontSize($mainFontSize, $minFontSize) var(--main-font-family)
-
-	button
-		color: var(--text-c)
-		font-size: adaptiveFontSize($mainFontSize, $minFontSize)
