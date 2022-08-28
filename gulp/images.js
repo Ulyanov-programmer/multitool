@@ -1,8 +1,8 @@
-import squoosh from 'gulp-libsquoosh';
-import path from 'path';
-import svgmin from 'gulp-svgmin';
+import squoosh from 'gulp-libsquoosh'
+import path from 'path'
+import svgmin from 'gulp-svgmin'
 
-export function images() {
+export default function images() {
 	return gulp.src(paths.scr.images)
 		.pipe(
 			global.if(global.isProd,
@@ -40,7 +40,7 @@ export function images() {
 		)
 
 		.pipe(gulp.dest(paths.build.images))
-		.pipe(browsersync.stream());
+		.pipe(browsersync.stream())
 }
 
 export function imagesSvg() {
@@ -50,5 +50,5 @@ export function imagesSvg() {
 		)
 
 		.pipe(gulp.dest(paths.build.images))
-		.pipe(browsersync.stream());
+		.pipe(browsersync.stream())
 }

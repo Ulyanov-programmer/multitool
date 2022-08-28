@@ -1,7 +1,7 @@
-import esbuild from 'gulp-esbuild';
-import gulpChanged from "gulp-changed";
+import esbuild from 'gulp-esbuild'
+import gulpChanged from "gulp-changed"
 
-export function scripts() {
+export default function scripts() {
 	return gulp.src(paths.scr.scripts)
 		.pipe(gulpChanged(paths.build.scripts, { extension: '.js' }))
 
@@ -10,5 +10,5 @@ export function scripts() {
 		}))
 
 		.pipe(gulp.dest(paths.build.scripts))
-		.pipe(browsersync.stream());
+		.pipe(browsersync.stream())
 }

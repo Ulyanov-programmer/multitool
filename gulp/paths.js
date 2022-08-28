@@ -16,8 +16,7 @@ export const paths = {
 	scr: {
 		html: [`${source}/**/*.html`, `!${source}/**/*.htm`],
 		php: `${source}/php/*.php`,
-		css: [`${source}/styles/**/*.sass`, `!${source}/styles/**/_*.sass`,
-		`${source}/docs/*.sass`],
+		css: [`${source}/styles/**/*.sass`, `!${source}/styles/**/_*.sass`, `${source}/docs/*.sass`],
 		scripts: `${source}/scripts/*.{ts,js}`,
 		scriptModules: `${source}/scripts/modules/*.{ts,js}`,
 		images: `${source}/img/**/*.{jpg,png,gif,ico,webp,avif}`,
@@ -36,4 +35,4 @@ export const paths = {
 	},
 	clean: `./${project}/`,
 }
-export const fontsFIlePath = `${source}/styles/other/_fonts.sass`
+export const fontsFIlePath = `${source}/styles/general/fonts.sass`

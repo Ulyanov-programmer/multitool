@@ -1,22 +1,21 @@
-import gulp from "gulp";
-import browsersync from 'browser-sync';
-import gulpIf from 'gulp-if';
-import { paths } from "./gulp/paths.js";
-import fs from 'fs-extra';
+await import('gulp').then(val =>
+	global.gulp = val.default)
+await import('gulp-if').then(val =>
+	global.if = val.default)
+let paths = await import('./gulp/paths.js').then(val =>
+	global.paths = val.paths)
 
-global.gulp = gulp;
-global.if = gulpIf;
-global.isProd = process.argv.includes('--prod');
-global.paths = paths;
-global.browsersync = browsersync;
+global.browsersync = await import('browser-sync')
+global.isProd = process.argv.includes('--prod')
 
-import { html } from "./gulp/html.js";
-import { php } from "./gulp/php.js";
-import { css } from "./gulp/css.js";
-import { scripts } from "./gulp/scriptTask.js";
-import { scriptModules } from "./gulp/moduleTask.js";
-import { fontsStyle, fonts } from "./gulp/fonts.js";
-import { images, imagesSvg } from "./gulp/images.js";
+
+import html from './gulp/html.js'
+import php from './gulp/php.js'
+import css from './gulp/css.js'
+import scripts from './gulp/scriptTask.js'
+import scriptModules from './gulp/moduleTask.js'
+import fonts, { fontsStyle } from './gulp/fonts.js'
+import images, { imagesSvg } from './gulp/images.js'
 import {
 	setupSwiperCss, setupSwiperJs,
 	setupValidateJs,
@@ -24,24 +23,23 @@ import {
 	setupTypedJs,
 	setupAirDatePickerJs, setupAirDatePickerCss,
 	setupPhotoSwipeJs, setupPhotoSwipeCss,
-} from "./gulp/importModules.js";
-import browserSyncFunc from "./gulp/browserSync.js";
+} from './gulp/importModules.js'
+import recreate from './gulp/recreate.js'
+import browserSyncFunc from './gulp/browserSync.js'
 
 
 function watchFIles() {
-	gulp.watch(paths.watch.html, { usePolling: true }, html);
-	gulp.watch(paths.watch.php, { usePolling: true }, php);
-	gulp.watch([paths.watch.css, paths.watch.demoCss], { usePolling: true }, css);
-	gulp.watch(paths.watch.scripts, { usePolling: true }, scripts);
-	gulp.watch(paths.watch.scriptModules, { usePolling: true }, scriptModules);
-	gulp.watch(paths.watch.images, { usePolling: true }, images);
-	gulp.watch(paths.watch.imagesSvg, { usePolling: true }, imagesSvg);
+	gulp.watch(paths.watch.html, html)
+	gulp.watch(paths.watch.php, php)
+	gulp.watch([paths.watch.css, paths.watch.demoCss], css)
+	gulp.watch(paths.watch.scripts, scripts)
+	gulp.watch(paths.watch.scriptModules, scriptModules)
+	gulp.watch(paths.watch.images, images)
+	gulp.watch(paths.watch.imagesSvg, imagesSvg)
 }
-function recreate() {
-	fs.removeSync(paths.clean)
-	return gulp.src(paths.scr.html)
-}
-let importModuleGulpTasks = [
+
+
+let importModuleTasks = [
 	// setupSwiperCss, setupSwiperJs,
 	// setupValidateJs,
 	// setupInputMaskJs,
@@ -49,12 +47,15 @@ let importModuleGulpTasks = [
 	// setupAirDatePickerJs, setupAirDatePickerCss,
 	// setupPhotoSwipeJs, setupPhotoSwipeCss,
 ]
+const mainTasks = [
+	html, css, fonts, scriptModules, scripts, php, images, imagesSvg,
+]
 
-let build = gulp.series(recreate, importModuleGulpTasks,
-	gulp.parallel(scripts, scriptModules, css, html, php, images, imagesSvg, fonts), fontsStyle);
 
-let watch = gulp.parallel(build, watchFIles, browserSyncFunc);
+let build = gulp.series(recreate, importModuleTasks, gulp.parallel(mainTasks), fontsStyle)
 
-gulp.task('build', build);
-gulp.task('watch', watch);
-gulp.task('default', watch);
+let watch = gulp.parallel(build, watchFIles, browserSyncFunc)
+
+gulp.task('build', build)
+gulp.task('watch', watch)
+gulp.task('default', watch)

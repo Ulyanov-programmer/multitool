@@ -1,9 +1,9 @@
-import fileInclude from 'gulp-file-include';
+import fileInclude from 'gulp-file-include'
 import plumber from "gulp-plumber"
 import imgToPicture from "gulp-html-img-to-picture"
 import versionNumber from "gulp-version-number"
 
-export function html() {
+export default function html() {
 	return gulp.src(paths.scr.html)
 		.pipe(fileInclude())
 		.pipe(plumber({
@@ -38,5 +38,5 @@ export function html() {
 			)
 		)
 		.pipe(gulp.dest(paths.build.html))
-		.pipe(browsersync.stream());
+		.pipe(browsersync.stream())
 }
