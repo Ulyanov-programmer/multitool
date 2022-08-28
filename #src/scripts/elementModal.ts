@@ -1,4 +1,4 @@
-import ElementModal from './modules/elementModal.js'
+import ElementModal from './modules/elementModal.src.js'
 /*
 	It works like this:
 	When hovering over a contentElement, 

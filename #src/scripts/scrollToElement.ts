@@ -1,4 +1,4 @@
-import ScrollController from './modules/scrollToElement.js'
+import ScrollController from './modules/scrollToElement.src.js'
 /*
 	Use if you want to use buttons for scrolling.
 	How it works?

@@ -1,4 +1,4 @@
-import SidebarMenu from './modules/sidebar.js'
+import SidebarMenu from './modules/sidebar.src.js'
 
 new SidebarMenu({
 	selectorOfSidebars: '.sidebar',

@@ -1,4 +1,4 @@
-import SwipeElement, { ChangePlane } from "./modules/swipe.js"
+import SwipeElement, { ChangePlane } from "./modules/swipe.src.js"
 
 new SwipeElement({
 	touchStartAreaSelector: '.swipe_window__swipe_area_right',

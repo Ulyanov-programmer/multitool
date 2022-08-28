@@ -1,4 +1,4 @@
-import AnimateByScroll, { AnimationGroup, AnimationTimeline, AnimationMediaQuery } from "./modules/animateByScroll.js"
+import AnimateByScroll, { AnimationGroup, AnimationTimeline, AnimationMediaQuery } from "./modules/animateByScroll.src.js"
 
 new AnimateByScroll(
 	{ repeatingAnimations: true, activeAnimationClass: 'active' },
