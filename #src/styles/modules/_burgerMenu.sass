@@ -9,7 +9,7 @@
 	color: #fff
 	transition: right .5s ease
 
-	@media (min-width: $burgerMenuShowWidth)
+	@media (min-width: var(--burger-menu-show-width))
 		display: none
 
 	&.active
@@ -39,7 +39,7 @@
 	z-index: 5
 	display: block
 
-	@media (min-width: $burgerMenuShowWidth)
+	@media (min-width: var(--burger-menu-show-width))
 		display: none
 
 	&__svg
@@ -61,5 +61,5 @@
 				transform: rotate(-45deg)
 
 .navmenu
-	@media (max-width: $burgerMenuShowWidth)
+	@media (max-width: var(--burger-menu-show-width))
 		display: none
