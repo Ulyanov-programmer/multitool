@@ -1,10 +1,10 @@
 import fs from 'fs-extra'
-import path from 'path';
-import replace from 'replace-in-file';
-import * as readline from "readline-sync";
+import path from 'path'
+import replace from 'replace-in-file'
+import * as readline from "readline-sync"
 
 
-const pathToProject = path.resolve('./');
+const pathToProject = path.resolve('./')
 const demoProjectFolderName = `${pathToProject}/gulp_multitool`
 const snippetsFolderName = `${pathToProject}/snippets`
 const readmeFolder = `${pathToProject}/readmeFiles`
@@ -24,8 +24,9 @@ const justValidateFile = `${pathToProject}${src}/scripts/justValidate.js`
 const srcDemoFoldersAndFIles =
 	[`${pathToProject}${src}/docs`, `${pathToProject}${src}/img/demo`,]
 
-const hint = '(enter [y], if you not, enter [enter] or another key and [enter])';
-
+const hint = '(enter [y], if you not, enter [enter] or another key and [enter])'
+// The extension of the source files.
+const srcExt = '.src.ts'
 
 deleteDemoContent()
 cleanReadmeFilesAndFolders()
@@ -42,13 +43,13 @@ async function setImportModules() {
 	await setImportModule(
 		`Just-validate`,
 		'// setupValidateJs,',
-		'justValidate: true',
+		'justValidate: true,',
 		justValidateFile)
 
 	await setImportModule(
 		`Swiper-slider`,
 		'// setupSwiperCss, setupSwiperJs,',
-		'swiper: true',
+		'swiper: true,',
 		slidersFile)
 
 	await setImportModule(
@@ -67,30 +68,104 @@ async function setImportModules() {
 		'// setupAirDatePickerJs, setupAirDatePickerCss,', '')
 }
 async function setModules() {
-	await includeModuleByQuestion('Burger-menu', `${scriptModules}burgerMenu.ts`, `${stylesModules}_burgerMenu.sass`)
-	await includeModuleByQuestion('Spoilers', `${scriptModules}spoiler.ts`, `${stylesModules}_spoiler.sass`)
-	await includeModuleByQuestion(
-		'Modal-Window',
-		`${scriptModules}modalWindow.ts`,
-		null,
-		`${componentsFolder}_modals.htm`,
-		async () => {
-			await replace({
-				files: mainHtmlFile,
-				from: `@@include('components/_modals.htm', {})`, to: '',
-			})
-		})
-	await includeModuleByQuestion('Filter', `${scriptModules}filter.ts`)
-	await includeModuleByQuestion('Sidebar', `${scriptModules}sidebar.ts`, `${stylesModules}_sidebar.sass`)
-	await includeModuleByQuestion('Submenu', `${scriptModules}submenu.ts`, `${stylesModules}_submenu.sass`)
-	await includeModuleByQuestion('Tabs', `${scriptModules}tab.ts`)
-	await includeModuleByQuestion('Element-modal', `${scriptModules}elementModal.ts`)
-	await includeModuleByQuestion('Parallax', `${scriptModules}parallax.ts`)
-	await includeModuleByQuestion('ScrollToElement', `${scriptModules}scrollToElement.ts`)
-	await includeModuleByQuestion('Animations by scroll', `${scriptModules}animateByScroll.ts`)
-	await includeModuleByQuestion('Horizontal scroll', `${scriptGeneral}horizontalScroll.ts`)
-	await includeModuleByQuestion('Swipe module', `${scriptModules}swipe.ts`)
-	await includeModuleByQuestion('Form styles', ``, `${stylesModules}_form.sass`)
+	await includeModuleByQuestion({
+		moduleName: 'Sidebar',
+		scriptPath: `${scriptModules}sidebar${srcExt}`,
+		styleFilePath: `${stylesModules}sidebar.sass`,
+		htmlPath: null,
+		htmlConnectStrings: ["sidebar: true,"],
+	})
+	await includeModuleByQuestion({
+		moduleName: 'Modal-Window',
+		scriptPath: `${scriptModules}modalWindow${srcExt}`,
+		styleFilePath: null,
+		htmlPath: `${componentsFolder}_modals.htm`,
+		htmlConnectStrings: ["@@include('components/_modals.htm', {})", "modalWindow: true,"],
+	})
+	await includeModuleByQuestion({
+		moduleName: 'Burger-menu',
+		scriptPath: `${scriptModules}burgerMenu${srcExt}`,
+		styleFilePath: `${stylesModules}burgerMenu.sass`,
+		htmlPath: null,
+		htmlConnectStrings: ["burgerMenu: true,"],
+	})
+	await includeModuleByQuestion({
+		moduleName: 'Spoilers',
+		scriptPath: `${scriptModules}spoiler${srcExt}`,
+		styleFilePath: `${stylesModules}spoiler.sass`,
+		htmlPath: null,
+		htmlConnectStrings: ["spoilers: true,"],
+	})
+	await includeModuleByQuestion({
+		moduleName: 'Filter',
+		scriptPath: `${scriptModules}filter${srcExt}`,
+		styleFilePath: null,
+		htmlPath: null,
+		htmlConnectStrings: null,
+	})
+	await includeModuleByQuestion({
+		moduleName: 'Submenu',
+		scriptPath: `${scriptModules}submenu${srcExt}`,
+		styleFilePath: `${stylesModules}submenu.sass`,
+		htmlPath: null,
+		htmlConnectStrings: ["submenu: true,"]
+	})
+	await includeModuleByQuestion({
+		moduleName: 'Tabs',
+		scriptPath: `${scriptModules}tab${srcExt}`,
+		styleFilePath: null,
+		htmlPath: null,
+		htmlConnectStrings: ["tabs: true,"]
+	})
+	await includeModuleByQuestion({
+		moduleName: 'Element-modal',
+		scriptPath: `${scriptModules}elementModal${srcExt}`,
+		styleFilePath: null,
+		htmlPath: null,
+		htmlConnectStrings: ["elementModal: true,"]
+	})
+	await includeModuleByQuestion({
+		moduleName: 'Parallax',
+		scriptPath: `${scriptModules}parallax${srcExt}`,
+		styleFilePath: null,
+		htmlPath: null,
+		htmlConnectStrings: ["parallax: true,"]
+	})
+	await includeModuleByQuestion({
+		moduleName: 'ScrollToElement',
+		scriptPath: `${scriptModules}scrollToElement${srcExt}`,
+		styleFilePath: null,
+		htmlPath: null,
+		htmlConnectStrings: ["scrollToElement: true,"]
+	})
+	await includeModuleByQuestion({
+		moduleName: 'Animations by scroll',
+		scriptPath: `${scriptModules}animateByScroll${srcExt}`,
+		styleFilePath: null,
+		htmlPath: null,
+		htmlConnectStrings: ["animateByScroll: true,"]
+	})
+	await includeModuleByQuestion({
+		moduleName: 'Horizontal scroll',
+		scriptPath: `${scriptGeneral}horizontalScroll.ts`,
+		styleFilePath: null,
+		htmlPath: null,
+		htmlConnectStrings: ["horizontalScroll: true,"]
+	})
+	await includeModuleByQuestion({
+		moduleName: 'Swipe module',
+		scriptPath: `${scriptModules}swipe${srcExt}`,
+		styleFilePath: null,
+		htmlPath: null,
+		htmlConnectStrings: ["swipe: true,"]
+	})
+	await includeModuleByQuestion({
+		moduleName: 'Form styles',
+		scriptPath: '',
+		styleFilePath: `${stylesModules}form.sass`,
+		htmlPath: null,
+		htmlConnectStrings: ["formStyles: true,"]
+	})
 }
 function deleteDemoContent() {
 	try {
@@ -98,7 +173,7 @@ function deleteDemoContent() {
 			fs.removeSync(pathToDemo)
 		}
 
-		console.log('✅ The demo content have been deleted.');
+		console.log('✅ The demo content have been deleted.')
 	} catch (error) {
 		console.log('❌' + error)
 	}
@@ -109,27 +184,27 @@ function cleanReadmeFilesAndFolders() {
 		fs.removeSync(`${pathToProject}/README.md`)
 		fs.createFileSync('README.md')
 
-		console.log('✅ The readme folder and file are clean.');
+		console.log('✅ The readme folder and file are clean.')
 	} catch (error) {
-		console.log('❌' + error);
+		console.log('❌' + error)
 	}
 }
 function deleteDemoProject() {
 	try {
 		fs.removeSync(demoProjectFolderName)
 
-		console.log('✅ Demo Project have been deleted.');
+		console.log('✅ Demo Project have been deleted.')
 	} catch (error) {
-		console.log('❌' + error);
+		console.log('❌' + error)
 	}
 }
 function deleteSnippets() {
 	try {
 		fs.removeSync(snippetsFolderName)
 
-		console.log('✅ Snippets have been deleted.');
+		console.log('✅ Snippets have been deleted.')
 	} catch (error) {
-		console.log('❌' + error);
+		console.log('❌' + error)
 	}
 }
 
@@ -137,12 +212,10 @@ async function setImportModule(importModuleName, importModuleGulpTasksString, ht
 	let answer = readline.question(`Import the ${importModuleName}? ${hint}`).toLowerCase()
 
 	if (answer !== 'y') {
-		let newHtmlConnectString = htmlConnectString.replace('true', 'false')
-
 		await replace({
 			files: mainHtmlFile,
 			from: htmlConnectString,
-			to: newHtmlConnectString,
+			to: '',
 		})
 
 		fs.removeSync(fileToDelete)
@@ -157,7 +230,8 @@ async function setImportModule(importModuleName, importModuleGulpTasksString, ht
 	}
 }
 
-async function includeModuleByQuestion(moduleName, scriptPath, stylePath, htmlPath, replaceFunc) {
+async function includeModuleByQuestion(
+	{ moduleName, scriptPath, styleFilePath, htmlPath, htmlConnectStrings }) {
 	let questionString = `Include the ${moduleName}? ${hint}`
 	let answer = readline.question(questionString).toLowerCase()
 
@@ -167,25 +241,21 @@ async function includeModuleByQuestion(moduleName, scriptPath, stylePath, htmlPa
 	if (scriptPath) {
 		fs.removeSync(scriptPath)
 
-		let scriptNameWithoutExp = path.basename(scriptPath, '.ts')
-		let scriptConnFileName = `${scriptNameWithoutExp}API.ts`
+		let scriptNameWithoutExp = path.basename(scriptPath, srcExt)
+		let scriptConnFileName = `${scriptNameWithoutExp}.ts`
 
 		fs.removeSync(scriptGeneral + scriptConnFileName)
 	}
-	if (stylePath) {
-		fs.removeSync(stylePath)
-
-		let styleModuleName = path.basename(stylePath, '.sass')
-
-		await replace({
-			files: mainStyleFile,
-			from: `@use 'modules/${styleModuleName}'`, to: '',
-		})
+	if (styleFilePath) {
+		fs.removeSync(styleFilePath)
 	}
 	if (htmlPath) {
 		fs.removeSync(htmlPath)
 	}
-	if (replaceFunc) {
-		await replaceFunc()
+	if (htmlConnectStrings) {
+		await replace({
+			files: mainHtmlFile,
+			from: htmlConnectStrings, to: '',
+		})
 	}
 }
