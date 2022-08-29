@@ -2,38 +2,29 @@
 
 .burger-menu
 	z-index: 4 !important
-	+advansedPosition(fixed, 0, -100%, auto, auto)
-	+flex-set(column, nowrap)
+	+advansedPosition(fixed, 0, auto, auto, 0)
 	+block-size(100vw, 100vh)
-	font-size: 30px
-	color: #fff
-	transition: right .5s ease
+	transform: translate3d(0, -100%, 0)
+	transition: all .3s ease
 
 	@media (min-width: var(--burger-menu-show-width))
 		display: none
 
 	&.active
-		right: 0
+		transform: translate3d(0, 0%, 0)
 
 	&__body
-		+flex-set(column, nowrap)
+		background: rgba(0, 0, 0, 0.678)
 		overflow: auto
-		background: #000000ad
-		min-height: 100%
+		height: 100%
 
 		ul
-			margin: 0 auto
-			width: 100%
-
 			.fs-element
-				&:not(:last-child)
-					border-bottom: 1px solid #fff
-
+				>*
 					display: flex
-					flex-grow: 1
 					justify-content: center
-					padding: 25px 0 25px 0
-					color: #fff
+					color: inherit
+					padding: 25px 0px
 
 .burger-btn
 	z-index: 5
@@ -44,21 +35,15 @@
 
 	&__svg
 		*
-			transform-origin: left
-			transform-box: fill-box
-			transition: all .5s ease
+			transition: all .3s ease
 
 	&.active
-		.burger-btn
-			&__rect-top
-				transform: rotate(45deg)
+		// .burger-btn
+		// 	&__rect-top
 
-			&__rect-center
-				overflow: hidden
-				+hide()
+		// 	&__rect-center
 
-			&__rect-bottom
-				transform: rotate(-45deg)
+		// 	&__rect-bottom
 
 .navmenu
 	@media (max-width: var(--burger-menu-show-width))
