@@ -28,6 +28,7 @@ const hint = '(enter [y], if you not, enter [enter] or another key and [enter])'
 // The extension of the source files.
 const srcExt = '.src.ts'
 
+
 deleteDemoContent()
 cleanReadmeFilesAndFolders()
 deleteSnippets()

@@ -25,6 +25,12 @@
 
 	@return calc( #{$k} * 100vw + #{$b} )
 
+@function px($value)
+	@return $value + 0px
+
+@function pxToVw($px)
+	@return ($px * 100vw) / $layoutWidth
+
 @function rem($px-size)
 	@return #{math.div($px-size, $mainFontSize)}rem
 

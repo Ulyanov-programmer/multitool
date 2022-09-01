@@ -29,7 +29,7 @@ import browserSyncFunc from './gulp/browserSync.js'
 
 
 function watchFIles() {
-	gulp.watch(paths.watch.html, {usePolling: true}, html)
+	gulp.watch(paths.watch.html, { usePolling: true }, html)
 	gulp.watch(paths.watch.php, php)
 	gulp.watch([paths.watch.css, paths.watch.demoCss], css)
 	gulp.watch(paths.watch.scripts, scripts)
