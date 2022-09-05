@@ -14,6 +14,7 @@ interface ModalWindowMenuArgs {
 		Not required.
 	*/
 	burgerMenuSelector?: string
+	disableOnEsc?: boolean
 }
 
 export default class ModalWindowMenu {
@@ -72,12 +73,14 @@ export default class ModalWindowMenu {
 		}
 
 
-		document.addEventListener('keydown', (key) => {
-			if (key.code != 'Escape') return
-
-			let activeModal = this.getCurrentActiveModal()
-			activeModal ? this.closeActiveModal() : false
-		})
+		if (arg.disableOnEsc) {
+			document.addEventListener('keydown', (key) => {
+				if (key.code != 'Escape') return
+	
+				let activeModal = this.getCurrentActiveModal()
+				activeModal ? this.closeActiveModal() : false
+			})
+		}
 	}
 
 
