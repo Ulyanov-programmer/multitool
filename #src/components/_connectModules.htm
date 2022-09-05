@@ -14,7 +14,11 @@
 <script defer src="scripts/typed.min.js"></script>
 <script defer src="scripts/typed.js"></script>
 }
-
+@@if(modules.photoSwipe) {
+<!-- PhotoSwipe -->
+<script type="module" src="./scripts/photoSwipe.js"></script>
+<link rel="stylesheet" href="./css/photoswipe.css">
+}
 @@if(modules.burgerMenu) {
 <script type="module" src="scripts/burgerMenu.js"></script>
 <link rel="stylesheet" href="css/modules/burgerMenu.min.css">

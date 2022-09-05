@@ -5,7 +5,7 @@ new Swiper('.demo_slider', {
 })
 
 
-/*
+/* HINTS 
 	grabCursor: true,
 
 	navigation: {
