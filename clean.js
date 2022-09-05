@@ -20,11 +20,12 @@ const mainHtmlFile = `${pathToProject}${src}/index.html`
 const gulpFile = `${pathToProject}/gulpfile.js`
 const slidersFile = `${pathToProject}${src}/scripts/sliders.js`
 const justValidateFile = `${pathToProject}${src}/scripts/justValidate.js`
+const typedApiFile = `${pathToProject}${src}/scripts/typedAPI.js`
 
 const srcDemoFoldersAndFIles =
 	[`${pathToProject}${src}/docs`, `${pathToProject}${src}/img/demo`,]
 
-const hint = '(enter [y], if you not, enter [enter] or another key and [enter])'
+const hint = '(enter [y], or if you not, enter [enter] or another key and [enter])'
 // The extension of the source files.
 const srcExt = '.src.ts'
 
@@ -55,7 +56,9 @@ async function setImportModules() {
 
 	await setImportModule(
 		`Typed`,
-		'// setupTypedJs,', '')
+		'// setupTypedJs,',
+		'typed: true,',
+		typedApiFile)
 
 	await setImportModule(
 		`Input Mask`,
