@@ -1,8 +1,11 @@
-import "./swiper-bundle.min.js";
+import './swiper-bundle.min.js'
 
-const demoSlider = new Swiper('.demo-swiper', {
+new Swiper('.demo_slider', {
 	spaceBetween: 15,
-	/*
+})
+
+
+/*
 	grabCursor: true,
 
 	navigation: {
@@ -24,54 +27,53 @@ const demoSlider = new Swiper('.demo-swiper', {
 		delay: 3000,
 		stopOnLastSlide: false,
 	},
-	Infinite scrolling.
-		loop: false,
+	? Infinite scrolling.
+	loop: false,
 
-	Changes the slider settings based on the width of the screen.
-		breakpoints: {
-			when window width is >= 320px
-			320: {
-				slidesPerView: 2,
-				spaceBetween: 20,
-			},
+	? Changes the slider settings based on the width of the screen.
+	breakpoints: {
+		? when window width is >= 320px
+		320: {
+			slidesPerView: 2,
+			spaceBetween: 20,
 		},
+	},
 
-	Changes the height of the slider in runtime depending on the height of the slides.
-		autoHeight: true,
-		slidesPerView: 1,
+	? Changes the height of the slider in runtime depending on the height of the slides.
+	autoHeight: true,
 
-	If there are no more than one slides, the slider stops working.
-		watchOverflow: true,
-		direction: 'horizontal' or 'vertical',
+	? If there are no more than one slides, the slider stops working.
+	watchOverflow: true,
 
-	Indent between slides.
-		spaceBetween: 150,
+	direction: 'horizontal' or 'vertical',
 
-	Enable parallax effect.
-		parallax: true,
-	For working add and set attributes on elements in slide:
-		data-swiper-parallax="0" (xRight)
-		data-swiper-parallax-duration="1000" (in ms)
+	? Indent between slides.
+	spaceBetween: 150,
+
+	? Enable parallax effect.
+	parallax: true,
+	?? For working add and set attributes on elements in slide:
+	data-swiper-parallax="toRight_InPixels"
+	data-swiper-parallax-duration="1000"
 
 	effect: 'fade',
 	fadeEffect: {
 		crossFade: true,
 	}
 
-	Thumbs construction:
-		const demosSwiper = new Swiper('.demos', {
-			spaceBetween: 15,
-			slidesPerView: 6,
-			watchOverflow: true,
-		});
+	? Thumbs construction:
+	new Swiper('.thumbs', {
+		spaceBetween: 15,
+		slidesPerView: 6,
+		watchOverflow: true,
+	})
 
-		const mainSwiper = new Swiper('.main', {
-			watchOverflow: true,
+	new Swiper('.main', {
+		watchOverflow: true,
 
-			thumbs: {
-				swiper: demosSwiper,
-				slideThumbActiveClass: 'active',
-			},
-		});
-	*/
-});
+		thumbs: {
+			swiper: demosSwiper,
+			slideThumbActiveClass: 'active',
+		},
+	})
+*/
