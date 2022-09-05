@@ -15,12 +15,13 @@ const stylesModules = `${pathToProject}${src}/styles/modules/`
 const componentsFolder = `${pathToProject}${src}/components/`
 
 const fontsGitkeep = `${src}/fonts/.gitkeep`
-const mainStyleFile = `${pathToProject}${src}/styles/style.sass`
+const mainStyleFile = `${pathToProject}${src}/styles/index.sass`
 const mainHtmlFile = `${pathToProject}${src}/index.html`
 const gulpFile = `${pathToProject}/gulpfile.js`
 const slidersFile = `${pathToProject}${src}/scripts/sliders.js`
 const justValidateFile = `${pathToProject}${src}/scripts/justValidate.js`
-const typedApiFile = `${pathToProject}${src}/scripts/typedAPI.js`
+const typedApiFile = `${pathToProject}${src}/scripts/typed.js`
+const photoSwipeApiFile = `${pathToProject}${src}/scripts/photoSwipe.js`
 
 const srcDemoFoldersAndFIles =
 	[`${pathToProject}${src}/docs`, `${pathToProject}${src}/img/demo`,]
@@ -67,9 +68,12 @@ async function setImportModules() {
 	await setImportModule(
 		`Air Date Picker`,
 		'// setupAirDatePickerJs, setupAirDatePickerCss,', '')
+
 	await setImportModule(
 		`Photo Swipe`,
-		'// setupAirDatePickerJs, setupAirDatePickerCss,', '')
+		'// setupPhotoSwipeJs, setupPhotoSwipeCss,', 
+		'photoSwipe: true,',
+		photoSwipeApiFile)
 }
 async function setModules() {
 	await includeModuleByQuestion({
