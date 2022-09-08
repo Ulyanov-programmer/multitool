@@ -32,7 +32,7 @@ new Swiper('.demo_slider', {
 
 	? Changes the slider settings based on the width of the screen.
 	breakpoints: {
-		? when window width is >= 320px
+		// ? when window width is >= 320px
 		320: {
 			slidesPerView: 2,
 			spaceBetween: 20,
