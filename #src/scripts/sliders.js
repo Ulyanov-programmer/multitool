@@ -76,4 +76,9 @@ new Swiper('.demo_slider', {
 			slideThumbActiveClass: 'active',
 		},
 	})
+	? Multiple rows
+	grid: {
+    rows: 2,
+		fill: 'row',
+  },
 */
