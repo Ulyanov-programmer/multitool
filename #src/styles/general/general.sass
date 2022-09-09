@@ -24,13 +24,11 @@ html
 		width: 95vw
 
 .modal-window
-	position: fixed
 	z-index: 15
-	top: 0
-	left: 0
-	background: rgba(0, 0, 0, 0.275)
-	+block-size(100vw, 100vh)
+	+pseudoInset(fixed, 0, 0)
 	+hide()
+	background: rgba(0, 0, 0, 0.3)
+	backdrop-filter: blur(1px)
 	transition: all .3s ease
 
 	&.active
@@ -38,9 +36,8 @@ html
 
 	&__body
 		display: grid
-		height: 100%
-		align-items: center
-		justify-items: center
+		place-items: center center
+		+block-size(100vw, 100vh)
 
 	&__closer
 		color: #7d7d7d
