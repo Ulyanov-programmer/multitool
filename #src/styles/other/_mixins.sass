@@ -6,14 +6,6 @@
 	width: $width
 	height: $height
 
-@mixin fontStyle($name, $type, $fileName, $weight, $style)
-	@font-face
-		font-family: $name
-		font-display: swap
-		src: url("../fonts/#{$fileName}.woff2") format("#{$type}")
-		font-weight: $weight
-		font-style: $style
-
 @function adaptiveProperty($value, $min-value)
 	@return calc(#{$min-value + px} + (#{$value} - #{$min-value}) * ((100vw - 320px) / (#{$layoutWidth} - 320)))
 

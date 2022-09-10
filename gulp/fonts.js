@@ -1,6 +1,6 @@
 import fs from 'fs-extra'
 import ttf2woff2 from 'gulp-ttf2woff2'
-import { fontsFIlePath } from "./paths.js"
+import { fontsFIlePath } from './paths.js'
 
 export default function fonts() {
 	return gulp.src(paths.scr.fonts)
@@ -11,67 +11,75 @@ export default function fonts() {
 }
 
 export function fontsStyle() {
-	let file_content = fs.readFileSync(fontsFIlePath)
-		.toString().replace(/\s/g, "")
+	let file_content = fs.readFileSync(fontsFIlePath).toString().replace(/\s/g, '')
 
-	if (file_content == "") {
-		return fs.readdir(paths.build.fonts, (err, items) => {
+	if (file_content.length > 0)
+		return
 
-			if (items) {
-				for (var i = 0; i < items.length; i++) {
-					let c_fontname
-					let fileName = items[i].split('.')[0]
+	fs.readdir(paths.build.fonts, (err, items) => {
+		let previousFontName
 
-					if (c_fontname !== fileName) {
-						let fileNameLC = fileName.toLowerCase()
-						let fontWeightName = fileNameLC.replace('italic', '').split('-')[1]
+		for (let item of items) {
+			let fileNameNoExt = item.split('.')[0]
 
-						let fontName = fileName.split('-')[0] ? fileName.split('-')[0] : fileName
-						let weight = fontWeightName ? fontWeightName : fileName
-						let style = fileNameLC.includes('italic') ? 'italic' : 'normal'
-						let type = fileNameLC.includes('variablefont') ? 'woff2-variations' : 'woff2'
+			if (previousFontName == fileNameNoExt) 
+				return
+			
+			let fileNameLC = fileNameNoExt.toLowerCase()
+			let fontWeightName = fileNameLC.replace('italic', '').split('-')[1]
 
-						weight = getFontWeightFromString(weight)
+			let fontName = fileNameNoExt.split('-')[0] ? fileNameNoExt.split('-')[0] : fileNameNoExt
+			let weight = fontWeightName ? fontWeightName : fileNameNoExt
+			let style = fileNameLC.includes('italic') ? 'italic' : 'normal'
+			let type = fileNameLC.includes('variablefont') ? 'woff2-variations' : 'woff2'
+
+			weight = parseFontWeight(weight)
 
 
-						if (type !== 'woff2-variations') {
-							fs.appendFileSync(fontsFIlePath,
-								`+fontStyle('${fontName}', ${type}, ${fileName}, ${weight}, ${style})\r\n`)
-						} else {
-							for (let weight = 100; weight <= 900; weight += 100) {
-								fs.appendFileSync(fontsFIlePath,
-									`+fontStyle('${fontName}', ${type}, ${fileName}, ${weight}, ${style})\r\n`)
-							}
-						}
-					}
-					c_fontname = fileName
+			if (type !== 'woff2-variations') {
+				writeFontFaceInFile(fontName, type, fileNameNoExt, weight, style)
+			} else {
+				for (let weight = 100; weight <= 900; weight += 100) {
+					writeFontFaceInFile(fontName, type, fileNameNoExt, weight, style)
 				}
 			}
-		})
-	}
+			previousFontName = fileNameNoExt
+		}
+	})
 }
-function getFontWeightFromString(filename) {
+function parseFontWeight(filename) {
 	switch (filename) {
 		case 'thin':
-			return '100'
+			return 100
 		case 'extralight':
-			return '200'
+			return 200
 		case 'light':
-			return '300'
+			return 300
 		case 'medium':
-			return '500'
+			return 500
 		case 'semibold':
-			return '600'
+			return 600
 		case 'bold':
-			return '700'
+			return 700
 		case 'extrabold':
 		case 'ultrabold':
-			return '800'
+			return 800
 		case 'black':
 		case 'heavy':
-			return '900'
+			return 900
 
 		default:
-			return '400'
+			return 400
 	}
+}
+function writeFontFaceInFile(fontName, type, fileNameNoExt, weight, style) {
+	let fontFaceConnectString =
+		[`@font-face`,
+			`\tfont-family: '${fontName}'`,
+			`\tfont-display: swap`,
+			`\tsrc: url('../../fonts/${fileNameNoExt}.woff2') format('${type}')`,
+			`\tfont-weight: ${weight}`,
+			`\tfont-style: ${style}`]
+
+	fs.appendFileSync(fontsFIlePath, fontFaceConnectString.join('\r\n') + '\r\n')
 }
