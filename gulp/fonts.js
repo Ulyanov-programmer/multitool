@@ -19,12 +19,15 @@ export function fontsStyle() {
 	fs.readdir(paths.build.fonts, (err, items) => {
 		let previousFontName
 
+		if (items == undefined)
+			return
+
 		for (let item of items) {
 			let fileNameNoExt = item.split('.')[0]
 
-			if (previousFontName == fileNameNoExt) 
+			if (previousFontName == fileNameNoExt)
 				return
-			
+
 			let fileNameLC = fileNameNoExt.toLowerCase()
 			let fontWeightName = fileNameLC.replace('italic', '').split('-')[1]
 
