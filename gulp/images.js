@@ -2,41 +2,39 @@ import squoosh from 'gulp-libsquoosh'
 import path from 'path'
 import svgmin from 'gulp-svgmin'
 
-export default function images() {
-	return gulp.src(paths.scr.images)
+export default function imagesOther() {
+	return gulp.src(paths.scr.imagesOther)
 		.pipe(
-			global.if(global.isProd,
-				squoosh((src) => {
-					let extname = path.extname(src.path)
+			// ? minify images into same format
+			global.if(global.isProd, squoosh())
+		)
 
-					let options = { encodeOptions: squoosh.DefaultEncodeOptions[extname], }
+		.pipe(gulp.dest(paths.build.images))
+		.pipe(browsersync.stream())
+}
 
-					switch (extname) {
-						case '.jpg':
-							options = {
-								encodeOptions: {
-									mozjpeg: {},
-									avif: {},
-									webp: {},
-								},
-							}
-							break
-						case '.png':
-							options = {
-								encodeOptions: {
-									oxipng: {},
-									avif: {},
-									webp: {},
-								},
-							}
-							break
-						default:
-							break
-					}
+export function imagesJpg() {
+	return gulp.src(paths.scr.imagesJpg)
+		.pipe(
+			global.if(global.isProd, squoosh({
+				mozjpeg: {},
+				webp: {},
+				avif: {},
+			}))
+		)
 
-					return options
-				}),
-			)
+		.pipe(gulp.dest(paths.build.images))
+		.pipe(browsersync.stream())
+}
+
+export function imagesPng() {
+	return gulp.src(paths.scr.imagesPng)
+		.pipe(
+			global.if(global.isProd, squoosh({
+				oxipng: {},
+				webp: {},
+				avif: {},
+			}))
 		)
 
 		.pipe(gulp.dest(paths.build.images))

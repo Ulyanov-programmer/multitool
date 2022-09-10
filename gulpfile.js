@@ -15,7 +15,7 @@ import css from './gulp/css.js'
 import scripts from './gulp/scriptTask.js'
 import scriptModules from './gulp/moduleTask.js'
 import fonts, { fontsStyle } from './gulp/fonts.js'
-import images, { imagesSvg } from './gulp/images.js'
+import imagesOther, { imagesSvg, imagesPng, imagesJpg } from './gulp/images.js'
 import {
 	setupSwiperCss, setupSwiperJs,
 	setupValidateJs,
@@ -34,7 +34,9 @@ function watchFIles() {
 	gulp.watch([paths.watch.css, paths.watch.demoCss], { usePolling: true }, css)
 	gulp.watch(paths.watch.scripts, scripts)
 	gulp.watch(paths.watch.scriptModules, scriptModules)
-	gulp.watch(paths.watch.images, images)
+	gulp.watch(paths.watch.imagesOther, imagesOther)
+	gulp.watch(paths.watch.imagesPng, imagesPng)
+	gulp.watch(paths.watch.imagesJpg, imagesJpg)
 	gulp.watch(paths.watch.imagesSvg, imagesSvg)
 }
 
@@ -48,7 +50,8 @@ let importModuleTasks = [
 	// setupPhotoSwipeJs, setupPhotoSwipeCss,
 ]
 const mainTasks = [
-	html, css, fonts, scriptModules, scripts, php, images, imagesSvg,
+	html, css, fonts, scriptModules, scripts, php,
+	imagesPng, imagesJpg, imagesSvg, imagesOther,
 ]
 
 
