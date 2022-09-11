@@ -1,4 +1,4 @@
-import fs from 'fs-extra'
+import { fs, paths, gulp, } from './importSources.js'
 
 export default function recreate() {
 	fs.removeSync(paths.clean)

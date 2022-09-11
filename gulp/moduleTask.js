@@ -1,12 +1,11 @@
-import esbuild from 'gulp-esbuild'
-import gulpChanged from "gulp-changed"
+import { esbuild, gulpChanged, gulpIf, isProd, paths, gulp, browsersync, } from './importSources.js'
 
 export default function scriptModules() {
 	return gulp.src(paths.scr.scriptModules)
 		.pipe(gulpChanged(paths.build.scriptModules, { extension: '.js' }))
 
 		.pipe(
-			global.if(global.isProd,
+			gulpIf(isProd,
 				// If gulp run with the --prod flag.
 				esbuild({
 					target: 'es2018',

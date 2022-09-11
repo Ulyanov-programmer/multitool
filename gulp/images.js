@@ -1,12 +1,10 @@
-import squoosh from 'gulp-libsquoosh'
-import path from 'path'
-import svgmin from 'gulp-svgmin'
+import { squoosh, svgmin, gulpIf, isProd, paths, gulp, browsersync, } from './importSources.js'
 
 export default function imagesOther() {
 	return gulp.src(paths.scr.imagesOther)
 		.pipe(
 			// ? minify images into same format
-			global.if(global.isProd, squoosh())
+			gulpIf(isProd, squoosh())
 		)
 
 		.pipe(gulp.dest(paths.build.images))
@@ -16,7 +14,7 @@ export default function imagesOther() {
 export function imagesJpg() {
 	return gulp.src(paths.scr.imagesJpg)
 		.pipe(
-			global.if(global.isProd, squoosh({
+			gulpIf(isProd, squoosh({
 				mozjpeg: {},
 				webp: {},
 				avif: {},
@@ -30,7 +28,7 @@ export function imagesJpg() {
 export function imagesPng() {
 	return gulp.src(paths.scr.imagesPng)
 		.pipe(
-			global.if(global.isProd, squoosh({
+			gulpIf(isProd, squoosh({
 				oxipng: {},
 				webp: {},
 				avif: {},
@@ -44,7 +42,7 @@ export function imagesPng() {
 export function imagesSvg() {
 	return gulp.src(paths.scr.imagesSvg)
 		.pipe(
-			global.if(global.isProd, svgmin())
+			gulpIf(isProd, svgmin())
 		)
 
 		.pipe(gulp.dest(paths.build.images))

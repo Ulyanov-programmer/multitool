@@ -1,6 +1,4 @@
-import fs from 'fs-extra'
-import ttf2woff2 from 'gulp-ttf2woff2'
-import { fontsFIlePath } from './paths.js'
+import { fs, ttf2woff2, fontsFIlePath, paths, gulp, } from './importSources.js'
 
 export default function fonts() {
 	return gulp.src(paths.scr.fonts)

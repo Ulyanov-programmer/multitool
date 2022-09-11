@@ -1,5 +1,5 @@
-import { log } from "console"
-import fs from "fs"
+import { fs, paths, gulp, } from './importSources.js'
+import { log } from 'console'
 
 const swiperMainJsFilePath = 'node_modules/swiper/swiper-bundle.min.js'
 const swiperMainCssFilePath = 'node_modules/swiper/swiper-bundle.min.css'

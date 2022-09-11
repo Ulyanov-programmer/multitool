@@ -1,5 +1,4 @@
-import esbuild from 'gulp-esbuild'
-import gulpChanged from "gulp-changed"
+import { esbuild, gulpChanged, paths, gulp, browsersync, } from './importSources.js'
 
 export default function scripts() {
 	return gulp.src(paths.scr.scripts)
