@@ -13,6 +13,7 @@ const scriptModules = `${pathToProject}${src}/scripts/modules/`
 const scriptGeneral = `${pathToProject}${src}/scripts/`
 const stylesModules = `${pathToProject}${src}/styles/modules/`
 const componentsFolder = `${pathToProject}${src}/components/`
+const phpFolder = `${pathToProject}${src}/php/`
 
 const fontsGitkeep = `${src}/fonts/.gitkeep`
 const mainStyleFile = `${pathToProject}${src}/styles/index.sass`
@@ -23,11 +24,15 @@ const justValidateFile = `${pathToProject}${src}/scripts/justValidate.js`
 const typedApiFile = `${pathToProject}${src}/scripts/typed.js`
 const photoSwipeApiFile = `${pathToProject}${src}/scripts/photoSwipe.js`
 
-const srcDemoFoldersAndFIles =
-	[`${pathToProject}${src}/docs`, `${pathToProject}${src}/img/demo`,]
-
-const hint = '(enter [y], or if you not, enter [enter] or another key and [enter])'
-// The extension of the source files.
+const srcDemoFoldersAndFIles = [
+	`${pathToProject}${src}/docs`, `${pathToProject}${src}/img/demo`,
+]
+const phpMailerFiles = [
+	`${phpFolder}Exception.php`, `${phpFolder}mail.php`, `${phpFolder}PHPMailer.php`, `${phpFolder}SMTP.php`,
+]
+const yesLetter = 'y'
+const hint = `(enter [${yesLetter}], or if you not, enter [enter] or another key and [enter])`
+// The extension of typescript source files.
 const srcExt = '.src.ts'
 
 
@@ -38,6 +43,7 @@ deleteDemoProject()
 
 await setImportModules()
 await setModules()
+await setPhp()
 
 console.log('I wish You a successful job! 🎆🎆🎆')
 
@@ -71,7 +77,7 @@ async function setImportModules() {
 
 	await setImportModule(
 		`Photo Swipe`,
-		'// setupPhotoSwipeJs, setupPhotoSwipeCss,', 
+		'// setupPhotoSwipeJs, setupPhotoSwipeCss,',
 		'photoSwipe: true,',
 		photoSwipeApiFile)
 }
@@ -175,6 +181,23 @@ async function setModules() {
 		htmlConnectStrings: ["formStyles: true,"]
 	})
 }
+async function setPhp() {
+	let answer = readline.question(`Include PHP scripts? ${hint}`).toLowerCase()
+
+	if (answer !== yesLetter) {
+		fs.removeSync(phpFolder)
+		return
+	}
+
+	answer = readline.question(`Include PHP-mailer? ${hint}`).toLowerCase()
+
+	if (answer !== yesLetter) {
+		for (let phpMailerFile of phpMailerFiles) {
+			fs.removeSync(phpMailerFile)
+		}
+	}
+}
+
 function deleteDemoContent() {
 	try {
 		for (let pathToDemo of srcDemoFoldersAndFIles) {
@@ -219,7 +242,7 @@ function deleteSnippets() {
 async function setImportModule(importModuleName, importModuleGulpTasksString, htmlConnectString, fileToDelete) {
 	let answer = readline.question(`Import the ${importModuleName}? ${hint}`).toLowerCase()
 
-	if (answer !== 'y') {
+	if (answer !== yesLetter) {
 		await replace({
 			files: mainHtmlFile,
 			from: htmlConnectString,
@@ -243,7 +266,7 @@ async function includeModuleByQuestion(
 	let questionString = `Include the ${moduleName}? ${hint}`
 	let answer = readline.question(questionString).toLowerCase()
 
-	if (answer === 'y')
+	if (answer === yesLetter)
 		return
 
 	if (scriptPath) {
