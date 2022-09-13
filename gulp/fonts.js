@@ -1,4 +1,4 @@
-import { fs, ttf2woff2, fontsFIlePath, paths, gulp, } from './importSources.js'
+import { fs, parseNumericWeightFromName, parseStyleFromName, ttf2woff2, fontsFIlePath, paths, gulp, } from './importSources.js'
 
 export default function fonts() {
 	return gulp.src(paths.scr.fonts)
@@ -14,27 +14,22 @@ export function fontsStyle() {
 	if (fontsFileContent.length > 0)
 		return
 
-	fs.readdir(paths.build.fonts, (err, items) => {
+	fs.readdir(paths.build.fonts, (err, fileNames) => {
 		let previousFontName
 
-		if (items == undefined)
+		if (fileNames == undefined)
 			return
 
-		for (let item of items) {
-			let fileNameNoExt = item.split('.')[0]
+		for (let fileName of fileNames) {
+			let fileNameNoExt = fileName.split('.')[0]
 
 			if (previousFontName == fileNameNoExt)
 				return
 
-			let fileNameLC = fileNameNoExt.toLowerCase()
-			let fontWeightName = fileNameLC.replace('italic', '').split('-')[1]
-
-			let fontName = fileNameNoExt.split('-')[0] ? fileNameNoExt.split('-')[0] : fileNameNoExt
-			let weight = fontWeightName ? fontWeightName : fileNameNoExt
-			let style = fileNameLC.includes('italic') ? 'italic' : 'normal'
-			let type = fileNameLC.includes('variablefont') ? 'woff2-variations' : 'woff2'
-
-			weight = parseFontWeight(weight)
+			let fontName = fileName.split('-')[0]
+			let weight = parseNumericWeightFromName(fileName)
+			let style = parseStyleFromName(fileName)
+			let type = fileName.includes('variablefont') ? 'woff2-variations' : 'woff2'
 
 
 			if (type !== 'woff2-variations') {
@@ -47,31 +42,6 @@ export function fontsStyle() {
 			previousFontName = fileNameNoExt
 		}
 	})
-}
-function parseFontWeight(filename) {
-	switch (filename) {
-		case 'thin':
-			return 100
-		case 'extralight':
-			return 200
-		case 'light':
-			return 300
-		case 'medium':
-			return 500
-		case 'semibold':
-			return 600
-		case 'bold':
-			return 700
-		case 'extrabold':
-		case 'ultrabold':
-			return 800
-		case 'black':
-		case 'heavy':
-			return 900
-
-		default:
-			return 400
-	}
 }
 function writeFontFaceInFile(fontName, type, fileNameNoExt, weight, style) {
 	let fontFaceConnectString =

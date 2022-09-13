@@ -17,10 +17,11 @@ import squoosh from 'gulp-libsquoosh'
 import svgmin from 'gulp-svgmin'
 import esbuild from 'gulp-esbuild'
 import gulpChanged from 'gulp-changed'
+import { parseNumericWeightFromName, parseStyleFromName, numericFontWeightMap } from 'parse-font-name'
 import { paths } from './paths.js'
 import browsersyncFunc from './browserSync.js'
 import { fontsFIlePath } from './paths.js'
 const sass = gulpSass(dartSass)
 const isProd = process.argv.includes('--prod')
 
-export { browsersyncFunc, gulpChanged, esbuild, svgmin, squoosh, fontsFIlePath, ttf2woff2, fs, versionNumber, imgToPicture, plumber, fileInclude, gulp, paths, gulpIf, isProd, browsersync, sass, cleanCss, autoprefixer, rename, header }
+export { numericFontWeightMap, parseStyleFromName, parseNumericWeightFromName, browsersyncFunc, gulpChanged, esbuild, svgmin, squoosh, fontsFIlePath, ttf2woff2, fs, versionNumber, imgToPicture, plumber, fileInclude, gulp, paths, gulpIf, isProd, browsersync, sass, cleanCss, autoprefixer, rename, header }
