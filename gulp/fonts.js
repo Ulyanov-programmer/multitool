@@ -9,9 +9,9 @@ export default function fonts() {
 }
 
 export function fontsStyle() {
-	let file_content = fs.readFileSync(fontsFIlePath).toString().replace(/\s/g, '')
+	let fontsFileContent = fs.readFileSync(fontsFIlePath).toString().replace(/\s/g, '')
 
-	if (file_content.length > 0)
+	if (fontsFileContent.length > 0)
 		return
 
 	fs.readdir(paths.build.fonts, (err, items) => {
