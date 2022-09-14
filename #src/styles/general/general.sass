@@ -10,18 +10,16 @@ html
 .modal-window
 	z-index: 15
 	+pseudoInset(fixed, 0, 0)
+	display: grid
+	place-items: center center
+	+block-size(100vw, 100vh)
 	+hide()
 	background: rgba(0, 0, 0, 0.3)
 	backdrop-filter: blur(1px)
-	transition: all .3s ease
+	transition: opacity .3s ease
 
 	&.active
 		+show()
-
-	&__body
-		display: grid
-		place-items: center center
-		+block-size(100vw, 100vh)
 
 	&__closer
 		color: #7d7d7d

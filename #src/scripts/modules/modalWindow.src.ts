@@ -1,15 +1,13 @@
 import { elementIsExistWithLog, returnScrollbarWidth } from "./general.js"
 
 interface ModalWindowMenuArgs {
-	/** 
+	/**
 		Selector of buttons for opening modal windows.
 		For correct work, you need to add the attribute [data-modal-link="idOfModal"]
 		`(attention, every modal element must contain an id)`
 	*/
 	modalLinksSelector: string
-	/** Selector of buttons for closing modal windows (should be in html of modal). */
-	modalClosersSelector: string
-	/** 
+	/**
 		Selector of burger-menu, need for correct work with it.
 		Not required.
 	*/
@@ -20,17 +18,15 @@ interface ModalWindowMenuArgs {
 export default class ModalWindowMenu {
 	private static modalLinks: NodeListOf<HTMLElement>
 	private static modalElements: NodeListOf<HTMLElement>
-	private static modalClosers: NodeListOf<HTMLElement>
 	private static burgerMenuClasslist: DOMTokenList
 	private readonly modalWindowSelector = '.modal-window'
-	private readonly modalWindowContentClass = 'modal-window__body'
+	private readonly modalWindowContentClass = 'modal-window'
+	private readonly modalWindowCloseButtonsClass = 'modal-window__closer'
 	private readonly modalWindowActiveSelector = '.modal-window.active'
 
 	constructor(arg: ModalWindowMenuArgs) {
-		if (!elementIsExistWithLog('ModalWindowMenu',
-			arg.modalLinksSelector, arg.modalClosersSelector)) {
+		if (!elementIsExistWithLog('ModalWindowMenu', arg.modalLinksSelector)) 
 			return
-		}
 
 		if (arg.burgerMenuSelector)
 			ModalWindowMenu.burgerMenuClasslist = document.querySelector(arg.burgerMenuSelector).classList
@@ -53,30 +49,22 @@ export default class ModalWindowMenu {
 		ModalWindowMenu.modalElements = document.querySelectorAll(this.modalWindowSelector)
 
 		for (let modal of ModalWindowMenu.modalElements) {
-			modal.addEventListener("click", (e) => {
-				let target = e.target as Element
+			modal.addEventListener("click", (e: any) => {
+				let targetClassList = e.target.classList
 
 				// Checks if there was a click on the empty space around. If true, hides a window.
-				if (target.classList.contains(this.modalWindowContentClass)) {
+				if (targetClassList.contains(this.modalWindowContentClass) ||
+					targetClassList.contains(this.modalWindowCloseButtonsClass)) {
 					this.closeActiveModal(true)
 				}
 			})
 		}
 
 
-		ModalWindowMenu.modalClosers = document.querySelectorAll(arg.modalClosersSelector)
-
-		for (let modalCloser of ModalWindowMenu.modalClosers) {
-			modalCloser.addEventListener("click", () =>
-				this.closeActiveModal()
-			)
-		}
-
-
 		if (arg.disableOnEsc) {
 			document.addEventListener('keydown', (key) => {
 				if (key.code != 'Escape') return
-	
+
 				let activeModal = this.getCurrentActiveModal()
 				activeModal ? this.closeActiveModal() : false
 			})
