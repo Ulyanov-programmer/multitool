@@ -7,7 +7,7 @@
     <div class="header__bottom">
     </div> -->
 
-		<a href="index.html" class="logo" title="На главную">
+		<a href="index.html" class="logo">
 			<img src="img/logo.png" alt="logo" width=50 height=50>
 		</a>
 		<!-- <form class="searchbar">
@@ -17,18 +17,21 @@
       </button>
     </form> -->
 
-		<!-- 
-			Add objects and links/buttons will be added to the menu as well as to the burger-menu. 
-			You can also add links/buttons separately in the file _navmenu.htm 
-		-->
-		@@include('components/_navmenu.htm', {
-		links: [
-		{ title: 'ref', href: 'index.html', target: '_self', classes: '', },
-		{ title: 'ref2', href: 'index.html', target: '_blank', classes: '', },
-		],
-		buttons: [
-		{ title: 'ref_to_block', dataScrollTo: '.block', classes: '', },
-		],
-		})
+		<nav class="navmenu">
+			<ul class='navmenu__body'>
+				@@loop('components/_navmenuRefItem.htm', [
+				{ title: 'ref', href: './index.html', target: '_self', classes: '', },
+				{ title: 'ref2', href: './index.html', target: '_blank', classes: '', },
+				])
+				<!-- 
+					Combine includs and your own elements, like a drop-down menu (don't forget <li>).
+				-->
+				@@loop('components/_navmenuBtnItem.htm', [
+				{ title: 'button', dataScrollTo: '.blockSelector', classes: '', },
+				])
+			</ul>
+		</nav>
+
+		@@include('components/_burgerMenu.htm')
 	</div>
 </header>
