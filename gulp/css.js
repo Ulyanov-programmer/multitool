@@ -1,10 +1,9 @@
 import {
-	sass, cleanCss, autoprefixer, rename, header, gulpIf, isProd, paths, gulp, browsersync,
+	sass, cleanCss, autoprefixer, rename, gulpIf, isProd, paths, gulp, browsersync,
 } from './importSources.js'
 
 export default function css() {
 	return gulp.src(paths.scr.css)
-		.pipe(header(`$addPathsToConvertedBgImages: ${global.isProd}\n`))
 		.pipe(sass())
 
 		.pipe(

@@ -5,7 +5,7 @@ interface SidebarMenuArgs {
 	selectorOfSidebars: string
 	/** 
 		Selector for buttons that open some sidebar. 
-		Should contains `data-open-sidebar='sidebarId'`.
+		Should contains `data-toggle-sidebar='sidebarId'`.
 	*/
 	selectorOfSidebarButtons: string
 	swipeAreaSelector?: string
@@ -39,7 +39,7 @@ export default class SidebarMenu {
 	}
 
 	private toggleSidebar(eventButton: HTMLElement) {
-		let sidebar = document.getElementById(eventButton.dataset.openSidebar) as HTMLElement
+		let sidebar = document.getElementById(eventButton.dataset.toggleSidebar) as HTMLElement
 
 		eventButton.classList.toggle(SidebarMenu.buttonsActiveClass)
 		sidebar.classList.toggle(SidebarMenu.sidebarsActiveClass)

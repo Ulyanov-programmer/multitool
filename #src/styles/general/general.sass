@@ -7,6 +7,12 @@ html
 		// background: gray
 		// color: white
 
+body
+	height: max-content
+	color: var(--text-c)
+	background: var(--bg)
+	font: adaptiveFontSize($mainFontSize, $minFontSize) var(--main-font-family)
+
 .modal-window
 	z-index: 15
 	+pseudoInset(fixed, 0, 0)

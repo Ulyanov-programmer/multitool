@@ -4,7 +4,6 @@ import gulpSass from 'gulp-sass'
 import cleanCss from 'gulp-clean-css'
 import autoprefixer from 'gulp-autoprefixer'
 import rename from 'gulp-rename'
-import header from 'gulp-header'
 import browsersync from 'browser-sync'
 import gulpIf from 'gulp-if'
 import fileInclude from 'gulp-file-include'
@@ -24,4 +23,4 @@ import { fontsFIlePath } from './paths.js'
 const sass = gulpSass(dartSass)
 const isProd = process.argv.includes('--prod')
 
-export { numericFontWeightMap, parseStyleFromName, parseNumericWeightFromName, browsersyncFunc, gulpChanged, esbuild, svgmin, squoosh, fontsFIlePath, ttf2woff2, fs, versionNumber, imgToPicture, plumber, fileInclude, gulp, paths, gulpIf, isProd, browsersync, sass, cleanCss, autoprefixer, rename, header }
+export { numericFontWeightMap, parseStyleFromName, parseNumericWeightFromName, browsersyncFunc, gulpChanged, esbuild, svgmin, squoosh, fontsFIlePath, ttf2woff2, fs, versionNumber, imgToPicture, plumber, fileInclude, gulp, paths, gulpIf, isProd, browsersync, sass, cleanCss, autoprefixer, rename }

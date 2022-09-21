@@ -3,9 +3,12 @@
 .spoiler
 	position: relative
 	transition: all .3s ease
-	cursor: pointer
 
-	// &.active
+	&__btn
+		+flex-set(row, nowrap)
+		width: 100%
+		cursor: pointer
+		&.active
 
-	&-content
-		// &.active 
+	&__content
+		&.active
