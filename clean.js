@@ -18,11 +18,8 @@ const phpFolder = `${pathToProject}${src}/php/`
 const fontsGitkeep = `${src}/fonts/.gitkeep`
 const mainStyleFile = `${pathToProject}${src}/styles/index.sass`
 const mainHtmlFile = `${pathToProject}${src}/index.html`
+const gulpImportModulesFile = `${pathToProject}/gulp/importModules.js`
 const gulpFile = `${pathToProject}/gulpfile.js`
-const slidersFile = `${pathToProject}${src}/scripts/sliders.js`
-const justValidateFile = `${pathToProject}${src}/scripts/justValidate.js`
-const typedApiFile = `${pathToProject}${src}/scripts/typed.js`
-const photoSwipeApiFile = `${pathToProject}${src}/scripts/photoSwipe.js`
 
 const srcDemoFoldersAndFIles = [
 	`${pathToProject}${src}/docs`, `${pathToProject}${src}/img/demo`,
@@ -41,8 +38,8 @@ cleanReadmeFilesAndFolders()
 deleteSnippets()
 deleteDemoProject()
 
-await setModules()
 await setImportModules()
+await setModules()
 await setPhp()
 
 console.log('I wish You a successful job! 🎆🎆🎆')
@@ -51,35 +48,35 @@ console.log('I wish You a successful job! 🎆🎆🎆')
 async function setImportModules() {
 	await setImportModule(
 		`Just-validate`,
-		'// setupValidateJs,',
+		'justValidate',
 		'justValidate: true,',
-		justValidateFile)
+		`${pathToProject}${src}/scripts/justValidate.js`)
 
 	await setImportModule(
-		`Swiper-slider`,
-		'// setupSwiperCss, setupSwiperJs,',
+		`Slider Swiper`,
+		'swiper',
 		'swiper: true,',
-		slidersFile)
+		`${pathToProject}${src}/scripts/sliders.js`)
 
 	await setImportModule(
 		`Typed`,
-		'// setupTypedJs,',
+		'typed',
 		'typed: true,',
-		typedApiFile)
+		`${pathToProject}${src}/scripts/typed.js`)
 
 	await setImportModule(
 		`Input Mask`,
-		'// setupInputMaskJs,', '')
+		'inputMask', '')
 
 	await setImportModule(
 		`Air Date Picker`,
-		'// setupAirDatePickerJs, setupAirDatePickerCss,', '')
+		'airDatePicker', '')
 
 	await setImportModule(
 		`Photo Swipe`,
-		'// setupPhotoSwipeJs, setupPhotoSwipeCss,',
+		'photoSwipe',
 		'photoSwipe: true,',
-		photoSwipeApiFile)
+		`${pathToProject}${src}/scripts/photoSwipe.js`)
 }
 async function setModules() {
 	await includeModuleByQuestion({
@@ -252,7 +249,7 @@ function deleteSnippets() {
 	}
 }
 
-async function setImportModule(importModuleName, importModuleGulpTasksString, htmlConnectString, fileToDelete) {
+async function setImportModule(importModuleName, importFileVariableName, htmlConnectString, fileToDelete) {
 	let answer = readline.question(`Import the ${importModuleName}? ${hint}`).toLowerCase()
 
 	if (answer !== yesLetter) {
@@ -261,16 +258,13 @@ async function setImportModule(importModuleName, importModuleGulpTasksString, ht
 			from: htmlConnectString,
 			to: '',
 		})
+		await replace({
+			files: gulpImportModulesFile,
+			from: `export let ${importFileVariableName}`,
+			to: `let ${importFileVariableName}`,
+		})
 
 		fs.removeSync(fileToDelete)
-	} else {
-		let connectScring = importModuleGulpTasksString.replace('// ', '')
-
-		await replace({
-			files: gulpFile,
-			from: importModuleGulpTasksString,
-			to: connectScring,
-		})
 	}
 }
 
