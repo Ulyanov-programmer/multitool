@@ -1,7 +1,7 @@
 import { fs, paths, gulp, } from './importSources.js'
 import { log } from 'console'
 
-class moduleObject {
+class ModuleObject {
 	javaScriptFilePaths
 	cssFilePaths
 
@@ -26,31 +26,34 @@ class moduleObject {
 	}
 }
 
-export let swiper = new moduleObject(
+export let swiper = new ModuleObject(
 	['node_modules/swiper/swiper-bundle.min.js'],
 	['node_modules/swiper/swiper-bundle.min.css'],
 )
-export let justValidate = new moduleObject(
+export let justValidate = new ModuleObject(
 	['node_modules/just-validate/dist/just-validate.production.min.js'],
 )
-export let inputMask = new moduleObject(
+export let inputMask = new ModuleObject(
 	['node_modules/inputmask/dist/inputmask.min.js'],
 )
-export let typed = new moduleObject(
+export let typed = new ModuleObject(
 	['node_modules/typed.js/lib/typed.min.js']
 )
-export let airDatePicker = new moduleObject(
+export let airDatePicker = new ModuleObject(
 	['node_modules/air-datepicker/air-datepicker.js'],
 	['node_modules/air-datepicker/air-datepicker.css'],
 )
-export let photoSwipe = new moduleObject(
+export let photoSwipe = new ModuleObject(
 	[
 		'node_modules/photoswipe/dist/photoswipe-lightbox.esm.min.js',
 		'node_modules/photoswipe/dist/photoswipe.esm.min.js'
 	],
 	['node_modules/photoswipe/dist/photoswipe.css'],
 )
-
+export let sidebar = new ModuleObject(
+	['node_modules/air-datepicker/air-datepicker.js'],
+	['node_modules/air-datepicker/air-datepicker.css'],
+)
 
 function scriptLoadErrorFallback(fileName) {
 	log(`Failed to download the file: ${fileName}`)
