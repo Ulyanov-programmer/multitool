@@ -30,7 +30,7 @@
 	z-index: 5
 	display: block
 
-	@media (min-width: var(--burger-menu-show-width))
+	@media (min-width: $burgerMenuShowWidth)
 		display: none
 
 	&__svg
@@ -46,5 +46,5 @@
 		// 	&__rect-bottom
 
 .navmenu
-	@media (max-width: var(--burger-menu-show-width))
+	@media (max-width: $burgerMenuShowWidth)
 		display: none

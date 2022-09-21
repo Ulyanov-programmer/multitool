@@ -41,8 +41,8 @@ cleanReadmeFilesAndFolders()
 deleteSnippets()
 deleteDemoProject()
 
-await setImportModules()
 await setModules()
+await setImportModules()
 await setPhp()
 
 console.log('I wish You a successful job! 🎆🎆🎆')
@@ -83,32 +83,45 @@ async function setImportModules() {
 }
 async function setModules() {
 	await includeModuleByQuestion({
+		moduleName: 'Burger-menu',
+		scriptPath: `${scriptModules}burgerMenu${srcExt}`,
+		styleFilePath: `${stylesModules}burgerMenu.sass`,
+		htmlPath: `${componentsFolder}_burgerMenu.htm`,
+		htmlConnectStrings: [
+			{
+				path: `${pathToProject}${src}/_header.htm`,
+				strings: "@@include('components/_burgerMenu.htm')",
+			},
+			{
+				strings: 'burgerMenu: true,',
+			},
+		],
+	})
+	await includeModuleByQuestion({
 		moduleName: 'Sidebar',
 		scriptPath: `${scriptModules}sidebar${srcExt}`,
 		styleFilePath: `${stylesModules}sidebar.sass`,
 		htmlPath: null,
-		htmlConnectStrings: ["sidebar: true,"],
+		htmlConnectStrings: [{ strings: 'sidebar: true,' }],
 	})
 	await includeModuleByQuestion({
 		moduleName: 'Modal-Window',
 		scriptPath: `${scriptModules}modalWindow${srcExt}`,
 		styleFilePath: null,
 		htmlPath: `${componentsFolder}_modals.htm`,
-		htmlConnectStrings: ["@@include('components/_modals.htm', {})", "modalWindow: true,"],
+		htmlConnectStrings: [
+			{
+				strings: ["@@include('components/_modals.htm', {})", "modalWindow: true,"]
+			},
+		],
 	})
-	await includeModuleByQuestion({
-		moduleName: 'Burger-menu',
-		scriptPath: `${scriptModules}burgerMenu${srcExt}`,
-		styleFilePath: `${stylesModules}burgerMenu.sass`,
-		htmlPath: null,
-		htmlConnectStrings: ["burgerMenu: true,"],
-	})
+
 	await includeModuleByQuestion({
 		moduleName: 'Spoilers',
 		scriptPath: `${scriptModules}spoiler${srcExt}`,
 		styleFilePath: `${stylesModules}spoiler.sass`,
 		htmlPath: null,
-		htmlConnectStrings: ["spoilers: true,"],
+		htmlConnectStrings: [{ strings: 'spoilers: true,' }],
 	})
 	await includeModuleByQuestion({
 		moduleName: 'Filter',
@@ -122,63 +135,63 @@ async function setModules() {
 		scriptPath: `${scriptModules}submenu${srcExt}`,
 		styleFilePath: `${stylesModules}submenu.sass`,
 		htmlPath: null,
-		htmlConnectStrings: ["submenu: true,"]
+		htmlConnectStrings: [{ strings: 'submenu: true,' }],
 	})
 	await includeModuleByQuestion({
 		moduleName: 'Tabs',
 		scriptPath: `${scriptModules}tab${srcExt}`,
 		styleFilePath: null,
 		htmlPath: null,
-		htmlConnectStrings: ["tabs: true,"]
+		htmlConnectStrings: [{ strings: 'tabs: true,' }],
 	})
 	await includeModuleByQuestion({
 		moduleName: 'Element-modal',
 		scriptPath: `${scriptModules}elementModal${srcExt}`,
 		styleFilePath: null,
 		htmlPath: null,
-		htmlConnectStrings: ["elementModal: true,"]
+		htmlConnectStrings: [{ strings: 'elementModal: true,' }],
 	})
 	await includeModuleByQuestion({
 		moduleName: 'Parallax',
 		scriptPath: `${scriptModules}parallax${srcExt}`,
 		styleFilePath: null,
 		htmlPath: null,
-		htmlConnectStrings: ["parallax: true,"]
+		htmlConnectStrings: [{ strings: 'parallax: true,' }],
 	})
 	await includeModuleByQuestion({
 		moduleName: 'ScrollToElement',
 		scriptPath: `${scriptModules}scrollToElement${srcExt}`,
 		styleFilePath: null,
 		htmlPath: null,
-		htmlConnectStrings: ["scrollToElement: true,"]
+		htmlConnectStrings: [{ strings: 'scrollToElement: true,' }],
 	})
 	await includeModuleByQuestion({
 		moduleName: 'Animations by scroll',
 		scriptPath: `${scriptModules}animateByScroll${srcExt}`,
 		styleFilePath: null,
 		htmlPath: null,
-		htmlConnectStrings: ["animateByScroll: true,"]
+		htmlConnectStrings: [{ strings: 'animateByScroll: true,' }],
 	})
 	await includeModuleByQuestion({
 		moduleName: 'Horizontal scroll',
 		scriptPath: `${scriptGeneral}horizontalScroll.ts`,
 		styleFilePath: null,
 		htmlPath: null,
-		htmlConnectStrings: ["horizontalScroll: true,"]
+		htmlConnectStrings: [{ strings: 'horizontalScroll: true,' }],
 	})
 	await includeModuleByQuestion({
 		moduleName: 'Swipe module',
 		scriptPath: `${scriptModules}swipe${srcExt}`,
 		styleFilePath: null,
 		htmlPath: null,
-		htmlConnectStrings: ["swipe: true,"]
+		htmlConnectStrings: [{ strings: 'swipe: true,' }],
 	})
 	await includeModuleByQuestion({
 		moduleName: 'Form styles',
 		scriptPath: '',
 		styleFilePath: `${stylesModules}form.sass`,
 		htmlPath: null,
-		htmlConnectStrings: ["formStyles: true,"]
+		htmlConnectStrings: [{ strings: 'formStyles: true,' }],
 	})
 }
 async function setPhp() {
@@ -284,9 +297,14 @@ async function includeModuleByQuestion(
 		fs.removeSync(htmlPath)
 	}
 	if (htmlConnectStrings) {
-		await replace({
-			files: mainHtmlFile,
-			from: htmlConnectStrings, to: '',
-		})
+		for (let htmlConnectStringData of htmlConnectStrings) {
+			if (htmlConnectStringData.path == undefined)
+				htmlConnectStringData.path = mainHtmlFile
+
+			await replace({
+				files: htmlConnectStringData.path,
+				from: htmlConnectStringData.strings, to: '',
+			})
+		}
 	}
 }
