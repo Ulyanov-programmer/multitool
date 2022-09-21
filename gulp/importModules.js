@@ -1,25 +1,35 @@
 import { fs, paths, gulp, } from './importSources.js'
-import { log } from 'console'
 
 class ModuleObject {
 	javaScriptFilePaths
 	cssFilePaths
 
 	constructor(javaScriptPaths, cssPaths) {
-		this.javaScriptFilePaths = javaScriptPaths
-		this.cssFilePaths = cssPaths
+		if (javaScriptPaths) {
+			for (let i = 0; i < javaScriptPaths.length; i++) {
+				javaScriptPaths[i] = `node_modules/${javaScriptPaths[i]}`
+			}
+			this.javaScriptFilePaths = javaScriptPaths
+		}
+
+		if (cssPaths) {
+			for (let i = 0; i < cssPaths.length; i++) {
+				cssPaths[i] = `node_modules/${cssPaths[i]}`
+			}
+			this.cssFilePaths = cssPaths
+		}
 	}
 
 	setupJs() {
 		if (this.javaScriptFilePaths == undefined || fs.existsSync(this.javaScriptFilePaths[0]) == false) {
-			return scriptLoadErrorFallback(this)
+			return scriptLoadErrorFallback()
 		}
 
 		return scriptLoadReturnGulpStream(this.javaScriptFilePaths)
 	}
 	setupCss() {
 		if (this.cssFilePaths == undefined || fs.existsSync(this.cssFilePaths[0]) == false) {
-			return styleLoadErrorFallback(this)
+			return styleLoadErrorFallback()
 		}
 
 		return styleLoadReturnGulpStream(this.cssFilePaths)
@@ -27,42 +37,34 @@ class ModuleObject {
 }
 
 export let swiper = new ModuleObject(
-	['node_modules/swiper/swiper-bundle.min.js'],
-	['node_modules/swiper/swiper-bundle.min.css'],
+	['swiper/swiper-bundle.min.js'],
+	['swiper/swiper-bundle.min.css'],
 )
 export let justValidate = new ModuleObject(
-	['node_modules/just-validate/dist/just-validate.production.min.js'],
+	['just-validate/dist/just-validate.production.min.js'],
 )
 export let inputMask = new ModuleObject(
-	['node_modules/inputmask/dist/inputmask.min.js'],
+	['inputmask/dist/inputmask.min.js'],
 )
 export let typed = new ModuleObject(
-	['node_modules/typed.js/lib/typed.min.js']
+	['typed.js/lib/typed.min.js']
 )
 export let airDatePicker = new ModuleObject(
-	['node_modules/air-datepicker/air-datepicker.js'],
-	['node_modules/air-datepicker/air-datepicker.css'],
+	['air-datepicker/air-datepicker.js'],
+	['air-datepicker/air-datepicker.css'],
 )
 export let photoSwipe = new ModuleObject(
 	[
-		'node_modules/photoswipe/dist/photoswipe-lightbox.esm.min.js',
-		'node_modules/photoswipe/dist/photoswipe.esm.min.js'
+		'photoswipe/dist/photoswipe-lightbox.esm.min.js',
+		'photoswipe/dist/photoswipe.esm.min.js'
 	],
-	['node_modules/photoswipe/dist/photoswipe.css'],
-)
-export let sidebar = new ModuleObject(
-	['node_modules/air-datepicker/air-datepicker.js'],
-	['node_modules/air-datepicker/air-datepicker.css'],
+	['photoswipe/dist/photoswipe.css'],
 )
 
-function scriptLoadErrorFallback(fileName) {
-	log(`Failed to download the file: ${fileName}`)
-
+function scriptLoadErrorFallback() {
 	return gulp.src(paths.scr.scripts)
 }
-function styleLoadErrorFallback(fileName) {
-	log(`Failed to download the file: ${fileName}`)
-
+function styleLoadErrorFallback() {
 	return gulp.src(paths.scr.css)
 }
 function scriptLoadReturnGulpStream(streamPaths) {
