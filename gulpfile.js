@@ -8,14 +8,7 @@ import scriptModules from './gulp/moduleTask.js'
 import fonts, { fontsStyle } from './gulp/fonts.js'
 import imagesOther, { imagesSvg, imagesPng, imagesJpg } from './gulp/images.js'
 import recreate from './gulp/recreate.js'
-import {
-	setupSwiperCss, setupSwiperJs,
-	setupValidateJs,
-	setupInputMaskJs,
-	setupTypedJs,
-	setupAirDatePickerJs, setupAirDatePickerCss,
-	setupPhotoSwipeJs, setupPhotoSwipeCss,
-} from './gulp/importModules.js'
+import * as modules from './gulp/importModules.js'
 
 function watchFIles() {
 	gulp.watch(paths.watch.html, { usePolling: true }, html)
@@ -30,14 +23,11 @@ function watchFIles() {
 }
 
 
-let importModuleTasks = [
-	// setupSwiperCss, setupSwiperJs,
-	// setupValidateJs,
-	// setupInputMaskJs,
-	// setupTypedJs,
-	// setupAirDatePickerJs, setupAirDatePickerCss,
-	// setupPhotoSwipeJs, setupPhotoSwipeCss,
-]
+let importModuleTasks = []
+for (let [key, val] of Object.entries(modules)) {
+	importModuleTasks.push(val.setupJs.bind(val), val.setupCss.bind(val))
+}
+
 const mainTasks = [
 	html, css, fonts, scriptModules, scripts, php,
 	imagesPng, imagesJpg, imagesSvg, imagesOther,
