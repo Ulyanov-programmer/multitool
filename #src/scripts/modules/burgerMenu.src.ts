@@ -20,7 +20,6 @@ export default class BurgerMenu {
 	private static burger: HTMLElement
 	private static menu: HTMLElement
 	private static buttons: NodeListOf<HTMLElement>
-	private static header = document.querySelector('header') as HTMLElement
 	private static autoPaddingOptions: autoPaddingOptions
 	private static closingByClickOnElement: boolean = true
 
@@ -28,27 +27,28 @@ export default class BurgerMenu {
 	public static menuActiveClass: string
 
 	constructor(args: BurgerMenuArgs) {
-		if (!elementIsExistWithLog('BurgerMenu',
-			args.burgerSelector, args.burgerMenuSelector, args.buttonsSelector)) {
+		if (!elementIsExistWithLog('BurgerMenu', args.burgerSelector, args.burgerMenuSelector, args.buttonsSelector))
 			return
-		}
+
 		BurgerMenu.burger = document.querySelector(args.burgerSelector) as HTMLElement
 		BurgerMenu.menu = document.querySelector(args.burgerMenuSelector) as HTMLElement
-		BurgerMenu.autoPaddingOptions = args.autoPadding
 		BurgerMenu.closingByClickOnElement = args.closingByClickOnElement
 
 		BurgerMenu.burgerActiveClass = args.burgerActiveClass ? args.burgerActiveClass : 'active'
 		BurgerMenu.menuActiveClass = args.menuActiveClass ? args.menuActiveClass : 'active'
-		BurgerMenu.menu.style.paddingTop = args.autoPadding ? `${BurgerMenu.autoPaddingOptions.elementHeight}px` : '0'
 
 		BurgerMenu.burger.addEventListener('click', this.toggleNavmenu)
 
 		if (BurgerMenu.closingByClickOnElement) {
 			BurgerMenu.buttons = document.querySelectorAll(args.buttonsSelector)
-			
+
 			for (let button of BurgerMenu.buttons) {
-				button.addEventListener('click', this.hideNavmenu)
+				button.addEventListener('click', this.toggleNavmenu)
 			}
+		}
+		if (args.autoPadding) {
+			BurgerMenu.autoPaddingOptions = args.autoPadding
+			window.addEventListener('resize', this.changePaddingSizeBySizeOfHeader)
 		}
 	}
 
@@ -56,45 +56,47 @@ export default class BurgerMenu {
 	private toggleNavmenu() {
 		let scrollbarWidth = returnScrollbarWidth()
 
-		if (BurgerMenu.autoPaddingOptions)
-			BurgerMenu.menu.style.paddingTop = `${BurgerMenu.autoPaddingOptions.elementHeight}px`
-
-		BurgerMenu.burger.classList.toggle(BurgerMenu.burgerActiveClass)
-
-		if (document.body.style.overflow != 'hidden') {
-			document.body.style.overflow = 'hidden'
+		if (BurgerMenu.menu.classList.contains(BurgerMenu.menuActiveClass) == false) {
+			BurgerMenu.showNavmenu(scrollbarWidth)
 		} else {
-			document.body.style.overflow = ''
+			BurgerMenu.hideNavmenu()
 		}
-		document.body.style.paddingRight = `${scrollbarWidth}px`
-
-		BurgerMenu.header.style.paddingRight = `${scrollbarWidth}px`
-
-		BurgerMenu.menu.classList.toggle(BurgerMenu.menuActiveClass)
 	}
 
-	private hideNavmenu() {
-		let scrollbarWidth = returnScrollbarWidth()
+	private static showNavmenu(scrollbarWidth: number) {
+		BurgerMenu.menu.classList.add(BurgerMenu.menuActiveClass)
+		BurgerMenu.menu.style.marginTop = `${BurgerMenu.autoPaddingOptions.getElementHeight()}px`
+
+		BurgerMenu.burger.classList.add(BurgerMenu.burgerActiveClass)
+
+		document.body.style.overflow = 'hidden'
+		document.body.style.paddingRight = `${scrollbarWidth}px`
+	}
+	private static hideNavmenu() {
+		BurgerMenu.menu.classList.remove(BurgerMenu.menuActiveClass)
+		BurgerMenu.menu.style.marginTop = `0px`
 
 		BurgerMenu.burger.classList.remove(BurgerMenu.burgerActiveClass)
 
-		if (document.body.style.overflow == 'hidden') {
-			document.body.style.overflow = ''
-		} else {
-			document.body.style.overflow = 'hidden'
+		document.body.style.overflow = ''
+		document.body.style.paddingRight = `0px`
+	}
+	private changePaddingSizeBySizeOfHeader() {
+		if (BurgerMenu.menu.classList.contains(BurgerMenu.menuActiveClass)) {
+			BurgerMenu.menu.style.marginTop = `${BurgerMenu.autoPaddingOptions.getElementHeight()}px`
 		}
-		document.body.style.paddingRight = `${scrollbarWidth}px`
-
-		BurgerMenu.menu.classList.remove(BurgerMenu.menuActiveClass)
 	}
 }
 export class autoPaddingOptions {
-	public elementHeight: number
+	public element: HTMLElement
 
 	constructor(selectorOfElement: string) {
 		if (elementIsExistWithLog('autoPaddingOptions', selectorOfElement)) {
-			let element = document.querySelector(selectorOfElement)
-			this.elementHeight = element.clientHeight
+			this.element = document.querySelector(selectorOfElement)
 		}
+	}
+
+	public getElementHeight() {
+		return this.element.clientHeight
 	}
 }
