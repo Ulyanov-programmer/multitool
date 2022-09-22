@@ -1,6 +1,9 @@
 import { fs, parseNumericWeightFromName, parseStyleFromName, ttf2woff2, fontsFIlePath, paths, gulp, } from './importSources.js'
 
 export default function fonts() {
+	gulp.src(paths.scr.fontsWoff)
+		.pipe(gulp.dest(paths.build.fonts))
+	
 	return gulp.src(paths.scr.fonts)
 		.pipe(ttf2woff2({
 			ignoreExt: true,
@@ -14,17 +17,20 @@ export function fontsStyle() {
 	if (fontsFileContent.length > 0)
 		return
 
-	fs.readdir(paths.build.fonts, (err, fileNames) => {
+	fs.readdir(paths.scr.fontsFolder, (err, fileNames) => {
 		let previousFontName
 
-		if (fileNames == undefined)
+		if (fileNames == undefined) {
+			console.log('No font was found!')
 			return
+		}
 
 		for (let fileName of fileNames) {
 			let fileNameNoExt = fileName.split('.')[0]
 
-			if (previousFontName == fileNameNoExt)
-				return
+			if (previousFontName == fileNameNoExt || fileName == '.gitkeep') {
+				continue
+			}
 
 			let fontName = fileName.split('-')[0]
 			let weight = parseNumericWeightFromName(fileName)

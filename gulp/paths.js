@@ -23,7 +23,9 @@ export const paths = {
 		imagesPng: `${source}/img/**/*.png`,
 		imagesJpg: `${source}/img/**/*.jpg`,
 		imagesSvg: `${source}/img/**/*.svg`,
-		fonts: `${source}/fonts/*.{ttf,otf,woff,woff2}`,
+		fonts: `${source}/fonts/*.{ttf,otf}`,
+		fontsWoff: `${source}/fonts/*.{woff,woff2}`,
+		fontsFolder: `${source}/fonts/`,
 	},
 	watch: {
 		html: `${source}/**/*.{html,htm,php}`,
