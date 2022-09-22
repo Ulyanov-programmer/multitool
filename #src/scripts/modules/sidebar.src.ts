@@ -1,49 +1,63 @@
 import { elementIsExistWithLog } from "./general.js"
+import SwipeElement, { ChangePlane } from './swipe.src.js'
 
-interface SidebarMenuArgs {
+interface SidebarArgs {
 	/** Selector of sidebars. Should contain id of this sidebar. */
-	selectorOfSidebars: string
+	selectorOfSidebar: string
 	/** 
 		Selector for buttons that open some sidebar. 
 		Should contains `data-toggle-sidebar='sidebarId'`.
 	*/
-	selectorOfSidebarButtons: string
-	swipeAreaSelector?: string
-	sidebarsActiveClass?: string
-	buttonsActiveClass?: string
+	sidebarActiveClass?: string
+	buttonActiveClass?: string
+
+	swipeElementOptions?: swipeElementOptions
 }
 
-export default class SidebarMenu {
-	private sidebarButtons: NodeListOf<HTMLElement>
+interface swipeElementOptions {
+	changePlane: ChangePlane,
+	swipeSensitivity: number,
+	maxWorkWidth: number,
+}
+
+export default class Sidebar {
+	private sidebar: HTMLElement
+	private sidebarButton: HTMLElement
 	private static swipeArea: HTMLElement
-	public static sidebarsActiveClass: string
-	public static buttonsActiveClass: string = 'active'
+	public static sidebarActiveClass: string
+	public static buttonActiveClass: string = 'active'
 
-	constructor(arg: SidebarMenuArgs) {
-		if (!elementIsExistWithLog('SidebarMenu',
-			arg.selectorOfSidebars, arg.selectorOfSidebarButtons)) {
+	constructor(arg: SidebarArgs) {
+		if (!elementIsExistWithLog('Sidebar', arg.selectorOfSidebar))
 			return
-		}
 
-		this.sidebarButtons = document.querySelectorAll(arg.selectorOfSidebarButtons)
+		this.sidebar = document.querySelector(arg.selectorOfSidebar)
+		this.sidebarButton = document.querySelector(`[data-toggle-sidebar="${this.sidebar.id}"]`)
 
-		SidebarMenu.swipeArea = document.querySelector(arg.swipeAreaSelector) as HTMLElement
-		SidebarMenu.buttonsActiveClass = arg.buttonsActiveClass ? arg.buttonsActiveClass : 'active'
-		SidebarMenu.sidebarsActiveClass = arg.sidebarsActiveClass ? arg.sidebarsActiveClass : 'active'
+		Sidebar.swipeArea = document.querySelector(`[data-swipe-element="${this.sidebar.id}"]`)
+		Sidebar.buttonActiveClass = arg.buttonActiveClass ? arg.buttonActiveClass : 'active'
+		Sidebar.sidebarActiveClass = arg.sidebarActiveClass ? arg.sidebarActiveClass : 'active'
 
-		for (let sidebarBtn of this.sidebarButtons) {
-			sidebarBtn.addEventListener('click', () =>
-				this.toggleSidebar(sidebarBtn)
-			)
-		}
+		this.sidebarButton.addEventListener('click', () => this.toggleSidebar(this.sidebarButton))
+
+		this.initializeSwipe(this.sidebar.id, arg.swipeElementOptions)
 	}
 
 	private toggleSidebar(eventButton: HTMLElement) {
-		let sidebar = document.getElementById(eventButton.dataset.toggleSidebar) as HTMLElement
+		let sidebar = document.getElementById(eventButton.dataset.toggleSidebar)
 
-		eventButton.classList.toggle(SidebarMenu.buttonsActiveClass)
-		sidebar.classList.toggle(SidebarMenu.sidebarsActiveClass)
-		SidebarMenu.swipeArea.classList.toggle('active')
+		eventButton.classList.toggle(Sidebar.buttonActiveClass)
+		sidebar.classList.toggle(Sidebar.sidebarActiveClass)
+		Sidebar.swipeArea.classList.toggle('active')
+	}
+
+	private initializeSwipe(sidebarId: string, swipeElementOptions: swipeElementOptions) {
+		new SwipeElement({
+			touchStartAreaSelector: `[data-swipe-element="${sidebarId}"]`,
+			swipableElementSelector: `#${sidebarId}`,
+			changePlane: swipeElementOptions.changePlane,
+			swipeSensitivity: swipeElementOptions.swipeSensitivity,
+			maxWorkWidth: swipeElementOptions.maxWorkWidth,
+		})
 	}
 }
-

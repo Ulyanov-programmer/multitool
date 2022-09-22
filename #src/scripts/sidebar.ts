@@ -1,9 +1,13 @@
-import SidebarMenu from './modules/sidebar.src.js'
+import Sidebar from './modules/sidebar.src.js'
+import { ChangePlane } from './modules/swipe.src.js'
 
-new SidebarMenu({
-	selectorOfSidebars: '.sidebar',
-	selectorOfSidebarButtons: '[data-toggle-sidebar]',
-	// swipeAreaSelector: '.swipe_window__swipe_area'
-	buttonsActiveClass: 'active',
-	sidebarsActiveClass: 'active',
+new Sidebar({
+	selectorOfSidebar: '#sidebar1',
+	buttonActiveClass: 'active',
+	sidebarActiveClass: 'active',
+	swipeElementOptions: {
+		changePlane: ChangePlane.ToLeft,
+		swipeSensitivity: 0.5,
+		maxWorkWidth: 768,
+	}
 })
