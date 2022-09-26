@@ -7,7 +7,7 @@ export const paths = {
 	build: {
 		html: `${project}/`,
 		php: `${project}/php/`,
-		css: `${project}/css/`,
+		css: `${project}/styles/`,
 		scripts: `${project}/scripts/`,
 		scriptModules: `${project}/scripts/modules/`,
 		images: `${project}/img/`,
@@ -39,6 +39,5 @@ export const paths = {
 		imagesJpg: `${source}/img/**/*.jpg`,
 		imagesSvg: `${source}/img/**/*.svg`,
 	},
-	clean: `./${project}/`,
 }
 export const fontsFIlePath = `${source}/styles/general/fonts.sass`

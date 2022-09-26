@@ -7,19 +7,37 @@ import scripts from './gulp/scriptTask.js'
 import scriptModules from './gulp/moduleTask.js'
 import fonts, { fontsStyle } from './gulp/fonts.js'
 import imagesOther, { imagesSvg, imagesPng, imagesJpg } from './gulp/images.js'
-import recreate from './gulp/recreate.js'
+import deleteUnlinkFiles from './gulp/deleteUnlinkFiles.js'
 import * as modules from './gulp/importModules.js'
 
 function watchFIles() {
-	gulp.watch(paths.watch.html, { usePolling: true }, html)
-	gulp.watch(paths.watch.php, php)
-	gulp.watch([paths.watch.css, paths.watch.demoCss], { usePolling: true }, css)
-	gulp.watch(paths.watch.scripts, scripts)
-	gulp.watch(paths.watch.scriptModules, scriptModules)
-	gulp.watch(paths.watch.imagesOther, imagesOther)
-	gulp.watch(paths.watch.imagesPng, imagesPng)
-	gulp.watch(paths.watch.imagesJpg, imagesJpg)
-	gulp.watch(paths.watch.imagesSvg, imagesSvg)
+	gulp.watch(paths.watch.html, { usePolling: true }, html).on('unlink', (filePath) => {
+		deleteUnlinkFiles(filePath)
+	})
+	gulp.watch(paths.watch.php, php).on('unlink', (filePath) => {
+		deleteUnlinkFiles(filePath)
+	})
+	gulp.watch([paths.watch.css, paths.watch.demoCss], { usePolling: true }, css).on('unlink', (filePath) => {
+		deleteUnlinkFiles(filePath, ['.min.css', '.css'])
+	})
+	gulp.watch(paths.watch.scripts, scripts).on('unlink', (filePath) => {
+		deleteUnlinkFiles(filePath, ['.js'])
+	})
+	gulp.watch(paths.watch.scriptModules, scriptModules).on('unlink', (filePath) => {
+		deleteUnlinkFiles(filePath, ['.js'])
+	})
+	gulp.watch(paths.watch.imagesOther, imagesOther).on('unlink', (filePath) => {
+		deleteUnlinkFiles(filePath, ['.webp', '.avif'])
+	})
+	gulp.watch(paths.watch.imagesPng, imagesPng).on('unlink', (filePath) => {
+		deleteUnlinkFiles(filePath, ['.webp', '.avif'])
+	})
+	gulp.watch(paths.watch.imagesJpg, imagesJpg).on('unlink', (filePath) => {
+		deleteUnlinkFiles(filePath, ['.webp', '.avif'])
+	})
+	gulp.watch(paths.watch.imagesSvg, imagesSvg).on('unlink', (filePath) => {
+		deleteUnlinkFiles(filePath)
+	})
 }
 
 
@@ -34,7 +52,7 @@ const mainTasks = [
 ]
 
 
-let build = gulp.series(recreate, importModuleTasks, gulp.parallel(mainTasks), fontsStyle)
+let build = gulp.series(gulp.parallel(importModuleTasks, mainTasks), fontsStyle)
 
 let watch = gulp.parallel(build, watchFIles, browsersyncFunc)
 

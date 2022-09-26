@@ -1,10 +1,10 @@
 import {
-	fileInclude, plumber, imgToPicture, versionNumber, gulpIf, isProd, paths, gulp, browsersync,
+	plumber, imgToPicture, versionNumber, gulpIf, isProd, paths, gulp, browsersync, gulpChanged,
 } from './importSources.js'
 
 export default function html() {
 	return gulp.src(paths.scr.html)
-		.pipe(fileInclude())
+		// .pipe(gulpChanged(paths.build.html, { extension: '.html' }))
 		.pipe(plumber({
 			errorHandler: function (err) {
 				notify.onError({

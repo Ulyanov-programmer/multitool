@@ -1,9 +1,10 @@
 import {
-	sass, cleanCss, autoprefixer, rename, gulpIf, isProd, paths, gulp, browsersync,
+	sass, cleanCss, autoprefixer, rename, gulpIf, isProd, paths, gulp, browsersync, gulpChanged,
 } from './importSources.js'
 
 export default function css() {
 	return gulp.src(paths.scr.css)
+		.pipe(gulpChanged(paths.build.css, { extension: '.min.css' }))
 		.pipe(sass())
 
 		.pipe(

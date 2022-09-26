@@ -1,4 +1,4 @@
-import { squoosh, svgmin, gulpIf, isProd, paths, gulp, browsersync, } from './importSources.js'
+import { squoosh, svgmin, gulpIf, isProd, paths, gulp, browsersync, gulpChanged, } from './importSources.js'
 
 export default function imagesOther() {
 	return gulp.src(paths.scr.imagesOther)
@@ -13,6 +13,7 @@ export default function imagesOther() {
 
 export function imagesJpg() {
 	return gulp.src(paths.scr.imagesJpg)
+		.pipe(gulpChanged(paths.build.images, { extension: '.jpg' }))
 		.pipe(
 			gulpIf(isProd, squoosh({
 				mozjpeg: {},
@@ -27,6 +28,15 @@ export function imagesJpg() {
 
 export function imagesPng() {
 	return gulp.src(paths.scr.imagesPng)
+		.pipe(gulpIf(isProd == false, 
+			gulpChanged(paths.build.images, { extension: '.png' }))
+		)
+		.pipe(gulpIf(isProd, 
+			gulpChanged(paths.build.images, { extension: '.webp' }))
+		)
+		.pipe(gulpIf(isProd, 
+			gulpChanged(paths.build.images, { extension: '.avif' }))
+		)
 		.pipe(
 			gulpIf(isProd, squoosh({
 				oxipng: {},
