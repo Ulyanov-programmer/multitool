@@ -14,8 +14,10 @@
 		"fs-extra": "^10.1.0",
 		"gulp": "^4.0.2",
 		"gulp-autoprefixer": "^8.0.0",
+		"gulp-cache": "^1.1.3",
 		"gulp-changed": "^4.0.3",
 		"gulp-clean-css": "^4.3.0",
+		"gulp-ejs": "^5.1.0",
 		"gulp-esbuild": "^0.10.4",
 		"gulp-file-include": "^2.3.0",
 		"gulp-html-img-to-picture": "^1.0.3",
@@ -33,6 +35,7 @@
 	},
 	"dependencies": {
 		"air-datepicker": "^3.2.0",
+		"gulp-dependents": "^1.2.5",
 		"inputmask": "^5.0.7",
 		"just-validate": "^3.8.1",
 		"parse-font-name": "^1.2.0",

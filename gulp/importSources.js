@@ -15,6 +15,7 @@ import svgmin from 'gulp-svgmin'
 import esbuild from 'gulp-esbuild'
 import gulpChanged from 'gulp-changed'
 import versionNumber from 'gulp-version-number'
+import cache from 'gulp-cache'
 import ejs from 'gulp-ejs'
 import { parseNumericWeightFromName, parseStyleFromName, numericFontWeightMap } from 'parse-font-name'
 import { paths, source, project } from './paths.js'
@@ -23,4 +24,4 @@ import { fontsFIlePath } from './paths.js'
 const sass = gulpSass(dartSass)
 const isProd = process.argv.includes('--prod')
 
-export { numericFontWeightMap, parseStyleFromName, parseNumericWeightFromName, browsersyncFunc, gulpChanged, esbuild, svgmin, squoosh, fontsFIlePath, ttf2woff2, fs, imgToPicture, plumber, gulp, paths, gulpIf, isProd, browsersync, sass, cleanCss, autoprefixer, rename, versionNumber, ejs, source, project }
+export { numericFontWeightMap, parseStyleFromName, parseNumericWeightFromName, browsersyncFunc, gulpChanged, esbuild, svgmin, squoosh, fontsFIlePath, ttf2woff2, fs, imgToPicture, plumber, gulp, paths, gulpIf, isProd, browsersync, sass, cleanCss, autoprefixer, rename, versionNumber, ejs, source, project, cache, }
