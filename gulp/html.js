@@ -1,9 +1,11 @@
 import {
-	imgToPicture, versionNumber, gulpIf, isProd, paths, gulp, browsersync,
+	imgToPicture, versionNumber, gulpIf, isProd, paths, gulp, browsersync, ejs,
 } from './importSources.js'
 
 export default function html() {
 	return gulp.src(paths.scr.html)
+		.pipe(ejs({}))
+
 		.pipe(
 			gulpIf(isProd, imgToPicture({
 				sortBySize: false,

@@ -1,41 +1,41 @@
-@@include('components/_headContent.htm', {
-pageTitle: 'Main',
-lang: 'en',
-preloadedFontName: 'NameOfYourMainFont',
-})
+<%- include('components/_headContent.htm', {
+	lang: 'eng',
+	title: 'MainPage',
+	preloadedFontName: 'fontName',
+}) %>
 
-@@include('components/_connectModules.htm', { modules: {
-generalScripts: true,
-justValidate: true,
-swiper: true,
-typed: true,
-photoSwipe: true,
-burgerMenu: true,
-sidebar: true,
-spoilers: true,
-submenu: true,
-animateByScroll: true,
-swipe: true,
-elementModal: true,
-horizontalScroll: true,
-modalWindow: true,
-parallax: true,
-scrollToElement: true,
-tabs: true,
-}})
+<%- include('components/_connectModules.htm', { modules: {
+	justValidate: true,
+	swiper: true,
+	photoSwipe: true,
+	burgerMenu: true,
+	form: true,
+	sidebar: true,
+	spoiler: true,
+	submenu: true,
+	animateByScroll: true,
+	swipe: true,
+	elementModal: true,
+	horizontalScroll: true,
+	modalWindow: true,
+	parallax: true,
+	sidebar: true,
+	scrollToElement: true,
+	tabs: true,
+}}) %>
 
 <!-- /-/ Stylesheets and scripts for this page -->
-<link rel="stylesheet" href="css/index.min.css">
+<link rel="stylesheet" href="styles/index.min.css">
 </head>
 
 <body>
-	@@include('_header.htm')
+  <%- include('_header.htm') %>
 
 
 
-	@@include('_footer.htm')
+  <%- include('_footer.htm') %>
 
-	@@include('components/_modals.htm', {})
+  <%- include('components/_modals.htm', {}) %>
 </body>
 
 </html>

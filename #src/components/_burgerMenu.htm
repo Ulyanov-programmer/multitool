@@ -1,24 +1,26 @@
 <button type="button" id="burgerButton" class="header__burger burger-btn" aria-label="burger-menu show button">
-	<svg class="burger-btn__svg" width="40" height="30" viewBox="0 0 40 30" xmlns="http://www.w3.org/2000/svg">
-		<rect class="burger-btn__rect-top" width="95%" height="10%" x="5%" y="0%" fill="#fff" />
-		<rect class="burger-btn__rect-center" width="95%" height="10%" x="5%" y="45%" fill="#fff" />
-		<rect class="burger-btn__rect-bottom" width="95%" height="10%" x="5%" y="90%" fill="#fff" />
-	</svg>
+  <svg class="burger-btn__svg" width="40" height="30" viewBox="0 0 40 30" xmlns="http://www.w3.org/2000/svg">
+    <rect class="burger-btn__rect-top" width="95%" height="10%" x="5%" y="0%" fill="#fff" />
+    <rect class="burger-btn__rect-center" width="95%" height="10%" x="5%" y="45%" fill="#fff" />
+    <rect class="burger-btn__rect-bottom" width="95%" height="10%" x="5%" y="90%" fill="#fff" />
+  </svg>
 </button>
 
 <nav class="burger-menu">
-	<div class="burger-menu__body">
-		<ul>
-			@@loop('_burgerMenuRefItem.htm', [
-				{ title: 'ref', href: './index.html', target: '_self', classes: '', },
-				{ title: 'ref2', href: './index.html', target: '_blank', classes: '', },
-				])
-				<!-- 
-					Combine includs and your own elements, like a drop-down menu (don't forget <li>).
-				-->
-				@@loop('_burgerMenuBtnItem.htm', [
-				{ title: 'button', dataScrollTo: '.blockSelector', classes: '', },
-				])
-		</ul>
-	</div>
+  <div class="burger-menu__body">
+    <ul>
+      <%- include('_navmenuRefItem.htm', {
+				classes:'', href:'./index.html', title:'title', target:'_blank', isBurgerItem:false }) 
+			%>
+      <%- include('_navmenuRefItem.htm', {
+				classes:'', href:'./index.html', title:'ref', target:'_self', isBurgerItem:false }) 
+			%>
+      <!-- 
+				Combine includs and your own elements, like a drop-down menu (don't forget <li>).
+			-->
+      <%- include('_navmenuBtnItem.htm', {
+				classes:'', dataScrollTo:'.selector', title:'title', isBurgerItem:false }) 
+			%>
+    </ul>
+  </div>
 </nav>

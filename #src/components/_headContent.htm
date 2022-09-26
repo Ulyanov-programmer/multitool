@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="@@lang">
+<html lang=<%= lang %>>
 
 <head>
 	<meta charset="UTF-8">
@@ -15,10 +15,6 @@
 	<link rel="mask-icon" href="./img/favicon.svg" color="#000000">
 	<!-- <link rel="apple-touch-icon" href="apple-touch-icon.png"> -->
 	<!-- <link rel="manifest" href="manifest.json"> -->
-
-	@@if(preloadedFontName) {
-	<link rel="preload" href="fonts/@@preloadedFontName.woff2" as="font" crossorigin>
-	}
 
 	<!-- SEO
 	<meta name="keywords" content="keyword1,">
@@ -58,11 +54,13 @@
 	<meta name="twitter: image" content="path">
 	-->
 
-	<title>@@pageTitle</title>
+
+	<title><%- title %></title>
+	<link rel="preload" href="fonts/<%- preloadedFontName %>.woff2" as="font" crossorigin>
 
 	<!-- /-/ General stylesheets -->
-	<link rel="stylesheet" href="css/general/nullStyle.min.css">
-	<link rel="stylesheet" href="css/general/fonts.min.css">
-	<link rel="stylesheet" href="css/general/header.min.css">
-	<link rel="stylesheet" href="css/general/footer.min.css">
-	<link rel="stylesheet" href="css/general/general.min.css">
+	<link rel="stylesheet" href="styles/general/nullStyle.min.css">
+	<link rel="stylesheet" href="styles/general/fonts.min.css">
+	<link rel="stylesheet" href="styles/general/header.min.css">
+	<link rel="stylesheet" href="styles/general/footer.min.css">
+	<link rel="stylesheet" href="styles/general/general.min.css">

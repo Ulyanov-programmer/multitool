@@ -1,67 +1,98 @@
 <!-- /-/ General scripts -->
 
-@@if(modules.justValidate) {
+<% if (modules.justValidate) { %>
 <!-- JustValidate -->
 <script type="module" src="scripts/justValidate.js"></script>
-}
-@@if(modules.swiper) {
+<% } %>
+
+<% if (modules.swiper) { %>
 <!-- Swiper -->
-<link rel="stylesheet" href="css/swiper-bundle.min.css">
+<link rel="stylesheet" href="styles/swiper-bundle.min.css">
 <script type="module" src="scripts/sliders.js"></script>
-}
-@@if(modules.typed) {
+<% } %>
+
+<% if (modules.typed) { %>
 <!-- Typed -->
 <script defer src="scripts/typed.min.js"></script>
 <script defer src="scripts/typed.js"></script>
-}
-@@if(modules.photoSwipe) {
+<% } %>
+
+<% if (modules.photoSwipe) { %>
 <!-- PhotoSwipe -->
 <script type="module" src="./scripts/photoSwipe.js"></script>
-<link rel="stylesheet" href="./css/photoswipe.css">
-}
-@@if(modules.burgerMenu) {
+<link rel="stylesheet" href="./styles/photoswipe.css">
+<% } %>
+
+<% if (modules.burgerMenu) { %>
+<!-- BurgerMenu -->
 <script type="module" src="scripts/burgerMenu.js"></script>
-<link rel="stylesheet" href="css/modules/burgerMenu.min.css">
-}
-@@if(modules.formStyles) {
-<link rel="stylesheet" href="css/modules/form.min.css">
-}
-@@if(modules.sidebar) {
+<link rel="stylesheet" href="styles/modules/burgerMenu.min.css">
+<% } %>
+
+<% if (modules.form) { %>
+<!-- Form -->
+<link rel="stylesheet" href="styles/modules/form.min.css">
+<% } %>
+
+<% if (modules.sidebar) { %>
+<!-- Sidebar -->
 <script type="module" src="scripts/sidebar.js"></script>
-<link rel="stylesheet" href="css/modules/sidebar.min.css">
-}
-@@if(modules.spoilers) {
+<link rel="stylesheet" href="styles/modules/sidebar.min.css">
+<% } %>
+
+<% if (modules.spoiler) { %>
+<!-- Spoiler -->
 <script type="module" src="scripts/spoiler.js"></script>
-<link rel="stylesheet" href="css/modules/spoiler.min.css">
-}
-@@if(modules.submenu) {
+<link rel="stylesheet" href="styles/modules/spoiler.min.css">
+<% } %>
+
+<% if (modules.submenu) { %>
+<!-- Submenu -->
 <script type="module" src="scripts/submenu.js"></script>
-<link rel="stylesheet" href="css/modules/submenu.min.css">
-}
-@@if(modules.animateByScroll) {
+<link rel="stylesheet" href="styles/modules/submenu.min.css">
+<% } %>
+
+<% if (modules.animateByScroll) { %>
+<!-- Animate by scroll -->
 <script type="module" src="scripts/animateByScroll.js"></script>
-}
-@@if(modules.swipe) {
+<% } %>
+
+<% if (modules.swipe) { %>
+<!-- Swipe -->
 <script type="module" src="scripts/swipe.js"></script>
-}
-@@if(modules.elementModal) {
+<% } %>
+
+<% if (modules.elementModal) { %>
+<!-- Element modal -->
 <script type="module" src="scripts/elementModal.js"></script>
-}
-@@if(modules.horizontalScroll) {
+<% } %>
+
+<% if (modules.horizontalScroll) { %>
+<!-- Horizontal scroll -->
 <script type="module" src="scripts/horizontalScroll.js"></script>
-}
-@@if(modules.modalWindow) {
+<% } %>
+
+<% if (modules.modalWindow) { %>
+<!-- Modal window -->
 <script type="module" src="scripts/modalWindow.js"></script>
-}
-@@if(modules.parallax) {
+<% } %>
+
+<% if (modules.parallax) { %>
+<!-- Parallax -->
 <script type="module" src="scripts/parallax.js"></script>
-}
-@@if(modules.scrollToElement) {
-<script type="module" src="scripts/scrollToElement.js"></script>
-}
-@@if(modules.sidebar) {
+<% } %>
+
+<% if (modules.sidebar) { %>
+<!-- Sidebar -->
 <script type="module" src="scripts/sidebar.js"></script>
-}
-@@if(modules.tabs) {
+<% } %>
+
+<% if (modules.scrollToElement) { %>
+<!-- Scroll to element -->
+<script type="module" src="scripts/scrollToElement.js"></script>
+<% } %>
+
+<% if (modules.tabs) { %>
+<!-- Tabs -->
 <script type="module" src="scripts/tab.js"></script>
-}
+<% } %>
