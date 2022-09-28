@@ -19,7 +19,6 @@
 		"gulp-clean-css": "^4.3.0",
 		"gulp-ejs": "^5.1.0",
 		"gulp-esbuild": "^0.10.4",
-		"gulp-file-include": "^2.3.0",
 		"gulp-html-img-to-picture": "^1.0.3",
 		"gulp-if": "^3.0.0",
 		"gulp-libsquoosh": "^1.1.2",
@@ -31,14 +30,13 @@
 		"gulp-version-number": "^0.2.4",
 		"readline-sync": "^1.4.10",
 		"replace-in-file": "^6.3.5",
+		"parse-font-name": "^1.2.0",
 		"sass": "^1.54.5"
 	},
 	"dependencies": {
 		"air-datepicker": "^3.2.0",
-		"gulp-dependents": "^1.2.5",
 		"inputmask": "^5.0.7",
 		"just-validate": "^3.8.1",
-		"parse-font-name": "^1.2.0",
 		"photoswipe": "^5.3.0",
 		"swiper": "^8.3.1",
 		"typed.js": "^2.0.12"
