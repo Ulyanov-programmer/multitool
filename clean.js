@@ -83,11 +83,15 @@ async function setModules() {
 		moduleName: 'Burger-menu',
 		scriptPath: `${scriptModules}burgerMenu${srcExt}`,
 		styleFilePath: `${stylesModules}burgerMenu.sass`,
-		htmlPath: `${componentsFolder}_burgerMenu.htm`,
+		htmlPaths: [
+			`${componentsFolder}_burgerMenu.htm`,
+			`${componentsFolder}_navmenuBtnItem.htm`,
+			`${componentsFolder}_navmenuRefItem.htm`,
+		],
 		htmlConnectStrings: [
 			{
 				path: `${pathToProject}${src}/_header.htm`,
-				strings: "@@include('components/_burgerMenu.htm')",
+				strings: "<%- include('components/_burgerMenu.htm') %>",
 			},
 			{
 				strings: 'burgerMenu: true,',
@@ -105,89 +109,90 @@ async function setModules() {
 		moduleName: 'Modal-Window',
 		scriptPath: `${scriptModules}modalWindow${srcExt}`,
 		styleFilePath: null,
-		htmlPath: `${componentsFolder}_modals.htm`,
+		htmlPaths: [
+			`${componentsFolder}_modals.htm`, 
+		],
 		htmlConnectStrings: [
 			{
-				strings: ["@@include('components/_modals.htm', {})", "modalWindow: true,"]
+				strings: ["<%- include('components/_modals.htm', {}) %>", "modalWindow: true,"]
 			},
 		],
 	})
-
 	await includeModuleByQuestion({
 		moduleName: 'Spoilers',
 		scriptPath: `${scriptModules}spoiler${srcExt}`,
 		styleFilePath: `${stylesModules}spoiler.sass`,
-		htmlPath: null,
-		htmlConnectStrings: [{ strings: 'spoilers: true,' }],
+		htmlPaths: null,
+		htmlConnectStrings: [{ strings: 'spoiler: true,' }],
 	})
 	await includeModuleByQuestion({
 		moduleName: 'Filter',
 		scriptPath: `${scriptModules}filter${srcExt}`,
 		styleFilePath: null,
-		htmlPath: null,
+		htmlPaths: null,
 		htmlConnectStrings: null,
 	})
 	await includeModuleByQuestion({
 		moduleName: 'Submenu',
 		scriptPath: `${scriptModules}submenu${srcExt}`,
 		styleFilePath: `${stylesModules}submenu.sass`,
-		htmlPath: null,
+		htmlPaths: null,
 		htmlConnectStrings: [{ strings: 'submenu: true,' }],
 	})
 	await includeModuleByQuestion({
 		moduleName: 'Tabs',
 		scriptPath: `${scriptModules}tab${srcExt}`,
 		styleFilePath: null,
-		htmlPath: null,
+		htmlPaths: null,
 		htmlConnectStrings: [{ strings: 'tabs: true,' }],
 	})
 	await includeModuleByQuestion({
 		moduleName: 'Element-modal',
 		scriptPath: `${scriptModules}elementModal${srcExt}`,
 		styleFilePath: null,
-		htmlPath: null,
+		htmlPaths: null,
 		htmlConnectStrings: [{ strings: 'elementModal: true,' }],
 	})
 	await includeModuleByQuestion({
 		moduleName: 'Parallax',
 		scriptPath: `${scriptModules}parallax${srcExt}`,
 		styleFilePath: null,
-		htmlPath: null,
+		htmlPaths: null,
 		htmlConnectStrings: [{ strings: 'parallax: true,' }],
 	})
 	await includeModuleByQuestion({
 		moduleName: 'ScrollToElement',
 		scriptPath: `${scriptModules}scrollToElement${srcExt}`,
 		styleFilePath: null,
-		htmlPath: null,
+		htmlPaths: null,
 		htmlConnectStrings: [{ strings: 'scrollToElement: true,' }],
 	})
 	await includeModuleByQuestion({
 		moduleName: 'Animations by scroll',
 		scriptPath: `${scriptModules}animateByScroll${srcExt}`,
 		styleFilePath: null,
-		htmlPath: null,
+		htmlPaths: null,
 		htmlConnectStrings: [{ strings: 'animateByScroll: true,' }],
 	})
 	await includeModuleByQuestion({
 		moduleName: 'Horizontal scroll',
 		scriptPath: `${scriptGeneral}horizontalScroll.ts`,
 		styleFilePath: null,
-		htmlPath: null,
+		htmlPaths: null,
 		htmlConnectStrings: [{ strings: 'horizontalScroll: true,' }],
 	})
 	await includeModuleByQuestion({
-		moduleName: 'Swipe module',
+		moduleName: 'Swipe module (required to switch a sidebar by swipe)',
 		scriptPath: `${scriptModules}swipe${srcExt}`,
 		styleFilePath: null,
-		htmlPath: null,
-		htmlConnectStrings: [{ strings: 'swipe: true,' }],
+		htmlPaths: null,
+		htmlConnectStrings: [{ strings: 'swipe: false,' }],
 	})
 	await includeModuleByQuestion({
 		moduleName: 'Form styles',
 		scriptPath: '',
 		styleFilePath: `${stylesModules}form.sass`,
-		htmlPath: null,
+		htmlPaths: null,
 		htmlConnectStrings: [{ strings: 'formStyles: true,' }],
 	})
 }
@@ -269,7 +274,7 @@ async function setImportModule(importModuleName, importFileVariableName, htmlCon
 }
 
 async function includeModuleByQuestion(
-	{ moduleName, scriptPath, styleFilePath, htmlPath, htmlConnectStrings }) {
+	{ moduleName, scriptPath, styleFilePath, htmlPaths, htmlConnectStrings }) {
 	let questionString = `Include the ${moduleName}? ${hint}`
 	let answer = readline.question(questionString).toLowerCase()
 
@@ -287,8 +292,10 @@ async function includeModuleByQuestion(
 	if (styleFilePath) {
 		fs.removeSync(styleFilePath)
 	}
-	if (htmlPath) {
-		fs.removeSync(htmlPath)
+	if (htmlPaths != undefined && htmlPaths.length > 0) {
+		for (let htmlPath of htmlPaths) {
+			fs.removeSync(htmlPath)
+		}
 	}
 	if (htmlConnectStrings) {
 		for (let htmlConnectStringData of htmlConnectStrings) {
