@@ -27,8 +27,6 @@ const srcDemoFoldersAndFIles = [
 const phpMailerFiles = [
 	`${phpFolder}Exception.php`, `${phpFolder}mail.php`, `${phpFolder}PHPMailer.php`, `${phpFolder}SMTP.php`,
 ]
-const yesLetter = 'y'
-const hint = `(enter [${yesLetter}], or if you not, enter [enter] or another key and [enter])`
 // The extension of typescript source files.
 const srcExt = '.src.ts'
 
@@ -197,16 +195,12 @@ async function setModules() {
 	})
 }
 async function setPhp() {
-	let answer = readline.question(`Include PHP scripts? ${hint}`).toLowerCase()
-
-	if (answer !== yesLetter) {
+	if (readline.keyInYNStrict(`Include PHP scripts?`) == false) {
 		fs.removeSync(phpFolder)
 		return
 	}
 
-	answer = readline.question(`Include PHP-mailer? ${hint}`).toLowerCase()
-
-	if (answer !== yesLetter) {
+	if (readline.keyInYNStrict(`Include PHP-mailer?`) == false) {
 		for (let phpMailerFile of phpMailerFiles) {
 			fs.removeSync(phpMailerFile)
 		}
@@ -255,9 +249,7 @@ function deleteSnippets() {
 }
 
 async function setImportModule(importModuleName, importFileVariableName, htmlConnectString, fileToDelete) {
-	let answer = readline.question(`Import the ${importModuleName}? ${hint}`).toLowerCase()
-
-	if (answer !== yesLetter) {
+	if (readline.keyInYNStrict(`Import the ${importModuleName}?`) == false) {
 		await replace({
 			files: mainHtmlFile,
 			from: htmlConnectString,
@@ -275,10 +267,8 @@ async function setImportModule(importModuleName, importFileVariableName, htmlCon
 
 async function includeModuleByQuestion(
 	{ moduleName, scriptPath, styleFilePath, htmlPaths, htmlConnectStrings }) {
-	let questionString = `Include the ${moduleName}? ${hint}`
-	let answer = readline.question(questionString).toLowerCase()
-
-	if (answer === yesLetter)
+	
+	if (readline.keyInYNStrict(`Include the ${moduleName}?`))
 		return
 
 	if (scriptPath) {
