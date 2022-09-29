@@ -1,34 +1,36 @@
 import './just-validate.production.min.js'
 // import './inputmask.min.js'
 
-// const inputMask = new Inputmask('+7 (999) 999-99-99')
-// const formTel = requestForm.querySelector('input[type="tel"]')
-// inputMask.mask(formTel)
+// const inputMaskTel = new Inputmask('+7 (999) 999-99-99')
+// let telInputSelector = document.querySelector('input[type="tel"]')
+// inputMaskTel.mask(telInputSelector)
 
 new JustValidate('#form', {
 	errorFieldCssClass: 'invalid',
 	errorLabelCssClass: 'invalid',
 	errorLabelStyle: {
+		// position: 'absolute',
+		// top: '0',
+		// left: '0',
 		fontSize: '14px',
 		color: 'white',
 	},
-	errorsContainer: '#errors_container',
+	errorsContainer: '#errorsContainer',
 })
-
-someValidation
-
-	.onSuccess((e) => {
-
-	})
-
-/* ? HINTS
- .addField('.selector', [
+	.addField('[name="inputName"]', [
 
 	])
 
-	? Use this code if you send data through a particular backend system.
-	e.preventDefault()
-	submitRequestForm()
+	.onSuccess((e) => {
+		// ? Use this code if you send data through a particular backend system.
+		// e.preventDefault()
+		// submitRequestForm()
+	})
+
+/* ? HINTS
+	.addField('[name="inputName"]', [
+
+	])
 
 	{
 		rule: 'required',
@@ -37,16 +39,16 @@ someValidation
 	{
 		rule: 'minLength',
 		value: 3,
-		errorMessage: '',
+		errorMessage: 'error',
 	},
 	{
 		rule: 'maxLength',
 		value: 30,
-		errorMessage: '',
+		errorMessage: 'error',
 	},
 	{
 		rule: 'email',
-		errorMessage: '',
+		errorMessage: 'error',
 	},
 
 	? Write below the selector of CONTAINER with radio/checkbox inputs.
@@ -55,13 +57,22 @@ someValidation
 		'Message'
 	)
 
+	? only LETTERS and NUMBERS, with spaces.
+	{
+		rule: 'function',
+		validator: (str) => {
+			return /^[a-zA-Z1-9() ]+$/.test(str)
+		},
+		errorMessage: 'error',
+	},
+
 	? only LETTERS, with spaces.
 	{
 		rule: 'function',
 		validator: (str) => {
 			return /^[a-zA-Z() ]+$/.test(str)
 		},
-		errorMessage: '',
+		errorMessage: 'error',
 	},
 
 	? only CAPITAL LETTERS, with spaces.
@@ -70,7 +81,16 @@ someValidation
 		validator: (str) => {
 			return /^[A-Z() ]+$/.test(str)
 		},
-		errorMessage: '',
+		errorMessage: 'error',
+	},
+
+	? only NUMBERS with min count.
+	{
+		rule: 'function',
+		validator: (str) => {
+			return /^[0-9]{countOfNumbers}/.test(str)
+		},
+		errorMessage: 'error',
 	},
 
 	{
@@ -78,16 +98,17 @@ someValidation
 		validator: () => {
 			return true
 		},
-		errorMessage: '',
+		errorMessage: 'error',
 	},
 
 	? Checking for a number
 	{
 		rule: 'function',
-		validator: (number) => {
-			return Number(number) > 0
+		validator: () => {
+			let phoneUnmaskedValue = telInputSelector.inputmask.unmaskedvalue()
+			return Number(phoneUnmaskedValue) && phoneUnmaskedValue.length > 9
 		},
-		errorMessage: '',
+		errorMessage: 'error',
 	},
 
 	? File input validation
@@ -100,7 +121,7 @@ someValidation
 			minSize: 1000,
 			maxSize: 25000,
 		},
-		errorMessage: '',
+		errorMessage: 'error',
 	}
 	? Sending a mail.
 	let formData = new FormData(e.target)
