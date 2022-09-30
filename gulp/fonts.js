@@ -1,4 +1,4 @@
-import { fs, parseNumericWeightFromName, parseStyleFromName, ttf2woff2, fontsFIlePath, paths, gulp, } from './importSources.js'
+import { fs, parseNumericWeightFromName, parseStyleFromName, ttf2woff2, fontsFIlePath, paths, gulp, } from './exportSources.js'
 
 export default function fonts() {
 	gulp.src(paths.scr.fontsWoff)

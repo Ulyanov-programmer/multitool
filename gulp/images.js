@@ -1,4 +1,4 @@
-import { squoosh, svgmin, gulpIf, isProd, paths, gulp, browsersync, gulpChanged, } from './importSources.js'
+import { squoosh, svgmin, gulpIf, isProd, paths, gulp, browsersync, gulpChanged, } from './exportSources.js'
 
 export default function imagesOther() {
 	return gulp.src(paths.scr.imagesOther)

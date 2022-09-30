@@ -1,4 +1,4 @@
-import { paths, gulp, browsersyncFunc, } from './gulp/importSources.js'
+import { paths, gulp, browsersyncFunc, } from './gulp/exportSources.js'
 
 import html from './gulp/html.js'
 import php from './gulp/php.js'

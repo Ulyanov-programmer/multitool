@@ -1,6 +1,6 @@
 import {
 	imgToPicture, versionNumber, gulpIf, isProd, paths, gulp, browsersync, ejs,
-} from './importSources.js'
+} from './exportSources.js'
 
 export default function html() {
 	return gulp.src(paths.scr.html)

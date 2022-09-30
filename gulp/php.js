@@ -1,4 +1,4 @@
-import { paths, gulp, browsersync, } from './importSources.js'
+import { paths, gulp, browsersync, } from './exportSources.js'
 
 export default function php() {
 	return gulp.src(paths.scr.php, { since: gulp.lastRun(php) })

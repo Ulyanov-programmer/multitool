@@ -1,6 +1,6 @@
 import {
 	sass, cleanCss, autoprefixer, rename, gulpIf, isProd, paths, gulp, browsersync, cache,
-} from './importSources.js'
+} from './exportSources.js'
 
 export default function css() {
 	return gulp.src(paths.scr.css)

@@ -1,4 +1,4 @@
-import { esbuild, gulpIf, isProd, paths, gulp, browsersync, } from './importSources.js'
+import { esbuild, gulpIf, isProd, paths, gulp, browsersync, } from './exportSources.js'
 
 export default function scriptModules() {
 	return gulp.src(paths.scr.scriptModules, { since: gulp.lastRun(scriptModules) })
