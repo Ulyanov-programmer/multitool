@@ -13,7 +13,15 @@ export default function imagesOther() {
 
 export function imagesJpg() {
 	return gulp.src(paths.scr.imagesJpg)
-		.pipe(gulpChanged(paths.build.images, { extension: '.jpg' }))
+		.pipe(gulpIf(isProd == false,
+			gulpChanged(paths.build.images, { extension: '.jpg' }))
+		)
+		.pipe(gulpIf(isProd,
+			gulpChanged(paths.build.images, { extension: '.webp' }))
+		)
+		.pipe(gulpIf(isProd,
+			gulpChanged(paths.build.images, { extension: '.avif' }))
+		)
 		.pipe(
 			gulpIf(isProd, squoosh({
 				mozjpeg: {},
@@ -28,15 +36,16 @@ export function imagesJpg() {
 
 export function imagesPng() {
 	return gulp.src(paths.scr.imagesPng)
-		.pipe(gulpIf(isProd == false, 
+		.pipe(gulpIf(isProd == false,
 			gulpChanged(paths.build.images, { extension: '.png' }))
 		)
-		.pipe(gulpIf(isProd, 
+		.pipe(gulpIf(isProd,
 			gulpChanged(paths.build.images, { extension: '.webp' }))
 		)
-		.pipe(gulpIf(isProd, 
+		.pipe(gulpIf(isProd,
 			gulpChanged(paths.build.images, { extension: '.avif' }))
 		)
+
 		.pipe(
 			gulpIf(isProd, squoosh({
 				oxipng: {},

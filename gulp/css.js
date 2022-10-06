@@ -4,12 +4,7 @@ import {
 
 export default function css() {
 	return gulp.src(paths.scr.css)
-		.pipe(cache(sass()), {
-			name: 'css'
-		}).on('error', (err) => {
-			console.log(err.toString())
-			this.emit('end')
-		})
+		.pipe(sass())
 
 		.pipe(
 			gulpIf(isProd,
