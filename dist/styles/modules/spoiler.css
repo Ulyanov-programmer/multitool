@@ -1,0 +1,12 @@
+/* Insert layout width from design below.
+ * If you set the correct value, the font size on the site and on the layout with the same viewport width will be the same. */
+.spoiler {
+  position: relative;
+  transition: all 0.3s ease;
+}
+.spoiler__btn {
+  display: flex;
+  flex-flow: row nowrap;
+  width: 100%;
+  cursor: pointer;
+}

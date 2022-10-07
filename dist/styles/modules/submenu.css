@@ -1,0 +1,32 @@
+/* Insert layout width from design below.
+ * If you set the correct value, the font size on the site and on the layout with the same viewport width will be the same. */
+.submenu-wrapper {
+  position: relative;
+}
+
+.submenu-menu {
+  position: absolute;
+  z-index: 1;
+  background: white;
+  top: 100%;
+  width: max-content;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.2s ease;
+}
+.submenu-menu.show {
+  overflow: auto;
+  opacity: 1;
+  pointer-events: all;
+}
+.submenu-menu_to-left {
+  right: 0;
+}
+.submenu-menu_to-right {
+  left: 0;
+}
+.submenu-menu_center {
+  left: 50%;
+  transform: translate(-50%, 0);
+}

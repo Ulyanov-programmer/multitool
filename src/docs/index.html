@@ -1,0 +1,161 @@
+@@include('_head.htm', {
+'title': 'gulp_multitool'
+})
+
+<body>
+	@@include('_header.htm', {
+	'title': 'Welcome!'
+	})
+	<main class="main">
+		<div class="main__body">
+			<section class='section block'>
+				<div class='section__body'>
+					<h2 tabindex='0' class='section__title'>In summary</h2>
+					<div class="section__buttons">
+						<a href="advantages.html?b=._stylus" class="section__ref-block block">CSS</a>
+						<a href="advantages.html?b=._scripts" class="section__ref-block block">Scripts</a>
+						<a href="advantages.html?b=._img" class="section__ref-block block">Images</a>
+						<a href="advantages.html?b=._swiper" class="section__ref-block block">Autoincluding of the swiper</a>
+						<a href="advantages.html?b=._fonts" class="section__ref-block block">Fast connection of fonts</a>
+						<a href="advantages.html?b=._required" class="section__ref-block block">Another required</a>
+						<a href="advantages.html?b=._structure" class="section__ref-block block">Structure</a>
+					</div>
+				</div>
+			</section>
+			<section class='section block'>
+				<div class='section__body'>
+					<h2 tabindex='0' class='section__title'>Ready-to-use code</h2>
+					<div class="section__buttons">
+						<a href="scripts.html?b=._submenu" class="section__ref-block block">Submenu</a>
+						<a href="scripts.html?b=._animByScroll" class="section__ref-block block">AnimByScroll</a>
+						<a href="scripts.html?b=._tabs" class="section__ref-block block">Tabs</a>
+						<a href="scripts.html?b=._elemModal" class="section__ref-block block">Element-Modal</a>
+						<a href="scripts.html?b=._filter" class="section__ref-block block">Filter</a>
+						<a href="scripts.html?b=._parallax" class="section__ref-block block">Parallax</a>
+						<a href="scripts.html?b=._scroll" class="section__ref-block block">Scroll</a>
+						<a href="scripts.html?b=._spoilers" class="section__ref-block block">Spoilers</a>
+						<a href="scripts.html?b=._swipe" class="section__ref-block block">Swipe</a>
+					</div>
+				</div>
+			</section>
+			<section class='section block'>
+				<div class='section__body'>
+					<h2 tabindex='0' class='section__title'>Get started</h2>
+					<div class="section__buttons">
+						<a href="getStarted.html" class="section__ref-block block">Load</a>
+						<a href="getStarted.html?b=._launch" class="section__ref-block block">Launch</a>
+						<a href="getStarted.html?b=._clear" class="section__ref-block block">Clear</a>
+						<a href="getStarted.html?b=._production" class="section__ref-block block">Production mode</a>
+					</div>
+				</div>
+			</section>
+			<section class='section block'>
+				<div class='section__body'>
+					<h2 tabindex='0' class='section__title'>Some rules</h2>
+					<div class="section__buttons">
+						<a href="rules.html?b=._html" class="section__ref-block block">Html</a>
+						<a href="rules.html?b=._stylus" class="section__ref-block block">Stylus</a>
+						<a href="rules.html?b=._ts" class="section__ref-block block">Scripts</a>
+					</div>
+				</div>
+			</section>
+			<section id="packages" class='section block'>
+				<div class='section__body'>
+					<h2 tabindex='0' class='section__title'>Used packages</h2>
+					<ul class="section__list section__list_not-style">
+						<li class="section__li">
+							replace-in-file 6.3.2
+						</li>
+						<li class="section__li">
+							fs-extra 10.0.0
+						</li>
+						<li class="section__li">
+							readline-sync 1.4.10
+						</li>
+						<li class="section__li">
+							chokidar 3.5.3
+						</li>
+						<li class="section__li">
+							gulp-changed 4.0.3
+						</li>
+						<li class="section__li">
+							gulp-html-img-to-picture 1.0.2
+						</li>
+						<li class="section__li">
+							gulp-plumber 1.2.1
+						</li>
+						<li class="section__li">
+							uuid 8.3.2
+						</li>
+						<li class="section__li">
+							browser-sync 2.27.9
+						<li class="section__li">
+							del 6.0.0
+						</li>
+						<li class="section__li">
+							gulp 4.0.2
+						</li>
+						<li class="section__li">
+							gulp-autoprefixer 8.0.0
+						</li>
+						<li class="section__li">
+							gulp-avif-webp-html 1.0.2
+						</li>
+						<li class="section__li">
+							gulp-util 3.0.8
+						</li>
+						<li class="section__li">
+							gulp-clean-css 4.3.0
+						</li>
+						<li class="section__li">
+							gulp-file-include 2.3.0
+						</li>
+						<li class="section__li">
+							gulp-group-css-media-queries 1.2.2
+						<li class="section__li">
+							gulp-if 3.0.0
+						</li>
+						<li class="section__li">
+							gulp-imagemin 8.0.0
+						</li>
+						<li class="section__li">
+							gulp-libsquoosh 1.1.2
+						</li>
+						<li class="section__li">
+							gulp-rename 2.0.0
+						</li>
+						<li class="section__li">
+							gulp-stylus 2.7.1
+						</li>
+						<li class="section__li">
+							gulp-terser 2.1.0
+						</li>
+						<li class="section__li">
+							gulp-ttf2woff2 4.0.1
+						</li>
+						<li class="section__li">
+							gulp-typescript 6.0.0-alpha.1
+						</li>
+						<li class="section__li">
+							typescript 4.6.3
+						</li>
+						<li class="section__li">
+							swiper 8.1.0
+						</li>
+					</ul>
+				</div>
+			</section>
+		</div>
+	</main>
+</body>
+
+@@include('_scripts.htm', {
+	'spoilers': false,
+	'tabs': false,
+})
+
+</html>
+
+<!-- 
+  Made in Russia, with ❤, by Ivan Ulyanov. 
+-->

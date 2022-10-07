@@ -1,0 +1,49 @@
+/* Insert layout width from design below.
+ * If you set the correct value, the font size on the site and on the layout with the same viewport width will be the same. */
+.burger-menu {
+  z-index: 4 !important;
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 100vw;
+  height: 100vh;
+  transform: translate3d(0, -100%, 0);
+  transition: all 0.3s ease;
+}
+@media (min-width: 768px) {
+  .burger-menu {
+    display: none;
+  }
+}
+.burger-menu.active {
+  transform: translate3d(0, 0%, 0);
+}
+.burger-menu__body {
+  background: rgba(0, 0, 0, 0.3);
+  overflow: auto;
+  height: 100%;
+}
+.burger-menu__body ul .fs-element > * {
+  display: flex;
+  justify-content: center;
+  color: inherit;
+  padding: 25px 0px;
+}
+
+.burger-btn {
+  z-index: 5;
+  display: block;
+}
+@media (min-width: 768px) {
+  .burger-btn {
+    display: none;
+  }
+}
+.burger-btn__svg * {
+  transition: all 0.3s ease;
+}
+@media (max-width: 768px) {
+  .navmenu {
+    display: none;
+  }
+}

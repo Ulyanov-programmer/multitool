@@ -1,0 +1,40 @@
+<%- include('components/_headContent.htm', {
+	lang: 'en',
+	title: 'MainPage',
+	preloadedFontName: 'fontName',
+}) %>
+
+<%- include('components/_connectModules.htm', { modules: {
+	justValidate: false,
+	swiper: false,
+	photoSwipe: false,
+	burgerMenu: false,
+	formStyles: false,
+	sidebar: false,
+	spoiler: false,
+	submenu: false,
+	animateByScroll: false,
+	elementModal: false,
+	horizontalScroll: false,
+	modalWindow: false,
+	parallax: false,
+	scrollToElement: false,
+	tabs: false,
+}}) %>
+
+<!-- /-/ Stylesheets and scripts for this page -->
+<link rel="stylesheet" href="styles/index.css">
+</head>
+
+<body>
+  <%- include('_header.htm') %>
+
+
+
+  <%- include('_footer.htm') %>
+
+  <%- include('components/_modals.htm', {}) %>
+</body>
+
+</html>
+<!-- Made in Russia, with ❤, by Ivan Ulyanov. -->

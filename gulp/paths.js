@@ -1,7 +1,5 @@
-import * as nodePath from 'path'
-
-export const project = nodePath.basename(nodePath.resolve())
-export const source = '#src'
+export const project = 'dist'
+export const source = 'src'
 
 export const paths = {
 	build: {

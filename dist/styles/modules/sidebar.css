@@ -1,0 +1,51 @@
+/* Insert layout width from design below.
+ * If you set the correct value, the font size on the site and on the layout with the same viewport width will be the same. */
+.sidebar {
+  z-index: 3;
+  height: 100%;
+  width: 40vw;
+  transition: all 0.5s ease;
+}
+@media (max-width: 768px) {
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 100vw;
+  }
+  .sidebar.active {
+    width: 70vw;
+    left: 30vw;
+  }
+}
+.sidebar__body {
+  padding: 20px;
+  overflow: auto;
+}
+.sidebar__toggle-btn {
+  z-index: 4;
+  position: relative;
+}
+
+.swipe_window__swipe_area {
+  z-index: 2;
+  position: fixed;
+  top: 0;
+  right: 0;
+  user-select: none;
+  height: 100vh;
+  width: 20vw;
+}
+.swipe_window__swipe_area:hover {
+  cursor: grab;
+}
+.swipe_window__swipe_area:active {
+  cursor: grabbing;
+}
+@media (min-width: 768px) {
+  .swipe_window__swipe_area {
+    display: none;
+  }
+}
+.swipe_window__swipe_area.active {
+  width: 100vw;
+}
