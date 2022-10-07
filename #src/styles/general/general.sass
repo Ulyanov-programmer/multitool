@@ -1,4 +1,25 @@
-@use '../connectHelper' as *
+@use '../sassEnv' as *
+
+:root
+	--main-font-family: arial
+	--text-c: black
+	--bg: white
+
+._container
+	margin: auto
+
+	@media (min-width: #{$layoutWidth + px})
+		// Insert the width of the container as a percentage of the width of the layout.
+		width: 70vw
+
+	@media (min-width: 768px) and (max-width: #{$layoutWidth + px})
+		width: 80vw
+
+	@media (min-width: 426px) and (max-width: 768px)
+		width: 90vw
+
+	@media (max-width: 426px)
+		width: 95vw
 
 html
 	scroll-behavior: smooth
@@ -29,18 +50,6 @@ body
 
 	&__closer
 		color: #7d7d7d
-
-.searchbar
-	+flex-set(row, nowrap)
-
-	&__input
-		transition: all 0.3s ease
-
-	&__submit
-		transition: all 0.3s ease
-
-		img
-			+block-size(20px)
 
 ._contain-img
 	img

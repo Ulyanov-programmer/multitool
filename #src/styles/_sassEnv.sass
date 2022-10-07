@@ -1,6 +1,13 @@
-@use 'vars' as *
 @use "sass:math"
 @use "sass:string"
+
+/* 
+	Insert layout width from design below.
+	If you set the correct value, the font size on the site and on the layout with the same viewport width will be the same. */
+$layoutWidth: 1440
+
+$mainFontSize: 16
+$minFontSize: 12
 
 @mixin block-size($width, $height: $width)
 	width: $width
