@@ -15,6 +15,8 @@ const scriptGeneral = `${pathToProject}${src}/scripts/`
 const stylesModules = `${pathToProject}${src}/styles/modules/`
 const componentsFolder = `${pathToProject}${src}/components/`
 const phpFolder = `${pathToProject}${src}/php/`
+const sassEnvFilePath = `${pathToProject}${src}/styles/_sassEnv.sass`
+const generalStyleFilePath = `${pathToProject}${src}/styles/general/general.sass`
 
 const fontsGitkeep = `${src}/fonts/.gitkeep`
 const mainStyleFile = `${pathToProject}${src}/styles/index.sass`
@@ -45,7 +47,13 @@ setModules()
 setPhp()
 deleteUnusedFolders()
 
-log('I wish You a successful job! 🎆🎆🎆')
+log(`The configuration of files and folders is complete.
+Now, i suggest you change the values of the main variables.`)
+
+setGeneralVariables()
+
+log(`The setup is completely complete! I wish You a successful job. 
+🎆🎆🎆`)
 
 
 function setImportModules() {
@@ -253,6 +261,15 @@ function setPhp() {
 		}
 	}
 }
+function setGeneralVariables() {
+	setVariable('--main-font-family', 'The main font on the pages. Be sure to check the value in the general.sass file after auto-connecting fonts after starting the build.', 'arial', generalStyleFilePath)
+	setVariable('--text-c', 'Main text color.', 'black', generalStyleFilePath)
+	setVariable('--bg', 'Background of pages.', 'white', generalStyleFilePath)
+
+	setVariable('$layoutWidth', 'Layout width from design (just number).', '1440', sassEnvFilePath)
+	setVariable('$mainFontSize', 'The main font size on the pages. By default, see the desktop version (just number).', '16', sassEnvFilePath)
+	setVariable('$minFontSize', 'The minimum font size that will be achievable on mobile devices (just number).', '12', sassEnvFilePath)
+}
 
 function deleteDemoContent() {
 	for (let pathToDemo of srcDemoFoldersAndFIles) {
@@ -375,4 +392,16 @@ function deleteFolder(folderPath, messageOnSuccessful) {
 }
 function folderIsEmpty(path) {
 	return fs.readdirSync(path).length == 0
+}
+
+function setVariable(variableName, message, defaultValue, variableFilePath) {
+	let newVariableValue = readline.question(
+		`${message} \n ${variableName}: `
+	)
+
+	replace.sync({
+		files: variableFilePath,
+		from: `${variableName}: ${defaultValue}`, 
+		to: `${variableName}: ${newVariableValue}`
+	})
 }
