@@ -2,13 +2,14 @@ import fs from 'fs-extra'
 import path from 'path'
 import replace from 'replace-in-file'
 import * as readline from "readline-sync"
+import { log } from 'console'
 
 
 const pathToProject = path.resolve('./')
 const demoProjectFolderName = `${pathToProject}/gulp_multitool`
 const snippetsFolderName = `${pathToProject}/snippets`
 const readmeFolder = `${pathToProject}/readmeFiles`
-const src = '/#src'
+const src = '/src'
 const scriptModules = `${pathToProject}${src}/scripts/modules/`
 const scriptGeneral = `${pathToProject}${src}/scripts/`
 const stylesModules = `${pathToProject}${src}/styles/modules/`
@@ -17,9 +18,11 @@ const phpFolder = `${pathToProject}${src}/php/`
 
 const fontsGitkeep = `${src}/fonts/.gitkeep`
 const mainStyleFile = `${pathToProject}${src}/styles/index.sass`
+const modulesStyleFolder = `${pathToProject}${src}/styles/modules`
 const mainHtmlFile = `${pathToProject}${src}/index.html`
 const gulpImportModulesFile = `${pathToProject}/gulp/importModules.js`
 const gulpFile = `${pathToProject}/gulpfile.js`
+const readmeFilePath = `${pathToProject}/README.md`
 
 const srcDemoFoldersAndFIles = [
 	`${pathToProject}${src}/docs`, `${pathToProject}${src}/img/demo`,
@@ -35,49 +38,51 @@ deleteDemoContent()
 cleanReadmeFilesAndFolders()
 deleteSnippets()
 deleteDemoProject()
+deleteGitKeep()
 
-await setImportModules()
-await setModules()
-await setPhp()
+setImportModules()
+setModules()
+setPhp()
+deleteUnusedFolders()
 
-console.log('I wish You a successful job! 🎆🎆🎆')
+log('I wish You a successful job! 🎆🎆🎆')
 
 
-async function setImportModules() {
-	await setImportModule(
+function setImportModules() {
+	setImportModule(
 		`Just-validate`,
 		'justValidate',
-		'justValidate: true,',
+		'justValidate: false,',
 		`${pathToProject}${src}/scripts/justValidate.js`)
 
-	await setImportModule(
+	setImportModule(
 		`Slider Swiper`,
 		'swiper',
-		'swiper: true,',
+		'swiper: false,',
 		`${pathToProject}${src}/scripts/sliders.js`)
 
-	await setImportModule(
+	setImportModule(
 		`Typed`,
 		'typed',
-		'typed: true,',
+		'typed: false,',
 		`${pathToProject}${src}/scripts/typed.js`)
 
-	await setImportModule(
+	setImportModule(
 		`Input Mask`,
 		'inputMask', '')
 
-	await setImportModule(
+	setImportModule(
 		`Air Date Picker`,
 		'airDatePicker', '')
 
-	await setImportModule(
+	setImportModule(
 		`Photo Swipe`,
 		'photoSwipe',
-		'photoSwipe: true,',
+		'photoSwipe: false,',
 		`${pathToProject}${src}/scripts/photoSwipe.js`)
 }
-async function setModules() {
-	await includeModuleByQuestion({
+function setModules() {
+	includeModuleByQuestion({
 		moduleName: 'Burger-menu',
 		scriptPaths: [
 			`${scriptModules}burgerMenu${srcExt}`,
@@ -95,11 +100,11 @@ async function setModules() {
 				strings: "<%- include('components/_burgerMenu.htm') %>",
 			},
 			{
-				strings: 'burgerMenu: true,',
+				strings: 'burgerMenu: false,',
 			},
 		],
 	})
-	await includeModuleByQuestion({
+	includeModuleByQuestion({
 		moduleName: 'Sidebar',
 		scriptPaths: [
 			`${scriptModules}sidebar${srcExt}`,
@@ -107,9 +112,9 @@ async function setModules() {
 		],
 		styleFilePath: `${stylesModules}sidebar.sass`,
 		htmlPath: null,
-		htmlConnectStrings: [{ strings: 'sidebar: true,' }],
+		htmlConnectStrings: [{ strings: 'sidebar: false,' }],
 	})
-	await includeModuleByQuestion({
+	includeModuleByQuestion({
 		moduleName: 'Modal-Window',
 		scriptPaths: [
 			`${scriptModules}modalWindow${srcExt}`,
@@ -121,11 +126,14 @@ async function setModules() {
 		],
 		htmlConnectStrings: [
 			{
-				strings: ["<%- include('components/_modals.htm', {}) %>", "modalWindow: true,"]
+				strings: "<%- include('components/_modals.htm', {}) %>",
+			},
+			{
+				strings: "modalWindow: false,"
 			},
 		],
 	})
-	await includeModuleByQuestion({
+	includeModuleByQuestion({
 		moduleName: 'Spoilers',
 		scriptPaths: [
 			`${scriptModules}spoiler${srcExt}`,
@@ -133,9 +141,9 @@ async function setModules() {
 		],
 		styleFilePath: `${stylesModules}spoiler.sass`,
 		htmlPaths: null,
-		htmlConnectStrings: [{ strings: 'spoiler: true,' }],
+		htmlConnectStrings: [{ strings: 'spoiler: false,' }],
 	})
-	await includeModuleByQuestion({
+	includeModuleByQuestion({
 		moduleName: 'Filter',
 		scriptPaths: [
 			`${scriptModules}filter${srcExt}`,
@@ -145,7 +153,7 @@ async function setModules() {
 		htmlPaths: null,
 		htmlConnectStrings: null,
 	})
-	await includeModuleByQuestion({
+	includeModuleByQuestion({
 		moduleName: 'Submenu',
 		scriptPaths: [
 			`${scriptModules}submenu${srcExt}`,
@@ -153,9 +161,9 @@ async function setModules() {
 		],
 		styleFilePath: `${stylesModules}submenu.sass`,
 		htmlPaths: null,
-		htmlConnectStrings: [{ strings: 'submenu: true,' }],
+		htmlConnectStrings: [{ strings: 'submenu: false,' }],
 	})
-	await includeModuleByQuestion({
+	includeModuleByQuestion({
 		moduleName: 'Tabs',
 		scriptPaths: [
 			`${scriptModules}tab${srcExt}`,
@@ -163,9 +171,9 @@ async function setModules() {
 		],
 		styleFilePath: null,
 		htmlPaths: null,
-		htmlConnectStrings: [{ strings: 'tabs: true,' }],
+		htmlConnectStrings: [{ strings: 'tabs: false,' }],
 	})
-	await includeModuleByQuestion({
+	includeModuleByQuestion({
 		moduleName: 'Element-modal',
 		scriptPaths: [
 			`${scriptModules}elementModal${srcExt}`,
@@ -173,9 +181,9 @@ async function setModules() {
 		],
 		styleFilePath: null,
 		htmlPaths: null,
-		htmlConnectStrings: [{ strings: 'elementModal: true,' }],
+		htmlConnectStrings: [{ strings: 'elementModal: false,' }],
 	})
-	await includeModuleByQuestion({
+	includeModuleByQuestion({
 		moduleName: 'Parallax',
 		scriptPaths: [
 			`${scriptModules}parallax${srcExt}`,
@@ -183,9 +191,9 @@ async function setModules() {
 		],
 		styleFilePath: null,
 		htmlPaths: null,
-		htmlConnectStrings: [{ strings: 'parallax: true,' }],
+		htmlConnectStrings: [{ strings: 'parallax: false,' }],
 	})
-	await includeModuleByQuestion({
+	includeModuleByQuestion({
 		moduleName: 'ScrollToElement',
 		scriptPaths: [
 			`${scriptModules}scrollToElement${srcExt}`,
@@ -193,9 +201,9 @@ async function setModules() {
 		],
 		styleFilePath: null,
 		htmlPaths: null,
-		htmlConnectStrings: [{ strings: 'scrollToElement: true,' }],
+		htmlConnectStrings: [{ strings: 'scrollToElement: false,' }],
 	})
-	await includeModuleByQuestion({
+	includeModuleByQuestion({
 		moduleName: 'Animations by scroll',
 		scriptPaths: [
 			`${scriptModules}animateByScroll${srcExt}`,
@@ -204,18 +212,18 @@ async function setModules() {
 		],
 		styleFilePath: null,
 		htmlPaths: null,
-		htmlConnectStrings: [{ strings: 'animateByScroll: true,' }],
+		htmlConnectStrings: [{ strings: 'animateByScroll: false,' }],
 	})
-	await includeModuleByQuestion({
+	includeModuleByQuestion({
 		moduleName: 'Horizontal scroll',
 		scriptPaths: [
 			`${scriptGeneral}horizontalScroll.ts`,
 		],
 		styleFilePath: null,
 		htmlPaths: null,
-		htmlConnectStrings: [{ strings: 'horizontalScroll: true,' }],
+		htmlConnectStrings: [{ strings: 'horizontalScroll: false,' }],
 	})
-	await includeModuleByQuestion({
+	includeModuleByQuestion({
 		moduleName: 'Swipe module (required to switch a sidebar by swipe)',
 		scriptPaths: [
 			`${scriptModules}swipe${srcExt}`,
@@ -225,15 +233,15 @@ async function setModules() {
 		htmlPaths: null,
 		htmlConnectStrings: [{ strings: 'swipe: false,' }],
 	})
-	await includeModuleByQuestion({
+	includeModuleByQuestion({
 		moduleName: 'Form styles',
 		scriptPaths: [],
 		styleFilePath: `${stylesModules}form.sass`,
 		htmlPaths: null,
-		htmlConnectStrings: [{ strings: 'formStyles: true,' }],
+		htmlConnectStrings: [{ strings: 'formStyles: false,' }],
 	})
 }
-async function setPhp() {
+function setPhp() {
 	if (readline.keyInYNStrict(`Include PHP scripts?`) == false) {
 		fs.removeSync(phpFolder)
 		return
@@ -247,54 +255,55 @@ async function setPhp() {
 }
 
 function deleteDemoContent() {
-	try {
-		for (let pathToDemo of srcDemoFoldersAndFIles) {
-			fs.removeSync(pathToDemo)
-		}
-
-		console.log('✅ The demo content have been deleted.')
-	} catch (error) {
-		console.log('❌' + error)
+	for (let pathToDemo of srcDemoFoldersAndFIles) {
+		deleteFolder(pathToDemo)
 	}
+
+	log('✅ The demo content have been deleted.')
 }
 function cleanReadmeFilesAndFolders() {
-	try {
-		fs.emptyDirSync(readmeFolder)
-		fs.removeSync(`${pathToProject}/README.md`)
-		fs.createFileSync('README.md')
+	deleteFolder(readmeFolder, 'The readme folder have been deleted.')
+	deleteFolder(readmeFilePath)
+	fs.createFileSync('README.md')
 
-		console.log('✅ The readme folder and file are clean.')
-	} catch (error) {
-		console.log('❌' + error)
-	}
+	log('✅ The readme file are clean.')
 }
 function deleteDemoProject() {
-	try {
-		fs.removeSync(demoProjectFolderName)
-
-		console.log('✅ Demo Project have been deleted.')
-	} catch (error) {
-		console.log('❌' + error)
-	}
+	deleteFolder(demoProjectFolderName, 'Demo Project have been deleted.')
 }
 function deleteSnippets() {
-	try {
-		fs.removeSync(snippetsFolderName)
-
-		console.log('✅ Snippets have been deleted.')
-	} catch (error) {
-		console.log('❌' + error)
+	deleteFolder(snippetsFolderName, 'Snippets have been deleted.')
+}
+function deleteGitKeep() {
+	deleteFolder(fontsGitkeep, 'Gitkeep have been deleted.')
+}
+function deleteUnusedFolders() {
+	if (folderIsEmpty(modulesStyleFolder)) {
+		deleteFolder(modulesStyleFolder)
 	}
+	if (folderIsEmpty(phpFolder)) {
+		deleteFolder(phpFolder)
+	}
+
+	log('✅ Unused folders have been deleted.')
 }
 
-async function setImportModule(importModuleName, importFileVariableName, htmlConnectString, fileToDelete) {
-	if (readline.keyInYNStrict(`Import the ${importModuleName}?`) == false) {
-		await replace({
+function setImportModule(importModuleName, importFileVariableName, htmlConnectString, fileToDelete) {
+	if (readline.keyInYNStrict(`Import the ${importModuleName}?`)) {
+		let newHtmlConnectString = htmlConnectString.replace('false', 'true')
+
+		replace.sync({
+			files: mainHtmlFile,
+			from: htmlConnectString,
+			to: newHtmlConnectString,
+		})
+	} else {
+		replace.sync({
 			files: mainHtmlFile,
 			from: htmlConnectString,
 			to: '',
 		})
-		await replace({
+		replace.sync({
 			files: gulpImportModulesFile,
 			from: `export let ${importFileVariableName}`,
 			to: `let ${importFileVariableName}`,
@@ -304,11 +313,14 @@ async function setImportModule(importModuleName, importFileVariableName, htmlCon
 	}
 }
 
-async function includeModuleByQuestion(
+function includeModuleByQuestion(
 	{ moduleName, scriptPaths, styleFilePath, htmlPaths, htmlConnectStrings }) {
 
-	if (readline.keyInYNStrict(`Include the ${moduleName}?`))
+	if (readline.keyInYNStrict(`Include the ${moduleName}?`)) {
+		replaceHtmlConnectionString(htmlConnectStrings, 'false', 'true')
+
 		return
+	}
 
 	if (scriptPaths.length > 0) {
 		for (let scriptPath of scriptPaths) {
@@ -323,15 +335,44 @@ async function includeModuleByQuestion(
 			fs.removeSync(htmlPath)
 		}
 	}
-	if (htmlConnectStrings) {
-		for (let htmlConnectStringData of htmlConnectStrings) {
-			if (htmlConnectStringData.path == undefined)
-				htmlConnectStringData.path = mainHtmlFile
+	replaceHtmlConnectionString(htmlConnectStrings)
+}
 
-			await replace({
-				files: htmlConnectStringData.path,
-				from: htmlConnectStringData.strings, to: '',
-			})
+function replaceHtmlConnectionString(htmlConnectStrings, replacedValue, replacedNewValue) {
+	if (htmlConnectStrings == undefined)
+		return
+
+	for (let htmlConnectStringData of htmlConnectStrings) {
+		if (htmlConnectStringData.path == undefined)
+			htmlConnectStringData.path = mainHtmlFile
+
+
+		let newHtmlConnectString
+
+		if (replacedValue == undefined || replacedNewValue == undefined) {
+			newHtmlConnectString = ''
+		} else {
+			newHtmlConnectString = htmlConnectStringData.strings.replace(replacedValue, replacedNewValue)
 		}
+
+		replace.sync({
+			files: htmlConnectStringData.path,
+			from: htmlConnectStringData.strings, to: newHtmlConnectString,
+		})
 	}
+}
+
+function deleteFolder(folderPath, messageOnSuccessful) {
+	try {
+		fs.removeSync(folderPath)
+
+		if (messageOnSuccessful)
+			log(`✅ ${messageOnSuccessful}`)
+
+	} catch (error) {
+		log('❌' + error)
+	}
+}
+function folderIsEmpty(path) {
+	return fs.readdirSync(path).length == 0
 }
