@@ -1,9 +1,7 @@
-import { esbuild, paths, gulp, browsersync, gulpChanged } from './exportSources.js'
+import { esbuild, paths, gulp, browsersync, } from './exportSources.js'
 
 export default function scripts() {
-	return gulp.src(paths.scr.scripts)
-		.pipe(gulpChanged(paths.build.scripts, { extension: '.js' }))
-
+	return gulp.src(paths.scr.scripts, { since: gulp.lastRun(scripts) })
 		.pipe(esbuild({
 			target: 'es2018',
 		}))

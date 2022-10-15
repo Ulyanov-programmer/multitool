@@ -10,6 +10,7 @@ export const paths = {
 		scriptModules: `${project}/scripts/modules/`,
 		images: `${project}/img/`,
 		fonts: `${project}/fonts/`,
+		libs: `${project}/libs/`,
 	},
 	scr: {
 		html: [`${source}/**/*.html`, `!${source}/**/*.htm`],
@@ -24,6 +25,7 @@ export const paths = {
 		fonts: `${source}/fonts/*.{ttf,otf}`,
 		fontsWoff: `${source}/fonts/*.{woff,woff2}`,
 		fontsFolder: `${source}/fonts/`,
+		libs: `${source}/libs/*.*`,
 	},
 	watch: {
 		html: `${source}/**/*.{html,htm,php}`,
@@ -36,6 +38,7 @@ export const paths = {
 		imagesPng: `${source}/img/**/*.png`,
 		imagesJpg: `${source}/img/**/*.jpg`,
 		imagesSvg: `${source}/img/**/*.svg`,
+		libs: `${source}/libs/*.*`,
 	},
 }
 export const fontsFIlePath = `${source}/styles/general/fonts.sass`

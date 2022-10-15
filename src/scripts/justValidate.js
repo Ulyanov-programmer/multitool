@@ -1,5 +1,5 @@
-import './just-validate.production.min.js'
-// import './inputmask.min.js'
+import '../libs/just-validate.production.min.js'
+// import '../libs/inputmask.min.js'
 
 // const inputMaskTel = new Inputmask('+7 (999) 999-99-99')
 // let telInputSelector = document.querySelector('input[type="tel"]')

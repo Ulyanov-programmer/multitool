@@ -8,7 +8,7 @@ import scriptModules from './gulp/moduleTask.js'
 import fonts, { fontsStyle } from './gulp/fonts.js'
 import imagesOther, { imagesSvg, imagesPng, imagesJpg } from './gulp/images.js'
 import deleteUnlinkFiles from './gulp/deleteUnlinkFiles.js'
-import * as modules from './gulp/importModules.js'
+import libs from './gulp/importModules.js'
 
 function watchFIles() {
 	gulp.watch(paths.watch.html, { usePolling: true }, html).on('unlink', (filePath) => {
@@ -40,19 +40,13 @@ function watchFIles() {
 	})
 }
 
-
-let importModuleTasks = []
-for (let [key, val] of Object.entries(modules)) {
-	importModuleTasks.push(val.setupJs.bind(val), val.setupCss.bind(val))
-}
-
 const mainTasks = [
 	html, css, fonts, scriptModules, scripts, php,
 	imagesPng, imagesJpg, imagesSvg, imagesOther,
 ]
 
 
-let build = gulp.series(gulp.parallel(importModuleTasks, mainTasks), fontsStyle)
+let build = gulp.series(gulp.parallel(libs, mainTasks), fontsStyle)
 
 let watch = gulp.parallel(build, watchFIles, browsersyncFunc)
 
