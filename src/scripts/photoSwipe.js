@@ -1,4 +1,4 @@
-import PhotoSwipeLightbox from '../libs/photoswipe-lightbox.esm.js'
+import PhotoSwipeLightbox from '../libs/photoswipe-lightbox.esm.min.js'
 import PhotoSwipe from '../libs/photoswipe.esm.min.js'
 
 new PhotoSwipeLightbox({
