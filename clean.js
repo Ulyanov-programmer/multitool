@@ -15,6 +15,7 @@ const scriptGeneral = `${pathToProject}${src}/scripts/`
 const stylesModules = `${pathToProject}${src}/styles/modules/`
 const componentsFolder = `${pathToProject}${src}/components/`
 const phpFolder = `${pathToProject}${src}/php/`
+const libsFolder = `${pathToProject}${src}/libs/`
 const sassEnvFilePath = `${pathToProject}${src}/styles/_sassEnv.sass`
 const generalStyleFilePath = `${pathToProject}${src}/styles/general/general.sass`
 
@@ -59,35 +60,41 @@ log(`The setup is completely complete! I wish You a successful job.
 function setImportModules() {
 	setImportModule(
 		`Just-validate`,
-		'justValidate',
 		'justValidate: false,',
-		`${pathToProject}${src}/scripts/justValidate.js`)
+		[`${pathToProject}${src}/scripts/justValidate.js`,
+		`${libsFolder}just-validate.production.min.js`,])
 
 	setImportModule(
 		`Slider Swiper`,
-		'swiper',
 		'swiper: false,',
-		`${pathToProject}${src}/scripts/sliders.js`)
+		[`${pathToProject}${src}/scripts/sliders.js`,
+		`${libsFolder}swiper-bundle.esm.browser.min.js`,
+		`${libsFolder}swiper-bundle.min.css`,])
 
 	setImportModule(
 		`Typed`,
-		'typed',
 		'typed: false,',
-		`${pathToProject}${src}/scripts/typed.js`)
+		[`${pathToProject}${src}/scripts/typed.js`,
+		`${libsFolder}typed.min.js`,])
 
 	setImportModule(
 		`Input Mask`,
-		'inputMask', '')
+		'',
+		[`${libsFolder}inputmask.min.js`,])
 
 	setImportModule(
 		`Air Date Picker`,
-		'airDatePicker', '')
+		'',
+		[`${libsFolder}air-datepicker.js`,
+		`${libsFolder}air-datepicker.css`,])
 
 	setImportModule(
 		`Photo Swipe`,
-		'photoSwipe',
 		'photoSwipe: false,',
-		`${pathToProject}${src}/scripts/photoSwipe.js`)
+		[`${pathToProject}${src}/scripts/photoSwipe.js`,
+		`${libsFolder}photoswipe.esm.min.js`,
+		`${libsFolder}photoswipe-lightbox.esm.min.js`,
+		`${libsFolder}photoswipe.css`,])
 }
 function setModules() {
 	includeModuleByQuestion({
@@ -305,7 +312,7 @@ function deleteUnusedFolders() {
 	log('✅ Unused folders have been deleted.')
 }
 
-function setImportModule(importModuleName, importFileVariableName, htmlConnectString, fileToDelete) {
+function setImportModule(importModuleName, htmlConnectString, filesToDelete) {
 	if (readline.keyInYNStrict(`Import the ${importModuleName}?`)) {
 		let newHtmlConnectString = htmlConnectString.replace('false', 'true')
 
@@ -320,13 +327,10 @@ function setImportModule(importModuleName, importFileVariableName, htmlConnectSt
 			from: htmlConnectString,
 			to: '',
 		})
-		replace.sync({
-			files: gulpImportModulesFile,
-			from: `export let ${importFileVariableName}`,
-			to: `let ${importFileVariableName}`,
-		})
 
-		fs.removeSync(fileToDelete)
+		for (let fileToDelete of filesToDelete) {
+			fs.removeSync(fileToDelete)
+		}
 	}
 }
 
@@ -401,7 +405,7 @@ function setVariable(variableName, message, defaultValue, variableFilePath) {
 
 	replace.sync({
 		files: variableFilePath,
-		from: `${variableName}: ${defaultValue}`, 
+		from: `${variableName}: ${defaultValue}`,
 		to: `${variableName}: ${newVariableValue}`
 	})
 }
