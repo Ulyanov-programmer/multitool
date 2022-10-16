@@ -269,6 +269,9 @@ function setPhp() {
 	}
 }
 function setGeneralVariables() {
+	setVariable('lang', 'The main language of the main page.', "'en'", mainHtmlFile)
+	setVariable('title', 'The title of the main page.', "'MainPage'", mainHtmlFile)
+
 	setVariable('--main-font-family', 'The main font on the pages. Be sure to check the value in the general.sass file after auto-connecting fonts after starting the build.', 'arial', generalStyleFilePath)
 	setVariable('--text-c', 'Main text color.', 'black', generalStyleFilePath)
 	setVariable('--bg', 'Background of pages.', 'white', generalStyleFilePath)
