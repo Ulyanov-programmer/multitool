@@ -398,7 +398,11 @@ function deleteFolder(folderPath, messageOnSuccessful) {
 	}
 }
 function folderIsEmpty(path) {
-	return fs.readdirSync(path).length == 0
+	try {
+		return fs.readdirSync(path).length == 0
+	} catch (error) {
+		return false
+	}
 }
 
 function setVariable(variableName, message, defaultValue, variableFilePath) {
