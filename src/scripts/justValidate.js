@@ -15,6 +15,9 @@ new JustValidate('#form', {
 		fontSize: '14px',
 		color: 'white',
 	},
+	// tooltip: {
+	// 	position: 'bottom',
+	// },
 	errorsContainer: '#errorsContainer',
 })
 	.addField('[name="inputName"]', [
@@ -137,4 +140,9 @@ new JustValidate('#form', {
 		.catch((error) => {
 			console.log('Mail error!' + error)
 		})
+
+	? Tooltips displayed instead of regular error labels.
+	tooltip: {
+		position: 'left' | 'top' | 'right' | 'bottom',
+	},
 */

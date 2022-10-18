@@ -311,6 +311,9 @@ function deleteUnusedFolders() {
 	if (folderIsEmpty(phpFolder)) {
 		deleteFolder(phpFolder)
 	}
+	if (folderIsEmpty(libsFolder)) {
+		deleteFolder(libsFolder)
+	}
 
 	log('✅ Unused folders have been deleted.')
 }
