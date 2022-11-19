@@ -1,0 +1,48 @@
+@import '../_environment'
+
+$burgerMenuShowWidth = 768px
+
+.burger-menu
+	z-index 4 !important
+	pseudoInset(fixed, 0, 0)
+	block-size(100vw, 100vh)
+	transform translate3d(0, -100%, 0)
+	transition all .3s ease
+
+	@media (min-width $burgerMenuShowWidth)
+		display none
+
+	&.active
+		transform translate3d(0, 0, 0)
+
+	&__body
+		background rgba(0, 0, 0, .3)
+		overflow auto
+		height 100%
+
+		ul
+			.fs-element
+				>*
+					display flex
+					justify-content center
+					color inherit
+					padding 25px 0
+
+.burger-btn
+	z-index 5
+	display block
+
+	@media (min-width $burgerMenuShowWidth)
+		display none
+
+	&__svg
+		*
+			transition all .3s ease
+
+	&.active
+		// .burger-btn
+		// &__rect-top
+
+.navmenu
+	@media (max-width $burgerMenuShowWidth)
+		display none

@@ -24,14 +24,13 @@
 		"gulp-libsquoosh": "^1.1.2",
 		"gulp-plumber": "^1.2.1",
 		"gulp-rename": "^2.0.0",
-		"gulp-sass": "^5.1.0",
+		"gulp-stylus": "^2.7.1",
 		"gulp-svgmin": "^4.1.0",
 		"gulp-ttf2woff2": "^4.0.1",
 		"gulp-version-number": "^0.2.4",
 		"parse-font-name": "^1.2.0",
 		"readline-sync": "^1.4.10",
-		"replace-in-file": "^6.3.5",
-		"sass": "^1.54.5"
+		"replace-in-file": "^6.3.5"
 	},
 	"dependencies": {
 		"air-datepicker": "^3.2.0",

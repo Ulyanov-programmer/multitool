@@ -1,0 +1,26 @@
+@import '../_environment'
+
+.submenu-wrapper
+	position relative
+
+.submenu-menu
+	z-index 1
+	position absolute
+	top 100%
+	background white
+	width max-content
+	hide()
+	transition all .2s ease
+
+	&.show
+		show()
+
+	&_to-left
+		right 0
+
+	&_to-right
+		left 0
+
+	&_center
+		left 50%
+		transform translate(-50%, 0)

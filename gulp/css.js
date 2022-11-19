@@ -1,10 +1,10 @@
 import {
-	sass, autoprefixer, gulpIf, isProd, paths, gulp, browsersync,
+	gulpStylus, autoprefixer, gulpIf, isProd, paths, gulp, browsersync,
 } from './exportSources.js'
 
 export default function css() {
 	return gulp.src(paths.scr.css)
-		.pipe(sass())
+		.pipe(gulpStylus())
 
 		.pipe(
 			gulpIf(isProd,

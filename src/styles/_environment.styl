@@ -1,0 +1,73 @@
+/* Insert layout width from design below.
+If you set the correct value, the font size on the site and on the layout with the same viewport width will be the same. */
+$layoutWidth = 1440
+$minLayoutWidth = 320
+$mainFontSize = 16
+/* The minimum font size that will be achievable on mobile devices. */
+$minFontSize = 12
+
+block-size($width, $height = $width)
+	width $width
+	height $height
+
+adaptiveProperty($value, $min-value)
+	$min-value + 'px' + ($value - $min-value) * ((100vw - 320px) / ($layoutWidth - $minLayoutWidth))
+
+adaptiveFontSize($size-max, $size-min)
+	$k = (($size-max - $size-min) / ($layoutWidth - $minLayoutWidth))
+	$b = $size-min - $k * $minLayoutWidth
+	$b = $b * 1px
+	return 'calc(%s * 100vw + %s)' % ($k $b)
+
+px($value)
+	return unit($value, 'px')
+
+pxToVw($px)
+	return (($px * 100vw) / $layoutWidth)
+
+rem($px-size)
+	unit(
+		($px-size / $mainFontSize),
+		'rem'
+	)
+
+remNumber($px-size)
+	return ($px-size / $mainFontSize)
+
+flex-set($type, $wrap)
+	display flex
+	flex-flow $type $wrap
+
+notLastChildMargin($values...)
+	>*
+		&:not(:last-child)
+			margin $values
+
+hide()
+	overflow hidden
+	opacity 0
+	pointer-events none
+
+show()
+	overflow auto
+	opacity 1
+	pointer-events all
+
+bg-img-multi-type($url, $params = null)
+	background url($url) $params
+	$webpUrl = replace('.png', '.webp', replace('.jpg', '.webp', $url))
+	$avifUrl = replace('.png', '.avif', replace('.jpg', '.avif', $url))
+	// Embedding new paths
+	background-image image-set(url($avifUrl) 1x, url($webpUrl) 1x, url($url) 1x)
+	background-image -webkit-image-set(url($avifUrl) 1x, url($webpUrl) 1x, url($url) 1x)
+
+pseudoInset($position, $top = null, $right = null, $bottom = null, $left = null)
+	position $position
+	top $top
+	right $right
+
+	if ($bottom)
+		bottom $bottom
+
+	if ($left)
+		left $left
