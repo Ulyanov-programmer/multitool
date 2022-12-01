@@ -59,7 +59,6 @@ bg-img-multi-type($url, $params = null)
 	$avifUrl = replace('.png', '.avif', replace('.jpg', '.avif', $url))
 	// Embedding new paths
 	background-image image-set(url($avifUrl) 1x, url($webpUrl) 1x, url($url) 1x)
-	background-image -webkit-image-set(url($avifUrl) 1x, url($webpUrl) 1x, url($url) 1x)
 
 pseudoInset($position, $top = null, $right = null, $bottom = null, $left = null)
 	position $position

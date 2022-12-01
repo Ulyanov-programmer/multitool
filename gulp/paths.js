@@ -15,7 +15,7 @@ export const paths = {
 	scr: {
 		html: [`${source}/**/*.html`, `!${source}/**/*.htm`],
 		php: `${source}/php/*.php`,
-		css: [`${source}/styles/**/*.sass`, `${source}/docs/*.sass`],
+		css: [`${source}/styles/**/*.styl`, `${source}/docs/*.styl`, `!${source}/docs/_*.styl`],
 		scripts: `${source}/scripts/*.{ts,js}`,
 		scriptModules: `${source}/scripts/modules/*.{ts,js}`,
 		imagesOther: `${source}/img/**/*.{gif,ico,webp,avif}`,
@@ -29,9 +29,9 @@ export const paths = {
 	},
 	watch: {
 		html: `${source}/**/*.{html,htm,php}`,
-		css: `${source}/styles/**/*.sass`,
+		css: `${source}/styles/**/*.styl`,
 		php: `${source}/php/*.php`,
-		demoCss: `${source}/docs/*.sass`,
+		demoCss: `${source}/docs/*.styl`,
 		scripts: `${source}/scripts/*.{ts,js}`,
 		scriptModules: `${source}/scripts/modules/*.{ts,js}`,
 		imagesOther: `${source}/img/**/*.{gif,ico,webp,avif}`,
@@ -41,4 +41,4 @@ export const paths = {
 		libs: `${source}/libs/*.*`,
 	},
 }
-export const fontsFIlePath = `${source}/styles/general/fonts.sass`
+export const fontsFIlePath = `${source}/styles/general/fonts.styl`
