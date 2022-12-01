@@ -19,7 +19,7 @@ const libsFolder = `${pathToProject}${src}/libs/`
 const sassEnvFilePath = `${pathToProject}${src}/styles/_sassEnv.sass`
 const generalStyleFilePath = `${pathToProject}${src}/styles/general/general.sass`
 
-const fontsGitkeep = `${src}/fonts/.gitkeep`
+const fontsGitkeep = `${pathToProject}${src}/fonts/.gitkeep`
 const mainStyleFile = `${pathToProject}${src}/styles/index.sass`
 const modulesStyleFolder = `${pathToProject}${src}/styles/modules`
 const mainHtmlFile = `${pathToProject}${src}/index.html`
