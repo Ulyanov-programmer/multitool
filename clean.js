@@ -1,40 +1,72 @@
 import fs from 'fs-extra'
 import path from 'path'
 import replace from 'replace-in-file'
-import * as readline from "readline-sync"
+import * as readline from 'readline-sync'
 import { log } from 'console'
 
+class ImportModuleObject {
+	moduleName
+	htmlConnectString
+	filesToDeletePaths
 
-const pathToProject = path.resolve('./')
-const demoProjectFolderName = `${pathToProject}/gulp_multitool`
-const snippetsFolderName = `${pathToProject}/snippets`
-const readmeFolder = `${pathToProject}/readmeFiles`
-const src = '/src'
-const scriptModules = `${pathToProject}${src}/scripts/modules/`
-const scriptGeneral = `${pathToProject}${src}/scripts/`
-const stylesModules = `${pathToProject}${src}/styles/modules/`
-const componentsFolder = `${pathToProject}${src}/components/`
-const phpFolder = `${pathToProject}${src}/php/`
-const libsFolder = `${pathToProject}${src}/libs/`
-const sassEnvFilePath = `${pathToProject}${src}/styles/_sassEnv.sass`
-const generalStyleFilePath = `${pathToProject}${src}/styles/general/general.sass`
+	constructor(moduleName, htmlConnectString, filesToDeletePaths) {
+		this.moduleName = moduleName
+		this.htmlConnectString = htmlConnectString
+		this.filesToDeletePaths = filesToDeletePaths
+	}
+}
+class ModuleObject {
+	moduleName
+	scriptFilesPaths
+	styleFilesPath
+	htmlFilesPaths
+	htmlConnectStrings
 
-const fontsGitkeep = `${pathToProject}${src}/fonts/.gitkeep`
-const mainStyleFile = `${pathToProject}${src}/styles/index.sass`
-const modulesStyleFolder = `${pathToProject}${src}/styles/modules`
-const mainHtmlFile = `${pathToProject}${src}/index.html`
-const gulpImportModulesFile = `${pathToProject}/gulp/importModules.js`
-const gulpFile = `${pathToProject}/gulpfile.js`
-const readmeFilePath = `${pathToProject}/README.md`
+	constructor({ moduleName, scriptFilesPaths, styleFilesPath, htmlFilesPaths, htmlConnectStrings }) {
+		this.moduleName = moduleName
+		this.scriptFilesPaths = scriptFilesPaths
+		this.styleFilesPath = styleFilesPath
+		this.htmlFilesPaths = htmlFilesPaths
+		this.htmlConnectStrings = htmlConnectStrings
+	}
+}
 
-const srcDemoFoldersAndFIles = [
-	`${pathToProject}${src}/docs`, `${pathToProject}${src}/img/demo`,
-]
-const phpMailerFiles = [
-	`${phpFolder}Exception.php`, `${phpFolder}mail.php`, `${phpFolder}PHPMailer.php`, `${phpFolder}SMTP.php`,
-]
-// The extension of typescript source files.
-const srcExt = '.src.ts'
+const
+	pathToProject = path.resolve('./'),
+	demoProjectFolderName = `${pathToProject}/gulp_multitool`,
+	snippetsFolderName = `${pathToProject}/snippets`,
+	readmeFolder = `${pathToProject}/readmeFiles`,
+	src = '/src',
+	scriptModules = `${pathToProject}${src}/scripts/modules/`,
+	scriptGeneral = `${pathToProject}${src}/scripts/`,
+	stylesModules = `${pathToProject}${src}/styles/modules/`,
+	componentsFolder = `${pathToProject}${src}/components/`,
+	phpFolder = `${pathToProject}${src}/php/`,
+	libsFolder = `${pathToProject}${src}/libs/`,
+	stylEnvFilePath = `${pathToProject}${src}/styles/_environment.styl`,
+	generalStyleFilePath = `${pathToProject}${src}/styles/general/general.styl`,
+
+	fontsGitkeep = `${pathToProject}${src}/fonts/.gitkeep`,
+	mainStyleFile = `${pathToProject}${src}/styles/index.styl`,
+	modulesStyleFolder = `${pathToProject}${src}/styles/modules`,
+	mainHtmlFile = `${pathToProject}${src}/index.html`,
+	gulpImportModulesFile = `${pathToProject}/gulp/importModules.js`,
+	gulpFile = `${pathToProject}/gulpfile.js`,
+	readmeFilePath = `${pathToProject}/README.md`,
+
+	srcDemoFoldersAndFIles = [
+		`${pathToProject}${src}/docs`, `${pathToProject}${src}/img/demo`,
+	],
+	phpMailerFiles = [
+		`${phpFolder}Exception.php`, `${phpFolder}mail.php`, `${phpFolder}PHPMailer.php`, `${phpFolder}SMTP.php`,
+	],
+	// The extension of typescript source files.
+	srcExt = '.src.ts'
+
+// When the setImportModule function is running, it indicates whether a hint should be specified.
+let isFirstImportString = true
+// When the setModules function is running, it indicates whether a hint should be specified.
+let isFirstModuleString = true
 
 
 deleteDemoContent()
@@ -59,202 +91,241 @@ log(`The setup is completely complete! I wish You a successful job.
 
 function setImportModules() {
 	setImportModule(
-		`Just-validate`,
-		'justValidate: false,',
-		[`${pathToProject}${src}/scripts/justValidate.js`,
-		`${libsFolder}just-validate.production.min.js`,])
-
-	setImportModule(
-		`Slider Swiper`,
-		'swiper: false,',
-		[`${pathToProject}${src}/scripts/sliders.js`,
-		`${libsFolder}swiper-bundle.esm.browser.min.js`,
-		`${libsFolder}swiper-bundle.min.css`,])
-
-	setImportModule(
-		`Typed`,
-		'typed: false,',
-		[`${pathToProject}${src}/scripts/typed.js`,
-		`${libsFolder}typed.min.js`,])
-
-	setImportModule(
-		`Input Mask`,
-		'',
-		[`${libsFolder}inputmask.min.js`,])
-
-	setImportModule(
-		`Air Date Picker`,
-		'',
-		[`${libsFolder}air-datepicker.js`,
-		`${libsFolder}air-datepicker.css`,])
-
-	setImportModule(
-		`Photo Swipe`,
-		'photoSwipe: false,',
-		[`${pathToProject}${src}/scripts/photoSwipe.js`,
-		`${libsFolder}photoswipe.esm.min.js`,
-		`${libsFolder}photoswipe-lightbox.esm.min.js`,
-		`${libsFolder}photoswipe.css`,])
+		new ImportModuleObject(
+			`Just-validate`,
+			'justValidate: false,',
+			[
+				`${pathToProject}${src}/scripts/justValidate.js`,
+				`${libsFolder}just-validate.production.min.js`,
+			],
+		),
+		new ImportModuleObject(
+			`Slider Swiper`,
+			'swiper: false,',
+			[
+				`${pathToProject}${src}/scripts/sliders.js`,
+				`${libsFolder}swiper-bundle.esm.browser.min.js`,
+				`${libsFolder}swiper-bundle.min.css`,
+			],
+		),
+		new ImportModuleObject(
+			`Typed`,
+			'typed: false,',
+			[
+				`${pathToProject}${src}/scripts/typed.js`,
+				`${libsFolder}typed.min.js`,
+			],
+		),
+		new ImportModuleObject(
+			`Input Mask`,
+			'',
+			[
+				`${libsFolder}inputmask.min.js`,
+			],
+		),
+		new ImportModuleObject(
+			`Air Date Picker`,
+			'',
+			[
+				`${libsFolder}air-datepicker.js`,
+				`${libsFolder}air-datepicker.css`,
+			],
+		),
+		new ImportModuleObject(
+			`Photo Swipe`,
+			'photoSwipe: false,',
+			[
+				`${pathToProject}${src}/scripts/photoSwipe.js`,
+				`${libsFolder}photoswipe.esm.min.js`,
+				`${libsFolder}photoswipe-lightbox.esm.min.js`,
+				`${libsFolder}photoswipe.css`,
+			],
+		),
+	)
 }
 function setModules() {
-	includeModuleByQuestion({
-		moduleName: 'Burger-menu',
-		scriptPaths: [
-			`${scriptModules}burgerMenu${srcExt}`,
-			`${scriptGeneral}burgerMenu.ts`,
-		],
-		styleFilePath: `${stylesModules}burgerMenu.sass`,
-		htmlPaths: [
-			`${componentsFolder}_burgerMenu.htm`,
-			`${componentsFolder}_navmenuBtnItem.htm`,
-			`${componentsFolder}_navmenuRefItem.htm`,
-		],
-		htmlConnectStrings: [
-			{
-				path: `${pathToProject}${src}/_header.htm`,
-				strings: "<%- include('components/_burgerMenu.htm') %>",
-			},
-			{
-				strings: 'burgerMenu: false,',
-			},
-		],
-	})
-	includeModuleByQuestion({
-		moduleName: 'Sidebar',
-		scriptPaths: [
-			`${scriptModules}sidebar${srcExt}`,
-			`${scriptGeneral}sidebar.ts`,
-		],
-		styleFilePath: `${stylesModules}sidebar.sass`,
-		htmlPath: null,
-		htmlConnectStrings: [{ strings: 'sidebar: false,' }],
-	})
-	includeModuleByQuestion({
-		moduleName: 'Modal-Window',
-		scriptPaths: [
-			`${scriptModules}modalWindow${srcExt}`,
-			`${scriptGeneral}modalWindow.ts`,
-		],
-		styleFilePath: null,
-		htmlPaths: [
-			`${componentsFolder}_modals.htm`,
-		],
-		htmlConnectStrings: [
-			{
-				strings: "<%- include('components/_modals.htm', {}) %>",
-			},
-			{
-				strings: "modalWindow: false,"
-			},
-		],
-	})
-	includeModuleByQuestion({
-		moduleName: 'Spoilers',
-		scriptPaths: [
-			`${scriptModules}spoiler${srcExt}`,
-			`${scriptGeneral}spoiler.ts`,
-		],
-		styleFilePath: `${stylesModules}spoiler.sass`,
-		htmlPaths: null,
-		htmlConnectStrings: [{ strings: 'spoiler: false,' }],
-	})
-	includeModuleByQuestion({
-		moduleName: 'Filter',
-		scriptPaths: [
-			`${scriptModules}filter${srcExt}`,
-			`${scriptGeneral}filter.ts`,
-		],
-		styleFilePath: null,
-		htmlPaths: null,
-		htmlConnectStrings: null,
-	})
-	includeModuleByQuestion({
-		moduleName: 'Submenu',
-		scriptPaths: [
-			`${scriptModules}submenu${srcExt}`,
-			`${scriptGeneral}submenu.ts`,
-		],
-		styleFilePath: `${stylesModules}submenu.sass`,
-		htmlPaths: null,
-		htmlConnectStrings: [{ strings: 'submenu: false,' }],
-	})
-	includeModuleByQuestion({
-		moduleName: 'Tabs',
-		scriptPaths: [
-			`${scriptModules}tab${srcExt}`,
-			`${scriptGeneral}tab.ts`,
-		],
-		styleFilePath: null,
-		htmlPaths: null,
-		htmlConnectStrings: [{ strings: 'tabs: false,' }],
-	})
-	includeModuleByQuestion({
-		moduleName: 'Element-modal',
-		scriptPaths: [
-			`${scriptModules}elementModal${srcExt}`,
-			`${scriptGeneral}elementModal.ts`,
-		],
-		styleFilePath: null,
-		htmlPaths: null,
-		htmlConnectStrings: [{ strings: 'elementModal: false,' }],
-	})
-	includeModuleByQuestion({
-		moduleName: 'Parallax',
-		scriptPaths: [
-			`${scriptModules}parallax${srcExt}`,
-			`${scriptGeneral}parallax.ts`,
-		],
-		styleFilePath: null,
-		htmlPaths: null,
-		htmlConnectStrings: [{ strings: 'parallax: false,' }],
-	})
-	includeModuleByQuestion({
-		moduleName: 'ScrollToElement',
-		scriptPaths: [
-			`${scriptModules}scrollToElement${srcExt}`,
-			`${scriptGeneral}scrollToElement.ts`,
-		],
-		styleFilePath: null,
-		htmlPaths: null,
-		htmlConnectStrings: [{ strings: 'scrollToElement: false,' }],
-	})
-	includeModuleByQuestion({
-		moduleName: 'Animations by scroll',
-		scriptPaths: [
-			`${scriptModules}animateByScroll${srcExt}`,
-			`${scriptGeneral}animateByScroll.ts`,
-			`${scriptGeneral}scroll-timeline.js`,
-		],
-		styleFilePath: null,
-		htmlPaths: null,
-		htmlConnectStrings: [{ strings: 'animateByScroll: false,' }],
-	})
-	includeModuleByQuestion({
-		moduleName: 'Horizontal scroll',
-		scriptPaths: [
-			`${scriptGeneral}horizontalScroll.ts`,
-		],
-		styleFilePath: null,
-		htmlPaths: null,
-		htmlConnectStrings: [{ strings: 'horizontalScroll: false,' }],
-	})
-	includeModuleByQuestion({
-		moduleName: 'Swipe module (required to switch a sidebar by swipe)',
-		scriptPaths: [
-			`${scriptModules}swipe${srcExt}`,
-			`${scriptGeneral}swipe.ts`,
-		],
-		styleFilePath: null,
-		htmlPaths: null,
-		htmlConnectStrings: [{ strings: 'swipe: false,' }],
-	})
-	includeModuleByQuestion({
-		moduleName: 'Form styles',
-		scriptPaths: [],
-		styleFilePath: `${stylesModules}form.sass`,
-		htmlPaths: null,
-		htmlConnectStrings: [{ strings: 'formStyles: false,' }],
-	})
+	includeModuleByQuestion(
+		new ModuleObject({
+			moduleName: 'Burger-menu',
+			scriptFilesPaths: [
+				`${scriptModules}burgerMenu${srcExt}`,
+				`${scriptGeneral}burgerMenu.ts`,
+			],
+			styleFilesPath: `${stylesModules}burgerMenu.styl`,
+			htmlFilesPaths: [
+				`${componentsFolder}_burgerMenu.htm`,
+				`${componentsFolder}_navmenuBtnItem.htm`,
+				`${componentsFolder}_navmenuRefItem.htm`,
+			],
+			htmlConnectStrings: [
+				{
+					path: `${pathToProject}${src}/_header.htm`,
+					strings: "<%- include('components/_burgerMenu.htm') %>",
+				},
+				{
+					strings: 'burgerMenu: false,',
+				},
+			],
+		}),
+		new ModuleObject({
+			moduleName: 'Sidebar',
+			scriptFilesPaths: [
+				`${scriptModules}sidebar${srcExt}`,
+				`${scriptGeneral}sidebar.ts`,
+			],
+			styleFilesPath: `${stylesModules}sidebar.styl`,
+			htmlFilesPaths: null,
+			htmlConnectStrings: [
+				{ strings: 'sidebar: false,' }
+			],
+		}),
+		new ModuleObject({
+			moduleName: 'Modal-Window',
+			scriptFilesPaths: [
+				`${scriptModules}modalWindow${srcExt}`,
+				`${scriptGeneral}modalWindow.ts`,
+			],
+			styleFilesPath: null,
+			htmlFilesPaths: [
+				`${componentsFolder}_modals.htm`,
+			],
+			htmlConnectStrings: [
+				{
+					strings: "<%- include('components/_modals.htm', {}) %>",
+				},
+				{
+					strings: "modalWindow: false,"
+				},
+			],
+		}),
+		new ModuleObject({
+			moduleName: 'Spoilers',
+			scriptFilesPaths: [
+				`${scriptModules}spoiler${srcExt}`,
+				`${scriptGeneral}spoiler.ts`,
+			],
+			styleFilesPath: `${stylesModules}spoiler.styl`,
+			htmlFilesPaths: null,
+			htmlConnectStrings: [
+				{ strings: 'spoiler: false,' }
+			],
+		}),
+		new ModuleObject({
+			moduleName: 'Filter',
+			scriptFilesPaths: [
+				`${scriptModules}filter${srcExt}`,
+				`${scriptGeneral}filter.ts`,
+			],
+			styleFilesPath: null,
+			htmlFilesPaths: null,
+			htmlConnectStrings: null,
+		}),
+		new ModuleObject({
+			moduleName: 'Submenu',
+			scriptFilesPaths: [
+				`${scriptModules}submenu${srcExt}`,
+				`${scriptGeneral}submenu.ts`,
+			],
+			styleFilesPath: `${stylesModules}submenu.styl`,
+			htmlFilesPaths: null,
+			htmlConnectStrings: [
+				{ strings: 'submenu: false,' }
+			],
+		}),
+		new ModuleObject({
+			moduleName: 'Tabs',
+			scriptFilesPaths: [
+				`${scriptModules}tab${srcExt}`,
+				`${scriptGeneral}tab.ts`,
+			],
+			styleFilesPath: null,
+			htmlFilesPaths: null,
+			htmlConnectStrings: [
+				{ strings: 'tabs: false,' }
+			],
+		}),
+		new ModuleObject({
+			moduleName: 'Element-modal',
+			scriptFilesPaths: [
+				`${scriptModules}elementModal${srcExt}`,
+				`${scriptGeneral}elementModal.ts`,
+			],
+			styleFilesPath: null,
+			htmlFilesPaths: null,
+			htmlConnectStrings: [
+				{ strings: 'elementModal: false,' }
+			],
+		}),
+		new ModuleObject({
+			moduleName: 'Parallax',
+			scriptFilesPaths: [
+				`${scriptModules}parallax${srcExt}`,
+				`${scriptGeneral}parallax.ts`,
+			],
+			styleFilesPath: null,
+			htmlFilesPaths: null,
+			htmlConnectStrings: [
+				{ strings: 'parallax: false,' }
+			],
+		}),
+		new ModuleObject({
+			moduleName: 'ScrollToElement',
+			scriptFilesPaths: [
+				`${scriptModules}scrollToElement${srcExt}`,
+				`${scriptGeneral}scrollToElement.ts`,
+			],
+			styleFilesPath: null,
+			htmlFilesPaths: null,
+			htmlConnectStrings: [
+				{ strings: 'scrollToElement: false,' }
+			],
+		}),
+		new ModuleObject({
+			moduleName: 'Animations by scroll',
+			scriptFilesPaths: [
+				`${scriptModules}animateByScroll${srcExt}`,
+				`${scriptGeneral}animateByScroll.ts`,
+				`${scriptGeneral}scroll-timeline.js`,
+			],
+			styleFilesPath: null,
+			htmlFilesPaths: null,
+			htmlConnectStrings: [
+				{ strings: 'animateByScroll: false,' }
+			],
+		}),
+		new ModuleObject({
+			moduleName: 'Horizontal scroll',
+			scriptFilesPaths: [
+				`${scriptGeneral}horizontalScroll.ts`,
+			],
+			styleFilesPath: null,
+			htmlFilesPaths: null,
+			htmlConnectStrings: [
+				{ strings: 'horizontalScroll: false,' }
+			],
+		}),
+		new ModuleObject({
+			moduleName: 'Swipe module (required to switch a sidebar by swipe)',
+			scriptFilesPaths: [
+				`${scriptModules}swipe${srcExt}`,
+				`${scriptGeneral}swipe.ts`,
+			],
+			styleFilesPath: null,
+			htmlFilesPaths: null,
+			htmlConnectStrings: [
+				{ strings: 'swipe: false,' }
+			],
+		}),
+		new ModuleObject({
+			moduleName: 'Form styles',
+			scriptFilesPaths: [],
+			styleFilesPath: `${stylesModules}form.styl`,
+			htmlFilesPaths: null,
+			htmlConnectStrings: [
+				{ strings: 'formStyles: false,' }
+			],
+		}),
+	)
 }
 function setPhp() {
 	if (readline.keyInYNStrict(`Include PHP scripts?`) == false) {
@@ -272,13 +343,13 @@ function setGeneralVariables() {
 	setVariable('lang', 'The main language of the main page.', "'en'", mainHtmlFile)
 	setVariable('title', 'The title of the main page.', "'MainPage'", mainHtmlFile)
 
-	setVariable('--main-font-family', 'The main font on the pages. Be sure to check the value in the general.sass file after auto-connecting fonts after starting the build.', 'arial', generalStyleFilePath)
+	setVariable('--main-font-family', 'The main font on the pages. Be sure to check the value in the general.styl file after auto-connecting fonts after starting the build.', 'arial', generalStyleFilePath)
 	setVariable('--text-c', 'Main text color.', 'black', generalStyleFilePath)
 	setVariable('--bg', 'Background of pages.', 'white', generalStyleFilePath)
 
-	setVariable('$layoutWidth', 'Layout width from design (just number).', '1440', sassEnvFilePath)
-	setVariable('$mainFontSize', 'The main font size on the pages. By default, see the desktop version (just number).', '16', sassEnvFilePath)
-	setVariable('$minFontSize', 'The minimum font size that will be achievable on mobile devices (just number).', '12', sassEnvFilePath)
+	setVariable('$layoutWidth', 'Layout width from design (just number).', '1440', stylEnvFilePath)
+	setVariable('$mainFontSize', 'The main font size on the pages. By default, see the desktop version (just number).', '16', stylEnvFilePath)
+	setVariable('$minFontSize', 'The minimum font size that will be achievable on mobile devices (just number).', '12', stylEnvFilePath)
 }
 
 function deleteDemoContent() {
@@ -318,51 +389,64 @@ function deleteUnusedFolders() {
 	log('✅ Unused folders have been deleted.')
 }
 
-function setImportModule(importModuleName, htmlConnectString, filesToDelete) {
-	if (readline.keyInYNStrict(`Import the ${importModuleName}?`)) {
-		let newHtmlConnectString = htmlConnectString.replace('false', 'true')
+function setImportModule(...importModuleObjects) {
+	if (isFirstImportString) {
+		// First string, after by a column of modules.
+		console.log('Import the ')
+	}
 
-		replace.sync({
-			files: mainHtmlFile,
-			from: htmlConnectString,
-			to: newHtmlConnectString,
-		})
-	} else {
-		replace.sync({
-			files: mainHtmlFile,
-			from: htmlConnectString,
-			to: '',
-		})
+	for (let importModule of importModuleObjects) {
+		if (readline.keyInYNStrict(`-- ${importModule.moduleName}?`)) {
+			let newHtmlConnectString = importModule.htmlConnectString.replace('false', 'true')
 
-		for (let fileToDelete of filesToDelete) {
-			fs.removeSync(fileToDelete)
+			replace.sync({
+				files: mainHtmlFile,
+				from: importModule.htmlConnectString,
+				to: newHtmlConnectString,
+			})
+		} else {
+			replace.sync({
+				files: mainHtmlFile,
+				from: importModule.htmlConnectString,
+				to: '',
+			})
+
+			for (let fileToDelete of importModule.filesToDeletePaths) {
+				fs.removeSync(fileToDelete)
+			}
 		}
 	}
 }
 
-function includeModuleByQuestion(
-	{ moduleName, scriptPaths, styleFilePath, htmlPaths, htmlConnectStrings }) {
-
-	if (readline.keyInYNStrict(`Include the ${moduleName}?`)) {
-		replaceHtmlConnectionString(htmlConnectStrings, 'false', 'true')
-
-		return
+function includeModuleByQuestion(...moduleObjects) {
+	if (isFirstModuleString) {
+		// First string, after by a column of modules.
+		console.log('Include the ')
 	}
 
-	if (scriptPaths.length > 0) {
-		for (let scriptPath of scriptPaths) {
-			fs.removeSync(scriptPath)
+
+	for (let module of moduleObjects) {
+		if (readline.keyInYNStrict(`-- ${module.moduleName}?`)) {
+			replaceHtmlConnectionString(module.htmlConnectStrings, 'false', 'true')
+
+			continue
 		}
-	}
-	if (styleFilePath) {
-		fs.removeSync(styleFilePath)
-	}
-	if (htmlPaths != undefined && htmlPaths.length > 0) {
-		for (let htmlPath of htmlPaths) {
-			fs.removeSync(htmlPath)
+
+		if (module.scriptFilesPaths.length > 0) {
+			for (let scriptPath of module.scriptFilesPaths) {
+				fs.removeSync(scriptPath)
+			}
 		}
+		if (module.styleFilesPathPath) {
+			fs.removeSync(module.styleFilesPath)
+		}
+		if (module.htmlFilesPaths != undefined && module.htmlFilesPaths.length > 0) {
+			for (let htmlPath of module.htmlFilesPaths) {
+				fs.removeSync(htmlPath)
+			}
+		}
+		replaceHtmlConnectionString(module.htmlConnectStrings)
 	}
-	replaceHtmlConnectionString(htmlConnectStrings)
 }
 
 function replaceHtmlConnectionString(htmlConnectStrings, replacedValue, replacedNewValue) {
