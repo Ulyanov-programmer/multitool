@@ -1,5 +1,3 @@
-/* Insert layout width from design below.
- * If you set the correct value, the font size on the site and on the layout with the same viewport width will be the same. */
 .sidebar {
   z-index: 3;
   height: 100%;
@@ -25,13 +23,14 @@
   z-index: 4;
   position: relative;
 }
-
 .swipe_window__swipe_area {
   z-index: 2;
   position: fixed;
   top: 0;
   right: 0;
-  user-select: none;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
   height: 100vh;
   width: 20vw;
 }

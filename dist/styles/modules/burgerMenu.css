@@ -1,7 +1,7 @@
-/* Insert layout width from design below.
- * If you set the correct value, the font size on the site and on the layout with the same viewport width will be the same. */
 .burger-menu {
   z-index: 4 !important;
+}
+.burger-menu {
   position: fixed;
   top: 0;
   right: 0;
@@ -16,20 +16,19 @@
   }
 }
 .burger-menu.active {
-  transform: translate3d(0, 0%, 0);
+  transform: translate3d(0, 0, 0);
 }
 .burger-menu__body {
-  background: rgba(0, 0, 0, 0.3);
+  background: rgba(0,0,0,0.3);
   overflow: auto;
   height: 100%;
 }
-.burger-menu__body ul .fs-element > * {
+.burger-menu__body ul .fs-element >* {
   display: flex;
   justify-content: center;
   color: inherit;
-  padding: 25px 0px;
+  padding: 25px 0;
 }
-
 .burger-btn {
   z-index: 5;
   display: block;

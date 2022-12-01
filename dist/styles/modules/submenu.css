@@ -1,14 +1,12 @@
-/* Insert layout width from design below.
- * If you set the correct value, the font size on the site and on the layout with the same viewport width will be the same. */
 .submenu-wrapper {
   position: relative;
 }
-
 .submenu-menu {
-  position: absolute;
   z-index: 1;
-  background: white;
+  position: absolute;
   top: 100%;
+  background: #fff;
+  width: -moz-max-content;
   width: max-content;
   overflow: hidden;
   opacity: 0;

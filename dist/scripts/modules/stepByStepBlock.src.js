@@ -9,7 +9,7 @@ export default class StepByStepBlock {
     this.currentTranslateMultipler = this.currentActiveBlockIndex;
     this.transitionTimeout = arg.transitionTimeout ? arg.transitionTimeout : 500;
     this.gapPercent = arg.gapPercent ? arg.gapPercent : 5;
-    this.dependentBlocks = document.querySelectorAll(arg.dependentBlocksSelector);
+    this.statusBlocksSelector = document.querySelectorAll(arg.statusBlocksSelector);
     this.nextButtons = document.querySelectorAll(arg.nextButtonsSelector);
     this.prevButtons = document.querySelectorAll(arg.prevButtonsSelector);
     this.stepsContainer.style.display = "flex";
@@ -19,12 +19,14 @@ export default class StepByStepBlock {
       stepBlock.style.transition = `transform ${this.transitionTimeout}ms ease`;
     }
     for (let nextButton of this.nextButtons) {
-      nextButton.addEventListener("click", this.toggleNextFormBlock);
+      nextButton.addEventListener("click", this.toggleNextFormBlock.bind(this));
     }
     for (let prevButton of this.prevButtons) {
-      prevButton.addEventListener("click", this.togglePrevFormBlock);
+      prevButton.addEventListener("click", this.togglePrevFormBlock.bind(this));
     }
-    this.dependentBlocks[this.currentActiveBlockIndex].classList.add("active");
+    if (arg.statusBlocksSelector) {
+      this.statusBlocksSelector[this.currentActiveBlockIndex].classList.add("active");
+    }
     this.initFormBlocksRow();
   }
   initFormBlocksRow() {
@@ -37,9 +39,9 @@ export default class StepByStepBlock {
   }
   toggleNextFormBlock() {
     let activeElement = this.getActiveBlock();
-    let nextElement = this.getSecondBlock(true);
-    let afterNextElement = this.getThriedBlock(true);
-    let activeDependentBlock = this.dependentBlocks[this.currentActiveBlockIndex + 1];
+    let nextElement = this.getSecondBlock(false);
+    let afterNextElement = this.getThriedBlock(false);
+    let activeDependentBlock = this.statusBlocksSelector[this.currentActiveBlockIndex + 1];
     if (nextElement == void 0)
       return;
     this.currentTranslateMultipler += 1;
@@ -55,15 +57,15 @@ export default class StepByStepBlock {
   }
   togglePrevFormBlock() {
     let activeElement = this.getActiveBlock();
-    let prevElement2 = this.getSecondBlock(false);
-    let beforePrevElement2 = this.getThriedBlock(false);
-    let activeDependentBlock = this.dependentBlocks[this.currentActiveBlockIndex + 1];
+    let prevElement2 = this.getSecondBlock(true);
+    let beforePrevElement2 = this.getThriedBlock(true);
+    let activeDependentBlock = this.statusBlocksSelector[this.currentActiveBlockIndex];
     if (prevElement2 == void 0)
       return;
     this.currentTranslateMultipler -= 1;
     let activeElementTransform = this.currentTranslateMultipler * 100 - this.gapPercent;
     if (activeElementTransform < 0) {
-      activeElementTransform = 5;
+      activeElementTransform = this.gapPercent;
       activeElement.style.transform = `translateX(${activeElementTransform}%)`;
     } else {
       activeElement.style.transform = `translateX(-${activeElementTransform}%)`;

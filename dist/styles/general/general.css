@@ -1,11 +1,8 @@
-/* Insert layout width from design below.
- * If you set the correct value, the font size on the site and on the layout with the same viewport width will be the same. */
 :root {
   --main-font-family: arial;
-  --text-c: black;
-  --bg: white;
+  --text-c: #000;
+  --bg: #fff;
 }
-
 ._container {
   margin: auto;
 }
@@ -29,32 +26,36 @@
     width: 95vw;
   }
 }
-
 html {
   scroll-behavior: smooth;
 }
-
 body {
+  height: -moz-max-content;
   height: max-content;
+  color: #000;
   color: var(--text-c);
+  background: #fff;
   background: var(--bg);
-  font: calc( 0.0035714286 * 100vw + 10.8571428571px ) var(--main-font-family);
+  font: calc(0.003571428571429 * 100vw + 10.857142857142858px) arial;
+  font: calc(0.003571428571429 * 100vw + 10.857142857142858px) var(--main-font-family);
 }
-
 .modal-window {
   z-index: 15;
   position: fixed;
   top: 0;
   right: 0;
   display: grid;
+  align-items: center;
+  justify-items: center;
   place-items: center center;
   width: 100vw;
   height: 100vh;
   overflow: hidden;
   opacity: 0;
   pointer-events: none;
-  background: rgba(0, 0, 0, 0.3);
-  backdrop-filter: blur(1px);
+  background: rgba(0,0,0,0.3);
+  -webkit-backdrop-filter: blur(1px);
+          backdrop-filter: blur(1px);
   transition: opacity 0.3s ease;
 }
 .modal-window.active {
@@ -65,47 +66,39 @@ body {
 .modal-window__closer {
   color: #7d7d7d;
 }
-
 ._contain-img img {
   width: 100%;
   height: 100%;
-  object-fit: contain;
+  -o-object-fit: contain;
+     object-fit: contain;
 }
-
 ._cover-img img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
-
 ._thin {
   font-weight: 100;
 }
-
 ._extra-light {
   font-weight: 200;
 }
-
 ._light {
   font-weight: 300;
 }
-
 ._medium {
   font-weight: 500;
 }
-
 ._semi-bold {
   font-weight: 600;
 }
-
 ._bold {
   font-weight: 700;
 }
-
 ._extra-bold {
   font-weight: 800;
 }
-
 ._black {
   font-weight: 900;
 }

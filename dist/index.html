@@ -15,7 +15,7 @@
 	<link rel="mask-icon" href="./img/favicon.svg" color="#000000">
 	<!-- <link rel="apple-touch-icon" href="apple-touch-icon.png"> -->
 	<!-- <link rel="manifest" href="manifest.json"> -->
-	<link rel="preload" href="fonts/fontName.woff2" as="font" type="font/woff2" crossorigin>
+	
 
 	<!-- SEO
 	<meta name="keywords" content="keyword1,">
@@ -184,7 +184,285 @@
   </div>
 </header>
 
+  <div class="wrapper">
+    <form class='main-form _container' id="mainForm" action='#'>
+      <div class="main-form__steps-preview">
+        <div class="step status_block" id="stepOne">
+          1
+        </div>
+        <div class="step status_block" id="stepTwo">
+          2
+        </div>
+        <div class="step status_block" id="stepThree">
+          3
+        </div>
+        <div class="step status_block" id="stepFour">
+          4
+        </div>
+      </div>
 
+      <h1 class="main-form__title">Business structure</h1>
+      <p class="main-form__about">
+        DigiRoad collects this information to better <br>
+        understand and serve your business.
+      </p>
+
+      <section class="main-form__blocks steps_container">
+        <div class="main-form__block">
+          <fieldset class='main-form__body'>
+            <div class="main-form__input-block input-block">
+              <span class="input-block__title">Business address</span>
+              <div class="input-block__select-wrapper">
+                <select class="input-block__select input" id='businessAddress' name='businessAddress'>
+                  <option value="" disabled selected>Registered business address</option>
+                  <option value="value">value</option>
+                  <option value="value">value</option>
+                </select>
+              </div>
+            </div>
+            <div class="main-form__input-block input-block">
+              <span class="input-block__title">Type</span>
+              <div class="input-block__select-wrapper">
+                <select class="input-block__select input" id='businessType' name='businessType'>
+                  <option value="" disabled selected>Type of business</option>
+                  <option value="value">value</option>
+                  <option value="value">value</option>
+                </select>
+              </div>
+            </div>
+          </fieldset>
+
+          <legend class='main-form__legend'>Address</legend>
+
+          <fieldset class='main-form__body'>
+            <div class="main-form__input-block input-block">
+              <div class="main-form__input-wrapper">
+                <input class='main-form__input input-block__input input' type='text' name='address' placeholder='Address' required>
+              </div>
+              <div class="main-form__input-wrapper">
+                <input class='main-form__input input-block__input input' type='text' name='city' placeholder='City' required>
+              </div>
+            </div>
+            <div class="main-form__input-block input-block">
+              <div class="main-form__input-wrapper">
+                <input class='main-form__input input-block__input input' type='text' name='address2' placeholder='Address 2' required>
+              </div>
+              <div class="main-form__input-wrapper">
+                <input class='main-form__input input-block__input input' type='text' name='zip' placeholder='Zip' required>
+              </div>
+            </div>
+            <div class="main-form__input-block input-block">
+              <div class="main-form__input-wrapper">
+                <input class='main-form__input input-block__input input' type='tel' name='tel' placeholder='Telephone' required>
+              </div>
+              <div class="main-form__input-wrapper">
+                <input class='main-form__input input-block__input input' type='email' name='email' placeholder='Email' required>
+              </div>
+            </div>
+          </fieldset>
+          <button class='main-form__submit next_step_button' type='button'>
+            <span>Continue</span>
+            <svg height="1em" viewBox="0 0 83 82" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M17.5784 44.5138L57.8381 44.5138L45.5108 59.3079C44.3096 60.7466 44.5064 62.8876 45.9451 64.0854C47.3872 65.2866 49.5249 65.0898 50.7227 63.6511L67.6884 43.2922C67.8207 43.1328 67.8886 42.9461 67.987 42.7697C68.0684 42.6272 68.1668 42.505 68.2279 42.3489C68.3806 41.9587 68.4722 41.5482 68.4722 41.1342C68.4722 41.1308 68.4756 41.124 68.4756 41.1206C68.4756 41.1172 68.4722 41.1104 68.4722 41.107C68.4722 40.6931 68.3806 40.2825 68.2279 39.8923C68.1668 39.7362 68.0684 39.6141 67.987 39.4716C67.8886 39.2951 67.8207 39.1085 67.6884 38.949L50.7227 18.5902C50.0508 17.786 49.0872 17.3686 48.1167 17.3686C47.3499 17.3686 46.5796 17.6265 45.9451 18.1558C44.5064 19.3536 44.3096 21.4947 45.5108 22.9334L57.8381 37.7275L17.5784 37.7275C15.7054 37.7275 14.1853 39.2476 14.1853 41.1206C14.1853 42.9936 15.7054 44.5138 17.5784 44.5138" fill="white" />
+            </svg>
+          </button>
+          <button class='main-form__submit prev_step_button' type='button'>
+            return
+          </button>
+        </div>
+        <div class="main-form__block">
+          <fieldset class='main-form__body'>
+            <div class="main-form__input-block input-block">
+              <span class="input-block__title">Business address</span>
+              <div class="input-block__select-wrapper">
+                <select class="input-block__select input" id='businessAddress' name='businessAddress'>
+                  <option value="" disabled selected>Registered business address</option>
+                  <option value="value">value</option>
+                  <option value="value">value</option>
+                </select>
+              </div>
+            </div>
+            <div class="main-form__input-block input-block">
+              <span class="input-block__title">Type</span>
+              <div class="input-block__select-wrapper">
+                <select class="input-block__select input" id='businessType' name='businessType'>
+                  <option value="" disabled selected>Type of business</option>
+                  <option value="value">value</option>
+                  <option value="value">value</option>
+                </select>
+              </div>
+            </div>
+          </fieldset>
+
+          <legend class='main-form__legend'>Address</legend>
+
+          <fieldset class='main-form__body'>
+            <div class="main-form__input-block input-block">
+              <div class="main-form__input-wrapper">
+                <input class='main-form__input input-block__input input' type='text' name='address' placeholder='Address' required>
+              </div>
+              <div class="main-form__input-wrapper">
+                <input class='main-form__input input-block__input input' type='text' name='city' placeholder='City' required>
+              </div>
+            </div>
+            <div class="main-form__input-block input-block">
+              <div class="main-form__input-wrapper">
+                <input class='main-form__input input-block__input input' type='text' name='address2' placeholder='Address 2' required>
+              </div>
+              <div class="main-form__input-wrapper">
+                <input class='main-form__input input-block__input input' type='text' name='zip' placeholder='Zip' required>
+              </div>
+            </div>
+            <div class="main-form__input-block input-block">
+              <div class="main-form__input-wrapper">
+                <input class='main-form__input input-block__input input' type='tel' name='tel' placeholder='Telephone' required>
+              </div>
+              <div class="main-form__input-wrapper">
+                <input class='main-form__input input-block__input input' type='email' name='email' placeholder='Email' required>
+              </div>
+            </div>
+          </fieldset>
+
+          <button class='main-form__submit next_step_button' type='button'>
+            <span>Continue</span>
+            <svg height="1em" viewBox="0 0 83 82" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M17.5784 44.5138L57.8381 44.5138L45.5108 59.3079C44.3096 60.7466 44.5064 62.8876 45.9451 64.0854C47.3872 65.2866 49.5249 65.0898 50.7227 63.6511L67.6884 43.2922C67.8207 43.1328 67.8886 42.9461 67.987 42.7697C68.0684 42.6272 68.1668 42.505 68.2279 42.3489C68.3806 41.9587 68.4722 41.5482 68.4722 41.1342C68.4722 41.1308 68.4756 41.124 68.4756 41.1206C68.4756 41.1172 68.4722 41.1104 68.4722 41.107C68.4722 40.6931 68.3806 40.2825 68.2279 39.8923C68.1668 39.7362 68.0684 39.6141 67.987 39.4716C67.8886 39.2951 67.8207 39.1085 67.6884 38.949L50.7227 18.5902C50.0508 17.786 49.0872 17.3686 48.1167 17.3686C47.3499 17.3686 46.5796 17.6265 45.9451 18.1558C44.5064 19.3536 44.3096 21.4947 45.5108 22.9334L57.8381 37.7275L17.5784 37.7275C15.7054 37.7275 14.1853 39.2476 14.1853 41.1206C14.1853 42.9936 15.7054 44.5138 17.5784 44.5138" fill="white" />
+            </svg>
+          </button>
+          <button class='main-form__submit prev_step_button' type='button'>
+            return
+          </button>
+        </div>
+        <div class="main-form__block">
+          <fieldset class='main-form__body'>
+            <div class="main-form__input-block input-block">
+              <span class="input-block__title">Business address</span>
+              <div class="input-block__select-wrapper">
+                <select class="input-block__select input" id='businessAddress' name='businessAddress'>
+                  <option value="" disabled selected>Registered business address</option>
+                  <option value="value">value</option>
+                  <option value="value">value</option>
+                </select>
+              </div>
+            </div>
+            <div class="main-form__input-block input-block">
+              <span class="input-block__title">Type</span>
+              <div class="input-block__select-wrapper">
+                <select class="input-block__select input" id='businessType' name='businessType'>
+                  <option value="" disabled selected>Type of business</option>
+                  <option value="value">value</option>
+                  <option value="value">value</option>
+                </select>
+              </div>
+            </div>
+          </fieldset>
+
+          <legend class='main-form__legend'>Address</legend>
+
+          <fieldset class='main-form__body'>
+            <div class="main-form__input-block input-block">
+              <div class="main-form__input-wrapper">
+                <input class='main-form__input input-block__input input' type='text' name='address' placeholder='Address' required>
+              </div>
+              <div class="main-form__input-wrapper">
+                <input class='main-form__input input-block__input input' type='text' name='city' placeholder='City' required>
+              </div>
+            </div>
+            <div class="main-form__input-block input-block">
+              <div class="main-form__input-wrapper">
+                <input class='main-form__input input-block__input input' type='text' name='address2' placeholder='Address 2' required>
+              </div>
+              <div class="main-form__input-wrapper">
+                <input class='main-form__input input-block__input input' type='text' name='zip' placeholder='Zip' required>
+              </div>
+            </div>
+            <div class="main-form__input-block input-block">
+              <div class="main-form__input-wrapper">
+                <input class='main-form__input input-block__input input' type='tel' name='tel' placeholder='Telephone' required>
+              </div>
+              <div class="main-form__input-wrapper">
+                <input class='main-form__input input-block__input input' type='email' name='email' placeholder='Email' required>
+              </div>
+            </div>
+          </fieldset>
+
+          <button class='main-form__submit next_step_button' type='button'>
+            <span>Continue</span>
+            <svg height="1em" viewBox="0 0 83 82" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M17.5784 44.5138L57.8381 44.5138L45.5108 59.3079C44.3096 60.7466 44.5064 62.8876 45.9451 64.0854C47.3872 65.2866 49.5249 65.0898 50.7227 63.6511L67.6884 43.2922C67.8207 43.1328 67.8886 42.9461 67.987 42.7697C68.0684 42.6272 68.1668 42.505 68.2279 42.3489C68.3806 41.9587 68.4722 41.5482 68.4722 41.1342C68.4722 41.1308 68.4756 41.124 68.4756 41.1206C68.4756 41.1172 68.4722 41.1104 68.4722 41.107C68.4722 40.6931 68.3806 40.2825 68.2279 39.8923C68.1668 39.7362 68.0684 39.6141 67.987 39.4716C67.8886 39.2951 67.8207 39.1085 67.6884 38.949L50.7227 18.5902C50.0508 17.786 49.0872 17.3686 48.1167 17.3686C47.3499 17.3686 46.5796 17.6265 45.9451 18.1558C44.5064 19.3536 44.3096 21.4947 45.5108 22.9334L57.8381 37.7275L17.5784 37.7275C15.7054 37.7275 14.1853 39.2476 14.1853 41.1206C14.1853 42.9936 15.7054 44.5138 17.5784 44.5138" fill="white" />
+            </svg>
+          </button>
+          <button class='main-form__submit prev_step_button' type='button'>
+            return
+          </button>
+        </div>
+        <div class="main-form__block">
+          <fieldset class='main-form__body'>
+            <div class="main-form__input-block input-block">
+              <span class="input-block__title">Business address</span>
+              <div class="input-block__select-wrapper">
+                <select class="input-block__select input" id='businessAddress' name='businessAddress'>
+                  <option value="" disabled selected>Registered business address</option>
+                  <option value="value">value</option>
+                  <option value="value">value</option>
+                </select>
+              </div>
+            </div>
+            <div class="main-form__input-block input-block">
+              <span class="input-block__title">Type</span>
+              <div class="input-block__select-wrapper">
+                <select class="input-block__select input" id='businessType' name='businessType'>
+                  <option value="" disabled selected>Type of business</option>
+                  <option value="value">value</option>
+                  <option value="value">value</option>
+                </select>
+              </div>
+            </div>
+          </fieldset>
+
+          <legend class='main-form__legend'>Address</legend>
+
+          <fieldset class='main-form__body'>
+            <div class="main-form__input-block input-block">
+              <div class="main-form__input-wrapper">
+                <input class='main-form__input input-block__input input' type='text' name='address' placeholder='Address' required>
+              </div>
+              <div class="main-form__input-wrapper">
+                <input class='main-form__input input-block__input input' type='text' name='city' placeholder='City' required>
+              </div>
+            </div>
+            <div class="main-form__input-block input-block">
+              <div class="main-form__input-wrapper">
+                <input class='main-form__input input-block__input input' type='text' name='address2' placeholder='Address 2' required>
+              </div>
+              <div class="main-form__input-wrapper">
+                <input class='main-form__input input-block__input input' type='text' name='zip' placeholder='Zip' required>
+              </div>
+            </div>
+            <div class="main-form__input-block input-block">
+              <div class="main-form__input-wrapper">
+                <input class='main-form__input input-block__input input' type='tel' name='tel' placeholder='Telephone' required>
+              </div>
+              <div class="main-form__input-wrapper">
+                <input class='main-form__input input-block__input input' type='email' name='email' placeholder='Email' required>
+              </div>
+            </div>
+          </fieldset>
+
+          <button class='main-form__submit next_step_button' type='submit'>
+            <span>Submit</span>
+            <svg height="1em" viewBox="0 0 83 82" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M17.5784 44.5138L57.8381 44.5138L45.5108 59.3079C44.3096 60.7466 44.5064 62.8876 45.9451 64.0854C47.3872 65.2866 49.5249 65.0898 50.7227 63.6511L67.6884 43.2922C67.8207 43.1328 67.8886 42.9461 67.987 42.7697C68.0684 42.6272 68.1668 42.505 68.2279 42.3489C68.3806 41.9587 68.4722 41.5482 68.4722 41.1342C68.4722 41.1308 68.4756 41.124 68.4756 41.1206C68.4756 41.1172 68.4722 41.1104 68.4722 41.107C68.4722 40.6931 68.3806 40.2825 68.2279 39.8923C68.1668 39.7362 68.0684 39.6141 67.987 39.4716C67.8886 39.2951 67.8207 39.1085 67.6884 38.949L50.7227 18.5902C50.0508 17.786 49.0872 17.3686 48.1167 17.3686C47.3499 17.3686 46.5796 17.6265 45.9451 18.1558C44.5064 19.3536 44.3096 21.4947 45.5108 22.9334L57.8381 37.7275L17.5784 37.7275C15.7054 37.7275 14.1853 39.2476 14.1853 41.1206C14.1853 42.9936 15.7054 44.5138 17.5784 44.5138" fill="white" />
+            </svg>
+          </button>
+          <button class='main-form__submit prev_step_button' type='button'>
+            return
+          </button>
+        </div>
+      </section>
+      <div class="" id="errorsContainer"></div>
+    </form>
+  </div>
 
   <footer class="footer">
 	<div class="footer__body _container">
@@ -212,6 +490,8 @@
 <button data-toggle-sidebar='sidebar1' class='sidebar__toggle-btn' aria-label='Toggle didebar visibility' type='button'>sidebarBtn</button>
 <div data-swipe-element="sidebar1" class="swipe_window__swipe_area"></div> -->
 </body>
+
+<script type="module" src="./scripts/stapByStepBlock.js"></script>
 
 </html>
 <!-- Made in Russia, with ❤, by Ivan Ulyanov. -->

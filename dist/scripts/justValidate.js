@@ -1,4 +1,4 @@
-import "./just-validate.production.min.js";
+import "../libs/just-validate.production.min.js";
 new JustValidate("#form", {
   errorFieldCssClass: "invalid",
   errorLabelCssClass: "invalid",

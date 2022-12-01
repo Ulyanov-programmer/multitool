@@ -4,9 +4,9 @@ interface StepByStepArgs {
 	stepsContainerSelector: string
 	nextButtonsSelector: string
 	prevButtonsSelector: string
-	dependentBlocksSelector: string
-	currentActiveBlockIndex?: number
 	transitionTimeout: number
+	statusBlocksSelector?: string
+	currentActiveBlockIndex?: number
 	gapPercent?: number
 }
 
@@ -15,7 +15,7 @@ export default class StepByStepBlock {
 	private stepBlocks: HTMLCollectionOf<HTMLElement>
 	private prevButtons: NodeListOf<HTMLElement>
 	private nextButtons: NodeListOf<HTMLElement>
-	private dependentBlocks: NodeListOf<HTMLElement>
+	private statusBlocksSelector: NodeListOf<HTMLElement>
 	private currentActiveBlockIndex: number
 	private currentTranslateMultipler: number
 	private transitionTimeout: number
@@ -34,7 +34,7 @@ export default class StepByStepBlock {
 		this.transitionTimeout = arg.transitionTimeout ? arg.transitionTimeout : 500
 		this.gapPercent = arg.gapPercent ? arg.gapPercent : 5
 
-		this.dependentBlocks = document.querySelectorAll(arg.dependentBlocksSelector)
+		this.statusBlocksSelector = document.querySelectorAll(arg.statusBlocksSelector)
 		this.nextButtons = document.querySelectorAll(arg.nextButtonsSelector)
 		this.prevButtons = document.querySelectorAll(arg.prevButtonsSelector)
 
@@ -47,13 +47,15 @@ export default class StepByStepBlock {
 			stepBlock.style.transition = `transform ${this.transitionTimeout}ms ease`
 		}
 		for (let nextButton of this.nextButtons) {
-			nextButton.addEventListener('click', this.toggleNextFormBlock)
+			nextButton.addEventListener('click', this.toggleNextFormBlock.bind(this))
 		}
 		for (let prevButton of this.prevButtons) {
-			prevButton.addEventListener('click', this.togglePrevFormBlock)
+			prevButton.addEventListener('click', this.togglePrevFormBlock.bind(this))
 		}
 
-		this.dependentBlocks[this.currentActiveBlockIndex].classList.add('active')
+		if (arg.statusBlocksSelector) {
+			this.statusBlocksSelector[this.currentActiveBlockIndex].classList.add('active')
+		}
 
 
 		this.initFormBlocksRow()
@@ -73,10 +75,10 @@ export default class StepByStepBlock {
 
 	private toggleNextFormBlock() {
 		let activeElement = this.getActiveBlock()
-		let nextElement = this.getSecondBlock(true)
-		let afterNextElement = this.getThriedBlock(true)
+		let nextElement = this.getSecondBlock(false)
+		let afterNextElement = this.getThriedBlock(false)
 
-		let activeDependentBlock = this.dependentBlocks[this.currentActiveBlockIndex + 1]
+		let activeDependentBlock = this.statusBlocksSelector[this.currentActiveBlockIndex + 1]
 
 		if (nextElement == undefined)
 			return
@@ -99,10 +101,10 @@ export default class StepByStepBlock {
 	}
 	private togglePrevFormBlock() {
 		let activeElement = this.getActiveBlock()
-		let prevElement = this.getSecondBlock(false)
-		let beforePrevElement = this.getThriedBlock(false)
+		let prevElement = this.getSecondBlock(true)
+		let beforePrevElement = this.getThriedBlock(true)
 
-		let activeDependentBlock = this.dependentBlocks[this.currentActiveBlockIndex + 1]
+		let activeDependentBlock = this.statusBlocksSelector[this.currentActiveBlockIndex]
 
 		if (prevElement == undefined)
 			return
@@ -112,7 +114,7 @@ export default class StepByStepBlock {
 		let activeElementTransform = this.currentTranslateMultipler * 100 - this.gapPercent
 
 		if (activeElementTransform < 0) {
-			activeElementTransform = 5
+			activeElementTransform = this.gapPercent
 			activeElement.style.transform = `translateX(${activeElementTransform}%)`
 		} else {
 			activeElement.style.transform = `translateX(-${activeElementTransform}%)`
@@ -140,7 +142,7 @@ export default class StepByStepBlock {
 	}
 	private getSecondBlock(prevOrNextElement: boolean): HTMLElement {
 		let multipler = this.returnMultipler(prevOrNextElement)
-
+		
 		let prevElement = this.stepBlocks[eval(`${this.currentActiveBlockIndex} ${multipler} 1`)]
 
 		return prevElement

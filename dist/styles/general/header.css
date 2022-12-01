@@ -1,26 +1,26 @@
-/* Insert layout width from design below.
- * If you set the correct value, the font size on the site and on the layout with the same viewport width will be the same. */
 .header {
   position: relative;
 }
-
 .navmenu__body {
   display: flex;
   flex-flow: row wrap;
 }
-.navmenu__body > *:not(:last-child) {
+.navmenu__body >*:not(:last-child) {
   margin: 0 15px 0 0;
 }
-.navmenu__body li a, .navmenu__body li button {
+.navmenu__body li a,
+.navmenu__body li button {
   display: inline-block;
   padding: 8px;
   color: inherit;
   transition: all 0.2s ease 0s;
 }
-.navmenu__body li a:hover, .navmenu__body li a:focus, .navmenu__body li button:hover, .navmenu__body li button:focus {
+.navmenu__body li a:hover,
+.navmenu__body li button:hover,
+.navmenu__body li a:focus,
+.navmenu__body li button:focus {
   text-decoration: underline;
 }
-
 .logo {
   z-index: 10;
 }
