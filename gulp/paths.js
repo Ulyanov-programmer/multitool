@@ -15,7 +15,7 @@ export const paths = {
 	scr: {
 		html: [`${source}/**/*.html`, `!${source}/**/*.htm`],
 		php: `${source}/php/*.php`,
-		css: [`${source}/styles/**/*.styl`, `${source}/docs/*.styl`, `!${source}/docs/_*.styl`],
+		css: [`${source}/styles/**/*.styl`, `${source}/docs/*.styl`, `!${source}/styles/**/_*.styl`],
 		scripts: `${source}/scripts/*.{ts,js}`,
 		scriptModules: `${source}/scripts/modules/*.{ts,js}`,
 		imagesOther: `${source}/img/**/*.{gif,ico,webp,avif}`,

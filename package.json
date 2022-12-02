@@ -40,14 +40,12 @@
 		"just-validate": "^3.8.1",
 		"photoswipe": "^5.3.0",
 		"postcss-preset-env": "^7.8.3",
-		"postcss-styl": "^0.11.1",
 		"swiper": "^8.4.4",
 		"typed.js": "^2.0.12"
 	},
 	"postcss": {
 		"parser": false,
 		"map": false,
-		"syntax": "postcss-styl",
 		"plugins": {
 			"autoprefixer": {},
 			"postcss-preset-env": {}
