@@ -99,7 +99,7 @@ export default class Tab {
 		} else {
 			this.setDefaultTabs()
 			this.resizeTabs()
-			
+
 			window.addEventListener('resize', this.resizeTabs.bind(this))
 
 			for (let tabButton of this.buttons) {
@@ -129,8 +129,6 @@ export default class Tab {
 			marginForCurrentElement += contentElement.clientHeight
 		}
 
-		this.parentOfContentElements.style.display = 'flex'
-		this.parentOfContentElements.style.flexDirection = 'column'
 		this.parentOfContentElements.style.overflow = 'hidden'
 
 		this.setContainerHeight(this.containerheight)
@@ -164,6 +162,7 @@ export default class Tab {
 		} else {
 			this.parentOfContentElements.style.height = `${this.contentElements[0].clientHeight}px`
 		}
+
 		for (let contentElement of this.contentElements) {
 			contentElement.style.transform = `translateY(-${marginForCurrentElement}px)`
 			marginForCurrentElement += contentElement.clientHeight
@@ -190,6 +189,7 @@ export default class Tab {
 
 		currentActiveElement.style.opacity = '0'
 		currentActiveElement.style.pointerEvents = 'none'
+
 		if (this.autoHeight) {
 			this.setContainerHeight(nextContentElement.clientHeight)
 		}
