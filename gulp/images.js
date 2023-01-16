@@ -1,4 +1,11 @@
-import { squoosh, svgmin, gulpIf, isProd, paths, gulp, browsersync, gulpChanged, } from './exportSources.js'
+import gulp from 'gulp'
+import browsersync from 'browser-sync'
+import gulpChanged from 'gulp-changed'
+import squoosh from 'gulp-libsquoosh'
+import svgmin from 'gulp-svgmin'
+import gulpIf from 'gulp-if'
+import { paths } from './paths.js'
+const isProd = process.argv.includes('--prod')
 
 export default function imagesOther() {
 	return gulp.src(paths.scr.imagesOther)

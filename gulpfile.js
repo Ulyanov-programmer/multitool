@@ -1,4 +1,6 @@
-import { paths, gulp, browsersyncFunc, } from './gulp/exportSources.js'
+import gulp from 'gulp'
+import { paths } from './gulp/paths.js'
+import browsersyncFunc from './gulp/browserSync.js'
 
 import html from './gulp/html.js'
 import php from './gulp/php.js'
@@ -9,6 +11,7 @@ import fonts, { fontsStyle } from './gulp/fonts.js'
 import imagesOther, { imagesSvg, imagesPng, imagesJpg } from './gulp/images.js'
 import deleteUnlinkFiles from './gulp/deleteUnlinkFiles.js'
 import libs from './gulp/importModules.js'
+
 
 function watchFIles() {
 	gulp.watch(paths.watch.html, { usePolling: true }, html).on('unlink', (filePath) => {
@@ -47,7 +50,6 @@ const mainTasks = [
 
 
 let build = gulp.series(gulp.parallel(libs, mainTasks), fontsStyle)
-
 let watch = gulp.parallel(build, watchFIles, browsersyncFunc)
 
 gulp.task('build', build)

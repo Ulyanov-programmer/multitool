@@ -1,5 +1,6 @@
-import { fs, source, project, } from './exportSources.js'
+import fs from 'fs-extra'
 import * as path from 'path'
+import { source, project } from './paths.js'
 
 export default function deleteUnlinkFiles(filePath, fileNewExts = []) {
 	let fileDistPath

@@ -1,6 +1,8 @@
-import {
-	gulpStylus, paths, gulp, browsersync, postcss,
-} from './exportSources.js'
+import gulp from 'gulp'
+import gulpStylus from 'gulp-stylus'
+import postcss from 'gulp-postcss'
+import browsersync from 'browser-sync'
+import { paths } from './paths.js'
 
 export default function css() {
 	return gulp.src(paths.scr.css)

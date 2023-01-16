@@ -40,7 +40,6 @@
 .main-form__blocks {
   position: relative;
   width: 100%;
-  overflow: hidden;
 }
 .main-form__blocks >* {
   flex: 1 0 100%;

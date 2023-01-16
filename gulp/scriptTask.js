@@ -1,4 +1,7 @@
-import { esbuild, paths, gulp, browsersync, } from './exportSources.js'
+import gulp from 'gulp'
+import browsersync from 'browser-sync'
+import esbuild from 'gulp-esbuild'
+import { paths } from './paths.js'
 
 export default function scripts() {
 	return gulp.src(paths.scr.scripts, { since: gulp.lastRun(scripts) })

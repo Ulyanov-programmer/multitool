@@ -1,4 +1,5 @@
-import { browsersync, paths, } from './exportSources.js'
+import browsersync from 'browser-sync'
+import { paths } from './paths.js'
 
 export default function browserSyncFunc() {
 	browsersync.init({

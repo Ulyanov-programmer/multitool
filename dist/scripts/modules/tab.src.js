@@ -63,8 +63,6 @@ export default class Tab {
       contentElement.style.transform = `translateY(-${marginForCurrentElement}px)`;
       marginForCurrentElement += contentElement.clientHeight;
     }
-    this.parentOfContentElements.style.display = "flex";
-    this.parentOfContentElements.style.flexDirection = "column";
     this.parentOfContentElements.style.overflow = "hidden";
     this.setContainerHeight(this.containerheight);
     this.parentOfContentElements.style.transition = `height ${this.animationDuration}ms`;

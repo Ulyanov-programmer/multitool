@@ -1,9 +1,14 @@
-import { fs, parseNumericWeightFromName, parseStyleFromName, ttf2woff2, fontsFIlePath, paths, gulp, } from './exportSources.js'
+import fs from 'fs-extra'
+import ttf2woff2 from 'gulp-ttf2woff2'
+import gulp from 'gulp'
+import { fontsFIlePath } from './paths.js'
+import { paths } from './paths.js'
+import { parseNumericWeightFromName, parseStyleFromName } from 'parse-font-name'
 
 export default function fonts() {
 	gulp.src(paths.scr.fontsWoff)
 		.pipe(gulp.dest(paths.build.fonts))
-	
+
 	return gulp.src(paths.scr.fonts)
 		.pipe(ttf2woff2({
 			ignoreExt: true,
