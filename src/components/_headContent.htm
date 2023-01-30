@@ -1,25 +1,25 @@
 <!DOCTYPE html>
-<html lang=<%=lang%>>
+<html lang=<%= lang %>>
 
 <head>
-	<meta charset='UTF-8'>
-	<meta http-equiv='X-UA-Compatible' content='IE=edge'>
-	<meta name='viewport' content='width=device-width, initial-scale=1.0'>
-	<!-- maximum-scale=1.0, user-scalable=0 does not allow content to be scaled on Android. -->
-	<!-- Disables forced link for phone number on iOS -->
-	<meta name='format-detection' content='telephone=no'>
+  <meta charset='UTF-8'>
+  <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+  <!-- maximum-scale=1.0, user-scalable=0 does not allow content to be scaled on Android. -->
+  <!-- Disables forced link for phone number on iOS -->
+  <meta name='format-detection' content='telephone=no'>
 
-	<meta name='description' content='description'>
-	<meta name='theme-color' content='#000000'>
-	<link rel='icon' href='./img/favicon.svg'>
-	<link rel='mask-icon' href='./img/favicon.svg' color='#000000'>
-	<!-- <link rel='apple-touch-icon' href='apple-touch-icon.png'> -->
-	<!-- <link rel='manifest' href='manifest.json'> -->
-	<% if (preloadedFontName != 'fontName') { %>
-		<link rel='preload' href='fonts/<%-preloadedFontName%>.woff2' as='font' type='font/woff2' crossorigin>
-	<% } %>
+  <meta name='description' content='description'>
+  <meta name='theme-color' content='#000000'>
+  <link rel='icon' href='./img/favicon.svg'>
+  <link rel='mask-icon' href='./img/favicon.svg' color='#000000'>
+  <!-- <link rel='apple-touch-icon' href='apple-touch-icon.png'> -->
+  <!-- <link rel='manifest' href='manifest.json'> -->
+  <% if (preloadedFontName != 'fontName') { %>
+  <link rel='preload' href='fonts/<%= preloadedFontName %>.woff2' as='font' type='font/woff2' crossorigin>
+  <% } %>
 
-	<!-- SEO
+  <!-- SEO
 	<meta name='keywords' content='keyword1,'>
 	<meta name='robots' content='none,noindex,nofollow,noimageindex,noarchive,nosnippet'>
 	<meta name='Author' content='Author'>
@@ -57,11 +57,119 @@
 	<meta name='twitter: image' content='path'>
 	-->
 
-	<title><%-title%></title>
-	
-	<!-- /-/ General stylesheets -->
-	<link rel='stylesheet' href='styles/general/nullStyle.css'>
-	<link rel='stylesheet' href='styles/general/fonts.css'>
-	<link rel='stylesheet' href='styles/general/header.css'>
-	<link rel='stylesheet' href='styles/general/footer.css'>
-	<link rel='stylesheet' href='styles/general/general.css'>
+  <title><%-title%></title>
+
+  <!-- /-/ General stylesheets -->
+  <link rel='stylesheet' href='styles/general/nullStyle.css'>
+  <link rel='stylesheet' href='styles/general/fonts.css'>
+  <link rel='stylesheet' href='styles/general/header.css'>
+  <link rel='stylesheet' href='styles/general/footer.css'>
+  <link rel='stylesheet' href='styles/general/general.css'>
+
+  <!-- /-/ General scripts -->
+  <% if (modules.justValidate) { %>
+  <!-- JustValidate -->
+  <script type='module' src='scripts/justValidate.js'></script>
+  <% } %>
+
+  <% if (modules.swiper) { %>
+  <!-- Swiper -->
+  <link rel='stylesheet' href='../libs/swiper-bundle.min.css'>
+  <script type='module' src='scripts/sliders.js'></script>
+  <% } %>
+
+  <% if (modules.typed) { %>
+  <!-- Typed -->
+  <script defer src='../libs/typed.min.js'></script>
+  <script defer src='scripts/typed.js'></script>
+  <% } %>
+
+  <% if (modules.photoSwipe) { %>
+  <!-- PhotoSwipe -->
+  <script type='module' src='./scripts/photoSwipe.js'></script>
+  <link rel='stylesheet' href='../libs/photoswipe.css'>
+  <% } %>
+
+  <% if (modules.burgerMenu) { %>
+  <!-- BurgerMenu -->
+  <script type='module' src='scripts/burgerMenu.js'></script>
+  <link rel='stylesheet' href='styles/modules/burgerMenu.css'>
+  <% } %>
+
+  <% if (modules.formStyles) { %>
+  <!-- Form styles -->
+  <link rel='stylesheet' href='styles/modules/form.css'>
+  <% } %>
+
+  <% if (modules.sidebar) { %>
+  <!-- Sidebar -->
+  <script type='module' src='scripts/sidebar.js'></script>
+  <link rel='stylesheet' href='styles/modules/sidebar.css'>
+  <% } %>
+
+  <% if (modules.spoiler) { %>
+  <!-- Spoiler -->
+  <script type='module' src='scripts/spoiler.js'></script>
+  <link rel='stylesheet' href='styles/modules/spoiler.css'>
+  <% } %>
+
+  <% if (modules.submenu) { %>
+  <!-- Submenu -->
+  <script type='module' src='scripts/submenu.js'></script>
+  <link rel='stylesheet' href='styles/modules/submenu.css'>
+  <% } %>
+
+  <% if (modules.animateByScroll) { %>
+  <!-- Animate by scroll -->
+  <script type='module' src='scripts/animateByScroll.js'></script>
+  <% } %>
+
+  <% if (modules.swipe) { %>
+  <!-- Swipe -->
+  <script type='module' src='scripts/swipe.js'></script>
+  <% } %>
+
+  <% if (modules.elementModal) { %>
+  <!-- Element modal -->
+  <script type='module' src='scripts/elementModal.js'></script>
+  <% } %>
+
+  <% if (modules.horizontalScroll) { %>
+  <!-- Horizontal scroll -->
+  <script type='module' src='scripts/horizontalScroll.js'></script>
+  <% } %>
+
+  <% if (modules.modalWindow) { %>
+  <!-- Modal window -->
+  <script type='module' src='scripts/modalWindow.js'></script>
+  <% } %>
+
+  <% if (modules.parallax) { %>
+  <!-- Parallax -->
+  <script type='module' src='scripts/parallax.js'></script>
+  <% } %>
+
+  <% if (modules.sidebar) { %>
+  <!-- Sidebar -->
+  <script type='module' src='scripts/sidebar.js'></script>
+  <% } %>
+
+  <% if (modules.scrollToElement) { %>
+  <!-- Scroll to element -->
+  <script type='module' src='scripts/scrollToElement.js'></script>
+  <% } %>
+
+  <% if (modules.tabs) { %>
+  <!-- Tabs -->
+  <script type='module' src='scripts/tab.js'></script>
+  <% } %>
+
+  <!-- /-/ Other stylesheets and scripts for this page -->
+  <% styles.forEach((stylePath) => { %>
+  <link rel='stylesheet' href='styles/<%= stylePath %>.css'>
+  <% }); %>
+
+  <% scripts.forEach((scriptAttrs) => { %>
+  <script <%- scriptAttrs.attrs %> src='./scripts/<%- scriptAttrs.name %>.js'></script>
+  <% }); %>
+</head>
