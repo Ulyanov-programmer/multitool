@@ -14,38 +14,38 @@ import libs from './gulp/importModules.js'
 
 
 function watchFIles() {
-	gulp.watch(paths.watch.html, { usePolling: true }, html).on('unlink', (filePath) => {
-		deleteUnlinkFiles(filePath)
-	})
-	gulp.watch(paths.watch.php, php).on('unlink', (filePath) => {
-		deleteUnlinkFiles(filePath)
-	})
-	gulp.watch([paths.watch.css, paths.watch.demoCss], { usePolling: true }, css).on('unlink', (filePath) => {
-		deleteUnlinkFiles(filePath, ['.min.css', '.css'])
-	})
-	gulp.watch(paths.watch.scripts, scripts).on('unlink', (filePath) => {
-		deleteUnlinkFiles(filePath, ['.js'])
-	})
-	gulp.watch(paths.watch.scriptModules, scriptModules).on('unlink', (filePath) => {
-		deleteUnlinkFiles(filePath, ['.js'])
-	})
-	gulp.watch(paths.watch.imagesOther, imagesOther).on('unlink', (filePath) => {
-		deleteUnlinkFiles(filePath, ['.webp', '.avif'])
-	})
-	gulp.watch(paths.watch.imagesPng, imagesPng).on('unlink', (filePath) => {
-		deleteUnlinkFiles(filePath, ['.webp', '.avif'])
-	})
-	gulp.watch(paths.watch.imagesJpg, imagesJpg).on('unlink', (filePath) => {
-		deleteUnlinkFiles(filePath, ['.webp', '.avif'])
-	})
-	gulp.watch(paths.watch.imagesSvg, imagesSvg).on('unlink', (filePath) => {
-		deleteUnlinkFiles(filePath)
-	})
+  gulp.watch(paths.watch.html, { usePolling: true }, html).on('unlink', (filePath) => {
+    deleteUnlinkFiles(filePath)
+  })
+  gulp.watch(paths.watch.php, php).on('unlink', (filePath) => {
+    deleteUnlinkFiles(filePath)
+  })
+  gulp.watch([paths.watch.css, paths.watch.demoCss], { usePolling: true }, css).on('unlink', (filePath) => {
+    deleteUnlinkFiles(filePath, ['.min.css', '.css'])
+  })
+  gulp.watch(paths.watch.scripts, scripts).on('unlink', (filePath) => {
+    deleteUnlinkFiles(filePath, ['.js'])
+  })
+  gulp.watch(paths.watch.scriptModules, scriptModules).on('unlink', (filePath) => {
+    deleteUnlinkFiles(filePath, ['.js'])
+  })
+  gulp.watch(paths.watch.imagesOther, imagesOther).on('unlink', (filePath) => {
+    deleteUnlinkFiles(filePath, ['.webp', '.avif'])
+  })
+  gulp.watch(paths.watch.imagesPng, imagesPng).on('unlink', (filePath) => {
+    deleteUnlinkFiles(filePath, ['.webp', '.avif'])
+  })
+  gulp.watch(paths.watch.imagesJpg, imagesJpg).on('unlink', (filePath) => {
+    deleteUnlinkFiles(filePath, ['.webp', '.avif'])
+  })
+  gulp.watch(paths.watch.imagesSvg, imagesSvg).on('unlink', (filePath) => {
+    deleteUnlinkFiles(filePath)
+  })
 }
 
 const mainTasks = [
-	html, css, fonts, scriptModules, scripts, php,
-	imagesPng, imagesJpg, imagesSvg, imagesOther,
+  html, css, fonts, scriptModules, scripts, php,
+  imagesPng, imagesJpg, imagesSvg, imagesOther,
 ]
 
 

@@ -49,6 +49,7 @@ input:focus-visible {
 button {
   cursor: pointer;
   font-size: inherit;
+  color: inherit;
   background: none;
 }
 button::-moz-focus-inner {

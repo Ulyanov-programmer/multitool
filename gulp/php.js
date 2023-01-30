@@ -3,7 +3,7 @@ import browsersync from 'browser-sync'
 import { paths } from './paths.js'
 
 export default function php() {
-	return gulp.src(paths.scr.php, { since: gulp.lastRun(php) })
-		.pipe(gulp.dest(paths.build.php))
-		.pipe(browsersync.stream())
+  return gulp.src(paths.scr.php, { since: gulp.lastRun(php) })
+    .pipe(gulp.dest(paths.build.php))
+    .pipe(browsersync.stream())
 }

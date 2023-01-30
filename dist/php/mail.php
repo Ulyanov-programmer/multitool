@@ -5,15 +5,15 @@ require 'Exception.php';
 
 // Thanks MaxGraph for this script, https://www.youtube.com/c/maxgraph 
 
-$c = true;
+$c     = true;
 // $file = $_FILES['file'];
 $title = "Title";
 
 // Tabular data layout.
-foreach ( $_POST as $key => $value ) {
-  if ( $value != "" && $key != "project_name" && $key != "admin_email" && $key != "form_subject" ) {
+foreach ($_POST as $key => $value) {
+  if ($value != "" && $key != "project_name" && $key != "admin_email" && $key != "form_subject") {
     $body .= "
-    " . ( ($c = !$c) ? '<tr>':'<tr style="background-color: #f8f8f8;">' ) . "
+    " . (($c = !$c) ? '<tr>' : '<tr style="background-color: #f8f8f8;">') . "
       <td style='padding: 10px; border: #e9e9e9 1px solid;'><b>$key</b></td>
       <td style='padding: 10px; border: #e9e9e9 1px solid;'>$value</td>
     </tr>
@@ -27,8 +27,8 @@ $mail = new PHPMailer\PHPMailer\PHPMailer();
 
 try {
   $mail->isSMTP();
-  $mail->CharSet = "UTF-8";
-  $mail->SMTPAuth = true;
+  $mail->CharSet    = "UTF-8";
+  $mail->SMTPAuth   = true;
 
   // Settings of PHPMailer
   $mail->Host       = 'smtp.yandex.ru'; // SMTP server of an email.
@@ -37,8 +37,8 @@ try {
   $mail->SMTPSecure = 'ssl';
   $mail->Port       = 465;
 
-	// From where an email is sent and the text (it's usually your or the organization's name).
-  $mail->setFrom($mail->Username, 'YourName'); 
+  // From where an email is sent and the text (it's usually your or the organization's name).
+  $mail->setFrom($mail->Username, 'YourName');
   // Where an email is being sent.
   $mail->addAddress('example@ex.com');
 
@@ -56,12 +56,12 @@ try {
   //   }
   // }
 
-  
+
   $mail->isHTML(true);
   $mail->Subject = $title;
-  $mail->Body = $body;
-	
-	// Sending
+  $mail->Body    = $body;
+
+  // Sending
   $mail->send();
 
 } catch (Exception $ex) {

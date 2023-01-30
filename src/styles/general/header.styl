@@ -1,22 +1,29 @@
 @import '../_environment'
 
-.header
-	position relative
+.header {
+  position relative
+}
 
-.navmenu
-	&__body
-		flex-set row wrap
-		notLastChildMargin 0 15px 0 0
+.navmenu {
+  &__body {
+    flex-set row wrap
+    notLastChildMargin 0 15px 0 0
 
-		li
-			a, button
-				display inline-block
-				padding 8px
-				color inherit
-				transition all .2s ease 0s
+    li {
+      a, button {
+        display inline-block
+        padding 8px
+        color inherit
+        transition all .2s ease 0s
 
-				&:hover, &:focus
-					text-decoration underline
+        &:hover, &:focus {
+          text-decoration underline
+        }
+      }
+    }
+  }
+}
 
-.logo
-	z-index 10
+.logo {
+  z-index 10
+}

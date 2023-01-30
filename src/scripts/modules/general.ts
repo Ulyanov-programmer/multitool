@@ -2,8 +2,8 @@
  * @returns Returns the width of the page scroll bar.
  */
 export function returnScrollbarWidth(): number {
-	let scrollbarWidth = window.innerWidth - document.querySelector('html').clientWidth
-	return scrollbarWidth
+  let scrollbarWidth = window.innerWidth - document.querySelector('html').clientWidth
+  return scrollbarWidth
 }
 /**
  * @returns 
@@ -14,12 +14,12 @@ export function returnScrollbarWidth(): number {
  * Strings to be checked.
  */
 export function isNullOrWhiteSpaces(...strings: string[]): boolean {
-	for (const str of strings) {
-		if (!str || str.trim() === '') {
-			return true
-		}
-	}
-	return false
+  for (const str of strings) {
+    if (!str || str.trim() === '') {
+      return true
+    }
+  }
+  return false
 }
 /**
  * Temporarily stops code execution for the specified amount of time.
@@ -27,22 +27,22 @@ export function isNullOrWhiteSpaces(...strings: string[]): boolean {
  * @returns New `Promise`. Pay no attention to it.
  */
 export function sleep(timeMs: number) {
-	return new Promise(r => setTimeout(r, timeMs))
+  return new Promise(r => setTimeout(r, timeMs))
 }
 export function elementsIsExist(...selectors: string[]): boolean {
-	for (let selector of selectors) {
-		if (document.querySelector(selector) == null) {
-			return false
-		}
-	}
-	return true
+  for (let selector of selectors) {
+    if (document.querySelector(selector) == null) {
+      return false
+    }
+  }
+  return true
 }
 export function elementIsExistWithLog(nameOfErrorRoot: string, ...selectors: string[]): boolean {
-	for (let selector of selectors) {
-		if (document.querySelector(selector) == null) {
-			console.log(`[${nameOfErrorRoot}] Some element is not exist.`)
-			return false
-		}
-	}
-	return true
+  for (let selector of selectors) {
+    if (document.querySelector(selector) == null) {
+      console.log(`[${nameOfErrorRoot}] Some element is not exist.`)
+      return false
+    }
+  }
+  return true
 }
