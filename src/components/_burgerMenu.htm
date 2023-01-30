@@ -9,18 +9,16 @@
 <nav class='burger-menu'>
   <div class='burger-menu__body'>
     <ul>
-      <%- include('_navmenuRefItem.htm', {
-				classes:'', href:'./index.html', title:'title', target:'_blank', isBurgerItem:false }) 
-			%>
-      <%- include('_navmenuRefItem.htm', {
-				classes:'', href:'./index.html', title:'ref', target:'_self', isBurgerItem:false }) 
-			%>
-      <!-- 
-				Combine includs and your own elements, like a drop-down menu (don't forget <li>).
-			-->
-      <%- include('_navmenuBtnItem.htm', {
-				classes:'', dataScrollTo:'.selector', title:'title', isBurgerItem:false }) 
-			%>
+      <li class='burger-menu__fs-element'>
+        <a class='' target='_blank' rel='noopener' href='#'>
+          ref
+        </a>
+      </li>
+      <li class='burger-menu__fs-element'>
+        <button class='' type='button'>
+          button
+        </button>
+      </li>
     </ul>
   </div>
 </nav>

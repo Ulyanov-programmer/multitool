@@ -19,18 +19,16 @@
 
     <nav class='navmenu'>
       <ul class='navmenu__body'>
-        <%- include('components/_navmenuRefItem.htm', {
-					classes:'', href:'./index.html', title:'title', target:'_blank', isBurgerItem:false }) 
-				%>
-        <%- include('components/_navmenuRefItem.htm', {
-					classes:'', href:'./index.html', title:'ref', target:'_self', isBurgerItem:false }) 
-				%>
-        <!-- 
-					Combine includs and your own elements (don't forget <li>).
-				-->
-        <%- include('components/_navmenuBtnItem.htm', {
-					classes:'', dataScrollTo:'.selector', title:'title', isBurgerItem:false }) 
-				%>
+        <li>
+          <a class='' target='_blank' rel='noopener' href='#'>
+            ref
+          </a>
+        </li>
+        <li>
+          <button class='' type='button'>
+            button
+          </button>
+        </li>
       </ul>
     </nav>
 
