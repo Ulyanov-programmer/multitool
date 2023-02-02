@@ -36,26 +36,26 @@ const
   demoProjectFolderName = `${pathToProject}/gulp_multitool`,
   snippetsFolderName = `${pathToProject}/snippets`,
   readmeFolder = `${pathToProject}/readmeFiles`,
-  src = '/src',
-  scriptModules = `${pathToProject}${src}/scripts/modules/`,
-  scriptGeneral = `${pathToProject}${src}/scripts/`,
-  stylesModules = `${pathToProject}${src}/styles/modules/`,
-  componentsFolder = `${pathToProject}${src}/components/`,
-  phpFolder = `${pathToProject}${src}/php/`,
-  libsFolder = `${pathToProject}${src}/libs/`,
-  stylEnvFilePath = `${pathToProject}${src}/styles/_environment.styl`,
-  generalStyleFilePath = `${pathToProject}${src}/styles/general/general.styl`,
+  src = `${pathToProject}/src`,
+  scriptModules = `${src}/scripts/modules/`,
+  scriptGeneral = `${src}/scripts/`,
+  stylesModules = `${src}/styles/modules/`,
+  componentsFolder = `${src}/components/`,
+  phpFolder = `${src}/php/`,
+  libsFolder = `${src}/libs/`,
+  stylEnvFilePath = `${src}/styles/_environment.styl`,
+  generalStyleFilePath = `${src}/styles/general/general.styl`,
 
-  fontsGitkeep = `${pathToProject}${src}/fonts/.gitkeep`,
-  mainStyleFile = `${pathToProject}${src}/styles/index.styl`,
-  modulesStyleFolder = `${pathToProject}${src}/styles/modules`,
-  mainHtmlFile = `${pathToProject}${src}/index.html`,
+  fontsGitkeep = `${src}/fonts/.gitkeep`,
+  mainStyleFile = `${src}/styles/index.styl`,
+  modulesStyleFolder = `${src}/styles/modules`,
+  mainHtmlFile = `${src}/index.html`,
   gulpImportModulesFile = `${pathToProject}/gulp/importModules.js`,
   gulpFile = `${pathToProject}/gulpfile.js`,
   readmeFilePath = `${pathToProject}/README.md`,
 
   srcDemoFoldersAndFIles = [
-    `${pathToProject}${src}/docs`, `${pathToProject}${src}/img/demo`,
+    `${src}/docs`, `${src}/img/demo`,
   ],
   phpMailerFiles = [
     `${phpFolder}Exception.php`, `${phpFolder}mail.php`, `${phpFolder}PHPMailer.php`, `${phpFolder}SMTP.php`,
@@ -68,6 +68,11 @@ let isFirstImportString = true
 // When the setModules function is running, it indicates whether a hint should be specified.
 let isFirstModuleString = true
 
+setGeneralVariables()
+
+setTimeout(() => {
+
+}, 5000000)
 
 deleteDemoContent()
 cleanReadmeFilesAndFolders()
@@ -83,7 +88,6 @@ deleteUnusedFolders()
 log(`The configuration of files and folders is complete.
 Now, i suggest you change the values of the main variables.`)
 
-setGeneralVariables()
 
 log(`The setup is completely complete! I wish You a successful job. 
 🎆🎆🎆`)
@@ -340,16 +344,16 @@ function setPhp() {
   }
 }
 function setGeneralVariables() {
-  setVariable('lang', 'The main language of the main page.', "'en'", mainHtmlFile)
-  setVariable('title', 'The title of the main page.', "'MainPage'", mainHtmlFile)
+  setVariable('lang:', 'The main language of the main page,', "'en'", mainHtmlFile, true)
+  setVariable('title:', 'The title of the main page,', "'MainPage'", mainHtmlFile, true)
 
-  setVariable('--main-font-family', 'The main font on the pages. Be sure to check the value in the general.styl file after auto-connecting fonts after starting the build.', 'arial', generalStyleFilePath)
-  setVariable('--text-c', 'Main text color.', 'black', generalStyleFilePath)
-  setVariable('--bg', 'Background of pages.', 'white', generalStyleFilePath)
+  setVariable('--main-font-family', 'The main font on the pages. Be sure to check the value in the general.styl file after auto-connecting fonts after starting the build,', 'arial', generalStyleFilePath)
+  setVariable('--text-c', 'Main text color,', 'black', generalStyleFilePath)
+  setVariable('--bg', 'Background of pages,', 'white', generalStyleFilePath)
 
-  setVariable('$layoutWidth', 'Layout width from design (just number).', '1440', stylEnvFilePath)
-  setVariable('$mainFontSize', 'The main font size on the pages. By default, see the desktop version (just number).', '16', stylEnvFilePath)
-  setVariable('$minFontSize', 'The minimum font size that will be achievable on mobile devices (just number).', '12', stylEnvFilePath)
+  setVariable('$layoutWidth =', 'Layout width from design (just number),', '1440', stylEnvFilePath)
+  setVariable('$mainFontSize =', 'The main font size on the pages. By default, see the desktop version (just number),', '16', stylEnvFilePath)
+  setVariable('$minFontSize =', 'The minimum font size that will be achievable on mobile devices (just number),', '12', stylEnvFilePath)
 }
 
 function deleteDemoContent() {
@@ -492,14 +496,16 @@ function folderIsEmpty(path) {
   }
 }
 
-function setVariable(variableName, message, defaultValue, variableFilePath) {
-  let newVariableValue = readline.question(
-    `${message} \n ${variableName}: `
-  )
+function setVariable(variableNameWithOperator, message, defaultValue, variableFilePath, writeOutputLikeString) {
+  let newVariableValue = readline.question(`${message} ${variableNameWithOperator} `)
+
+  if (writeOutputLikeString) {
+    newVariableValue = `'${newVariableValue}'`
+  }
 
   replace.sync({
     files: variableFilePath,
-    from: `${variableName}: '${defaultValue}'`,
-    to: `${variableName}: '${newVariableValue}'`
+    from: `${variableNameWithOperator} ${defaultValue}`,
+    to: `${variableNameWithOperator} ${newVariableValue}`
   })
 }
