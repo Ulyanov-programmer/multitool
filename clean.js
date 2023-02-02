@@ -45,6 +45,7 @@ const
   libsFolder = `${src}/libs/`,
   stylEnvFilePath = `${src}/styles/_environment.styl`,
   generalStyleFilePath = `${src}/styles/general/general.styl`,
+  headFilePath = `${src}/components/_headContent.htm`,
 
   fontsGitkeep = `${src}/fonts/.gitkeep`,
   mainStyleFile = `${src}/styles/index.styl`,
@@ -68,11 +69,6 @@ let isFirstImportString = true
 // When the setModules function is running, it indicates whether a hint should be specified.
 let isFirstModuleString = true
 
-setGeneralVariables()
-
-setTimeout(() => {
-
-}, 5000000)
 
 deleteDemoContent()
 cleanReadmeFilesAndFolders()
@@ -88,6 +84,7 @@ deleteUnusedFolders()
 log(`The configuration of files and folders is complete.
 Now, i suggest you change the values of the main variables.`)
 
+setGeneralVariables()
 
 log(`The setup is completely complete! I wish You a successful job. 
 🎆🎆🎆`)
@@ -346,6 +343,7 @@ function setPhp() {
 function setGeneralVariables() {
   setVariable('lang:', 'The main language of the main page,', "'en'", mainHtmlFile, true)
   setVariable('title:', 'The title of the main page,', "'MainPage'", mainHtmlFile, true)
+  setVariable('preloadedFontName =', 'The name of the font file that should be preloaded,', "''", headFilePath, true)
 
   setVariable('--main-font-family', 'The main font on the pages. Be sure to check the value in the general.styl file after auto-connecting fonts after starting the build,', 'arial', generalStyleFilePath)
   setVariable('--text-c', 'Main text color,', 'black', generalStyleFilePath)

@@ -15,7 +15,10 @@
   <link rel='mask-icon' href='./img/favicon.svg' color='#000000'>
   <!-- <link rel='apple-touch-icon' href='apple-touch-icon.png'> -->
   <!-- <link rel='manifest' href='manifest.json'> -->
-  <% if (preloadedFontName != 'fontName') { %>
+
+  <% let preloadedFontName = '' %>
+
+  <% if (preloadedFontName != '') { %>
   <link rel='preload' href='fonts/<%= preloadedFontName %>.woff2' as='font' type='font/woff2' crossorigin>
   <% } %>
 
