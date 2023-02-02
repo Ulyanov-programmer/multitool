@@ -168,11 +168,11 @@
   <% } %>
 
   <!-- /-/ Other stylesheets and scripts for this page -->
-  <% styles.forEach((stylePath) => { %>
+  <% for (let stylePath of styles) { %>
   <link rel='stylesheet' href='styles/<%= stylePath %>.css'>
-  <% }); %>
+  <% } %>
 
-  <% scripts.forEach((scriptAttrs) => { %>
-  <script <%- scriptAttrs.attrs %> src='./scripts/<%- scriptAttrs.name %>.js'></script>
-  <% }); %>
+  <%  for (let scriptObject of scripts) { %>
+  <script <%- scriptObject.attrs %> src='./scripts/<%- scriptObject.name %>.js'></script>
+  <% } %>
 </head>
