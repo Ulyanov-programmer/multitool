@@ -29,8 +29,8 @@ export default class BurgerMenu {
     if (!elementIsExistWithLog('BurgerMenu', args.burgerSelector, args.burgerMenuSelector, args.buttonsSelector))
       return
 
-    BurgerMenu.burger = document.querySelector(args.burgerSelector) as HTMLElement
-    BurgerMenu.menu = document.querySelector(args.burgerMenuSelector) as HTMLElement
+    BurgerMenu.burger = document.querySelector(args.burgerSelector)
+    BurgerMenu.menu = document.querySelector(args.burgerMenuSelector)
     BurgerMenu.closingByClickOnElement = args.closingByClickOnElement
 
     BurgerMenu.burgerActiveClass = args.burgerActiveClass ? args.burgerActiveClass : 'active'
@@ -45,8 +45,11 @@ export default class BurgerMenu {
         button.addEventListener('click', this.toggleNavmenu)
       }
     }
+
     if (args.autoPadding) {
       BurgerMenu.autoPaddingOptions = args.autoPadding
+
+      this.changePaddingSizeBySizeOfHeader()
       window.addEventListener('resize', this.changePaddingSizeBySizeOfHeader)
     }
   }
@@ -64,7 +67,6 @@ export default class BurgerMenu {
 
   private static showNavmenu(scrollbarWidth: number) {
     BurgerMenu.menu.classList.add(BurgerMenu.menuActiveClass)
-    BurgerMenu.menu.style.marginTop = `${BurgerMenu.autoPaddingOptions.getElementHeight()}px`
 
     BurgerMenu.burger.classList.add(BurgerMenu.burgerActiveClass)
 
@@ -73,29 +75,35 @@ export default class BurgerMenu {
   }
   private static hideNavmenu() {
     BurgerMenu.menu.classList.remove(BurgerMenu.menuActiveClass)
-    BurgerMenu.menu.style.marginTop = `0px`
 
     BurgerMenu.burger.classList.remove(BurgerMenu.burgerActiveClass)
 
     document.body.style.overflow = ''
     document.body.style.paddingRight = `0px`
   }
+
   private changePaddingSizeBySizeOfHeader() {
-    if (BurgerMenu.menu.classList.contains(BurgerMenu.menuActiveClass)) {
-      BurgerMenu.menu.style.marginTop = `${BurgerMenu.autoPaddingOptions.getElementHeight()}px`
-    }
+    BurgerMenu.autoPaddingOptions.setHeaderPadding()
   }
 }
+
 export class autoPaddingOptions {
   public element: HTMLElement
+  private root: HTMLElement
 
-  constructor(selectorOfElement: string) {
+  constructor(selectorOfElement: string,) {
     if (elementIsExistWithLog('autoPaddingOptions', selectorOfElement)) {
       this.element = document.querySelector(selectorOfElement)
     }
+
+    this.root = document.querySelector(':root')
   }
 
   public getElementHeight() {
     return this.element.clientHeight
+  }
+
+  public setHeaderPadding() {
+    this.root.style.setProperty('--burgerMarginTop', this.getElementHeight() + 'px')
   }
 }
