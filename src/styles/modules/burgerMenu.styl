@@ -2,64 +2,50 @@
 
 $burgerMenuShowWidth = 768px
 
-:root {
+:root
   // It is installed automatically by the script for working with the burger menu.
-  --burgerMarginTop .1px
-}
+  --burgerMarginTop 0.1px
 
-.burger-menu {
+.burger-menu
   z-index 4 !important
-  pseudoInset(fixed, 0, 0)
+  pseudoInset fixed 0 0
   transform translate3d(0, -100vh, 0)
-  block-size(100vw, calc(100vh - var(--burgerMarginTop)))
+  block-size 100vw calc(100vh - var(--burgerMarginTop))
   margin-top var(--burgerMarginTop)
-  background rgba(0, 0, 0, .3)
+  background rgba(0, 0, 0, 0.3)
   overflow auto
-  transition all .3s ease
+  transition all 0.3s ease
 
-  @media (min-width $burgerMenuShowWidth) {
+  @media (min-width: $burgerMenuShowWidth)
     display none
-  }
 
-  &.active {
+  &.active
     transform translate3d(0, 0, 0)
-  }
 
-  ul {
-    >* {
+  ul
+    >*
       display flex
       justify-content center
 
-      * {
+      *
         color var(--text-c)
         padding 25px 0
-      }
-    }
-  }
-}
 
-.burger-btn {
+.burger-btn
   z-index 5
   display block
 
-  @media (min-width $burgerMenuShowWidth) {
+  @media (min-width: $burgerMenuShowWidth)
     display none
-  }
 
-  &__svg {
-    * {
-      transition all .3s ease
-    }
-  }
+  &__svg
+    *
+      transition all 0.3s ease
 
-  &.active {
+  &.active
     // .burger-btn
     // &__rect-top
-  }
-}
 
-.navmenu {
-  @media (max-width $burgerMenuShowWidth) {
+.navmenu
+  @media (max-width: $burgerMenuShowWidth)
     display none
-  }
-}

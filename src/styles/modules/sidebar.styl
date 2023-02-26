@@ -2,54 +2,44 @@
 
 $sidebarHideWidth = 768px
 
-.sidebar {
+.sidebar
   z-index 3
   height 100%
   width 40vw
-  transition all .5s ease
+  transition all 0.5s ease
 
-  @media (max-width $sidebarHideWidth) {
+  @media (max-width: $sidebarHideWidth)
     position fixed
     top 0
     left 100vw
 
-    &.active {
+    &.active
       width 70vw
       left 30vw
-    }
-  }
 
-  &__body {
+  &__body
     padding 20px
     overflow auto
-  }
 
-  &__toggle-btn {
+  &__toggle-btn
     z-index 4
     position relative
-  }
-}
 
-.swipe_window__swipe_area {
+.swipe_window__swipe_area
   z-index 2
   pseudoInset fixed 0 0
   user-select none
   height 100vh
   width 20vw
 
-  &:hover {
+  &:hover
     cursor grab
-  }
 
-  &:active {
+  &:active
     cursor grabbing
-  }
 
-  @media (min-width $sidebarHideWidth) {
+  @media (min-width: $sidebarHideWidth)
     display none
-  }
 
-  &.active {
+  &.active
     width 100vw
-  }
-}
