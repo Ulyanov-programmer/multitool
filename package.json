@@ -17,7 +17,7 @@
     "gulp-html-img-to-picture": "^1.0.3",
     "gulp-if": "^3.0.0",
     "gulp-sharp-optimize-images": "^1.0.1",
-    "gulp-stylus": "^2.7.1",
+    "gulp-stylus": "^3.0.0",
     "gulp-svgmin": "^4.1.0",
     "gulp-ttf2woff2": "^4.0.1",
     "gulp-version-number": "^0.2.4",
