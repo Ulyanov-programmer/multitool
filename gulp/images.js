@@ -7,84 +7,38 @@ import sharpOptimizeImages from 'gulp-sharp-optimize-images'
 import { paths } from './paths.js'
 const isProd = process.argv.includes('--prod')
 
-export default function imagesOther() {
-  return gulp.src(paths.scr.imagesOther)
-    .pipe(
-      // ? minify images into same format
-      sharpOptimizeImages({
-        webp: {
-          quality: 100,
-          lossless: false,
-        },
-        avif: {
-          quality: 100,
-        }
-      })
-    )
+export default function images() {
+  return gulp.src(paths.scr.images)
 
-    .pipe(gulp.dest(paths.build.images))
-    .pipe(browsersync.stream())
-}
-
-export function imagesJpg() {
-  return gulp.src(paths.scr.imagesJpg)
-    .pipe(gulpIf(isProd == false,
-      gulpChanged(paths.build.images, { extension: '.jpg' }))
-    )
-    .pipe(gulpIf(isProd,
-      gulpChanged(paths.build.images, { extension: '.webp' }))
-    )
-    .pipe(gulpIf(isProd,
-      gulpChanged(paths.build.images, { extension: '.avif' }))
-    )
-
-    .pipe(
-      sharpOptimizeImages({
-        jpg: {
-          quality: 100,
-          lossless: false,
-          mozjpeg: true,
-        },
-        webp: {
-          quality: 100,
-          lossless: false,
-        },
-        avif: {
-          quality: 100,
-          effort: 4,
-        }
-      })
-    )
-
-    .pipe(gulp.dest(paths.build.images))
-    .pipe(browsersync.stream())
-}
-
-export function imagesPng() {
-  return gulp.src(paths.scr.imagesPng)
     .pipe(gulpIf(isProd == false,
       gulpChanged(paths.build.images, { extension: '.png' }))
     )
-    .pipe(gulpIf(isProd,
-      gulpChanged(paths.build.images, { extension: '.webp' }))
-    )
-    .pipe(gulpIf(isProd,
-      gulpChanged(paths.build.images, { extension: '.avif' }))
+    .pipe(gulpIf(isProd == false,
+      gulpChanged(paths.build.images, { extension: '.jpg' }))
     )
 
     .pipe(
       sharpOptimizeImages({
-        png: {
-          quality: 100,
-          lossless: false,
+        png_to_webp: {
+          quality: 80,
         },
-        webp: {
-          quality: 100,
-          lossless: false,
+        png_to_avif: {
+          quality: 80,
         },
-        avif: {
-          quality: 100,
-        }
+        png_to_png: {
+          quality: 80,
+          compressionLevel: 9,
+        },
+        jpg_to_webp: {
+          quality: 80,
+        },
+        jpg_to_avif: {
+          quality: 80,
+        },
+        jpg_to_jpg: {
+          quality: 80,
+          mozjpeg: true,
+        },
       })
     )
 

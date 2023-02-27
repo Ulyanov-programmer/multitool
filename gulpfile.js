@@ -8,7 +8,7 @@ import css from './gulp/css.js'
 import scripts from './gulp/scriptTask.js'
 import scriptModules from './gulp/moduleTask.js'
 import fonts, { fontsStyle } from './gulp/fonts.js'
-import imagesOther, { imagesSvg, imagesPng, imagesJpg } from './gulp/images.js'
+import images, { imagesSvg } from './gulp/images.js'
 import deleteUnlinkFiles from './gulp/deleteUnlinkFiles.js'
 import libs from './gulp/importModules.js'
 
@@ -29,13 +29,7 @@ function watchFIles() {
   gulp.watch(paths.watch.scriptModules, scriptModules).on('unlink', (filePath) => {
     deleteUnlinkFiles(filePath, ['.js'])
   })
-  gulp.watch(paths.watch.imagesOther, imagesOther).on('unlink', (filePath) => {
-    deleteUnlinkFiles(filePath, ['.webp', '.avif'])
-  })
-  gulp.watch(paths.watch.imagesPng, imagesPng).on('unlink', (filePath) => {
-    deleteUnlinkFiles(filePath, ['.webp', '.avif'])
-  })
-  gulp.watch(paths.watch.imagesJpg, imagesJpg).on('unlink', (filePath) => {
+  gulp.watch(paths.watch.images, images).on('unlink', (filePath) => {
     deleteUnlinkFiles(filePath, ['.webp', '.avif'])
   })
   gulp.watch(paths.watch.imagesSvg, imagesSvg).on('unlink', (filePath) => {
@@ -44,8 +38,7 @@ function watchFIles() {
 }
 
 const mainTasks = [
-  html, css, fonts, scriptModules, scripts, php,
-  imagesPng, imagesJpg, imagesSvg, imagesOther,
+  html, css, fonts, scriptModules, scripts, php, imagesSvg, images,
 ]
 
 
