@@ -40,15 +40,15 @@ export function fontsStyle() {
       let fontName = fileName.split('-')[0]
       let weight = parseNumericWeightFromName(fileName)
       let style = parseStyleFromName(fileName)
-      let type = fileName.includes('variablefont') ? 'woff2-variations' : 'woff2'
+      let isVariable = fileNameNoExt.toLocaleLowerCase().includes('variablefont') ? true : false
 
 
-      if (type !== 'woff2-variations') {
-        writeFontFaceInFile(fontName, type, fileNameNoExt, weight, style)
-      } else {
-        for (let weight = 100; weight <= 900; weight += 100) {
-          writeFontFaceInFile(fontName, type, fileNameNoExt, weight, style)
-        }
+      if (isVariable == false) {
+        writeFontFaceInFile(fontName, 'woff2', fileNameNoExt, weight, style)
+      }
+      else {
+        weight = '100 1000'
+        writeFontFaceInFile(fontName, 'woff2-variations', fileNameNoExt, weight, style)
       }
       previousFontName = fileNameNoExt
     }
@@ -57,11 +57,11 @@ export function fontsStyle() {
 function writeFontFaceInFile(fontName, type, fileNameNoExt, weight, style) {
   let fontFaceConnectString =
     [`@font-face`,
-      `\tfont-family: '${fontName}'`,
-      `\tfont-display: swap`,
-      `\tsrc: url('../../fonts/${fileNameNoExt}.woff2') format('${type}')`,
-      `\tfont-weight: ${weight}`,
-      `\tfont-style: ${style}`]
+      `\tfont-family '${fontName}'`,
+      `\tfont-display swap`,
+      `\tsrc url('../../fonts/${fileNameNoExt}.woff2') format('${type}')`,
+      `\tfont-weight ${weight}`,
+      `\tfont-style ${style}`]
 
   fs.appendFileSync(fontsFIlePath, fontFaceConnectString.join('\r\n') + '\r\n')
 }
