@@ -14,10 +14,13 @@ new JustValidate('#form', {
     // left: '0',
     fontSize: '14px',
     color: 'white',
+    marginBlock: '5px',
   },
   // tooltip: {
   // 	position: 'bottom',
   // },
+
+  // ? Must be inside a form.
   errorsContainer: '#errorsContainer',
 })
   .addField('[name="inputName"]', [
@@ -60,11 +63,13 @@ new JustValidate('#form', {
     'Message'
   )
 
-  ? only LETTERS and NUMBERS, with spaces.
+  ? only LETTERS and NUMBERS, RU and EN, with spaces.
   {
     rule: 'function',
     validator: (str) => {
-      return /^[a-zA-Z1-9() ]+$/.test(str)
+      // ru: [а-яА-ЯёЁ ]
+      // en: [a-zA-Z ]
+      return /^[а-яА-ЯёЁa-zA-Z ]+$/.test(str)
     },
     errorMessage: 'error',
   },

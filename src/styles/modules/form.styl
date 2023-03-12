@@ -1,33 +1,27 @@
 @import '../_environment'
 
-// form {
-// }
+// form
 
-// fieldset {
-// }
+// fieldset
 
 label
   cursor pointer
 
-// input {
-//   &:disabled {
-//   }
+// input
+//   &:disabled
 
-//   &:invalid {
-//   }
-// }
+//   &:invalid
 
-// input[type=text] {
-// }
+//   &::placeholder
 
-// input[type=email] {
-// }
+// input[type=text]
 
-// input[type=tel] {
-// }
+// input[type=email]
+
+// input[type=tel]
 
 input[type=number]
-  -moz-appearance textfield
+  appearance textfield
 
   &::-webkit-inner-spin-button
   &::-webkit-outer-spin-button
@@ -38,25 +32,20 @@ input[type=radio]
 input[type=checkbox]
   display none
 
-  // & + label {
+  // & + label
   //   svg
-  // }
 
-  // &:checked + label {
+  // &:checked + label
   //   svg
-  // }
 
-// input[type=checkbox] {
-// }
+// input[type=checkbox]
 
-// input[type=radio] {
-// }
+// input[type=radio]
 
 input[type=file]
   display none
 
-  // & + label {
-  // }
+  // & + label
 
 select
   cursor pointer
@@ -64,12 +53,14 @@ select
   background #fff
 
 textarea
-  scrollbar-width 0
   resize none
 
+  scrollbar-width none
   &::-webkit-scrollbar
     width 0
-    outline none
+    height 0
+
+  // &::placeholder
 
 input[type=password]
   font-family caption
