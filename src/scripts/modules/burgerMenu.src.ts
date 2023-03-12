@@ -1,4 +1,4 @@
-import { returnScrollbarWidth, elementIsExistWithLog } from "./general.js"
+import { returnScrollbarWidth, elementIsExistWithLog, sleep } from "./general.js"
 
 interface BurgerMenuArgs {
   burgerSelector: string
@@ -21,6 +21,8 @@ export default class BurgerMenu {
   private static buttons: NodeListOf<HTMLElement>
   private static autoPaddingOptions: autoPaddingOptions
   private static closingByClickOnElement: boolean = true
+  private static burgerMenuStyles: CSSStyleDeclaration
+  private static burgerMenuTransitionDurationMs: number = 100
 
   public static burgerActiveClass: string
   public static menuActiveClass: string
@@ -33,8 +35,15 @@ export default class BurgerMenu {
     BurgerMenu.menu = document.querySelector(args.burgerMenuSelector)
     BurgerMenu.closingByClickOnElement = args.closingByClickOnElement
 
-    BurgerMenu.burgerActiveClass = args.burgerActiveClass ? args.burgerActiveClass : 'active'
-    BurgerMenu.menuActiveClass = args.menuActiveClass ? args.menuActiveClass : 'active'
+    BurgerMenu.burgerMenuStyles = getComputedStyle(BurgerMenu.menu)
+    BurgerMenu.burgerMenuTransitionDurationMs = parseFloat(BurgerMenu.burgerMenuStyles.transitionDuration) * 1000
+
+    BurgerMenu.burgerActiveClass = args.burgerActiveClass
+      ? args.burgerActiveClass
+      : 'active'
+    BurgerMenu.menuActiveClass = args.menuActiveClass
+      ? args.menuActiveClass
+      : 'active'
 
     BurgerMenu.burger.addEventListener('click', this.toggleNavmenu)
 
@@ -73,10 +82,12 @@ export default class BurgerMenu {
     document.body.style.overflow = 'hidden'
     document.body.style.paddingRight = `${scrollbarWidth}px`
   }
-  private static hideNavmenu() {
+  private static async hideNavmenu() {
     BurgerMenu.menu.classList.remove(BurgerMenu.menuActiveClass)
 
     BurgerMenu.burger.classList.remove(BurgerMenu.burgerActiveClass)
+
+    await sleep(this.burgerMenuTransitionDurationMs)
 
     document.body.style.overflow = ''
     document.body.style.paddingRight = `0px`
