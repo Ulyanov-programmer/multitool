@@ -40,3 +40,4 @@ export const paths = {
   },
 }
 export const fontsFIlePath = `${source}/styles/general/fonts.styl`
+export const distPath = `${source}/styles/general/fonts.styl`

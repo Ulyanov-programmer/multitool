@@ -10,6 +10,7 @@ import scriptModules from './gulp/moduleTask.js'
 import fonts, { fontsStyle } from './gulp/fonts.js'
 import images, { imagesSvg } from './gulp/images.js'
 import deleteUnlinkFiles from './gulp/deleteUnlinkFiles.js'
+import updateDist from './gulp/cleanDist.js'
 import libs from './gulp/importModules.js'
 
 
@@ -41,6 +42,7 @@ const mainTasks = [
   html, css, fonts, scriptModules, scripts, php, imagesSvg, images,
 ]
 
+updateDist()
 
 let build = gulp.series(gulp.parallel(libs, mainTasks), fontsStyle)
 let watch = gulp.parallel(build, watchFIles, browsersyncFunc)
