@@ -17,22 +17,17 @@ px($value)
   unit($value, 'px')
 
 pxToVw($px)
-  $px * 100vw / $layoutWidth
+  round($px * 100vw / $layoutWidth, 2)
 
 rem($px-size)
   unit($px-size / $mainFontSize, 'rem')
 
 remNumber($px-size)
-  $px-size / $mainFontSize
+  round($px-size / $mainFontSize, 2)
 
 flex-set($type, $wrap)
   display flex
   flex-flow $type $wrap
-
-notLastChildMargin($values...)
-  >*
-    &:not(:last-child)
-      margin $values
 
 hide()
   overflow hidden
@@ -55,6 +50,7 @@ pseudoInset($position, $top = '', $right = '', $bottom = '', $left = '')
   position $position
   top $top
   right $right
+  
   if $bottom
     bottom $bottom
   if $left

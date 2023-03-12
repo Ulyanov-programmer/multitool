@@ -6,19 +6,21 @@
   --bg white
 
 ._container
+  --tabletWidth 768px
+  --mobileWidth 426px
   margin auto
 
   @media (min-width: unit($layoutWidth, 'px'))
     // Insert the width of the container as a percentage of the width of the layout.
     width 70vw
 
-  @media (min-width: 768px) and (max-width: unit($layoutWidth, 'px'))
+  @media (min-width: var(--tabletWidth)) and (max-width: unit($layoutWidth, 'px'))
     width 80vw
 
-  @media (min-width: 426px) and (max-width: 768px)
+  @media (min-width: var(--mobileWidth)) and (max-width: var(--tabletWidth))
     width 90vw
 
-  @media (max-width: 426px)
+  @media (max-width: var(--mobileWidth))
     width 95vw
 
 html
@@ -30,25 +32,6 @@ body
   background var(--bg)
   font-size clamp(rem($minFontSize), pxToVw($mainFontSize) + 0.1rem, rem($mainFontSize))
   font-family var(--main-font-family)
-
-.modal-window
-  z-index 15
-  pseudoInset fixed 0 0
-  display grid
-  place-items center center
-  height 100vh
-  height 100svh
-  width 100vw
-  hide()
-  background rgba(0, 0, 0, 0.3)
-  backdrop-filter blur(1px)
-  transition opacity 0.3s ease
-
-  &.active
-    show()
-
-  &__closer
-    color #7d7d7d
 
 ._contain-img
   img

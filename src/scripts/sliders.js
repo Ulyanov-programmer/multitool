@@ -1,6 +1,7 @@
 import Swiper from '../libs/swiper-bundle.esm.browser.min.js'
 
-new Swiper('.demo_slider', {
+let sliderClassName = 'demo__slider'
+new Swiper(`.${sliderClassName}`, {
   spaceBetween: 15,
 })
 
@@ -9,11 +10,11 @@ new Swiper('.demo_slider', {
   grabCursor: true,
 
   navigation: {
-    nextEl: ".nextNavButton", prevEl: ".prevNavButton",
+    nextEl: `.class__button-next`, prevEl: `.class__button-prev`,
     disabledClass: 'unactive',
   },
   pagination: { 
-    el: '.swiperPagination', 
+    el: `.class__pagination`, 
     clickable: true, 
   },
 
@@ -27,6 +28,7 @@ new Swiper('.demo_slider', {
     delay: 3000,
     stopOnLastSlide: false,
   },
+  
   ? Infinite scrolling.
   loop: false,
 
@@ -53,8 +55,8 @@ new Swiper('.demo_slider', {
   ? Enable parallax effect.
   parallax: true,
   ?? For working add and set attributes on elements in slide:
-  data-swiper-parallax="toRight_InPixels"
-  data-swiper-parallax-duration="1000"
+  data-swiper-parallax='toRight_InPixels'
+  data-swiper-parallax-duration='1000'
 
   effect: 'fade',
   fadeEffect: {
@@ -62,13 +64,13 @@ new Swiper('.demo_slider', {
   }
 
   ? Thumbs construction:
-  new Swiper('.thumbs', {
+  new Swiper(`.thumbs`, {
     spaceBetween: 15,
     slidesPerView: 6,
     watchOverflow: true,
   })
 
-  new Swiper('.main', {
+  new Swiper(`.main`, {
     watchOverflow: true,
 
     thumbs: {

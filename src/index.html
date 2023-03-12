@@ -15,10 +15,10 @@
   animateByScroll: false,
   elementModal: false,
   horizontalScroll: false,
-  modalWindow: false,
+  modalWindow: true,
   parallax: false,
   scrollToElement: false,
-  tabs: true,
+  tabs: false,
   },
 
   styles: [
@@ -32,9 +32,10 @@
 }) %>
 
 <body>
-  <%- include('_header.htm') %>
+  <%- include('_header.htm', {}) %>
 
-
+  <main>
+  </main>
 
   <%- include('components/_modals.htm', {}) %>
 

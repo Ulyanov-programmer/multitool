@@ -19,7 +19,7 @@
   <% let preloadedFontName = '' %>
 
   <% if (preloadedFontName != '') { %>
-  <link rel='preload' href='fonts/<%= preloadedFontName %>.woff2' as='font' type='font/woff2' crossorigin>
+  <link rel='preload' href='./fonts/<%= preloadedFontName %>.woff2' as='font' type='font/woff2' crossorigin>
   <% } %>
 
   <!-- SEO
@@ -77,99 +77,100 @@
 
   <% if (modules.swiper) { %>
   <!-- Swiper -->
-  <link rel='stylesheet' href='../libs/swiper-bundle.min.css'>
+  <link rel='stylesheet' href='./libs/swiper-bundle.min.css'>
   <script type='module' src='scripts/sliders.js'></script>
   <% } %>
 
   <% if (modules.typed) { %>
   <!-- Typed -->
-  <script defer src='../libs/typed.min.js'></script>
+  <script defer src='./libs/typed.min.js'></script>
   <script defer src='scripts/typed.js'></script>
   <% } %>
 
   <% if (modules.photoSwipe) { %>
   <!-- PhotoSwipe -->
   <script type='module' src='./scripts/photoSwipe.js'></script>
-  <link rel='stylesheet' href='../libs/photoswipe.css'>
+  <link rel='stylesheet' href='./libs/photoswipe.css'>
   <% } %>
 
   <% if (modules.burgerMenu) { %>
   <!-- BurgerMenu -->
-  <script type='module' src='scripts/burgerMenu.js'></script>
-  <link rel='stylesheet' href='styles/modules/burgerMenu.css'>
+  <script type='module' src='./scripts/burgerMenu.js'></script>
+  <link rel='stylesheet' href='./styles/modules/burgerMenu.css'>
   <% } %>
 
   <% if (modules.formStyles) { %>
   <!-- Form styles -->
-  <link rel='stylesheet' href='styles/modules/form.css'>
+  <link rel='stylesheet' href='./styles/modules/form.css'>
   <% } %>
 
   <% if (modules.sidebar) { %>
   <!-- Sidebar -->
-  <script type='module' src='scripts/sidebar.js'></script>
-  <link rel='stylesheet' href='styles/modules/sidebar.css'>
+  <script type='module' src='./scripts/sidebar.js'></script>
+  <link rel='stylesheet' href='./styles/modules/sidebar.css'>
   <% } %>
 
   <% if (modules.spoiler) { %>
   <!-- Spoiler -->
-  <script type='module' src='scripts/spoiler.js'></script>
-  <link rel='stylesheet' href='styles/modules/spoiler.css'>
+  <script type='module' src='./scripts/spoiler.js'></script>
+  <link rel='stylesheet' href='./styles/modules/spoiler.css'>
   <% } %>
 
   <% if (modules.submenu) { %>
   <!-- Submenu -->
-  <script type='module' src='scripts/submenu.js'></script>
-  <link rel='stylesheet' href='styles/modules/submenu.css'>
+  <script type='module' src='./scripts/submenu.js'></script>
+  <link rel='stylesheet' href='./styles/modules/submenu.css'>
   <% } %>
 
   <% if (modules.animateByScroll) { %>
   <!-- Animate by scroll -->
-  <script type='module' src='scripts/animateByScroll.js'></script>
+  <script type='module' src='./scripts/animateByScroll.js'></script>
   <% } %>
 
   <% if (modules.swipe) { %>
   <!-- Swipe -->
-  <script type='module' src='scripts/swipe.js'></script>
+  <script type='module' src='./scripts/swipe.js'></script>
   <% } %>
 
   <% if (modules.elementModal) { %>
   <!-- Element modal -->
-  <script type='module' src='scripts/elementModal.js'></script>
+  <script type='module' src='./scripts/elementModal.js'></script>
   <% } %>
 
   <% if (modules.horizontalScroll) { %>
   <!-- Horizontal scroll -->
-  <script type='module' src='scripts/horizontalScroll.js'></script>
+  <script type='module' src='./scripts/horizontalScroll.js'></script>
   <% } %>
 
   <% if (modules.modalWindow) { %>
   <!-- Modal window -->
-  <script type='module' src='scripts/modalWindow.js'></script>
+  <link rel='stylesheet' href='./styles/modules/modalWindow.css'>
+  <script type='module' src='./scripts/modalWindow.js'></script>
   <% } %>
 
   <% if (modules.parallax) { %>
   <!-- Parallax -->
-  <script type='module' src='scripts/parallax.js'></script>
+  <script type='module' src='./scripts/parallax.js'></script>
   <% } %>
 
   <% if (modules.sidebar) { %>
   <!-- Sidebar -->
-  <script type='module' src='scripts/sidebar.js'></script>
+  <script type='module' src='./scripts/sidebar.js'></script>
   <% } %>
 
   <% if (modules.scrollToElement) { %>
   <!-- Scroll to element -->
-  <script type='module' src='scripts/scrollToElement.js'></script>
+  <script type='module' src='./scripts/scrollToElement.js'></script>
   <% } %>
 
   <% if (modules.tabs) { %>
   <!-- Tabs -->
-  <script type='module' src='scripts/tab.js'></script>
+  <script type='module' src='./scripts/tab.js'></script>
   <% } %>
 
   <!-- /-/ Other stylesheets and scripts for this page -->
   <% for (let stylePath of styles) { %>
-  <link rel='stylesheet' href='styles/<%= stylePath %>.css'>
+  <link rel='stylesheet' href='./styles/<%= stylePath %>.css'>
   <% } %>
 
   <%  for (let scriptObject of scripts) { %>

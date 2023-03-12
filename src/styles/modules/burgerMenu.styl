@@ -9,8 +9,11 @@ $burgerMenuShowWidth = 768px
 .burger-menu
   z-index 4 !important
   pseudoInset fixed 0 0
-  transform translate3d(0, -100vh, 0)
+
+  /* Sets the height of the menu, taking into account the offset from the header */
   block-size 100vw calc(100vh - var(--burgerMarginTop))
+  transform translate3d(0, -100vh, 0)
+
   margin-top var(--burgerMarginTop)
   background rgba(0, 0, 0, 0.3)
   overflow auto
@@ -32,7 +35,7 @@ $burgerMenuShowWidth = 768px
         padding 25px 0
 
 .burger-btn
-  z-index 5
+  z- index 5
   display block
 
   @media (min-width: $burgerMenuShowWidth)
