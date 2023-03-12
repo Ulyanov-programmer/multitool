@@ -22,15 +22,6 @@ interface SwipeElementArgs {
   touchStartAreaSelector: string
   /** 
     The element that will appear when swiping.
-    @example
-    ```stylus
-    Must contain the value transform: translate3d(). 
-    For the menus appearing
-    From Left: transform translate3d(-100%, 0, 0);
-    From Right: transform translate3d(100%, 0, 0);
-    From Top: transform translate3d(0, -100%, 0);
-    From Bottom: transform translate3d(0, 100%, 0);
-    ```
   */
   swipableElementSelector: string
   /** Which way you need to swipe to make the menu appear. */
@@ -76,6 +67,8 @@ export default class SwipeElement {
 
     this.touchAreaElement = document.querySelector(arg.touchStartAreaSelector)
     this.touchAreaElement.style.touchAction = 'none'
+    this.touchAreaElement.style.cursor = 'grab'
+
     this.swipableElement = document.querySelector(arg.swipableElementSelector)
     this.elementStartX = this.getTranslateState('x')
     this.elementStartY = this.getTranslateState('y')
@@ -99,6 +92,7 @@ export default class SwipeElement {
       if (e.button != 0) return
 
       this.swipeStart(e)
+
       window.addEventListener('pointermove', this.pointerMoveHandler, false)
 
       window.addEventListener('pointerup', this.pointerUpHandler, false)
@@ -106,11 +100,15 @@ export default class SwipeElement {
   }
   private pointerMoveHandler = (function (e: PointerEvent) {
     this.swipableElement.style.userSelect = 'none'
+    this.touchAreaElement.style.cursor = 'grabbing'
+
     this.swipeMove(e)
   }).bind(this)
 
   private pointerUpHandler = (function () {
     this.swipableElement.style.userSelect = ''
+    this.touchAreaElement.style.cursor = 'grab'
+
     this.swipeEnd(0, false, true)
   }).bind(this)
 
@@ -156,10 +154,19 @@ export default class SwipeElement {
 
   private moveX(delta: number = this.deltaX) {
     if (!this.checkSwipableElementContainActive()) {
-      if (this.changePlane == ChangePlane.ToLeft && this.currentSide == SwipeSide.Right) return
-      if (this.changePlane == ChangePlane.ToRight && this.currentSide == SwipeSide.Left) return
+      if (this.changePlane == ChangePlane.ToLeft && this.currentSide == SwipeSide.Right)
+        return
+      if (this.changePlane == ChangePlane.ToRight && this.currentSide == SwipeSide.Left)
+        return
 
-      let result = this.elementStartX - delta * this.baseXStateModifier
+      let result
+
+      if (this.changePlane == ChangePlane.ToRight) {
+        result = this.elementStartX + delta * this.baseXStateModifier
+      } else {
+        result = this.elementStartX - delta * this.baseXStateModifier
+      }
+
 
       this.swipableElement.style.transform = `translate3d(
 				${result}px, 

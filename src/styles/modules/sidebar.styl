@@ -1,42 +1,58 @@
 @import '../_environment'
 
-$sidebarHideWidth = 768px
+$sidebarHideWidth = 1440px
 
 .sidebar
-  z-index 3
-  height 100%
-  width 40vw
-  transition all 0.5s ease
+  --hiddenSidebarWidth 70vw
 
   @media (max-width: $sidebarHideWidth)
+    z-index 3
     position fixed
     top 0
-    left 100vw
 
+    height 100vh
+    width var(--hiddenSidebarWidth)
+
+    background gray
+    transition all 0.5s ease
+
+
+    /* from left to right */
+    right 100vw
     &.active
-      width 70vw
-      left 30vw
+      right calc(100vw - var(--hiddenSidebarWidth))
 
-  &__body
-    padding 20px
-    overflow auto
+    // ? from right to left
+    // left 100vw
+    // &.active
+    //   left calc(100vw - var(--hiddenSidebarWidth))
 
-  &__toggle-btn
-    z-index 4
-    position relative
+
+    [data-toggle-sidebar-id]
+      @media (min-width: $sidebarHideWidth)
+        display none
+
+      @media (max-width: $sidebarHideWidth)
+        position absolute
+        top 0
+
+        // ? from left to right
+        left 100%
+        // ? from right to left
+        // right 100%
+
 
 .swipe_window__swipe_area
   z-index 2
-  pseudoInset fixed 0 0
+  position fixed
+  top 0
+  left 0
+  // background red
+
   user-select none
+
   height 100vh
   width 20vw
-
-  &:hover
-    cursor grab
-
-  &:active
-    cursor grabbing
 
   @media (min-width: $sidebarHideWidth)
     display none
