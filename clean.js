@@ -96,7 +96,7 @@ function setImportModules() {
       `Just-validate`,
       'justValidate: false,',
       [
-        `${pathToProject}${src}/scripts/justValidate.js`,
+        `${src}/scripts/justValidate.js`,
         `${libsFolder}just-validate.production.min.js`,
       ],
     ),
@@ -104,7 +104,7 @@ function setImportModules() {
       `Slider Swiper`,
       'swiper: false,',
       [
-        `${pathToProject}${src}/scripts/sliders.js`,
+        `${src}/scripts/sliders.js`,
         `${libsFolder}swiper-bundle.esm.browser.min.js`,
         `${libsFolder}swiper-bundle.min.css`,
       ],
@@ -113,7 +113,7 @@ function setImportModules() {
       `Typed`,
       'typed: false,',
       [
-        `${pathToProject}${src}/scripts/typed.js`,
+        `${src}/scripts/typed.js`,
         `${libsFolder}typed.min.js`,
       ],
     ),
@@ -136,7 +136,7 @@ function setImportModules() {
       `Photo Swipe`,
       'photoSwipe: false,',
       [
-        `${pathToProject}${src}/scripts/photoSwipe.js`,
+        `${src}/scripts/photoSwipe.js`,
         `${libsFolder}photoswipe.esm.min.js`,
         `${libsFolder}photoswipe-lightbox.esm.min.js`,
         `${libsFolder}photoswipe.css`,
@@ -186,7 +186,7 @@ function setModules() {
         `${scriptModules}modalWindow${srcExt}`,
         `${scriptGeneral}modalWindow.ts`,
       ],
-      styleFilesPath: null,
+      styleFilesPath: `${stylesModules}modalWindows.styl`,
       htmlFilesPaths: [
         `${componentsFolder}_modals.htm`,
       ],
@@ -195,7 +195,7 @@ function setModules() {
           strings: "<%- include('components/_modals.htm', {}) %>",
         },
         {
-          strings: "modalWindow: false,"
+          strings: 'modalWindow: false,'
         },
       ],
     }),
@@ -439,7 +439,7 @@ function includeModuleByQuestion(...moduleObjects) {
         fs.removeSync(scriptPath)
       }
     }
-    if (module.styleFilesPathPath) {
+    if (module.styleFilesPath) {
       fs.removeSync(module.styleFilesPath)
     }
     if (module.htmlFilesPaths != undefined && module.htmlFilesPaths.length > 0) {
