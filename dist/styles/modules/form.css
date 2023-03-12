@@ -35,24 +35,3 @@ textarea::-webkit-scrollbar {
 input[type=password] {
   font-family: caption;
 }
-input[type=date]::-webkit-datetime-edit {
-/* all input, but not calendar button */
-  background: #adff2f;
-}
-input[type=date]::-webkit-datetime-edit-fields-wrapper {
-/* only date values */
-  background: #ff0;
-}
-input[type=date]::-webkit-datetime-edit-text {
-/* elements between numbers */
-  background: #808080;
-}
-input[type=date]::-webkit-inner-spin-button {
-  display: none;
-}
-input[type=date]::-webkit-calendar-picker-indicator {
-/* calendar button */
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}

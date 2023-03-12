@@ -17,6 +17,7 @@ const _BurgerMenu = class {
     }
     if (args.autoPadding) {
       _BurgerMenu.autoPaddingOptions = args.autoPadding;
+      this.changePaddingSizeBySizeOfHeader();
       window.addEventListener("resize", this.changePaddingSizeBySizeOfHeader);
     }
   }
@@ -30,22 +31,18 @@ const _BurgerMenu = class {
   }
   static showNavmenu(scrollbarWidth) {
     _BurgerMenu.menu.classList.add(_BurgerMenu.menuActiveClass);
-    _BurgerMenu.menu.style.marginTop = `${_BurgerMenu.autoPaddingOptions.getElementHeight()}px`;
     _BurgerMenu.burger.classList.add(_BurgerMenu.burgerActiveClass);
     document.body.style.overflow = "hidden";
     document.body.style.paddingRight = `${scrollbarWidth}px`;
   }
   static hideNavmenu() {
     _BurgerMenu.menu.classList.remove(_BurgerMenu.menuActiveClass);
-    _BurgerMenu.menu.style.marginTop = `0px`;
     _BurgerMenu.burger.classList.remove(_BurgerMenu.burgerActiveClass);
     document.body.style.overflow = "";
     document.body.style.paddingRight = `0px`;
   }
   changePaddingSizeBySizeOfHeader() {
-    if (_BurgerMenu.menu.classList.contains(_BurgerMenu.menuActiveClass)) {
-      _BurgerMenu.menu.style.marginTop = `${_BurgerMenu.autoPaddingOptions.getElementHeight()}px`;
-    }
+    _BurgerMenu.autoPaddingOptions.setHeaderPadding();
   }
 };
 let BurgerMenu = _BurgerMenu;
@@ -58,8 +55,12 @@ export class autoPaddingOptions {
     if (elementIsExistWithLog("autoPaddingOptions", selectorOfElement)) {
       this.element = document.querySelector(selectorOfElement);
     }
+    this.root = document.querySelector(":root");
   }
   getElementHeight() {
     return this.element.clientHeight;
+  }
+  setHeaderPadding() {
+    this.root.style.setProperty("--burgerMarginTop", this.getElementHeight() + "px");
   }
 }

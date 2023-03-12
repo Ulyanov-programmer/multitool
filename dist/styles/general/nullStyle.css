@@ -11,9 +11,6 @@
 ::active {
   outline: none;
 }
-*.focus-visible {
-  outline: 1px solid;
-}
 *:focus-visible {
   outline: 1px solid;
 }
@@ -40,9 +37,6 @@ input {
 input::-ms-clear {
   display: none;
 }
-input.focus-visible {
-  outline: none;
-}
 input:focus-visible {
   outline: none;
 }
@@ -51,6 +45,7 @@ button {
   font-size: inherit;
   color: inherit;
   background: none;
+  outline-color: transparent;
 }
 button::-moz-focus-inner {
   padding: 0;
@@ -68,9 +63,6 @@ select {
           appearance: none;
   cursor: pointer;
   width: 100%;
-}
-select.focus-visible {
-  outline: none;
 }
 select:focus-visible {
   outline: none;

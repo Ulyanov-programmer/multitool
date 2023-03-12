@@ -1,4 +1,5 @@
 import Swiper from "../libs/swiper-bundle.esm.browser.min.js";
-new Swiper(".demo_slider", {
+let sliderClassName = "demo__slider";
+new Swiper(`.${sliderClassName}`, {
   spaceBetween: 15
 });

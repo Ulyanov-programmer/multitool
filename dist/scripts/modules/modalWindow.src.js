@@ -1,10 +1,11 @@
-import { elementIsExistWithLog, returnScrollbarWidth } from "./general.js";
+import { elementIsExistWithLog, isNullOrWhiteSpaces, returnScrollbarWidth, sleep } from "./general.js";
 export default class ModalWindowMenu {
   constructor(arg) {
     this.modalWindowSelector = ".modal-window";
-    this.modalWindowContentClass = "modal-window";
+    this.modalWindowActiveClass = "active";
     this.modalWindowCloseButtonsClass = "modal-window__closer";
-    this.modalWindowActiveSelector = ".modal-window.active";
+    this.modalWindowActiveSelector = `.modal-window.${this.modalWindowActiveClass}`;
+    this.generalTransitionDurationMs = 100;
     if (!elementIsExistWithLog("ModalWindowMenu", arg.modalLinksSelector))
       return;
     if (arg.burgerMenuSelector)
@@ -20,13 +21,15 @@ export default class ModalWindowMenu {
       });
     }
     ModalWindowMenu.modalElements = document.querySelectorAll(this.modalWindowSelector);
-    for (let modal of ModalWindowMenu.modalElements) {
-      modal.addEventListener("click", (e) => {
-        let targetClassList = e.target.classList;
-        if (targetClassList.contains(this.modalWindowContentClass) || targetClassList.contains(this.modalWindowCloseButtonsClass)) {
-          this.closeActiveModal(true);
-        }
-      });
+    for (let modalElement of ModalWindowMenu.modalElements) {
+      let modalClosers = modalElement.querySelectorAll("." + this.modalWindowCloseButtonsClass);
+      for (let modalCloser of modalClosers) {
+        modalCloser.addEventListener("click", () => this.closeActiveModal(true));
+      }
+    }
+    this.generalModalStyles = getComputedStyle(ModalWindowMenu.modalElements[0]);
+    if (isNullOrWhiteSpaces(this.generalModalStyles.transitionDuration) != true) {
+      this.generalTransitionDurationMs = parseFloat(this.generalModalStyles.transitionDuration) * 1e3;
     }
     if (arg.disableOnEsc) {
       document.addEventListener("keydown", (key) => {
@@ -39,17 +42,20 @@ export default class ModalWindowMenu {
   }
   showOrHideModal(modalElement) {
     let activeModal = this.getCurrentActiveModal();
-    activeModal ? this.closeActiveModal(false, activeModal) : this.toggleBodyScroll(false);
-    modalElement.classList.add("active");
+    activeModal ? this.closeActiveModal(false, activeModal) : this.toggleBodyScroll(false, activeModal);
+    modalElement.classList.add(this.modalWindowActiveClass);
   }
   closeActiveModal(bodyIsScrollable = true, activeModal) {
     if (activeModal == void 0)
       activeModal = this.getCurrentActiveModal();
-    activeModal.classList.remove("active");
-    bodyIsScrollable ? this.toggleBodyScroll(true) : false;
+    activeModal.classList.remove(this.modalWindowActiveClass);
+    if (bodyIsScrollable)
+      this.toggleBodyScroll(true, activeModal);
   }
-  toggleBodyScroll(toggleScrollOn) {
+  async toggleBodyScroll(toggleScrollOn, activeModal) {
     if (this.chekPossibileSwitchScroll(toggleScrollOn)) {
+      if (activeModal)
+        await sleep(this.generalTransitionDurationMs);
       document.body.style.paddingRight = "";
       document.body.style.overflow = "";
     } else {
@@ -63,7 +69,7 @@ export default class ModalWindowMenu {
   }
   chekPossibileSwitchScroll(toggleOnValue) {
     if (ModalWindowMenu.burgerMenuClasslist) {
-      if (!ModalWindowMenu.burgerMenuClasslist.contains("active") && toggleOnValue) {
+      if (!ModalWindowMenu.burgerMenuClasslist.contains(this.modalWindowActiveClass) && toggleOnValue) {
         return true;
       } else {
         return false;

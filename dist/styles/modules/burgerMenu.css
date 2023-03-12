@@ -1,13 +1,20 @@
-.burger-menu {
-  z-index: 4 !important;
+:root {
+  --burgerMarginTop: 0.1px;
 }
 .burger-menu {
+  z-index: 4 !important;
   position: fixed;
   top: 0;
   right: 0;
+/* Sets the height of the menu, taking into account the offset from the header */
   width: 100vw;
-  height: 100vh;
-  transform: translate3d(0, -100%, 0);
+  height: calc(100vh - 0.1px);
+  height: calc(100vh - var(--burgerMarginTop));
+  transform: translate3d(0, -100vh, 0);
+  margin-top: 0.1px;
+  margin-top: var(--burgerMarginTop);
+  background: rgba(0,0,0,0.3);
+  overflow: auto;
   transition: all 0.3s ease;
 }
 @media (min-width: 768px) {
@@ -18,19 +25,16 @@
 .burger-menu.active {
   transform: translate3d(0, 0, 0);
 }
-.burger-menu__body {
-  background: rgba(0,0,0,0.3);
-  overflow: auto;
-  height: 100%;
-}
-.burger-menu__body ul .fs-element >* {
+.burger-menu ul >* {
   display: flex;
   justify-content: center;
-  color: inherit;
+}
+.burger-menu ul >* * {
+  color: var(--text-c);
   padding: 25px 0;
 }
 .burger-btn {
-  z-index: 5;
+  z-: index 5;
   display: block;
 }
 @media (min-width: 768px) {
