@@ -65,11 +65,14 @@ export default class SpoilerMenu {
           SpoilerMenu.spoilerContentElements[i].style.height = SpoilerMenu.spoilerContentElements[i].clientHeight + 'px'
           SpoilerMenu.spoilerContentElements[i].style.opacity = '1'
           SpoilerMenu.spoilerContentElements[i].style.pointerEvents = 'all'
+          SpoilerMenu.spoilerContentElements[i].style.visibility = ''
         } else {
           SpoilerMenu.spoilerContentElements[i].style.height = '0px'
           SpoilerMenu.spoilerContentElements[i].style.opacity = '0'
           SpoilerMenu.spoilerContentElements[i].style.pointerEvents = 'none'
+          SpoilerMenu.spoilerContentElements[i].style.visibility = 'hidden'
         }
+
         SpoilerMenu.spoilerContentElements[i].style.overflow = 'hidden'
         SpoilerMenu.spoilerButtons[i].addEventListener('click', SpoilerMenu.toggleSpoilerState)
         SpoilerMenu.spoilerButtons[i].style.cursor = 'pointer'
@@ -80,6 +83,7 @@ export default class SpoilerMenu {
         SpoilerMenu.spoilerContentElements[i].style.removeProperty('opacity')
         SpoilerMenu.spoilerContentElements[i].style.removeProperty('pointer-events')
         SpoilerMenu.spoilerContentElements[i].style.removeProperty('overflow')
+        SpoilerMenu.spoilerContentElements[i].style.removeProperty('visibility')
 
         SpoilerMenu.spoilerButtons[i].removeEventListener('click', SpoilerMenu.toggleSpoilerState)
         SpoilerMenu.spoilerButtons[i].style.cursor = 'default'
@@ -117,6 +121,7 @@ function spoilerUp(spoilerContainer: HTMLElement, duration: number) {
   spoilerContainer.style.height = '0px'
   spoilerContainer.style.opacity = '0'
   spoilerContainer.style.pointerEvents = 'none'
+  spoilerContainer.style.visibility = 'hidden'
 
   window.setTimeout(() => {
     spoilerContainer.classList.remove('_slide')
@@ -133,6 +138,7 @@ function spoilerDown(spoilerContainer: HTMLElement, duration: number) {
   spoilerContainer.style.height = `${heightOfContent}px`
   spoilerContainer.style.opacity = '1'
   spoilerContainer.style.pointerEvents = 'all'
+  spoilerContainer.style.visibility = ''
 
   window.setTimeout(() => {
     spoilerContainer.classList.remove('_slide')
