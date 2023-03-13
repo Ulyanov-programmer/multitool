@@ -13,7 +13,7 @@ export const paths = {
     libs: `${project}/libs/`,
   },
   scr: {
-    html: [`${source}/**/*.html`, `!${source}/**/*.htm`],
+    html: [`${source}/**/*.{html,htm}`, `!${source}/components/*.{html,htm}`],
     php: `${source}/php/*.php`,
     css: [`${source}/styles/**/*.styl`, `${source}/docs/*.styl`, `!${source}/styles/**/_*.styl`],
     scripts: `${source}/scripts/*.{ts,js}`,
