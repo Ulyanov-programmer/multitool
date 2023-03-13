@@ -341,17 +341,88 @@ function setPhp() {
   }
 }
 function setGeneralVariables() {
-  setVariable('lang:', 'The main language of the main page,', "'en'", mainHtmlFile, true)
-  setVariable('title:', 'The title of the main page,', "'MainPage'", mainHtmlFile, true)
-  setVariable('preloadedFontName =', 'The name of the font file that should be preloaded,', "''", headFilePath, true)
+  setVariable(
+    'lang:',
+    'The main language of the main page,',
+    "'en'",
+    mainHtmlFile,
+    true
+  )
+  setVariable(
+    'title:',
+    'The title of the main page,',
+    "'MainPage'",
+    mainHtmlFile,
+    true
+  )
+  setVariable(
+    'preloadedFontName =',
+    'The name of the font file that should be preloaded,',
+    "''",
+    headFilePath,
+    true
+  )
 
-  setVariable('--main-font-family', 'The main font on the pages. Be sure to check the value in the general.styl file after auto-connecting fonts after starting the build,', 'arial', generalStyleFilePath)
-  setVariable('--text-c', 'Main text color,', 'black', generalStyleFilePath)
-  setVariable('--bg', 'Background of pages,', 'white', generalStyleFilePath)
+  setVariable(
+    '--main-font-family',
+    'The main font on the pages. Be sure to check the value in the general.styl file after auto-connecting fonts after starting the build,',
+    'arial',
+    generalStyleFilePath,
+  )
+  setVariable(
+    '--text-c',
+    'Main text color,',
+    'black', generalStyleFilePath,
+  )
+  setVariable(
+    '--bg',
+    'Background of pages,',
+    'white',
+    generalStyleFilePath,
+  )
 
-  setVariable('$layoutWidth =', 'Layout width from design (just number),', '1440', stylEnvFilePath)
-  setVariable('$mainFontSize =', 'The main font size on the pages. By default, see the desktop version (just number),', '16', stylEnvFilePath)
-  setVariable('$minFontSize =', 'The minimum font size that will be achievable on mobile devices (just number),', '12', stylEnvFilePath)
+
+  setVariable(
+    '$layoutWidth =',
+    'Layout width from design (just number),',
+    '1440',
+    stylEnvFilePath,
+  )
+  setVariable(
+    '--bigViewportContentWidth',
+    'The width of the content on the screens is greater than layoutWidth:',
+    '70vw',
+    generalStyleFilePath,
+  )
+  setVariable(
+    '--defaultViewportContentWidth',
+    'The default width of the content on the screens:',
+    '80vw',
+    generalStyleFilePath,
+  )
+  setVariable(
+    '--tabletsViewportContentWidth',
+    'Width of content on tablets:',
+    '90vw',
+    generalStyleFilePath,
+  )
+  setVariable(
+    '--mobileViewportContentWidth',
+    'Width of content on smartphones:',
+    '95vw',
+    generalStyleFilePath,
+  )
+  setVariable(
+    '$mainFontSize =',
+    'The main font size on the pages. By default, see the desktop version (just number),', '16',
+    stylEnvFilePath,
+  )
+  setVariable(
+    '$minFontSize =',
+    'The minimum font size that will be achievable on mobile devices (just number),', '12',
+    stylEnvFilePath,
+  )
+  console.log('\x1b[0m')
 }
 
 function deleteDemoContent() {
@@ -495,7 +566,10 @@ function folderIsEmpty(path) {
 }
 
 function setVariable(variableNameWithOperator, message, defaultValue, variableFilePath, writeOutputLikeString) {
-  let newVariableValue = readline.question(`${message} ${variableNameWithOperator} `)
+  let newVariableValue = readline.question(
+    `\x1b[0m${message} ${variableNameWithOperator}
+    default is: ${defaultValue}
+    new value is: \x1b[1m`)
 
   if (writeOutputLikeString) {
     newVariableValue = `'${newVariableValue}'`
