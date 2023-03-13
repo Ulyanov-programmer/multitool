@@ -51,8 +51,6 @@ export default class SwipeElement {
   private minSwipeHeight: number
   private elementStartX: number
   private elementStartY: number
-  private baseXStateModifier: number
-  private baseYStateModifier: number
   private swipeSensitivity: number
   private maxWorkWidth: number
 
@@ -75,8 +73,6 @@ export default class SwipeElement {
     this.swipeSensitivity = arg.swipeSensitivity
     this.maxWorkWidth = arg.maxWorkWidth
 
-    this.baseXStateModifier = this.checkBaseStateIsNegative('x') ? -1 : 1
-    this.baseYStateModifier = this.checkBaseStateIsNegative('y') ? -1 : 1
     this.minSwipeWidth = Math.trunc(this.swipableElement.clientWidth * this.swipeSensitivity)
     this.minSwipeHeight = Math.trunc(this.swipableElement.clientHeight * this.swipeSensitivity)
 
@@ -159,12 +155,12 @@ export default class SwipeElement {
       if (this.changePlane == ChangePlane.ToRight && this.currentSide == SwipeSide.Left)
         return
 
-      let result
+      let result: number
 
       if (this.changePlane == ChangePlane.ToRight) {
-        result = this.elementStartX + delta * this.baseXStateModifier
+        result = this.elementStartX + delta
       } else {
-        result = this.elementStartX - delta * this.baseXStateModifier
+        result = this.elementStartX - delta
       }
 
 
@@ -176,8 +172,10 @@ export default class SwipeElement {
       this.swipeEnd(delta, true)
     }
     else {
-      if (this.changePlane == ChangePlane.ToLeft && this.currentSide == SwipeSide.Left) return
-      if (this.changePlane == ChangePlane.ToRight && this.currentSide == SwipeSide.Right) return
+      if (this.changePlane == ChangePlane.ToLeft && this.currentSide == SwipeSide.Left)
+        return
+      if (this.changePlane == ChangePlane.ToRight && this.currentSide == SwipeSide.Right)
+        return
 
       let operator = this.changePlane == ChangePlane.ToLeft ? '+' : '-'
       let result = `${operator}${delta}`
@@ -192,10 +190,18 @@ export default class SwipeElement {
   }
   private moveY(delta: number = this.deltaY) {
     if (!this.checkSwipableElementContainActive()) {
-      if (this.changePlane == ChangePlane.ToBottom && this.currentSide == SwipeSide.Top) return
-      if (this.changePlane == ChangePlane.ToTop && this.currentSide == SwipeSide.Bottom) return
+      if (this.changePlane == ChangePlane.ToBottom && this.currentSide == SwipeSide.Top)
+        return
+      if (this.changePlane == ChangePlane.ToTop && this.currentSide == SwipeSide.Bottom)
+        return
 
-      let result = this.elementStartY - delta * this.baseYStateModifier
+      let result: number
+
+      if (this.changePlane == ChangePlane.ToBottom) {
+        result = this.elementStartY + delta
+      } else {
+        result = this.elementStartY - delta
+      }
 
       this.swipableElement.style.transform = `translate3d(
 				${this.getTranslateState('x')}px, 

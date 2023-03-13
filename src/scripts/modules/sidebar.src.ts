@@ -32,7 +32,7 @@ export default class Sidebar {
       return
 
     this.sidebar = document.querySelector(this.sidebarId)
-    this.sidebarButton = this.sidebar.querySelector(`[data-toggle-sidebar-id='${arg.idOfSidebar}']`)
+    this.sidebarButton = document.querySelector(`[data-toggle-sidebar-id='${arg.idOfSidebar}']`)
 
     Sidebar.swipeArea = document.querySelector(`[data-swipe-element='${this.sidebarId}']`)
 
@@ -40,6 +40,7 @@ export default class Sidebar {
       Sidebar.buttonActiveClass = arg.buttonActiveClass
     if (Sidebar.sidebarActiveClass)
       Sidebar.sidebarActiveClass = arg.sidebarActiveClass
+
 
     this.sidebarButton.addEventListener('click', () => {
       this.toggleSidebar(this.sidebarButton)
