@@ -45,7 +45,7 @@ const
   libsFolder = `${src}/libs/`,
   stylEnvFilePath = `${src}/styles/_environment.styl`,
   generalStyleFilePath = `${src}/styles/general/general.styl`,
-  headFilePath = `${src}/components/_headContent.htm`,
+  headFilePath = `${componentsFolder}/headContent.htm`,
 
   fontsGitkeep = `${src}/fonts/.gitkeep`,
   mainStyleFile = `${src}/styles/index.styl`,
@@ -69,25 +69,34 @@ let isFirstImportString = true
 // When the setModules function is running, it indicates whether a hint should be specified.
 let isFirstModuleString = true
 
+let greenTextColor = '\x1b[32m'
+let resetTextColor = '\x1b[0m'
+let brightTextColor = '\x1b[1m'
+let grayTextColor = '\x1b[90m'
 
+console.log(`${grayTextColor} `)
 deleteDemoContent()
 cleanReadmeFilesAndFolders()
 deleteSnippets()
 deleteDemoProject()
 deleteGitKeep()
+console.log(`${resetTextColor} `)
 
 setImportModules()
 setModules()
 setPhp()
-deleteUnusedFolders()
 
-log(`The configuration of files and folders is complete.
-Now, i suggest you change the values of the main variables.`)
+console.log(`${resetTextColor} ${grayTextColor}`)
+deleteUnusedFolders()
+console.log(`${resetTextColor} `)
+
+log(`${brightTextColor}${greenTextColor}The configuration of files and folders is complete.
+Now, i suggest you change the values of the main variables.${resetTextColor}`)
 
 setGeneralVariables()
 
-log(`The setup is completely complete! I wish You a successful job. 
-🎆🎆🎆`)
+log(`${brightTextColor}${greenTextColor}The setup is completely complete! I wish You a successful job. 
+🎆🎆🎆${resetTextColor}`)
 
 
 function setImportModules() {
@@ -154,14 +163,12 @@ function setModules() {
       ],
       styleFilesPath: `${stylesModules}burgerMenu.styl`,
       htmlFilesPaths: [
-        `${componentsFolder}_burgerMenu.htm`,
-        `${componentsFolder}_navmenuBtnItem.htm`,
-        `${componentsFolder}_navmenuRefItem.htm`,
+        `${componentsFolder}burgerMenu.htm`,
       ],
       htmlConnectStrings: [
         {
-          path: `${pathToProject}${src}/_header.htm`,
-          strings: "<%- include('components/_burgerMenu.htm') %>",
+          path: `${componentsFolder}/header.htm`,
+          strings: "<%- include('burgerMenu.htm') %>",
         },
         {
           strings: 'burgerMenu: false,',
@@ -188,11 +195,11 @@ function setModules() {
       ],
       styleFilesPath: `${stylesModules}modalWindows.styl`,
       htmlFilesPaths: [
-        `${componentsFolder}_modals.htm`,
+        `${componentsFolder}modals.htm`,
       ],
       htmlConnectStrings: [
         {
-          strings: "<%- include('components/_modals.htm', {}) %>",
+          strings: "<%- include('components/modals.htm', {}) %>",
         },
         {
           strings: 'modalWindow: false,'
@@ -329,12 +336,12 @@ function setModules() {
   )
 }
 function setPhp() {
-  if (readline.keyInYNStrict(`Include PHP scripts?`) == false) {
+  if (readline.keyInYNStrict(`Include ${brightTextColor}PHP scripts${resetTextColor}?`) == false) {
     fs.removeSync(phpFolder)
     return
   }
 
-  if (readline.keyInYNStrict(`Include PHP-mailer?`) == false) {
+  if (readline.keyInYNStrict(`Include ${brightTextColor}PHP-mailer${resetTextColor}?`) == false) {
     for (let phpMailerFile of phpMailerFiles) {
       fs.removeSync(phpMailerFile)
     }
@@ -343,24 +350,21 @@ function setPhp() {
 function setGeneralVariables() {
   setVariable(
     'lang:',
-    'The main language of the main page,',
+    'The main language of the main page, (string!)',
     "'en'",
     mainHtmlFile,
-    true
   )
   setVariable(
     'title:',
-    'The title of the main page,',
+    'The title of the main page, (string!)',
     "'MainPage'",
     mainHtmlFile,
-    true
   )
   setVariable(
     'preloadedFontName =',
-    'The name of the font file that should be preloaded,',
+    'The name of the font file that should be preloaded, (string!)',
     "''",
     headFilePath,
-    true
   )
 
   setVariable(
@@ -465,11 +469,11 @@ function deleteUnusedFolders() {
 function setImportModule(...importModuleObjects) {
   if (isFirstImportString) {
     // First string, after by a column of modules.
-    console.log('Import the ')
+    console.log(`${brightTextColor}Import the `)
   }
 
   for (let importModule of importModuleObjects) {
-    if (readline.keyInYNStrict(`-- ${importModule.moduleName}?`)) {
+    if (readline.keyInYNStrict(`${resetTextColor}  ${importModule.moduleName}? ${brightTextColor}`)) {
       let newHtmlConnectString = importModule.htmlConnectString.replace('false', 'true')
 
       replace.sync({
@@ -494,12 +498,11 @@ function setImportModule(...importModuleObjects) {
 function includeModuleByQuestion(...moduleObjects) {
   if (isFirstModuleString) {
     // First string, after by a column of modules.
-    console.log('Include the ')
+    console.log(`${brightTextColor}Include the `)
   }
 
-
   for (let module of moduleObjects) {
-    if (readline.keyInYNStrict(`-- ${module.moduleName}?`)) {
+    if (readline.keyInYNStrict(`${resetTextColor}  ${module.moduleName}? ${brightTextColor}`)) {
       replaceHtmlConnectionString(module.htmlConnectStrings, 'false', 'true')
 
       continue
@@ -520,6 +523,8 @@ function includeModuleByQuestion(...moduleObjects) {
     }
     replaceHtmlConnectionString(module.htmlConnectStrings)
   }
+
+  console.log(`${resetTextColor} `)
 }
 
 function replaceHtmlConnectionString(htmlConnectStrings, replacedValue, replacedNewValue) {
@@ -565,15 +570,15 @@ function folderIsEmpty(path) {
   }
 }
 
-function setVariable(variableNameWithOperator, message, defaultValue, variableFilePath, writeOutputLikeString) {
+function setVariable(variableNameWithOperator, message, defaultValue, variableFilePath) {
   let newVariableValue = readline.question(
-    `\x1b[0m${message} ${variableNameWithOperator}
-    default is: ${defaultValue}
-    new value is: \x1b[1m`)
+    `${brightTextColor}
+    ${message} ${variableNameWithOperator} ${resetTextColor}
+    default is:${grayTextColor} ${defaultValue}${resetTextColor}
+    new value is:${brightTextColor} `)
 
-  if (writeOutputLikeString) {
-    newVariableValue = `'${newVariableValue}'`
-  }
+  console.log(`${variableNameWithOperator} ${defaultValue}`)
+  console.log(`${variableNameWithOperator} ${newVariableValue}`)
 
   replace.sync({
     files: variableFilePath,
