@@ -30,7 +30,7 @@ export default class AnimateByScroll {
 }
 
 interface AnimationGroupArgs {
-  /** Selector of the element/elements to which the active animation class will be applied. */
+  /** Selectors of the element/elements to which the active animation class will be applied. */
   selectors: string
   /** 
     For example, 1 => class is assigned as soon as the element is shown on the screen. 
@@ -56,10 +56,12 @@ export class AnimationGroup {
     }
 
     this.htmlElements = document.querySelectorAll(arg.selectors)
+
     for (let htmlElement of this.htmlElements) {
       htmlElement.setAttribute('data-timeout', arg.timeoutBeforeStart.toString())
       htmlElement.setAttribute('data-view-start-coeff', arg.animateStartCoeff.toString())
     }
+
 
     this.defTimeoutBeforeStart = arg.timeoutBeforeStart
     this.defAnimStartCoeffs = arg.animateStartCoeff
@@ -92,6 +94,7 @@ export class AnimationGroup {
   }
   createIntersectionObserver() {
     let observerOptions = { threshold: this.defAnimStartCoeffs }
+
     let observerFunction = function (entries: IntersectionObserverEntry[]) {
       for (let entry of entries) {
         let animateHtml = entry.target as HTMLElement
@@ -119,28 +122,30 @@ export class AnimationGroup {
   }
 }
 
+interface AnimationMediaQueryArgs {
+  /**
+    At a certain width, it changes the settings for applying the animation class.
+  */
+  activationWitdh: number,
+  /** 
+    For example, 1 => class is assigned as soon as the element is shown on the screen. 0.5 = as soon as it is shown at half.
+  */
+  defAnimStartCoeffs: number[],
+  /**
+    The delay before the animation starts in milliseconds.
+  */
+  timeoutBeforeStart: number
+}
+
 export class AnimationMediaQuery {
   public activationWitdh: number
   public defAnimStartCoeffs: number[]
   public timeoutBeforeStart: number
 
-  /**
-  * At a certain width, it changes the settings for applying the animation class.
-  * 
-  * @param activationWitdh
-  * If the viewport width is less than or equal to this value, new settings for applying the animation class will be applied.
-  * @param defAnimStartCoeffs
-  * For example, 1 => class is assigned as soon as the element is shown on the screen. 0.5 = as soon as it is shown at half.
-  * @param timeoutBeforeStart
-  * The delay before the animation starts in milliseconds.
-  * 
-  * @throws animateStartCoeff < 0 or > 1 - 
-  * Specify the animation start factor greater than 0 and less than 1.
-  */
-  constructor(activationWitdh: number, defAnimStartCoeffs: number[], timeoutBeforeStart: number) {
-    this.activationWitdh = activationWitdh
-    this.defAnimStartCoeffs = defAnimStartCoeffs
-    this.timeoutBeforeStart = timeoutBeforeStart
+  constructor(arg: AnimationMediaQueryArgs) {
+    this.activationWitdh = arg.activationWitdh
+    this.defAnimStartCoeffs = arg.defAnimStartCoeffs
+    this.timeoutBeforeStart = arg.timeoutBeforeStart
   }
 }
 
