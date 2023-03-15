@@ -11,6 +11,7 @@ export const paths = {
     images: `${project}/img/`,
     fonts: `${project}/fonts/`,
     libs: `${project}/libs/`,
+    video: `${project}/video/`,
   },
   scr: {
     html: [`${source}/**/*.{html,htm}`, `!${source}/components/*.{html,htm}`],
@@ -24,6 +25,7 @@ export const paths = {
     fontsWoff: `${source}/fonts/*.{woff,woff2}`,
     fontsFolder: `${source}/fonts/`,
     libs: `${source}/libs/**/*.*`,
+    video: `${source}/video/**/*.{mp4,webm}`,
   },
   watch: {
     html: `${source}/**/*.{html,htm,php}`,
@@ -37,6 +39,7 @@ export const paths = {
     imagesJpg: `${source}/img/**/*.jpg`,
     imagesSvg: `${source}/img/**/*.svg`,
     libs: `${source}/libs/*.*`,
+    video: `${source}/video/**/*.{mp4,webm}`,
   },
 }
 export const fontsFIlePath = `${source}/styles/general/fonts.styl`

@@ -9,6 +9,7 @@ import scripts from './gulp/scriptTask.js'
 import scriptModules from './gulp/moduleTask.js'
 import fonts, { fontsStyle } from './gulp/fonts.js'
 import images, { imagesSvg } from './gulp/images.js'
+import video from './gulp/video.js'
 import deleteUnlinkFiles from './gulp/deleteUnlinkFiles.js'
 import updateDist from './gulp/cleanDist.js'
 import libs from './gulp/importModules.js'
@@ -36,10 +37,13 @@ function watchFIles() {
   gulp.watch(paths.watch.imagesSvg, imagesSvg).on('unlink', (filePath) => {
     deleteUnlinkFiles(filePath)
   })
+  gulp.watch(paths.watch.video, video).on('unlink', (filePath) => {
+    deleteUnlinkFiles(filePath)
+  })
 }
 
 const mainTasks = [
-  html, css, fonts, scriptModules, scripts, php, imagesSvg, images,
+  html, css, fonts, scriptModules, scripts, php, imagesSvg, images, video,
 ]
 
 updateDist()
