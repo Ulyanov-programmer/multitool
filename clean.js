@@ -7,12 +7,12 @@ import { log } from 'console'
 class ImportModuleObject {
   moduleName
   htmlConnectString
-  filesToDeletePaths
+  pathsToDelete
 
-  constructor(moduleName, htmlConnectString, filesToDeletePaths) {
+  constructor(moduleName, htmlConnectString, pathsToDelete) {
     this.moduleName = moduleName
     this.htmlConnectString = htmlConnectString
-    this.filesToDeletePaths = filesToDeletePaths
+    this.pathsToDelete = pathsToDelete
   }
 }
 class ModuleObject {
@@ -114,8 +114,7 @@ function setImportModules() {
       'swiper: false,',
       [
         `${src}/scripts/sliders.js`,
-        `${libsFolder}swiper-bundle.esm.browser.min.js`,
-        `${libsFolder}swiper-bundle.min.css`,
+        `${libsFolder}swiper/`,
       ],
     ),
     new ImportModuleObject(
@@ -137,8 +136,7 @@ function setImportModules() {
       `Air Date Picker`,
       '',
       [
-        `${libsFolder}air-datepicker.js`,
-        `${libsFolder}air-datepicker.css`,
+        `${libsFolder}air-datepicker/`,
       ],
     ),
     new ImportModuleObject(
@@ -146,9 +144,15 @@ function setImportModules() {
       'photoSwipe: false,',
       [
         `${src}/scripts/photoSwipe.js`,
-        `${libsFolder}photoswipe.esm.min.js`,
-        `${libsFolder}photoswipe-lightbox.esm.min.js`,
-        `${libsFolder}photoswipe.css`,
+        `${libsFolder}photoswipe/`,
+      ],
+    ),
+    new ImportModuleObject(
+      `noUiSlider`,
+      'noUiSlider: false,',
+      [
+        `${src}/scripts/nouislider.js`,
+        `${libsFolder}nouislider/`,
       ],
     ),
   )
@@ -488,8 +492,8 @@ function setImportModule(...importModuleObjects) {
         to: '',
       })
 
-      for (let fileToDelete of importModule.filesToDeletePaths) {
-        fs.removeSync(fileToDelete)
+      for (let pathToDelete of importModule.pathsToDelete) {
+        fs.removeSync(pathToDelete)
       }
     }
   }
