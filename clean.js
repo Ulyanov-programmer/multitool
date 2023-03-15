@@ -577,9 +577,6 @@ function setVariable(variableNameWithOperator, message, defaultValue, variableFi
     default is:${grayTextColor} ${defaultValue}${resetTextColor}
     new value is:${brightTextColor} `)
 
-  console.log(`${variableNameWithOperator} ${defaultValue}`)
-  console.log(`${variableNameWithOperator} ${newVariableValue}`)
-
   replace.sync({
     files: variableFilePath,
     from: `${variableNameWithOperator} ${defaultValue}`,
