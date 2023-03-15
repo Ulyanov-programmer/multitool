@@ -23,7 +23,7 @@ export const paths = {
     fonts: `${source}/fonts/*.{ttf,otf}`,
     fontsWoff: `${source}/fonts/*.{woff,woff2}`,
     fontsFolder: `${source}/fonts/`,
-    libs: `${source}/libs/*.*`,
+    libs: `${source}/libs/**/*.*`,
   },
   watch: {
     html: `${source}/**/*.{html,htm,php}`,

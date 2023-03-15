@@ -72,25 +72,32 @@
   <!-- /-/ General scripts -->
   <% if (modules.justValidate) { %>
   <!-- JustValidate -->
-  <script type='module' src='scripts/justValidate.js'></script>
+  <script type='module' src='./scripts/justValidate.js'></script>
   <% } %>
 
   <% if (modules.swiper) { %>
   <!-- Swiper -->
-  <link rel='stylesheet' href='./libs/swiper-bundle.min.css'>
-  <script type='module' src='scripts/sliders.js'></script>
+  <link rel='stylesheet' href='./libs/swiper/swiper-bundle.min.css'>
+  <script type='module' src='./scripts/sliders.js'></script>
   <% } %>
 
   <% if (modules.typed) { %>
   <!-- Typed -->
   <script defer src='./libs/typed.min.js'></script>
-  <script defer src='scripts/typed.js'></script>
+  <script defer src='./scripts/typed.js'></script>
   <% } %>
 
   <% if (modules.photoSwipe) { %>
   <!-- PhotoSwipe -->
   <script type='module' src='./scripts/photoSwipe.js'></script>
-  <link rel='stylesheet' href='./libs/photoswipe.css'>
+  <link rel='stylesheet' href='./libs/photoswipe/photoswipe.css'>
+  <% } %>
+
+
+  <% if (modules.noUiSlider) { %>
+  <!-- Nouislider -->
+  <link href='./libs/nouislider/nouislider.min.css' rel='stylesheet'>
+  <script type='module' src='./scripts/nouislider.js'></script>
   <% } %>
 
   <% if (modules.burgerMenu) { %>
