@@ -19,10 +19,13 @@ export default class ModalWindowMenu {
   private static modalLinks: NodeListOf<HTMLElement>
   private static modalElements: NodeListOf<HTMLElement>
   private static burgerMenuClasslist: DOMTokenList
-  private readonly modalWindowSelector = '.modal-window'
+  private readonly modalWindowClass = 'modal-window'
+  private readonly modalWindowSelector = `.${this.modalWindowClass}`
   private readonly modalWindowActiveClass = 'active'
-  private readonly modalWindowCloseButtonsClass = 'modal-window__closer'
-  private readonly modalWindowActiveSelector = `.modal-window.${this.modalWindowActiveClass}`
+  private readonly modalWindowCloseButtonsClass =
+    `${this.modalWindowClass}__closer`
+  private readonly modalWindowActiveSelector =
+    `${this.modalWindowSelector}.${this.modalWindowActiveClass}`
   private readonly generalModalStyles: CSSStyleDeclaration
   private readonly generalTransitionDurationMs: number = 100
 
@@ -51,11 +54,20 @@ export default class ModalWindowMenu {
     ModalWindowMenu.modalElements = document.querySelectorAll(this.modalWindowSelector)
 
     for (let modalElement of ModalWindowMenu.modalElements) {
-      let modalClosers = modalElement.querySelectorAll('.' + this.modalWindowCloseButtonsClass)
+      let modalClosers = modalElement.querySelectorAll(`.${this.modalWindowCloseButtonsClass}`)
 
       for (let modalCloser of modalClosers) {
         modalCloser.addEventListener('click', () => this.closeActiveModal(true))
       }
+
+
+      modalElement.addEventListener('click', (e) => {
+        let target = e.target as HTMLElement
+
+        if (target.classList.contains(this.modalWindowClass)) {
+          this.closeActiveModal(true)
+        }
+      })
     }
 
     this.generalModalStyles = getComputedStyle(ModalWindowMenu.modalElements[0])
@@ -97,7 +109,7 @@ export default class ModalWindowMenu {
   }
 
   private async toggleBodyScroll(toggleScrollOn: boolean, activeModal: HTMLElement) {
-    if (this.chekPossibileSwitchScroll(toggleScrollOn)) {
+    if (this.checkPossibleSwitchScroll(toggleScrollOn)) {
 
       if (activeModal)
         await sleep(this.generalTransitionDurationMs)
@@ -116,7 +128,7 @@ export default class ModalWindowMenu {
   }
 
 
-  private chekPossibileSwitchScroll(toggleOnValue: boolean): boolean {
+  private checkPossibleSwitchScroll(toggleOnValue: boolean): boolean {
     if (ModalWindowMenu.burgerMenuClasslist) {
       if (!ModalWindowMenu.burgerMenuClasslist.contains(this.modalWindowActiveClass) && toggleOnValue) {
         return true
