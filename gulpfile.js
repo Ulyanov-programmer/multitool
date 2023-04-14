@@ -5,8 +5,7 @@ import browsersyncFunc from './gulp/browserSync.js'
 import html from './gulp/html.js'
 import php from './gulp/php.js'
 import css from './gulp/css.js'
-import scripts from './gulp/scriptTask.js'
-import scriptModules from './gulp/moduleTask.js'
+import scripts from './gulp/scripts.js'
 import fonts, { fontsStyle } from './gulp/fonts.js'
 import images, { imagesSvg } from './gulp/images.js'
 import video from './gulp/video.js'
@@ -28,9 +27,6 @@ function watchFIles() {
   gulp.watch(paths.watch.scripts, scripts).on('unlink', (filePath) => {
     deleteUnlinkFiles(filePath, ['.js'])
   })
-  gulp.watch(paths.watch.scriptModules, scriptModules).on('unlink', (filePath) => {
-    deleteUnlinkFiles(filePath, ['.js'])
-  })
   gulp.watch(paths.watch.images, images).on('unlink', (filePath) => {
     deleteUnlinkFiles(filePath, ['.webp', '.avif'])
   })
@@ -43,7 +39,7 @@ function watchFIles() {
 }
 
 const mainTasks = [
-  html, css, fonts, scriptModules, scripts, php, imagesSvg, images, video,
+  html, css, fonts, scripts, php, imagesSvg, images, video,
 ]
 
 updateDist()
