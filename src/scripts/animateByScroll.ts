@@ -9,7 +9,7 @@ new AnimateByScroll(
     timeoutBeforeStart: 500,
   },
     new AnimationMediaQuery({
-      activationWitdh: 768,
+      activationWidth: 768,
       defAnimStartCoeffs: [0.8, 0.8],
       timeoutBeforeStart: 300,
     })
@@ -21,7 +21,7 @@ new AnimateByScroll(
     timeoutBeforeStart: 1500,
   },
     new AnimationMediaQuery({
-      activationWitdh: 768,
+      activationWidth: 768,
       defAnimStartCoeffs: [0.8, 0.8],
       timeoutBeforeStart: 300,
     })

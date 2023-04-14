@@ -1,5 +1,5 @@
-import { elementsIsExist } from "./general.js"
-import "../scroll-timeline.js"
+import { elementsIsExist } from './general.js'
+import '../scroll-timeline.js'
 
 
 interface AnimateByScrollArgs {
@@ -78,7 +78,7 @@ export class AnimationGroup {
     if (this.mediaQueries.length <= 0) return
 
     for (let mediaQuery of this.mediaQueries) {
-      if (window.outerWidth <= mediaQuery.activationWitdh) {
+      if (window.outerWidth <= mediaQuery.activationWidth) {
 
         for (let htmlElement of this.htmlElements) {
           htmlElement.setAttribute('data-timeout', mediaQuery.timeoutBeforeStart.toString())
@@ -126,7 +126,7 @@ interface AnimationMediaQueryArgs {
   /**
     At a certain width, it changes the settings for applying the animation class.
   */
-  activationWitdh: number,
+  activationWidth: number,
   /** 
     For example, 1 => class is assigned as soon as the element is shown on the screen. 0.5 = as soon as it is shown at half.
   */
@@ -138,12 +138,12 @@ interface AnimationMediaQueryArgs {
 }
 
 export class AnimationMediaQuery {
-  public activationWitdh: number
+  public activationWidth: number
   public defAnimStartCoeffs: number[]
   public timeoutBeforeStart: number
 
   constructor(arg: AnimationMediaQueryArgs) {
-    this.activationWitdh = arg.activationWitdh
+    this.activationWidth = arg.activationWidth
     this.defAnimStartCoeffs = arg.defAnimStartCoeffs
     this.timeoutBeforeStart = arg.timeoutBeforeStart
   }
