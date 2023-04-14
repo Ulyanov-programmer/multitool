@@ -31,3 +31,9 @@ export default function scripts() {
     .pipe(gulp.dest(paths.build.scriptModules))
     .pipe(browsersync.stream())
 }
+
+export function libs() {
+  return gulp.src(paths.scr.libs)
+    .pipe(gulp.dest(paths.build.libs))
+    .pipe(browsersync.stream())
+}

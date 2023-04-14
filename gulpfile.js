@@ -5,13 +5,12 @@ import browsersyncFunc from './gulp/browserSync.js'
 import html from './gulp/html.js'
 import php from './gulp/php.js'
 import css from './gulp/css.js'
-import scripts from './gulp/scripts.js'
+import scripts, { libs } from './gulp/scripts.js'
 import fonts, { fontsStyle } from './gulp/fonts.js'
 import images, { imagesSvg } from './gulp/images.js'
 import video from './gulp/video.js'
 import deleteUnlinkFiles from './gulp/deleteUnlinkFiles.js'
 import updateDist from './gulp/cleanDist.js'
-import libs from './gulp/importModules.js'
 
 
 function watchFIles() {
