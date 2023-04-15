@@ -223,16 +223,6 @@ function setModules() {
       ],
     }),
     new ModuleObject({
-      moduleName: 'Filter',
-      scriptFilesPaths: [
-        `${scriptModules}filter${srcExt}`,
-        `${scriptGeneral}filter.ts`,
-      ],
-      styleFilesPath: null,
-      htmlFilesPaths: null,
-      htmlConnectStrings: null,
-    }),
-    new ModuleObject({
       moduleName: 'Submenu',
       scriptFilesPaths: [
         `${scriptModules}submenu${srcExt}`,
