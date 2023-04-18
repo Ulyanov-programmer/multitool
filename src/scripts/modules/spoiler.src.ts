@@ -1,159 +1,258 @@
-import { elementIsExistWithLog } from './general.js'
+import { elementIsExistWithLog, sleep } from './general.js'
 
-interface SpoilerMenuArgs {
-  /** Selector for ALL buttons that open some spoiler. */
-  buttonsSelector: string
-  /** 
-    Selector of blocks that will appear when the spoiler is activated. 
-    Blocks should be after spoiler open button in html, see example below.
-  */
-  contentBlocksSelector: string
+interface SpoilerArgs {
+  wrappersSelector: string
   /**
     If the width of the viewport is greater than input width, 
     the spoilers will not be active and their styles will not be applied.
     If the viewport is smaller than input width, the spoilers will be active.
   */
-  maxWorkWidth: number
+  maxWorkWidth?: number
   /** 
     Animation duration in ms, unless you want spoilers to open and close too quickly. 
   */
   animationDuration: number
   buttonActiveClass?: string
   contentActiveClass?: string
+
+  ajar?: Ajar
+}
+export class Ajar {
+  defaultHeightPx: number = 200
+  deleteButtonAfterOpening: boolean = false
+
+  constructor(args: AjarSpoilerArgs) {
+    this.defaultHeightPx = args.defaultHeightPx
+    this.deleteButtonAfterOpening = args.deleteButtonAfterOpening
+  }
+}
+interface AjarSpoilerArgs {
+  defaultHeightPx: number
+  deleteButtonAfterOpening?: boolean
 }
 
-export default class SpoilerMenu {
-  private static spoilerButtons: NodeListOf<HTMLElement>
-  private static spoilerContentElements: NodeListOf<HTMLElement>
-  private static spoilerVisibleWidth: number
-  private static animationDuration: number
-  public static readonly animationTogglingClass: string = '_slide'
-  public static btnActiveClass: string
-  public static contentActiveClass: string
+export default class Spoiler {
+  private buttons: NodeListOf<HTMLElement>
+  private contentElements: NodeListOf<HTMLElement>
+  private maxWorkWidth?: number = 99999999
+  private animationDuration: number
+  public readonly buttonClass: string = 'spoiler-btn'
+  public readonly contentClass: string = 'spoiler-content'
+  public readonly animationTogglingClass: string = '_slide'
+  public buttonActiveClass: string
+  public contentActiveClass: string
+  private ajar?: Ajar
 
-  constructor(args: SpoilerMenuArgs) {
-    if (!elementIsExistWithLog('SpoilerMenu', args.buttonsSelector, args.contentBlocksSelector)) {
-      return
-    } else if (args.maxWorkWidth < 0 || args.animationDuration < 0) {
-      console.log('[SpoilerMenu] maxWorkWidth < 0 or animationDuration < 0!')
-    }
-
-    SpoilerMenu.spoilerButtons = document.querySelectorAll(args.buttonsSelector)
-    SpoilerMenu.spoilerContentElements = document.querySelectorAll(args.contentBlocksSelector)
-
-    SpoilerMenu.btnActiveClass = args.buttonActiveClass ? args.buttonActiveClass : 'active'
-    SpoilerMenu.contentActiveClass = args.contentActiveClass ? args.contentActiveClass : 'active'
-
-    if (SpoilerMenu.spoilerButtons.length != SpoilerMenu.spoilerContentElements.length) {
-      console.log('[SpoilerMenu] The count of buttons and content-elements is not equal!')
+  constructor(args: SpoilerArgs) {
+    if (!elementIsExistWithLog('Spoiler', args.wrappersSelector)) {
       return
     }
+    else if (args.maxWorkWidth < 0 || args.animationDuration < 0) {
+      console.log('[Spoiler] maxWorkWidth < 0 or animationDuration < 0!')
+    }
 
-    SpoilerMenu.spoilerVisibleWidth = args.maxWorkWidth
-    SpoilerMenu.animationDuration = args.animationDuration
 
-    this.toggleToSpoilers()
+    this.buttons = document.querySelectorAll(
+      `${args.wrappersSelector} .${this.buttonClass}`
+    )
+    this.contentElements = document.querySelectorAll(
+      `${args.wrappersSelector} .${this.contentClass}`
+    )
+    this.buttonActiveClass = args.buttonActiveClass ? args.buttonActiveClass : 'active'
+    this.contentActiveClass = args.contentActiveClass ? args.contentActiveClass : 'active'
+    this.maxWorkWidth = args.maxWorkWidth ? args.maxWorkWidth : this.maxWorkWidth
+    this.animationDuration = args.animationDuration
 
-    //? Determines spoilers when the page is resized.
-    window.addEventListener(`resize`, this.toggleToSpoilers)
+
+    if (args.ajar) {
+      this.ajar = args.ajar
+      this.setAjarSpoilers()
+
+      //? Determines spoilers when the page is resized.
+      window.addEventListener(`resize`, this.setAjarSpoilers.bind(this))
+    } else {
+      this.setSpoilers()
+      window.addEventListener(`resize`, this.setSpoilers.bind(this))
+    }
   }
 
 
-  private toggleToSpoilers() {
-    for (let i = 0; i < SpoilerMenu.spoilerContentElements.length; i++) {
-      if (window.innerWidth <= SpoilerMenu.spoilerVisibleWidth) {
-        if (SpoilerMenu.spoilerButtons[i].classList.contains(SpoilerMenu.btnActiveClass)) {
-          spoilerDown(SpoilerMenu.spoilerContentElements[i], SpoilerMenu.animationDuration)
-        } else {
-          spoilerUp(SpoilerMenu.spoilerContentElements[i], SpoilerMenu.animationDuration)
+  private setSpoilers() {
+    for (let i = 0; i < this.contentElements.length; i++) {
+      if (window.innerWidth <= this.maxWorkWidth) {
+
+        if (this.isSpoilerContentActive(this.contentElements[i])) {
+          this.spoilerDown(this.contentElements[i], this.animationDuration)
+        }
+        else {
+          this.spoilerUp(this.contentElements[i], this.animationDuration)
         }
 
-        SpoilerMenu.spoilerContentElements[i].style.overflow = 'hidden'
-        SpoilerMenu.spoilerButtons[i].style.cursor = ''
-        SpoilerMenu.spoilerButtons[i].addEventListener('click', SpoilerMenu.toggleSpoilerState)
+        this.contentElements[i].style.overflow = 'hidden'
+        this.buttons[i].style.cursor = ''
+        this.buttons[i].addEventListener('click', this.toggleSpoilerState.bind(this))
       }
       else {
-        SpoilerMenu.spoilerContentElements[i].style.height = ''
-        SpoilerMenu.spoilerContentElements[i].style.opacity = ''
-        SpoilerMenu.spoilerContentElements[i].style.pointerEvents = ''
-        SpoilerMenu.spoilerContentElements[i].style.overflow = ''
-        SpoilerMenu.spoilerContentElements[i].style.transitionDuration = ''
-        SpoilerMenu.spoilerContentElements[i].style.transitionProperty = ''
+        this.contentElements[i].style.height = ''
+        this.contentElements[i].style.opacity = ''
+        this.contentElements[i].style.pointerEvents = ''
+        this.contentElements[i].style.overflow = ''
+        this.contentElements[i].style.transitionDuration = ''
+        this.contentElements[i].style.transitionProperty = ''
 
-        SpoilerMenu.spoilerButtons[i].style.cursor = 'default'
-        SpoilerMenu.spoilerButtons[i].removeEventListener('click', SpoilerMenu.toggleSpoilerState)
+        this.buttons[i].style.cursor = 'default'
+        this.buttons[i].removeEventListener('click', this.toggleSpoilerState.bind(this))
 
-        toggleSpoilerContentNodesVisibility(true, SpoilerMenu.spoilerContentElements[i])
+        this.toggleSpoilerContentNodesVisibility(true, this.contentElements[i])
       }
     }
   }
 
-  private static toggleSpoilerState(event: Event) {
-    let targetSpoilerButton = event.currentTarget as HTMLElement
-    let spoilerContainer = targetSpoilerButton.nextElementSibling as HTMLElement
+  private toggleSpoilerState(event: PointerEvent) {
+    let spoilerWrapper = this.getActiveSpoilerWrapper(event)
+    let targetSpoilerButton = spoilerWrapper.querySelector(`.${this.buttonClass}`)
+    let spoilerContainer = spoilerWrapper.querySelector(`.${this.contentClass}`) as HTMLElement
 
-    if (canToggleSpoiler(spoilerContainer) == false) return
+    if (this.canToggleSpoiler(spoilerContainer) == false) return
 
-    toggleSpoilerAnimation(spoilerContainer, SpoilerMenu.animationDuration)
-    targetSpoilerButton.classList.toggle(SpoilerMenu.btnActiveClass)
-    spoilerContainer.classList.toggle(SpoilerMenu.contentActiveClass)
+    this.toggleSpoilerAnimation(spoilerContainer, this.animationDuration)
+    targetSpoilerButton.classList.toggle(this.contentActiveClass)
+    spoilerContainer.classList.toggle(this.contentActiveClass)
   }
-}
-
-
-function toggleSpoilerAnimation(spoilerContainer: HTMLElement, duration: number) {
-  if (spoilerContainer.style.height == '0px')
-    spoilerDown(spoilerContainer, duration)
-  else
-    spoilerUp(spoilerContainer, duration)
-}
-
-function canToggleSpoiler(spoilerContainer: HTMLElement): boolean {
-  if (spoilerContainer.classList.contains(SpoilerMenu.animationTogglingClass)) {
-    return false
+  private toggleSpoilerAnimation(spoilerContainer: HTMLElement, duration: number) {
+    if (spoilerContainer.style.height == '0px')
+      this.spoilerDown(spoilerContainer, duration)
+    else
+      this.spoilerUp(spoilerContainer, duration)
   }
-  else {
-    spoilerContainer.classList.add(SpoilerMenu.animationTogglingClass)
-    return true
-  }
-}
-function spoilerUp(spoilerContainer: HTMLElement, duration: number) {
-  spoilerContainer.style.transitionProperty = 'height, opacity'
-  spoilerContainer.style.transitionDuration = `${duration}ms`
-  spoilerContainer.style.height = '0px'
-  spoilerContainer.style.opacity = '0'
-  spoilerContainer.style.pointerEvents = 'none'
-
-  window.setTimeout(() => {
-    spoilerContainer.classList.remove(SpoilerMenu.animationTogglingClass)
-
-    toggleSpoilerContentNodesVisibility(false, spoilerContainer)
-  }, duration)
-}
-function spoilerDown(spoilerContainer: HTMLElement, duration: number) {
-  let heightOfContent = spoilerContainer.scrollHeight
-
-  spoilerContainer.style.transitionProperty = 'height, opacity'
-  spoilerContainer.style.transitionDuration = `${duration}ms`
-  spoilerContainer.style.height = `${heightOfContent}px`
-  spoilerContainer.style.opacity = '1'
-  spoilerContainer.style.pointerEvents = 'all'
-
-  toggleSpoilerContentNodesVisibility(true, spoilerContainer)
-
-  window.setTimeout(() => {
-    spoilerContainer.classList.remove(SpoilerMenu.animationTogglingClass)
-  }, duration)
-}
-function toggleSpoilerContentNodesVisibility(toggleTo: boolean, spoilerContainer: HTMLElement) {
-  if (toggleTo) {
-    for (let nodes of spoilerContainer.children) {
-      nodes.style.visibility = ''
+  private canToggleSpoiler(spoilerContainer: HTMLElement): boolean {
+    if (spoilerContainer.classList.contains(this.animationTogglingClass)) {
+      return false
+    }
+    else {
+      spoilerContainer.classList.add(this.animationTogglingClass)
+      return true
     }
   }
-  else {
-    for (let nodes of spoilerContainer.children) {
-      nodes.style.visibility = 'hidden'
+  private spoilerUp(spoilerContainer: HTMLElement, duration: number) {
+    spoilerContainer.style.transitionProperty = 'height, opacity'
+    spoilerContainer.style.transitionDuration = `${duration}ms`
+    spoilerContainer.style.height = '0px'
+    spoilerContainer.style.opacity = '0'
+    spoilerContainer.style.pointerEvents = 'none'
+
+    window.setTimeout(() => {
+      spoilerContainer.classList.remove(this.animationTogglingClass)
+
+      if (this.isSpoilerContentActive(spoilerContainer)) {
+        this.toggleSpoilerContentNodesVisibility(false, spoilerContainer)
+      }
+    }, duration)
+  }
+  private spoilerDown(spoilerContainer: HTMLElement, duration: number) {
+    let heightOfContent = spoilerContainer.scrollHeight - 1
+
+    spoilerContainer.style.transitionProperty = 'height, opacity'
+    spoilerContainer.style.transitionDuration = `${duration}ms`
+    spoilerContainer.style.height = `${heightOfContent}px`
+    spoilerContainer.style.opacity = '1'
+    spoilerContainer.style.pointerEvents = 'all'
+
+    this.toggleSpoilerContentNodesVisibility(true, spoilerContainer)
+
+    window.setTimeout(() => {
+      spoilerContainer.style.height = `${spoilerContainer}px`
+      spoilerContainer.classList.remove(this.animationTogglingClass)
+    }, duration)
+  }
+  private toggleSpoilerContentNodesVisibility(toggleTo: boolean, spoilerContainer: HTMLElement) {
+    if (toggleTo) {
+      for (let nodes of spoilerContainer.children) {
+        nodes.style.visibility = ''
+      }
+    }
+    else {
+      for (let nodes of spoilerContainer.children) {
+        nodes.style.visibility = 'hidden'
+      }
+    }
+  }
+
+
+  private setAjarSpoilers() {
+    for (let i = 0; i < this.contentElements.length; i++) {
+      if (window.innerWidth <= this.maxWorkWidth) {
+        this.toggleAjarFunctionality(true, this.ajar)
+      }
+      else {
+        this.toggleAjarFunctionality(false, this.ajar)
+      }
+    }
+  }
+  enableAjarSpoilerStateHandler = (function (e: PointerEvent) {
+    this.toggleAjarSpoiler(e, this.ajar, this.getActiveSpoilerWrapper(e))
+  }).bind(this)
+
+  private async toggleAjarSpoiler(event: PointerEvent, ajarParams: Ajar, spoilerWrapper: HTMLElement) {
+    let targetSpoilerButton = spoilerWrapper.querySelector(`.${this.buttonClass}`)
+    let spoilerContainer = spoilerWrapper.querySelector(`.${this.contentClass}`) as HTMLElement
+
+    spoilerContainer.style.transitionProperty = 'height'
+    spoilerContainer.style.transitionDuration = `${this.animationDuration}ms`
+
+    if (this.isSpoilerContentActive(spoilerContainer) == false) {
+      spoilerContainer.style.height = `${spoilerContainer.scrollHeight - 1}px`
+      await sleep(this.animationDuration)
+
+      spoilerContainer.style.height = ''
+      spoilerContainer.classList.add(this.contentActiveClass)
+
+      if (ajarParams.deleteButtonAfterOpening && targetSpoilerButton) {
+        targetSpoilerButton.remove()
+      }
+    }
+    else {
+      spoilerContainer.style.overflow = 'hidden'
+      spoilerContainer.style.height = `${spoilerContainer.clientHeight}px`
+      await sleep(10)
+      spoilerContainer.style.height = `${ajarParams.defaultHeightPx}px`
+      await sleep(this.animationDuration)
+
+      spoilerContainer.classList.remove(this.contentActiveClass)
+    }
+  }
+  private toggleAjarFunctionality(toggleTo: boolean, ajarParams: Ajar) {
+    if (toggleTo) {
+      for (let i = 0; i < this.contentElements.length; i++) {
+
+        if (this.isSpoilerContentActive(this.contentElements[i]) == false) {
+          this.contentElements[i].style.overflow = 'hidden'
+          this.contentElements[i].style.height = `${ajarParams.defaultHeightPx}px`
+
+          this.buttons[i].addEventListener('click', this.enableAjarSpoilerStateHandler, false)
+        }
+      }
+    }
+    else {
+      for (let i = 0; i < this.contentElements.length; i++) {
+        this.contentElements[i].style.overflow = ''
+        this.contentElements[i].style.height = ''
+
+        this.buttons[i].removeEventListener('click', this.enableAjarSpoilerStateHandler, false)
+      }
+    }
+  }
+
+
+  private getActiveSpoilerWrapper(buttonEvent: PointerEvent) {
+    let button = buttonEvent.currentTarget as HTMLElement
+    return button.parentElement
+  }
+  private isSpoilerContentActive(spoilerContentElement: HTMLElement) {
+    if (spoilerContentElement.classList.contains(this.contentActiveClass)) {
+      return true
+    } else {
+      return false
     }
   }
 }

@@ -1,10 +1,14 @@
-import SpoilerMenu from './modules/spoiler.src.js'
+import Spoiler, { Ajar } from './modules/spoiler.src.js'
 
-new SpoilerMenu({
-  buttonsSelector: '.spoiler__btn',
-  contentBlocksSelector: '.spoiler__content',
+new Spoiler({
+  wrappersSelector: '.spoiler_1',
   maxWorkWidth: 10000,
   animationDuration: 300,
   buttonActiveClass: 'active',
   contentActiveClass: 'active',
+
+  // ajar: new Ajar({
+  //   deleteButtonAfterOpening: false,
+  //   defaultHeightPx: 100
+  // })
 })
