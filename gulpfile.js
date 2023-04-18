@@ -26,6 +26,9 @@ function watchFIles() {
   gulp.watch(paths.watch.scripts, scripts).on('unlink', (filePath) => {
     deleteUnlinkFiles(filePath, ['.js'])
   })
+  gulp.watch(paths.watch.scriptModules, scripts).on('unlink', (filePath) => {
+    deleteUnlinkFiles(filePath, ['.js'])
+  })
   gulp.watch(paths.watch.images, images).on('unlink', (filePath) => {
     deleteUnlinkFiles(filePath, ['.webp', '.avif'])
   })
