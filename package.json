@@ -24,6 +24,10 @@
     "parse-font-name": "^1.2.0",
     "prettier": "^2.8.4",
     "readline-sync": "^1.4.10",
+    "gulp-posthtml": "^3.0.5",
+    "posthtml-component": "^1.1.0",
+    "posthtml-easy-bem": "^1.0.0",
+    "posthtml-picture-srcset": "^1.0.1",
     "replace-in-file": "^6.3.5"
   },
   "dependencies": {

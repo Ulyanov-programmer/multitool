@@ -3,6 +3,9 @@ import browsersync from 'browser-sync'
 import ejs from 'gulp-ejs'
 import imgToPicture from 'gulp-html-img-to-picture'
 import versionNumber from 'gulp-version-number'
+import posthtml from 'gulp-posthtml'
+import easyBem from 'posthtml-easy-bem'
+import component from 'posthtml-component'
 import gulpIf from 'gulp-if'
 import { paths } from './paths.js'
 const isProd = process.argv.includes('--prod')
@@ -10,6 +13,13 @@ const isProd = process.argv.includes('--prod')
 export default function html() {
   return gulp.src(paths.scr.html)
     .pipe(ejs({}))
+    .pipe(posthtml([
+      easyBem(),
+      component({
+        root: './src',
+        folders: ['components'],
+      }),
+    ], {}))
 
     .pipe(
       gulpIf(isProd, imgToPicture({
@@ -32,6 +42,7 @@ export default function html() {
       })
       )
     )
+
     .pipe(gulp.dest(paths.build.html))
     .pipe(browsersync.stream())
 }
