@@ -1,48 +1,32 @@
-<%- include('components/head.htm', {
-  lang: 'en',
-  title: 'MainPage',
+<x-layout title='UnnamedPage'
+  justValidate='false'
+  swiper='false'
+  typed='false'
+  photoSwipe='false'
+  noUiSlider='false'
+  burgerMenu='false'
+  formStyles='false'
+  sidebar='false'
+  spoiler='false'
+  submenu='false'
+  animateByScroll='false'
+  swipe='false'
+  horizontalScroll='false'
+  modalWindow='false'
+  parallax='false'
+  scrollToElement='false'
+  tabs='false'>
 
-  modules: {
-  justValidate: false,
-  swiper: false,
-  photoSwipe: false,
-  typed: false,
-  noUiSlider: false,
-  burgerMenu: false,
-  formStyles: false,
-  sidebar: false,
-  spoiler: false,
-  submenu: false,
-  animateByScroll: false,
-  horizontalScroll: false,
-  modalWindow: false,
-  parallax: false,
-  scrollToElement: false,
-  tabs: false,
-  },
+  <push name='styles'><!-- push your css links here --></push>
+  <push name='scripts'><!-- push your js links here --></push>
 
-  styles: [
-    // To connect styles, add a string here with the name of the file to be connected.
-    'index',
-  ],
-  scripts: [
-    // To connect scripts, add the name of the attached file and the necessary attributes here.
-    // { name: 'scriptFileName', attrs: 'type="module" defer' },
-  ],
-}) %>
-<x-head></x-head>
+  <fill:header></fill:header>
 
-<body>
-  <%- include('components/header.htm', {}) %>
 
-  <main>
+  <!-- Write your content in the main tag here -->
 
-  </main>
 
-  <%- include('components/modals.htm', {}) %>
+  <fill:footer></fill:footer>
 
-  <%- include('components/footer.htm') %>
-</body>
-
-</html>
-<!-- Made in Russia, with ❤, by Ivan Ulyanov. -->
+  <x-modals></x-modals>
+</x-layout>
