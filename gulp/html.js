@@ -20,6 +20,8 @@ export default function html() {
       }),
       beautify({
         rules: {
+          blankLines: false,
+          sortAttr: true,
         }
       }),
     ], {}))
