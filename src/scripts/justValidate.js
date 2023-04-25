@@ -28,7 +28,7 @@ new JustValidate('#form', {
   ])
 
   .onSuccess((e) => {
-    // ? Use this code if you send data through a particular backend system.
+    // ? Use the code below if you send data through a particular backend system.
     // e.preventDefault()
     // submitRequestForm()
   })
@@ -40,7 +40,7 @@ new JustValidate('#form', {
 
   {
     rule: 'required',
-    errorMessage: '',
+    errorMessage: 'error',
   },
   {
     rule: 'minLength',
