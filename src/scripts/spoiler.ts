@@ -9,6 +9,6 @@ new Spoiler({
 
   // ajar: new Ajar({
   //   deleteButtonAfterOpening: false,
-  //   defaultHeightPx: 100
+  //   defaultHeight: '2em'
   // })
 })

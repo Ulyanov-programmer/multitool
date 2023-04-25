@@ -18,16 +18,16 @@ interface SpoilerArgs {
   ajar?: Ajar
 }
 export class Ajar {
-  defaultHeightPx: number = 200
+  defaultHeight: string
   deleteButtonAfterOpening: boolean = false
 
   constructor(args: AjarSpoilerArgs) {
-    this.defaultHeightPx = args.defaultHeightPx
+    this.defaultHeight = args.defaultHeight
     this.deleteButtonAfterOpening = args.deleteButtonAfterOpening
   }
 }
 interface AjarSpoilerArgs {
-  defaultHeightPx: number
+  defaultHeight: string
   deleteButtonAfterOpening?: boolean
 }
 
@@ -215,7 +215,7 @@ export default class Spoiler {
       spoilerContainer.style.overflow = 'hidden'
       spoilerContainer.style.height = `${spoilerContainer.clientHeight}px`
       await sleep(10)
-      spoilerContainer.style.height = `${ajarParams.defaultHeightPx}px`
+      spoilerContainer.style.height = ajarParams.defaultHeight
       await sleep(this.animationDuration)
 
       spoilerContainer.classList.remove(this.contentActiveClass)
@@ -227,7 +227,7 @@ export default class Spoiler {
 
         if (this.isSpoilerContentActive(this.contentElements[i]) == false) {
           this.contentElements[i].style.overflow = 'hidden'
-          this.contentElements[i].style.height = `${ajarParams.defaultHeightPx}px`
+          this.contentElements[i].style.height = ajarParams.defaultHeight
 
           this.buttons[i].addEventListener('click', this.enableAjarSpoilerStateHandler, false)
         }
