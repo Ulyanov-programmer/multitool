@@ -35,6 +35,7 @@
     "gulp-postcss": "^9.0.1",
     "postcss-preset-env": "^8.0.1",
     "posthtml-beautify": "^0.7.0",
+    "posthtml-img-autosize": "^0.1.6",
     "prettier-plugin-stylus": "^0.0.1-beta.8"
   },
   "postcss": {

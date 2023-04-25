@@ -6,6 +6,7 @@ import posthtml from 'gulp-posthtml'
 import easyBem from 'posthtml-easy-bem'
 import component from 'posthtml-component'
 import beautify from 'posthtml-beautify'
+import imgAutosize from 'posthtml-img-autosize'
 import gulpIf from 'gulp-if'
 import { paths } from './paths.js'
 const isProd = process.argv.includes('--prod')
@@ -24,6 +25,9 @@ export default function html() {
           sortAttr: true,
         }
       }),
+      imgAutosize({
+        processEmptySize: true,
+      })
     ], {}))
 
     .pipe(
