@@ -1,5 +1,24 @@
 import { elementIsExistWithLog } from './general.js'
 
+interface FormArgs {
+  formSelector: string
+  onSubmitFunction: Function
+}
+
+export class Form {
+  public formElement: HTMLElement
+  public onSubmitFunction: Function
+
+  constructor(arg: FormArgs) {
+    if (!elementIsExistWithLog('StepByStep Form', arg.formSelector))
+      return
+
+    this.formElement = document.querySelector(arg.formSelector)
+    this.onSubmitFunction = arg.onSubmitFunction
+  }
+}
+
+
 interface StepByStepArgs {
   stepsContainerSelector: string
   nextButtonsSelector: string
@@ -9,6 +28,7 @@ interface StepByStepArgs {
   currentActiveBlockIndex?: number
   gapPercent?: number
   checkFunctions?: {}
+  form?: Form
 }
 
 export default class StepByStepBlock {
@@ -50,25 +70,16 @@ export default class StepByStepBlock {
       stepBlock.style.transition = `transform ${this.transitionTimeout}ms ease`
     }
     for (let nextButton of this.nextButtons) {
-      nextButton.addEventListener('click', () => {
-        // Uses the verification function set for the active block
-        let func = this.getFunctionForCurrentActiveBlock()
-        let result = func()
-
-        if (typeof (result) != 'boolean') {
-          result.then((promiseValue: boolean) => {
-            if (promiseValue) {
-              this.toggleNextFormBlock()
-            }
-          })
-        }
-        else if (result) {
-          this.toggleNextFormBlock()
-        }
-      })
+      nextButton.addEventListener('click', this.nextButtonEventHandler.bind(this))
     }
     for (let prevButton of this.prevButtons) {
       prevButton.addEventListener('click', this.togglePrevFormBlock.bind(this))
+    }
+
+    if (arg.form) {
+      arg.form.formElement.addEventListener('submit', (submitEvent: SubmitEvent) => {
+        arg.form.onSubmitFunction(submitEvent)
+      })
     }
 
     if (arg.statusBlocksSelector) {
@@ -149,6 +160,24 @@ export default class StepByStepBlock {
 
     if (beforePrevElement) {
       beforePrevElement.style.transform = `translateX(-${this.currentTranslateMultiplier * 100 + this.gapPercent}%)`
+    }
+  }
+
+  private nextButtonEventHandler() {
+    // Pulls the validation function intended for the currently active block
+    let func = this.getFunctionForCurrentActiveBlock()
+    let result = func()
+
+    // If the result of the function is a promise
+    if (typeof (result) != 'boolean') {
+      result.then(
+        (promiseValue: boolean) => {
+          if (promiseValue) this.toggleNextFormBlock()
+        }
+      )
+    }
+    else if (result) {
+      this.toggleNextFormBlock()
     }
   }
 

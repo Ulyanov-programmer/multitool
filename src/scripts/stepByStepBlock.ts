@@ -1,30 +1,5 @@
-import StepByStepBlock from './modules/stepByStepBlock.src.js'
+import StepByStepBlock, { Form } from './modules/stepByStepBlock.src.js'
 import '../libs/just-validate.production.min.js'
-
-let validateOneBlock = new JustValidate('#mainForm', {
-  errorFieldCssClass: 'invalid',
-  errorLabelCssClass: 'invalid',
-  errorLabelStyle: {
-    fontSize: '14px',
-    color: 'white',
-    marginBlock: '5px',
-  },
-
-  errorsContainer: '#errorsContainer',
-})
-  .addField('#firstEmail', [
-    {
-      rule: 'function',
-      validator: (str) => {
-        return /^[0-9]{2}/.test(str)
-      },
-      errorMessage: 'error',
-    },
-    {
-      rule: 'required',
-      errorMessage: 'error',
-    },
-  ])
 
 
 new StepByStepBlock({
@@ -36,13 +11,16 @@ new StepByStepBlock({
   gapPercent: 20,
   checkFunctions: {
     0: () => {
-      return validateOneBlock.revalidate()
-    },
-    1: () => {
       return true
     },
     final: () => {
       return false
     },
-  }
+  },
+  // form: new Form({
+  //   formSelector: '#form',
+  //   onSubmitFunction: function submitForm(submitEvent: SubmitEvent) {
+  //     submitEvent.preventDefault()
+  //   }
+  // })
 })
