@@ -1,5 +1,5 @@
-import { isNullOrWhiteSpaces, elementIsExistWithLog } from "./general.js"
-export enum SubmenuOpenIvents {
+import { isNullOrWhiteSpaces, elementIsExistWithLog } from './general.js'
+export enum SubmenuOpenEvents {
   Click,
   Hover,
 };
@@ -50,7 +50,7 @@ export default class Submenu {
   private static hideAllClickSubmenu() {
     for (let submenuGroup of Submenu.submenuElements) {
 
-      if (submenuGroup.openIvent == SubmenuOpenIvents.Click) {
+      if (submenuGroup.openEvent == SubmenuOpenEvents.Click) {
 
         for (let i = 0; i < submenuGroup.buttonElements.length; i++) {
           submenuGroup.buttonElements[i].classList.remove(Submenu.buttonActiveClass)
@@ -64,10 +64,10 @@ export default class Submenu {
 
 interface SubmenuElementGroupArgs {
   /** 
-    The value of the SubmenuOpenIvents enumeration, depending on what you specify,
+    The value of the SubmenuOpenEvents enumeration, depending on what you specify,
     the menu will open either by mouse hover or by click. 
   */
-  openIvent: SubmenuOpenIvents
+  openEvent: SubmenuOpenEvents
   /** Selector of the buttons that will open a submenu. */
   buttonsSelector: string
   /** Selector of the menus that will open when a button is clicked. */
@@ -80,10 +80,10 @@ export class SubmenuElementGroup {
 
     this.menuElements = document.querySelectorAll(args.menusSelector)
     this.buttonElements = document.querySelectorAll(args.buttonsSelector)
-    this.openIvent = args.openIvent
+    this.openEvent = args.openEvent
 
-    switch (this.openIvent) {
-      case SubmenuOpenIvents.Hover:
+    switch (this.openEvent) {
+      case SubmenuOpenEvents.Hover:
         for (let button of this.buttonElements) {
           let wrapper = button.parentElement as HTMLElement
 
@@ -113,5 +113,5 @@ export class SubmenuElementGroup {
 
   public menuElements: NodeListOf<HTMLElement>
   public buttonElements: NodeListOf<HTMLElement>
-  public openIvent: SubmenuOpenIvents
+  public openEvent: SubmenuOpenEvents
 }

@@ -1,4 +1,4 @@
-import { elementIsExistWithLog } from "./general.js"
+import { elementIsExistWithLog } from './general.js'
 import SwipeElement, { ChangePlane } from './swipe.src.js'
 
 interface SidebarArgs {
@@ -65,7 +65,7 @@ export default class Sidebar {
   private initializeSwipe(swipeElementOptions: swipeElementOptions) {
     new SwipeElement({
       touchStartAreaSelector: `[data-swipe-element='${this.sidebarId}']`,
-      swipableElementSelector: `${this.sidebarId}`,
+      swipeableElementSelector: `${this.sidebarId}`,
       changePlane: swipeElementOptions.changePlane,
       swipeSensitivity: swipeElementOptions.swipeSensitivity,
       maxWorkWidth: swipeElementOptions.maxWorkWidth,

@@ -14,7 +14,7 @@ interface SpoilerMenuArgs {
   /**
     If you want to scroll to the block when you go to the page, set this parameter to true and specify `href='page.html?b=selectorOfBlock'` in the attribute.
    */
-  scrollByAdressURL?: boolean
+  scrollByAddressURL?: boolean
 }
 
 export default class ScrollController {
@@ -36,8 +36,8 @@ export default class ScrollController {
       let heightHeight = document.querySelector(arg.fixedElementSelector).clientHeight
       ScrollController.fixedElementHeight = heightHeight
     }
-    if (arg.scrollByAdressURL) {
-      window.addEventListener('load', this.scrollToElementByAdress)
+    if (arg.scrollByAddressURL) {
+      window.addEventListener('load', this.scrollToElementByAddress)
     }
   }
 
@@ -50,15 +50,15 @@ export default class ScrollController {
       return
     }
 
-    let scrolltop = window.pageYOffset + scrollElement.getBoundingClientRect().top
+    let scrollTop = window.pageYOffset + scrollElement.getBoundingClientRect().top
 
     window.scrollTo({
-      top: scrolltop - ScrollController.fixedElementHeight,
+      top: scrollTop - ScrollController.fixedElementHeight,
       behavior: "smooth"
     })
   }
 
-  private scrollToElementByAdress() {
+  private scrollToElementByAddress() {
     const urlParams = new URLSearchParams(window.location.search)
     const selector = urlParams.get('b')
 
@@ -67,7 +67,7 @@ export default class ScrollController {
     // deleting the get block in URL
     const url = new URL(window.location.href)
     const searchParams = url.searchParams
-    searchParams.delete("b")
+    searchParams.delete('b')
     window.history.pushState({}, '', url.toString())
   }
 }

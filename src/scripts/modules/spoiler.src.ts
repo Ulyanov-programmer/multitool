@@ -58,9 +58,9 @@ export default class Spoiler {
     this.contentElements = document.querySelectorAll(
       `${args.wrappersSelector} .${this.contentClass}`
     )
-    this.buttonActiveClass = args.buttonActiveClass ? args.buttonActiveClass : 'active'
-    this.contentActiveClass = args.contentActiveClass ? args.contentActiveClass : 'active'
-    this.maxWorkWidth = args.maxWorkWidth ? args.maxWorkWidth : this.maxWorkWidth
+    this.buttonActiveClass = args.buttonActiveClass ?? 'active'
+    this.contentActiveClass = args.contentActiveClass ?? 'active'
+    this.maxWorkWidth = args.maxWorkWidth ?? this.maxWorkWidth
     this.animationDuration = args.animationDuration
 
 

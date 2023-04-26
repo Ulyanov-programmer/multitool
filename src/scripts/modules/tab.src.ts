@@ -1,4 +1,4 @@
-import { sleep, elementIsExistWithLog } from "./general.js"
+import { sleep, elementIsExistWithLog } from './general.js'
 
 export enum ToggleTabsEvent {
   Click,
@@ -45,7 +45,7 @@ export default class Tab {
   private isToggling: boolean = false
   private autoHeight: boolean
   private toggleTabsEvent: string = 'click'
-  private containerheight: number = 0
+  private containerHeight: number = 0
   public buttonsActiveClass: string
   public contentActiveClass: string
 
@@ -61,9 +61,9 @@ export default class Tab {
       return
     }
 
-    this.buttonsActiveClass = arg.buttonsActiveClass ? arg.buttonsActiveClass : 'active'
-    this.contentActiveClass = arg.contentActiveClass ? arg.contentActiveClass : 'active'
-    this.autoHeight = arg.autoHeight ? arg.autoHeight : false
+    this.buttonsActiveClass = arg.buttonsActiveClass ?? 'active'
+    this.contentActiveClass = arg.contentActiveClass ?? 'active'
+    this.autoHeight = arg.autoHeight ?? false
 
     if (!arg.firstButtonIsNotActive)
       this.buttons[0].classList.add(this.buttonsActiveClass)
@@ -114,10 +114,10 @@ export default class Tab {
     let marginForCurrentElement = 0
 
     for (let contentElement of this.contentElements) {
-      if (!this.autoHeight && contentElement.clientHeight > this.containerheight) {
-        this.containerheight = contentElement.clientHeight
-      } else if (this.autoHeight && this.containerheight <= 0) {
-        this.containerheight = this.contentElements[0].clientHeight
+      if (!this.autoHeight && contentElement.clientHeight > this.containerHeight) {
+        this.containerHeight = contentElement.clientHeight
+      } else if (this.autoHeight && this.containerHeight <= 0) {
+        this.containerHeight = this.contentElements[0].clientHeight
       }
 
       if (contentElement.classList.contains(this.contentActiveClass) == false) {
@@ -131,7 +131,7 @@ export default class Tab {
 
     this.parentOfContentElements.style.overflow = 'hidden'
 
-    this.setContainerHeight(this.containerheight)
+    this.setContainerHeight(this.containerHeight)
     this.parentOfContentElements.style.transition = `height ${this.animationDuration}ms`
 
     for (let contentElement of this.contentElements) {

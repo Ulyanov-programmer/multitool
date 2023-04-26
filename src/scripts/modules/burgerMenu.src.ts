@@ -1,4 +1,4 @@
-import { returnScrollbarWidth, elementIsExistWithLog, sleep } from "./general.js"
+import { returnScrollbarWidth, elementIsExistWithLog, sleep } from './general.js'
 
 interface BurgerMenuArgs {
   burgerSelector: string

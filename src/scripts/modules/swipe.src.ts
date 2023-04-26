@@ -1,4 +1,4 @@
-import { isNullOrWhiteSpaces } from "./general.js"
+import { isNullOrWhiteSpaces } from './general.js'
 
 enum SwipeSide {
   Top,
@@ -23,7 +23,7 @@ interface SwipeElementArgs {
   /** 
     The element that will appear when swiping.
   */
-  swipableElementSelector: string
+  swipeableElementSelector: string
   /** Which way you need to swipe to make the menu appear. */
   changePlane: ChangePlane
   /** 
@@ -37,7 +37,7 @@ interface SwipeElementArgs {
 
 export default class SwipeElement {
   private touchAreaElement: HTMLElement
-  private swipableElement: HTMLElement
+  private swipeableElement: HTMLElement
 
   private startX: number = 0
   private startY: number = 0
@@ -56,7 +56,7 @@ export default class SwipeElement {
 
 
   constructor(arg: SwipeElementArgs) {
-    if (isNullOrWhiteSpaces(arg.touchStartAreaSelector, arg.swipableElementSelector))
+    if (isNullOrWhiteSpaces(arg.touchStartAreaSelector, arg.swipeableElementSelector))
       throw new Error('[SWIPE-ELEMENT Some selector is null or white spaces!]')
 
     window.addEventListener(`resize`, () => {
@@ -67,14 +67,14 @@ export default class SwipeElement {
     this.touchAreaElement.style.touchAction = 'none'
     this.touchAreaElement.style.cursor = 'grab'
 
-    this.swipableElement = document.querySelector(arg.swipableElementSelector)
+    this.swipeableElement = document.querySelector(arg.swipeableElementSelector)
     this.elementStartX = this.getTranslateState('x')
     this.elementStartY = this.getTranslateState('y')
     this.swipeSensitivity = arg.swipeSensitivity
     this.maxWorkWidth = arg.maxWorkWidth
 
-    this.minSwipeWidth = Math.trunc(this.swipableElement.clientWidth * this.swipeSensitivity)
-    this.minSwipeHeight = Math.trunc(this.swipableElement.clientHeight * this.swipeSensitivity)
+    this.minSwipeWidth = Math.trunc(this.swipeableElement.clientWidth * this.swipeSensitivity)
+    this.minSwipeHeight = Math.trunc(this.swipeableElement.clientHeight * this.swipeSensitivity)
 
     this.changePlane = arg.changePlane
     if (this.changePlane == ChangePlane.ToLeft || this.changePlane == ChangePlane.ToRight) {
@@ -95,14 +95,14 @@ export default class SwipeElement {
     }, false)
   }
   private pointerMoveHandler = (function (e: PointerEvent) {
-    this.swipableElement.style.userSelect = 'none'
+    this.swipeableElement.style.userSelect = 'none'
     this.touchAreaElement.style.cursor = 'grabbing'
 
     this.swipeMove(e)
   }).bind(this)
 
   private pointerUpHandler = (function () {
-    this.swipableElement.style.userSelect = ''
+    this.swipeableElement.style.userSelect = ''
     this.touchAreaElement.style.cursor = 'grab'
 
     this.swipeEnd(0, false, true)
@@ -135,15 +135,15 @@ export default class SwipeElement {
     if (this.changeOrientation == ChangeOrientation.Horizontal && delta > this.minSwipeWidth
       || this.changeOrientation == ChangeOrientation.Vertical && delta > this.minSwipeHeight) {
 
-      changeTo ? this.swipableElement.classList.add('active') : this.swipableElement.classList.remove('active')
+      changeTo ? this.swipeableElement.classList.add('active') : this.swipeableElement.classList.remove('active')
 
       this.touchAreaElement.classList.toggle('active')
 
-      this.swipableElement.style.transform = ``
+      this.swipeableElement.style.transform = ``
       window.removeEventListener('pointermove', this.pointerMoveHandler, false)
     }
     if (isSwipeEnd) {
-      this.swipableElement.style.transform = ``
+      this.swipeableElement.style.transform = ``
       window.removeEventListener('pointermove', this.pointerMoveHandler, false)
     }
   }
@@ -164,7 +164,7 @@ export default class SwipeElement {
       }
 
 
-      this.swipableElement.style.transform = `translate3d(
+      this.swipeableElement.style.transform = `translate3d(
 				${result}px, 
 				${this.getTranslateState('Y')}px, 
 				0)`
@@ -180,7 +180,7 @@ export default class SwipeElement {
       let operator = this.changePlane == ChangePlane.ToLeft ? '+' : '-'
       let result = `${operator}${delta}`
 
-      this.swipableElement.style.transform = `translate3d(
+      this.swipeableElement.style.transform = `translate3d(
 				${result}px,
 				${this.getTranslateState('Y')}px, 
 				0)`
@@ -203,7 +203,7 @@ export default class SwipeElement {
         result = this.elementStartY - delta
       }
 
-      this.swipableElement.style.transform = `translate3d(
+      this.swipeableElement.style.transform = `translate3d(
 				${this.getTranslateState('x')}px, 
 				${result}px, 
 				0)`
@@ -217,7 +217,7 @@ export default class SwipeElement {
       let operator = this.changePlane == ChangePlane.ToBottom ? '-' : '+'
       let result = `${operator}${delta}`
 
-      this.swipableElement.style.transform = `translate3d(
+      this.swipeableElement.style.transform = `translate3d(
 				${this.getTranslateState('x')}px, 
 				${result}px, 
 				0)`
@@ -231,9 +231,9 @@ export default class SwipeElement {
     let valueIndex = xOrY == 'x' ? 4 : 5
     let state
 
-    // get a value of transformX or transformY of swipableElement
+    // get a value of transformX or transformY of swipeableElement
     try {
-      state = parseInt(window.getComputedStyle(this.swipableElement)
+      state = parseInt(window.getComputedStyle(this.swipeableElement)
         .getPropertyValue("transform")
         .match(/(-?[0-9\.]+)/g)[valueIndex])
     } catch (error) {
@@ -250,7 +250,7 @@ export default class SwipeElement {
     return xStateIsNegative
   }
   private checkSwipableElementContainActive() {
-    return this.swipableElement.classList.contains('active')
+    return this.swipeableElement.classList.contains('active')
   }
   private checkMaxWorkWidth() {
     if (window.innerWidth <= this.maxWorkWidth) {

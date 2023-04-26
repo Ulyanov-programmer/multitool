@@ -33,8 +33,8 @@ export default class StepByStepBlock {
 
     this.currentActiveBlockIndex = 0
     this.currentTranslateMultiplier = this.currentActiveBlockIndex
-    this.transitionTimeout = arg.transitionTimeout ? arg.transitionTimeout : 500
-    this.gapPercent = arg.gapPercent ? arg.gapPercent : 5
+    this.transitionTimeout = arg.transitionTimeout ?? 500
+    this.gapPercent = arg.gapPercent ?? 5
     this.checkFunctions = arg.checkFunctions
 
     this.statusBlocksSelector = document.querySelectorAll(arg.statusBlocksSelector)
