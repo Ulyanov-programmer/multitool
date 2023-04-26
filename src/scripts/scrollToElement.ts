@@ -9,5 +9,5 @@ new ScrollController({
   scrollButtonsSelector: '[data-scroll-to]',
   // Use it so that a fixed header is taken into account when scrolling.
   fixedElementSelector: '.fixed-header',
-  scrollByAdressURL: true,
+  scrollByAddressURL: true,
 })
