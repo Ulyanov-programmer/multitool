@@ -6,12 +6,12 @@ import { log } from 'console'
 
 class ImportModuleObject {
   moduleName
-  htmlConnectString
+  htmlConnectSlug
   pathsToDelete
 
-  constructor(moduleName, htmlConnectString, pathsToDelete) {
+  constructor({ moduleName, htmlConnectSlug, pathsToDelete }) {
     this.moduleName = moduleName
-    this.htmlConnectString = htmlConnectString
+    this.htmlConnectSlug = htmlConnectSlug
     this.pathsToDelete = pathsToDelete
   }
 }
@@ -33,7 +33,7 @@ class ModuleObject {
 
 const
   pathToProject = path.resolve('./'),
-  demoProjectFolderName = `${pathToProject}/gulp_multitool`,
+  distFolderName = `${pathToProject}/dist`,
   snippetsFolderName = `${pathToProject}/snippets`,
   readmeFolder = `${pathToProject}/readmeFiles`,
   src = `${pathToProject}/src`,
@@ -45,7 +45,7 @@ const
   libsFolder = `${src}/libs/`,
   stylEnvFilePath = `${src}/styles/_environment.styl`,
   generalStyleFilePath = `${src}/styles/general/general.styl`,
-  headFilePath = `${componentsFolder}/headContent.htm`,
+  layoutFilePath = `${componentsFolder}/layout.html`,
 
   fontsGitkeep = `${src}/fonts/.gitkeep`,
   mainStyleFile = `${src}/styles/index.styl`,
@@ -66,8 +66,6 @@ const
 
 // When the setImportModule function is running, it indicates whether a hint should be specified.
 let isFirstImportString = true
-// When the setModules function is running, it indicates whether a hint should be specified.
-let isFirstModuleString = true
 
 let greenTextColor = '\x1b[32m'
 let resetTextColor = '\x1b[0m'
@@ -78,7 +76,7 @@ console.log(`${grayTextColor} `)
 deleteDemoContent()
 cleanReadmeFilesAndFolders()
 deleteSnippets()
-deleteDemoProject()
+deleteDist()
 deleteGitKeep()
 console.log(`${resetTextColor} `)
 
@@ -101,60 +99,60 @@ log(`${brightTextColor}${greenTextColor}The setup is completely complete! I wish
 
 function setImportModules() {
   setImportModule(
-    new ImportModuleObject(
-      `Just-validate`,
-      'justValidate: false,',
-      [
+    new ImportModuleObject({
+      moduleName: `Just-validate`,
+      htmlConnectSlug: `justValidate`,
+      pathsToDelete: [
         `${src}/scripts/justValidate.js`,
         `${libsFolder}just-validate.production.min.js`,
       ],
-    ),
-    new ImportModuleObject(
-      `Slider Swiper`,
-      'swiper: false,',
-      [
+    }),
+    new ImportModuleObject({
+      moduleName: `Slider Swiper`,
+      htmlConnectSlug: `swiper`,
+      pathsToDelete: [
         `${src}/scripts/sliders.js`,
         `${libsFolder}swiper/`,
       ],
-    ),
-    new ImportModuleObject(
-      `Typed`,
-      'typed: false,',
-      [
+    }),
+    new ImportModuleObject({
+      moduleName: `Typed`,
+      htmlConnectSlug: `typed`,
+      pathsToDelete: [
         `${src}/scripts/typed.js`,
         `${libsFolder}typed.min.js`,
       ],
-    ),
-    new ImportModuleObject(
-      `Input Mask`,
-      '',
-      [
+    }),
+    new ImportModuleObject({
+      moduleName: `Input Mask`,
+      htmlConnectSlug: '',
+      pathsToDelete: [
         `${libsFolder}inputmask.min.js`,
       ],
-    ),
-    new ImportModuleObject(
-      `Air Date Picker`,
-      '',
-      [
+    }),
+    new ImportModuleObject({
+      moduleName: `Air Date Picker`,
+      htmlConnectSlug: '',
+      pathsToDelete: [
         `${libsFolder}air-datepicker/`,
       ],
-    ),
-    new ImportModuleObject(
-      `Photo Swipe`,
-      'photoSwipe: false,',
-      [
+    }),
+    new ImportModuleObject({
+      moduleName: `Photo Swipe`,
+      htmlConnectSlug: `photoSwipe`,
+      pathsToDelete: [
         `${src}/scripts/photoSwipe.js`,
         `${libsFolder}photoswipe/`,
       ],
-    ),
-    new ImportModuleObject(
-      `noUiSlider`,
-      'noUiSlider: false,',
-      [
+    }),
+    new ImportModuleObject({
+      moduleName: `noUiSlider`,
+      htmlConnectSlug: `noUiSlider`,
+      pathsToDelete: [
         `${src}/scripts/nouislider.js`,
         `${libsFolder}nouislider/`,
       ],
-    ),
+    })
   )
 }
 function setModules() {
@@ -167,15 +165,15 @@ function setModules() {
       ],
       styleFilesPath: `${stylesModules}burgerMenu.styl`,
       htmlFilesPaths: [
-        `${componentsFolder}burgerMenu.htm`,
+        `${componentsFolder}burgerMenu.html`,
       ],
       htmlConnectStrings: [
         {
-          path: `${componentsFolder}/header.htm`,
-          strings: "<%- include('burgerMenu.htm') %>",
+          path: `${componentsFolder}/header.html`,
+          strings: `<x-burgerMenu></x-burgerMenu>`,
         },
         {
-          strings: 'burgerMenu: false,',
+          strings: "burgerMenu='false'",
         },
       ],
     }),
@@ -188,7 +186,7 @@ function setModules() {
       styleFilesPath: `${stylesModules}sidebar.styl`,
       htmlFilesPaths: null,
       htmlConnectStrings: [
-        { strings: 'sidebar: false,' }
+        { strings: "sidebar='false'" }
       ],
     }),
     new ModuleObject({
@@ -199,14 +197,14 @@ function setModules() {
       ],
       styleFilesPath: `${stylesModules}modalWindows.styl`,
       htmlFilesPaths: [
-        `${componentsFolder}modals.htm`,
+        `${componentsFolder}modals.html`,
       ],
       htmlConnectStrings: [
         {
-          strings: "<%- include('components/modals.htm', {}) %>",
+          strings: `<x-modals></x-modals>`,
         },
         {
-          strings: 'modalWindow: false,'
+          strings: "modalWindow='false'"
         },
       ],
     }),
@@ -219,7 +217,7 @@ function setModules() {
       styleFilesPath: `${stylesModules}spoiler.styl`,
       htmlFilesPaths: null,
       htmlConnectStrings: [
-        { strings: 'spoiler: false,' }
+        { strings: "spoiler='false'" }
       ],
     }),
     new ModuleObject({
@@ -231,7 +229,7 @@ function setModules() {
       styleFilesPath: `${stylesModules}submenu.styl`,
       htmlFilesPaths: null,
       htmlConnectStrings: [
-        { strings: 'submenu: false,' }
+        { strings: "submenu='false'" }
       ],
     }),
     new ModuleObject({
@@ -243,7 +241,7 @@ function setModules() {
       styleFilesPath: null,
       htmlFilesPaths: null,
       htmlConnectStrings: [
-        { strings: 'tabs: false,' }
+        { strings: "tabs='false'" }
       ],
     }),
     new ModuleObject({
@@ -255,7 +253,7 @@ function setModules() {
       styleFilesPath: null,
       htmlFilesPaths: null,
       htmlConnectStrings: [
-        { strings: 'elementModal: false,' }
+        { strings: "elementModal='false'" }
       ],
     }),
     new ModuleObject({
@@ -267,7 +265,7 @@ function setModules() {
       styleFilesPath: null,
       htmlFilesPaths: null,
       htmlConnectStrings: [
-        { strings: 'parallax: false,' }
+        { strings: "parallax='false'" }
       ],
     }),
     new ModuleObject({
@@ -279,7 +277,7 @@ function setModules() {
       styleFilesPath: null,
       htmlFilesPaths: null,
       htmlConnectStrings: [
-        { strings: 'scrollToElement: false,' }
+        { strings: "scrollToElement='false'" }
       ],
     }),
     new ModuleObject({
@@ -292,7 +290,7 @@ function setModules() {
       styleFilesPath: null,
       htmlFilesPaths: null,
       htmlConnectStrings: [
-        { strings: 'animateByScroll: false,' }
+        { strings: "animateByScroll='false'" }
       ],
     }),
     new ModuleObject({
@@ -303,7 +301,7 @@ function setModules() {
       styleFilesPath: null,
       htmlFilesPaths: null,
       htmlConnectStrings: [
-        { strings: 'horizontalScroll: false,' }
+        { strings: "horizontalScroll='false'" }
       ],
     }),
     new ModuleObject({
@@ -315,7 +313,7 @@ function setModules() {
       styleFilesPath: null,
       htmlFilesPaths: null,
       htmlConnectStrings: [
-        { strings: 'swipe: false,' }
+        { strings: "swipe='false'" }
       ],
     }),
     new ModuleObject({
@@ -324,7 +322,19 @@ function setModules() {
       styleFilesPath: `${stylesModules}form.styl`,
       htmlFilesPaths: null,
       htmlConnectStrings: [
-        { strings: 'formStyles: false,' }
+        { strings: "formStyles='false'" }
+      ],
+    }),
+    new ModuleObject({
+      moduleName: 'Step By Step block',
+      scriptFilesPaths: [
+        `${scriptModules}stepByStepBlock${srcExt}`,
+        `${scriptGeneral}stepByStepBlock.ts`,
+      ],
+      styleFilesPath: null,
+      htmlFilesPaths: null,
+      htmlConnectStrings: [
+        { strings: "stepByStep='false'" }
       ],
     }),
   )
@@ -342,85 +352,83 @@ function setPhp() {
   }
 }
 function setGeneralVariables() {
-  setVariable(
-    'lang:',
-    'The main language of the main page, (string!)',
-    "'en'",
-    mainHtmlFile,
-  )
-  setVariable(
-    'title:',
-    'The title of the main page, (string!)',
-    "'MainPage'",
-    mainHtmlFile,
-  )
-  setVariable(
-    'preloadedFontName =',
-    'The name of the font file that should be preloaded, (string!)',
-    "''",
-    headFilePath,
-  )
+  setVariable({
+    variableNameWithOperator: 'lang:',
+    message: 'The main language of the main page, (string!)',
+    defaultValue: "'en'",
+    variableFilePath: layoutFilePath,
+  })
+  setVariable({
+    variableNameWithOperator: 'preloadedFontName:',
+    message: 'The name of the font file that should be preloaded, (string!)',
+    defaultValue: "''",
+    variableFilePath: layoutFilePath,
+  })
 
-  setVariable(
-    '--main-font-family',
-    'The main font on the pages. Be sure to check the value in the general.styl file after auto-connecting fonts after starting the build,',
-    'arial',
-    generalStyleFilePath,
-  )
-  setVariable(
-    '--text-c',
-    'Main text color,',
-    'black', generalStyleFilePath,
-  )
-  setVariable(
-    '--bg',
-    'Background of pages,',
-    'white',
-    generalStyleFilePath,
-  )
+  setVariable({
+    variableNameWithOperator: '--main-font-family',
+    message: 'The main font on the pages. Be sure to check the value in the general.styl file after auto-connecting fonts after starting the build,',
+    defaultValue: 'arial',
+    variableFilePath: generalStyleFilePath,
+  })
+  setVariable({
+    variableNameWithOperator: '--text-c',
+    message: 'Main text color,',
+    defaultValue: 'black',
+    variableFilePath: generalStyleFilePath,
+  })
+  setVariable({
+    variableNameWithOperator: '--bg',
+    message: 'Background of pages,',
+    defaultValue: 'white',
+    variableFilePath: generalStyleFilePath,
+  })
 
 
-  setVariable(
-    '$layoutWidth =',
-    'Layout width from design (just number),',
-    '1440',
-    stylEnvFilePath,
-  )
-  setVariable(
-    '--bigViewportContentWidth',
-    'The width of the content on the screens is greater than layoutWidth:',
-    '70vw',
-    generalStyleFilePath,
-  )
-  setVariable(
-    '--defaultViewportContentWidth',
-    'The default width of the content on the screens:',
-    '80vw',
-    generalStyleFilePath,
-  )
-  setVariable(
-    '--tabletsViewportContentWidth',
-    'Width of content on tablets:',
-    '90vw',
-    generalStyleFilePath,
-  )
-  setVariable(
-    '--mobileViewportContentWidth',
-    'Width of content on smartphones:',
-    '95vw',
-    generalStyleFilePath,
-  )
-  setVariable(
-    '$mainFontSize =',
-    'The main font size on the pages. By default, see the desktop version (just number),', '16',
-    stylEnvFilePath,
-  )
-  setVariable(
-    '$minFontSize =',
-    'The minimum font size that will be achievable on mobile devices (just number),', '12',
-    stylEnvFilePath,
-  )
-  console.log('\x1b[0m')
+  setVariable({
+    variableNameWithOperator: '$layoutWidth =',
+    message: 'Layout width from design (just number),',
+    defaultValue: '1440',
+    variableFilePath: stylEnvFilePath,
+  })
+  setVariable({
+    variableNameWithOperator: '--bigViewportContentWidth',
+    message: 'The width of the content on the screens is greater than layoutWidth:',
+    defaultValue: '70vw',
+    variableFilePath: generalStyleFilePath,
+  })
+  setVariable({
+    variableNameWithOperator: '--defaultViewportContentWidth',
+    message: 'The default width of the content on the screens:',
+    defaultValue: '80vw',
+    variableFilePath: generalStyleFilePath,
+  })
+  setVariable({
+    variableNameWithOperator: '--tabletsViewportContentWidth',
+    message: 'Width of content on tablets:',
+    defaultValue: '90vw',
+    variableFilePath: generalStyleFilePath,
+  })
+  setVariable({
+    variableNameWithOperator: '--mobileViewportContentWidth',
+    message: 'Width of content on smartphones:',
+    defaultValue: '95vw',
+    variableFilePath: generalStyleFilePath,
+  })
+  setVariable({
+    variableNameWithOperator: '$mainFontSize =',
+    message: 'The main font size on the pages. By default, see the desktop version (just number),',
+    defaultValue: '16',
+    variableFilePath: stylEnvFilePath,
+  })
+  setVariable({
+    variableNameWithOperator: '$minFontSize =',
+    message: 'The minimum font size that will be achievable on mobile devices (just number),',
+    defaultValue: '12',
+    variableFilePath: stylEnvFilePath,
+  })
+
+  console.log(resetTextColor)
 }
 
 function deleteDemoContent() {
@@ -437,8 +445,8 @@ function cleanReadmeFilesAndFolders() {
 
   log('✅ The readme file are clean.')
 }
-function deleteDemoProject() {
-  deleteFolder(demoProjectFolderName, 'Demo Project have been deleted.')
+function deleteDist() {
+  deleteFolder(distFolderName, 'Dist have been deleted.')
 }
 function deleteSnippets() {
   deleteFolder(snippetsFolderName, 'Snippets have been deleted.')
@@ -463,24 +471,28 @@ function deleteUnusedFolders() {
 function setImportModule(...importModuleObjects) {
   if (isFirstImportString) {
     // First string, after by a column of modules.
-    console.log(`${brightTextColor}Import the `)
+    console.log(`${brightTextColor}Do you want to import the plugin... `)
+    isFirstImportString = false
   }
 
   for (let importModule of importModuleObjects) {
     if (readline.keyInYNStrict(`${resetTextColor}  ${importModule.moduleName}? ${brightTextColor}`)) {
-      let newHtmlConnectString = importModule.htmlConnectString.replace('false', 'true')
-
-      replace.sync({
-        files: mainHtmlFile,
-        from: importModule.htmlConnectString,
-        to: newHtmlConnectString,
-      })
-    } else {
-      replace.sync({
-        files: mainHtmlFile,
-        from: importModule.htmlConnectString,
-        to: '',
-      })
+      if (importModule.htmlConnectSlug) {
+        replace.sync({
+          files: mainHtmlFile,
+          from: `${importModule.htmlConnectSlug}='false'`,
+          to: `${importModule.htmlConnectSlug}='true'`,
+        })
+      }
+    }
+    else {
+      if (importModule.htmlConnectSlug) {
+        replace.sync({
+          files: mainHtmlFile,
+          from: `${importModule.htmlConnectSlug}='false'`,
+          to: '',
+        })
+      }
 
       for (let pathToDelete of importModule.pathsToDelete) {
         fs.removeSync(pathToDelete)
@@ -490,10 +502,7 @@ function setImportModule(...importModuleObjects) {
 }
 
 function includeModuleByQuestion(...moduleObjects) {
-  if (isFirstModuleString) {
-    // First string, after by a column of modules.
-    console.log(`${brightTextColor}Include the `)
-  }
+  console.log(`${brightTextColor}Do you want to include the module... `)
 
   for (let module of moduleObjects) {
     if (readline.keyInYNStrict(`${resetTextColor}  ${module.moduleName}? ${brightTextColor}`)) {
@@ -564,10 +573,8 @@ function folderIsEmpty(path) {
   }
 }
 
-function setVariable(variableNameWithOperator, message, defaultValue, variableFilePath) {
-  let newVariableValue = readline.question(
-    `${brightTextColor}
-    ${message} ${variableNameWithOperator} ${resetTextColor}
+function setVariable({ variableNameWithOperator, message, defaultValue, variableFilePath }) {
+  let newVariableValue = readline.question(`${brightTextColor} ${message} ${variableNameWithOperator} ${resetTextColor}
     default is:${grayTextColor} ${defaultValue}${resetTextColor}
     new value is:${brightTextColor} `)
 
