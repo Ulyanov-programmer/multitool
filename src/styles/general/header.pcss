@@ -1,0 +1,27 @@
+.header {
+  position: relative;
+}
+.navmenu {
+  &__body {
+    /* flex-set: row wrap; */
+    gap: 15px;
+
+    li {
+      a,
+      button {
+        display: inline-block;
+        padding: 8px;
+        color: inherit;
+        transition: all 0.2s ease 0s;
+
+        &:hover,
+        &:focus {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+}
+.logo {
+  z-index: 10;
+}

@@ -1,0 +1,98 @@
+:root {
+  --main-font-family: arial;
+  --text-c: black;
+  --bg: white;
+}
+@media (prefers-color-scheme: dark) {
+}
+
+._container {
+  --tabletWidth: 768px;
+  --mobileWidth: 426px;
+
+  --bigViewportContentWidth: 70vw;
+  --defaultViewportContentWidth: 80vw;
+  --tabletsViewportContentWidth: 90vw;
+  --mobileViewportContentWidth: 95vw;
+
+  margin: auto;
+
+  @media (min-width: unit($layoutWidth, "px")) {
+    /* ? Insert the width of the container as a percentage of the width of the layout. */
+    width: var(--bigViewportContentWidth);
+  }
+  @media (min-width: var(--tabletWidth)) and (max-width: unit($layoutWidth, "px")) {
+    width: var(--defaultViewportContentWidth);
+  }
+  @media (min-width: var(--mobileWidth)) and (max-width: var(--tabletWidth)) {
+    width: var(--tabletsViewportContentWidth);
+  }
+  @media (max-width: var(--mobileWidth)) {
+    width: var(--mobileViewportContentWidth);
+  }
+}
+html {
+  scroll-behavior: smooth;
+}
+body {
+  height: max-content;
+  color: var(--text-c);
+  background: var(--bg);
+  font-size: clamp(
+    rem($minFontSize),
+    pxToVw($mainFontSize) + 0.1rem,
+    rem($mainFontSize)
+  );
+  font-family: var(--main-font-family);
+}
+._contain-img {
+  img {
+    /* block-size :100%; */
+    object-fit: contain;
+  }
+}
+._cover-img {
+  img {
+    /* block-size :100%; */
+    object-fit: cover;
+  }
+}
+._thin {
+  font-family: var(--main-font-family);
+}
+._contain-img {
+  img {
+    /* block-size :100%; */
+    object-fit: contain;
+  }
+}
+._cover-img {
+  img {
+    /* block-size :100%; */
+    object-fit: cover;
+  }
+}
+._thin {
+  font-weight: 100;
+}
+._extra-light {
+  font-weight: 200;
+}
+._light {
+  font-weight: 300;
+}
+._medium {
+  font-weight: 500;
+}
+._semi-bold {
+  font-weight: 600;
+}
+._bold {
+  font-weight: 700;
+}
+._extra-bold {
+  font-weight: 800;
+}
+._black {
+  font-weight: 900;
+}

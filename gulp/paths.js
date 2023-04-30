@@ -16,7 +16,7 @@ export const paths = {
   scr: {
     html: [`${source}/*.{html,htm}`, `!${source}/components/*.{html,htm}`],
     php: `${source}/php/*.php`,
-    css: [`${source}/styles/**/*.styl`, `${source}/docs/*.styl`, `!${source}/styles/**/_*.styl`],
+    css: [`${source}/styles/**/*.pcss`, `${source}/docs/*.pcss`, `!${source}/styles/**/_*.pcss`],
     scripts: `${source}/scripts/*.{ts,js}`,
     scriptModules: `${source}/scripts/modules/*.{ts,js}`,
     images: `${source}/img/**/*.{gif,ico,webp,avif,png,jpg}`,
@@ -29,9 +29,9 @@ export const paths = {
   },
   watch: {
     html: `${source}/**/*.{html,htm,php}`,
-    css: `${source}/styles/**/*.styl`,
+    css: `${source}/styles/**/*.pcss`,
     php: `${source}/php/*.php`,
-    demoCss: `${source}/docs/*.styl`,
+    demoCss: `${source}/docs/*.pcss`,
     scripts: `${source}/scripts/*.{ts,js}`,
     scriptModules: `${source}/scripts/modules/*.{ts,js}`,
     images: `${source}/img/**/*.{gif,ico,jpg,png,webp,avif}`,
@@ -40,5 +40,5 @@ export const paths = {
     video: `${source}/video/**/*.{mp4,webm}`,
   },
 }
-export const fontsFIlePath = `${source}/styles/general/fonts.styl`
-export const distPath = `${source}/styles/general/fonts.styl`
+export const fontsFIlePath = `${source}/styles/general/fonts.pcss`
+export const distPath = `${source}/styles/general/fonts.pcss`
