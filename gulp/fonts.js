@@ -55,13 +55,16 @@ export function fontsStyle() {
   })
 }
 function writeFontFaceInFile(fontName, type, fileNameNoExt, weight, style) {
-  let fontFaceConnectString =
-    [`@font-face`,
-      `\tfont-family '${fontName}'`,
-      `\tfont-display swap`,
-      `\tsrc url('../../fonts/${fileNameNoExt}.woff2') format('${type}')`,
-      `\tfont-weight ${weight}`,
-      `\tfont-style ${style}`]
+  let fontFaceRule =
+    [
+      `@font-face {`,
+      `  font-style: ${style};`,
+      `  font-weight: ${weight};`,
+      `  src: url("../../fonts/${fileNameNoExt}.woff2") format("${type}");`,
+      `  font-family: "${fontName}";`,
+      `  font-display: swap;`,
+      `}`,
+    ]
 
-  fs.appendFileSync(fontsFIlePath, fontFaceConnectString.join('\r\n') + '\r\n')
+  fs.appendFileSync(fontsFIlePath, fontFaceRule.join('\r\n') + '\r\n')
 }
