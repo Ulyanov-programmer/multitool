@@ -14,13 +14,13 @@
 
   /* Sets the height of the menu, taking into account the offset from the header */
   @mixin size 100vw, calc(100vh - var(--burgerMarginTop));
-  transform: translate3d(0, -100vh, 0);
-
-  transition: all 0.3s ease;
 
   margin-top: var(--burgerMarginTop);
-  background: rgba(0, 0, 0, 0.3);
   overflow: auto;
+  transform: translate3d(0, -100vh, 0);
+  background: rgba(0, 0, 0, 0.3);
+
+  transition: all 0.3s ease;
 
   @media (--burgerMenuIsHidden) {
     display: none;

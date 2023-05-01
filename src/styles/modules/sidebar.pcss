@@ -9,15 +9,15 @@
 
 .sidebar {
   @media (--sidebarIsVisible) {
+    z-index: 3;
     position: fixed;
     top: 0;
-    z-index: 3;
-    transition: all 0.5s ease;
-
-    background: gray;
     width: var(--hiddenSidebarWidth);
 
     height: 100vh;
+
+    background: gray;
+    transition: all 0.5s ease;
   }
 
   /* ? from left to right */
@@ -37,9 +37,9 @@
     display: none;
   }
   @media (--sidebarIsVisible) {
+    z-index: 2;
     position: fixed;
     top: 0;
-    z-index: 2;
   }
 
   /* ? from left to right */
@@ -50,10 +50,10 @@
 }
 
 .swipe_window__swipe_area {
+  z-index: 1;
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 1;
   width: 20vw;
 
   height: 100vh;

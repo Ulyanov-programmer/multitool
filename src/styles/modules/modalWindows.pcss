@@ -3,20 +3,20 @@
 .modal-window {
   @mixin inset fixed 0 0;
   display: grid;
-  place-items: center center;
-  opacity: 0;
   z-index: 15;
-  backdrop-filter: blur(1px);
-  transition: opacity 0.3s ease;
-
-  background: rgba(0, 0, 0, 0.3);
+  place-items: center center;
 
   width: 100vw;
   height: 100vh;
   height: 100svh;
 
   overflow-y: auto;
+  backdrop-filter: blur(1px);
+
+  background: rgba(0, 0, 0, 0.3);
+  opacity: 0;
   pointer-events: none;
+  transition: opacity 0.3s ease;
 
   &.active {
     opacity: 1;

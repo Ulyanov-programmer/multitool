@@ -4,13 +4,13 @@
   position: relative;
 }
 .submenu-menu {
+  z-index: 1;
   position: absolute;
   top: 100%;
-  z-index: 1;
   @mixin hide;
-  transition: all 0.2s ease;
-  background: white;
   width: max-content;
+  background: white;
+  transition: all 0.2s ease;
 
   &.show {
     @mixin show;
