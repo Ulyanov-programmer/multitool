@@ -13,6 +13,7 @@
     "fs-extra": "^10.1.0",
     "gulp": "^4.0.2",
     "gulp-changed": "^4.0.3",
+    "gulp-cssbeautify": "^3.0.1",
     "gulp-ejs": "^5.1.0",
     "gulp-esbuild": "^0.10.4",
     "gulp-html-img-to-picture": "^1.0.3",

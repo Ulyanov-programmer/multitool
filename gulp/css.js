@@ -12,6 +12,7 @@ import simpleVariables from 'postcss-simple-vars'
 import customMedia from 'postcss-custom-media'
 import browsersync from 'browser-sync'
 import rename from 'gulp-rename'
+import beautify from 'gulp-cssbeautify'
 import { paths } from './paths.js'
 
 export default function css() {
@@ -48,6 +49,7 @@ export default function css() {
     .pipe(rename({
       extname: '.css',
     }))
+    .pipe(beautify())
 
     .pipe(gulp.dest(paths.build.css))
     .pipe(browsersync.stream())
