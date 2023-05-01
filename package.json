@@ -46,12 +46,10 @@
     "readline-sync": "^1.4.10",
     "replace-in-file": "^6.3.5"
   },
-  "postcss": {
-    "map": false,
-    "plugins": {
-      "css-declaration-sorter": {
-        "order": "concentric-css"
-      }
-    }
+  "prettier": {
+    "order": "smacss",
+    "plugins": [
+      "prettier-plugin-css-order"
+    ]
   }
 }
