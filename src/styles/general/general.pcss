@@ -1,3 +1,5 @@
+@import "../_environment.pcss";
+
 :root {
   --main-font-family: arial;
   --text-c: black;
@@ -5,10 +7,15 @@
 }
 @media (prefers-color-scheme: dark) {
 }
+html {
+  scroll-behavior: smooth;
+}
 
 ._container {
-  --tabletWidth: 768px;
-  --mobileWidth: 426px;
+  @custom-media --isLargeLayout (width > $layoutWidth);
+  @custom-media --isLayoutWidth (768px < width <= $layoutWidth);
+  @custom-media --isTablet (426px < width <= 768px);
+  @custom-media --isMobile (width <= 426px);
 
   --bigViewportContentWidth: 70vw;
   --defaultViewportContentWidth: 80vw;
@@ -17,31 +24,28 @@
 
   margin: auto;
 
-  @media (min-width: unit($layoutWidth, "px")) {
-    /* ? Insert the width of the container as a percentage of the width of the layout. */
+  @media (--isLargeLayout) {
+    /* ? Insert below the width of the container in the layout. */
     width: var(--bigViewportContentWidth);
   }
-  @media (min-width: var(--tabletWidth)) and (max-width: unit($layoutWidth, "px")) {
+  @media (--isLayoutWidth) {
     width: var(--defaultViewportContentWidth);
   }
-  @media (min-width: var(--mobileWidth)) and (max-width: var(--tabletWidth)) {
+  @media (--isTablet) {
     width: var(--tabletsViewportContentWidth);
   }
-  @media (max-width: var(--mobileWidth)) {
+  @media (--isMobile) {
     width: var(--mobileViewportContentWidth);
   }
-}
-html {
-  scroll-behavior: smooth;
 }
 body {
   background: var(--bg);
   height: max-content;
   color: var(--text-c);
   font-size: clamp(
-    rem($minFontSize),
-    pxToVw($mainFontSize) + 0.1rem,
-    rem($mainFontSize)
+    pxRem($minFontSize),
+    pxToVw($mainFontSize, $layoutWidth),
+    pxRem($mainFontSize)
   );
   font-family: var(--main-font-family);
 }

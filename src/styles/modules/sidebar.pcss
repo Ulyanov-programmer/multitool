@@ -1,10 +1,14 @@
+@import "../_environment.pcss";
+
 :root {
-  --sidebarHideWidth: 1440px;
   --hiddenSidebarWidth: 70vw;
 }
 
+@custom-media --sidebarIsVisible (width > 1440px);
+@custom-media --sidebarIsHidden (width <= 1440px);
+
 .sidebar {
-  @media (max-width: $sidebarHideWidth) {
+  @media (--sidebarIsVisible) {
     position: fixed;
     top: 0;
     z-index: 3;
@@ -29,10 +33,10 @@
   } */
 }
 [data-toggle-sidebar-id] {
-  @media (min-width: $sidebarHideWidth) {
+  @media (--sidebarIsHidden) {
     display: none;
   }
-  @media (max-width: $sidebarHideWidth) {
+  @media (--sidebarIsVisible) {
     position: fixed;
     top: 0;
     z-index: 2;
@@ -54,7 +58,7 @@
 
   height: 100vh;
 
-  @media (min-width: $sidebarHideWidth) {
+  @media (--sidebarIsHidden) {
     display: none;
   }
   &.active {

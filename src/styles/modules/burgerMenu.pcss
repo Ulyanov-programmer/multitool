@@ -1,24 +1,28 @@
+@import "../_environment.pcss";
+
 :root {
   /* It is installed automatically by the script for working with the burger menu. */
   --burgerMarginTop: 0.1px;
 }
 
+@custom-media --burgerMenuIsHidden (width > 768px);
+@custom-media --burgerMenuIsVisible (width <= 768px);
+
 .burger-menu {
-  --burgerMenuShowWidth: 768px;
-  /* pseudoInset: fixed 0 0; */
+  @mixin inset fixed 0 0;
+  z-index: 4 !important;
 
   /* Sets the height of the menu, taking into account the offset from the header */
-  /* block-size 100vw calc(100vh - var(--burgerMarginTop)); */
+  @mixin size 100vw, calc(100vh - var(--burgerMarginTop));
   transform: translate3d(0, -100vh, 0);
 
-  z-index: 4 !important;
   transition: all 0.3s ease;
 
   margin-top: var(--burgerMarginTop);
   background: rgba(0, 0, 0, 0.3);
   overflow: auto;
 
-  @media (min-width: var(--burgerMenuShowWidth)) {
+  @media (--burgerMenuIsHidden) {
     display: none;
   }
   &.active {
@@ -40,7 +44,7 @@
   display: block;
   z-index: 5;
 
-  @media (min-width: $burgerMenuShowWidth) {
+  @media (--burgerMenuIsHidden) {
     display: none;
   }
   &__svg {
@@ -56,7 +60,7 @@
   } */
 }
 .navmenu {
-  @media (max-width: $burgerMenuShowWidth) {
+  @media (--burgerMenuIsVisible) {
     display: none;
   }
 }

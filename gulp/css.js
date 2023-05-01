@@ -8,6 +8,8 @@ import nested from 'postcss-nested'
 import mixins from 'postcss-mixins'
 import importPcss from 'postcss-import'
 import functions from 'postcss-functions'
+import simpleVariables from 'postcss-simple-vars'
+import customMedia from 'postcss-custom-media'
 import browsersync from 'browser-sync'
 import rename from 'gulp-rename'
 import { paths } from './paths.js'
@@ -21,19 +23,22 @@ export default function css() {
         presetEnv({
           stage: 4,
         }),
-        pxRem(),
         nested(),
+        simpleVariables(),
         mediaRangeSyntax(),
-        mixins(),
         functions({
           functions: {
-            pxToVw: (px) => {
-              const layoutWidthVariable = 'var(--layoutWidth)'
+            pxToVw: (px, layoutWidth) => {
+              let pxNumber = px.replace('px', '')
+              let layoutNumber = layoutWidth.replace('px', '')
 
-              return `${px} * 100vw / ${layoutWidthVariable}`
+              return `${pxNumber} * 100vw / ${layoutNumber}`
             },
           }
         }),
+        mixins(),
+        customMedia(),
+        pxRem(),
       ],
       {
         parser: false,

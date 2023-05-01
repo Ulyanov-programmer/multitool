@@ -1,19 +1,12 @@
-:root {
-  /* Insert layout width from design below.
-  If you set the correct value, the font size on the site and on the layout with the same `viewport width will be the same. 
-  */
-  --layoutWidth: 1440;
-  --minLayoutWidth: 320;
-  --mainFontSize: 16;
-  /* The minimum font size that will be achievable on mobile devices. */
-  --minFontSize: 12;
-}
+$layoutWidth: 1440px;
+$minLayoutWidth: 320px;
+$mainFontSize: 16px;
+$minFontSize: 12px;
 
 @define-mixin size $width, $height: $width {
   width: $width;
   height: $height;
 }
-
 @define-mixin hide {
   opacity: 0;
   overflow: hidden;
@@ -31,8 +24,7 @@
 
   background-image: image-set(url($avifUrl) 1x, url($webpUrl) 1x, url($url) 1x);
 }
-@define-mixin pseudoInset $position, $top: "", $right: "", $bottom: "",
-  $left: "" {
+@define-mixin inset $position, $top: "", $right: "", $bottom: "", $left: "" {
   position: $position;
   top: $top;
   right: $right;
