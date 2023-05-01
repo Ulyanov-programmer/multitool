@@ -3,16 +3,18 @@
 }
 .navmenu {
   &__body {
-    /* flex-set: row wrap; */
+    display: flex;
+    flex-flow: row wrap;
     gap: 15px;
 
     li {
       a,
       button {
         display: inline-block;
+        transition: all 0.2s ease 0s;
+
         padding: 8px;
         color: inherit;
-        transition: all 0.2s ease 0s;
 
         &:hover,
         &:focus {

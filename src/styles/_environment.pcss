@@ -9,26 +9,25 @@
   --minFontSize: 12;
 }
 
-@define-mixin block-size $width, $height: $width {
+@define-mixin size $width, $height: $width {
   width: $width;
   height: $height;
 }
 
 @define-mixin hide {
-  overflow: hidden;
   opacity: 0;
+  overflow: hidden;
   pointer-events: none;
 }
 @define-mixin show {
-  overflow: auto;
   opacity: 1;
+  overflow: auto;
   pointer-events: all;
 }
 @define-mixin bg-img-multi-type $url, $params: "" {
-  background: url($url) $params;
-
   $webpUrl: replace(".png", ".webp", replace(".jpg", ".webp", $url));
   $avifUrl: replace(".png", ".avif", replace(".jpg", ".avif", $url));
+  background: url($url) $params;
 
   background-image: image-set(url($avifUrl) 1x, url($webpUrl) 1x, url($url) 1x);
 }

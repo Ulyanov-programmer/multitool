@@ -5,18 +5,18 @@
 
 .burger-menu {
   --burgerMenuShowWidth: 768px;
-
-  z-index: 4 !important;
   /* pseudoInset: fixed 0 0; */
 
   /* Sets the height of the menu, taking into account the offset from the header */
   /* block-size 100vw calc(100vh - var(--burgerMarginTop)); */
   transform: translate3d(0, -100vh, 0);
 
+  z-index: 4 !important;
+  transition: all 0.3s ease;
+
   margin-top: var(--burgerMarginTop);
   background: rgba(0, 0, 0, 0.3);
   overflow: auto;
-  transition: all 0.3s ease;
 
   @media (min-width: var(--burgerMenuShowWidth)) {
     display: none;
@@ -30,15 +30,15 @@
       justify-content: center;
 
       * {
-        color: var(--text-c);
         padding: 25px 0;
+        color: var(--text-c);
       }
     }
   }
 }
 .burger-btn {
-  z-index: 5;
   display: block;
+  z-index: 5;
 
   @media (min-width: $burgerMenuShowWidth) {
     display: none;

@@ -35,9 +35,9 @@ html {
   scroll-behavior: smooth;
 }
 body {
+  background: var(--bg);
   height: max-content;
   color: var(--text-c);
-  background: var(--bg);
   font-size: clamp(
     rem($minFontSize),
     pxToVw($mainFontSize) + 0.1rem,
@@ -47,28 +47,13 @@ body {
 }
 ._contain-img {
   img {
-    /* block-size :100%; */
+    @mixin size 100%;
     object-fit: contain;
   }
 }
 ._cover-img {
   img {
-    /* block-size :100%; */
-    object-fit: cover;
-  }
-}
-._thin {
-  font-family: var(--main-font-family);
-}
-._contain-img {
-  img {
-    /* block-size :100%; */
-    object-fit: contain;
-  }
-}
-._cover-img {
-  img {
-    /* block-size :100%; */
+    @mixin size 100%;
     object-fit: cover;
   }
 }

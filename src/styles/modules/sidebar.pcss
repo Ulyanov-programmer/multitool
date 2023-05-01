@@ -5,15 +5,15 @@
 
 .sidebar {
   @media (max-width: $sidebarHideWidth) {
-    z-index: 3;
     position: fixed;
     top: 0;
-
-    height: 100vh;
-    width: var(--hiddenSidebarWidth);
+    z-index: 3;
+    transition: all 0.5s ease;
 
     background: gray;
-    transition: all 0.5s ease;
+    width: var(--hiddenSidebarWidth);
+
+    height: 100vh;
   }
 
   /* ? from left to right */
@@ -33,9 +33,9 @@
     display: none;
   }
   @media (max-width: $sidebarHideWidth) {
-    z-index: 2;
     position: fixed;
     top: 0;
+    z-index: 2;
   }
 
   /* ? from left to right */
@@ -46,13 +46,13 @@
 }
 
 .swipe_window__swipe_area {
-  z-index: 1;
   position: fixed;
   top: 0;
   left: 0;
+  z-index: 1;
+  width: 20vw;
 
   height: 100vh;
-  width: 20vw;
 
   @media (min-width: $sidebarHideWidth) {
     display: none;

@@ -1,19 +1,19 @@
 .modal-window {
-  z-index: 15;
   /* pseudoInset fixed 0 0; */
   display: grid;
   place-items: center center;
-
-  height: 100vh;
-  height: 100svh;
-  width: 100vw;
-
-  background: rgba(0, 0, 0, 0.3);
+  opacity: 0;
+  z-index: 15;
   backdrop-filter: blur(1px);
   transition: opacity 0.3s ease;
 
+  background: rgba(0, 0, 0, 0.3);
+
+  width: 100vw;
+  height: 100vh;
+  height: 100svh;
+
   overflow-y: auto;
-  opacity: 0;
   pointer-events: none;
 
   &.active {
