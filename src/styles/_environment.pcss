@@ -17,13 +17,6 @@ $minFontSize: 12px;
   opacity: 1;
   pointer-events: all;
 }
-@define-mixin bg-img-multi-type $url, $params: "" {
-  $webpUrl: replace(".png", ".webp", replace(".jpg", ".webp", $url));
-  $avifUrl: replace(".png", ".avif", replace(".jpg", ".avif", $url));
-  background: url($url) $params;
-
-  background-image: image-set(url($avifUrl) 1x, url($webpUrl) 1x, url($url) 1x);
-}
 @define-mixin inset $position, $top: "", $right: "", $bottom: "", $left: "" {
   position: $position;
   top: $top;

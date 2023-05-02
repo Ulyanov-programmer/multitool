@@ -35,6 +35,18 @@ export default function css() {
 
               return `${pxNumber} * 100vw / ${layoutNumber}`
             },
+            bgImageMultiType: (url, ...params) => {
+
+
+              let webpUrl = url.replace('.jpg', '.webp')
+              webpUrl = webpUrl.replace('.png', '.webp')
+              let avifUrl = url.replace('.jpg', '.avif')
+              avifUrl = avifUrl.replace('.png', '.avif')
+
+              let newParams = `image-set(url(${url}) 1x, url(${webpUrl}) 1x, url(${avifUrl}) 1x)`
+
+              return `${newParams}`
+            },
           }
         }),
         mixins(),
