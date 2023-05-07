@@ -3,6 +3,7 @@ import path from 'path'
 import replace from 'replace-in-file'
 import { log } from 'console'
 import enquirer from 'enquirer'
+import chalk from 'chalk'
 
 class ImportModuleObject {
   moduleName
@@ -62,34 +63,51 @@ const pathToProject = path.resolve('./'),
   // The extension of typescript source files.
   srcExt = '.src.ts'
 
-let greenTextColor = '\x1b[32m'
-let resetTextColor = '\x1b[0m'
-let brightTextColor = '\x1b[1m'
-let grayTextColor = '\x1b[90m'
 
-console.log(`${grayTextColor} `)
+
+log(chalk.green(`Salute!
+In the process, you will have to use some keys, such as: 
+${chalk.greenBright('↑')} (focus up),
+${chalk.greenBright('↓')} (focus down),
+${chalk.greenBright('← →')} (choosing between elements on the same line),
+${chalk.greenBright('space')} (to select an option),
+${chalk.greenBright('⭾')} (tab, to move to a next element, for example, in templates)
+`))
+
+await enquirer.toggle({
+  message: chalk.italic('Any questions?'),
+  enabled: chalk.magenta('Nope, i totally understand!'),
+  disabled: chalk.magenta('Nope, i understand!'),
+})
+
 deleteDemoContent()
 cleanReadmeFilesAndFolders()
 deleteSnippets()
 deleteDist()
 deleteGitKeep()
-console.log(`${resetTextColor} `)
 
 await setImportModules()
 await setModules()
 await setPhp()
 
-console.log(`${resetTextColor} ${grayTextColor}`)
 deleteUnusedFolders()
-console.log(`${resetTextColor} `)
 
-log(`${brightTextColor}${greenTextColor}The configuration of files and folders is complete.
-Now, i suggest you change the values of the main variables.${resetTextColor}`)
+log(chalk.greenBright(`
+The configuration of files and folders is complete.
+`))
+log(chalk.magentaBright(`Now, i suggest you change the values of the main variables.
+`))
 
 await setGeneralVariables()
 
-log(`${brightTextColor}${greenTextColor}The setup is completely complete! I wish You a successful job. 
-🎆🎆🎆${resetTextColor}`)
+log(chalk.greenBright(`
+=====================================================
+          The setup is completely complete! 
+          I wish You a successful job. 
+                       🎆🎆🎆             
+=====================================================
+`
+))
 
 
 
@@ -337,9 +355,9 @@ async function setModules() {
 }
 async function setPhp() {
   let phpAnswer = await enquirer.toggle({
-    message: `Include ${brightTextColor}PHP scripts${resetTextColor}?`,
-    enabled: 'Yes!',
-    disabled: 'Not'
+    message: `Include ${chalk.blueBright('PHP scripts')}?`,
+    enabled: chalk.green('Yes!'),
+    disabled: chalk.red('Not'),
   })
 
   if (phpAnswer == false) {
@@ -349,9 +367,9 @@ async function setPhp() {
 
 
   let phpMailerAnswer = await enquirer.toggle({
-    message: `Include ${brightTextColor}PHP-mailer${resetTextColor}?`,
-    enabled: 'Yes!',
-    disabled: 'Not'
+    message: `Include ${chalk.blueBright('PHP - mailer')}?`,
+    enabled: chalk.green('Yes!'),
+    disabled: chalk.red('Not'),
   })
 
   if (phpMailerAnswer == false) {
@@ -363,7 +381,7 @@ async function setPhp() {
 async function setGeneralVariables() {
   await setVariable({
     snippetName: 'htmlLayout',
-    message: 'Fill out the fields in the html-layout.',
+    message: chalk.magentaBright('Fill out the fields in the html-layout.'),
     variableFilePath: layoutFilePath,
     fields: [
       { name: 'mainLangOfPages', initial: 'en' },
@@ -381,7 +399,7 @@ async function setGeneralVariables() {
 
   await setVariable({
     snippetName: 'stylesheetVariables',
-    message: 'Fill out the general stylesheet variables.',
+    message: chalk.magentaBright('Fill out the general stylesheet variables.'),
     variableFilePath: generalStyleFilePath,
     fields: [
       { name: 'mainFontName', initial: 'arial', },
@@ -396,7 +414,7 @@ async function setGeneralVariables() {
 
   await setVariable({
     snippetName: 'stylesheetSassLikeVariables',
-    message: 'Fill out the general... Sass-like stylesheet variables.',
+    message: chalk.magentaBright('Fill out the general... Sass-like stylesheet variables.'),
     variableFilePath: environmentFilePath,
     fields: [
       { name: 'widthOfYourDesignLayout', initial: '1440px', },
@@ -413,7 +431,7 @@ $minFontSize: \${minSize};`
 
   await setVariable({
     snippetName: 'mediaContentWidthVariables',
-    message: 'Fill out the content width variables.',
+    message: chalk.magentaBright('Fill out the content width variables.'),
     variableFilePath: generalStyleFilePath,
     fields: [
       { name: 'bigWidth', initial: '70vw', },
@@ -431,8 +449,6 @@ $minFontSize: \${minSize};`
     /* The width of the site content with the width of the viewport equal to smartphones. */
   --mobileViewportContentWidth: \${mobileWidth};`
   })
-
-  console.log(resetTextColor)
 }
 
 function deleteDemoContent() {
@@ -440,14 +456,14 @@ function deleteDemoContent() {
     deleteFolder(pathToDemo)
   }
 
-  log('✅ The demo content have been deleted.')
+  log(chalk.gray.italic('✅ The demo content have been deleted.'))
 }
 function cleanReadmeFilesAndFolders() {
   deleteFolder(readmeFolder, 'The readme folder have been deleted.')
   deleteFolder(readmeFilePath)
   fs.createFileSync('README.md')
 
-  log('✅ The readme file are clean.')
+  log(chalk.gray.italic('✅ The readme file are clean.'))
 }
 function deleteDist() {
   deleteFolder(distFolderName, 'Dist have been deleted.')
@@ -459,29 +475,31 @@ function deleteGitKeep() {
   deleteFolder(fontsGitkeep, 'Gitkeep have been deleted.')
 }
 function deleteUnusedFolders() {
-  if (folderIsEmpty(modulesStyleFolder)) {
+  if (isFolderEmpty(modulesStyleFolder)) {
     deleteFolder(modulesStyleFolder)
   }
-  if (folderIsEmpty(phpFolder)) {
+  if (isFolderEmpty(phpFolder)) {
     deleteFolder(phpFolder)
   }
-  if (folderIsEmpty(libsFolder)) {
+  if (isFolderEmpty(libsFolder)) {
     deleteFolder(libsFolder)
   }
 
-  log('✅ Unused folders have been deleted.')
+  log(chalk.gray.italic('✅ Unused folders have been deleted.'))
 }
 
 async function setImportModule(...importModuleObjects) {
   let answers = await enquirer.multiselect({
     name: 'value',
-    message: 'Do you want to import the plugin...',
+    message: chalk.magentaBright('Do you want to import the plugin...'),
     limit: 5,
     choices: importModuleObjects.map(function (module) {
       return {
         name: module.moduleName, value: module.moduleName,
       }
     }),
+
+    footer: () => chalk.gray.italic('use ↑ and ↓ to switch, you can "scroll" this list')
   })
 
 
@@ -516,13 +534,15 @@ async function setImportModule(...importModuleObjects) {
 async function includeModuleByQuestion(...moduleObjects) {
   let answers = await enquirer.multiselect({
     name: 'value',
-    message: 'Do you want to include the module...',
+    message: chalk.magentaBright('Do you want to include the module...'),
     limit: 5,
     choices: moduleObjects.map(function (module) {
       return {
         name: module.moduleName, value: module.moduleName,
       }
     }),
+
+    footer: () => chalk.gray.italic('use ↑ and ↓ to switch, you can "scroll" this list')
   })
 
 
@@ -583,13 +603,13 @@ function deleteFolder(folderPath, messageOnSuccessful) {
     fs.removeSync(folderPath)
 
     if (messageOnSuccessful)
-      log(`✅ ${messageOnSuccessful}`)
+      log(chalk.gray.italic('✅ ' + messageOnSuccessful))
 
   } catch (error) {
-    log('❌' + error)
+    log(chalk.red('❌ ' + error))
   }
 }
-function folderIsEmpty(path) {
+function isFolderEmpty(path) {
   try {
     return fs.readdirSync(path).length == 0
   } catch (error) {
@@ -600,10 +620,12 @@ function folderIsEmpty(path) {
 async function setVariable({ fields, message, template, snippetName, variableFilePath }) {
   let result = await enquirer.snippet({
     name: snippetName,
-    message: message,
+    message: message + '\n',
     required: true,
     fields: fields,
     template: template,
+
+    footer: () => chalk.gray.italic("use tab to move, when you're done, press enter")
   })
 
   let formattedTemplate = replaceEnquirerTemplateValues(template, fields, result.values, true)
@@ -621,10 +643,10 @@ async function setVariable({ fields, message, template, snippetName, variableFil
   }
 }
 
-function replaceEnquirerTemplateValues(template, fields, values, replaceNamesToValues) {
+function replaceEnquirerTemplateValues(template, fields, values, replaceNamesToDefaults) {
   let newTemplate = template
 
-  if (replaceNamesToValues) {
+  if (replaceNamesToDefaults) {
     for (let field of fields) {
       newTemplate = newTemplate.replaceAll(
         '${' + field.name + '}',
