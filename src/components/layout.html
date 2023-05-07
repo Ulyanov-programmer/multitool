@@ -1,8 +1,11 @@
 <script props>
   module.exports = {
+    // Set the main language of pages below.
     lang: 'en',
+    // Set the title of the index page below.
     title: props.title || 'Unnamed page',
-    preloadedFontName: '',
+    // Set a name for a preloaded font. Must be a file name without extension.
+    preloadedFontName: 'none',
     justValidate: props.justValidate,
     swiper: props.swiper,
     typed: props.typed,
@@ -44,7 +47,7 @@
   <!-- <link rel='manifest' href='manifest.json'> -->
 
 
-  <if condition='preloadedFontName != ""'>
+  <if condition='preloadedFontName != "none"'>
     <link rel='preload' href='./fonts/{{ preloadedFontName }}.woff2'
       as='font' type='font/woff2' crossorigin>
   </if>

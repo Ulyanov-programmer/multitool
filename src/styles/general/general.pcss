@@ -17,15 +17,18 @@ html {
   @custom-media --isTablet (426px < width <= 768px);
   @custom-media --isMobile (width <= 426px);
 
+  /* ? The width of the site content with the width of the viewport is more than the width of a design. */
   --bigViewportContentWidth: 70vw;
+  /* The width of the site content with the width of the viewport equal to the width of a design. */
   --defaultViewportContentWidth: 80vw;
+  /* The width of the site content with the width of the viewport equal to tablets. */
   --tabletsViewportContentWidth: 90vw;
+  /* The width of the site content with the width of the viewport equal to smartphones. */
   --mobileViewportContentWidth: 95vw;
 
   margin: auto;
 
   @media (--isLargeLayout) {
-    /* ? Insert below the width of the container in the layout. */
     width: var(--bigViewportContentWidth);
   }
   @media (--isLayoutWidth) {

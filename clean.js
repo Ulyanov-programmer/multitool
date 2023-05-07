@@ -1,8 +1,8 @@
 import fs from 'fs-extra'
 import path from 'path'
 import replace from 'replace-in-file'
-import * as readline from 'readline-sync'
 import { log } from 'console'
+import enquirer from 'enquirer'
 
 class ImportModuleObject {
   moduleName
@@ -31,8 +31,7 @@ class ModuleObject {
   }
 }
 
-const
-  pathToProject = path.resolve('./'),
+const pathToProject = path.resolve('./'),
   distFolderName = `${pathToProject}/dist`,
   snippetsFolderName = `${pathToProject}/snippets`,
   readmeFolder = `${pathToProject}/readmeFiles`,
@@ -43,15 +42,14 @@ const
   componentsFolder = `${src}/components/`,
   phpFolder = `${src}/php/`,
   libsFolder = `${src}/libs/`,
-  stylEnvFilePath = `${src}/styles/_environment.styl`,
-  generalStyleFilePath = `${src}/styles/general/general.styl`,
+  environmentFilePath = `${src}/styles/_environment.pcss`,
+  generalStyleFilePath = `${src}/styles/general/general.pcss`,
   layoutFilePath = `${componentsFolder}/layout.html`,
 
   fontsGitkeep = `${src}/fonts/.gitkeep`,
-  mainStyleFile = `${src}/styles/index.styl`,
+  mainStyleFile = `${src}/styles/index.pcss`,
   modulesStyleFolder = `${src}/styles/modules`,
   mainHtmlFile = `${src}/index.html`,
-  gulpImportModulesFile = `${pathToProject}/gulp/importModules.js`,
   gulpFile = `${pathToProject}/gulpfile.js`,
   readmeFilePath = `${pathToProject}/README.md`,
 
@@ -63,9 +61,6 @@ const
   ],
   // The extension of typescript source files.
   srcExt = '.src.ts'
-
-// When the setImportModule function is running, it indicates whether a hint should be specified.
-let isFirstImportString = true
 
 let greenTextColor = '\x1b[32m'
 let resetTextColor = '\x1b[0m'
@@ -80,9 +75,9 @@ deleteDist()
 deleteGitKeep()
 console.log(`${resetTextColor} `)
 
-setImportModules()
-setModules()
-setPhp()
+await setImportModules()
+await setModules()
+await setPhp()
 
 console.log(`${resetTextColor} ${grayTextColor}`)
 deleteUnusedFolders()
@@ -91,14 +86,15 @@ console.log(`${resetTextColor} `)
 log(`${brightTextColor}${greenTextColor}The configuration of files and folders is complete.
 Now, i suggest you change the values of the main variables.${resetTextColor}`)
 
-setGeneralVariables()
+await setGeneralVariables()
 
 log(`${brightTextColor}${greenTextColor}The setup is completely complete! I wish You a successful job. 
 🎆🎆🎆${resetTextColor}`)
 
 
-function setImportModules() {
-  setImportModule(
+
+async function setImportModules() {
+  await setImportModule(
     new ImportModuleObject({
       moduleName: `Just-validate`,
       htmlConnectSlug: `justValidate`,
@@ -155,8 +151,8 @@ function setImportModules() {
     })
   )
 }
-function setModules() {
-  includeModuleByQuestion(
+async function setModules() {
+  await includeModuleByQuestion(
     new ModuleObject({
       moduleName: 'Burger-menu',
       scriptFilesPaths: [
@@ -339,93 +335,101 @@ function setModules() {
     }),
   )
 }
-function setPhp() {
-  if (readline.keyInYNStrict(`Include ${brightTextColor}PHP scripts${resetTextColor}?`) == false) {
-    fs.removeSync(phpFolder)
+async function setPhp() {
+  let phpAnswer = await enquirer.toggle({
+    message: `Include ${brightTextColor}PHP scripts${resetTextColor}?`,
+    enabled: 'Yes!',
+    disabled: 'Not'
+  })
+
+  if (phpAnswer == false) {
+    await fs.remove(phpFolder)
     return
   }
 
-  if (readline.keyInYNStrict(`Include ${brightTextColor}PHP-mailer${resetTextColor}?`) == false) {
+
+  let phpMailerAnswer = await enquirer.toggle({
+    message: `Include ${brightTextColor}PHP-mailer${resetTextColor}?`,
+    enabled: 'Yes!',
+    disabled: 'Not'
+  })
+
+  if (phpMailerAnswer == false) {
     for (let phpMailerFile of phpMailerFiles) {
-      fs.removeSync(phpMailerFile)
+      await fs.remove(phpMailerFile)
     }
   }
 }
-function setGeneralVariables() {
-  setVariable({
-    variableNameWithOperator: 'lang:',
-    message: 'The main language of the main page, (string!)',
-    defaultValue: "'en'",
+async function setGeneralVariables() {
+  await setVariable({
+    snippetName: 'htmlLayout',
+    message: 'Fill out the fields in the html-layout.',
     variableFilePath: layoutFilePath,
-  })
-  setVariable({
-    variableNameWithOperator: 'preloadedFontName:',
-    message: 'The name of the font file that should be preloaded, (string!)',
-    defaultValue: "''",
-    variableFilePath: layoutFilePath,
-  })
-
-  setVariable({
-    variableNameWithOperator: '--main-font-family',
-    message: 'The main font on the pages. Be sure to check the value in the general.styl file after auto-connecting fonts after starting the build,',
-    defaultValue: 'arial',
-    variableFilePath: generalStyleFilePath,
-  })
-  setVariable({
-    variableNameWithOperator: '--text-c',
-    message: 'Main text color,',
-    defaultValue: 'black',
-    variableFilePath: generalStyleFilePath,
-  })
-  setVariable({
-    variableNameWithOperator: '--bg',
-    message: 'Background of pages,',
-    defaultValue: 'white',
-    variableFilePath: generalStyleFilePath,
+    fields: [
+      { name: 'mainLangOfPages', initial: 'en' },
+      { name: 'IndexPageTitle', initial: 'Unnamed page', },
+      { name: 'preloadedFontFIlename', initial: 'none', },
+    ],
+    template:
+      `// Set the main language of pages below.
+    lang: '\${mainLangOfPages}',
+    // Set the title of the index page below.
+    title: props.title || '\${IndexPageTitle}',
+    // Set a name for a preloaded font. Must be a file name without extension.
+    preloadedFontName: '\${preloadedFontFIlename}',`
   })
 
+  await setVariable({
+    snippetName: 'stylesheetVariables',
+    message: 'Fill out the general stylesheet variables.',
+    variableFilePath: generalStyleFilePath,
+    fields: [
+      { name: 'mainFontName', initial: 'arial', },
+      { name: 'mainTextColor', initial: 'black', },
+      { name: 'backgroundColor', initial: 'white', },
+    ],
+    template:
+      `--main-font-family: \${mainFontName};
+  --text-c: \${mainTextColor};
+  --bg: \${backgroundColor};`
+  })
 
-  setVariable({
-    variableNameWithOperator: '$layoutWidth =',
-    message: 'Layout width from design (just number),',
-    defaultValue: '1440',
-    variableFilePath: stylEnvFilePath,
+  await setVariable({
+    snippetName: 'stylesheetSassLikeVariables',
+    message: 'Fill out the general... Sass-like stylesheet variables.',
+    variableFilePath: environmentFilePath,
+    fields: [
+      { name: 'widthOfYourDesignLayout', initial: '1440px', },
+      { name: 'minimalWidthOfYourDesign', initial: '320px', },
+      { name: 'mainSize', initial: '16px', },
+      { name: 'minSize', initial: '12px', },
+    ],
+    template:
+      `$layoutWidth: \${widthOfYourDesignLayout};
+$minLayoutWidth: \${minimalWidthOfYourDesign};
+$mainFontSize: \${mainSize};
+$minFontSize: \${minSize};`
   })
-  setVariable({
-    variableNameWithOperator: '--bigViewportContentWidth',
-    message: 'The width of the content on the screens is greater than layoutWidth:',
-    defaultValue: '70vw',
+
+  await setVariable({
+    snippetName: 'mediaContentWidthVariables',
+    message: 'Fill out the content width variables.',
     variableFilePath: generalStyleFilePath,
-  })
-  setVariable({
-    variableNameWithOperator: '--defaultViewportContentWidth',
-    message: 'The default width of the content on the screens:',
-    defaultValue: '80vw',
-    variableFilePath: generalStyleFilePath,
-  })
-  setVariable({
-    variableNameWithOperator: '--tabletsViewportContentWidth',
-    message: 'Width of content on tablets:',
-    defaultValue: '90vw',
-    variableFilePath: generalStyleFilePath,
-  })
-  setVariable({
-    variableNameWithOperator: '--mobileViewportContentWidth',
-    message: 'Width of content on smartphones:',
-    defaultValue: '95vw',
-    variableFilePath: generalStyleFilePath,
-  })
-  setVariable({
-    variableNameWithOperator: '$mainFontSize =',
-    message: 'The main font size on the pages. By default, see the desktop version (just number),',
-    defaultValue: '16',
-    variableFilePath: stylEnvFilePath,
-  })
-  setVariable({
-    variableNameWithOperator: '$minFontSize =',
-    message: 'The minimum font size that will be achievable on mobile devices (just number),',
-    defaultValue: '12',
-    variableFilePath: stylEnvFilePath,
+    fields: [
+      { name: 'bigWidth', initial: '70vw', },
+      { name: 'defaultWidth', initial: '80vw', },
+      { name: 'tabletsWidth', initial: '90vw', },
+      { name: 'mobileWidth', initial: '95vw', },
+    ],
+    template:
+      `/* ? The width of the site content with the width of the viewport is more than the width of a design. */
+  --bigViewportContentWidth: \${bigWidth};
+    /* The width of the site content with the width of the viewport equal to the width of a design. */
+  --defaultViewportContentWidth: \${defaultWidth};
+    /* The width of the site content with the width of the viewport equal to tablets. */
+  --tabletsViewportContentWidth: \${tabletsWidth};
+    /* The width of the site content with the width of the viewport equal to smartphones. */
+  --mobileViewportContentWidth: \${mobileWidth};`
   })
 
   console.log(resetTextColor)
@@ -468,66 +472,86 @@ function deleteUnusedFolders() {
   log('✅ Unused folders have been deleted.')
 }
 
-function setImportModule(...importModuleObjects) {
-  if (isFirstImportString) {
-    // First string, after by a column of modules.
-    console.log(`${brightTextColor}Do you want to import the plugin... `)
-    isFirstImportString = false
-  }
-
-  for (let importModule of importModuleObjects) {
-    if (readline.keyInYNStrict(`${resetTextColor}  ${importModule.moduleName}? ${brightTextColor}`)) {
-      if (importModule.htmlConnectSlug) {
-        replace.sync({
-          files: mainHtmlFile,
-          from: `${importModule.htmlConnectSlug}='false'`,
-          to: `${importModule.htmlConnectSlug}='true'`,
-        })
+async function setImportModule(...importModuleObjects) {
+  let answers = await enquirer.multiselect({
+    name: 'value',
+    message: 'Do you want to import the plugin...',
+    limit: 5,
+    choices: importModuleObjects.map(function (module) {
+      return {
+        name: module.moduleName, value: module.moduleName,
       }
+    }),
+  })
+
+
+  for (let module of importModuleObjects) {
+    let confirmedModuleName = answers.find(answer => answer == module.moduleName)
+
+    if (confirmedModuleName) {
+      if (module.htmlConnectSlug == false) continue
+
+      replace.sync({
+        files: mainHtmlFile,
+        from: `${module.htmlConnectSlug}='false'`,
+        to: `${module.htmlConnectSlug}='true'`,
+      })
     }
     else {
-      if (importModule.htmlConnectSlug) {
-        replace.sync({
-          files: mainHtmlFile,
-          from: `${importModule.htmlConnectSlug}='false'`,
-          to: '',
-        })
-      }
+      if (module.htmlConnectSlug == false) continue
 
-      for (let pathToDelete of importModule.pathsToDelete) {
+      replace.sync({
+        files: mainHtmlFile,
+        from: `${module.htmlConnectSlug}='false'`,
+        to: '',
+      })
+
+      for (let pathToDelete of module.pathsToDelete) {
         fs.removeSync(pathToDelete)
       }
     }
   }
 }
 
-function includeModuleByQuestion(...moduleObjects) {
-  console.log(`${brightTextColor}Do you want to include the module... `)
+async function includeModuleByQuestion(...moduleObjects) {
+  let answers = await enquirer.multiselect({
+    name: 'value',
+    message: 'Do you want to include the module...',
+    limit: 5,
+    choices: moduleObjects.map(function (module) {
+      return {
+        name: module.moduleName, value: module.moduleName,
+      }
+    }),
+  })
+
 
   for (let module of moduleObjects) {
-    if (readline.keyInYNStrict(`${resetTextColor}  ${module.moduleName}? ${brightTextColor}`)) {
+    let confirmedModuleName = answers.find(answer => answer == module.moduleName)
+
+    if (confirmedModuleName) {
       replaceHtmlConnectionString(module.htmlConnectStrings, 'false', 'true')
-
-      continue
     }
-
-    if (module.scriptFilesPaths.length > 0) {
-      for (let scriptPath of module.scriptFilesPaths) {
-        fs.removeSync(scriptPath)
+    else {
+      if (module.scriptFilesPaths.length > 0) {
+        for (let scriptPath of module.scriptFilesPaths) {
+          fs.removeSync(scriptPath)
+        }
       }
-    }
-    if (module.styleFilesPath) {
-      fs.removeSync(module.styleFilesPath)
-    }
-    if (module.htmlFilesPaths != undefined && module.htmlFilesPaths.length > 0) {
-      for (let htmlPath of module.htmlFilesPaths) {
-        fs.removeSync(htmlPath)
+
+      if (module.styleFilesPath) {
+        fs.removeSync(module.styleFilesPath)
       }
+
+      if (module.htmlFilesPaths != undefined && module.htmlFilesPaths.length > 0) {
+        for (let htmlPath of module.htmlFilesPaths) {
+          fs.removeSync(htmlPath)
+        }
+      }
+
+      replaceHtmlConnectionString(module.htmlConnectStrings)
     }
-    replaceHtmlConnectionString(module.htmlConnectStrings)
   }
-
-  console.log(`${resetTextColor} `)
 }
 
 function replaceHtmlConnectionString(htmlConnectStrings, replacedValue, replacedNewValue) {
@@ -573,14 +597,48 @@ function folderIsEmpty(path) {
   }
 }
 
-function setVariable({ variableNameWithOperator, message, defaultValue, variableFilePath }) {
-  let newVariableValue = readline.question(`${brightTextColor} ${message} ${variableNameWithOperator} ${resetTextColor}
-    default is:${grayTextColor} ${defaultValue}${resetTextColor}
-    new value is:${brightTextColor} `)
-
-  replace.sync({
-    files: variableFilePath,
-    from: `${variableNameWithOperator} ${defaultValue}`,
-    to: `${variableNameWithOperator} ${newVariableValue}`
+async function setVariable({ fields, message, template, snippetName, variableFilePath }) {
+  let result = await enquirer.snippet({
+    name: snippetName,
+    message: message,
+    required: true,
+    fields: fields,
+    template: template,
   })
+
+  let formattedTemplate = replaceEnquirerTemplateValues(template, fields, result.values, true)
+  let newTemplate = replaceEnquirerTemplateValues(template, fields, result.values)
+
+  let templateStrings = formattedTemplate.split('\n')
+  let newTemplateStrings = newTemplate.split('\n')
+
+  for (let i = 0; i < templateStrings.length; i++) {
+    await replace({
+      files: variableFilePath,
+      from: templateStrings[i],
+      to: newTemplateStrings[i],
+    })
+  }
+}
+
+function replaceEnquirerTemplateValues(template, fields, values, replaceNamesToValues) {
+  let newTemplate = template
+
+  if (replaceNamesToValues) {
+    for (let field of fields) {
+      newTemplate = newTemplate.replaceAll(
+        '${' + field.name + '}',
+        field.initial ?? ''
+      )
+    }
+  } else {
+    for (let field of fields) {
+      newTemplate = newTemplate.replaceAll(
+        '${' + field.name + '}',
+        values[field.name] ?? field.initial
+      )
+    }
+  }
+
+  return newTemplate
 }
