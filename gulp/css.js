@@ -13,10 +13,16 @@ import customMedia from 'postcss-custom-media'
 import browsersync from 'browser-sync'
 import rename from 'gulp-rename'
 import beautify from 'gulp-cssbeautify'
+import header2 from 'gulp-header'
 import { paths } from './paths.js'
+import nodePath from 'path'
+
+const pathToEnvironmentStyleFile = getEnvironmentStyleFilePath()
 
 export default function css() {
   return gulp.src(paths.scr.css)
+    .pipe(header2(`@import "${pathToEnvironmentStyleFile}";`))
+
     .pipe(postcss(
       [
         importPcss(),
@@ -55,14 +61,21 @@ export default function css() {
       ],
       {
         parser: false,
-        map: false,
       }
     ))
+
     .pipe(rename({
       extname: '.css',
     }))
+
     .pipe(beautify())
 
     .pipe(gulp.dest(paths.build.css))
     .pipe(browsersync.stream())
+}
+
+function getEnvironmentStyleFilePath() {
+  let path = nodePath.resolve('./src/styles/_environment.pcss')
+
+  return path
 }
