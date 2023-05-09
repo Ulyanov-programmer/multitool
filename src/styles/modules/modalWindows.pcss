@@ -1,26 +1,21 @@
-.modal-window {
-  @mixin inset fixed 0 0;
-  display: grid;
-  z-index: 15;
-  place-items: center center;
+dialog[data-modal-dialog] {
+  display: block;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate3d(-50%, -50%, 0);
 
-  width: 100vw;
-  height: 100vh;
-  height: 100svh;
+  background: white;
+  text-align: center;
+  @mixin hide;
+  transition: all 0.2s ease;
 
-  overflow-y: auto;
-  backdrop-filter: blur(1px);
-
-  background: rgba(0, 0, 0, 0.3);
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.3s ease;
-
-  &.active {
-    opacity: 1;
-    pointer-events: all;
+  &[open] {
+    @mixin show;
   }
-  &__closer {
-    color: #7d7d7d;
+
+  &::backdrop {
+    backdrop-filter: blur(1px);
+    background: rgba(0, 0, 0, 0.3);
   }
 }
