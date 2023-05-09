@@ -13,7 +13,7 @@ import customMedia from 'postcss-custom-media'
 import browsersync from 'browser-sync'
 import rename from 'gulp-rename'
 import beautify from 'gulp-cssbeautify'
-import header2 from 'gulp-header'
+import header from 'gulp-header'
 import { paths } from './paths.js'
 import nodePath from 'path'
 
@@ -21,7 +21,7 @@ const pathToEnvironmentStyleFile = getEnvironmentStyleFilePath()
 
 export default function css() {
   return gulp.src(paths.scr.css)
-    .pipe(header2(`@import "${pathToEnvironmentStyleFile}";`))
+    .pipe(header(`@import "${pathToEnvironmentStyleFile}";`))
 
     .pipe(postcss(
       [
