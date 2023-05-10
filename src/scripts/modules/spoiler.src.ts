@@ -34,13 +34,16 @@ interface AjarSpoilerArgs {
 export default class Spoiler {
   private buttons: NodeListOf<HTMLElement>
   private contentElements: NodeListOf<HTMLElement>
+  private contentWrapperElements: NodeListOf<HTMLElement>
   private maxWorkWidth?: number = 99999999
   private animationDuration: number
-  public readonly buttonClass: string = 'spoiler-btn'
-  public readonly contentClass: string = 'spoiler-content'
-  public readonly animationTogglingClass: string = '_slide'
-  public buttonActiveClass: string
-  public contentActiveClass: string
+  private readonly spoilerClass: string = 'spoiler'
+  public readonly buttonClass: string = `${this.spoilerClass}-button`
+  public readonly contentClass: string = `${this.spoilerClass}-content`
+  public readonly contentWrapperClass: string = `${this.contentClass}-wrapper`
+  public readonly animationTogglingClass: string = '_slide_'
+  public buttonActiveClass: string = 'active'
+  public contentActiveClass: string = 'active'
   private ajar?: Ajar
 
   constructor(args: SpoilerArgs) {
@@ -58,8 +61,11 @@ export default class Spoiler {
     this.contentElements = document.querySelectorAll(
       `${args.wrappersSelector} .${this.contentClass}`
     )
-    this.buttonActiveClass = args.buttonActiveClass ?? 'active'
-    this.contentActiveClass = args.contentActiveClass ?? 'active'
+    this.contentWrapperElements = document.querySelectorAll(
+      `${args.wrappersSelector} .${this.contentClass} .${this.contentWrapperClass}`
+    )
+    this.buttonActiveClass = args.buttonActiveClass ?? this.buttonActiveClass
+    this.contentActiveClass = args.contentActiveClass ?? this.contentActiveClass
     this.maxWorkWidth = args.maxWorkWidth ?? this.maxWorkWidth
     this.animationDuration = args.animationDuration
 
@@ -80,100 +86,110 @@ export default class Spoiler {
   private setSpoilers() {
     for (let i = 0; i < this.contentElements.length; i++) {
       if (window.innerWidth <= this.maxWorkWidth) {
+        this.contentElements[i].style.display = 'grid'
+        this.contentElements[i].style.transitionProperty = 'grid-template-rows'
+        this.contentElements[i].style.transitionDuration = `${this.animationDuration}ms`
+        this.contentElements[i].style.transitionTimingFunction = 'ease'
+
+        this.contentWrapperElements[i].style.overflow = 'hidden'
+
+        this.buttons[i].style.cursor = ''
+        this.buttons[i].addEventListener('click', this.toggleSpoilerStateHandler)
 
         if (this.isSpoilerContentActive(this.contentElements[i])) {
           this.spoilerDown(this.contentElements[i], this.animationDuration)
         }
         else {
           this.spoilerUp(this.contentElements[i], this.animationDuration)
-        }
 
-        this.contentElements[i].style.overflow = 'hidden'
-        this.buttons[i].style.cursor = ''
-        this.buttons[i].addEventListener('click', this.toggleSpoilerState.bind(this))
+          this.toggleSpoilerContentNodesVisibility(false, this.contentWrapperElements[i])
+        }
       }
       else {
-        this.contentElements[i].style.height = ''
-        this.contentElements[i].style.opacity = ''
-        this.contentElements[i].style.pointerEvents = ''
-        this.contentElements[i].style.overflow = ''
-        this.contentElements[i].style.transitionDuration = ''
+        this.contentElements[i].style.display = ''
+        this.contentElements[i].style.gridTemplateRows = ''
         this.contentElements[i].style.transitionProperty = ''
+        this.contentElements[i].style.transitionDuration = ``
+        this.contentElements[i].style.transitionTimingFunction = ''
+        this.contentElements[i].style.pointerEvents = ''
+
+        this.contentWrapperElements[i].style.overflow = ''
 
         this.buttons[i].style.cursor = 'default'
-        this.buttons[i].removeEventListener('click', this.toggleSpoilerState.bind(this))
+        this.buttons[i].removeEventListener('click', this.toggleSpoilerStateHandler)
 
-        this.toggleSpoilerContentNodesVisibility(true, this.contentElements[i])
+        this.toggleSpoilerContentNodesVisibility(true, this.contentWrapperElements[i])
       }
     }
   }
+  private toggleSpoilerStateHandler = function (event: PointerEvent) {
+    this.toggleSpoilerState(event)
+  }.bind(this)
 
   private toggleSpoilerState(event: PointerEvent) {
     let spoilerWrapper = this.getActiveSpoilerWrapper(event)
-    let targetSpoilerButton = spoilerWrapper.querySelector(`.${this.buttonClass}`)
+    let targetSpoilerButton = event.currentTarget as HTMLButtonElement
     let spoilerContainer = spoilerWrapper.querySelector(`.${this.contentClass}`) as HTMLElement
 
     if (this.canToggleSpoiler(spoilerContainer) == false) return
 
-    this.toggleSpoilerAnimation(spoilerContainer, this.animationDuration)
+    this.toggleSpoiler(spoilerContainer, this.animationDuration)
     targetSpoilerButton.classList.toggle(this.contentActiveClass)
     spoilerContainer.classList.toggle(this.contentActiveClass)
   }
-  private toggleSpoilerAnimation(spoilerContainer: HTMLElement, duration: number) {
-    if (spoilerContainer.style.height == '0px')
+  private toggleSpoiler(spoilerContainer: HTMLElement, duration: number) {
+    if (spoilerContainer.style.gridTemplateRows == '0fr') {
       this.spoilerDown(spoilerContainer, duration)
-    else
+    }
+    else {
       this.spoilerUp(spoilerContainer, duration)
+    }
   }
   private canToggleSpoiler(spoilerContainer: HTMLElement): boolean {
     if (spoilerContainer.classList.contains(this.animationTogglingClass)) {
       return false
     }
-    else {
-      spoilerContainer.classList.add(this.animationTogglingClass)
-      return true
-    }
+
+    spoilerContainer.classList.add(this.animationTogglingClass)
+    return true
   }
   private spoilerUp(spoilerContainer: HTMLElement, duration: number) {
-    spoilerContainer.style.transitionProperty = 'height, opacity'
-    spoilerContainer.style.transitionDuration = `${duration}ms`
-    spoilerContainer.style.height = '0px'
-    spoilerContainer.style.opacity = '0'
+    spoilerContainer.style.gridTemplateRows = '0fr'
     spoilerContainer.style.pointerEvents = 'none'
 
     window.setTimeout(() => {
       spoilerContainer.classList.remove(this.animationTogglingClass)
 
-      if (this.isSpoilerContentActive(spoilerContainer)) {
-        this.toggleSpoilerContentNodesVisibility(false, spoilerContainer)
-      }
+      this.toggleSpoilerContentNodesVisibility(
+        false,
+        spoilerContainer.querySelector(`.${this.contentWrapperClass}`)
+      )
     }, duration)
   }
   private spoilerDown(spoilerContainer: HTMLElement, duration: number) {
-    let heightOfContent = spoilerContainer.scrollHeight - 1
-
-    spoilerContainer.style.transitionProperty = 'height, opacity'
-    spoilerContainer.style.transitionDuration = `${duration}ms`
-    spoilerContainer.style.height = `${heightOfContent}px`
-    spoilerContainer.style.opacity = '1'
+    spoilerContainer.style.gridTemplateRows = '1fr'
     spoilerContainer.style.pointerEvents = 'all'
 
-    this.toggleSpoilerContentNodesVisibility(true, spoilerContainer)
+    this.toggleSpoilerContentNodesVisibility(
+      true,
+      spoilerContainer.querySelector(`.${this.contentWrapperClass}`)
+    )
 
     window.setTimeout(() => {
-      spoilerContainer.style.height = `${spoilerContainer}px`
       spoilerContainer.classList.remove(this.animationTogglingClass)
     }, duration)
   }
-  private toggleSpoilerContentNodesVisibility(toggleTo: boolean, spoilerContainer: HTMLElement) {
+  private toggleSpoilerContentNodesVisibility(toggleTo: boolean, spoilerContentWrapper: HTMLElement) {
+    let nodes = spoilerContentWrapper.children as unknown as NodeListOf<HTMLElement>
+
     if (toggleTo) {
-      for (let nodes of spoilerContainer.children) {
-        nodes.style.visibility = ''
+      for (let node of nodes) {
+        node.style.visibility = ''
       }
     }
     else {
-      for (let nodes of spoilerContainer.children) {
-        nodes.style.visibility = 'hidden'
+      for (let node of nodes) {
+        node.style.visibility = 'hidden'
       }
     }
   }
