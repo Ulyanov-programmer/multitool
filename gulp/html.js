@@ -8,6 +8,7 @@ import component from 'posthtml-component'
 import beautify from 'posthtml-beautify'
 import imgAutosize from 'posthtml-img-autosize'
 import gulpIf from 'gulp-if'
+import { htmlValidator } from 'gulp-w3c-html-validator'
 import { paths } from './paths.js'
 const isProd = process.argv.includes('--prod')
 
@@ -51,6 +52,8 @@ export default function html() {
       })
       )
     )
+    .pipe(gulpIf(isProd, htmlValidator.analyzer()))
+    .pipe(gulpIf(isProd, htmlValidator.reporter()))
 
     .pipe(gulp.dest(paths.build.html))
     .pipe(browsersync.stream())
