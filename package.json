@@ -6,6 +6,9 @@
   "type": "module",
   "author": "Ulyanov Ivan",
   "license": "ISC",
+  "scripts": {
+    "dev": "gulp"
+  },
   "dependencies": {
     "autoprefixer": "^10.4.13",
     "browser-sync": "^2.27.10",
