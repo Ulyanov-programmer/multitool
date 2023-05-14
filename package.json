@@ -4,7 +4,6 @@
   "description": "Default project for work with gulp",
   "main": "index.html",
   "type": "module",
-  "scripts": {},
   "author": "Ulyanov Ivan",
   "license": "ISC",
   "dependencies": {
@@ -55,5 +54,6 @@
     "plugins": [
       "prettier-plugin-css-order"
     ]
-  }
+  },
+  "packageManager": "yarn@3.5.1"
 }
