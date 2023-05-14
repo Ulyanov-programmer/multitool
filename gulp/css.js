@@ -41,9 +41,7 @@ export default function css() {
 
               return `${pxNumber} * 100vw / ${layoutNumber}`
             },
-            bgImageMultiType: (url, ...params) => {
-
-
+            bgImageMultiType: (url) => {
               let webpUrl = url.replace('.jpg', '.webp')
               webpUrl = webpUrl.replace('.png', '.webp')
               let avifUrl = url.replace('.jpg', '.avif')
