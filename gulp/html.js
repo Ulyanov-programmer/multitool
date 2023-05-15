@@ -4,7 +4,7 @@ import imgToPicture from 'gulp-html-img-to-picture'
 import versionNumber from 'gulp-version-number'
 import posthtml from 'gulp-posthtml'
 import easyBem from 'posthtml-easy-bem'
-// TODO: Enable this for finding an error.
+// TODO: Enable this for detect an error.
 // import component from 'posthtml-component'
 // import beautify from 'posthtml-beautify'
 import imgAutosize from 'posthtml-img-autosize'
