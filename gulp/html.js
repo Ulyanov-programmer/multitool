@@ -7,6 +7,7 @@ import easyBem from 'posthtml-easy-bem'
 import component from 'posthtml-component'
 import imgAutosize from 'posthtml-img-autosize'
 import gulpIf from 'gulp-if'
+import formatHTML from 'gulp-format-html'
 import { htmlValidator } from 'gulp-w3c-html-validator'
 import { paths } from './paths.js'
 const isProd = process.argv.includes('--prod')
@@ -46,7 +47,7 @@ export default function html() {
       )
     )
 
-
+    .pipe(formatHTML())
 
     .pipe(gulpIf(isProd, htmlValidator.analyzer()))
     .pipe(gulpIf(isProd, htmlValidator.reporter()))
