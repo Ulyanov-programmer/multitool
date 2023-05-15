@@ -3054,7 +3054,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
       ]],\
       ["es5-ext", [\
         ["npm:0.10.62", {\
-          "packageLocation": "./.yarn/unplugged/es5-ext-npm-0.10.62-f20aca46cb/node_modules/es5-ext/",\
+          "packageLocation": "./.yarn/cache/es5-ext-npm-0.10.62-f20aca46cb-25f42f6068.zip/node_modules/es5-ext/",\
           "packageDependencies": [\
             ["es5-ext", "npm:0.10.62"],\
             ["es6-iterator", "npm:2.0.3"],\
@@ -3102,7 +3102,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
       ]],\
       ["esbuild", [\
         ["npm:0.15.18", {\
-          "packageLocation": "./.yarn/unplugged/esbuild-npm-0.15.18-61e07796c8/node_modules/esbuild/",\
+          "packageLocation": "./.yarn/cache/esbuild-npm-0.15.18-61e07796c8-ec12682b2c.zip/node_modules/esbuild/",\
           "packageDependencies": [\
             ["esbuild", "npm:0.15.18"],\
             ["@esbuild/android-arm", "npm:0.15.18"],\
