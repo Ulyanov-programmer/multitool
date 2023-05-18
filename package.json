@@ -10,7 +10,8 @@
     "dev": "gulp",
     "d": "gulp",
     "production": "gulp --prod",
-    "p": "gulp --prod"
+    "p": "gulp --prod",
+    "setup": "node setup"
   },
   "dependencies": {
     "autoprefixer": "^10.4.13",
