@@ -10,7 +10,7 @@ import fonts, { fontsStyle } from './gulp/fonts.js'
 import images, { imagesSvg } from './gulp/images.js'
 import video from './gulp/video.js'
 import deleteUnlinkFiles from './gulp/deleteUnlinkFiles.js'
-import updateDist from './gulp/cleanDist.js'
+import updateDist from './gulp/updateDist.js'
 
 
 function watchFIles() {
