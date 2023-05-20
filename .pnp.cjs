@@ -67,7 +67,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["posthtml-img-autosize", "npm:0.1.6"],\
             ["posthtml-picture-srcset", "npm:1.0.1"],\
             ["prettier", "npm:2.8.8"],\
-            ["prettier-plugin-css-order", "virtual:8478be7507d755314ad2aef21855a59474e8f3a2e580df89c96b0373a59f12e91422bee35aa833e3558be4fe3619324ce08947bedc2d64108cc4f112974ec1de#npm:1.3.0"],\
             ["replace-in-file", "npm:6.3.5"]\
           ],\
           "linkType": "SOFT"\
@@ -2320,28 +2319,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
-      ["css-declaration-sorter", [\
-        ["npm:6.4.0", {\
-          "packageLocation": "./.yarn/cache/css-declaration-sorter-npm-6.4.0-003ccc93b4-b716bc3d79.zip/node_modules/css-declaration-sorter/",\
-          "packageDependencies": [\
-            ["css-declaration-sorter", "npm:6.4.0"]\
-          ],\
-          "linkType": "SOFT"\
-        }],\
-        ["virtual:9a8f054ac10e32b785e1f6924302e831c36c4008a45b2fb208a8a228ba087cd581178883acc38de9bdbb2ff73984b8e8722bab176224216223bc396277a784ef#npm:6.4.0", {\
-          "packageLocation": "./.yarn/__virtual__/css-declaration-sorter-virtual-85a428d6ed/0/cache/css-declaration-sorter-npm-6.4.0-003ccc93b4-b716bc3d79.zip/node_modules/css-declaration-sorter/",\
-          "packageDependencies": [\
-            ["css-declaration-sorter", "virtual:9a8f054ac10e32b785e1f6924302e831c36c4008a45b2fb208a8a228ba087cd581178883acc38de9bdbb2ff73984b8e8722bab176224216223bc396277a784ef#npm:6.4.0"],\
-            ["@types/postcss", null],\
-            ["postcss", null]\
-          ],\
-          "packagePeers": [\
-            "@types/postcss",\
-            "postcss"\
-          ],\
-          "linkType": "HARD"\
-        }]\
-      ]],\
       ["css-has-pseudo", [\
         ["npm:5.0.2", {\
           "packageLocation": "./.yarn/cache/css-has-pseudo-npm-5.0.2-09531f6d1a-596c8c37e6.zip/node_modules/css-has-pseudo/",\
@@ -4437,7 +4414,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["posthtml-img-autosize", "npm:0.1.6"],\
             ["posthtml-picture-srcset", "npm:1.0.1"],\
             ["prettier", "npm:2.8.8"],\
-            ["prettier-plugin-css-order", "virtual:8478be7507d755314ad2aef21855a59474e8f3a2e580df89c96b0373a59f12e91422bee35aa833e3558be4fe3619324ce08947bedc2d64108cc4f112974ec1de#npm:1.3.0"],\
             ["replace-in-file", "npm:6.3.5"]\
           ],\
           "linkType": "SOFT"\
@@ -7282,28 +7258,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
-      ["postcss-less", [\
-        ["npm:6.0.0", {\
-          "packageLocation": "./.yarn/cache/postcss-less-npm-6.0.0-4aa4c2f75b-04ec95fc86.zip/node_modules/postcss-less/",\
-          "packageDependencies": [\
-            ["postcss-less", "npm:6.0.0"]\
-          ],\
-          "linkType": "SOFT"\
-        }],\
-        ["virtual:9a8f054ac10e32b785e1f6924302e831c36c4008a45b2fb208a8a228ba087cd581178883acc38de9bdbb2ff73984b8e8722bab176224216223bc396277a784ef#npm:6.0.0", {\
-          "packageLocation": "./.yarn/__virtual__/postcss-less-virtual-52cc03ee0d/0/cache/postcss-less-npm-6.0.0-4aa4c2f75b-04ec95fc86.zip/node_modules/postcss-less/",\
-          "packageDependencies": [\
-            ["postcss-less", "virtual:9a8f054ac10e32b785e1f6924302e831c36c4008a45b2fb208a8a228ba087cd581178883acc38de9bdbb2ff73984b8e8722bab176224216223bc396277a784ef#npm:6.0.0"],\
-            ["@types/postcss", null],\
-            ["postcss", null]\
-          ],\
-          "packagePeers": [\
-            "@types/postcss",\
-            "postcss"\
-          ],\
-          "linkType": "HARD"\
-        }]\
-      ]],\
       ["postcss-load-config", [\
         ["npm:3.1.4", {\
           "packageLocation": "./.yarn/cache/postcss-load-config-npm-3.1.4-1cb8a7e276-1c589504c2.zip/node_modules/postcss-load-config/",\
@@ -7684,28 +7638,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
-      ["postcss-scss", [\
-        ["npm:4.0.6", {\
-          "packageLocation": "./.yarn/cache/postcss-scss-npm-4.0.6-24d96e01b5-133a1cba31.zip/node_modules/postcss-scss/",\
-          "packageDependencies": [\
-            ["postcss-scss", "npm:4.0.6"]\
-          ],\
-          "linkType": "SOFT"\
-        }],\
-        ["virtual:9a8f054ac10e32b785e1f6924302e831c36c4008a45b2fb208a8a228ba087cd581178883acc38de9bdbb2ff73984b8e8722bab176224216223bc396277a784ef#npm:4.0.6", {\
-          "packageLocation": "./.yarn/__virtual__/postcss-scss-virtual-4195f9b75e/0/cache/postcss-scss-npm-4.0.6-24d96e01b5-133a1cba31.zip/node_modules/postcss-scss/",\
-          "packageDependencies": [\
-            ["postcss-scss", "virtual:9a8f054ac10e32b785e1f6924302e831c36c4008a45b2fb208a8a228ba087cd581178883acc38de9bdbb2ff73984b8e8722bab176224216223bc396277a784ef#npm:4.0.6"],\
-            ["@types/postcss", null],\
-            ["postcss", null]\
-          ],\
-          "packagePeers": [\
-            "@types/postcss",\
-            "postcss"\
-          ],\
-          "linkType": "HARD"\
-        }]\
-      ]],\
       ["postcss-selector-not", [\
         ["npm:7.0.1", {\
           "packageLocation": "./.yarn/cache/postcss-selector-not-npm-7.0.1-8f1507853b-4dec95f785.zip/node_modules/postcss-selector-not/",\
@@ -7984,32 +7916,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/prettier-npm-2.8.8-430828a36c-b49e409431.zip/node_modules/prettier/",\
           "packageDependencies": [\
             ["prettier", "npm:2.8.8"]\
-          ],\
-          "linkType": "HARD"\
-        }]\
-      ]],\
-      ["prettier-plugin-css-order", [\
-        ["npm:1.3.0", {\
-          "packageLocation": "./.yarn/cache/prettier-plugin-css-order-npm-1.3.0-b465e5d47d-808b87dad7.zip/node_modules/prettier-plugin-css-order/",\
-          "packageDependencies": [\
-            ["prettier-plugin-css-order", "npm:1.3.0"]\
-          ],\
-          "linkType": "SOFT"\
-        }],\
-        ["virtual:8478be7507d755314ad2aef21855a59474e8f3a2e580df89c96b0373a59f12e91422bee35aa833e3558be4fe3619324ce08947bedc2d64108cc4f112974ec1de#npm:1.3.0", {\
-          "packageLocation": "./.yarn/__virtual__/prettier-plugin-css-order-virtual-9a8f054ac1/0/cache/prettier-plugin-css-order-npm-1.3.0-b465e5d47d-808b87dad7.zip/node_modules/prettier-plugin-css-order/",\
-          "packageDependencies": [\
-            ["prettier-plugin-css-order", "virtual:8478be7507d755314ad2aef21855a59474e8f3a2e580df89c96b0373a59f12e91422bee35aa833e3558be4fe3619324ce08947bedc2d64108cc4f112974ec1de#npm:1.3.0"],\
-            ["@types/prettier", null],\
-            ["css-declaration-sorter", "virtual:9a8f054ac10e32b785e1f6924302e831c36c4008a45b2fb208a8a228ba087cd581178883acc38de9bdbb2ff73984b8e8722bab176224216223bc396277a784ef#npm:6.4.0"],\
-            ["postcss-less", "virtual:9a8f054ac10e32b785e1f6924302e831c36c4008a45b2fb208a8a228ba087cd581178883acc38de9bdbb2ff73984b8e8722bab176224216223bc396277a784ef#npm:6.0.0"],\
-            ["postcss-scss", "virtual:9a8f054ac10e32b785e1f6924302e831c36c4008a45b2fb208a8a228ba087cd581178883acc38de9bdbb2ff73984b8e8722bab176224216223bc396277a784ef#npm:4.0.6"],\
-            ["prettier", "npm:2.8.8"],\
-            ["sync-threads", "npm:1.0.1"]\
-          ],\
-          "packagePeers": [\
-            "@types/prettier",\
-            "prettier"\
           ],\
           "linkType": "HARD"\
         }]\
@@ -9355,15 +9261,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["csso", "npm:4.2.0"],\
             ["picocolors", "npm:1.0.0"],\
             ["stable", "npm:0.1.8"]\
-          ],\
-          "linkType": "HARD"\
-        }]\
-      ]],\
-      ["sync-threads", [\
-        ["npm:1.0.1", {\
-          "packageLocation": "./.yarn/cache/sync-threads-npm-1.0.1-54233b9086-1accab9e18.zip/node_modules/sync-threads/",\
-          "packageDependencies": [\
-            ["sync-threads", "npm:1.0.1"]\
           ],\
           "linkType": "HARD"\
         }]\
