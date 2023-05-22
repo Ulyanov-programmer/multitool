@@ -1,4 +1,4 @@
-import * as noUiSlider from '../libs/nouislider/nouislider.min.js'
+import * as noUiSlider from '../libs/nouislider/nouislider.min.mjs'
 
 noUiSlider.create(document.getElementById('slider'), {
   start: [0, 100],

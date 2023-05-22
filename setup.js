@@ -125,7 +125,7 @@ async function setImportModules() {
       moduleName: `Slider Swiper`,
       htmlConnectSlug: `swiper`,
       pathsToDelete: [
-        `${src}/scripts/sliders.js`,
+        `${src}/scripts/sliders.ts`,
         `${libsFolder}swiper/`,
       ],
     }),
@@ -155,7 +155,7 @@ async function setImportModules() {
       moduleName: `Photo Swipe`,
       htmlConnectSlug: `photoSwipe`,
       pathsToDelete: [
-        `${src}/scripts/photoSwipe.js`,
+        `${src}/scripts/photoSwipe.ts`,
         `${libsFolder}photoswipe/`,
       ],
     }),
@@ -163,7 +163,7 @@ async function setImportModules() {
       moduleName: `noUiSlider`,
       htmlConnectSlug: `noUiSlider`,
       pathsToDelete: [
-        `${src}/scripts/nouislider.js`,
+        `${src}/scripts/nouislider.ts`,
         `${libsFolder}nouislider/`,
       ],
     })
