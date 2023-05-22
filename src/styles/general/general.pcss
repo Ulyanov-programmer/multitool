@@ -9,7 +9,7 @@ html {
   scroll-behavior: smooth;
 }
 
-._container {
+.container {
   @custom-media --isLargeLayout (width > $layoutWidth);
   @custom-media --isLayoutWidth (768px < width <= $layoutWidth);
   @custom-media --isTablet (426px < width <= 768px);
@@ -50,39 +50,39 @@ body {
   );
   font-family: var(--main-font-family);
 }
-._contain-img {
+.contain-img {
   img {
     @mixin size 100%;
     object-fit: contain;
   }
 }
-._cover-img {
+.cover-img {
   img {
     @mixin size 100%;
     object-fit: cover;
   }
 }
-._thin {
+.thin {
   font-weight: 100;
 }
-._extra-light {
+.extra-light {
   font-weight: 200;
 }
-._light {
+.light {
   font-weight: 300;
 }
-._medium {
+.medium {
   font-weight: 500;
 }
-._semi-bold {
+.semi-bold {
   font-weight: 600;
 }
-._bold {
+.bold {
   font-weight: 700;
 }
-._extra-bold {
+.extra-bold {
   font-weight: 800;
 }
-._black {
+.black {
   font-weight: 900;
 }
