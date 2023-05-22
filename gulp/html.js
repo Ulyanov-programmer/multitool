@@ -15,11 +15,12 @@ const isProd = process.argv.includes('--prod')
 export default function html() {
   return gulp.src(paths.scr.html)
     .pipe(posthtml([
-      easyBem(),
+      // posthtml-component must be first!
       component({
         root: './src',
         folders: ['components'],
       }),
+      easyBem(),
       imgAutosize({
         processEmptySize: true,
       })
