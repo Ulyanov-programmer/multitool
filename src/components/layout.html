@@ -21,7 +21,7 @@
     horizontalScroll: props.horizontalScroll,
     modalWindow: props.modalWindow,
     parallax: props.parallax,
-    scrollToElement: props.scrollToElement,
+    autoScrollPadding: props.autoScrollPadding,
     tabs: props.tabs,
     styles: isArray(props.styles) ? props.styles : [],
     scripts: isObject(props.scripts) ? props.scripts : {},
@@ -170,9 +170,9 @@
     <!-- Parallax -->
     <script type='module' src='./scripts/parallax.js'></script>
   </if>
-  <if condition='scrollToElement'>
+  <if condition='autoScrollPadding'>
     <!-- Scroll to element -->
-    <script type='module' src='./scripts/scrollToElement.js'></script>
+    <script type='module' src='./scripts/autoScrollPadding.js'></script>
   </if>
   <if condition='tabs'>
     <!-- Tabs -->
