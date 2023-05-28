@@ -45,14 +45,14 @@ export class AutoScrollPaddingItem {
       this.scrollableParentElement.style.scrollBehavior = arg.scrollBehavior ?? 'smooth'
     }
 
-    this.scrollableParentElement.style.scrollPadding = `${this.fixedElement.clientHeight}px`
+    this.scrollableParentElement.style.scrollPadding = `${this.fixedElement.offsetHeight}px`
 
     this.childRefs = document.querySelectorAll('a[href^="#"]')
   }
 
   public clickHandler(event: Event) {
     this.scrollableParentElement.style.scrollPadding =
-      `${this.fixedElement.clientHeight + this.gap}px`
+      `${this.fixedElement.offsetHeight + this.gap}px`
   }
 }
 
@@ -69,7 +69,7 @@ export class AutoScrollPadding {
 
     for (let autoPaddingItem of this.autoPaddingItems) {
       autoPaddingItem.scrollableParentElement.style.scrollPadding =
-        `${autoPaddingItem.fixedElement.clientHeight}px`
+        `${autoPaddingItem.fixedElement.offsetHeight}px`
     }
 
     for (let autoPaddingItem of this.autoPaddingItems) {
