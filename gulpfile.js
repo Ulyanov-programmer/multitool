@@ -1,6 +1,15 @@
+import loadPlugins from 'gulp-load-plugins'
+export let $ = loadPlugins({
+  overridePattern: true,
+  pattern: ['gulp-*', 'gulp.*', '@*/gulp{-,.}*', 'postcss-*', 'posthtml-*',],
+  config: process.env.npm_package_json,
+})
+
 import gulp from 'gulp'
 import { paths } from './gulp/paths.js'
 import browsersyncFunc from './gulp/browserSync.js'
+export const isProd = process.argv.includes('--prod')
+
 
 import html from './gulp/html.js'
 import php from './gulp/php.js'

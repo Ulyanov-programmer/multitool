@@ -1,13 +1,12 @@
+import { $, isProd } from '../gulpfile.js'
+
 import gulp from 'gulp'
 import browsersync from 'browser-sync'
 import { paths } from './paths.js'
-import gulpIf from 'gulp-if'
-import esbuild from 'gulp-esbuild'
-const isProd = process.argv.includes('--prod')
 
 export default function scripts() {
   gulp.src(paths.scr.scripts, { since: gulp.lastRun(scripts) })
-    .pipe(esbuild({
+    .pipe($.esbuild({
       target: 'es2018',
     }))
 
@@ -16,14 +15,14 @@ export default function scripts() {
 
   return gulp.src(paths.scr.scriptModules, { since: gulp.lastRun(scripts) })
     .pipe(
-      gulpIf(isProd,
+      $.if(isProd,
         // If run with the --prod flag.
-        esbuild({
+        $.esbuild({
           target: 'es2018',
           minify: true,
         }),
         // If run without the --prod flag.
-        esbuild({
+        $.esbuild({
           target: 'es2018',
         })
       )

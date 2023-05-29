@@ -1,32 +1,25 @@
+import { $, isProd } from '../gulpfile.js'
+
 import gulp from 'gulp'
 import browsersync from 'browser-sync'
-import imgToPicture from 'gulp-html-img-to-picture'
-import versionNumber from 'gulp-version-number'
-import posthtml from 'gulp-posthtml'
-import easyBem from 'posthtml-easy-bem'
-import component from 'posthtml-component'
-import imgAutosize from 'posthtml-img-autosize'
-import gulpIf from 'gulp-if'
-import formatHTML from 'gulp-format-html'
 import { htmlValidator } from 'gulp-w3c-html-validator'
 import { paths } from './paths.js'
-const isProd = process.argv.includes('--prod')
 
 export default function html() {
   return gulp.src(paths.scr.html)
-    .pipe(posthtml([
-      component({
+    .pipe($.posthtml([
+      $.posthtmlComponent({
         root: './src',
         folders: ['components'],
       }),
-      easyBem(),
-      imgAutosize({
+      $.posthtmlEasyBem(),
+      $.posthtmlImgAutosize({
         processEmptySize: true,
       })
     ], {}))
 
     .pipe(
-      gulpIf(isProd, imgToPicture({
+      $.if(isProd, $.htmlImgToPicture({
         sortBySize: false,
         sourceExtensions: [
           { extension: 'webp', mimetype: 'image/webp', },
@@ -36,7 +29,7 @@ export default function html() {
       )
     )
     .pipe(
-      gulpIf(isProd, versionNumber({
+      $.if(isProd, $.versionNumber({
         'value': '%DT%',
         'append': {
           'key': '_v',
@@ -47,10 +40,10 @@ export default function html() {
       )
     )
 
-    .pipe(formatHTML())
+    .pipe($.formatHtml())
 
-    .pipe(gulpIf(isProd, htmlValidator.analyzer()))
-    .pipe(gulpIf(isProd, htmlValidator.reporter()))
+    .pipe($.if(isProd, htmlValidator.analyzer()))
+    .pipe($.if(isProd, htmlValidator.reporter()))
 
     .pipe(gulp.dest(paths.build.html))
     .pipe(browsersync.stream())

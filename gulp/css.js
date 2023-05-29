@@ -1,39 +1,25 @@
-import gulp from 'gulp'
-import postcss from 'gulp-postcss'
-import autoprefixer from 'autoprefixer'
-import presetEnv from 'postcss-preset-env'
-import pxRem from 'postcss-pxrem-function'
-import mediaRangeSyntax from 'postcss-media-minmax'
-import nested from 'postcss-nested'
-import mixins from 'postcss-mixins'
-import importPcss from 'postcss-import'
-import functions from 'postcss-functions'
-import simpleVariables from 'postcss-simple-vars'
-import customMedia from 'postcss-custom-media'
-import browsersync from 'browser-sync'
-import rename from 'gulp-rename'
-import beautify from 'gulp-cssbeautify'
-import header from 'gulp-header'
-import { paths } from './paths.js'
-import nodePath from 'path'
+import { $ } from '../gulpfile.js'
 
-const pathToEnvironmentStyleFile = getEnvironmentStyleFilePath()
+import gulp from 'gulp'
+import autoprefixer from 'autoprefixer'
+import browsersync from 'browser-sync'
+import { paths, pathToEnvironmentStyleFile } from './paths.js'
 
 export default function css() {
   return gulp.src(paths.scr.css)
-    .pipe(header(`@import "${pathToEnvironmentStyleFile}";`))
+    .pipe($.header(`@import "${pathToEnvironmentStyleFile}";`))
 
-    .pipe(postcss(
+    .pipe($.postcss(
       [
-        importPcss(),
-        autoprefixer({}),
-        presetEnv({
+        $.postcssImport(),
+        autoprefixer(),
+        $.postcssPresetEnv({
           stage: 4,
         }),
-        nested(),
-        simpleVariables(),
-        mediaRangeSyntax(),
-        functions({
+        $.postcssNested(),
+        $.postcssSimpleVars(),
+        $.postcssMediaMinmax(),
+        $.postcssFunctions({
           functions: {
             pxToVw: (px, layoutWidth) => {
               let pxNumber = px.replace('px', '')
@@ -53,27 +39,21 @@ export default function css() {
             },
           }
         }),
-        mixins(),
-        customMedia(),
-        pxRem(),
+        $.postcssMixins(),
+        $.postcssCustomMedia(),
+        $.postcssPxremFunction(),
       ],
       {
         parser: false,
       }
     ))
 
-    .pipe(rename({
+    .pipe($.rename({
       extname: '.css',
     }))
 
-    .pipe(beautify())
+    .pipe($.cssbeautify())
 
     .pipe(gulp.dest(paths.build.css))
     .pipe(browsersync.stream())
-}
-
-function getEnvironmentStyleFilePath() {
-  let path = nodePath.resolve('./src/styles/_environment.pcss')
-
-  return path
 }

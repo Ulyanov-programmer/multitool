@@ -1,3 +1,5 @@
+import nodePath from 'path'
+
 export const project = 'dist'
 export const source = 'src'
 
@@ -42,3 +44,4 @@ export const paths = {
 }
 export const fontsFIlePath = `${source}/styles/general/fonts.pcss`
 export const distPath = `${source}/styles/general/fonts.pcss`
+export const pathToEnvironmentStyleFile = nodePath.resolve('./src/styles/_environment.pcss')

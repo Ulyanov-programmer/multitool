@@ -1,22 +1,20 @@
+import { $, isProd } from '../gulpfile.js'
+
 import gulp from 'gulp'
 import browsersync from 'browser-sync'
-import gulpChanged from 'gulp-changed'
-import svgMin from 'gulp-svgmin'
-import gulpIf from 'gulp-if'
-import sharpOptimizeImages from 'gulp-sharp-optimize-images'
 import { paths } from './paths.js'
-const isProd = process.argv.includes('--prod')
+import sharpOptimizeImages from 'gulp-sharp-optimize-images'
 
 export default function images() {
   return gulp.src(paths.scr.images)
     .pipe(
-      gulpIf(isProd == false,
-        gulpChanged(paths.build.images, { extension: '.png' })
+      $.if(isProd == false,
+        $.changed(paths.build.images, { extension: '.png' })
       )
     )
     .pipe(
-      gulpIf(isProd == false,
-        gulpChanged(paths.build.images, { extension: '.jpg' })
+      $.if(isProd == false,
+        $.changed(paths.build.images, { extension: '.jpg' })
       )
     )
 
@@ -53,7 +51,7 @@ export default function images() {
 export function imagesSvg() {
   return gulp.src(paths.scr.imagesSvg)
     .pipe(
-      gulpIf(isProd, svgMin())
+      $.if(isProd, $.svgmin())
     )
 
     .pipe(gulp.dest(paths.build.images))
