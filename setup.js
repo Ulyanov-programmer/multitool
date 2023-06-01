@@ -177,7 +177,7 @@ async function setModules() {
         `${scriptModules}burgerMenu${srcExt}`,
         `${scriptGeneral}burgerMenu.ts`,
       ],
-      styleFilesPath: `${stylesModules}burgerMenu.styl`,
+      styleFilesPath: `${stylesModules}burgerMenu.pcss`,
       htmlFilesPaths: [
         `${componentsFolder}burgerMenu.html`,
       ],
@@ -197,29 +197,25 @@ async function setModules() {
         `${scriptModules}sidebar${srcExt}`,
         `${scriptGeneral}sidebar.ts`,
       ],
-      styleFilesPath: `${stylesModules}sidebar.styl`,
+      styleFilesPath: `${stylesModules}sidebar.pcss`,
       htmlFilesPaths: null,
       htmlConnectStrings: [
         { strings: "sidebar='false'" }
       ],
     }),
     new ModuleObject({
-      moduleName: 'Modal-Window',
+      moduleName: 'Scripts for dialog',
       scriptFilesPaths: [
-        `${scriptModules}modalWindow${srcExt}`,
-        `${scriptGeneral}modalWindow.ts`,
+        `${scriptModules}dialogs${srcExt}`,
+        `${scriptGeneral}dialogs.ts`,
       ],
-      styleFilesPath: `${stylesModules}modalWindows.styl`,
+      styleFilesPath: `${stylesModules}dialogs.pcss`,
       htmlFilesPaths: [
         `${componentsFolder}modals.html`,
       ],
       htmlConnectStrings: [
-        {
-          strings: `<x-modals></x-modals>`,
-        },
-        {
-          strings: "modalWindow='false'"
-        },
+        { strings: `<x-modals></x-modals>`, },
+        { strings: `dialogs='false'` },
       ],
     }),
     new ModuleObject({
@@ -228,7 +224,7 @@ async function setModules() {
         `${scriptModules}spoiler${srcExt}`,
         `${scriptGeneral}spoiler.ts`,
       ],
-      styleFilesPath: `${stylesModules}spoiler.styl`,
+      styleFilesPath: `${stylesModules}spoiler.pcss`,
       htmlFilesPaths: null,
       htmlConnectStrings: [
         { strings: "spoiler='false'" }
@@ -240,7 +236,7 @@ async function setModules() {
         `${scriptModules}submenu${srcExt}`,
         `${scriptGeneral}submenu.ts`,
       ],
-      styleFilesPath: `${stylesModules}submenu.styl`,
+      styleFilesPath: `${stylesModules}submenu.pcss`,
       htmlFilesPaths: null,
       htmlConnectStrings: [
         { strings: "submenu='false'" }
@@ -283,15 +279,15 @@ async function setModules() {
       ],
     }),
     new ModuleObject({
-      moduleName: 'ScrollToElement',
+      moduleName: 'AutoScrollPadding',
       scriptFilesPaths: [
-        `${scriptModules}scrollToElement${srcExt}`,
-        `${scriptGeneral}scrollToElement.ts`,
+        `${scriptModules}autoScrollPadding${srcExt}`,
+        `${scriptGeneral}autoScrollPadding.ts`,
       ],
       styleFilesPath: null,
       htmlFilesPaths: null,
       htmlConnectStrings: [
-        { strings: "scrollToElement='false'" }
+        { strings: "autoScrollPadding='false'" }
       ],
     }),
     new ModuleObject({
@@ -333,7 +329,7 @@ async function setModules() {
     new ModuleObject({
       moduleName: 'Form styles',
       scriptFilesPaths: [],
-      styleFilesPath: `${stylesModules}form.styl`,
+      styleFilesPath: `${stylesModules}form.pcss`,
       htmlFilesPaths: null,
       htmlConnectStrings: [
         { strings: "formStyles='false'" }
@@ -417,16 +413,16 @@ async function setGeneralVariables() {
     message: chalk.magentaBright('Fill out the general... Sass-like stylesheet variables.'),
     variableFilePath: environmentFilePath,
     fields: [
-      { name: 'widthOfYourDesignLayout', initial: '1440px', },
-      { name: 'minimalWidthOfYourDesign', initial: '320px', },
-      { name: 'mainSize', initial: '16px', },
-      { name: 'minSize', initial: '12px', },
+      { name: 'widthOfYourDesignLayout', initial: '1440', },
+      { name: 'minimalWidthOfYourDesign', initial: '320', },
+      { name: 'mainSize', initial: '16', },
+      { name: 'minSize', initial: '12', },
     ],
     template:
-      `$layoutWidth: \${widthOfYourDesignLayout};
-$minLayoutWidth: \${minimalWidthOfYourDesign};
-$mainFontSize: \${mainSize};
-$minFontSize: \${minSize};`
+      `$layoutWidth: \${widthOfYourDesignLayout}px;
+$minLayoutWidth: \${minimalWidthOfYourDesign}px;
+$mainFontSize: \${mainSize}px;
+$minFontSize: \${minSize}px;`
   })
 
   await setVariable({
@@ -516,13 +512,13 @@ async function setImportModule(...importModuleObjects) {
       })
     }
     else {
-      if (module.htmlConnectSlug == false) continue
-
-      replace.sync({
-        files: mainHtmlFile,
-        from: `${module.htmlConnectSlug}='false'`,
-        to: '',
-      })
+      if (module.htmlConnectSlug) {
+        replace.sync({
+          files: mainHtmlFile,
+          from: `${module.htmlConnectSlug}='false'`,
+          to: '',
+        })
+      }
 
       for (let pathToDelete of module.pathsToDelete) {
         fs.removeSync(pathToDelete)
