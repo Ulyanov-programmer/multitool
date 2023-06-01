@@ -19,7 +19,7 @@ import fonts, { fontsStyle } from './gulp/fonts.js'
 import images, { imagesSvg } from './gulp/images.js'
 import video from './gulp/video.js'
 import deleteUnlinkFiles from './gulp/deleteUnlinkFiles.js'
-import updateDist from './gulp/updateDist.js'
+import deleteDist from './gulp/deleteDist.js'
 
 
 function watchFIles() {
@@ -53,9 +53,7 @@ const mainTasks = [
   html, css, fonts, scripts, php, imagesSvg, images, video,
 ]
 
-updateDist()
-
-let build = gulp.series(gulp.parallel(libs, mainTasks), fontsStyle)
+let build = gulp.series(deleteDist, gulp.parallel(libs, mainTasks), fontsStyle)
 let watch = gulp.parallel(build, watchFIles, browsersyncFunc)
 
 gulp.task('build', build)
