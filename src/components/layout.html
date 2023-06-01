@@ -19,10 +19,11 @@
     animateByScroll: props.animateByScroll,
     swipe: props.swipe,
     horizontalScroll: props.horizontalScroll,
-    modalWindow: props.modalWindow,
+    dialogs: props.dialogs,
     parallax: props.parallax,
     autoScrollPadding: props.autoScrollPadding,
     tabs: props.tabs,
+    stepByStep: props.stepByStep,
     styles: isArray(props.styles) ? props.styles : [],
     scripts: isObject(props.scripts) ? props.scripts : {},
   }
@@ -161,10 +162,10 @@
     <!-- Horizontal scroll -->
     <script type='module' src='./scripts/horizontalScroll.js'></script>
   </if>
-  <if condition='modalWindow'>
-    <!-- Modal window -->
-    <link rel='stylesheet' href='./styles/modules/modalWindows.css'>
-    <script type='module' src='./scripts/modalWindow.js'></script>
+  <if condition='dialogs'>
+    <!-- For dialogs -->
+    <link rel='stylesheet' href='./styles/modules/dialogs.css'>
+    <script type='module' src='./scripts/dialogs.js'></script>
   </if>
   <if condition='parallax'>
     <!-- Parallax -->

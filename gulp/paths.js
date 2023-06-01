@@ -42,6 +42,6 @@ export const paths = {
     video: `${source}/video/**/*.{mp4,webm}`,
   },
 }
-export const fontsFIlePath = `${source}/styles/general/fonts.pcss`
+export const fontsFilePath = `${source}/styles/general/fonts.pcss`
 export const distPath = `${source}/styles/general/fonts.pcss`
 export const pathToEnvironmentStyleFile = nodePath.resolve('./src/styles/_environment.pcss')

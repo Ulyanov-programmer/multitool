@@ -79,7 +79,7 @@ export class AutoScrollPadding {
     }
 
     document.addEventListener('DOMContentLoaded', () => {
-      let scrollElement = document.querySelector(location.hash)
+      let scrollElement = document.querySelector(location.hash ? location.hash : null)
 
       if (scrollElement) {
         scrollElement.scrollIntoView(true)
