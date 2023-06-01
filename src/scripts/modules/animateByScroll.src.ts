@@ -1,5 +1,5 @@
 import { elementsIsExist } from './general.js'
-import '../scroll-timeline.js'
+import './scroll-timeline.js'
 
 
 interface AnimateByScrollArgs {
@@ -181,7 +181,7 @@ export class AnimationTimeline {
     this.animatedElements = document.querySelectorAll(arg.selectors)
     this.animatedProperties = arg.animatedProperties
     this.animateSettings = arg.animateSettings
-    this.setDefaultanimateSettingsIfNull(arg.animateSettings)
+    this.setDefaultAnimateSettingsIfNull(arg.animateSettings)
 
 
     for (let animatedHtml of this.animatedElements) {
@@ -192,7 +192,7 @@ export class AnimationTimeline {
     }
   }
 
-  setDefaultanimateSettingsIfNull(animateSettings: AnimateTimelineSettings) {
+  setDefaultAnimateSettingsIfNull(animateSettings: AnimateTimelineSettings) {
     if (!animateSettings.fill) {
       animateSettings.fill = 'forwards'
     }

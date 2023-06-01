@@ -295,7 +295,7 @@ async function setModules() {
       scriptFilesPaths: [
         `${scriptModules}animateByScroll${srcExt}`,
         `${scriptGeneral}animateByScroll.ts`,
-        `${scriptGeneral}scroll-timeline.js`,
+        `${scriptModules}scroll-timeline.js`,
       ],
       styleFilesPath: null,
       htmlFilesPaths: null,
