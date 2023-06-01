@@ -8,14 +8,19 @@ import sharpOptimizeImages from 'gulp-sharp-optimize-images'
 export default function images() {
   return gulp.src(paths.scr.images)
     .pipe(
-      $.if(isProd == false,
-        $.changed(paths.build.images, { extension: '.png' })
-      )
+      $.changed(paths.build.images, { extension: '.png' })
     )
     .pipe(
-      $.if(isProd == false,
-        $.changed(paths.build.images, { extension: '.jpg' })
-      )
+      $.changed(paths.build.images, { extension: '.jpg' })
+    )
+    .pipe(
+      $.changed(paths.build.images, { extension: '.webp' })
+    )
+    .pipe(
+      $.changed(paths.build.images, { extension: '.avif' })
+    )
+    .pipe(
+      $.changed(paths.build.images, { extension: '.gif' })
     )
 
     .pipe(
@@ -40,6 +45,15 @@ export default function images() {
           quality: 80,
           mozjpeg: true,
         },
+        webp_to_webp: {
+          quality: 80,
+        },
+        avif_to_avif: {
+          quality: 80,
+        },
+        gif_to_gif: {
+          quality: 80,
+        },
       })
     )
 
@@ -51,8 +65,10 @@ export default function images() {
 export function imagesSvg() {
   return gulp.src(paths.scr.imagesSvg)
     .pipe(
-      $.if(isProd, $.svgmin())
+      $.changed(paths.build.images, { extension: '.svg' })
     )
+
+    .pipe($.svgmin())
 
     .pipe(gulp.dest(paths.build.images))
     .pipe(browsersync.stream())
