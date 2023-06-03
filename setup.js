@@ -81,21 +81,22 @@ const pathToProject = path.resolve('./'),
 
 
 
-log(chalk.green(`Salute!
-In the process, you will have to use some keys, such as: 
+logSomeImportantInConsole(
+  `Salute!
+You will have to use some keys, such as: 
 ${chalk.greenBright('↑')} (focus up),
 ${chalk.greenBright('↓')} (focus down),
 ${chalk.greenBright('← →')} (choosing between elements on the same line),
 ${chalk.greenBright('space')} (to select an option),
 ${chalk.greenBright('⭾')} (tab, to move to a next element, for example, in templates)
-`))
-
+`,
+  chalk.green
+)
 await enquirer.toggle({
   message: chalk.italic('Any questions?'),
   enabled: chalk.magenta('Nope, i totally understand!'),
   disabled: chalk.magenta('Nope, i understand!'),
 })
-
 
 
 deleteDemoContent()
@@ -342,12 +343,14 @@ await setPhp()
 
 deleteUnusedFolders()
 
-log(chalk.greenBright(`
-The configuration of files and folders is complete.
-`))
-log(chalk.magentaBright(`
-Now, i suggest you change the values of the main variables.
-`))
+logSomeImportantInConsole(
+  `\nThe configuration of files and folders is complete.\n`,
+  chalk.greenBright
+)
+logSomeImportantInConsole(
+  `\nNow, i suggest you change the values of the main variables.\n`,
+  chalk.magentaBright
+)
 
 await setVariables(
   new VariableTemplate({
@@ -419,42 +422,18 @@ $minFontSize: \${minSize}px;`
   }),
 )
 
-log(chalk.greenBright(`
+logSomeImportantInConsole(
+  `
 =====================================================
           The setup is completely complete! 
           I wish You a successful job. 
                        🎆🎆🎆             
 =====================================================
-`
-))
+`,
+  chalk.greenBright
+)
 
 
-
-async function setPhp() {
-  let includeSomePhp = await enquirer.toggle({
-    message: `Include ${chalk.blueBright('PHP scripts')}?`,
-    enabled: chalk.green('Yes!'),
-    disabled: chalk.red('Not'),
-  })
-
-  if (includeSomePhp == false) {
-    await fs.remove(phpFolder)
-    return
-  }
-
-
-  let phpMailerAnswer = await enquirer.toggle({
-    message: `Include ${chalk.blueBright('PHP - mailer')}?`,
-    enabled: chalk.green('Yes!'),
-    disabled: chalk.red('Not'),
-  })
-
-  if (phpMailerAnswer == false) {
-    for (let phpMailerFile of phpMailerFiles) {
-      await fs.remove(phpMailerFile)
-    }
-  }
-}
 
 function deleteDemoContent() {
   for (let pathToDemo of srcDemoFoldersAndFIles) {
@@ -493,48 +472,6 @@ function deleteUnusedFolders() {
   log(chalk.gray.italic('✅ Unused folders have been deleted.'))
 }
 
-async function setImportModule(...importModuleObjects) {
-  let answers = await enquirer.multiselect({
-    name: 'value',
-    message: chalk.magentaBright('Do you want to import the plugin...'),
-    limit: 5,
-    choices: importModuleObjects.map(function (module) {
-      return {
-        name: module.moduleName, value: module.moduleName,
-      }
-    }),
-
-    footer: () => chalk.gray.italic('use ↑ and ↓ to switch, you can "scroll" this list')
-  })
-
-
-  for (let module of importModuleObjects) {
-    let confirmedModuleName = answers.find(answer => answer == module.moduleName)
-
-    if (confirmedModuleName) {
-      if (module.htmlConnectSlug == false) continue
-
-      replace.sync({
-        files: mainHtmlFile,
-        from: `${module.htmlConnectSlug}='false'`,
-        to: `${module.htmlConnectSlug}='true'`,
-      })
-    }
-    else {
-      if (module.htmlConnectSlug) {
-        replace.sync({
-          files: mainHtmlFile,
-          from: `${module.htmlConnectSlug}='false'`,
-          to: '',
-        })
-      }
-
-      for (let pathToDelete of module.pathsToDelete) {
-        fs.removeSync(pathToDelete)
-      }
-    }
-  }
-}
 
 async function includeModuleByQuestion(...moduleObjects) {
   let answers = await enquirer.multiselect({
@@ -578,50 +515,73 @@ async function includeModuleByQuestion(...moduleObjects) {
     }
   }
 }
+async function setImportModule(...importModuleObjects) {
+  let answers = await enquirer.multiselect({
+    name: 'value',
+    message: chalk.magentaBright('Do you want to import the plugin...'),
+    limit: 5,
+    choices: importModuleObjects.map(function (module) {
+      return {
+        name: module.moduleName, value: module.moduleName,
+      }
+    }),
 
-function replaceHtmlConnectionString(htmlConnectStrings, replacedValue, replacedNewValue) {
-  if (htmlConnectStrings == undefined)
-    return
-
-  for (let htmlConnectStringData of htmlConnectStrings) {
-    if (htmlConnectStringData.path == undefined)
-      htmlConnectStringData.path = mainHtmlFile
+    footer: () => chalk.gray.italic('use ↑ and ↓ to switch, you can "scroll" this list')
+  })
 
 
-    let newHtmlConnectString
+  for (let module of importModuleObjects) {
+    let confirmedModuleName = answers.find(answer => answer == module.moduleName)
 
-    if (replacedValue == undefined || replacedNewValue == undefined) {
-      newHtmlConnectString = ''
-    } else {
-      newHtmlConnectString = htmlConnectStringData.strings.replace(replacedValue, replacedNewValue)
+    if (confirmedModuleName) {
+      if (module.htmlConnectSlug == false) continue
+
+      replace.sync({
+        files: mainHtmlFile,
+        from: `${module.htmlConnectSlug}='false'`,
+        to: `${module.htmlConnectSlug}='true'`,
+      })
     }
+    else {
+      if (module.htmlConnectSlug) {
+        replace.sync({
+          files: mainHtmlFile,
+          from: `${module.htmlConnectSlug}='false'`,
+          to: '',
+        })
+      }
 
-    replace.sync({
-      files: htmlConnectStringData.path,
-      from: htmlConnectStringData.strings, to: newHtmlConnectString,
-    })
+      for (let pathToDelete of module.pathsToDelete) {
+        fs.removeSync(pathToDelete)
+      }
+    }
   }
 }
+async function setPhp() {
+  let includeSomePhp = await enquirer.toggle({
+    message: `Include ${chalk.blueBright('PHP scripts')}?`,
+    enabled: chalk.green('Yes!'),
+    disabled: chalk.red('Not'),
+  })
 
-function deleteFolder(folderPath, messageOnSuccessful) {
-  try {
-    fs.removeSync(folderPath)
+  if (includeSomePhp == false) {
+    await fs.remove(phpFolder)
+    return
+  }
 
-    if (messageOnSuccessful)
-      log(chalk.gray.italic('✅ ' + messageOnSuccessful))
 
-  } catch (error) {
-    log(chalk.red('❌ ' + error))
+  let phpMailerAnswer = await enquirer.toggle({
+    message: `Include ${chalk.blueBright('PHP - mailer')}?`,
+    enabled: chalk.green('Yes!'),
+    disabled: chalk.red('Not'),
+  })
+
+  if (phpMailerAnswer == false) {
+    for (let phpMailerFile of phpMailerFiles) {
+      await fs.remove(phpMailerFile)
+    }
   }
 }
-function isFolderEmpty(path) {
-  try {
-    return fs.readdirSync(path).length == 0
-  } catch (error) {
-    return false
-  }
-}
-
 async function setVariables(...variableTemplates) {
   for (let variableTemplate of variableTemplates) {
     let result = await enquirer.snippet({
@@ -659,6 +619,48 @@ async function setVariables(...variableTemplates) {
   }
 }
 
+
+function replaceHtmlConnectionString(htmlConnectStrings, replacedValue, replacedNewValue) {
+  if (htmlConnectStrings == undefined)
+    return
+
+  for (let htmlConnectStringData of htmlConnectStrings) {
+    if (htmlConnectStringData.path == undefined)
+      htmlConnectStringData.path = mainHtmlFile
+
+
+    let newHtmlConnectString
+
+    if (replacedValue == undefined || replacedNewValue == undefined) {
+      newHtmlConnectString = ''
+    } else {
+      newHtmlConnectString = htmlConnectStringData.strings.replace(replacedValue, replacedNewValue)
+    }
+
+    replace.sync({
+      files: htmlConnectStringData.path,
+      from: htmlConnectStringData.strings, to: newHtmlConnectString,
+    })
+  }
+}
+function deleteFolder(folderPath, messageOnSuccessful) {
+  try {
+    fs.removeSync(folderPath)
+
+    if (messageOnSuccessful)
+      log(chalk.gray.italic('✅ ' + messageOnSuccessful))
+
+  } catch (error) {
+    log(chalk.red('❌ ' + error))
+  }
+}
+function isFolderEmpty(path) {
+  try {
+    return fs.readdirSync(path).length == 0
+  } catch (error) {
+    return false
+  }
+}
 function replaceEnquirerTemplateValues(template, fields, values, replaceNamesToDefaults) {
   let newTemplate = template
 
@@ -679,4 +681,7 @@ function replaceEnquirerTemplateValues(template, fields, values, replaceNamesToD
   }
 
   return newTemplate
+}
+function logSomeImportantInConsole(message, chalkColor) {
+  log(chalkColor(message))
 }
