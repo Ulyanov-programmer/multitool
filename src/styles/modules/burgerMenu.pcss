@@ -4,14 +4,16 @@
 }
 
 @custom-media --burgerMenuIsHidden (width > 768px);
-@custom-media --burgerMenuIsVisible (width <= 768px);
+@custom-media --burgerMenuIsVisible (width <= 769px);
 
 .burger-menu {
-  @mixin inset fixed 0 0;
+  position: fixed;
+  inset: 0 0;
   z-index: 4 !important;
 
   /* Sets the height of the menu, taking into account the offset from the header */
-  @mixin size 100vw, calc(100vh - var(--burgerMarginTop));
+  width: 100vw;
+  height: calc(100vh - var(--burgerMarginTop));
 
   margin-top: var(--burgerMarginTop);
   overflow: auto;

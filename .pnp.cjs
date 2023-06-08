@@ -62,7 +62,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["postcss-pxrem-function", "virtual:8478be7507d755314ad2aef21855a59474e8f3a2e580df89c96b0373a59f12e91422bee35aa833e3558be4fe3619324ce08947bedc2d64108cc4f112974ec1de#npm:0.1.0"],\
             ["postcss-simple-vars", "virtual:8478be7507d755314ad2aef21855a59474e8f3a2e580df89c96b0373a59f12e91422bee35aa833e3558be4fe3619324ce08947bedc2d64108cc4f112974ec1de#npm:7.0.1"],\
             ["posthtml-component", "npm:1.1.0"],\
-            ["posthtml-easy-bem", "npm:1.0.0"],\
             ["posthtml-img-autosize", "npm:0.1.6"],\
             ["prettier", "npm:2.8.8"],\
             ["replace-in-file", "npm:6.3.5"]\
@@ -4356,7 +4355,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["postcss-pxrem-function", "virtual:8478be7507d755314ad2aef21855a59474e8f3a2e580df89c96b0373a59f12e91422bee35aa833e3558be4fe3619324ce08947bedc2d64108cc4f112974ec1de#npm:0.1.0"],\
             ["postcss-simple-vars", "virtual:8478be7507d755314ad2aef21855a59474e8f3a2e580df89c96b0373a59f12e91422bee35aa833e3558be4fe3619324ce08947bedc2d64108cc4f112974ec1de#npm:7.0.1"],\
             ["posthtml-component", "npm:1.1.0"],\
-            ["posthtml-easy-bem", "npm:1.0.0"],\
             ["posthtml-img-autosize", "npm:0.1.6"],\
             ["prettier", "npm:2.8.8"],\
             ["replace-in-file", "npm:6.3.5"]\
@@ -7572,15 +7570,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           ],\
           "linkType": "HARD"\
         }],\
-        ["npm:0.12.3", {\
-          "packageLocation": "./.yarn/cache/posthtml-npm-0.12.3-d640a01039-041355f327.zip/node_modules/posthtml/",\
-          "packageDependencies": [\
-            ["posthtml", "npm:0.12.3"],\
-            ["posthtml-parser", "npm:0.4.2"],\
-            ["posthtml-render", "npm:1.4.0"]\
-          ],\
-          "linkType": "HARD"\
-        }],\
         ["npm:0.16.6", {\
           "packageLocation": "./.yarn/cache/posthtml-npm-0.16.6-c3387f43c9-8b9b9d27bd.zip/node_modules/posthtml/",\
           "packageDependencies": [\
@@ -7613,16 +7602,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["posthtml-parser", "npm:0.11.0"],\
             ["posthtml-render", "npm:3.0.0"],\
             ["style-to-object", "npm:0.3.0"]\
-          ],\
-          "linkType": "HARD"\
-        }]\
-      ]],\
-      ["posthtml-easy-bem", [\
-        ["npm:1.0.0", {\
-          "packageLocation": "./.yarn/cache/posthtml-easy-bem-npm-1.0.0-82412312c4-9891dc6ffa.zip/node_modules/posthtml-easy-bem/",\
-          "packageDependencies": [\
-            ["posthtml-easy-bem", "npm:1.0.0"],\
-            ["posthtml", "npm:0.12.3"]\
           ],\
           "linkType": "HARD"\
         }]\

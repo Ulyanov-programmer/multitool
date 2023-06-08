@@ -25,7 +25,7 @@ export default function css() {
               let pxNumber = px.replace('px', '')
               let layoutNumber = layoutWidth.replace('px', '')
 
-              return `${pxNumber} * 100vw / ${layoutNumber}`
+              return `calc(${pxNumber} * 100vw / ${layoutNumber})`
             },
             bgImageMultiType: (url) => {
               let webpUrl = url.replace('.jpg', '.webp')

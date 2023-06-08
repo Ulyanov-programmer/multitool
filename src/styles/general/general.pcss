@@ -9,12 +9,7 @@ html {
   scroll-behavior: smooth;
 }
 
-.container {
-  @custom-media --isLargeLayout (width > $layoutWidth);
-  @custom-media --isLayoutWidth (768px < width <= $layoutWidth);
-  @custom-media --isTablet (426px < width <= 768px);
-  @custom-media --isMobile (width <= 426px);
-
+._container {
   /* ? The width of the site content with the width of the viewport is more than the width of a design. */
   --bigViewportContentWidth: 70vw;
   /* The width of the site content with the width of the viewport equal to the width of a design. */
@@ -50,39 +45,42 @@ body {
   );
   font-family: var(--main-font-family);
 }
-.contain-img {
+._contain-img {
   img {
     @mixin size 100%;
     object-fit: contain;
   }
 }
-.cover-img {
+._cover-img {
   img {
     @mixin size 100%;
     object-fit: cover;
   }
 }
-.thin {
+._thin {
   font-weight: 100;
 }
-.extra-light {
+._extra-light {
   font-weight: 200;
 }
-.light {
+._light {
   font-weight: 300;
 }
-.medium {
+._medium {
   font-weight: 500;
 }
-.semi-bold {
+._semi-bold {
   font-weight: 600;
 }
-.bold {
+._bold {
   font-weight: 700;
 }
-.extra-bold {
+._extra-bold {
   font-weight: 800;
 }
-.black {
+._black {
   font-weight: 900;
+}
+._uppercase {
+  text-transform: uppercase;
 }

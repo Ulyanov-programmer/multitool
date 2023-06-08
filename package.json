@@ -48,7 +48,6 @@
     "postcss-pxrem-function": "^0.1.0",
     "postcss-simple-vars": "^7.0.1",
     "posthtml-component": "^1.1.0",
-    "posthtml-easy-bem": "^1.0.0",
     "posthtml-img-autosize": "^0.1.6",
     "prettier": "^2.8.4",
     "replace-in-file": "^6.3.5"

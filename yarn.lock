@@ -3530,7 +3530,6 @@ __metadata:
     postcss-pxrem-function: ^0.1.0
     postcss-simple-vars: ^7.0.1
     posthtml-component: ^1.1.0
-    posthtml-easy-bem: ^1.0.0
     posthtml-img-autosize: ^0.1.6
     prettier: ^2.8.4
     replace-in-file: ^6.3.5
@@ -6088,15 +6087,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"posthtml-easy-bem@npm:^1.0.0":
-  version: 1.0.0
-  resolution: "posthtml-easy-bem@npm:1.0.0"
-  dependencies:
-    posthtml: ^0.12.0
-  checksum: 9891dc6ffae1c15199950fef2c1c3fb9132e36508130524c5e560a53386d47a4925d0ca9fa87212809a49065035d98e7d9ae0fa127bc2ad48852ca58e6713665
-  languageName: node
-  linkType: hard
-
 "posthtml-expressions@npm:^1.9.0":
   version: 1.11.0
   resolution: "posthtml-expressions@npm:1.11.0"
@@ -6165,7 +6155,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"posthtml-parser@npm:^0.4.1, posthtml-parser@npm:^0.4.2":
+"posthtml-parser@npm:^0.4.1":
   version: 0.4.2
   resolution: "posthtml-parser@npm:0.4.2"
   dependencies:
@@ -6174,7 +6164,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"posthtml-render@npm:^1.1.5, posthtml-render@npm:^1.2.2":
+"posthtml-render@npm:^1.1.5":
   version: 1.4.0
   resolution: "posthtml-render@npm:1.4.0"
   checksum: 68c5c85834d57d54bb797ae81a4ab74ad1d87f55e6a327dac9804fbed96214b57d437d7e255e9396184ab976ab7e77aed6efda9315c156ab25ef8ab2c095c16b
@@ -6207,16 +6197,6 @@ __metadata:
     posthtml-parser: ^0.4.1
     posthtml-render: ^1.1.5
   checksum: 3f2d60ff41b3dedfe0de7abf3e83889a82a07dd378829c7fb1b89fcf02d21a86a82ae155c38e2cce7b24bd941238c7ca4f4b5103c2c958d1370e4730e76e406a
-  languageName: node
-  linkType: hard
-
-"posthtml@npm:^0.12.0":
-  version: 0.12.3
-  resolution: "posthtml@npm:0.12.3"
-  dependencies:
-    posthtml-parser: ^0.4.2
-    posthtml-render: ^1.2.2
-  checksum: 041355f327c463591ea51cd481c8f638ffaf5685c29280abcf7301c2b9c66d9ba8ca146d427df9824ee65f0b55630701a1d347e046e9654f4c534297022d4171
   languageName: node
   linkType: hard
 

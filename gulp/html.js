@@ -12,7 +12,6 @@ export default function html() {
         root: './src',
         folders: ['components'],
       }),
-      $.posthtmlEasyBem(),
       $.posthtmlImgAutosize({
         processEmptySize: true,
       })
