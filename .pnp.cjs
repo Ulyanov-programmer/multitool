@@ -53,6 +53,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["parse-font-name", "npm:1.2.0"],\
             ["postcss", "npm:8.4.24"],\
             ["postcss-custom-media", "virtual:8478be7507d755314ad2aef21855a59474e8f3a2e580df89c96b0373a59f12e91422bee35aa833e3558be4fe3619324ce08947bedc2d64108cc4f112974ec1de#npm:9.1.3"],\
+            ["postcss-discard-comments", "virtual:8478be7507d755314ad2aef21855a59474e8f3a2e580df89c96b0373a59f12e91422bee35aa833e3558be4fe3619324ce08947bedc2d64108cc4f112974ec1de#npm:6.0.0"],\
             ["postcss-functions", "virtual:8478be7507d755314ad2aef21855a59474e8f3a2e580df89c96b0373a59f12e91422bee35aa833e3558be4fe3619324ce08947bedc2d64108cc4f112974ec1de#npm:4.0.2"],\
             ["postcss-import", "virtual:8478be7507d755314ad2aef21855a59474e8f3a2e580df89c96b0373a59f12e91422bee35aa833e3558be4fe3619324ce08947bedc2d64108cc4f112974ec1de#npm:15.1.0"],\
             ["postcss-media-minmax", "virtual:8478be7507d755314ad2aef21855a59474e8f3a2e580df89c96b0373a59f12e91422bee35aa833e3558be4fe3619324ce08947bedc2d64108cc4f112974ec1de#npm:5.0.0"],\
@@ -4346,6 +4347,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["parse-font-name", "npm:1.2.0"],\
             ["postcss", "npm:8.4.24"],\
             ["postcss-custom-media", "virtual:8478be7507d755314ad2aef21855a59474e8f3a2e580df89c96b0373a59f12e91422bee35aa833e3558be4fe3619324ce08947bedc2d64108cc4f112974ec1de#npm:9.1.3"],\
+            ["postcss-discard-comments", "virtual:8478be7507d755314ad2aef21855a59474e8f3a2e580df89c96b0373a59f12e91422bee35aa833e3558be4fe3619324ce08947bedc2d64108cc4f112974ec1de#npm:6.0.0"],\
             ["postcss-functions", "virtual:8478be7507d755314ad2aef21855a59474e8f3a2e580df89c96b0373a59f12e91422bee35aa833e3558be4fe3619324ce08947bedc2d64108cc4f112974ec1de#npm:4.0.2"],\
             ["postcss-import", "virtual:8478be7507d755314ad2aef21855a59474e8f3a2e580df89c96b0373a59f12e91422bee35aa833e3558be4fe3619324ce08947bedc2d64108cc4f112974ec1de#npm:15.1.0"],\
             ["postcss-media-minmax", "virtual:8478be7507d755314ad2aef21855a59474e8f3a2e580df89c96b0373a59f12e91422bee35aa833e3558be4fe3619324ce08947bedc2d64108cc4f112974ec1de#npm:5.0.0"],\
@@ -6851,6 +6853,28 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/postcss", null],\
             ["postcss", "npm:8.4.24"],\
             ["postcss-selector-parser", "npm:6.0.12"]\
+          ],\
+          "packagePeers": [\
+            "@types/postcss",\
+            "postcss"\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["postcss-discard-comments", [\
+        ["npm:6.0.0", {\
+          "packageLocation": "./.yarn/cache/postcss-discard-comments-npm-6.0.0-ac728161e4-9be073707b.zip/node_modules/postcss-discard-comments/",\
+          "packageDependencies": [\
+            ["postcss-discard-comments", "npm:6.0.0"]\
+          ],\
+          "linkType": "SOFT"\
+        }],\
+        ["virtual:8478be7507d755314ad2aef21855a59474e8f3a2e580df89c96b0373a59f12e91422bee35aa833e3558be4fe3619324ce08947bedc2d64108cc4f112974ec1de#npm:6.0.0", {\
+          "packageLocation": "./.yarn/__virtual__/postcss-discard-comments-virtual-b14056e795/0/cache/postcss-discard-comments-npm-6.0.0-ac728161e4-9be073707b.zip/node_modules/postcss-discard-comments/",\
+          "packageDependencies": [\
+            ["postcss-discard-comments", "virtual:8478be7507d755314ad2aef21855a59474e8f3a2e580df89c96b0373a59f12e91422bee35aa833e3558be4fe3619324ce08947bedc2d64108cc4f112974ec1de#npm:6.0.0"],\
+            ["@types/postcss", null],\
+            ["postcss", "npm:8.4.24"]\
           ],\
           "packagePeers": [\
             "@types/postcss",\

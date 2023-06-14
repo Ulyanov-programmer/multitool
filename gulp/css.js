@@ -12,6 +12,11 @@ export default function css() {
     .pipe($.postcss(
       [
         $.postcssImport(),
+        $.postcssDiscardComments({
+          remove: comment => {
+            return comment.includes('@removeInCss')
+          }
+        }),
         autoprefixer(),
         $.postcssPresetEnv({
           stage: 4,
