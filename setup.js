@@ -382,7 +382,7 @@ await setVariables(
     template:
       `--main-font-family: \${mainFontName};
 --text-c: \${mainTextColor};
---bg: \${backgroundColor};`
+--background: \${backgroundColor};`
   }),
   new VariableTemplate({
     snippetName: 'stylesheetSassLikeVariables',
