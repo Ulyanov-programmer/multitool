@@ -37,7 +37,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["gulp-changed", "virtual:8478be7507d755314ad2aef21855a59474e8f3a2e580df89c96b0373a59f12e91422bee35aa833e3558be4fe3619324ce08947bedc2d64108cc4f112974ec1de#npm:4.0.3"],\
             ["gulp-cssbeautify", "npm:3.0.1"],\
             ["gulp-esbuild", "npm:0.10.8"],\
-            ["gulp-format-html", "npm:2.0.0"],\
             ["gulp-header", "npm:2.0.9"],\
             ["gulp-html-img-to-picture", "npm:1.0.3"],\
             ["gulp-if", "npm:3.0.0"],\
@@ -62,12 +61,23 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["postcss-preset-env", "virtual:8478be7507d755314ad2aef21855a59474e8f3a2e580df89c96b0373a59f12e91422bee35aa833e3558be4fe3619324ce08947bedc2d64108cc4f112974ec1de#npm:8.3.2"],\
             ["postcss-pxrem-function", "virtual:8478be7507d755314ad2aef21855a59474e8f3a2e580df89c96b0373a59f12e91422bee35aa833e3558be4fe3619324ce08947bedc2d64108cc4f112974ec1de#npm:0.1.0"],\
             ["postcss-simple-vars", "virtual:8478be7507d755314ad2aef21855a59474e8f3a2e580df89c96b0373a59f12e91422bee35aa833e3558be4fe3619324ce08947bedc2d64108cc4f112974ec1de#npm:7.0.1"],\
+            ["posthtml-beautify", "npm:0.7.0"],\
             ["posthtml-component", "npm:1.1.0"],\
             ["posthtml-img-autosize", "npm:0.1.6"],\
             ["prettier", "npm:2.8.8"],\
             ["replace-in-file", "npm:6.3.5"]\
           ],\
           "linkType": "SOFT"\
+        }]\
+      ]],\
+      ["@babel/runtime", [\
+        ["npm:7.22.5", {\
+          "packageLocation": "./.yarn/cache/@babel-runtime-npm-7.22.5-0a6711d04c-12a50b7de2.zip/node_modules/@babel/runtime/",\
+          "packageDependencies": [\
+            ["@babel/runtime", "npm:7.22.5"],\
+            ["regenerator-runtime", "npm:0.13.11"]\
+          ],\
+          "linkType": "HARD"\
         }]\
       ]],\
       ["@csstools/cascade-layer-name-parser", [\
@@ -849,17 +859,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
-      ["@ntnyq/logger", [\
-        ["npm:0.0.2", {\
-          "packageLocation": "./.yarn/cache/@ntnyq-logger-npm-0.0.2-34d34a8465-9f15c412ea.zip/node_modules/@ntnyq/logger/",\
-          "packageDependencies": [\
-            ["@ntnyq/logger", "npm:0.0.2"],\
-            ["dayjs", "npm:1.11.7"],\
-            ["picocolors", "npm:1.0.0"]\
-          ],\
-          "linkType": "HARD"\
-        }]\
-      ]],\
       ["@socket.io/component-emitter", [\
         ["npm:3.1.0", {\
           "packageLocation": "./.yarn/cache/@socket.io-component-emitter-npm-3.1.0-3f778351c2-db069d9542.zip/node_modules/@socket.io/component-emitter/",\
@@ -906,29 +905,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
-      ["@types/js-beautify", [\
-        ["npm:1.13.3", {\
-          "packageLocation": "./.yarn/cache/@types-js-beautify-npm-1.13.3-cdad764327-a306925630.zip/node_modules/@types/js-beautify/",\
-          "packageDependencies": [\
-            ["@types/js-beautify", "npm:1.13.3"]\
-          ],\
-          "linkType": "HARD"\
-        }]\
-      ]],\
       ["@types/node", [\
         ["npm:20.1.4", {\
           "packageLocation": "./.yarn/cache/@types-node-npm-20.1.4-d60c29eee8-bffa6a6e92.zip/node_modules/@types/node/",\
           "packageDependencies": [\
-            ["@types/node", "npm:20.1.4"]\
-          ],\
-          "linkType": "HARD"\
-        }]\
-      ]],\
-      ["@types/through2", [\
-        ["npm:2.0.38", {\
-          "packageLocation": "./.yarn/cache/@types-through2-npm-2.0.38-3072f29753-5f8b6dbdee.zip/node_modules/@types/through2/",\
-          "packageDependencies": [\
-            ["@types/through2", "npm:2.0.38"],\
             ["@types/node", "npm:20.1.4"]\
           ],\
           "linkType": "HARD"\
@@ -2417,15 +2397,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
-      ["dayjs", [\
-        ["npm:1.11.7", {\
-          "packageLocation": "./.yarn/cache/dayjs-npm-1.11.7-d5cd5b2919-5003a7c1dd.zip/node_modules/dayjs/",\
-          "packageDependencies": [\
-            ["dayjs", "npm:1.11.7"]\
-          ],\
-          "linkType": "HARD"\
-        }]\
-      ]],\
       ["debug", [\
         ["npm:2.6.9", {\
           "packageLocation": "./.yarn/cache/debug-npm-2.6.9-7d4cb597dc-d2f51589ca.zip/node_modules/debug/",\
@@ -2524,6 +2495,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/deep-extend-npm-0.6.0-e182924219-7be7e5a8d4.zip/node_modules/deep-extend/",\
           "packageDependencies": [\
             ["deep-extend", "npm:0.6.0"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["deepmerge", [\
+        ["npm:4.3.1", {\
+          "packageLocation": "./.yarn/cache/deepmerge-npm-4.3.1-4f751a0844-2024c6a980.zip/node_modules/deepmerge/",\
+          "packageDependencies": [\
+            ["deepmerge", "npm:4.3.1"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -4100,21 +4080,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
-      ["gulp-format-html", [\
-        ["npm:2.0.0", {\
-          "packageLocation": "./.yarn/cache/gulp-format-html-npm-2.0.0-b32f8e74ed-a8843f01ec.zip/node_modules/gulp-format-html/",\
-          "packageDependencies": [\
-            ["gulp-format-html", "npm:2.0.0"],\
-            ["@ntnyq/logger", "npm:0.0.2"],\
-            ["@types/js-beautify", "npm:1.13.3"],\
-            ["@types/through2", "npm:2.0.38"],\
-            ["js-beautify", "npm:1.14.7"],\
-            ["plugin-error", "npm:2.0.1"],\
-            ["through2", "npm:4.0.2"]\
-          ],\
-          "linkType": "HARD"\
-        }]\
-      ]],\
       ["gulp-header", [\
         ["npm:2.0.9", {\
           "packageLocation": "./.yarn/cache/gulp-header-npm-2.0.9-f5f3be5dc8-c4f4329669.zip/node_modules/gulp-header/",\
@@ -4331,7 +4296,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["gulp-changed", "virtual:8478be7507d755314ad2aef21855a59474e8f3a2e580df89c96b0373a59f12e91422bee35aa833e3558be4fe3619324ce08947bedc2d64108cc4f112974ec1de#npm:4.0.3"],\
             ["gulp-cssbeautify", "npm:3.0.1"],\
             ["gulp-esbuild", "npm:0.10.8"],\
-            ["gulp-format-html", "npm:2.0.0"],\
             ["gulp-header", "npm:2.0.9"],\
             ["gulp-html-img-to-picture", "npm:1.0.3"],\
             ["gulp-if", "npm:3.0.0"],\
@@ -4356,6 +4320,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["postcss-preset-env", "virtual:8478be7507d755314ad2aef21855a59474e8f3a2e580df89c96b0373a59f12e91422bee35aa833e3558be4fe3619324ce08947bedc2d64108cc4f112974ec1de#npm:8.3.2"],\
             ["postcss-pxrem-function", "virtual:8478be7507d755314ad2aef21855a59474e8f3a2e580df89c96b0373a59f12e91422bee35aa833e3558be4fe3619324ce08947bedc2d64108cc4f112974ec1de#npm:0.1.0"],\
             ["postcss-simple-vars", "virtual:8478be7507d755314ad2aef21855a59474e8f3a2e580df89c96b0373a59f12e91422bee35aa833e3558be4fe3619324ce08947bedc2d64108cc4f112974ec1de#npm:7.0.1"],\
+            ["posthtml-beautify", "npm:0.7.0"],\
             ["posthtml-component", "npm:1.1.0"],\
             ["posthtml-img-autosize", "npm:0.1.6"],\
             ["prettier", "npm:2.8.8"],\
@@ -5153,10 +5118,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["js-beautify", [\
-        ["npm:1.14.7", {\
-          "packageLocation": "./.yarn/cache/js-beautify-npm-1.14.7-31d479fd5c-1950d0d3f0.zip/node_modules/js-beautify/",\
+        ["npm:1.14.8", {\
+          "packageLocation": "./.yarn/cache/js-beautify-npm-1.14.8-d149ade703-e1c2532ebf.zip/node_modules/js-beautify/",\
           "packageDependencies": [\
-            ["js-beautify", "npm:1.14.7"],\
+            ["js-beautify", "npm:1.14.8"],\
             ["config-chain", "npm:1.1.13"],\
             ["editorconfig", "npm:0.15.3"],\
             ["glob", "npm:8.1.0"],\
@@ -7614,6 +7579,21 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["posthtml-beautify", [\
+        ["npm:0.7.0", {\
+          "packageLocation": "./.yarn/cache/posthtml-beautify-npm-0.7.0-0676a98da8-bb4846e0bf.zip/node_modules/posthtml-beautify/",\
+          "packageDependencies": [\
+            ["posthtml-beautify", "npm:0.7.0"],\
+            ["@babel/runtime", "npm:7.22.5"],\
+            ["deepmerge", "npm:4.3.1"],\
+            ["js-beautify", "npm:1.14.8"],\
+            ["posthtml", "npm:0.16.6"],\
+            ["posthtml-parser", "npm:0.4.2"],\
+            ["posthtml-render", "npm:1.4.0"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["posthtml-component", [\
         ["npm:1.1.0", {\
           "packageLocation": "./.yarn/cache/posthtml-component-npm-1.1.0-25202f75ea-e80a90023f.zip/node_modules/posthtml-component/",\
@@ -8050,6 +8030,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [\
             ["rechoir", "npm:0.6.2"],\
             ["resolve", "patch:resolve@npm%3A1.22.3#~builtin<compat/resolve>::version=1.22.3&hash=c3c19d"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["regenerator-runtime", [\
+        ["npm:0.13.11", {\
+          "packageLocation": "./.yarn/cache/regenerator-runtime-npm-0.13.11-90bf536060-27481628d2.zip/node_modules/regenerator-runtime/",\
+          "packageDependencies": [\
+            ["regenerator-runtime", "npm:0.13.11"]\
           ],\
           "linkType": "HARD"\
         }]\

@@ -5,6 +5,15 @@ __metadata:
   version: 6
   cacheKey: 8
 
+"@babel/runtime@npm:^7.10.2":
+  version: 7.22.5
+  resolution: "@babel/runtime@npm:7.22.5"
+  dependencies:
+    regenerator-runtime: ^0.13.11
+  checksum: 12a50b7de2531beef38840d17af50c55a094253697600cee255311222390c68eed704829308d4fd305e1b3dfbce113272e428e9d9d45b1730e0fede997eaceb1
+  languageName: node
+  linkType: hard
+
 "@csstools/cascade-layer-name-parser@npm:^1.0.2":
   version: 1.0.2
   resolution: "@csstools/cascade-layer-name-parser@npm:1.0.2"
@@ -413,16 +422,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ntnyq/logger@npm:^0.0.2":
-  version: 0.0.2
-  resolution: "@ntnyq/logger@npm:0.0.2"
-  dependencies:
-    dayjs: ^1.11.2
-    picocolors: ^1.0.0
-  checksum: 9f15c412eaec497dd870c0b8a82eed87c353c01fa256fc3d3d5e9a51a8648f22a92a5b74d4ad4607acee3f3c25c662ffd0937ec4070d033c65d3fc131f48c274
-  languageName: node
-  linkType: hard
-
 "@socket.io/component-emitter@npm:~3.1.0":
   version: 3.1.0
   resolution: "@socket.io/component-emitter@npm:3.1.0"
@@ -460,26 +459,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/js-beautify@npm:^1.13.3":
-  version: 1.13.3
-  resolution: "@types/js-beautify@npm:1.13.3"
-  checksum: a30692563015fd29e459c78025b8b093bed118966c0130b9e8d9217922a1e52bee285fe65ce71dd9f18b95c50d6a35c23c791c1cc84e17e922f8394bc34c0ca5
-  languageName: node
-  linkType: hard
-
 "@types/node@npm:*, @types/node@npm:>=10.0.0":
   version: 20.1.4
   resolution: "@types/node@npm:20.1.4"
   checksum: bffa6a6e92831cc805b13658c55be8e04abe3202d5e57ddd7fee4cfbe269656a1f475909a9f9514e1aff50310d0d90c516ac2c649cb6f1c77d4b1079c2fd1e88
-  languageName: node
-  linkType: hard
-
-"@types/through2@npm:^2.0.38":
-  version: 2.0.38
-  resolution: "@types/through2@npm:2.0.38"
-  dependencies:
-    "@types/node": "*"
-  checksum: 5f8b6dbdeef84cdc4e2259234ae752fe09123021c39fc9319fa6f50a445c15451c9f643e5d3620c50e818c6f71207f978038e785b61bd87a64253ac0b06e2d73
   languageName: node
   linkType: hard
 
@@ -1771,13 +1754,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dayjs@npm:^1.11.2":
-  version: 1.11.7
-  resolution: "dayjs@npm:1.11.7"
-  checksum: 5003a7c1dd9ed51385beb658231c3548700b82d3548c0cfbe549d85f2d08e90e972510282b7506941452c58d32136d6362f009c77ca55381a09c704e9f177ebb
-  languageName: node
-  linkType: hard
-
 "debug@npm:2.6.9, debug@npm:^2.2.0, debug@npm:^2.3.3":
   version: 2.6.9
   resolution: "debug@npm:2.6.9"
@@ -1838,6 +1814,13 @@ __metadata:
   version: 0.6.0
   resolution: "deep-extend@npm:0.6.0"
   checksum: 7be7e5a8d468d6b10e6a67c3de828f55001b6eb515d014f7aeb9066ce36bd5717161eb47d6a0f7bed8a9083935b465bc163ee2581c8b128d29bf61092fdf57a7
+  languageName: node
+  linkType: hard
+
+"deepmerge@npm:^4.2.2":
+  version: 4.3.1
+  resolution: "deepmerge@npm:4.3.1"
+  checksum: 2024c6a980a1b7128084170c4cf56b0fd58a63f2da1660dcfe977415f27b17dbe5888668b59d0b063753f3220719d5e400b7f113609489c90160bb9a5518d052
   languageName: node
   linkType: hard
 
@@ -3146,7 +3129,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"glob@npm:^8.0.1, glob@npm:^8.0.3":
+"glob@npm:^8.0.1, glob@npm:^8.1.0":
   version: 8.1.0
   resolution: "glob@npm:8.1.0"
   dependencies:
@@ -3285,20 +3268,6 @@ __metadata:
     plugin-error: ^2.0.0
     vinyl: ^3.0.0
   checksum: 89515f93767c193ba5c9baff2bd0c4a8c8490674fa4b03bcb67f9a23e67abdba8898b394c3baa482598209d77d09e2bfeee9ee236545c432cb4afd058e6959c5
-  languageName: node
-  linkType: hard
-
-"gulp-format-html@npm:^2.0.0":
-  version: 2.0.0
-  resolution: "gulp-format-html@npm:2.0.0"
-  dependencies:
-    "@ntnyq/logger": ^0.0.2
-    "@types/js-beautify": ^1.13.3
-    "@types/through2": ^2.0.38
-    js-beautify: ^1.14.7
-    plugin-error: ^2.0.1
-    through2: ^4.0.2
-  checksum: a8843f01ec82428c52550b239f67448995b1748627a36fe7042094f6201a416d776304e5014fd341ce675213a4ec121cc26fb52b78b9000495a52dc06896540c
   languageName: node
   linkType: hard
 
@@ -3505,7 +3474,6 @@ __metadata:
     gulp-changed: ^4.0.3
     gulp-cssbeautify: ^3.0.1
     gulp-esbuild: ^0.10.4
-    gulp-format-html: ^2.0.0
     gulp-header: ^2.0.9
     gulp-html-img-to-picture: ^1.0.3
     gulp-if: ^3.0.0
@@ -3530,6 +3498,7 @@ __metadata:
     postcss-preset-env: ^8.3.2
     postcss-pxrem-function: ^0.1.0
     postcss-simple-vars: ^7.0.1
+    posthtml-beautify: ^0.7.0
     posthtml-component: ^1.1.0
     posthtml-img-autosize: ^0.1.6
     prettier: ^2.8.4
@@ -4244,19 +4213,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"js-beautify@npm:^1.14.7":
-  version: 1.14.7
-  resolution: "js-beautify@npm:1.14.7"
+"js-beautify@npm:^1.11.0":
+  version: 1.14.8
+  resolution: "js-beautify@npm:1.14.8"
   dependencies:
     config-chain: ^1.1.13
     editorconfig: ^0.15.3
-    glob: ^8.0.3
+    glob: ^8.1.0
     nopt: ^6.0.0
   bin:
     css-beautify: js/bin/css-beautify.js
     html-beautify: js/bin/html-beautify.js
     js-beautify: js/bin/js-beautify.js
-  checksum: 1950d0d3f05f8ad06b73eb77b9aac602d00b24eab7d8a6d8ea0b1841ab9c730acecd5a6f3926e360dce7a2583481bc77caf6d024490a58fa9897cbbbdfc35984
+  checksum: e1c2532ebf7fe70023408e16129671e928d7f3bb2ccd6fe0a75a2035cdb522d5450ff60865e893a158d8f0df0b677999adbdbdef61ae057a8c8b05e0603b27b2
   languageName: node
   linkType: hard
 
@@ -5553,7 +5522,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"plugin-error@npm:^2.0.0, plugin-error@npm:^2.0.1, plugin-error@npm:~2.0":
+"plugin-error@npm:^2.0.0, plugin-error@npm:~2.0":
   version: 2.0.1
   resolution: "plugin-error@npm:2.0.1"
   dependencies:
@@ -6083,6 +6052,19 @@ __metadata:
   languageName: node
   linkType: hard
 
+"posthtml-beautify@npm:^0.7.0":
+  version: 0.7.0
+  resolution: "posthtml-beautify@npm:0.7.0"
+  dependencies:
+    "@babel/runtime": ^7.10.2
+    deepmerge: ^4.2.2
+    js-beautify: ^1.11.0
+    posthtml-parser: ^0.4.2
+    posthtml-render: ^1.2.2
+  checksum: bb4846e0bfdbf8481c53842a50de0678aa43b72ceee104b55146120fb990460a1226883708d4f8031219d24b9d8d813804523df4436d349f7483177dacbd669b
+  languageName: node
+  linkType: hard
+
 "posthtml-component@npm:^1.1.0":
   version: 1.1.0
   resolution: "posthtml-component@npm:1.1.0"
@@ -6165,7 +6147,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"posthtml-parser@npm:^0.4.1":
+"posthtml-parser@npm:^0.4.1, posthtml-parser@npm:^0.4.2":
   version: 0.4.2
   resolution: "posthtml-parser@npm:0.4.2"
   dependencies:
@@ -6174,7 +6156,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"posthtml-render@npm:^1.1.5":
+"posthtml-render@npm:^1.1.5, posthtml-render@npm:^1.2.2":
   version: 1.4.0
   resolution: "posthtml-render@npm:1.4.0"
   checksum: 68c5c85834d57d54bb797ae81a4ab74ad1d87f55e6a327dac9804fbed96214b57d437d7e255e9396184ab976ab7e77aed6efda9315c156ab25ef8ab2c095c16b
@@ -6483,6 +6465,13 @@ __metadata:
   dependencies:
     resolve: ^1.1.6
   checksum: fe76bf9c21875ac16e235defedd7cbd34f333c02a92546142b7911a0f7c7059d2e16f441fe6fb9ae203f459c05a31b2bcf26202896d89e390eda7514d5d2702b
+  languageName: node
+  linkType: hard
+
+"regenerator-runtime@npm:^0.13.11":
+  version: 0.13.11
+  resolution: "regenerator-runtime@npm:0.13.11"
+  checksum: 27481628d22a1c4e3ff551096a683b424242a216fee44685467307f14d58020af1e19660bf2e26064de946bad7eff28950eae9f8209d55723e2d9351e632bbb4
   languageName: node
   linkType: hard
 

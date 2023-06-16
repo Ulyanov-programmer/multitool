@@ -14,7 +14,15 @@ export default function html() {
       }),
       $.posthtmlImgAutosize({
         processEmptySize: true,
-      })
+      }),
+      $.posthtmlBeautify({
+        rules: {
+          indent: 2,
+          blankLines: false,
+          eof: '<!-- Made in Russia, with ❤, by Ivan Ulyanov. -->',
+          sortAttr: true,
+        }
+      }),
     ], {}))
 
     .pipe(
@@ -38,8 +46,6 @@ export default function html() {
       })
       )
     )
-
-    .pipe($.formatHtml())
 
     .pipe($.if(isProd, htmlValidator.analyzer()))
     .pipe($.if(isProd, htmlValidator.reporter()))
