@@ -3498,6 +3498,7 @@ __metadata:
     postcss-preset-env: ^8.3.2
     postcss-pxrem-function: ^0.1.0
     postcss-simple-vars: ^7.0.1
+    postcss-sorting: ^8.0.2
     posthtml-beautify: ^0.7.0
     posthtml-component: ^1.1.0
     posthtml-img-autosize: ^0.1.6
@@ -6022,6 +6023,15 @@ __metadata:
   peerDependencies:
     postcss: ^8.2.1
   checksum: cfe3b481bdbe83726e136a451a22e8e8a019822aada2041c21898661d3cf32f4b527ffa9b289e018d23678cfac02582d31204296a2d1d0a0f3a5fd974ff34678
+  languageName: node
+  linkType: hard
+
+"postcss-sorting@npm:^8.0.2":
+  version: 8.0.2
+  resolution: "postcss-sorting@npm:8.0.2"
+  peerDependencies:
+    postcss: ^8.4.20
+  checksum: ebb5cc6a2982a1f0bb8332669e425793ebc01c30fa83ea981c765d64d212e289bef5fdb1e627904c471cb75f1ad0727ed9e85c0d879e263590c8fc64eecf31c2
   languageName: node
   linkType: hard
 

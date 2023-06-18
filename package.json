@@ -47,6 +47,7 @@
     "postcss-preset-env": "^8.3.2",
     "postcss-pxrem-function": "^0.1.0",
     "postcss-simple-vars": "^7.0.1",
+    "postcss-sorting": "^8.0.2",
     "posthtml-beautify": "^0.7.0",
     "posthtml-component": "^1.1.0",
     "posthtml-img-autosize": "^0.1.6",

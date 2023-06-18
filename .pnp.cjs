@@ -61,6 +61,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["postcss-preset-env", "virtual:8478be7507d755314ad2aef21855a59474e8f3a2e580df89c96b0373a59f12e91422bee35aa833e3558be4fe3619324ce08947bedc2d64108cc4f112974ec1de#npm:8.3.2"],\
             ["postcss-pxrem-function", "virtual:8478be7507d755314ad2aef21855a59474e8f3a2e580df89c96b0373a59f12e91422bee35aa833e3558be4fe3619324ce08947bedc2d64108cc4f112974ec1de#npm:0.1.0"],\
             ["postcss-simple-vars", "virtual:8478be7507d755314ad2aef21855a59474e8f3a2e580df89c96b0373a59f12e91422bee35aa833e3558be4fe3619324ce08947bedc2d64108cc4f112974ec1de#npm:7.0.1"],\
+            ["postcss-sorting", "virtual:8478be7507d755314ad2aef21855a59474e8f3a2e580df89c96b0373a59f12e91422bee35aa833e3558be4fe3619324ce08947bedc2d64108cc4f112974ec1de#npm:8.0.2"],\
             ["posthtml-beautify", "npm:0.7.0"],\
             ["posthtml-component", "npm:1.1.0"],\
             ["posthtml-img-autosize", "npm:0.1.6"],\
@@ -4320,6 +4321,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["postcss-preset-env", "virtual:8478be7507d755314ad2aef21855a59474e8f3a2e580df89c96b0373a59f12e91422bee35aa833e3558be4fe3619324ce08947bedc2d64108cc4f112974ec1de#npm:8.3.2"],\
             ["postcss-pxrem-function", "virtual:8478be7507d755314ad2aef21855a59474e8f3a2e580df89c96b0373a59f12e91422bee35aa833e3558be4fe3619324ce08947bedc2d64108cc4f112974ec1de#npm:0.1.0"],\
             ["postcss-simple-vars", "virtual:8478be7507d755314ad2aef21855a59474e8f3a2e580df89c96b0373a59f12e91422bee35aa833e3558be4fe3619324ce08947bedc2d64108cc4f112974ec1de#npm:7.0.1"],\
+            ["postcss-sorting", "virtual:8478be7507d755314ad2aef21855a59474e8f3a2e580df89c96b0373a59f12e91422bee35aa833e3558be4fe3619324ce08947bedc2d64108cc4f112974ec1de#npm:8.0.2"],\
             ["posthtml-beautify", "npm:0.7.0"],\
             ["posthtml-component", "npm:1.1.0"],\
             ["posthtml-img-autosize", "npm:0.1.6"],\
@@ -7530,6 +7532,28 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/__virtual__/postcss-simple-vars-virtual-f5b097ae2a/0/cache/postcss-simple-vars-npm-7.0.1-81b50cf904-cfe3b481bd.zip/node_modules/postcss-simple-vars/",\
           "packageDependencies": [\
             ["postcss-simple-vars", "virtual:8478be7507d755314ad2aef21855a59474e8f3a2e580df89c96b0373a59f12e91422bee35aa833e3558be4fe3619324ce08947bedc2d64108cc4f112974ec1de#npm:7.0.1"],\
+            ["@types/postcss", null],\
+            ["postcss", "npm:8.4.24"]\
+          ],\
+          "packagePeers": [\
+            "@types/postcss",\
+            "postcss"\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["postcss-sorting", [\
+        ["npm:8.0.2", {\
+          "packageLocation": "./.yarn/cache/postcss-sorting-npm-8.0.2-d9f7d43c59-ebb5cc6a29.zip/node_modules/postcss-sorting/",\
+          "packageDependencies": [\
+            ["postcss-sorting", "npm:8.0.2"]\
+          ],\
+          "linkType": "SOFT"\
+        }],\
+        ["virtual:8478be7507d755314ad2aef21855a59474e8f3a2e580df89c96b0373a59f12e91422bee35aa833e3558be4fe3619324ce08947bedc2d64108cc4f112974ec1de#npm:8.0.2", {\
+          "packageLocation": "./.yarn/__virtual__/postcss-sorting-virtual-faa9cf0207/0/cache/postcss-sorting-npm-8.0.2-d9f7d43c59-ebb5cc6a29.zip/node_modules/postcss-sorting/",\
+          "packageDependencies": [\
+            ["postcss-sorting", "virtual:8478be7507d755314ad2aef21855a59474e8f3a2e580df89c96b0373a59f12e91422bee35aa833e3558be4fe3619324ce08947bedc2d64108cc4f112974ec1de#npm:8.0.2"],\
             ["@types/postcss", null],\
             ["postcss", "npm:8.4.24"]\
           ],\
