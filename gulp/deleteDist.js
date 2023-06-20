@@ -9,5 +9,5 @@ export default function deleteDist() {
     console.log('Dist is deleted.')
   }
 
-  return gulp.src(paths.scr.html)
+  return gulp.src(paths.src.html)
 }

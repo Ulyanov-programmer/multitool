@@ -9,10 +9,10 @@ import { fontsFilePath, paths } from './paths.js'
 
 export default function fonts() {
   // woff2 files will just be copied.
-  gulp.src(paths.scr.fontsWoff)
+  gulp.src(paths.src.fontsWoff)
     .pipe(gulp.dest(paths.build.fonts))
 
-  return gulp.src(paths.scr.fonts)
+  return gulp.src(paths.src.fonts)
     .pipe(changed(paths.build.fonts, { extension: '.woff2' }))
 
     .pipe(ttf2woff2({
@@ -28,7 +28,7 @@ export function fontsStyle() {
   if (fontsFileContent.length > 0)
     return
 
-  fs.readdir(paths.scr.fontsFolder, async (err, fileNames) => {
+  fs.readdir(paths.src.fontsFolder, async (err, fileNames) => {
     if (fileNames == undefined) {
       console.log('No one font was found!')
       return

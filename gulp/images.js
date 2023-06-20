@@ -6,7 +6,7 @@ import { paths } from './paths.js'
 import sharpOptimizeImages from 'gulp-sharp-optimize-images'
 
 export default function images() {
-  return gulp.src(paths.scr.images)
+  return gulp.src(paths.src.images)
     .pipe(
       $.changed(paths.build.images, { extension: '.png' })
     )
@@ -63,7 +63,7 @@ export default function images() {
 
 
 export function imagesSvg() {
-  return gulp.src(paths.scr.imagesSvg)
+  return gulp.src(paths.src.imagesSvg)
     .pipe(
       $.changed(paths.build.images, { extension: '.svg' })
     )

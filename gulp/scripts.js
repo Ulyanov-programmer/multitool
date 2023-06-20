@@ -5,7 +5,11 @@ import browsersync from 'browser-sync'
 import { paths } from './paths.js'
 
 export default function scripts() {
-  gulp.src(paths.scr.scripts, { since: gulp.lastRun(scripts) })
+  gulp.src(paths.src.scripts)
+    .pipe(
+      $.changed(paths.build.scripts, { extension: '.js' })
+    )
+
     .pipe($.esbuild({
       target: 'es2018',
     }))
@@ -13,7 +17,11 @@ export default function scripts() {
     .pipe(gulp.dest(paths.build.scripts))
     .pipe(browsersync.stream())
 
-  return gulp.src(paths.scr.scriptModules, { since: gulp.lastRun(scripts) })
+  return gulp.src(paths.src.scriptModules)
+    .pipe(
+      $.changed(paths.build.scriptModules, { extension: '.js' })
+    )
+
     .pipe(
       $.if(isProd,
         // If run with the --prod flag.
@@ -32,7 +40,11 @@ export default function scripts() {
 }
 
 export function libs() {
-  return gulp.src(paths.scr.libs)
+  return gulp.src(paths.src.libs)
+    .pipe(
+      $.changed(paths.build.libs, { extension: '.css' })
+    )
+
     .pipe(gulp.dest(paths.build.libs))
     .pipe(browsersync.stream())
 }

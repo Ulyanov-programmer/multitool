@@ -15,10 +15,20 @@ export const paths = {
     libs: `${project}/libs/`,
     video: `${project}/video/`,
   },
-  scr: {
-    html: [`${source}/*.{html,htm}`, `!${source}/components/*.{html,htm}`],
+  src: {
+    html: [
+      `${source}/*.{html,htm}`,
+      `!${source}/components/*.{html,htm}`,
+    ],
     php: `${source}/php/*.php`,
-    css: [`${source}/styles/**/*.pcss`, `${source}/docs/*.pcss`, `!${source}/styles/**/_*.pcss`],
+    css: [
+      `${source}/styles/**/*.pcss`,
+      `${source}/docs/*.pcss`,
+      `!${source}/styles/**/_*.pcss`,
+    ],
+    cssNoAccessToDist: [
+      `${source}/styles/**/_*.pcss`,
+    ],
     scripts: `${source}/scripts/*.{ts,js}`,
     scriptModules: `${source}/scripts/modules/*.{ts,js}`,
     images: `${source}/img/**/*.{gif,ico,webp,avif,png,jpg}`,
@@ -32,6 +42,7 @@ export const paths = {
   watch: {
     html: `${source}/**/*.{html,htm,php}`,
     css: `${source}/styles/**/*.pcss`,
+    cssNoAccessToDist: `${source}/styles/**/_*.pcss`,
     php: `${source}/php/*.php`,
     demoCss: `${source}/docs/*.pcss`,
     scripts: `${source}/scripts/*.{ts,js}`,

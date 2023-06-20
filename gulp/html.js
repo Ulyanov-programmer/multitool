@@ -6,7 +6,7 @@ import { htmlValidator } from 'gulp-w3c-html-validator'
 import { paths } from './paths.js'
 
 export default function html() {
-  return gulp.src(paths.scr.html)
+  return gulp.src(paths.src.html)
     .pipe($.posthtml([
       $.posthtmlComponent({
         root: './src',
