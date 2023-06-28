@@ -44,7 +44,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["gulp-postcss", "virtual:8478be7507d755314ad2aef21855a59474e8f3a2e580df89c96b0373a59f12e91422bee35aa833e3558be4fe3619324ce08947bedc2d64108cc4f112974ec1de#npm:9.0.1"],\
             ["gulp-posthtml", "npm:3.0.5"],\
             ["gulp-rename", "npm:2.0.0"],\
-            ["gulp-sharp-optimize-images", "npm:2.0.1"],\
+            ["gulp-sharp-optimize-images", "npm:3.0.0"],\
             ["gulp-svgmin", "npm:4.1.0"],\
             ["gulp-ttf2woff2", "npm:4.0.1"],\
             ["gulp-version-number", "npm:0.2.4"],\
@@ -4194,11 +4194,11 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["gulp-sharp-optimize-images", [\
-        ["npm:2.0.1", {\
-          "packageLocation": "./.yarn/cache/gulp-sharp-optimize-images-npm-2.0.1-f1adfe7741-b10043c80d.zip/node_modules/gulp-sharp-optimize-images/",\
+        ["npm:3.0.0", {\
+          "packageLocation": "./.yarn/cache/gulp-sharp-optimize-images-npm-3.0.0-ef21e3e0bb-db2e7c2b4d.zip/node_modules/gulp-sharp-optimize-images/",\
           "packageDependencies": [\
-            ["gulp-sharp-optimize-images", "npm:2.0.1"],\
-            ["sharp", "npm:0.31.3"],\
+            ["gulp-sharp-optimize-images", "npm:3.0.0"],\
+            ["sharp", "npm:0.32.1"],\
             ["through2", "npm:4.0.2"],\
             ["vinyl", "npm:3.0.0"]\
           ],\
@@ -4304,7 +4304,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["gulp-postcss", "virtual:8478be7507d755314ad2aef21855a59474e8f3a2e580df89c96b0373a59f12e91422bee35aa833e3558be4fe3619324ce08947bedc2d64108cc4f112974ec1de#npm:9.0.1"],\
             ["gulp-posthtml", "npm:3.0.5"],\
             ["gulp-rename", "npm:2.0.0"],\
-            ["gulp-sharp-optimize-images", "npm:2.0.1"],\
+            ["gulp-sharp-optimize-images", "npm:3.0.0"],\
             ["gulp-svgmin", "npm:4.1.0"],\
             ["gulp-ttf2woff2", "npm:4.0.1"],\
             ["gulp-version-number", "npm:0.2.4"],\
@@ -6018,20 +6018,20 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["node-abi", [\
-        ["npm:3.40.0", {\
-          "packageLocation": "./.yarn/cache/node-abi-npm-3.40.0-d2899e4357-8f4ef0d9ac.zip/node_modules/node-abi/",\
+        ["npm:3.45.0", {\
+          "packageLocation": "./.yarn/cache/node-abi-npm-3.45.0-586bc5cf50-18c4305d7d.zip/node_modules/node-abi/",\
           "packageDependencies": [\
-            ["node-abi", "npm:3.40.0"],\
+            ["node-abi", "npm:3.45.0"],\
             ["semver", "npm:7.5.1"]\
           ],\
           "linkType": "HARD"\
         }]\
       ]],\
       ["node-addon-api", [\
-        ["npm:5.1.0", {\
-          "packageLocation": "./.yarn/unplugged/node-addon-api-npm-5.1.0-b50d00f739/node_modules/node-addon-api/",\
+        ["npm:6.1.0", {\
+          "packageLocation": "./.yarn/unplugged/node-addon-api-npm-6.1.0-634c545b39/node_modules/node-addon-api/",\
           "packageDependencies": [\
-            ["node-addon-api", "npm:5.1.0"],\
+            ["node-addon-api", "npm:6.1.0"],\
             ["node-gyp", "npm:9.3.1"]\
           ],\
           "linkType": "HARD"\
@@ -7756,7 +7756,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["minimist", "npm:1.2.8"],\
             ["mkdirp-classic", "npm:0.5.3"],\
             ["napi-build-utils", "npm:1.0.2"],\
-            ["node-abi", "npm:3.40.0"],\
+            ["node-abi", "npm:3.45.0"],\
             ["pump", "npm:3.0.0"],\
             ["rc", "npm:1.2.8"],\
             ["simple-get", "npm:4.0.1"],\
@@ -8377,6 +8377,14 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["lru-cache", "npm:6.0.0"]\
           ],\
           "linkType": "HARD"\
+        }],\
+        ["npm:7.5.3", {\
+          "packageLocation": "./.yarn/cache/semver-npm-7.5.3-275095dbf3-9d58db1652.zip/node_modules/semver/",\
+          "packageDependencies": [\
+            ["semver", "npm:7.5.3"],\
+            ["lru-cache", "npm:6.0.0"]\
+          ],\
+          "linkType": "HARD"\
         }]\
       ]],\
       ["semver-greatest-satisfied-range", [\
@@ -8488,16 +8496,16 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["sharp", [\
-        ["npm:0.31.3", {\
-          "packageLocation": "./.yarn/unplugged/sharp-npm-0.31.3-7533cf1669/node_modules/sharp/",\
+        ["npm:0.32.1", {\
+          "packageLocation": "./.yarn/unplugged/sharp-npm-0.32.1-5af640fc49/node_modules/sharp/",\
           "packageDependencies": [\
-            ["sharp", "npm:0.31.3"],\
+            ["sharp", "npm:0.32.1"],\
             ["color", "npm:4.2.3"],\
             ["detect-libc", "npm:2.0.1"],\
-            ["node-addon-api", "npm:5.1.0"],\
+            ["node-addon-api", "npm:6.1.0"],\
             ["node-gyp", "npm:9.3.1"],\
             ["prebuild-install", "npm:7.1.1"],\
-            ["semver", "npm:7.5.1"],\
+            ["semver", "npm:7.5.3"],\
             ["simple-get", "npm:4.0.1"],\
             ["tar-fs", "npm:2.1.1"],\
             ["tunnel-agent", "npm:0.6.0"]\

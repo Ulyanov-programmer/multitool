@@ -3363,14 +3363,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"gulp-sharp-optimize-images@npm:^2.0.1":
-  version: 2.0.1
-  resolution: "gulp-sharp-optimize-images@npm:2.0.1"
+"gulp-sharp-optimize-images@npm:3.0.0":
+  version: 3.0.0
+  resolution: "gulp-sharp-optimize-images@npm:3.0.0"
   dependencies:
-    sharp: ^0.31.3
+    sharp: ^0.32.1
     through2: ^4.0.2
     vinyl: ^3.0.0
-  checksum: b10043c80d7e0dbccaeafc031c139b6e1687b73d4c842e4ae35fc3f0631ab6743f44c3d0247a1e68c9fc6670b9fc8203dc4a5149dedbdc92fe14a36403c3fddd
+  checksum: db2e7c2b4d684eb601b1726d439d8285f4cfda9b8df19c9feebf4ebe89ad1d474c0179be576b3eb7a90dcb2d924cbf902074e1ead81b44f0566f545b2a170688
   languageName: node
   linkType: hard
 
@@ -3481,7 +3481,7 @@ __metadata:
     gulp-postcss: ^9.0.1
     gulp-posthtml: ^3.0.5
     gulp-rename: ^2.0.0
-    gulp-sharp-optimize-images: ^2.0.1
+    gulp-sharp-optimize-images: 3.0.0
     gulp-svgmin: ^4.1.0
     gulp-ttf2woff2: ^4.0.1
     gulp-version-number: ^0.2.4
@@ -5035,20 +5035,20 @@ __metadata:
   linkType: hard
 
 "node-abi@npm:^3.3.0":
-  version: 3.40.0
-  resolution: "node-abi@npm:3.40.0"
+  version: 3.45.0
+  resolution: "node-abi@npm:3.45.0"
   dependencies:
     semver: ^7.3.5
-  checksum: 8f4ef0d9ac82352465e7e7a8ce3915dae49c0fd19d6cb49a93140ff587b612166443531111a60d25e479a18e6e6b9af09698c7870babe0f44aa54287aeaf5eef
+  checksum: 18c4305d7de5f1132741a2a66ba652941518210d02c9268702abe97ce1c166db468b4fc3e85fff04b9c19218c2e47f4e295f9a46422dc834932f4e11443400cd
   languageName: node
   linkType: hard
 
-"node-addon-api@npm:^5.0.0":
-  version: 5.1.0
-  resolution: "node-addon-api@npm:5.1.0"
+"node-addon-api@npm:^6.1.0":
+  version: 6.1.0
+  resolution: "node-addon-api@npm:6.1.0"
   dependencies:
     node-gyp: latest
-  checksum: 2508bd2d2981945406243a7bd31362fc7af8b70b8b4d65f869c61731800058fb818cc2fd36c8eac714ddd0e568cc85becf5e165cebbdf7b5024d5151bbc75ea1
+  checksum: 3a539510e677cfa3a833aca5397300e36141aca064cdc487554f2017110709a03a95da937e98c2a14ec3c626af7b2d1b6dabe629a481f9883143d0d5bff07bf2
   languageName: node
   linkType: hard
 
@@ -6788,6 +6788,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"semver@npm:^7.5.0":
+  version: 7.5.3
+  resolution: "semver@npm:7.5.3"
+  dependencies:
+    lru-cache: ^6.0.0
+  bin:
+    semver: bin/semver.js
+  checksum: 9d58db16525e9f749ad0a696a1f27deabaa51f66e91d2fa2b0db3de3e9644e8677de3b7d7a03f4c15bc81521e0c3916d7369e0572dbde250d9bedf5194e2a8a7
+  languageName: node
+  linkType: hard
+
 "send@npm:0.16.2":
   version: 0.16.2
   resolution: "send@npm:0.16.2"
@@ -6876,20 +6887,20 @@ __metadata:
   languageName: node
   linkType: hard
 
-"sharp@npm:^0.31.3":
-  version: 0.31.3
-  resolution: "sharp@npm:0.31.3"
+"sharp@npm:^0.32.1":
+  version: 0.32.1
+  resolution: "sharp@npm:0.32.1"
   dependencies:
     color: ^4.2.3
     detect-libc: ^2.0.1
-    node-addon-api: ^5.0.0
+    node-addon-api: ^6.1.0
     node-gyp: latest
     prebuild-install: ^7.1.1
-    semver: ^7.3.8
+    semver: ^7.5.0
     simple-get: ^4.0.1
     tar-fs: ^2.1.1
     tunnel-agent: ^0.6.0
-  checksum: 29fd1dfbc616c6389f53f366cec342b4353d9f2a37e98952ca273db38dca57dfa0f336322d6d763f0fae876042ead22fd86ffe26d70c32ade2458d421db60d04
+  checksum: 99f50df380442aa8f3f952dd6f2e27634f9cab249cce47aa7f1a97c468334979ea94d71555f782aae5f5016e44b7832799f1c5ea1cb3ca975c089acd00e62e2e
   languageName: node
   linkType: hard
 
