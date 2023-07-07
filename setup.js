@@ -343,6 +343,7 @@ await setPhp()
 
 deleteUnusedFolders()
 
+
 logSomeImportantInConsole(
   `\nThe configuration of files and folders is complete.\n`,
   chalk.greenBright
@@ -360,7 +361,7 @@ await setVariables(
     fields: [
       { name: 'mainLangOfPages', initial: 'en' },
       { name: 'IndexPageTitle', initial: 'Unnamed page', },
-      { name: 'preloadedFontFIlename', initial: 'none', },
+      { name: 'preloadedFontFilename', initial: 'none', },
     ],
     template:
       `// Set the main language of pages below.
@@ -368,7 +369,7 @@ await setVariables(
   // Set the title of the index page below.
   title: props.title || '\${IndexPageTitle}',
   // Set a name for a preloaded font. Must be a file name without extension.
-  preloadedFontName: '\${preloadedFontFIlename}',`
+  preloadedFontName: '\${preloadedFontFilename}',`
   }),
   new VariableTemplate({
     snippetName: 'stylesheetVariables',
@@ -405,22 +406,24 @@ $minFontSize: \${minSize}px;`
     message: chalk.magentaBright('Fill out the content width variables.'),
     variableFilePath: generalStyleFilePath,
     fields: [
-      { name: 'bigWidth', initial: '70vw', },
-      { name: 'defaultWidth', initial: '80vw', },
-      { name: 'tabletsWidth', initial: '90vw', },
-      { name: 'mobileWidth', initial: '95vw', },
+      { name: 'bigVpPaddings', initial: '15vw', },
+      { name: 'pcPaddings', initial: '10vw', },
+      { name: 'tabletPaddings', initial: '5vw', },
+      { name: 'mobilePaddings', initial: '2.5vw', },
     ],
     template:
-      `/* ? The width of the site content with the width of the viewport is more than the width of a design. */
-  --bigViewportContentWidth: \${bigWidth};
-    /* The width of the site content with the width of the viewport equal to the width of a design. */
-  --defaultViewportContentWidth: \${defaultWidth};
-    /* The width of the site content with the width of the viewport equal to tablets. */
-  --tabletsViewportContentWidth: \${tabletsWidth};
-    /* The width of the site content with the width of the viewport equal to smartphones. */
-  --mobileViewportContentWidth: \${mobileWidth};`
+      `/* ? Paddings for site content assigned via the _centered-content class. */
+/* Paddings for site content, in a large viewport. */
+--big-viewport-content-inline-padding: \${bigVpPaddings};
+/* Paddings for site content, in a PC viewport. */
+--pc-content-inline-padding: \${pcPaddings};
+/* Paddings for site content, in a tablet viewport. */
+--tablet-content-inline-padding: \${tabletPaddings};
+/* Paddings for site content, in a smartphone viewport. */
+--mobile-content-inline-padding: \${mobilePaddings};`,
   }),
 )
+
 
 logSomeImportantInConsole(
   `
