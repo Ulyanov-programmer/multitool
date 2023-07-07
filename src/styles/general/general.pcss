@@ -1,6 +1,6 @@
 :root {
   --main-font-family: arial;
-  --text-color: black;
+  --main-text-color: black;
   --background: white;
 
   /* ? Paddings for site content assigned via the _centered-content class. */
@@ -35,8 +35,8 @@ html {
 }
 body {
   height: max-content;
-  background: var(--bg);
-  color: var(--text-c);
+  background: var(--background);
+  color: var(--main-text-color);
   font-size: clamp(
     pxRem($minFontSize),
     pxToVw($mainFontSize, $layoutWidth),

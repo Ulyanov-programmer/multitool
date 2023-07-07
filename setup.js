@@ -382,7 +382,7 @@ await setVariables(
     ],
     template:
       `--main-font-family: \${mainFontName};
---text-c: \${mainTextColor};
+--main-text-color: \${mainTextColor};
 --background: \${backgroundColor};`
   }),
   new VariableTemplate({
