@@ -66,6 +66,7 @@ export default class SwipeElement {
     this.touchAreaElement = document.querySelector(arg.touchStartAreaSelector)
     this.touchAreaElement.style.touchAction = 'none'
     this.touchAreaElement.style.cursor = 'grab'
+    this.touchAreaElement.style.userSelect = 'none'
 
     this.swipeableElement = document.querySelector(arg.swipeableElementSelector)
     this.elementStartX = this.getTranslateState('x')

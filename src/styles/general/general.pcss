@@ -2,6 +2,16 @@
   --main-font-family: arial;
   --text-color: black;
   --background: white;
+
+  /* ? Paddings for site content assigned via the _centered-content class. */
+  /* Paddings for site content, in a large viewport. */
+  --big-viewport-content-inline-padding: 15vw;
+  /* Paddings for site content, in a PC viewport. */
+  --pc-content-inline-padding: 10vw;
+  /* Paddings for site content, in a tablet viewport. */
+  --tablet-content-inline-padding: 5vw;
+  /* Paddings for site content, in a smartphone viewport. */
+  --mobile-content-inline-padding: 2.5vw;
 }
 @media (prefers-color-scheme: dark) {
 }
@@ -9,29 +19,18 @@ html {
   scroll-behavior: smooth;
 }
 
-._container {
-  /* ? The width of the site content with the width of the viewport is more than the width of a design. */
-  --bigViewportContentWidth: 70vw;
-  /* The width of the site content with the width of the viewport equal to the width of a design. */
-  --defaultViewportContentWidth: 80vw;
-  /* The width of the site content with the width of the viewport equal to tablets. */
-  --tabletsViewportContentWidth: 90vw;
-  /* The width of the site content with the width of the viewport equal to smartphones. */
-  --mobileViewportContentWidth: 95vw;
-
-  margin: auto;
-
+._centered-content {
   @media (--isLargeLayout) {
-    width: var(--bigViewportContentWidth);
+    padding-inline: var(--big-viewport-content-inline-padding);
   }
   @media (--isLayoutWidth) {
-    width: var(--defaultViewportContentWidth);
+    padding-inline: var(--pc-content-inline-padding);
   }
   @media (--isTablet) {
-    width: var(--tabletsViewportContentWidth);
+    padding-inline: var(--tablet-content-inline-padding);
   }
   @media (--isMobile) {
-    width: var(--mobileViewportContentWidth);
+    padding-inline: var(---mobile-content-inline-padding);
   }
 }
 body {

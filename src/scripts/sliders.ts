@@ -83,4 +83,9 @@ new Swiper(`.${sliderClassName}`, {
     rows: 2,
     fill: 'row',
   },
+
+  scrollbar: {
+    el: '.swiper_scrollbar',
+    draggable: true,
+  },
 */
