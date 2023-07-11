@@ -1,9 +1,3 @@
-interface AutoPaddingLocalParams {
-  /**
-    Specify which block is nested and scrollable.
-  */
-  scrollableParentSelector: string
-}
 interface AutoScrollPaddingItemArgs {
   /**
     The element that was fixed, and from which there should be an indent.
@@ -15,44 +9,53 @@ interface AutoScrollPaddingItemArgs {
   */
   scrollBehavior?: ScrollBehavior
   /**
-    If you have a nested scrollable block and you want to scroll inside it, pass these parameters.
+    By default, html. 
+
+    Specify a different value if your fixed element is in a different scrollable block.   
+    @defaultValue 'html'
   */
-  localParams?: AutoPaddingLocalParams
+  scrollableParentSelector?: string
   /**
     Indent from the element so that it does not fit closely to the fixed block.
     @defaultValue `5` (5px)
   */
   gap?: number
+
+  setInCssVariable?: string
 }
 export class AutoScrollPaddingItem {
-  public scrollableParentElement: HTMLElement
+  public scrollableParent: HTMLElement
   public fixedElement: HTMLElement
   public childRefs: NodeListOf<HTMLAnchorElement>
-  public localParams: AutoPaddingLocalParams
   public gap: number = 5
+  public useCssVar: string
 
   constructor(arg: AutoScrollPaddingItemArgs) {
     this.fixedElement = document.querySelector(arg.fixedElementSelector)
     this.gap = arg.gap ?? this.gap
+    this.useCssVar = arg.setInCssVariable
 
-    if (arg.localParams) {
-      this.scrollableParentElement = document.querySelector(arg.localParams.scrollableParentSelector)
+    if (arg.scrollableParentSelector) {
+      this.scrollableParent = document.querySelector(arg.scrollableParentSelector)
     } else {
-      this.scrollableParentElement = document.querySelector('html')
+      this.scrollableParent = document.querySelector('html')
     }
 
     if (this.fixedElement.style.scrollBehavior == '') {
-      this.scrollableParentElement.style.scrollBehavior = arg.scrollBehavior ?? 'smooth'
+      this.scrollableParent.style.scrollBehavior = arg.scrollBehavior ?? 'smooth'
     }
 
-    this.scrollableParentElement.style.scrollPadding = `${this.fixedElement.offsetHeight}px`
-
-    this.childRefs = document.querySelectorAll('a[href^="#"]')
+    this.childRefs = this.scrollableParent.querySelectorAll('a[href^="#"]')
   }
 
-  public clickHandler(event: Event) {
-    this.scrollableParentElement.style.scrollPadding =
-      `${this.fixedElement.offsetHeight + this.gap}px`
+  public updatePaddingValue() {
+    let padding = this.fixedElement.offsetHeight + this.gap + 'px'
+
+    if (this.useCssVar) {
+      this.scrollableParent.style.setProperty(this.useCssVar, padding)
+    } else {
+      this.scrollableParent.style.scrollPadding = padding
+    }
   }
 }
 
@@ -68,15 +71,19 @@ export class AutoScrollPadding {
 
 
     for (let autoPaddingItem of this.autoPaddingItems) {
-      autoPaddingItem.scrollableParentElement.style.scrollPadding =
-        `${autoPaddingItem.fixedElement.offsetHeight}px`
+      autoPaddingItem.updatePaddingValue.bind(autoPaddingItem)()
     }
 
     for (let autoPaddingItem of this.autoPaddingItems) {
       for (let ref of autoPaddingItem.childRefs) {
-        ref.addEventListener('click', autoPaddingItem.clickHandler.bind(autoPaddingItem))
+        ref.addEventListener('click', autoPaddingItem.updatePaddingValue.bind(autoPaddingItem))
       }
+
+      window.addEventListener('resize', () => {
+        autoPaddingItem.updatePaddingValue()
+      })
     }
+
 
     document.addEventListener('DOMContentLoaded', () => {
       let scrollElement = document.querySelector(location.hash ? location.hash : null)

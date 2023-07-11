@@ -3,14 +3,10 @@ import { AutoScrollPadding, AutoScrollPaddingItem } from './modules/autoScrollPa
   Need to install scroll-padding and scroll-behavior, but too lazy to bother, or is the element constantly changing? Initialize AutoScrollPadding and pass the parameters, he will do everything himself.
 */
 new AutoScrollPadding(
-  new AutoScrollPaddingItem({
-    fixedElementSelector: '.header',
-    gap: 10,
-  }),
   // new AutoScrollPaddingItem({
-  //   fixedElementSelector: '.some_fixed_element',
-  //   localParams: {
-  //     scrollableParentSelector: '.some_scrollable_parent',
-  //   }
+  //   fixedElementSelector: '.some_header',
+  //   gap: 0,
+  //   // scrollableParentSelector: '.parent',
+  //   // setInCssVariable: '--scroll-padding',
   // }),
 )
