@@ -1,4 +1,4 @@
-import { AutoScrollPadding, AutoScrollPaddingItem } from './modules/autoScrollPadding.src.js'
+import { AutoScrollPadding, AutoScrollPaddingItem, PaddingDirection } from './modules/autoScrollPadding.src.js'
 /**
   Need to install scroll-padding and scroll-behavior, but too lazy to bother, or is the element constantly changing? Initialize AutoScrollPadding and pass the parameters, he will do everything himself.
 */
@@ -8,5 +8,6 @@ new AutoScrollPadding(
   //   gap: 0,
   //   // scrollableParentSelector: '.parent',
   //   // setInCssVariable: '--scroll-padding',
+  //   // paddingDirection: PaddingDirection.Top,
   // }),
 )

@@ -1,3 +1,10 @@
+export enum PaddingDirection {
+  Top,
+  Bottom,
+  Left,
+  Right,
+}
+
 interface AutoScrollPaddingItemArgs {
   /**
     The element that was fixed, and from which there should be an indent.
@@ -22,6 +29,8 @@ interface AutoScrollPaddingItemArgs {
   gap?: number
 
   setInCssVariable?: string
+
+  paddingDirection?: PaddingDirection
 }
 export class AutoScrollPaddingItem {
   public scrollableParent: HTMLElement
@@ -29,11 +38,13 @@ export class AutoScrollPaddingItem {
   public childRefs: NodeListOf<HTMLAnchorElement>
   public gap: number = 5
   public useCssVar: string
+  public paddingDirection: PaddingDirection
 
   constructor(arg: AutoScrollPaddingItemArgs) {
     this.fixedElement = document.querySelector(arg.fixedElementSelector)
     this.gap = arg.gap ?? this.gap
     this.useCssVar = arg.setInCssVariable
+    this.paddingDirection = arg.paddingDirection ?? PaddingDirection.Top
 
     if (arg.scrollableParentSelector) {
       this.scrollableParent = document.querySelector(arg.scrollableParentSelector)
@@ -49,12 +60,37 @@ export class AutoScrollPaddingItem {
   }
 
   public updatePaddingValue() {
-    let padding = this.fixedElement.offsetHeight + this.gap + 'px'
+    let padding: string
+
+    switch (this.paddingDirection) {
+      case PaddingDirection.Top:
+      case PaddingDirection.Bottom:
+        padding = this.fixedElement.offsetHeight + this.gap + 'px'
+        break
+      case PaddingDirection.Left:
+      case PaddingDirection.Right:
+        padding = this.fixedElement.offsetWidth + this.gap + 'px'
+        break
+    }
 
     if (this.useCssVar) {
       this.scrollableParent.style.setProperty(this.useCssVar, padding)
-    } else {
-      this.scrollableParent.style.scrollPadding = padding
+    }
+    else {
+      switch (this.paddingDirection) {
+        case PaddingDirection.Top:
+          this.scrollableParent.style.scrollPaddingTop = padding
+          break
+        case PaddingDirection.Bottom:
+          this.scrollableParent.style.scrollPaddingBottom = padding
+          break
+        case PaddingDirection.Left:
+          this.scrollableParent.style.scrollPaddingLeft = padding
+          break
+        case PaddingDirection.Right:
+          this.scrollableParent.style.scrollPaddingRight = padding
+          break
+      }
     }
   }
 }
