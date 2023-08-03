@@ -97,5 +97,5 @@ async function setupFontFaceRule(filename, fontName, type, fileNameNoExt, weight
     footer: () => chalk.gray.italic(`Use tab to move, when you're done, press enter`)
   })
 
-  fs.appendFileSync(fontsFIlePath, enquirerResult.result)
+  fs.appendFileSync(fontsFilePath, enquirerResult.result)
 }
