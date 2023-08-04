@@ -28,163 +28,177 @@
     scripts: isObject(props.scripts) ? props.scripts : {},
   }
 </script>
-
 <!DOCTYPE html>
 <html lang={{lang}}>
 
 <head>
   <meta charset='UTF-8'>
-  <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-  <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+  <meta http-equiv='X-UA-Compatible'
+        content='IE=edge'>
+  <meta name='viewport'
+        content='width=device-width, initial-scale=1.0'>
   <!-- maximum-scale=1.0, user-scalable=0 does not allow content to be scaled on Android. -->
   <!-- Disables forced link for phone number on iOS -->
-  <meta name='format-detection' content='telephone=no'>
-
-  <meta name='description' content='description'>
-  <meta name='theme-color' content='#000000'>
-  <link rel='icon' href='./img/favicon.svg'>
-  <link rel='mask-icon' href='./img/favicon.svg' color='#000000'>
+  <meta name='format-detection'
+        content='telephone=no'>
+  <meta name='description'
+        content='description'>
+  <meta name='theme-color'
+        content='#000000'>
+  <link rel='icon'
+        href='./img/favicon.svg'>
+  <link rel='mask-icon'
+        href='./img/favicon.svg'
+        color='#000000'>
   <!-- <link rel='apple-touch-icon' href='apple-touch-icon.png'> -->
   <!-- <link rel='manifest' href='manifest.json'> -->
 
-
   <if condition='preloadedFontName != "none"'>
-    <link rel='preload' href='./fonts/{{ preloadedFontName }}.woff2'
-      as='font' type='font/woff2' crossorigin>
+    <link rel='preload'
+          href='./fonts/{{ preloadedFontName }}.woff2'
+          as='font'
+          type='font/woff2'
+          crossorigin>
   </if>
-
-  <!-- SEO
-	<meta name='keywords' content='keyword1,'>
-	<meta name='Author' content='Author'>
-	<meta name='Copyright' content='Copyright'>
-	<meta name='Address' content='Address'> 
-	<! - Redirect (reload) the page. Delay in seconds; url=Site / page address ->
-	<meta http-equiv='refresh' content='seconds; url = URL'>
-
-	Facebook
-	<! - site localization, for the Russian-language site ru_RU ->
-	<meta property='og:locale' content='ru_RU'>
-	<! - content type, default is article ->
-	<meta property='og:type' content='article'>
-	<! - the title of the page that will be displayed in the post of the social network ->
-	<meta property='og:title' content='META tags'>
-	<! - page description ->
-	<meta property='og:description' content='Description of the page about META tags'>
-	<! - link to the image that will be published in the post ->
-	<meta property='og:image' content='path'>
-	<! - link to the current page ->
-	<meta property='og: url' content='path'>
-	<! - site name ->
-	<meta property='og:site_name' content='Freelancer for life'>
-
-	Twitter
-	<! - Map type, default is summary ->
-	<meta name='twitter: card' content='summary'>
-	<! - Author name / login ->
-	<meta name='twitter: site' content='Ivan'>
-	<! - Page title ->
-	<meta name='twitter: title' content='META tags'>
-	<! - Page description ->
-	<meta name='twitter: description' content='about META tags'>
-	<! - Link to image ->
-	<meta name='twitter: image' content='path'>
-	-->
-
-  <title>
-    {{ title }}
-  </title>
-
+  <title> {{ title }} </title>
   <!-- /-/ General stylesheets -->
-  <link rel='stylesheet' href='./styles/general/nullStyle.css'>
-  <link rel='stylesheet' href='./styles/general/fonts.css'>
-  <link rel='stylesheet' href='./styles/general/header.css'>
-  <link rel='stylesheet' href='./styles/general/footer.css'>
-  <link rel='stylesheet' href='./styles/general/general.css'>
-
+  <link rel='stylesheet'
+        href='./styles/general/nullStyle.css'>
+  <link rel='stylesheet'
+        href='./styles/general/fonts.css'>
+  <link rel='stylesheet'
+        href='./styles/general/header.css'>
+  <link rel='stylesheet'
+        href='./styles/general/footer.css'>
+  <link rel='stylesheet'
+        href='./styles/general/general.css'>
   <!-- /-/ General scripts -->
+
   <if condition='justValidate'>
     <!-- JustValidate -->
-    <script type='module' src='./scripts/justValidate.js'></script>
+    <script type='module'
+            src='./libs/justValidate/justValidate.js'></script>
   </if>
+
   <if condition='swiper'>
     <!-- Swiper -->
-    <link rel='stylesheet' href='./libs/swiper/swiper-bundle.min.css'>
-    <script type='module' src='./scripts/sliders.js'></script>
+    <link rel='stylesheet'
+          href='./libs/swiper/swiper-bundle.min.css'>
+    <script type='module'
+            src='./libs/swiper/sliders.js'></script>
   </if>
+
   <if condition='typed'>
     <!-- Typed -->
-    <script defer src='./libs/typed.min.js'></script>
-    <script defer src='./scripts/typed.js'></script>
+    <script defer
+            src='./libs/typed/typed.min.js'></script>
+    <script defer
+            src='./libs/typed/typed.js'></script>
   </if>
+
   <if condition='photoSwipe'>
     <!-- PhotoSwipe -->
-    <script type='module' src='./scripts/photoSwipe.js'></script>
-    <link rel='stylesheet' href='./libs/photoswipe/photoswipe.css'>
+    <script type='module'
+            src='./libs/photoSwipe/photoswipe.js'></script>
+    <link rel='stylesheet'
+          href='./libs/photoswipe/photoswipe.css'>
   </if>
+
   <if condition='noUiSlider'>
     <!-- NoUiSlider -->
-    <link href='./libs/nouislider/nouislider.min.css' rel='stylesheet'>
-    <script type='module' src='./scripts/nouislider.js'></script>
+    <link href='./libs/noUiSlider/nouislider.min.css'
+          rel='stylesheet'>
+    <script type='module'
+            src='./libs/noUiSlider/nouislider.js'></script>
   </if>
+
   <if condition='burgerMenu'>
     <!-- BurgerMenu -->
-    <script type='module' src='./scripts/burgerMenu.js'></script>
-    <link rel='stylesheet' href='./styles/modules/burgerMenu.css'>
+    <script type='module'
+            src='./scripts/burgerMenu/burgerMenu.js'></script>
+    <link rel='stylesheet'
+          href='./scripts/burgerMenu/burgerMenu.css'>
   </if>
+
   <if condition='formStyles'>
     <!-- Form styles -->
-    <link rel='stylesheet' href='./styles/modules/form.css'>
+    <link rel='stylesheet'
+          href='./styles/form.css'>
   </if>
+
   <if condition='sidebar'>
     <!-- Sidebar -->
-    <script type='module' src='./scripts/sidebar.js'></script>
-    <link rel='stylesheet' href='./styles/modules/sidebar.css'>
+    <script type='module'
+            src='./scripts/sidebar/sidebar.js'></script>
+    <link rel='stylesheet'
+          href='./scripts/sidebar/sidebar.css'>
   </if>
+
   <if condition='spoiler'>
     <!-- Spoiler -->
-    <script type='module' src='./scripts/spoiler.js'></script>
-    <link rel='stylesheet' href='./styles/modules/spoiler.css'>
+    <script type='module'
+            src='./scripts/spoiler/spoiler.js'></script>
+    <link rel='stylesheet'
+          href='./scripts/spoiler/spoiler.css'>
   </if>
+
   <if condition='submenu'>
     <!-- Submenu -->
-    <script type='module' src='./scripts/submenu.js'></script>
-    <link rel='stylesheet' href='./styles/modules/submenu.css'>
+    <script type='module'
+            src='./scripts/submenu/submenu.js'></script>
+    <link rel='stylesheet'
+          href='./scripts/submenu/submenu.css'>
   </if>
+
   <if condition='animateByScroll'>
     <!-- Animate by scroll -->
-    <script type='module' src='./scripts/animateByScroll.js'></script>
+    <script type='module'
+            src='./scripts/animateByScroll/animateByScroll.js'></script>
   </if>
+
   <if condition='swipe'>
     <!-- Swipe -->
-    <script type='module' src='./scripts/swipe.js'></script>
+    <script type='module'
+            src='./scripts/swipe/swipe.js'></script>
   </if>
+
   <if condition='horizontalScroll'>
     <!-- Horizontal scroll -->
-    <script type='module' src='./scripts/horizontalScroll.js'></script>
+    <script type='module'
+            src='./scripts/horizontalScroll.js'></script>
   </if>
+
   <if condition='dialogs'>
     <!-- For dialogs -->
-    <link rel='stylesheet' href='./styles/modules/dialogs.css'>
-    <script type='module' src='./scripts/dialogs.js'></script>
+    <link rel='stylesheet'
+          href='./scripts/dialogs/dialogs.css'>
+    <script type='module'
+            src='./scripts/dialogs/dialogs.js'></script>
   </if>
+
   <if condition='parallax'>
     <!-- Parallax -->
-    <script type='module' src='./scripts/parallax.js'></script>
+    <script type='module'
+            src='./scripts/parallax/parallax.js'></script>
   </if>
+
   <if condition='autoScrollPadding'>
     <!-- Scroll to element -->
-    <script type='module' src='./scripts/autoScrollPadding.js'></script>
+    <script type='module'
+            src='./scripts/autoScrollPadding/autoScrollPadding.js'></script>
   </if>
+
   <if condition='tabs'>
     <!-- Tabs -->
-    <script type='module' src='./scripts/tab.js'></script>
+    <script type='module'
+            src='./scripts/tab/tab.js'></script>
   </if>
+
   <if condition='stepByStep'>
     <!-- StepByStep -->
-    <script type='module' src='./scripts/stepByStepBlock.js'></script>
+    <script type='module'
+            src='./scripts/stepByStepBlock/stepByStepBlock.js'></script>
   </if>
-
-
   <!-- /-/ Other stylesheets and scripts for this page -->
   <stack name='styles'></stack>
   <stack name='scripts'></stack>
@@ -198,6 +212,7 @@
   <main>
     <yield></yield>
   </main>
+
   <if condition='$slots.footer?.filled'>
     <x-footer></x-footer>
   </if>
