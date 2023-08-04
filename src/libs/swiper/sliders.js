@@ -1,4 +1,4 @@
-import Swiper from '../libs/swiper/swiper-bundle.esm.browser.min.js'
+import Swiper from './swiper-bundle.esm.browser.min.js'
 
 let sliderClassName = 'demo__slider'
 new Swiper(`.${sliderClassName}`, {

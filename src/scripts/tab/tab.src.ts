@@ -1,4 +1,4 @@
-import { sleep, elementIsExistWithLog } from './general.js'
+import { sleep, elementIsExistWithLog } from '../general.js'
 
 export enum ToggleTabsEvent {
   Click,

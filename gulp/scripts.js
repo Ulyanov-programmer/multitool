@@ -5,7 +5,7 @@ import browsersync from 'browser-sync'
 import { paths } from './paths.js'
 
 export default function scripts() {
-  gulp.src(paths.src.scripts)
+  gulp.src(paths.src.apiScripts)
     .pipe(
       $.changed(paths.build.scripts, { extension: '.js' })
     )
@@ -17,11 +17,7 @@ export default function scripts() {
     .pipe(gulp.dest(paths.build.scripts))
     .pipe(browsersync.stream())
 
-  return gulp.src(paths.src.scriptModules)
-    .pipe(
-      $.changed(paths.build.scriptModules, { extension: '.js' })
-    )
-
+  return gulp.src(paths.src.sourcesScripts)
     .pipe(
       $.if(isProd,
         // If run with the --prod flag.
@@ -35,7 +31,7 @@ export default function scripts() {
         })
       )
     )
-    .pipe(gulp.dest(paths.build.scriptModules))
+    .pipe(gulp.dest(paths.build.scripts))
     .pipe(browsersync.stream())
 }
 

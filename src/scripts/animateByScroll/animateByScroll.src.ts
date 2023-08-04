@@ -1,4 +1,4 @@
-import { elementsIsExist } from './general.js'
+import { elementsIsExist } from '../general.js'
 import './scroll-timeline.js'
 
 

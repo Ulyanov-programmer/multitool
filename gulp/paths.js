@@ -7,9 +7,8 @@ export const paths = {
   build: {
     html: `${project}/`,
     php: `${project}/php/`,
-    css: `${project}/styles/`,
+    css: `${project}/`,
     scripts: `${project}/scripts/`,
-    scriptModules: `${project}/scripts/modules/`,
     images: `${project}/img/`,
     fonts: `${project}/fonts/`,
     libs: `${project}/libs/`,
@@ -22,15 +21,17 @@ export const paths = {
     ],
     php: `${source}/php/*.php`,
     css: [
-      `${source}/styles/**/*.pcss`,
+      `${source}/**/*.pcss`,
       `${source}/docs/*.pcss`,
       `!${source}/styles/**/_*.pcss`,
     ],
     cssNoAccessToDist: [
       `${source}/styles/**/_*.pcss`,
     ],
-    scripts: `${source}/scripts/*.{ts,js}`,
-    scriptModules: `${source}/scripts/modules/*.{ts,js}`,
+    apiScripts: [
+      `${source}/scripts/**/*.{ts,js}`, `!${source}/scripts/**/*.{src.ts,src.js}`
+    ],
+    sourcesScripts: `${source}/scripts/**/*.{src.ts,src.js}`,
     images: `${source}/img/**/*.{gif,ico,webp,avif,png,jpg}`,
     imagesSvg: `${source}/img/**/*.svg`,
     fonts: `${source}/fonts/*.{ttf,otf}`,
@@ -41,12 +42,11 @@ export const paths = {
   },
   watch: {
     html: `${source}/**/*.{html,htm,php}`,
-    css: `${source}/styles/**/*.pcss`,
+    css: `${source}/**/*.pcss`,
     cssNoAccessToDist: `${source}/styles/**/_*.pcss`,
     php: `${source}/php/*.php`,
     demoCss: `${source}/docs/*.pcss`,
-    scripts: `${source}/scripts/*.{ts,js}`,
-    scriptModules: `${source}/scripts/modules/*.{ts,js}`,
+    scripts: `${source}/scripts/**/*.{ts,js}`,
     images: `${source}/img/**/*.{gif,ico,jpg,png,webp,avif}`,
     imagesSvg: `${source}/img/**/*.svg`,
     libs: `${source}/libs/*.*`,

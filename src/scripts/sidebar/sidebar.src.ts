@@ -1,5 +1,5 @@
-import { elementIsExistWithLog } from './general.js'
-import SwipeElement, { ChangePlane } from './swipe.src.js'
+import { elementIsExistWithLog } from '../general.js'
+import SwipeElement, { ChangePlane } from '../swipe/swipe.src.js'
 
 interface SidebarArgs {
   /** Id of sidebar. */

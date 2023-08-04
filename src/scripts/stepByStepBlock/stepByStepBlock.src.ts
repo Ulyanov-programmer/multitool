@@ -1,4 +1,4 @@
-import { elementIsExistWithLog } from './general.js'
+import { elementIsExistWithLog } from '../general.js'
 
 interface FormArgs {
   formSelector: string

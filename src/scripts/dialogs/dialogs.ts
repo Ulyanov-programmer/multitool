@@ -1,4 +1,4 @@
-import Dialogs from './modules/dialogs.src.js'
+import Dialogs from './dialogs.src.js'
 /*
   For buttons:
    should open a dialog, assign [data-open-dialog-id="yourId"].

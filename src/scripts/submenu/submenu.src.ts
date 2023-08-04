@@ -1,4 +1,4 @@
-import { isNullOrWhiteSpaces, elementIsExistWithLog } from './general.js'
+import { isNullOrWhiteSpaces, elementIsExistWithLog } from '../general.js'
 export enum SubmenuOpenEvents {
   Click,
   Hover,

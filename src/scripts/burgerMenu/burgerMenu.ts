@@ -1,4 +1,4 @@
-import BurgerMenu, { autoPaddingOptions } from './modules/burgerMenu.src.js'
+import BurgerMenu, { autoPaddingOptions } from './burgerMenu.src.js'
 
 new BurgerMenu({
   burgerSelector: '#burgerButton',

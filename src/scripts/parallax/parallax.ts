@@ -1,4 +1,4 @@
-import Parallax, { ParallaxElement } from './modules/parallax.src.js'
+import Parallax, { ParallaxElement } from './parallax.src.js'
 
 new Parallax(
   { parallaxContainerSelector: '.par-wrapper', minWorkWidth: 768 },

@@ -1,5 +1,5 @@
-import Sidebar from './modules/sidebar.src.js'
-// import { ChangePlane } from './modules/swipe.src.js'
+import Sidebar from './sidebar.src.js'
+// import { ChangePlane } from '../swipe/swipe.src.js'
 /*
   The buttons that open a particular sidebar should contain [data-toggle-sidebar-id='sidebarId']
 */

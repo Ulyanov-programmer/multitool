@@ -1,4 +1,4 @@
-import Submenu, { SubmenuElementGroup, SubmenuOpenEvents } from './modules/submenu.src.js'
+import Submenu, { SubmenuElementGroup, SubmenuOpenEvents } from './submenu.src.js'
 
 new Submenu(
   { menuActiveClass: 'show', buttonActiveClass: 'active', disableOnEsc: true },

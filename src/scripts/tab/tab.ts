@@ -1,4 +1,4 @@
-import Tab, { ToggleTabsEvent } from './modules/tab.src.js'
+import Tab, { ToggleTabsEvent } from './tab.src.js'
 
 new Tab({
   btnsSelector: '.tab__btn_1',

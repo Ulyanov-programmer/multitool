@@ -1,4 +1,4 @@
-import { returnScrollbarWidth, sleep } from './general.js'
+import { returnScrollbarWidth, sleep } from '../general.js'
 
 interface DialogsArgs {
   closeByClickOnBackdrop?: boolean

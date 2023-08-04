@@ -1,4 +1,4 @@
-import Spoiler, { Ajar } from './modules/spoiler.src.js'
+import Spoiler, { Ajar } from './spoiler.src.js'
 
 new Spoiler({
   wrappersSelector: '.spoiler_1',

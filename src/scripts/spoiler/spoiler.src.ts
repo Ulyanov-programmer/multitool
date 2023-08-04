@@ -1,4 +1,4 @@
-import { elementIsExistWithLog, sleep } from './general.js'
+import { elementIsExistWithLog, sleep } from '../general.js'
 
 interface SpoilerArgs {
   wrappersSelector: string
