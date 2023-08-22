@@ -1,0 +1,15 @@
+{
+  "fix": true,
+  "extends": [
+    "stylelint-config-standard",
+    "stylelint-config-clean-order"
+  ],
+  "rules": {
+    "block-no-empty": null,
+    "declaration-empty-line-before": null,
+    "function-no-unknown": null,
+    "function-name-case": null,
+    "selector-class-pattern": null,
+    "at-rule-no-unknown": null
+  }
+}

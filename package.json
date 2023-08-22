@@ -52,7 +52,10 @@
     "posthtml-component": "^1.1.0",
     "posthtml-img-autosize": "^0.1.6",
     "prettier": "^2.8.4",
-    "replace-in-file": "^6.3.5"
+    "replace-in-file": "^6.3.5",
+    "stylelint": "^15.10.3",
+    "stylelint-config-clean-order": "^5.2.0",
+    "stylelint-config-standard": "^34.0.0"
   },
   "prettier": {
     "plugins": []
