@@ -1,12 +1,12 @@
 :root {
   /* It is installed automatically by the script for working with the burger menu. */
-  --burgerMarginTop: 0.1px;
+  --burger-margin-top: 0.1px;
 }
 
-@custom-media --burgerMenuIsHidden (width > 768px);
-@custom-media --burgerMenuIsVisible (width <= 769px);
+@custom-media --burger-menu-is-hidden (width > 768px);
+@custom-media --burger-menu-is-visible (width <= 769px);
 
-.burger-menu {
+.m-burger-menu {
   position: fixed;
   z-index: 4 !important;
   inset: 0;
@@ -16,8 +16,8 @@
 
   /* Sets the height of the menu, taking into account the offset from the header */
   width: 100vw;
-  height: calc(100vh - var(--burgerMarginTop));
-  margin-top: var(--burgerMarginTop);
+  height: calc(100vh - var(--burger-margin-top));
+  margin-top: var(--burger-margin-top);
 
   background: rgb(0 0 0 / 30%);
 
@@ -41,7 +41,7 @@
     }
   }
 
-  @media (--burgerMenuIsHidden) {
+  @media (--burger-menu-is-hidden) {
     display: none;
   }
 }
@@ -56,7 +56,7 @@
     }
   }
 
-  @media (--burgerMenuIsHidden) {
+  @media (--burger-menu-is-hidden) {
     display: none;
   }
 
@@ -68,8 +68,8 @@
   } */
 }
 
-.navmenu {
-  @media (--burgerMenuIsVisible) {
+.m-navmenu {
+  @media (--burger-menu-is-visible) {
     display: none;
   }
 }

@@ -115,6 +115,6 @@ export class autoPaddingOptions {
   }
 
   public setHeaderPadding() {
-    this.root.style.setProperty('--burgerMarginTop', this.getElementHeight() + 'px')
+    this.root.style.setProperty('--burger-margin-top', this.getElementHeight() + 'px')
   }
 }

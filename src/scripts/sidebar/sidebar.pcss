@@ -1,24 +1,24 @@
 :root {
-  --hiddenSidebarWidth: 70vw;
+  --hidden-sidebar-width: 70vw;
 }
 
-@custom-media --sidebarIsVisible (width > 1440px);
-@custom-media --sidebarIsHidden (width <= 1440px);
+@custom-media --sidebar-is-visible (width > 1440px);
+@custom-media --sidebar-is-hidden (width <= 1440px);
 
 .sidebar {
   /* ? from left to right */
   right: 100vw;
 
   &.active {
-    right: calc(100vw - var(--hiddenSidebarWidth));
+    right: calc(100vw - var(--hidden-sidebar-width));
   }
 
-  @media (--sidebarIsVisible) {
+  @media (--sidebar-is-visible) {
     position: fixed;
     z-index: 3;
     top: 0;
 
-    width: var(--hiddenSidebarWidth);
+    width: var(--hidden-sidebar-width);
     height: 100vh;
 
     background: gray;
@@ -30,7 +30,7 @@
     ? from right to left orientation
     left: 100vw;
     &.active {
-      left: calc(100vw - var(--hiddenSidebarWidth));
+      left: calc(100vw - var(--hidden-sidebar-width));
     } 
   */
 }
@@ -39,11 +39,11 @@
   /* ? from left to right */
   left: 100%;
 
-  @media (--sidebarIsHidden) {
+  @media (--sidebar-is-hidden) {
     display: none;
   }
 
-  @media (--sidebarIsVisible) {
+  @media (--sidebar-is-visible) {
     position: fixed;
     z-index: 2;
     top: 0;
@@ -68,7 +68,7 @@
     width: 100vw;
   }
 
-  @media (--sidebarIsHidden) {
+  @media (--sidebar-is-hidden) {
     display: none;
   }
 }
