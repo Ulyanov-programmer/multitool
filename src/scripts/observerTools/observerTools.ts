@@ -1,28 +1,16 @@
-import AnimateByScroll, { AnimationGroup, AnimationTimeline, AnimationMediaQuery } from './animateByScroll.src.js'
+import ObserverTools, { ActionOnView, AnimationTimeline, ActionMediaQuery } from './observerTools.src.js'
 
-new AnimateByScroll(
+new ObserverTools(
   { repeatingAnimations: true, activeAnimationClass: 'active' },
 
-  new AnimationGroup({
+  new ActionOnView({
     selectors: '.animation_by_scroll__item',
-    animateStartCoeff: [0.5, 0.5],
+    startActionPaddingIndex: [0.5, 0.5],
     timeoutBeforeStart: 500,
   },
-    new AnimationMediaQuery({
+    new ActionMediaQuery({
       activationWidth: 768,
-      defAnimStartCoeffs: [0.8, 0.8],
-      timeoutBeforeStart: 300,
-    })
-  ),
-
-  new AnimationGroup({
-    selectors: '.animation_by_scroll__item_2',
-    animateStartCoeff: [0.5, 0.5],
-    timeoutBeforeStart: 1500,
-  },
-    new AnimationMediaQuery({
-      activationWidth: 768,
-      defAnimStartCoeffs: [0.8, 0.8],
+      startActionPaddingIndex: [0.8, 0.8],
       timeoutBeforeStart: 300,
     })
   ),

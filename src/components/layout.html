@@ -16,7 +16,7 @@
     sidebar: props.sidebar,
     spoiler: props.spoiler,
     submenu: props.submenu,
-    animateByScroll: props.animateByScroll,
+    observerTools: props.observerTools,
     swipe: props.swipe,
     horizontalScroll: props.horizontalScroll,
     dialogs: props.dialogs,
@@ -150,10 +150,10 @@
           href='./scripts/submenu/submenu.css'>
   </if>
 
-  <if condition='animateByScroll'>
-    <!-- Animate by scroll -->
+  <if condition='observerTools'>
+    <!-- Observer Tools -->
     <script type='module'
-            src='./scripts/animateByScroll/animateByScroll.js'></script>
+            src='./scripts/observerTools/observerTools.js'></script>
   </if>
 
   <if condition='swipe'>

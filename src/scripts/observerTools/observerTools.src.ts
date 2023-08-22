@@ -2,7 +2,7 @@ import { elementsIsExist } from '../general.js'
 import './scroll-timeline.js'
 
 
-interface AnimateByScrollArgs {
+interface ObserverToolsArgs {
   /**
     Do you want the animations to be played again if the blocks they leave the screen? 
     Set it to true, but i don't recommend to use this as true in production.
@@ -12,59 +12,59 @@ interface AnimateByScrollArgs {
   activeAnimationClass?: string
 }
 
-export default class AnimateByScroll {
+export default class ObserverTools {
   public static repeatingAnimations: boolean = false
   public static activeAnimationClass: string = 'active'
 
-  constructor(arg: AnimateByScrollArgs, ...elements: (AnimationGroup | AnimationTimeline)[]) {
-    AnimateByScroll.repeatingAnimations = arg.repeatingAnimations
+  constructor(arg: ObserverToolsArgs, ...elements: (ActionOnView | AnimationTimeline)[]) {
+    ObserverTools.repeatingAnimations = arg.repeatingAnimations
 
     if (elements.length <= 0) {
-      console.error('[AnimateByScroll] No one AnimationGroup or AnimationTimeline have been created.')
+      console.error('[ObserverTools] No one ActionOnView or AnimationTimeline have been created.')
       return
     }
     if (arg.activeAnimationClass) {
-      AnimateByScroll.activeAnimationClass = arg.activeAnimationClass
+      ObserverTools.activeAnimationClass = arg.activeAnimationClass
     }
   }
 }
 
-interface AnimationGroupArgs {
+interface ActionOnViewArgs {
   /** Selectors of the element/elements to which the active animation class will be applied. */
   selectors: string
   /** 
     For example, 1 => class is assigned as soon as the element is shown on the screen. 
-    0.5 => as soon as it is shown at half. 
+    0.5 => as soon as it is shown at half.
   */
-  animateStartCoeff: number[]
+  startActionPaddingIndex: number[]
   /** The delay before the animation starts in milliseconds. */
   timeoutBeforeStart: number
 }
-export class AnimationGroup {
+export class ActionOnView {
   private htmlElements: NodeListOf<HTMLElement>
-  private mediaQueries: AnimationMediaQuery[]
-  private defAnimStartCoeffs: number[]
-  private defTimeoutBeforeStart: number
+  private mediaQueries: ActionMediaQuery[]
+  private startActionPaddingIndex: number[]
+  private timeoutBeforeStart: number
 
   /**
-  * @param mediaQueries
-  * If you need to change the animation assignment settings at a certain width, set the objects of `AnimationMediaQuery`.
+    @param mediaQueries
+    If you need to change the animation assignment settings at a certain width, set the objects of `ActionMediaQuery`.
   */
-  constructor(arg: AnimationGroupArgs, ...mediaQueries: AnimationMediaQuery[]) {
+  constructor(arg: ActionOnViewArgs, ...mediaQueries: ActionMediaQuery[]) {
     if (elementsIsExist(arg.selectors) == false) {
-      console.log('[AnimationGroup] Element is not exist!')
+      console.log('[ActionOnView] Element is not exist!')
     }
 
     this.htmlElements = document.querySelectorAll(arg.selectors)
 
     for (let htmlElement of this.htmlElements) {
       htmlElement.setAttribute('data-timeout', arg.timeoutBeforeStart.toString())
-      htmlElement.setAttribute('data-view-start-coeff', arg.animateStartCoeff.toString())
+      htmlElement.setAttribute('data-view-start-coeff', arg.startActionPaddingIndex.toString())
     }
 
 
-    this.defTimeoutBeforeStart = arg.timeoutBeforeStart
-    this.defAnimStartCoeffs = arg.animateStartCoeff
+    this.timeoutBeforeStart = arg.timeoutBeforeStart
+    this.startActionPaddingIndex = arg.startActionPaddingIndex
     this.mediaQueries = mediaQueries
     this.setMediaProperties()
     this.createIntersectionObserver()
@@ -82,35 +82,35 @@ export class AnimationGroup {
 
         for (let htmlElement of this.htmlElements) {
           htmlElement.setAttribute('data-timeout', mediaQuery.timeoutBeforeStart.toString())
-          htmlElement.setAttribute('data-view-start-coeff', mediaQuery.defAnimStartCoeffs.toString())
+          htmlElement.setAttribute('data-view-start-coeff', mediaQuery.startActionPaddingIndex.toString())
         }
       } else {
         for (let htmlElement of this.htmlElements) {
-          htmlElement.setAttribute('data-timeout', this.defTimeoutBeforeStart.toString())
-          htmlElement.setAttribute('data-view-start-coeff', this.defAnimStartCoeffs.toString())
+          htmlElement.setAttribute('data-timeout', this.timeoutBeforeStart.toString())
+          htmlElement.setAttribute('data-view-start-coeff', this.startActionPaddingIndex.toString())
         }
       }
     }
   }
   createIntersectionObserver() {
-    let observerOptions = { threshold: this.defAnimStartCoeffs }
+    let observerOptions = { threshold: this.startActionPaddingIndex }
 
     let observerFunction = function (entries: IntersectionObserverEntry[]) {
       for (let entry of entries) {
         let animateHtml = entry.target as HTMLElement
 
-        if (entry.isIntersecting && !animateHtml.classList.contains(AnimateByScroll.activeAnimationClass)) {
+        if (entry.isIntersecting && !animateHtml.classList.contains(ObserverTools.activeAnimationClass)) {
           setTimeout(() => {
-            animateHtml.classList.add(AnimateByScroll.activeAnimationClass)
+            animateHtml.classList.add(ObserverTools.activeAnimationClass)
           }, parseInt(animateHtml.dataset.timeout))
 
 
-          if (AnimateByScroll.repeatingAnimations == false) {
+          if (ObserverTools.repeatingAnimations == false) {
             observer.unobserve(entry.target)
           }
         }
-        else if (entry.isIntersecting == false && AnimateByScroll.repeatingAnimations) {
-          animateHtml.classList.remove(AnimateByScroll.activeAnimationClass)
+        else if (entry.isIntersecting == false && ObserverTools.repeatingAnimations) {
+          animateHtml.classList.remove(ObserverTools.activeAnimationClass)
         }
       }
     }
@@ -122,7 +122,7 @@ export class AnimationGroup {
   }
 }
 
-interface AnimationMediaQueryArgs {
+interface ActionMediaQueryArgs {
   /**
     At a certain width, it changes the settings for applying the animation class.
   */
@@ -130,21 +130,21 @@ interface AnimationMediaQueryArgs {
   /** 
     For example, 1 => class is assigned as soon as the element is shown on the screen. 0.5 = as soon as it is shown at half.
   */
-  defAnimStartCoeffs: number[],
+  startActionPaddingIndex: number[],
   /**
     The delay before the animation starts in milliseconds.
   */
   timeoutBeforeStart: number
 }
 
-export class AnimationMediaQuery {
+export class ActionMediaQuery {
   public activationWidth: number
-  public defAnimStartCoeffs: number[]
+  public startActionPaddingIndex: number[]
   public timeoutBeforeStart: number
 
-  constructor(arg: AnimationMediaQueryArgs) {
+  constructor(arg: ActionMediaQueryArgs) {
     this.activationWidth = arg.activationWidth
-    this.defAnimStartCoeffs = arg.defAnimStartCoeffs
+    this.startActionPaddingIndex = arg.startActionPaddingIndex
     this.timeoutBeforeStart = arg.timeoutBeforeStart
   }
 }
