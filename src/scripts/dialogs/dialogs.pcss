@@ -1,21 +1,24 @@
 dialog[data-modal-dialog] {
-  display: block;
+  @mixin hide;
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate3d(-50%, -50%, 0);
 
-  background: white;
+  display: block;
+
   text-align: center;
-  @mixin hide;
+
+  background: white;
+
   transition: all 0.2s ease;
+
+  &::backdrop {
+    background: rgb(0 0 0 / 30%);
+    backdrop-filter: blur(1px);
+  }
 
   &[open] {
     @mixin show;
-  }
-
-  &::backdrop {
-    backdrop-filter: blur(1px);
-    background: rgba(0, 0, 0, 0.3);
   }
 }

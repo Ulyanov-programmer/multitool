@@ -1,26 +1,32 @@
 .submenu-wrapper {
   position: relative;
 }
+
 .submenu-menu {
-  z-index: 1;
-  position: absolute;
-  top: 100%;
   @mixin hide;
+  position: absolute;
+  z-index: 1;
+  top: 100%;
+
   width: max-content;
+
   background: white;
+
   transition: all 0.2s ease;
 
   &.show {
     @mixin show;
   }
 
-  &_to-left {
+  &.is-to-left {
     right: 0;
   }
-  &_to-right {
+
+  &.is-to-right {
     left: 0;
   }
-  &_center {
+
+  &.is-center {
     left: 50%;
     transform: translate(-50%, 0);
   }

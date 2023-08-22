@@ -7,29 +7,37 @@ fieldset {
 label {
   cursor: pointer;
 }
+
 input {
-  /* &:disabled {} */
+  &::placeholder {
+  }
 
-  /* &:invalid {} */
+  &:disabled {
+  }
 
-  /* &::placeholder {} */
+  &:invalid {
+  }
 }
 
-/* input[type="text"] {} */
+input[type="text"] {
+}
 
-/* input[type="email"] {} */
+input[type="email"] {
+}
 
-/* input[type="tel"] {} */
+input[type="tel"] {
+}
 
 input[type="number"] {
   appearance: textfield;
 
   &::-webkit-inner-spin-button,
   &::-webkit-outer-spin-button {
-    appearance: none;
     margin: 0;
+    appearance: none;
   }
 }
+
 input[type="radio"],
 input[type="checkbox"] {
   display: none;
@@ -38,37 +46,46 @@ input[type="checkbox"] {
     svg {
     }
   }
+
   &:checked + label {
     svg {
     }
   }
 }
+
 input[type="checkbox"] {
 }
+
 input[type="radio"] {
 }
 
 input[type="file"] {
   display: none;
 
-  /* & + label {} */
+  input[type="file"] + label {
+  }
 }
+
 select {
+  cursor: pointer;
   appearance: none;
   background: #fff;
-  cursor: pointer;
 }
+
 textarea {
   resize: none;
-
   scrollbar-width: none;
 
   &::-webkit-scrollbar {
     width: 0;
     height: 0;
   }
-  /* &::placeholder {} */
+
+  &::placeholder {
+  }
 }
+
 input[type="password"] {
-  font-family: caption;
+  --caption-font: "caption";
+  font-family: var(--caption-font);
 }

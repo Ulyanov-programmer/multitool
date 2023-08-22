@@ -8,31 +8,29 @@
 
 .burger-menu {
   position: fixed;
-  inset: 0 0;
   z-index: 4 !important;
+  inset: 0;
+  transform: translate3d(0, -100vh, 0);
+
+  overflow: auto;
 
   /* Sets the height of the menu, taking into account the offset from the header */
   width: 100vw;
   height: calc(100vh - var(--burgerMarginTop));
-
   margin-top: var(--burgerMarginTop);
-  overflow: auto;
-  transform: translate3d(0, -100vh, 0);
-  background: rgba(0, 0, 0, 0.3);
+
+  background: rgb(0 0 0 / 30%);
 
   transition: all 0.3s ease;
 
-  @media (--burgerMenuIsHidden) {
-    display: none;
-  }
   &.active {
     transform: translate3d(0, 0, 0);
   }
 
   ul {
     display: grid;
-    justify-items: center;
     gap: 10px;
+    justify-items: center;
 
     li {
       a,
@@ -42,19 +40,26 @@
       }
     }
   }
-}
-.burger-btn {
-  display: block;
-  z-index: 5;
 
   @media (--burgerMenuIsHidden) {
     display: none;
   }
+}
+
+.burger-btn {
+  z-index: 5;
+  display: block;
+
   &__svg {
     * {
       transition: all 0.3s ease;
     }
   }
+
+  @media (--burgerMenuIsHidden) {
+    display: none;
+  }
+
   /* &.active {
     .burger-btn {
     }
@@ -62,6 +67,7 @@
     }
   } */
 }
+
 .navmenu {
   @media (--burgerMenuIsVisible) {
     display: none;

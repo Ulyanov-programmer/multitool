@@ -6,60 +6,69 @@
 @custom-media --sidebarIsHidden (width <= 1440px);
 
 .sidebar {
-  @media (--sidebarIsVisible) {
-    z-index: 3;
-    position: fixed;
-    top: 0;
-    width: var(--hiddenSidebarWidth);
-
-    height: 100vh;
-
-    background: gray;
-    transition: all 0.5s ease;
-  }
-
   /* ? from left to right */
   right: 100vw;
+
   &.active {
     right: calc(100vw - var(--hiddenSidebarWidth));
   }
 
-  /* ? from right to left */
-  /* left: 100vw;
-  &.active {
-    left: calc(100vw - var(--hiddenSidebarWidth));
-  } */
-}
-[data-toggle-sidebar-id] {
-  @media (--sidebarIsHidden) {
-    display: none;
-  }
   @media (--sidebarIsVisible) {
-    z-index: 2;
     position: fixed;
+    z-index: 3;
     top: 0;
+
+    width: var(--hiddenSidebarWidth);
+    height: 100vh;
+
+    background: gray;
+
+    transition: all 0.5s ease;
   }
 
+  /* 
+    ? from right to left orientation
+    left: 100vw;
+    &.active {
+      left: calc(100vw - var(--hiddenSidebarWidth));
+    } 
+  */
+}
+
+[data-toggle-sidebar-id] {
   /* ? from left to right */
   left: 100%;
 
-  /* ? from right to left */
-  /* right: 100%; */
-}
-
-.swipe_window__swipe_area {
-  z-index: 1;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 20vw;
-
-  height: 100vh;
-
   @media (--sidebarIsHidden) {
     display: none;
   }
+
+  @media (--sidebarIsVisible) {
+    position: fixed;
+    z-index: 2;
+    top: 0;
+  }
+
+  /* 
+    ? from right to left  orientation
+    right: 100%; 
+  */
+}
+
+.swipe_window__swipe_area {
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+
+  width: 20vw;
+  height: 100vh;
+
   &.active {
     width: 100vw;
+  }
+
+  @media (--sidebarIsHidden) {
+    display: none;
   }
 }

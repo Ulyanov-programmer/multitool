@@ -4,17 +4,23 @@
   --background: white;
 
   /* ? Paddings for site content assigned via the _centered-content class. */
+
   /* Paddings for site content, in a large viewport. */
   --big-viewport-content-inline-padding: 15vw;
+
   /* Paddings for site content, in a PC viewport. */
   --pc-content-inline-padding: 10vw;
+
   /* Paddings for site content, in a tablet viewport. */
   --tablet-content-inline-padding: 5vw;
+
   /* Paddings for site content, in a smartphone viewport. */
   --mobile-content-inline-padding: 2.5vw;
 }
+
 @media (prefers-color-scheme: dark) {
 }
+
 html {
   scroll-behavior: smooth;
 }
@@ -23,27 +29,34 @@ html {
   @media (--isLargeLayout) {
     padding-inline: var(--big-viewport-content-inline-padding);
   }
+
   @media (--isLayoutWidth) {
     padding-inline: var(--pc-content-inline-padding);
   }
+
   @media (--isTablet) {
     padding-inline: var(--tablet-content-inline-padding);
   }
+
   @media (--isMobile) {
     padding-inline: var(--mobile-content-inline-padding);
   }
 }
+
 body {
   height: max-content;
-  background: var(--background);
-  color: var(--main-text-color);
+
+  font-family: var(--main-font-family);
   font-size: clamp(
     pxRem($minFontSize),
     pxToVw($mainFontSize, $layoutWidth),
     pxRem($mainFontSize)
   );
-  font-family: var(--main-font-family);
+  color: var(--main-text-color);
+
+  background: var(--background);
 }
+
 h1,
 h2,
 h3,
@@ -52,42 +65,53 @@ h5,
 h6 {
   text-wrap: balance;
 }
+
 ._contain-img {
   img {
     @mixin size 100%;
     object-fit: contain;
   }
 }
+
 ._cover-img {
   img {
     @mixin size 100%;
     object-fit: cover;
   }
 }
+
 ._thin {
   font-weight: 100;
 }
+
 ._extra-light {
   font-weight: 200;
 }
+
 ._light {
   font-weight: 300;
 }
+
 ._medium {
   font-weight: 500;
 }
+
 ._semi-bold {
   font-weight: 600;
 }
+
 ._bold {
   font-weight: 700;
 }
+
 ._extra-bold {
   font-weight: 800;
 }
+
 ._black {
   font-weight: 900;
 }
+
 ._uppercase {
   text-transform: uppercase;
 }
