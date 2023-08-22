@@ -1,0 +1,70 @@
+.is-centered-content {
+  @media (--is-large-layout) {
+    padding-inline: var(--big-viewport-content-inline-padding);
+  }
+
+  @media (--is-layout-width) {
+    padding-inline: var(--pc-content-inline-padding);
+  }
+
+  @media (--is-tablet) {
+    padding-inline: var(--tablet-content-inline-padding);
+  }
+
+  @media (--is-mobile) {
+    padding-inline: var(--mobile-content-inline-padding);
+  }
+}
+
+.is-contain-img {
+  img {
+    @mixin size 100%;
+    object-fit: contain;
+  }
+}
+
+.is-cover-img {
+  img {
+    @mixin size 100%;
+    object-fit: cover;
+  }
+}
+
+.is-thin {
+  font-weight: 100;
+}
+
+.is-extra-light {
+  font-weight: 200;
+}
+
+.is-light {
+  font-weight: 300;
+}
+
+.is-medium {
+  font-weight: 500;
+}
+
+.is-semi-bold {
+  font-weight: 600;
+}
+
+.is-bold {
+  font-weight: 700;
+}
+
+.is-extra-bold {
+  font-weight: 800;
+}
+
+.is-black {
+  font-weight: 900;
+}
+
+.is-uppercase {
+  text-transform: uppercase;
+}
+.is-logo {
+  z-index: 10;
+}

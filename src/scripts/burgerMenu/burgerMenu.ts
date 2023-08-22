@@ -2,9 +2,9 @@ import BurgerMenu, { autoPaddingOptions } from './burgerMenu.src.js'
 
 new BurgerMenu({
   burgerSelector: '#burgerButton',
-  burgerMenuSelector: '.burger-menu',
-  buttonsSelector: '.burger-menu__fs-element',
-  autoPadding: new autoPaddingOptions('.header'),
+  burgerMenuSelector: '.m-burger-menu',
+  buttonsSelector: '.m-burger-menu .element',
+  autoPadding: new autoPaddingOptions('.l-header'),
   menuActiveClass: 'active',
   burgerActiveClass: 'active',
   closingByClickOnElement: true,

@@ -10,7 +10,7 @@
   box-sizing: border-box;
 }
 
-::active {
+:active {
   outline: none;
 }
 
@@ -33,22 +33,12 @@ body {
   font-size: 100%;
   line-height: 1;
   text-size-adjust: 100%;
-  text-size-adjust: 100%;
-  text-size-adjust: 100%;
 
   -webkit-tap-highlight-color: #0000;
 }
 
-input {
-  width: fit-content;
-
-  &::-ms-clear {
-    display: none;
-  }
-
-  &:focus-visible {
-    outline: none;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 button {
@@ -71,6 +61,18 @@ input,
 button,
 textarea {
   font-family: inherit;
+}
+
+input {
+  width: fit-content;
+
+  &::-ms-clear {
+    display: none;
+  }
+
+  &:focus-visible {
+    outline: none;
+  }
 }
 
 select {
@@ -115,9 +117,43 @@ h4,
 h5,
 h6 {
   font-size: inherit;
-  font-weight: 400;
+  text-wrap: balance;
 }
 
 address {
   font-style: normal;
+}
+
+body {
+  height: max-content;
+
+  font-family: var(--main-font-family);
+  font-size: clamp(
+    pxRem($minFontSize),
+    pxToVw($mainFontSize, $layoutWidth),
+    pxRem($mainFontSize)
+  );
+  color: var(--main-text-color);
+
+  background: var(--background);
+}
+
+:root {
+  --main-font-family: arial;
+  --main-text-color: black;
+  --background: white;
+
+  /* ? Paddings for site content assigned via the is-centered-content class. */
+
+  /* Paddings for site content, in a large viewport. */
+  --big-viewport-content-inline-padding: 15vw;
+
+  /* Paddings for site content, in a PC viewport. */
+  --pc-content-inline-padding: 10vw;
+
+  /* Paddings for site content, in a tablet viewport. */
+  --tablet-content-inline-padding: 5vw;
+
+  /* Paddings for site content, in a smartphone viewport. */
+  --mobile-content-inline-padding: 2.5vw;
 }

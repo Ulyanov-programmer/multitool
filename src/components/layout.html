@@ -28,6 +28,7 @@
     scripts: isObject(props.scripts) ? props.scripts : {},
   }
 </script>
+
 <!DOCTYPE html>
 <html lang={{lang}}>
 
@@ -37,8 +38,7 @@
         content='IE=edge'>
   <meta name='viewport'
         content='width=device-width, initial-scale=1.0'>
-  <!-- maximum-scale=1.0, user-scalable=0 does not allow content to be scaled on Android. -->
-  <!-- Disables forced link for phone number on iOS -->
+  <!-- ? ↓ Disables forced link for phone number on iOS -->
   <meta name='format-detection'
         content='telephone=no'>
   <meta name='description'
@@ -50,8 +50,10 @@
   <link rel='mask-icon'
         href='./img/favicon.svg'
         color='#000000'>
-  <!-- <link rel='apple-touch-icon' href='apple-touch-icon.png'> -->
-  <!-- <link rel='manifest' href='manifest.json'> -->
+  <link rel='apple-touch-icon'
+        href='apple-touch-icon.png'>
+  <link rel='manifest'
+        href='manifest.json'>
 
   <if condition='preloadedFontName != "none"'>
     <link rel='preload'
@@ -60,20 +62,26 @@
           type='font/woff2'
           crossorigin>
   </if>
+
   <title> {{ title }} </title>
+
   <!-- /-/ General stylesheets -->
-  <link rel='stylesheet'
-        href='./styles/general/nullStyle.css'>
   <link rel='stylesheet'
         href='./styles/general/fonts.css'>
   <link rel='stylesheet'
-        href='./styles/general/header.css'>
+        href='./styles/animations.css'>
   <link rel='stylesheet'
-        href='./styles/general/footer.css'>
+        href='./styles/base.css'>
   <link rel='stylesheet'
-        href='./styles/general/general.css'>
-  <!-- /-/ General scripts -->
+        href='./styles/layout.css'>
+  <link rel='stylesheet'
+        href='./styles/module.css'>
+  <link rel='stylesheet'
+        href='./styles/state.css'>
+  <link rel='stylesheet'
+        href='./styles/theme.css'>
 
+  <!-- /-/ General scripts -->
   <if condition='justValidate'>
     <!-- JustValidate -->
     <script type='module'
@@ -199,6 +207,7 @@
     <script type='module'
             src='./scripts/stepByStepBlock/stepByStepBlock.js'></script>
   </if>
+
   <!-- /-/ Other stylesheets and scripts for this page -->
   <stack name='styles'></stack>
   <stack name='scripts'></stack>
@@ -209,7 +218,7 @@
     <x-header></x-header>
   </if>
 
-  <main>
+  <main class='l-main'>
     <yield></yield>
   </main>
 
