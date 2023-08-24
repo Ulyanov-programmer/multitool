@@ -65,6 +65,30 @@
 .is-uppercase {
   text-transform: uppercase;
 }
+
 .is-logo {
   z-index: 10;
+}
+
+.is-visually-hidden {
+  position: absolute;
+
+  overflow: hidden;
+
+  width: 1px;
+  height: 1px;
+
+  white-space: nowrap;
+
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+}
+
+.is-hidden-scrollbar {
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+  }
 }

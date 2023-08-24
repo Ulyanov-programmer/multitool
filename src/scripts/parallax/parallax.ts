@@ -8,10 +8,5 @@ new Parallax(
     parallaxCoeffX: 0.2,
     parallaxCoeffY: 0.2,
     reverseMode: false,
-  }),
-  new ParallaxElement({
-    selectorOrElement: '.parallax_el_2',
-    parallaxCoeffX: 0.3,
-    parallaxCoeffY: 0.2,
   })
 )

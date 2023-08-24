@@ -1,4 +1,5 @@
 {
+  "WARNING": "The option below disables the VISUAL markings of warnings, but still allows you to correct them through auto-fix.",
   "fix": true,
   "extends": [
     "stylelint-config-standard",
