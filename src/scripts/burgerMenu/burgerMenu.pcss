@@ -14,8 +14,9 @@
 
   overflow: auto;
 
-  /* Sets the height of the menu, taking into account the offset from the header */
   width: 100vw;
+
+  /* Sets the height of the menu, taking into account the offset from the header */
   height: calc(100vh - var(--burger-margin-top));
   margin-top: var(--burger-margin-top);
 
@@ -50,22 +51,54 @@
   z-index: 5;
   display: block;
 
-  &__svg {
-    * {
+  /*
+    ? This is the basic properties and animations of the burger button.
+    If you find that a part of the <rect> extends beyond the boundaries of the <svg>,
+    try to make the <svg> a square (width and height must be equal).
+  */
+  .main-svg {
+    > rect {
+      transform-origin: center;
+      transform-box: fill-box;
       transition: all 0.3s ease;
+
+      &:nth-child(1) {
+        width: 100%;
+      }
+
+      &:nth-child(2) {
+        width: 100%;
+      }
+
+      &:nth-child(3) {
+        width: 100%;
+      }
+    }
+  }
+
+  &.active {
+    .rect-top {
+      transform: rotate(45deg);
+
+      x: 0%;
+      y: 50%;
+    }
+
+    .rect-center {
+      @mixin hide;
+    }
+
+    .rect-bottom {
+      transform: rotate(-45deg);
+
+      x: 0;
+      y: 50%;
     }
   }
 
   @media (--burger-menu-is-hidden) {
     display: none;
   }
-
-  /* &.active {
-    .burger-btn {
-    }
-    &__rect-top {
-    }
-  } */
 }
 
 .m-navmenu {
