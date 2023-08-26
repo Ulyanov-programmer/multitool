@@ -1480,6 +1480,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"clean-css@npm:4.2.3":
+  version: 4.2.3
+  resolution: "clean-css@npm:4.2.3"
+  dependencies:
+    source-map: ~0.6.0
+  checksum: 613129973a038b8bb13e3975ad6b679feccb8c98f2a9d03e6bec9e60291ef1e6b5037ee8cb09a3470751adc52f43782b1dcb4cb049360230b48062d6e3314072
+  languageName: node
+  linkType: hard
+
 "clean-stack@npm:^2.0.0":
   version: 2.2.0
   resolution: "clean-stack@npm:2.2.0"
@@ -1922,15 +1931,6 @@ __metadata:
   version: 6.1.0
   resolution: "css-what@npm:6.1.0"
   checksum: b975e547e1e90b79625918f84e67db5d33d896e6de846c9b584094e529f0c63e2ab85ee33b9daffd05bff3a146a1916bec664e18bb76dd5f66cbff9fc13b2bbe
-  languageName: node
-  linkType: hard
-
-"cssbeautify@npm:^0.3.1":
-  version: 0.3.1
-  resolution: "cssbeautify@npm:0.3.1"
-  bin:
-    cssbeautify: bin/cssbeautify
-  checksum: 8553be112a64cf3eca4d0e47a0fa785863b36deccfea1be69a07549f7c14f15a8169326aa01b406e1fbba435c06571b73d8b87cd09bb72807cd25ee458714ff2
   languageName: node
   linkType: hard
 
@@ -3573,6 +3573,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"gulp-clean-css@npm:^4.3.0":
+  version: 4.3.0
+  resolution: "gulp-clean-css@npm:4.3.0"
+  dependencies:
+    clean-css: 4.2.3
+    plugin-error: 1.0.1
+    through2: 3.0.1
+    vinyl-sourcemaps-apply: 0.2.1
+  checksum: df0ac03206f4001c7c14114bd80123eb69a3e163b82219035617369b6909446d99cdaa915311dbd5fe812f0ff67f5edf40b4d46d004bbc4bd0513d6b51940218
+  languageName: node
+  linkType: hard
+
 "gulp-cli@npm:^2.2.0":
   version: 2.3.0
   resolution: "gulp-cli@npm:2.3.0"
@@ -3598,17 +3610,6 @@ __metadata:
   bin:
     gulp: bin/gulp.js
   checksum: 42e3ca1374a82dea7f2aab775a5db2a67718d42e858438c497336a4db35def7b8c14933d7be3ec99178b78e5c49665058fde1fd0de067a8f8dd8caafcee4faa2
-  languageName: node
-  linkType: hard
-
-"gulp-cssbeautify@npm:^3.0.1":
-  version: 3.0.1
-  resolution: "gulp-cssbeautify@npm:3.0.1"
-  dependencies:
-    cssbeautify: ^0.3.1
-    plugin-error: ^1.0.1
-    through2: ^4.0.2
-  checksum: c09066d16e4a367ab4f952eb0f80296267fdf121a699e084aaaf0cdbb2797e8f4113962e33f497aaf060dcb1d6edcf600f8a04bafc7689f7eba97efe898b525f
   languageName: node
   linkType: hard
 
@@ -3824,7 +3825,7 @@ __metadata:
     fs-extra: ^10.1.0
     gulp: ^4.0.2
     gulp-changed: ^4.0.3
-    gulp-cssbeautify: ^3.0.1
+    gulp-clean-css: ^4.3.0
     gulp-esbuild: ^0.10.4
     gulp-header: ^2.0.9
     gulp-html-img-to-picture: ^1.0.3
@@ -6136,7 +6137,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"plugin-error@npm:^1.0.1":
+"plugin-error@npm:1.0.1, plugin-error@npm:^1.0.1":
   version: 1.0.1
   resolution: "plugin-error@npm:1.0.1"
   dependencies:
@@ -7865,7 +7866,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"source-map@npm:^0.6.1":
+"source-map@npm:^0.6.1, source-map@npm:~0.6.0":
   version: 0.6.1
   resolution: "source-map@npm:0.6.1"
   checksum: 59ce8640cf3f3124f64ac289012c2b8bd377c238e316fb323ea22fbfe83da07d81e000071d7242cad7a23cd91c7de98e4df8830ec3f133cb6133a5f6e9f67bc2
@@ -8418,6 +8419,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"through2@npm:3.0.1":
+  version: 3.0.1
+  resolution: "through2@npm:3.0.1"
+  dependencies:
+    readable-stream: 2 || 3
+  checksum: ffac3931c1906b5d3a375b71e3d692228432299ba63213e65d686f95ea3abe1bb5726fa335fb7eba9c6f5f010da17c071a6c1c531bd091b2ec7650bc38bcaf13
+  languageName: node
+  linkType: hard
+
 "through2@npm:^2.0.0, through2@npm:^2.0.3, through2@npm:~2.0.0":
   version: 2.0.5
   resolution: "through2@npm:2.0.5"
@@ -8839,7 +8849,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vinyl-sourcemaps-apply@npm:^0.2.1":
+"vinyl-sourcemaps-apply@npm:0.2.1, vinyl-sourcemaps-apply@npm:^0.2.1":
   version: 0.2.1
   resolution: "vinyl-sourcemaps-apply@npm:0.2.1"
   dependencies:

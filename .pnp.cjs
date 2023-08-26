@@ -35,7 +35,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["fs-extra", "npm:10.1.0"],\
             ["gulp", "npm:4.0.2"],\
             ["gulp-changed", "virtual:8478be7507d755314ad2aef21855a59474e8f3a2e580df89c96b0373a59f12e91422bee35aa833e3558be4fe3619324ce08947bedc2d64108cc4f112974ec1de#npm:4.0.3"],\
-            ["gulp-cssbeautify", "npm:3.0.1"],\
+            ["gulp-clean-css", "npm:4.3.0"],\
             ["gulp-esbuild", "npm:0.10.8"],\
             ["gulp-header", "npm:2.0.9"],\
             ["gulp-html-img-to-picture", "npm:1.0.3"],\
@@ -2085,6 +2085,16 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["clean-css", [\
+        ["npm:4.2.3", {\
+          "packageLocation": "./.yarn/cache/clean-css-npm-4.2.3-976d15760b-613129973a.zip/node_modules/clean-css/",\
+          "packageDependencies": [\
+            ["clean-css", "npm:4.2.3"],\
+            ["source-map", "npm:0.6.1"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["clean-stack", [\
         ["npm:2.2.0", {\
           "packageLocation": "./.yarn/cache/clean-stack-npm-2.2.0-a8ce435a5c-2ac8cd2b2f.zip/node_modules/clean-stack/",\
@@ -2615,15 +2625,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/css-what-npm-6.1.0-57f751efbb-b975e547e1.zip/node_modules/css-what/",\
           "packageDependencies": [\
             ["css-what", "npm:6.1.0"]\
-          ],\
-          "linkType": "HARD"\
-        }]\
-      ]],\
-      ["cssbeautify", [\
-        ["npm:0.3.1", {\
-          "packageLocation": "./.yarn/cache/cssbeautify-npm-0.3.1-b5fb9b8d08-8553be112a.zip/node_modules/cssbeautify/",\
-          "packageDependencies": [\
-            ["cssbeautify", "npm:0.3.1"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -4447,6 +4448,19 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["gulp-clean-css", [\
+        ["npm:4.3.0", {\
+          "packageLocation": "./.yarn/cache/gulp-clean-css-npm-4.3.0-36ed6ad196-df0ac03206.zip/node_modules/gulp-clean-css/",\
+          "packageDependencies": [\
+            ["gulp-clean-css", "npm:4.3.0"],\
+            ["clean-css", "npm:4.2.3"],\
+            ["plugin-error", "npm:1.0.1"],\
+            ["through2", "npm:3.0.1"],\
+            ["vinyl-sourcemaps-apply", "npm:0.2.1"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["gulp-cli", [\
         ["npm:2.3.0", {\
           "packageLocation": "./.yarn/cache/gulp-cli-npm-2.3.0-acd3fcd6e3-42e3ca1374.zip/node_modules/gulp-cli/",\
@@ -4470,18 +4484,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["semver-greatest-satisfied-range", "npm:1.1.0"],\
             ["v8flags", "npm:3.2.0"],\
             ["yargs", "npm:7.1.2"]\
-          ],\
-          "linkType": "HARD"\
-        }]\
-      ]],\
-      ["gulp-cssbeautify", [\
-        ["npm:3.0.1", {\
-          "packageLocation": "./.yarn/cache/gulp-cssbeautify-npm-3.0.1-b9e4e93145-c09066d16e.zip/node_modules/gulp-cssbeautify/",\
-          "packageDependencies": [\
-            ["gulp-cssbeautify", "npm:3.0.1"],\
-            ["cssbeautify", "npm:0.3.1"],\
-            ["plugin-error", "npm:1.0.1"],\
-            ["through2", "npm:4.0.2"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -4712,7 +4714,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["fs-extra", "npm:10.1.0"],\
             ["gulp", "npm:4.0.2"],\
             ["gulp-changed", "virtual:8478be7507d755314ad2aef21855a59474e8f3a2e580df89c96b0373a59f12e91422bee35aa833e3558be4fe3619324ce08947bedc2d64108cc4f112974ec1de#npm:4.0.3"],\
-            ["gulp-cssbeautify", "npm:3.0.1"],\
+            ["gulp-clean-css", "npm:4.3.0"],\
             ["gulp-esbuild", "npm:0.10.8"],\
             ["gulp-header", "npm:2.0.9"],\
             ["gulp-html-img-to-picture", "npm:1.0.3"],\
@@ -10278,6 +10280,14 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["through2", "npm:2.0.5"],\
             ["readable-stream", "npm:2.3.8"],\
             ["xtend", "npm:4.0.2"]\
+          ],\
+          "linkType": "HARD"\
+        }],\
+        ["npm:3.0.1", {\
+          "packageLocation": "./.yarn/cache/through2-npm-3.0.1-dcc4042403-ffac3931c1.zip/node_modules/through2/",\
+          "packageDependencies": [\
+            ["through2", "npm:3.0.1"],\
+            ["readable-stream", "npm:3.6.2"]\
           ],\
           "linkType": "HARD"\
         }],\

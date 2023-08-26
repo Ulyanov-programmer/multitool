@@ -64,6 +64,7 @@ const pathToProject = path.resolve('./'),
 
   fontsGitkeep = `${src}/fonts/.gitkeep`,
   mainStyleFile = `${src}/styles/index.pcss`,
+  indexPage = `${src}/index.html`,
   modulesStyleFolder = `${src}/styles/modules`,
   mainHtmlFile = `${src}/index.html`,
   gulpFile = `${pathToProject}/gulpfile.js`,
@@ -360,16 +361,23 @@ await setVariables(
     variableFilePath: layoutFilePath,
     fields: [
       { name: 'mainLangOfPages', initial: 'en' },
-      { name: 'IndexPageTitle', initial: 'Unnamed page', },
       { name: 'preloadedFontFilename', initial: 'none', },
     ],
     template:
       `// Set the main language of pages below.
   lang: '\${mainLangOfPages}',
-  // Set the title of the index page below.
-  title: props.title || '\${IndexPageTitle}',
   // Set a name for a preloaded font. Must be a file name without extension.
   preloadedFontName: '\${preloadedFontFilename}',`
+  }),
+  new VariableTemplate({
+    snippetName: 'Title of index page',
+    message: chalk.magentaBright('Title of index page...'),
+    variableFilePath: indexPage,
+    fields: [
+      { name: 'title', initial: 'UnnamedPage' },
+    ],
+    template:
+      `<x-layout title='\${title}'`
   }),
   new VariableTemplate({
     snippetName: 'stylesheetVariables',
