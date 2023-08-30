@@ -1,12 +1,15 @@
 * {
-  margin: 0;
-  padding: 0;
-  border: 0;
+  all: unset;
+  box-sizing: border-box;
 }
 
-*,
-*::before,
-*::after {
+head,
+script {
+  display: none;
+}
+
+::before,
+::after {
   box-sizing: border-box;
 }
 
@@ -14,25 +17,22 @@
   outline: none;
 }
 
-*:focus-visible {
+:focus-visible {
   outline: 1px solid;
 }
 
 nav,
 footer,
 header,
-aside {
+aside,
+body {
   display: block;
 }
 
 html,
 body {
-  width: 100%;
-  height: 100%;
-
-  font-size: 100%;
   line-height: 1;
-  text-size-adjust: 100%;
+  text-size-adjust: auto;
 
   -webkit-tap-highlight-color: #0000;
 }
@@ -41,34 +41,14 @@ html {
   scroll-behavior: smooth;
 }
 
+a,
 button {
   cursor: pointer;
-
-  font-size: inherit;
-  line-height: 1;
-  color: inherit;
-
-  background: none;
   outline-color: transparent;
-
-  &::-moz-focus-inner {
-    padding: 0;
-    border: 0;
-  }
-}
-
-input,
-button,
-textarea {
-  font-family: inherit;
 }
 
 input {
   width: fit-content;
-
-  &::-ms-clear {
-    display: none;
-  }
 
   &:focus-visible {
     outline: none;
@@ -78,7 +58,6 @@ input {
 select {
   cursor: pointer;
   width: 100%;
-  font-family: inherit;
   appearance: none;
 
   &:focus-visible {
@@ -88,16 +67,10 @@ select {
 
 a {
   display: inline-block;
-  text-decoration: none;
 
   &:hover,
   &:visited {
     text-decoration: none;
-  }
-
-  &:active,
-  &:focus {
-    outline: none;
   }
 }
 
@@ -116,17 +89,10 @@ h3,
 h4,
 h5,
 h6 {
-  font-size: inherit;
   text-wrap: balance;
 }
 
-address {
-  font-style: normal;
-}
-
 body {
-  height: max-content;
-
   font-family: var(--main-font-family);
   font-size: clamp(
     pxRem($minFontSize),
