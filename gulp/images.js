@@ -26,33 +26,25 @@ export default function images() {
     .pipe(
       sharpOptimizeImages({
         png_to_webp: {
-          quality: 80,
+          quality: 90,
         },
         png_to_avif: {
-          quality: 80,
-        },
-        png_to_png: {
-          quality: 80,
-          compressionLevel: 9,
+          quality: 90,
         },
         jpg_to_webp: {
-          quality: 80,
+          quality: 90,
         },
         jpg_to_avif: {
-          quality: 80,
+          quality: 90,
         },
-        jpg_to_jpg: {
-          quality: 80,
-          mozjpeg: true,
+        gif_to_webp: {
+          quality: 95,
         },
         webp_to_webp: {
-          quality: 80,
+          quality: 90,
         },
         avif_to_avif: {
-          quality: 80,
-        },
-        gif_to_gif: {
-          quality: 80,
+          quality: 90,
         },
       })
     )
