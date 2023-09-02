@@ -18,14 +18,12 @@ class ImportModuleObject {
 }
 class ModuleObject {
   moduleName
-  scriptFilesPaths
-  styleFilesPath
-  htmlFilesPaths
+  filesAndFolders
   htmlConnectStrings
 
-  constructor({ moduleName, scriptFilesPaths, styleFilesPath, htmlFilesPaths, htmlConnectStrings }) {
+  constructor({ moduleName, filesAndFolders, htmlConnectStrings }) {
     this.moduleName = moduleName
-    this.scriptFilesPaths = scriptFilesPaths
+    this.filesAndFolders = filesAndFolders
     this.styleFilesPath = styleFilesPath
     this.htmlFilesPaths = htmlFilesPaths
     this.htmlConnectStrings = htmlConnectStrings
@@ -48,37 +46,33 @@ class VariableTemplate {
 }
 
 const pathToProject = path.resolve('./'),
-  distFolderName = `${pathToProject}/dist`,
-  snippetsFolderName = `${pathToProject}/snippets`,
-  readmeFolder = `${pathToProject}/readmeFiles`,
-  src = `${pathToProject}/src`,
-  scriptModules = `${src}/scripts/modules/`,
-  scriptGeneral = `${src}/scripts/`,
-  stylesModules = `${src}/styles/modules/`,
+  distFolderName = `${pathToProject}/dist/`,
+  snippetsFolderName = `${pathToProject}/snippets/`,
+  readmeFolder = `${pathToProject}/readmeFiles/`,
+  src = `${pathToProject}/src/`,
+  gulpFile = `${pathToProject}/gulpfile.js`,
+  readmeFilePath = `${pathToProject}/README.md`,
+
+  scriptsFolder = `${src}/scripts/`,
+  stylesFolder = `${src}/styles/`,
   componentsFolder = `${src}/components/`,
   phpFolder = `${src}/php/`,
   libsFolder = `${src}/libs/`,
-  environmentFilePath = `${src}/styles/_environment.pcss`,
-  generalStyleFilePath = `${src}/styles/general/general.pcss`,
-  layoutFilePath = `${componentsFolder}/layout.html`,
 
+  generalScriptsFile = `${scriptsFolder}scripts.ts`,
+  environmentFilePath = `${stylesFolder}_environment.pcss`,
+  baseStyleFile = `${stylesFolder}base.pcss`,
+  layoutHtmlFile = `${componentsFolder}/layout.html`,
   fontsGitkeep = `${src}/fonts/.gitkeep`,
-  mainStyleFile = `${src}/styles/index.pcss`,
+  mainStyleFile = `${stylesFolder}module.pcss`,
   indexPage = `${src}/index.html`,
-  modulesStyleFolder = `${src}/styles/modules`,
-  mainHtmlFile = `${src}/index.html`,
-  gulpFile = `${pathToProject}/gulpfile.js`,
-  readmeFilePath = `${pathToProject}/README.md`,
 
   srcDemoFoldersAndFIles = [
     `${src}/docs`, `${src}/img/demo`,
   ],
   phpMailerFiles = [
     `${phpFolder}Exception.php`, `${phpFolder}mail.php`, `${phpFolder}PHPMailer.php`, `${phpFolder}SMTP.php`,
-  ],
-
-  /** The extension of typescript source files.  */
-  srcExt = '.src.ts'
+  ]
 
 
 
@@ -111,15 +105,13 @@ await setImportModule(
     moduleName: `Just-validate`,
     htmlConnectSlug: `justValidate`,
     pathsToDelete: [
-      `${src}/scripts/justValidate.js`,
-      `${libsFolder}just-validate.production.min.js`,
+      `${libsFolder}justValidate/`,
     ],
   }),
   new ImportModuleObject({
     moduleName: `Slider Swiper`,
     htmlConnectSlug: `swiper`,
     pathsToDelete: [
-      `${src}/scripts/sliders.ts`,
       `${libsFolder}swiper/`,
     ],
   }),
@@ -127,8 +119,7 @@ await setImportModule(
     moduleName: `Typed`,
     htmlConnectSlug: `typed`,
     pathsToDelete: [
-      `${src}/scripts/typed.js`,
-      `${libsFolder}typed.min.js`,
+      `${libsFolder}typed/`,
     ],
   }),
   new ImportModuleObject({
@@ -149,7 +140,6 @@ await setImportModule(
     moduleName: `Photo Swipe`,
     htmlConnectSlug: `photoSwipe`,
     pathsToDelete: [
-      `${src}/scripts/photoSwipe.ts`,
       `${libsFolder}photoswipe/`,
     ],
   }),
@@ -157,7 +147,6 @@ await setImportModule(
     moduleName: `noUiSlider`,
     htmlConnectSlug: `noUiSlider`,
     pathsToDelete: [
-      `${src}/scripts/nouislider.ts`,
       `${libsFolder}nouislider/`,
     ],
   })
@@ -165,12 +154,8 @@ await setImportModule(
 await includeModuleByQuestion(
   new ModuleObject({
     moduleName: 'Burger-menu',
-    scriptFilesPaths: [
-      `${scriptModules}burgerMenu${srcExt}`,
-      `${scriptGeneral}burgerMenu.ts`,
-    ],
-    styleFilesPath: `${stylesModules}burgerMenu.pcss`,
-    htmlFilesPaths: [
+    filesAndFolders: [
+      `${scriptsFolder}burgerMenu/`,
       `${componentsFolder}burgerMenu.html`,
     ],
     htmlConnectStrings: [
@@ -185,24 +170,17 @@ await includeModuleByQuestion(
   }),
   new ModuleObject({
     moduleName: 'Sidebar',
-    scriptFilesPaths: [
-      `${scriptModules}sidebar${srcExt}`,
-      `${scriptGeneral}sidebar.ts`,
+    filesAndFolders: [
+      `${scriptsFolder}sidebar/`,
     ],
-    styleFilesPath: `${stylesModules}sidebar.pcss`,
-    htmlFilesPaths: null,
     htmlConnectStrings: [
       { strings: "sidebar='false'" }
     ],
   }),
   new ModuleObject({
     moduleName: 'Scripts for dialog',
-    scriptFilesPaths: [
-      `${scriptModules}dialogs${srcExt}`,
-      `${scriptGeneral}dialogs.ts`,
-    ],
-    styleFilesPath: `${stylesModules}dialogs.pcss`,
-    htmlFilesPaths: [
+    filesAndFolders: [
+      `${scriptsFolder}dialogs/`,
       `${componentsFolder}modals.html`,
     ],
     htmlConnectStrings: [
@@ -212,129 +190,99 @@ await includeModuleByQuestion(
   }),
   new ModuleObject({
     moduleName: 'Spoilers',
-    scriptFilesPaths: [
-      `${scriptModules}spoiler${srcExt}`,
-      `${scriptGeneral}spoiler.ts`,
+    filesAndFolders: [
+      `${scriptsFolder}spoiler/`,
     ],
-    styleFilesPath: `${stylesModules}spoiler.pcss`,
-    htmlFilesPaths: null,
     htmlConnectStrings: [
       { strings: "spoiler='false'" }
     ],
   }),
   new ModuleObject({
     moduleName: 'Submenu',
-    scriptFilesPaths: [
-      `${scriptModules}submenu${srcExt}`,
-      `${scriptGeneral}submenu.ts`,
+    filesAndFolders: [
+      `${scriptsFolder}submenu/`,
     ],
-    styleFilesPath: `${stylesModules}submenu.pcss`,
-    htmlFilesPaths: null,
     htmlConnectStrings: [
       { strings: "submenu='false'" }
     ],
   }),
   new ModuleObject({
     moduleName: 'Tabs',
-    scriptFilesPaths: [
-      `${scriptModules}tab${srcExt}`,
-      `${scriptGeneral}tab.ts`,
+    filesAndFolders: [
+      `${scriptsFolder}tab/`,
     ],
-    styleFilesPath: null,
-    htmlFilesPaths: null,
     htmlConnectStrings: [
       { strings: "tabs='false'" }
     ],
   }),
   new ModuleObject({
     moduleName: 'Element-modal',
-    scriptFilesPaths: [
-      `${scriptModules}elementModal${srcExt}`,
-      `${scriptGeneral}elementModal.ts`,
+    filesAndFolders: [
+      `${scriptsFolder}elementModal/`,
     ],
-    styleFilesPath: null,
-    htmlFilesPaths: null,
     htmlConnectStrings: [
       { strings: "elementModal='false'" }
     ],
   }),
   new ModuleObject({
     moduleName: 'Parallax',
-    scriptFilesPaths: [
-      `${scriptModules}parallax${srcExt}`,
-      `${scriptGeneral}parallax.ts`,
+    filesAndFolders: [
+      `${scriptsFolder}parallax/`,
     ],
-    styleFilesPath: null,
-    htmlFilesPaths: null,
     htmlConnectStrings: [
       { strings: "parallax='false'" }
     ],
   }),
   new ModuleObject({
     moduleName: 'AutoScrollPadding',
-    scriptFilesPaths: [
-      `${scriptModules}autoScrollPadding${srcExt}`,
-      `${scriptGeneral}autoScrollPadding.ts`,
+    filesAndFolders: [
+      `${scriptsFolder}autoScrollPadding/`,
     ],
-    styleFilesPath: null,
-    htmlFilesPaths: null,
     htmlConnectStrings: [
       { strings: "autoScrollPadding='false'" }
     ],
   }),
   new ModuleObject({
-    moduleName: 'Animations by scroll',
-    scriptFilesPaths: [
-      `${scriptModules}animateByScroll${srcExt}`,
-      `${scriptGeneral}animateByScroll.ts`,
-      `${scriptModules}scroll-timeline.js`,
+    moduleName: 'Tools for observer',
+    filesAndFolders: [
+      `${scriptsFolder}observerTools/`,
     ],
-    styleFilesPath: null,
-    htmlFilesPaths: null,
     htmlConnectStrings: [
-      { strings: "animateByScroll='false'" }
+      { strings: "observerTools='false'" }
     ],
   }),
   new ModuleObject({
     moduleName: 'Horizontal scroll',
-    scriptFilesPaths: [
-      `${scriptGeneral}horizontalScroll.ts`,
+    filesAndFolders: [
+      `${scriptsFolder}horizontalScroll.ts`,
     ],
-    styleFilesPath: null,
-    htmlFilesPaths: null,
     htmlConnectStrings: [
       { strings: "horizontalScroll='false'" }
     ],
   }),
   new ModuleObject({
     moduleName: 'Swipe module (required to switch a sidebar by swipe)',
-    scriptFilesPaths: [
-      `${scriptModules}swipe${srcExt}`,
-      `${scriptGeneral}swipe.ts`,
+    filesAndFolders: [
+      `${scriptsFolder}swipe/`,
     ],
-    styleFilesPath: null,
-    htmlFilesPaths: null,
     htmlConnectStrings: [
       { strings: "swipe='false'" }
     ],
   }),
   new ModuleObject({
     moduleName: 'Form styles',
-    scriptFilesPaths: [],
-    styleFilesPath: `${stylesModules}form.pcss`,
-    htmlFilesPaths: null,
+    filesAndFolders: [
+      `${stylesFolder}form.pcss`,
+    ],
     htmlConnectStrings: [
       { strings: "formStyles='false'" }
     ],
   }),
   new ModuleObject({
     moduleName: 'Step By Step block',
-    scriptFilesPaths: [
-      `${scriptModules}stepByStepBlock${srcExt}`,
-      `${scriptGeneral}stepByStepBlock.ts`,
+    filesAndFolders: [
+      `${scriptsFolder}stepByStepBlock/`,
     ],
-    styleFilesPath: null,
-    htmlFilesPaths: null,
     htmlConnectStrings: [
       { strings: "stepByStep='false'" }
     ],
@@ -358,7 +306,7 @@ await setVariables(
   new VariableTemplate({
     snippetName: 'htmlLayout',
     message: chalk.magentaBright('Fill out the fields in the html-layout.'),
-    variableFilePath: layoutFilePath,
+    variableFilePath: layoutHtmlFile,
     fields: [
       { name: 'mainLangOfPages', initial: 'en' },
       { name: 'preloadedFontFilename', initial: 'none', },
@@ -382,7 +330,7 @@ await setVariables(
   new VariableTemplate({
     snippetName: 'stylesheetVariables',
     message: chalk.magentaBright('Fill out the general stylesheet variables.'),
-    variableFilePath: generalStyleFilePath,
+    variableFilePath: baseStyleFile,
     fields: [
       { name: 'mainFontName', initial: 'arial', },
       { name: 'mainTextColor', initial: 'black', },
@@ -392,6 +340,31 @@ await setVariables(
       `--main-font-family: \${mainFontName};
 --main-text-color: \${mainTextColor};
 --background: \${backgroundColor};`
+  }),
+  new VariableTemplate({
+    snippetName: 'mediaContentWidthVariables',
+    message: chalk.magentaBright('Fill out the content width variables.'),
+    variableFilePath: baseStyleFile,
+    fields: [
+      { name: 'bigVpPaddings', initial: '15vw', },
+      { name: 'pcPaddings', initial: '10vw', },
+      { name: 'tabletPaddings', initial: '5vw', },
+      { name: 'mobilePaddings', initial: '2.5vw', },
+    ],
+    template:
+      `/* ? Paddings for site content assigned via the _centered-content class. */
+
+/* Paddings for site content, in a large viewport. */
+--big-viewport-content-inline-padding: \${bigVpPaddings};
+
+/* Paddings for site content, in a PC viewport. */
+--pc-content-inline-padding: \${pcPaddings};
+
+/* Paddings for site content, in a tablet viewport. */
+--tablet-content-inline-padding: \${tabletPaddings};
+
+/* Paddings for site content, in a smartphone viewport. */
+--mobile-content-inline-padding: \${mobilePaddings};`,
   }),
   new VariableTemplate({
     snippetName: 'stylesheetSassLikeVariables',
@@ -408,27 +381,6 @@ await setVariables(
 $minLayoutWidth: \${minimalWidthOfYourDesign}px;
 $mainFontSize: \${mainSize}px;
 $minFontSize: \${minSize}px;`
-  }),
-  new VariableTemplate({
-    snippetName: 'mediaContentWidthVariables',
-    message: chalk.magentaBright('Fill out the content width variables.'),
-    variableFilePath: generalStyleFilePath,
-    fields: [
-      { name: 'bigVpPaddings', initial: '15vw', },
-      { name: 'pcPaddings', initial: '10vw', },
-      { name: 'tabletPaddings', initial: '5vw', },
-      { name: 'mobilePaddings', initial: '2.5vw', },
-    ],
-    template:
-      `/* ? Paddings for site content assigned via the _centered-content class. */
-/* Paddings for site content, in a large viewport. */
---big-viewport-content-inline-padding: \${bigVpPaddings};
-/* Paddings for site content, in a PC viewport. */
---pc-content-inline-padding: \${pcPaddings};
-/* Paddings for site content, in a tablet viewport. */
---tablet-content-inline-padding: \${tabletPaddings};
-/* Paddings for site content, in a smartphone viewport. */
---mobile-content-inline-padding: \${mobilePaddings};`,
   }),
 )
 
@@ -470,9 +422,6 @@ function deleteGitKeep() {
   deleteFolder(fontsGitkeep, 'Gitkeep have been deleted.')
 }
 function deleteUnusedFolders() {
-  if (isFolderEmpty(modulesStyleFolder)) {
-    deleteFolder(modulesStyleFolder)
-  }
   if (isFolderEmpty(phpFolder)) {
     deleteFolder(phpFolder)
   }
@@ -506,19 +455,9 @@ async function includeModuleByQuestion(...moduleObjects) {
       replaceHtmlConnectionString(module.htmlConnectStrings, 'false', 'true')
     }
     else {
-      if (module.scriptFilesPaths.length > 0) {
-        for (let scriptPath of module.scriptFilesPaths) {
-          fs.removeSync(scriptPath)
-        }
-      }
-
-      if (module.styleFilesPath) {
-        fs.removeSync(module.styleFilesPath)
-      }
-
-      if (module.htmlFilesPaths != undefined && module.htmlFilesPaths.length > 0) {
-        for (let htmlPath of module.htmlFilesPaths) {
-          fs.removeSync(htmlPath)
+      if (module.filesAndFolders) {
+        for (let fileOrFolder of module.filesAndFolders) {
+          fs.removeSync(fileOrFolder)
         }
       }
 
@@ -548,7 +487,7 @@ async function setImportModule(...importModuleObjects) {
       if (module.htmlConnectSlug == false) continue
 
       replace.sync({
-        files: mainHtmlFile,
+        files: indexPage,
         from: `${module.htmlConnectSlug}='false'`,
         to: `${module.htmlConnectSlug}='true'`,
       })
@@ -556,7 +495,7 @@ async function setImportModule(...importModuleObjects) {
     else {
       if (module.htmlConnectSlug) {
         replace.sync({
-          files: mainHtmlFile,
+          files: indexPage,
           from: `${module.htmlConnectSlug}='false'`,
           to: '',
         })
@@ -637,7 +576,7 @@ function replaceHtmlConnectionString(htmlConnectStrings, replacedValue, replaced
 
   for (let htmlConnectStringData of htmlConnectStrings) {
     if (htmlConnectStringData.path == undefined)
-      htmlConnectStringData.path = mainHtmlFile
+      htmlConnectStringData.path = indexPage
 
 
     let newHtmlConnectString
