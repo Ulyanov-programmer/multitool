@@ -69,6 +69,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@csstools/css-calc@npm:^1.1.3":
+  version: 1.1.3
+  resolution: "@csstools/css-calc@npm:1.1.3"
+  peerDependencies:
+    "@csstools/css-parser-algorithms": ^2.3.1
+    "@csstools/css-tokenizer": ^2.2.0
+  checksum: a4130112663ff9ef972b9edf595055772cea9244e3b4658870e9df6695363f832fe25a6f38754b1c1ece37e2ae9f19928327f01f4149b0c300d2bcf1f0147a57
+  languageName: node
+  linkType: hard
+
 "@csstools/css-color-parser@npm:^1.1.2":
   version: 1.1.2
   resolution: "@csstools/css-color-parser@npm:1.1.2"
@@ -278,6 +288,20 @@ __metadata:
   peerDependencies:
     postcss: ^8.4
   checksum: 2de76e7b11c41fc6ac4a2c0f2bb53586da742838c32bfd72b355d6f417b6971a194bc9f12fd868e79d70b8f906446b952c6c32ddecbdb6f62daec1815db061a5
+  languageName: node
+  linkType: hard
+
+"@csstools/postcss-media-minmax@npm:^1.0.7":
+  version: 1.0.7
+  resolution: "@csstools/postcss-media-minmax@npm:1.0.7"
+  dependencies:
+    "@csstools/css-calc": ^1.1.3
+    "@csstools/css-parser-algorithms": ^2.3.1
+    "@csstools/css-tokenizer": ^2.2.0
+    "@csstools/media-query-list-parser": ^2.1.4
+  peerDependencies:
+    postcss: ^8.4
+  checksum: 063e36966452d4a1bb8bebadc937f0524f6d075319f025e019f08337bd909ba227f0386e3c74acdec56a4de245623f84c9aa1e9ea772b518760694cfa36d9d16
   languageName: node
   linkType: hard
 
@@ -3477,6 +3501,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"gulp-changed-in-place@npm:^2.3.0":
+  version: 2.3.0
+  resolution: "gulp-changed-in-place@npm:2.3.0"
+  dependencies:
+    through2: ^2.0.0
+  checksum: 68f1a393e0aadae95aa6f066d0bda5a1826fa1b98af9acf4b442f8ffd1a7018934e8d9054a6dc45a7c25a752834ed98d87205a8e0527ea0f3b3cc6495483b79c
+  languageName: node
+  linkType: hard
+
 "gulp-changed@npm:^4.0.3":
   version: 4.0.3
   resolution: "gulp-changed@npm:4.0.3"
@@ -3712,6 +3745,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "gulp_multitool@workspace:."
   dependencies:
+    "@csstools/postcss-media-minmax": ^1.0.7
     autoprefixer: ^10.4.13
     browser-sync: ^2.27.10
     chalk: ^5.2.0
@@ -3719,6 +3753,7 @@ __metadata:
     fs-extra: ^10.1.0
     gulp: ^4.0.2
     gulp-changed: ^4.0.3
+    gulp-changed-in-place: ^2.3.0
     gulp-clean-css: ^4.3.0
     gulp-esbuild: ^0.10.4
     gulp-header: ^2.0.9
@@ -3739,7 +3774,6 @@ __metadata:
     postcss-discard-comments: ^6.0.0
     postcss-functions: ^4.0.2
     postcss-import: ^15.1.0
-    postcss-media-minmax: ^5.0.0
     postcss-mixins: ^9.0.4
     postcss-nested: ^6.0.1
     postcss-preset-env: ^8.3.2
@@ -6158,15 +6192,6 @@ __metadata:
   peerDependencies:
     postcss: ^8.4
   checksum: a84b22b1e2839fcf2199da8670775ee07afe6826408a80d350e7a0966de4baf21d165cbfb7a0a2c30d029a2f9e62330ac96bbcc5a5663c97f32ee108feace097
-  languageName: node
-  linkType: hard
-
-"postcss-media-minmax@npm:^5.0.0":
-  version: 5.0.0
-  resolution: "postcss-media-minmax@npm:5.0.0"
-  peerDependencies:
-    postcss: ^8.1.0
-  checksum: 2cd7283e07a1ac1acdcc3ecbaa0e9932f8d1e7647e7aeb14d91845fcb890d60d7257ec70c825cae8d48ae80a08cc77ebc4021a0dfa32360e0cd991e2bc021607
   languageName: node
   linkType: hard
 

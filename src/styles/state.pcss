@@ -1,18 +1,25 @@
 .is-centered-content {
+  /* Paddings for site content with default value. */
+  padding-inline: var(--content-inline-padding, 10vw);
+
   @media (--is-large-layout) {
-    padding-inline: var(--big-viewport-content-inline-padding);
+    /* Paddings in a large viewport. */
+    --content-inline-padding: 15vw;
   }
 
   @media (--is-layout-width) {
-    padding-inline: var(--pc-content-inline-padding);
+    /* Paddings in a PC viewport. */
+    --content-inline-padding: 10vw;
   }
 
   @media (--is-tablet) {
-    padding-inline: var(--tablet-content-inline-padding);
+    /* Paddings in a tablet viewport. */
+    --content-inline-padding: 5vw;
   }
 
   @media (--is-mobile) {
-    padding-inline: var(--mobile-content-inline-padding);
+    /* Paddings in a smartphone viewport. */
+    --content-inline-padding: 2.5vw;
   }
 }
 

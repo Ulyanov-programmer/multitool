@@ -32,7 +32,7 @@ export default function css() {
         }),
         $.postcssNested(),
         $.postcssSimpleVars(),
-        $.postcssMediaMinmax(),
+        $.csstools.postcssMediaMinmax(),
         $.postcssFunctions({
           functions: {
             pxToVw: (px, layoutWidth) => pxToVw(px, layoutWidth),

@@ -29,9 +29,9 @@ export const paths = {
       `${source}/styles/**/_*.pcss`,
     ],
     apiScripts: [
-      `${source}/scripts/**/*.{ts,js}`, `!${source}/scripts/**/*.{src.ts,src.js}`
+      `${source}/scripts/**/*.{ts,js}`, `!${source}/scripts/**/*.src.{ts,js}`
     ],
-    sourcesScripts: `${source}/scripts/**/*.{src.ts,src.js}`,
+    sourcesScripts: `${source}/scripts/**/*.src.{ts,js}`,
     images: `${source}/img/**/*.{gif,ico,webp,avif,png,jpg}`,
     imagesSvg: `${source}/img/**/*.svg`,
     fonts: `${source}/fonts/*.{ttf,otf}`,
@@ -46,7 +46,10 @@ export const paths = {
     cssNoAccessToDist: `${source}/styles/**/_*.pcss`,
     php: `${source}/php/*.php`,
     demoCss: `${source}/docs/*.pcss`,
-    scripts: `${source}/scripts/**/*.{ts,js}`,
+    apiScripts: [
+      `${source}/scripts/**/*.{ts,js}`, `!${source}/scripts/**/*.src.{ts,js}`
+    ],
+    sourcesScripts: `${source}/scripts/**/*.src.{ts,js}`,
     images: `${source}/img/**/*.{gif,ico,jpg,png,webp,avif}`,
     imagesSvg: `${source}/img/**/*.svg`,
     libs: `${source}/libs/*.*`,

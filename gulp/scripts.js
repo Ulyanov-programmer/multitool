@@ -4,19 +4,22 @@ import gulp from 'gulp'
 import browsersync from 'browser-sync'
 import { paths } from './paths.js'
 
-export default function scripts() {
-  gulp.src(paths.src.apiScripts)
-    .pipe(
-      $.changed(paths.build.scripts, { extension: '.js' })
-    )
-
+export function apiScripts() {
+  return gulp.src(paths.src.apiScripts)
     .pipe($.esbuild({
       target: 'es2018',
     }))
 
+    .pipe(
+      $.changedInPlace({
+        firstPass: true,
+      })
+    )
+
     .pipe(gulp.dest(paths.build.scripts))
     .pipe(browsersync.stream())
-
+}
+export function sourcesScripts() {
   return gulp.src(paths.src.sourcesScripts)
     .pipe(
       $.if(isProd,
@@ -31,6 +34,13 @@ export default function scripts() {
         })
       )
     )
+
+    .pipe(
+      $.changedInPlace({
+        firstPass: true,
+      })
+    )
+
     .pipe(gulp.dest(paths.build.scripts))
     .pipe(browsersync.stream())
 }

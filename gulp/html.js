@@ -40,6 +40,12 @@ export default function html() {
       )
     )
 
+    .pipe(
+      $.changedInPlace({
+        firstPass: true,
+      })
+    )
+
     .pipe($.if(isProd, htmlValidator.analyzer()))
     .pipe($.if(isProd, htmlValidator.reporter()))
 

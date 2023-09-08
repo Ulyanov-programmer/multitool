@@ -1,7 +1,11 @@
 import loadPlugins from 'gulp-load-plugins'
 export let $ = loadPlugins({
   overridePattern: true,
-  pattern: ['gulp-*', 'gulp.*', '@*/gulp{-,.}*', 'postcss-*', 'posthtml-*',],
+  pattern: [
+    'gulp-*', 'gulp.*', '@*/gulp{-,.}*', 
+    'postcss-*', '@*/postcss-*', 
+    'posthtml-*', '@*/posthtml-*',
+  ],
   config: process.env.npm_package_json,
 })
 
@@ -14,7 +18,7 @@ export const isProd = process.argv.includes('--prod')
 import html from './gulp/html.js'
 import php from './gulp/php.js'
 import css, { environmentCss } from './gulp/css.js'
-import scripts, { libs } from './gulp/scripts.js'
+import { apiScripts, sourcesScripts, libs } from './gulp/scripts.js'
 import fonts, { fontsStyle } from './gulp/fonts.js'
 import images, { imagesSvg } from './gulp/images.js'
 import video from './gulp/video.js'
@@ -39,7 +43,11 @@ function watchFiles() {
     })
   gulp.watch(paths.watch.cssNoAccessToDist, environmentCss)
 
-  gulp.watch(paths.watch.scripts, scripts)
+  gulp.watch(paths.watch.apiScripts, apiScripts)
+    .on('unlink', (filePath) => {
+      deleteUnlinkFiles(filePath, ['.js'])
+    })
+  gulp.watch(paths.watch.sourcesScripts, sourcesScripts)
     .on('unlink', (filePath) => {
       deleteUnlinkFiles(filePath, ['.js'])
     })
@@ -61,7 +69,7 @@ function watchFiles() {
 }
 
 const mainTasks = [
-  html, css, environmentCss, fonts, scripts, php, imagesSvg, images, video,
+  html, css, environmentCss, fonts, apiScripts, sourcesScripts, php, imagesSvg, images, video,
 ]
 
 let build = gulp.series(deleteDist, gulp.parallel(libs, mainTasks), fontsStyle)
