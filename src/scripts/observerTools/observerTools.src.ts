@@ -1,4 +1,4 @@
-import { elementsIsExist } from '../general.js'
+import { elementsIsExist, sleep } from '../general.js'
 import './scroll-timeline.js'
 
 
@@ -13,18 +13,16 @@ interface ObserverToolsArgs {
 }
 
 export default class ObserverTools {
-  public static repeatingAnimations: boolean = false
-  public static activeAnimationClass: string = 'active'
+  public static repeatingAnimations: boolean
+  public static activeAnimationClass: string
 
-  constructor(arg: ObserverToolsArgs, ...elements: (ActionOnView | AnimationTimeline)[]) {
-    ObserverTools.repeatingAnimations = arg.repeatingAnimations
+  constructor(arg: ObserverToolsArgs, ...elements: (ActionOnView | TypedAnimationTimeline)[]) {
+    ObserverTools.repeatingAnimations = arg.repeatingAnimations ?? false
+    ObserverTools.activeAnimationClass = arg.activeAnimationClass ?? 'is-intersecting'
 
     if (elements.length <= 0) {
       console.error('[ObserverTools] No one ActionOnView or AnimationTimeline have been created.')
       return
-    }
-    if (arg.activeAnimationClass) {
-      ObserverTools.activeAnimationClass = arg.activeAnimationClass
     }
   }
 }
@@ -32,143 +30,224 @@ export default class ObserverTools {
 interface ActionOnViewArgs {
   /** Selectors of the element/elements to which the active animation class will be applied. */
   selectors: string
-  /** 
-    For example, 1 => class is assigned as soon as the element is shown on the screen. 
-    0.5 => as soon as it is shown at half.
-  */
-  startActionPaddingIndex: number[]
+  /**  */
+  threshold: number | number[]
+  root?: HTMLElement
+  rootMargin?: string
   /** The delay before the animation starts in milliseconds. */
   timeoutBeforeStart: number
+  breakpoints?: object
+  functionOnView?: Function
 }
 export class ActionOnView {
   private htmlElements: NodeListOf<HTMLElement>
-  private mediaQueries: ActionMediaQuery[]
-  private startActionPaddingIndex: number[]
+  private breakpoints: object
+  private threshold: number | number[]
+  private root: Element | Document
+  private rootMargin: string
   private timeoutBeforeStart: number
+  private defaultFunctionOnView: Function
+  private currentFunctionOnView: Function
+  private observer: IntersectionObserver
 
-  /**
-    @param mediaQueries
-    If you need to change the animation assignment settings at a certain width, set the objects of `ActionMediaQuery`.
-  */
-  constructor(arg: ActionOnViewArgs, ...mediaQueries: ActionMediaQuery[]) {
+  constructor(arg: ActionOnViewArgs) {
     if (elementsIsExist(arg.selectors) == false) {
       console.log('[ActionOnView] Element is not exist!')
     }
 
     this.htmlElements = document.querySelectorAll(arg.selectors)
 
-    for (let htmlElement of this.htmlElements) {
-      htmlElement.setAttribute('data-timeout', arg.timeoutBeforeStart.toString())
-      htmlElement.setAttribute('data-view-start-coeff', arg.startActionPaddingIndex.toString())
-    }
+    this.threshold = arg.threshold ?? [0]
+    this.root = arg.root
+    this.rootMargin = arg.rootMargin ?? '0px 0px 0px 0px'
 
+    this.timeoutBeforeStart = arg.timeoutBeforeStart ?? 0
+    this.breakpoints = arg.breakpoints
+    this.defaultFunctionOnView = arg.functionOnView
+    this.currentFunctionOnView = arg.functionOnView
 
-    this.timeoutBeforeStart = arg.timeoutBeforeStart
-    this.startActionPaddingIndex = arg.startActionPaddingIndex
-    this.mediaQueries = mediaQueries
-    this.setMediaProperties()
     this.createIntersectionObserver()
+    this.setBreakpoints()
 
     window.addEventListener('resize', () => {
-      this.setMediaProperties()
+      this.setBreakpoints()
     }, false)
   }
 
-  setMediaProperties() {
-    if (this.mediaQueries.length <= 0) return
+  setBreakpoints() {
+    let activeMediaQueryWidth = this.getNearestMaxMediaQueryOrNull()
 
-    for (let mediaQuery of this.mediaQueries) {
-      if (window.outerWidth <= mediaQuery.activationWidth) {
-
-        for (let htmlElement of this.htmlElements) {
-          htmlElement.setAttribute('data-timeout', mediaQuery.timeoutBeforeStart.toString())
-          htmlElement.setAttribute('data-view-start-coeff', mediaQuery.startActionPaddingIndex.toString())
+    if (activeMediaQueryWidth != null) {
+      for (let htmlElement of this.htmlElements) {
+        if (this.breakpoints[activeMediaQueryWidth].unobserve) {
+          this.observer.unobserve(htmlElement)
+        } else {
+          this.observer.observe(htmlElement)
         }
-      } else {
-        for (let htmlElement of this.htmlElements) {
-          htmlElement.setAttribute('data-timeout', this.timeoutBeforeStart.toString())
-          htmlElement.setAttribute('data-view-start-coeff', this.startActionPaddingIndex.toString())
-        }
-      }
-    }
-  }
-  createIntersectionObserver() {
-    let observerOptions = { threshold: this.startActionPaddingIndex }
 
-    let observerFunction = function (entries: IntersectionObserverEntry[]) {
-      for (let entry of entries) {
-        let animateHtml = entry.target as HTMLElement
+        htmlElement.setAttribute(
+          'data-timeout',
+          this.breakpoints[activeMediaQueryWidth].timeoutBeforeStart ?? '0'
+        )
 
-        if (entry.isIntersecting && !animateHtml.classList.contains(ObserverTools.activeAnimationClass)) {
-          setTimeout(() => {
-            animateHtml.classList.add(ObserverTools.activeAnimationClass)
-          }, parseInt(animateHtml.dataset.timeout))
+        if (this.currentFunctionOnView != this.breakpoints[activeMediaQueryWidth].functionOnView) {
+          this.currentFunctionOnView = this.breakpoints[activeMediaQueryWidth].functionOnView
 
-
-          if (ObserverTools.repeatingAnimations == false) {
-            observer.unobserve(entry.target)
+          if (this.currentFunctionOnView != undefined) {
+            this.currentFunctionOnView(htmlElement)
           }
         }
-        else if (entry.isIntersecting == false && ObserverTools.repeatingAnimations) {
-          animateHtml.classList.remove(ObserverTools.activeAnimationClass)
+      }
+    }
+    else {
+      for (let htmlElement of this.htmlElements) {
+        htmlElement.setAttribute('data-timeout', this.timeoutBeforeStart.toString() ?? '0')
+        htmlElement.setAttribute('data-threshold', this.threshold.toString() ?? '0')
+        this.observer.observe(htmlElement)
+
+        if (this.currentFunctionOnView != this.defaultFunctionOnView) {
+          this.currentFunctionOnView = this.defaultFunctionOnView
+
+          if (this.currentFunctionOnView != undefined) {
+            this.defaultFunctionOnView(htmlElement)
+          }
+        }
+      }
+    }
+  }
+
+  createIntersectionObserver() {
+    let observerFunction = async function (entries: IntersectionObserverEntry[]) {
+      for (let entry of entries) {
+        if (entry.isIntersecting) {
+          // @ts-expect-error
+          await sleep(parseInt(entry.target.dataset.timeout))
+          entry.target.classList.add(ObserverTools.activeAnimationClass)
+
+          if (this.currentFunctionOnView) {
+            this.currentFunctionOnView(entry)
+          }
+        }
+        else if (
+          entry.isIntersecting == false &&
+          ObserverTools.repeatingAnimations == false &&
+          // if entry.target was intersecting
+          entry.target.classList.contains(ObserverTools.activeAnimationClass)
+        ) {
+          this.observer.unobserve(entry.target)
         }
       }
     }
 
-    const observer = new IntersectionObserver(observerFunction, observerOptions)
+
+    this.observer = new IntersectionObserver(
+      observerFunction.bind(this),
+      {
+        threshold: this.threshold,
+        root: this.root,
+        rootMargin: this.rootMargin,
+      }
+    )
+
     for (let htmlElement of this.htmlElements) {
-      observer.observe(htmlElement)
+      this.observer.observe(htmlElement)
     }
   }
-}
 
-interface ActionMediaQueryArgs {
-  /**
-    At a certain width, it changes the settings for applying the animation class.
-  */
-  activationWidth: number,
-  /** 
-    For example, 1 => class is assigned as soon as the element is shown on the screen. 0.5 = as soon as it is shown at half.
-  */
-  startActionPaddingIndex: number[],
-  /**
-    The delay before the animation starts in milliseconds.
-  */
-  timeoutBeforeStart: number
-}
+  getNearestMaxMediaQueryOrNull(): number {
+    if (this.breakpoints == undefined) {
+      return null
+    }
 
-export class ActionMediaQuery {
-  public activationWidth: number
-  public startActionPaddingIndex: number[]
-  public timeoutBeforeStart: number
+    let queriesActiveWidths = Object.keys(this.breakpoints).map(Number)
+    let windowWidth = window.outerWidth
 
-  constructor(arg: ActionMediaQueryArgs) {
-    this.activationWidth = arg.activationWidth
-    this.startActionPaddingIndex = arg.startActionPaddingIndex
-    this.timeoutBeforeStart = arg.timeoutBeforeStart
+    let nearestMaxMediaQueryWidth = Math.min(...queriesActiveWidths.filter(num => num >= windowWidth))
+
+    if (windowWidth > nearestMaxMediaQueryWidth || nearestMaxMediaQueryWidth == Infinity) {
+      return null
+    }
+
+    return nearestMaxMediaQueryWidth
   }
 }
 
+
+
+type ScrollAxisType = 'block' | 'inline'
+
+type TypedScrollTimelineArgs = {
+  axis: ScrollAxisType
+  source?: string
+}
+export class TypedScrollTimeline implements AnimationTimeline {
+  public axis: ScrollAxisType
+  public source: HTMLElement
+  public currentTime: number
+
+  constructor(arg: TypedScrollTimelineArgs) {
+    this.source = document.querySelector(arg.source) ?? document.documentElement
+    this.axis = arg.axis ?? 'block'
+  }
+}
+
+type TypedViewTimelineArgs = {
+  subject: string
+  axis?: ScrollAxisType
+  startOffset?: CSSUnitValue
+  endOffset?: CSSUnitValue
+}
+export class TypedViewTimeline implements AnimationTimeline {
+  public axis: ScrollAxisType
+  public subject: HTMLElement
+  public startOffset: CSSUnitValue
+  public endOffset: CSSUnitValue
+  public currentTime: number
+
+  constructor(arg: TypedViewTimelineArgs) {
+    this.subject = document.querySelector(arg.subject)
+    this.axis = arg.axis ?? 'block'
+    this.startOffset = arg.startOffset
+    this.endOffset = arg.endOffset
+  }
+}
 
 
 interface AnimateTimelineProperties {
   [cssPropertyName: string]: [string, string]
 }
-
 interface AnimateTimelineSettings {
   duration?: number
   fill?: FillMode
-  timeline: object
+  timeline: TypedViewTimeline | TypedScrollTimeline
+  /**
+   * Specify the time range and how it should be perceived.
+   * @example
+   * timeRange: 'cover 0% 100%',
+   * (hint ↓)
+   * timeRange: 'fill-type scroll-block-for-start scroll-block-for-end'
+   */
   timeRange?: string
 }
 
 
 interface AnimationTimelineArgs {
+  /**
+   * Selector of the block/blocks to be animated.
+   */
   selectors: string
+  /**
+   * Properties that will be animated for objects. Specify the start and end values.
+   * @example
+   * background: ['black', 'white'],
+   */
   animatedProperties: AnimateTimelineProperties
+  /**
+   * Animation settings such as ViewTimeline type and timeRange.
+   */
   animateSettings: AnimateTimelineSettings
 }
-export class AnimationTimeline {
+export class TypedAnimationTimeline {
   private animatedElements: NodeListOf<HTMLElement>
   private animatedProperties: AnimateTimelineProperties
   private animateSettings: AnimateTimelineSettings
@@ -183,6 +262,23 @@ export class AnimationTimeline {
     this.animateSettings = arg.animateSettings
     this.setDefaultAnimateSettingsIfNull(arg.animateSettings)
 
+
+    if (this.animateSettings.timeline instanceof TypedViewTimeline) {
+      // @ts-expect-error
+      this.animateSettings.timeline = new ViewTimeline({
+        subject: this.animateSettings.timeline.subject,
+        axis: this.animateSettings.timeline.axis,
+        startOffset: this.animateSettings.timeline.startOffset,
+        endOffset: this.animateSettings.timeline.endOffset,
+      })
+    }
+    else if (this.animateSettings.timeline instanceof TypedScrollTimeline) {
+      // @ts-expect-error
+      this.animateSettings.timeline = new ScrollTimeline({
+        source: this.animateSettings.timeline.source,
+        axis: this.animateSettings.timeline.axis,
+      })
+    }
 
     for (let animatedHtml of this.animatedElements) {
       animatedHtml.animate(
