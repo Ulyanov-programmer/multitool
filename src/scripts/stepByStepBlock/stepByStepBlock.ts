@@ -1,5 +1,5 @@
 import StepByStepBlock, { Form } from './stepByStepBlock.src.js'
-import '../../libs/just-validate.production.min.js'
+// import '../../libs/just-validate.production.min.js'
 
 
 new StepByStepBlock({

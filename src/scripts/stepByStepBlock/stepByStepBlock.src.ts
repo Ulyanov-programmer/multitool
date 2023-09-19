@@ -27,7 +27,7 @@ interface StepByStepArgs {
   statusBlocksSelector?: string
   currentActiveBlockIndex?: number
   gapPercent?: number
-  checkFunctions?: {}
+  checkFunctions?: object
   form?: Form
 }
 
@@ -213,7 +213,6 @@ export default class StepByStepBlock {
     else {
       return this.checkFunctions[this.currentActiveBlockIndex]
     }
-
   }
 
   private returnMultiplier(prevOrNextElement: boolean): string {

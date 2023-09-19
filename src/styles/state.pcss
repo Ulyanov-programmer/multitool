@@ -1,3 +1,7 @@
+:root {
+  --content-inline-padding: 10vw;
+}
+
 .is-centered-content {
   /* Paddings for site content with default value. */
   padding-inline: var(--content-inline-padding, 10vw);
@@ -21,6 +25,15 @@
     /* Paddings in a smartphone viewport. */
     --content-inline-padding: 2.5vw;
   }
+}
+
+.is-full-width-block {
+  display: grid;
+  grid-template-columns:
+    var(--content-inline-padding)
+    1fr
+    var(--content-inline-padding);
+  width: 100vw;
 }
 
 .is-contain-img {
