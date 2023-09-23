@@ -34,7 +34,7 @@ export default class Submenu {
   }
 
 
-  public static showOrHideSubmenu(currentSubmenuGroup: SubmenuElementGroup, activeElement: HTMLElement) {
+  static showOrHideSubmenu(currentSubmenuGroup: SubmenuElementGroup, activeElement: HTMLElement) {
     for (let i = 0; i < currentSubmenuGroup.buttonElements.length; i++) {
 
       if (currentSubmenuGroup.buttonElements[i] == activeElement) {

@@ -59,7 +59,7 @@ export class AutoScrollPaddingItem {
     this.childRefs = this.scrollableParent.querySelectorAll('a[href^="#"]')
   }
 
-  public updatePaddingValue() {
+  updatePaddingValue() {
     let padding: string
 
     switch (this.paddingDirection) {

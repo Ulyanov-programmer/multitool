@@ -110,7 +110,7 @@ export class autoPaddingOptions {
     this.root = document.querySelector(':root')
   }
 
-  public getElementHeight() {
+  private getElementHeight() {
     return this.element.clientHeight
   }
 

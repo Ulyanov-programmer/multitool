@@ -1,4 +1,4 @@
-import { isNullOrWhiteSpaces } from './general.js'
+import { isNullOrWhiteSpaces } from '../general.js'
 
 enum SwipeSide {
   Top,
@@ -150,7 +150,7 @@ export default class SwipeElement {
   }
 
   private moveX(delta: number = this.deltaX) {
-    if (!this.checkSwipableElementContainActive()) {
+    if (!this.checkSwipeableElementContainActive()) {
       if (this.changePlane == ChangePlane.ToLeft && this.currentSide == SwipeSide.Right)
         return
       if (this.changePlane == ChangePlane.ToRight && this.currentSide == SwipeSide.Left)
@@ -190,7 +190,7 @@ export default class SwipeElement {
     }
   }
   private moveY(delta: number = this.deltaY) {
-    if (!this.checkSwipableElementContainActive()) {
+    if (!this.checkSwipeableElementContainActive()) {
       if (this.changePlane == ChangePlane.ToBottom && this.currentSide == SwipeSide.Top)
         return
       if (this.changePlane == ChangePlane.ToTop && this.currentSide == SwipeSide.Bottom)
@@ -230,7 +230,7 @@ export default class SwipeElement {
 
   private getTranslateState(xOrY: string = 'x') {
     let valueIndex = xOrY == 'x' ? 4 : 5
-    let state
+    let state: number
 
     // get a value of transformX or transformY of swipeableElement
     try {
@@ -250,7 +250,7 @@ export default class SwipeElement {
 
     return xStateIsNegative
   }
-  private checkSwipableElementContainActive() {
+  private checkSwipeableElementContainActive() {
     return this.swipeableElement.classList.contains('active')
   }
   private checkMaxWorkWidth() {

@@ -38,7 +38,7 @@ export default class Parallax {
   }
 
 
-  moveElements(e: MouseEvent) {
+  private moveElements(e: MouseEvent) {
     let mouseX = e.pageX - this.parallaxContainer.offsetLeft
     let mouseY = e.pageY - this.parallaxContainer.offsetTop
 
@@ -94,7 +94,7 @@ export class ParallaxElement {
   public parallaxCoeffX: number
   public parallaxCoeffY: number
 
-  public parallax(relativeCoordX: number, relativeCoordY: number) {
+  parallax(relativeCoordX: number, relativeCoordY: number) {
     if (this.reverseMode) {
       relativeCoordX *= -1
       relativeCoordY *= -1
