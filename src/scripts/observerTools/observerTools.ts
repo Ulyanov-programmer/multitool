@@ -1,7 +1,7 @@
 import ObserverTools, { ActionOnView, TypedAnimationTimeline, TypedViewTimeline, TypedScrollTimeline } from './observerTools.src.js'
 
 new ObserverTools(
-  { repeatingAnimations: true, activeAnimationClass: 'is-intersecting' },
+  { repeatObserve: true, isIntersectedClass: 'is-intersecting' },
 
   new ActionOnView({
     selectors: '.element_or_elements_group',
@@ -12,26 +12,26 @@ new ObserverTools(
 
     // },
 
-    breakpoints: {
-      768: {
-        unobserve: false,
-        timeoutBeforeStart: 800,
+    // breakpoints: {
+    //   768: {
+    //     unobserve: false,
+    //     timeoutBeforeStart: 0,
 
-        // functionOnView: function onViewTablets(observerEntry: IntersectionObserverEntry) {
+    //     // functionOnView: function onViewTablets(observerEntry: IntersectionObserverEntry) {
 
-        // },
-      },
-    }
+    //     // },
+    //   },
+    // }
   }),
 
 
   // new TypedAnimationTimeline({
   //   selectors: '.element_or_elements_group',
-  //   animatedProperties: {
+  //   properties: {
   //     background: ['black', 'white'],
   //   },
 
-  //   animateSettings: {
+  //   settings: {
   //     timeline: new TypedViewTimeline({
   //       subject: '.wrapper',
   //     }),
@@ -41,6 +41,10 @@ new ObserverTools(
   //     // }),
 
   //     timeRange: 'cover 0% 50%',
-  //   }
+  //   },
+  //   // breakpoints: {
+  //   //   768: {
+  //   //   },
+  //   // }
   // })
 )

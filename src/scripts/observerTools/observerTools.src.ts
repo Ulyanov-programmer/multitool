@@ -7,18 +7,17 @@ interface ObserverToolsArgs {
     Do you want the animations to be played again if the blocks they leave the screen? 
     Set it to true, but i don't recommend to use this as true in production.
   */
-  repeatingAnimations: boolean
+  repeatObserve?: boolean
   /** This class will be applied when the blocks are sufficiently shown on the display. */
-  activeAnimationClass?: string
+  isIntersectedClass?: string
 }
-
 export default class ObserverTools {
-  public static repeatingAnimations: boolean
-  public static activeAnimationClass: string
+  public static repeatObserve: boolean
+  public static isIntersectedClass: string
 
   constructor(arg: ObserverToolsArgs, ...elements: (ActionOnView | TypedAnimationTimeline)[]) {
-    ObserverTools.repeatingAnimations = arg.repeatingAnimations ?? false
-    ObserverTools.activeAnimationClass = arg.activeAnimationClass ?? 'is-intersecting'
+    ObserverTools.repeatObserve = arg.repeatObserve ?? false
+    ObserverTools.isIntersectedClass = arg.isIntersectedClass ?? 'is-intersecting'
 
     if (elements.length <= 0) {
       console.error('[ObserverTools] No one ActionOnView or AnimationTimeline have been created.')
@@ -27,6 +26,15 @@ export default class ObserverTools {
   }
 }
 
+
+
+type Breakpoint = {
+  [activeWidth: number]: {
+    unobserve: boolean
+    timeoutBeforeStart?: number
+    functionOnView?: Function
+  }
+}
 interface ActionOnViewArgs {
   /** Selectors of the element/elements to which the active animation class will be applied. */
   selectors: string
@@ -36,12 +44,12 @@ interface ActionOnViewArgs {
   rootMargin?: string
   /** The delay before the animation starts in milliseconds. */
   timeoutBeforeStart: number
-  breakpoints?: object
+  breakpoints?: Breakpoint
   functionOnView?: Function
 }
 export class ActionOnView {
   private htmlElements: NodeListOf<HTMLElement>
-  private breakpoints: object
+  private breakpoints: Breakpoint
   private threshold: number | number[]
   private root: Element | Document
   private rootMargin: string
@@ -49,6 +57,7 @@ export class ActionOnView {
   private defaultFunctionOnView: Function
   private currentFunctionOnView: Function
   private observer: IntersectionObserver
+  private currentActiveBreakpointId: number | string
 
   constructor(arg: ActionOnViewArgs) {
     if (elementsIsExist(arg.selectors) == false) {
@@ -67,62 +76,63 @@ export class ActionOnView {
     this.currentFunctionOnView = arg.functionOnView
 
     this.createIntersectionObserver()
-    this.setBreakpoints()
+    this.applyBreakpoints()
 
-    window.addEventListener('resize', () => {
-      this.setBreakpoints()
-    }, false)
+    window.addEventListener('resize', () => this.applyBreakpoints())
   }
 
-  setBreakpoints() {
-    let activeMediaQueryWidth = this.getNearestMaxMediaQueryOrNull()
+  private applyBreakpoints() {
+    let currentBreakpointWidth = getNearestMaxBreakpointOrInfinity(this.breakpoints)
 
-    if (activeMediaQueryWidth != null) {
+    if (currentBreakpointWidth == this.currentActiveBreakpointId) return
+
+
+    if (currentBreakpointWidth != Infinity) {
+      this.currentActiveBreakpointId = currentBreakpointWidth
+      let activeBreakpoint = this.breakpoints[currentBreakpointWidth]
+
       for (let htmlElement of this.htmlElements) {
-        if (this.breakpoints[activeMediaQueryWidth].unobserve) {
+        if (activeBreakpoint.unobserve) {
           this.observer.unobserve(htmlElement)
         } else {
           this.observer.observe(htmlElement)
         }
 
         htmlElement.setAttribute(
-          'data-timeout',
-          this.breakpoints[activeMediaQueryWidth].timeoutBeforeStart ?? '0'
+          'data-timeout', activeBreakpoint.timeoutBeforeStart.toString() ?? '0'
         )
 
-        if (this.currentFunctionOnView != this.breakpoints[activeMediaQueryWidth].functionOnView) {
-          this.currentFunctionOnView = this.breakpoints[activeMediaQueryWidth].functionOnView
+        if (this.currentFunctionOnView != activeBreakpoint.functionOnView) {
+          this.currentFunctionOnView = activeBreakpoint.functionOnView
 
-          if (this.currentFunctionOnView != undefined) {
-            this.currentFunctionOnView(htmlElement)
-          }
+          if (this.currentFunctionOnView) this.currentFunctionOnView(htmlElement)
         }
       }
     }
     else {
+      this.currentActiveBreakpointId = Infinity
+
       for (let htmlElement of this.htmlElements) {
-        htmlElement.setAttribute('data-timeout', this.timeoutBeforeStart.toString() ?? '0')
-        htmlElement.setAttribute('data-threshold', this.threshold.toString() ?? '0')
+        htmlElement.setAttribute('data-timeout', this.timeoutBeforeStart.toString())
+        htmlElement.setAttribute('data-threshold', this.threshold.toString())
         this.observer.observe(htmlElement)
 
         if (this.currentFunctionOnView != this.defaultFunctionOnView) {
           this.currentFunctionOnView = this.defaultFunctionOnView
 
-          if (this.currentFunctionOnView != undefined) {
-            this.defaultFunctionOnView(htmlElement)
-          }
+          if (this.currentFunctionOnView) this.currentFunctionOnView(htmlElement)
         }
       }
     }
   }
 
-  createIntersectionObserver() {
+  private createIntersectionObserver() {
     let observerFunction = async function (entries: IntersectionObserverEntry[]) {
       for (let entry of entries) {
         if (entry.isIntersecting) {
           // @ts-expect-error
           await sleep(parseInt(entry.target.dataset.timeout))
-          entry.target.classList.add(ObserverTools.activeAnimationClass)
+          entry.target.classList.add(ObserverTools.isIntersectedClass)
 
           if (this.currentFunctionOnView) {
             this.currentFunctionOnView(entry)
@@ -130,9 +140,9 @@ export class ActionOnView {
         }
         else if (
           entry.isIntersecting == false &&
-          ObserverTools.repeatingAnimations == false &&
+          ObserverTools.repeatObserve == false &&
           // if entry.target was intersecting
-          entry.target.classList.contains(ObserverTools.activeAnimationClass)
+          entry.target.classList.contains(ObserverTools.isIntersectedClass)
         ) {
           this.observer.unobserve(entry.target)
         }
@@ -152,23 +162,6 @@ export class ActionOnView {
     for (let htmlElement of this.htmlElements) {
       this.observer.observe(htmlElement)
     }
-  }
-
-  getNearestMaxMediaQueryOrNull(): number {
-    if (this.breakpoints == undefined) {
-      return null
-    }
-
-    let queriesActiveWidths = Object.keys(this.breakpoints).map(Number)
-    let windowWidth = window.outerWidth
-
-    let nearestMaxMediaQueryWidth = Math.min(...queriesActiveWidths.filter(num => num >= windowWidth))
-
-    if (windowWidth > nearestMaxMediaQueryWidth || nearestMaxMediaQueryWidth == Infinity) {
-      return null
-    }
-
-    return nearestMaxMediaQueryWidth
   }
 }
 
@@ -229,7 +222,14 @@ interface AnimateTimelineSettings {
    */
   timeRange?: string
 }
-
+type TimelineBreakpoint = {
+  [activeWidth: number]: {
+    properties?: AnimateTimelineProperties
+    settings?: AnimateTimelineSettings
+    disable?: boolean
+    fill?: FillMode
+  }
+}
 
 interface AnimationTimelineArgs {
   /**
@@ -241,16 +241,20 @@ interface AnimationTimelineArgs {
    * @example
    * background: ['black', 'white'],
    */
-  animatedProperties: AnimateTimelineProperties
+  properties: AnimateTimelineProperties
   /**
    * Animation settings such as ViewTimeline type and timeRange.
    */
-  animateSettings: AnimateTimelineSettings
+  settings: AnimateTimelineSettings
+  breakpoints?: TimelineBreakpoint
 }
 export class TypedAnimationTimeline {
   private animatedElements: NodeListOf<HTMLElement>
-  private animatedProperties: AnimateTimelineProperties
-  private animateSettings: AnimateTimelineSettings
+  private properties: AnimateTimelineProperties
+  private settings: AnimateTimelineSettings
+  private breakpoints: TimelineBreakpoint
+  private currentActiveBreakpointId: number | string
+
 
   constructor(arg: AnimationTimelineArgs) {
     if (elementsIsExist(arg.selectors) == false) {
@@ -258,39 +262,93 @@ export class TypedAnimationTimeline {
     }
 
     this.animatedElements = document.querySelectorAll(arg.selectors)
-    this.animatedProperties = arg.animatedProperties
-    this.animateSettings = arg.animateSettings
-    this.setDefaultAnimateSettingsIfNull(arg.animateSettings)
+    this.properties = arg.properties
+    this.settings = arg.settings
+
+    this.setDefaultSettingsIfNull(arg.settings)
 
 
-    if (this.animateSettings.timeline instanceof TypedViewTimeline) {
-      // @ts-expect-error
-      this.animateSettings.timeline = new ViewTimeline({
-        subject: this.animateSettings.timeline.subject,
-        axis: this.animateSettings.timeline.axis,
-        startOffset: this.animateSettings.timeline.startOffset,
-        endOffset: this.animateSettings.timeline.endOffset,
-      })
-    }
-    else if (this.animateSettings.timeline instanceof TypedScrollTimeline) {
-      // @ts-expect-error
-      this.animateSettings.timeline = new ScrollTimeline({
-        source: this.animateSettings.timeline.source,
-        axis: this.animateSettings.timeline.axis,
-      })
-    }
+    if (arg.breakpoints) {
+      for (let breakpoint of Object.values(arg.breakpoints)) {
+        this.setDefaultSettingsIfNull(breakpoint.settings)
+      }
+      this.breakpoints = arg.breakpoints
 
-    for (let animatedHtml of this.animatedElements) {
-      animatedHtml.animate(
-        this.animatedProperties,
-        this.animateSettings,
-      )
+      this.applyBreakpoints()
+
+      window.addEventListener('resize', () => this.applyBreakpoints())
     }
   }
 
-  setDefaultAnimateSettingsIfNull(animateSettings: AnimateTimelineSettings) {
-    if (!animateSettings.fill) {
-      animateSettings.fill = 'forwards'
+  private setDefaultSettingsIfNull(...settings: AnimateTimelineSettings[]) {
+    for (let setting of settings) {
+      setting.fill = setting.fill ?? 'forwards'
+      // @ts-expect-error
+      setting.timeline = this.createTimeline(setting.timeline)
     }
   }
+
+  private applyBreakpoints() {
+    let currentBreakpointWidth = getNearestMaxBreakpointOrInfinity(this.breakpoints)
+
+    if (currentBreakpointWidth == this.currentActiveBreakpointId) return
+
+    if (currentBreakpointWidth != Infinity) {
+      this.currentActiveBreakpointId = currentBreakpointWidth
+
+      for (let animatedHtml of this.animatedElements) {
+        animatedHtml.animate(
+          this.breakpoints[currentBreakpointWidth].properties,
+          this.breakpoints[currentBreakpointWidth].settings,
+        )
+      }
+    }
+    else {
+      this.currentActiveBreakpointId = Infinity
+
+      for (let animatedHtml of this.animatedElements) {
+        animatedHtml.animate(this.properties, this.settings)
+      }
+    }
+  }
+
+  private createTimeline(typedTimeline: TypedViewTimeline | TypedScrollTimeline) {
+    let timeline: object
+
+    if (typedTimeline instanceof TypedViewTimeline) {
+      // @ts-expect-error
+      timeline = new ViewTimeline({
+        subject: typedTimeline.subject,
+        axis: typedTimeline.axis,
+        startOffset: typedTimeline.startOffset,
+        endOffset: typedTimeline.endOffset,
+      })
+    }
+    else if (typedTimeline instanceof TypedScrollTimeline) {
+      // @ts-expect-error
+      timeline = new ScrollTimeline({
+        source: typedTimeline.source,
+        axis: typedTimeline.axis,
+      })
+    }
+
+    return timeline
+  }
+}
+
+
+function getNearestMaxBreakpointOrInfinity(breakpoints: Breakpoint | TimelineBreakpoint): number {
+  if (!breakpoints) return Infinity
+
+  let queriesActiveWidths = Object.keys(breakpoints).map(Number)
+  let windowWidth = window.outerWidth
+
+  let nearestMaxBreakpointWidth = Math.min(...queriesActiveWidths.filter(num => num >= windowWidth))
+
+
+  if (windowWidth > nearestMaxBreakpointWidth || nearestMaxBreakpointWidth == Infinity) {
+    return Infinity
+  }
+
+  return nearestMaxBreakpointWidth
 }
