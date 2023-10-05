@@ -8,18 +8,14 @@ new ObserverTools(
     threshold: 0,
     timeoutBeforeStart: 500,
 
-    // functionOnView: function onView(observerEntry: IntersectionObserverEntry) {
-
-    // },
+    // functionOnView: function onView(observerEntry: IntersectionObserverEntry) { },
 
     // breakpoints: {
     //   768: {
     //     unobserve: false,
     //     timeoutBeforeStart: 0,
 
-    //     // functionOnView: function onViewTablets(observerEntry: IntersectionObserverEntry) {
-
-    //     // },
+    //     // functionOnView: function onViewTablets(observerEntry: IntersectionObserverEntry) { },
     //   },
     // }
   }),
@@ -27,6 +23,7 @@ new ObserverTools(
 
   // new TypedAnimationTimeline({
   //   selectors: '.element_or_elements_group',
+
   //   properties: {
   //     background: ['black', 'white'],
   //   },
@@ -35,7 +32,6 @@ new ObserverTools(
   //     timeline: new TypedViewTimeline({
   //       subject: '.wrapper',
   //     }),
-
   //     // timeline: new TypedScrollTimeline({
   //     //   axis: 'block',
   //     // }),
@@ -44,6 +40,8 @@ new ObserverTools(
   //   },
   //   // breakpoints: {
   //   //   768: {
+  //   //     properties: {},
+  //   //     settings: {},
   //   //   },
   //   // }
   // })
