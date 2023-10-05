@@ -207,10 +207,10 @@ export class TypedViewTimeline implements AnimationTimeline {
 
 
 interface AnimateTimelineProperties {
-  [cssPropertyName: string]: [string, string]
+  [cssPropertyName: string]: [...string[] | number[]]
 }
 interface AnimateTimelineSettings {
-  duration?: number
+  duration?: number | CSSNumericValue
   fill?: FillMode
   timeline: TypedViewTimeline | TypedScrollTimeline
   /**
@@ -221,6 +221,13 @@ interface AnimateTimelineSettings {
    * timeRange: 'fill-type scroll-block-for-start scroll-block-for-end'
    */
   timeRange?: string
+  direction?: PlaybackDirection
+  easing?: string
+  endDelay?: number
+  iterationComposite?: IterationCompositeOperation
+  iterations?: number
+  iterationStart?: number
+  delay?: number
 }
 interface AnimateBreakpointTimelineSettings {
   duration?: number
@@ -234,6 +241,13 @@ interface AnimateBreakpointTimelineSettings {
    * timeRange: 'fill-type scroll-block-for-start scroll-block-for-end'
    */
   timeRange?: string
+  direction?: PlaybackDirection
+  easing?: string
+  endDelay?: number
+  iterationComposite?: IterationCompositeOperation
+  iterations?: number
+  iterationStart?: number
+  delay?: number
 }
 type TimelineBreakpoint = {
   [activeWidth: number]: {
@@ -311,54 +325,22 @@ export class TypedAnimationTimeline {
     if (currentBreakpointWidth != Infinity) {
       this.currentActiveBreakpointId = currentBreakpointWidth
 
-      let breakpoint = this.breakpoints[currentBreakpointWidth]
-
-      for (let animatedHtml of this.animatedElements) {
-        animatedHtml.animate(
-          breakpoint?.properties ?? this.properties,
-          {
-            // ! Реализовать
-            duration: undefined,
-            direction: undefined,
-            easing: undefined,
-            endDelay: undefined,
-            iterationComposite: undefined,
-            iterations: undefined,
-            iterationStart: undefined,
-            // @ts-expect-error
-            timeRange: breakpoint?.settings?.timeRange ?? this.settings.timeRange,
-            // ? Попробовать запихнуть ???????? в метод.
-            fill: breakpoint?.settings?.fill ?? this.settings.fill,
-            timeline: this.createTimeline(
-              breakpoint?.settings?.timeline ?? this.settings.timeline
-            ),
-          }
-          ?? this.settings,
+      if (this.breakpoints[currentBreakpointWidth].disable) {
+        this.animateElements(undefined, {
+          timeline: this.settings.timeline,
+          timeRange: 'cover 0% 0%',
+        })
+      } else {
+        this.animateElements(
+          this.breakpoints[currentBreakpointWidth].properties,
+          this.breakpoints[currentBreakpointWidth].settings
         )
       }
     }
     else {
       this.currentActiveBreakpointId = Infinity
 
-      for (let animatedHtml of this.animatedElements) {
-        animatedHtml.animate(
-          this.properties,
-          {
-            // ! Реализовать
-            duration: undefined,
-            direction: undefined,
-            easing: undefined,
-            endDelay: undefined,
-            iterationComposite: undefined,
-            iterations: undefined,
-            iterationStart: undefined,
-            fill: this.settings.fill,
-            timeRange: this.settings.timeRange,
-            // @ts-expect-error
-            timeline: this.createTimeline(this.settings.timeline),
-          }
-        )
-      }
+      this.animateElements(this.properties, this.settings)
     }
   }
 
@@ -383,6 +365,36 @@ export class TypedAnimationTimeline {
     }
 
     return timeline
+  }
+
+  private animateElements(
+    properties: AnimateTimelineProperties,
+    settings: AnimateBreakpointTimelineSettings | AnimateTimelineSettings
+  ) {
+    for (let animatedHtml of this.animatedElements) {
+      let v = animatedHtml.animate(
+        properties,
+        {
+          duration: settings?.duration ?? this.settings.duration,
+          direction: settings?.direction ?? this.settings.direction,
+          easing: settings?.easing ?? this.settings.easing,
+          delay: settings?.delay ?? this.settings.delay,
+          endDelay: settings?.endDelay ?? this.settings.endDelay,
+          iterationComposite: settings?.iterationComposite ?? this.settings.iterationComposite,
+          iterations: settings?.iterations ?? this.settings.iterations,
+          iterationStart: settings?.iterationStart ?? this.settings.iterationStart,
+          timeRange: settings?.timeRange ?? this.settings.timeRange,
+          fill: settings?.fill ?? this.settings.fill,
+
+          // @ts-expect-error
+          timeline: this.createTimeline(
+            settings?.timeline ?? this.settings.timeline
+          ),
+        }
+      )
+
+      // v.cancel
+    }
   }
 }
 
