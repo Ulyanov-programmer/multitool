@@ -210,6 +210,7 @@ interface AnimateTimelineProperties {
   [cssPropertyName: string]: [...string[] | number[]]
 }
 interface AnimateTimelineSettings {
+  id?: string
   duration?: number | CSSNumericValue
   fill?: FillMode
   timeline: TypedViewTimeline | TypedScrollTimeline
@@ -230,6 +231,7 @@ interface AnimateTimelineSettings {
   delay?: number
 }
 interface AnimateBreakpointTimelineSettings {
+  id?: string
   duration?: number
   fill?: FillMode
   timeline?: TypedViewTimeline | TypedScrollTimeline
@@ -280,25 +282,24 @@ export class TypedAnimationTimeline {
   private properties: AnimateTimelineProperties
   private settings: AnimateTimelineSettings
   private breakpoints: TimelineBreakpoint
-  private currentActiveBreakpointId: number | string
-
+  private currentActiveBreakpointId: string
+  private animations: Animation[]
 
   constructor(arg: AnimationTimelineArgs) {
-    if (elementsIsExist(arg.selectors) == false) {
+    if (!elementsIsExist(arg.selectors)) {
       console.log('[AnimationTimeline] No one element is exist!')
+      return
     }
 
     this.animatedElements = document.querySelectorAll(arg.selectors)
     this.properties = arg.properties
     this.settings = arg.settings
+    this.animations = []
 
-    this.setDefaultSettingsIfNull(this.settings)
+    this.setDefaultSettingsIfEmpty(this.settings)
 
 
     if (arg.breakpoints) {
-      for (let breakpoint of Object.values(arg.breakpoints)) {
-        this.setDefaultSettingsIfNull(breakpoint.settings)
-      }
       this.breakpoints = arg.breakpoints
 
       this.applyBreakpoints()
@@ -307,40 +308,38 @@ export class TypedAnimationTimeline {
     }
   }
 
-  private setDefaultSettingsIfNull(settings: AnimateTimelineSettings | AnimateBreakpointTimelineSettings): AnimateTimelineSettings {
+  private setDefaultSettingsIfEmpty(settings: AnimateTimelineSettings | AnimateBreakpointTimelineSettings): AnimateTimelineSettings {
     if (!settings) return
 
     settings.fill = settings.fill ?? 'forwards'
-    // settings.timeline = this.createTimeline(settings.timeline)
     settings.timeRange = settings.timeRange ?? 'cover 0% 100%'
   }
 
   private applyBreakpoints() {
-    let currentBreakpointWidth = getNearestMaxBreakpointOrInfinity(this.breakpoints)
+    let currentBreakpointWidth = getNearestMaxBreakpointOrInfinity(this.breakpoints).toString()
 
     if (currentBreakpointWidth == this.currentActiveBreakpointId)
       return
 
 
-    if (currentBreakpointWidth != Infinity) {
+    if (currentBreakpointWidth != 'Infinity') {
       this.currentActiveBreakpointId = currentBreakpointWidth
 
       if (this.breakpoints[currentBreakpointWidth].disable) {
-        this.animateElements(undefined, {
-          timeline: this.settings.timeline,
-          timeRange: 'cover 0% 0%',
-        })
-      } else {
+        this.cancelAnimationsNotCurrentBreakpoint()
+      }
+      else {
         this.animateElements(
           this.breakpoints[currentBreakpointWidth].properties,
-          this.breakpoints[currentBreakpointWidth].settings
+          this.breakpoints[currentBreakpointWidth].settings,
+          currentBreakpointWidth,
         )
       }
     }
     else {
-      this.currentActiveBreakpointId = Infinity
+      this.currentActiveBreakpointId = 'Infinity'
 
-      this.animateElements(this.properties, this.settings)
+      this.animateElements(this.properties, this.settings, this.currentActiveBreakpointId)
     }
   }
 
@@ -369,31 +368,32 @@ export class TypedAnimationTimeline {
 
   private animateElements(
     properties: AnimateTimelineProperties,
-    settings: AnimateBreakpointTimelineSettings | AnimateTimelineSettings
+    settings: AnimateBreakpointTimelineSettings | AnimateTimelineSettings,
+    animationId: string,
   ) {
-    for (let animatedHtml of this.animatedElements) {
-      let v = animatedHtml.animate(
-        properties,
-        {
-          duration: settings?.duration ?? this.settings.duration,
-          direction: settings?.direction ?? this.settings.direction,
-          easing: settings?.easing ?? this.settings.easing,
-          delay: settings?.delay ?? this.settings.delay,
-          endDelay: settings?.endDelay ?? this.settings.endDelay,
-          iterationComposite: settings?.iterationComposite ?? this.settings.iterationComposite,
-          iterations: settings?.iterations ?? this.settings.iterations,
-          iterationStart: settings?.iterationStart ?? this.settings.iterationStart,
-          timeRange: settings?.timeRange ?? this.settings.timeRange,
-          fill: settings?.fill ?? this.settings.fill,
+    let assignedSettings = Object.assign({}, this.settings, settings)
+    assignedSettings.id = animationId
 
-          // @ts-expect-error
-          timeline: this.createTimeline(
-            settings?.timeline ?? this.settings.timeline
-          ),
-        }
+    for (let animatedHtml of this.animatedElements) {
+      //@ts-expect-error
+      assignedSettings.timeline = this.createTimeline(
+        settings?.timeline ?? this.settings.timeline
       )
 
-      // v.cancel
+      this.animations.push(
+        animatedHtml.animate(
+          properties ?? this.properties,
+          assignedSettings ?? this.settings,
+        )
+      )
+    }
+  }
+  private cancelAnimationsNotCurrentBreakpoint() {
+    for (let i = this.animations.length - 1; i >= 0; i--) {
+      if (this.animations[i].id != this.currentActiveBreakpointId) {
+        this.animations[i].cancel()
+        this.animations.splice(i, 1)
+      }
     }
   }
 }

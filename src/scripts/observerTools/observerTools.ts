@@ -40,10 +40,10 @@ new ObserverTools(
   //   },
   //   // breakpoints: {
   //   //   768: {
-  //   //     disable: false, // ! It's not working yet!
+  //   //     disable: false,
   //   //     properties: {},
   //   //     settings: {},
   //   //   },
   //   // }
-  // })
+  // }),
 )
