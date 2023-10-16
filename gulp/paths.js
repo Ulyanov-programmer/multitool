@@ -52,7 +52,7 @@ export const paths = {
     sourcesScripts: `${source}/scripts/**/*.src.{ts,js}`,
     images: `${source}/img/**/*.{gif,ico,jpg,png,webp,avif}`,
     imagesSvg: `${source}/img/**/*.svg`,
-    libs: `${source}/libs/*.*`,
+    libs: `${source}/libs/**/*.*`,
     video: `${source}/video/**/*.{mp4,webm}`,
   },
 }

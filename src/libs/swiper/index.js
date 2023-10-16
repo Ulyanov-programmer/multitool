@@ -11,7 +11,7 @@ new Swiper(`.${sliderClassName}`, {
 
   navigation: {
     nextEl: `.class__button-next`, prevEl: `.class__button-prev`,
-    disabledClass: 'unactive',
+    disabledClass: 'inactive',
   },
   pagination: { 
     el: `.class__pagination`, 

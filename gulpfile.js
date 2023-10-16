@@ -2,8 +2,8 @@ import loadPlugins from 'gulp-load-plugins'
 export let $ = loadPlugins({
   overridePattern: true,
   pattern: [
-    'gulp-*', 'gulp.*', '@*/gulp{-,.}*', 
-    'postcss-*', '@*/postcss-*', 
+    'gulp-*', 'gulp.*', '@*/gulp{-,.}*',
+    'postcss-*', '@*/postcss-*',
     'posthtml-*', '@*/posthtml-*',
   ],
   config: process.env.npm_package_json,
@@ -28,44 +28,31 @@ import deleteDist from './gulp/deleteDist.js'
 
 function watchFiles() {
   gulp.watch(paths.watch.html, { usePolling: true }, html)
-    .on('unlink', (filePath) => {
-      deleteUnlinkFiles(filePath)
-    })
+    .on('unlink', filePath => deleteUnlinkFiles(filePath))
 
   gulp.watch(paths.watch.php, php)
-    .on('unlink', (filePath) => {
-      deleteUnlinkFiles(filePath)
-    })
+    .on('unlink', filePath => deleteUnlinkFiles(filePath))
 
   gulp.watch(paths.watch.css, { usePolling: true }, css)
-    .on('unlink', (filePath) => {
-      deleteUnlinkFiles(filePath, ['.min.css', '.css'])
-    })
+    .on('unlink', filePath => deleteUnlinkFiles(filePath))
   gulp.watch(paths.watch.cssNoAccessToDist, environmentCss)
 
   gulp.watch(paths.watch.apiScripts, apiScripts)
-    .on('unlink', (filePath) => {
-      deleteUnlinkFiles(filePath, ['.js'])
-    })
+    .on('unlink', filePath => deleteUnlinkFiles(filePath))
   gulp.watch(paths.watch.sourcesScripts, sourcesScripts)
-    .on('unlink', (filePath) => {
-      deleteUnlinkFiles(filePath, ['.js'])
-    })
+    .on('unlink', filePath => deleteUnlinkFiles(filePath))
 
   gulp.watch(paths.watch.images, images)
-    .on('unlink', (filePath) => {
-      deleteUnlinkFiles(filePath, ['.webp', '.avif'])
-    })
+    .on('unlink', filePath => deleteUnlinkFiles(filePath))
 
   gulp.watch(paths.watch.imagesSvg, imagesSvg)
-    .on('unlink', (filePath) => {
-      deleteUnlinkFiles(filePath)
-    })
+    .on('unlink', filePath => deleteUnlinkFiles(filePath))
 
   gulp.watch(paths.watch.video, video)
-    .on('unlink', (filePath) => {
-      deleteUnlinkFiles(filePath)
-    })
+    .on('unlink', filePath => deleteUnlinkFiles(filePath))
+
+  gulp.watch(paths.watch.libs, libs)
+    .on('unlink', filePath => deleteUnlinkFiles(filePath))
 }
 
 const mainTasks = [

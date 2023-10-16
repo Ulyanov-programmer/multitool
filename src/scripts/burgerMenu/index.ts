@@ -8,4 +8,4 @@ new BurgerMenu({
   menuActiveClass: 'active',
   burgerActiveClass: 'active',
   closingByClickOnElement: true,
-})
+}) 
