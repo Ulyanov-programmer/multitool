@@ -32,7 +32,7 @@ type Breakpoint = {
   [activeWidth: number]: {
     unobserve: boolean
     timeoutBeforeStart?: number
-    functionOnView?: Function
+    functionOnView?: (observerEntry: IntersectionObserverEntry) => any
   }
 }
 interface ActionOnViewArgs {
@@ -45,7 +45,7 @@ interface ActionOnViewArgs {
   /** The delay before the animation starts in milliseconds. */
   timeoutBeforeStart: number
   breakpoints?: Breakpoint
-  functionOnView?: Function
+  functionOnView?: (observerEntry: IntersectionObserverEntry) => any
 }
 export class ActionOnView {
   private htmlElements: NodeListOf<HTMLElement>
@@ -294,18 +294,13 @@ export class TypedAnimationTimeline {
     this.animatedElements = document.querySelectorAll(arg.selectors)
     this.properties = arg.properties
     this.settings = arg.settings
+    this.breakpoints = arg.breakpoints
     this.animations = []
 
     this.setDefaultSettingsIfEmpty(this.settings)
+    this.applyBreakpoints()
 
-
-    if (arg.breakpoints) {
-      this.breakpoints = arg.breakpoints
-
-      this.applyBreakpoints()
-
-      window.addEventListener('resize', this.applyBreakpoints.bind(this))
-    }
+    window.addEventListener('resize', this.applyBreakpoints.bind(this))
   }
 
   private setDefaultSettingsIfEmpty(settings: AnimateTimelineSettings | AnimateBreakpointTimelineSettings): AnimateTimelineSettings {
