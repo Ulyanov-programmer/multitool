@@ -2,12 +2,12 @@ import { elementIsExistWithLog } from '../general.js'
 
 interface FormArgs {
   formSelector: string
-  onSubmitFunction: Function
+  onSubmitFunction: (observerEntry: SubmitEvent) => any
 }
 
 export class Form {
   public formElement: HTMLElement
-  public onSubmitFunction: Function
+  public onSubmitFunction: (submitEvent: SubmitEvent) => any
 
   constructor(arg: FormArgs) {
     if (!elementIsExistWithLog('StepByStep Form', arg.formSelector))
@@ -19,6 +19,10 @@ export class Form {
 }
 
 
+type checkFunctions = {
+  [stepBlockIndex: number | string]: () => boolean
+}
+
 interface StepByStepArgs {
   stepsContainerSelector: string
   nextButtonsSelector: string
@@ -27,7 +31,7 @@ interface StepByStepArgs {
   statusBlocksSelector?: string
   currentActiveBlockIndex?: number
   gapPercent?: number
-  checkFunctions?: object
+  checkFunctions?: checkFunctions
   form?: Form
 }
 
@@ -41,7 +45,7 @@ export default class StepByStepBlock {
   private currentTranslateMultiplier: number
   private transitionTimeout: number
   private gapPercent: number
-  private checkFunctions: {}
+  private checkFunctions: checkFunctions
 
 
   constructor(arg: StepByStepArgs) {
