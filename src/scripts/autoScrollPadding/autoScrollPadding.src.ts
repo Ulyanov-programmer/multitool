@@ -27,9 +27,15 @@ interface AutoScrollPaddingItemArgs {
     @defaultValue `5` (5px)
   */
   gap?: number
-
+  /**
+   * Assigns the calculated indent to the specified css variable.
+   * @example '--scroll-padding'
+   */
   setInCssVariable?: string
-
+  /**
+   * Specify `PaddingDirection.Top` | `PaddingDirection.Bottom` so that the indentation size is measured by the height of the element, or `PaddingDirection.Left` | `PaddingDirection.Right` to be measured by the width of the element.
+   * @defaultValue `PaddingDirection.Top`
+   */
   paddingDirection?: PaddingDirection
 }
 export class AutoScrollPaddingItem {

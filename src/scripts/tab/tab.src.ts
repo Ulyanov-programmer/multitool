@@ -7,35 +7,49 @@ export enum ToggleTabsEvent {
 
 interface TabArgs {
   /**
-    Selector for buttons that open some tab content element.
-    Must contain `data-toggle-elem-number="numberOfContentElement"`
-    `(note, the count starts from zero)`
+    Selector for buttons that open some tab content.
+    @remark Must contain `data-toggle-elem-number="numberOfContentElement"` (starts from zero).
   */
-  btnsSelector: string
-  /** Selector of blocks that contain some tab content.	*/
+  buttonsSelector: string
+  /** 
+   * Selector of blocks that contain some tab content.
+   */
   contentBlocksSelector: string
   /**
    * Enables the Fade effect (when one element is superimposed on another when switching).
+   * @defaultValue `false`
    */
   fadeEffect?: boolean
-  buttonsActiveClass?: string
-  contentActiveClass?: string
   /**
    * Changes the height of the tab container when switching. 
-   * If false, the block size for tabs will be equal to the size of the largest tab.
-   * @remarks Please note that it works exclusively for the Fade-effect, in other cases it is always true.
+   * 
+   * If `false`, the block size for tabs will be equal to the size of the largest tab.
+   * 
+   * @remarks Please note that it works exclusively for the Fade-effect, in other cases it is always `true`.
+   * @defaultValue `false`
    */
   autoHeight?: boolean
   /**
    * Duration of tab animations. 
+   * 
    * @remarks It can be specified both through this argument and in the CSS property of the tabs.
    * Specifying through this argument has a higher priority.
    */
   animationDuration?: number
+  /**
+   * If true, does not set the class of the active button for the one that switches to the first tab when initializing tabs.
+   */
   firstButtonIsNotActive?: boolean
+  /**
+   * Specifies what action needs to be done with the tab switch button in order for it to work.
+   * Takes the value of `ToggleTabsEvent` enumeration.
+   * @defaultValue `ToggleTabsEvent.Click` (need to click on a button)
+   */
   toggleTabsBy?: ToggleTabsEvent
-}
 
+  buttonsActiveClass?: string
+  contentActiveClass?: string
+}
 export default class Tab {
   private buttons: NodeListOf<HTMLElement>
   private contentElements: NodeListOf<HTMLElement>
@@ -50,10 +64,10 @@ export default class Tab {
   public contentActiveClass: string
 
   constructor(arg: TabArgs) {
-    if (!elementIsExistWithLog('Tab', arg.btnsSelector, arg.contentBlocksSelector))
+    if (!elementIsExistWithLog('Tab', arg.buttonsSelector, arg.contentBlocksSelector))
       return
 
-    this.buttons = document.querySelectorAll(arg.btnsSelector)
+    this.buttons = document.querySelectorAll(arg.buttonsSelector)
     this.contentElements = document.querySelectorAll(arg.contentBlocksSelector)
 
     if (this.buttons.length != this.contentElements.length) {
@@ -65,7 +79,7 @@ export default class Tab {
     this.contentActiveClass = arg.contentActiveClass ?? 'active'
     this.autoHeight = arg.autoHeight ?? false
 
-    if (!arg.firstButtonIsNotActive)
+    if (arg.firstButtonIsNotActive == false)
       this.buttons[0].classList.add(this.buttonsActiveClass)
 
     this.contentElements[0].classList.add(this.contentActiveClass)

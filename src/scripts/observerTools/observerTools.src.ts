@@ -6,13 +6,26 @@ interface ObserverToolsArgs {
   /**
     Do you want the animations to be played again if the blocks they leave the screen? 
     Set it to true, but i don't recommend to use this as true in production.
+    @defaultValue `false`
   */
   repeatObserve?: boolean
-  /** This class will be applied when the blocks are sufficiently shown on the display. */
+  /** 
+   * This class will be applied when the blocks are intersected.
+   * @defaultValue `'is-intersecting'`
+   */
   isIntersectedClass?: string
 }
 export default class ObserverTools {
+  /**
+    Do you want the animations to be played again if the blocks they leave the screen? 
+    Set it to true, but i don't recommend to use this as true in production.
+    @defaultValue `false`
+  */
   public static repeatObserve: boolean
+  /** 
+   * This class will be applied when the blocks are intersected.
+   * @defaultValue `'is-intersecting'`
+   */
   public static isIntersectedClass: string
 
   constructor(arg: ObserverToolsArgs, ...elements: (ActionOnView | TypedAnimationTimeline)[]) {
@@ -27,26 +40,60 @@ export default class ObserverTools {
 }
 
 
-
 type Breakpoint = {
   [activeWidth: number]: {
+    /**
+     * Specify `true` if you want to disable the Observer.
+     */
     unobserve: boolean
+    /** 
+     * The delay before the animation starts in milliseconds. 
+     */
     timeoutBeforeStart?: number
+    /**
+      * The function that will be executed when the intersected element is on the screen.
+      * @param observerEntry The IntersectionObserverEntry object for processing inside the function.
+      * @remark The function should be full-fledged, `not be arrow-function`!
+      */
     functionOnView?: (observerEntry: IntersectionObserverEntry) => any
   }
 }
 interface ActionOnViewArgs {
-  /** Selectors of the element/elements to which the active animation class will be applied. */
+  /** 
+   * Selectors of the element/elements to which the active animation class will be applied. 
+   */
   selectors: string
-  /**  */
+  /**
+   * {@link https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API#threshold | MDN reference on this parameter}
+   */
   threshold: number | number[]
+  /**
+   * {@link https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API#root  | MDN reference on this parameter}
+   */
   root?: HTMLElement
+  /**
+   * {@link https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API#rootmargin | MDN reference on this parameter}
+   */
   rootMargin?: string
-  /** The delay before the animation starts in milliseconds. */
+  /** 
+   * The delay before the animation starts in milliseconds. 
+   */
   timeoutBeforeStart: number
+  /**
+   * Allows you to change the Observer object at certain screen widths.
+   */
   breakpoints?: Breakpoint
+  /**
+   * The function that will be executed when the intersected element is on the screen.
+   * @param observerEntry The IntersectionObserverEntry object for processing inside the function.
+   * @remark The function should be full-fledged, `not be arrow-function`!
+   */
   functionOnView?: (observerEntry: IntersectionObserverEntry) => any
 }
+
+/**
+ * Creates an instance of `IntersectionObserver` and allows you to configure it.
+ */
 export class ActionOnView {
   private htmlElements: NodeListOf<HTMLElement>
   private breakpoints: Breakpoint
@@ -167,10 +214,18 @@ export class ActionOnView {
 
 
 
-type ScrollAxisType = 'block' | 'inline'
+type ScrollAxisType = 'block' | 'inline' | 'y' | 'x'
 
 type TypedScrollTimelineArgs = {
+  /**
+   * {@link https://developer.mozilla.org/en-US/docs/Web/API/ScrollTimeline/axis | MDN reference}
+   */
   axis: ScrollAxisType
+  /**
+   * {@link https://developer.mozilla.org/en-US/docs/Web/API/ScrollTimeline/source | MDN reference}
+   * 
+   * @remark But you don't need to specify the element, the element selector is enough.
+   */
   source?: string
 }
 export class TypedScrollTimeline implements AnimationTimeline {
@@ -185,9 +240,23 @@ export class TypedScrollTimeline implements AnimationTimeline {
 }
 
 type TypedViewTimelineArgs = {
+  /**
+   * {@link https://developer.mozilla.org/en-US/docs/Web/API/ViewTimeline/subject | MDN reference}
+   *
+   * @remark But you don't need to specify the element, the element selector is enough.
+   */
   subject: string
+  /**
+   * {@link https://developer.mozilla.org/en-US/docs/Web/API/ScrollTimeline/axis | MDN reference}
+   */
   axis?: ScrollAxisType
+  /**
+   * {@link https://developer.mozilla.org/en-US/docs/Web/API/ViewTimeline/startOffset | MDN reference}
+   */
   startOffset?: CSSUnitValue
+  /**
+   * {@link https://developer.mozilla.org/en-US/docs/Web/API/ViewTimeline/endOffset | MDN reference}
+   */
   endOffset?: CSSUnitValue
 }
 export class TypedViewTimeline implements AnimationTimeline {

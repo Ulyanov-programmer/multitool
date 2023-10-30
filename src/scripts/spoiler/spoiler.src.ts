@@ -1,21 +1,17 @@
 import { elementIsExistWithLog, sleep } from '../general.js'
 
-interface SpoilerArgs {
-  wrappersSelector: string
-  /**
-    If the width of the viewport is greater than input width, 
-    the spoilers will not be active and their styles will not be applied.
-    If the viewport is smaller than input width, the spoilers will be active.
-  */
-  maxWorkWidth?: number
-  /** 
-    Animation duration in ms, unless you want spoilers to open and close too quickly. 
-  */
-  animationDuration: number
-  buttonActiveClass?: string
-  contentActiveClass?: string
 
-  ajar?: Ajar
+interface AjarSpoilerArgs {
+  /**
+   * The height of the slightly open spoiler, while it is not open. 
+   * It can be set in any units of measurement.
+   */
+  defaultHeight: string
+  /**
+   * Remove the button after opening the spoiler.
+   * @defaultValue `false`
+   */
+  deleteButtonAfterOpening?: boolean
 }
 export class Ajar {
   defaultHeight: string
@@ -26,17 +22,65 @@ export class Ajar {
     this.deleteButtonAfterOpening = args.deleteButtonAfterOpening
   }
 }
-interface AjarSpoilerArgs {
-  defaultHeight: string
-  deleteButtonAfterOpening?: boolean
-}
 
+interface SpoilerArgs {
+  /**
+   * Wrapper selector for spoilers.
+   * @remark See spoiler HTML construction
+   * @example
+   * ``` html
+   * <div class='spoiler yourSpoilerClass'> <!-- Your wrapper -->
+   *  <button type='button'
+   *          class='spoiler-button'>Open the spoiler</button>
+   *  <div class='spoiler-content'>
+   *   <div class='spoiler-content-wrapper'>
+   *     <!-- Your content -->
+   *   </div>
+   *  </div>
+   * </div>
+   * ```
+   */
+  wrappersSelector: string
+  /**
+    If the width of the viewport is greater than input width, 
+    the spoilers will not be active and their styles will not be applied.
+    If the viewport is smaller than input width, the spoilers will be active.
+  */
+  maxWorkWidth?: number
+  /** 
+   * Animation duration in ms, unless you want spoilers to open and close too quickly. 
+   * @defaultValue `100` (100ms)
+   */
+  animationDuration: number
+  buttonActiveClass?: string
+  contentActiveClass?: string
+  /**
+   * If you want a spoiler to be slightly open initially, initialize the instance.
+   */
+  ajar?: Ajar
+}
+/**
+ * Create an instance to create a spoiler.
+ * @remark See spoiler HTML construction
+ * @example
+ * ``` html
+ * <div class='spoiler yourSpoilerClass'> <!-- Your wrapper -->
+ *  <button type='button'
+ *          class='spoiler-button'>Open the spoiler</button>
+ *  <div class='spoiler-content'>
+ *   <div class='spoiler-content-wrapper'>
+ *     <!-- Your content -->
+ *   </div>
+ *  </div>
+ * </div>
+ * ```
+ */
 export default class Spoiler {
   private buttons: NodeListOf<HTMLElement>
   private contentElements: NodeListOf<HTMLElement>
   private contentWrapperElements: NodeListOf<HTMLElement>
-  private maxWorkWidth?: number = 99999999
-  private animationDuration: number
+  private maxWorkWidth?: number = 1e6
+  private animationDuration?: number = 100
   private readonly spoilerClass: string = 'spoiler'
   public readonly buttonClass: string = `${this.spoilerClass}-button`
   public readonly contentClass: string = `${this.spoilerClass}-content`
@@ -50,8 +94,11 @@ export default class Spoiler {
     if (!elementIsExistWithLog('Spoiler', args.wrappersSelector)) {
       return
     }
-    else if (args.maxWorkWidth < 0 || args.animationDuration < 0) {
-      console.log('[Spoiler] maxWorkWidth < 0 or animationDuration < 0!')
+    else if (args.maxWorkWidth < 0) {
+      console.log('[Spoiler] maxWorkWidth smaller than 0!')
+    }
+    else if (args.animationDuration < 0) {
+      console.log('[Spoiler] animationDuration smaller than 0!')
     }
 
 

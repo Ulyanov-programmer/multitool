@@ -1,8 +1,8 @@
 import Tab, { ToggleTabsEvent } from './tab.src.js'
 
 new Tab({
-  btnsSelector: '.tab__btn_1',
-  contentBlocksSelector: '.tab__item_1',
+  buttonsSelector: '.tab__btn',
+  contentBlocksSelector: '.tab__item',
   fadeEffect: true,
   buttonsActiveClass: 'active',
   contentActiveClass: 'active',

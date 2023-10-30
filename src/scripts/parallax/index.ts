@@ -1,7 +1,7 @@
 import Parallax, { ParallaxElement } from './parallax.src.js'
 
 new Parallax(
-  { parallaxContainerSelector: '.par-wrapper', minWorkWidth: 768 },
+  { parallaxContainerSelector: '.parallax_wrapper', minWorkWidth: 768 },
 
   new ParallaxElement({
     selectorOrElement: '.parallax_el',

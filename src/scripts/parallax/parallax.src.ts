@@ -15,8 +15,7 @@ export default class Parallax {
   private parallaxElements: ParallaxElement[] = new Array()
 
   constructor(arg: ParallaxArgs, ...parallaxItems: ParallaxElement[]) {
-    if (!elementIsExistWithLog('Parallax', arg.parallaxContainerSelector))
-      return
+    if (!elementIsExistWithLog('Parallax', arg.parallaxContainerSelector)) return
 
     this.parallaxContainer = document.querySelector(arg.parallaxContainerSelector)
     this.containerRect = this.parallaxContainer.getBoundingClientRect()
@@ -53,22 +52,24 @@ export default class Parallax {
 
 
 interface ParallaxElementArgs {
-  /** Selector of element or `HTMLElement` that will be parallaxed. */
+  /** Selector of element that will be parallaxed. */
   selectorOrElement: string
   /** 
    * The value of the parallax power along the X-axis. 
-   * If the value is 1, the element will be behind the cursor, set a lower value. 
+   * @remark If the value is `1`, the element will be behind the cursor, set a lower value. 
   */
   parallaxCoeffX: number
   /**
    * The value of the parallax power along the Y-axis. 
-   * If the value is 1, the element will be behind the cursor, set a lower value. 
+   * @remark If the value is `1`, the element will be behind the cursor, set a lower value. 
   */
   parallaxCoeffY: number
-  /** Move the mouse up - the element moves down, etc. Not required, default = false. */
+  /** 
+   * Reverses parallax moves.
+   * @defaultValue `false`
+   */
   reverseMode?: boolean
 }
-
 export class ParallaxElement {
   private reverseMode: boolean = false
 

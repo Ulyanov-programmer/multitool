@@ -4,13 +4,8 @@ new Submenu(
   { menuActiveClass: 'show', buttonActiveClass: 'active', disableOnEsc: true },
 
   new SubmenuElementGroup({
-    openEvent: SubmenuOpenEvents.Hover,
-    buttonsSelector: '.demo-submenu__hover_button',
-    menusSelector: '.demo-submenu__hover',
-  }),
-  new SubmenuElementGroup({
+    buttonsSelector: '.submenu__click_button',
+    menusSelector: '.submenu__click',
     openEvent: SubmenuOpenEvents.Click,
-    buttonsSelector: '.demo-submenu__click_button',
-    menusSelector: '.demo-submenu__click',
   }),
 )

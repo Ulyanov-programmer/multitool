@@ -17,10 +17,10 @@ new StepByStepBlock({
       return false
     },
   },
-  // form: new Form({
-  //   formSelector: '#form',
-  //   onSubmitFunction: function submitForm(submitEvent: SubmitEvent) {
-  //     submitEvent.preventDefault()
-  //   }
-  // })
+  form: new Form({
+    formSelector: '#form',
+    onSubmitFunction: function onSubmitForm(submitEvent: SubmitEvent) {
+      submitEvent.preventDefault()
+    }
+  })
 })

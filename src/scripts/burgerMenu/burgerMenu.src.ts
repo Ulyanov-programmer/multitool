@@ -2,17 +2,25 @@ import { returnScrollbarWidth, elementIsExistWithLog, sleep } from '../general.j
 
 interface BurgerMenuArgs {
   burgerSelector: string
-  /** A fullscreen-menu selector that will be shown when you click on the burger. */
+  /** 
+   * The selector of the element that will be active when the call button is pressed. 
+   */
   burgerMenuSelector: string
   /** 
     Selector of buttons that are contained in the menu. It is necessary to close the menu when pressing the buttons.
   */
   buttonsSelector: string
-  /** If the value is true, set the automatic padding to the size of a header. */
+  /** 
+   * Add, if necessary, that when the menu is called, it has an offset from a certain fixed element.
+   */
   autoPadding?: autoPaddingOptions
+  /**
+   * Specify `true` if you want the menu to be closed by clicking on one of its items.
+   * @defaultValue `true`
+   */
+  closeMenuByClickOnElement?: boolean
   burgerActiveClass?: string
   menuActiveClass?: string
-  closingByClickOnElement?: boolean
 }
 
 export default class BurgerMenu {
@@ -20,7 +28,7 @@ export default class BurgerMenu {
   private static menu: HTMLElement
   private static buttons: NodeListOf<HTMLElement>
   private static autoPaddingOptions: autoPaddingOptions
-  private static closingByClickOnElement: boolean = true
+  private static closeMenuByClickOnElement: boolean = true
   private static burgerMenuStyles: CSSStyleDeclaration
   private static burgerMenuTransitionDurationMs: number = 100
 
@@ -33,21 +41,18 @@ export default class BurgerMenu {
 
     BurgerMenu.burger = document.querySelector(args.burgerSelector)
     BurgerMenu.menu = document.querySelector(args.burgerMenuSelector)
-    BurgerMenu.closingByClickOnElement = args.closingByClickOnElement
+    BurgerMenu.closeMenuByClickOnElement = args.closeMenuByClickOnElement
 
     BurgerMenu.burgerMenuStyles = getComputedStyle(BurgerMenu.menu)
-    BurgerMenu.burgerMenuTransitionDurationMs = parseFloat(BurgerMenu.burgerMenuStyles.transitionDuration) * 1000
+    BurgerMenu.burgerMenuTransitionDurationMs =
+      parseFloat(BurgerMenu.burgerMenuStyles.transitionDuration) * 1000
 
-    BurgerMenu.burgerActiveClass = args.burgerActiveClass
-      ? args.burgerActiveClass
-      : 'active'
-    BurgerMenu.menuActiveClass = args.menuActiveClass
-      ? args.menuActiveClass
-      : 'active'
+    BurgerMenu.burgerActiveClass = args.burgerActiveClass ?? 'active'
+    BurgerMenu.menuActiveClass = args.menuActiveClass ?? 'active'
 
     BurgerMenu.burger.addEventListener('click', this.toggleNavmenu)
 
-    if (BurgerMenu.closingByClickOnElement) {
+    if (BurgerMenu.closeMenuByClickOnElement) {
       BurgerMenu.buttons = document.querySelectorAll(args.buttonsSelector)
 
       for (let button of BurgerMenu.buttons) {
@@ -99,10 +104,14 @@ export default class BurgerMenu {
 }
 
 export class autoPaddingOptions {
-  public element: HTMLElement
+  private element: HTMLElement
   private root: HTMLElement
 
-  constructor(selectorOfElement: string,) {
+  /**
+   * Create, if you want the menu to have an indent from a certain fixed element.
+   * @param selectorOfElement The element from whose height the indentation for the menu will be calculated when it appears.
+   */
+  constructor(selectorOfElement: string) {
     if (elementIsExistWithLog('autoPaddingOptions', selectorOfElement)) {
       this.element = document.querySelector(selectorOfElement)
     }

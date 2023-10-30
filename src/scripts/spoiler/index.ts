@@ -6,7 +6,7 @@ new Spoiler({
   animationDuration: 300,
 
   // ajar: new Ajar({
+  //   defaultHeight: '2em',
   //   deleteButtonAfterOpening: false,
-  //   defaultHeight: '2em'
   // })
 })

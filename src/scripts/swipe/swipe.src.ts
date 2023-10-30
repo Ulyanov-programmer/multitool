@@ -17,24 +17,42 @@ enum ChangeOrientation {
   Horizontal,
 }
 
-interface SwipeElementArgs {
-  /** The element by which the swipe activates the opening of the menu. */
-  touchStartAreaSelector: string
+export type SwipeElementArgs = {
   /** 
-    The element that will appear when swiping.
-  */
+   * The selector of the element by which the swipe is supposed to be.
+   */
+  touchStartAreaSelector: string
+  /**
+   * The element that will be displayed after the full swipe.
+   */
   swipeableElementSelector: string
-  /** Which way you need to swipe to make the menu appear. */
+  /** 
+   * Which way you need to swipe your finger to make the element appear.
+   */
   changePlane: ChangePlane
   /** 
-    The higher or lower the value, the more or less you need to swipe in order 
-    for the menu to appear. Usually the values range from 0.5 to 0.7.
-  */
+   * The higher or lower the value, the more or less you need to swipe in order 
+   * for the menu to appear. Usually the values range from `0.5` to `0.7`.
+   */
   swipeSensitivity: number
-  /** The maximum width of the window when the swipe will work. */
+  /** 
+   * The maximum width of the viewport when a swipe will work.
+   */
   maxWorkWidth: number
 }
-
+/**
+ * Version of arguments for Swipe Element with some optional versions fields.
+ * @remark optional fields: `touchStartAreaSelector` and `swipeableElementSelector`
+ */
+export type ExportSwipeElementArgs = Omit<
+  SwipeElementArgs,
+  'touchStartAreaSelector' |
+  'swipeableElementSelector'
+> &
+{
+  touchStartAreaSelector?: string
+  swipeableElementSelector?: string
+}
 export default class SwipeElement {
   private touchAreaElement: HTMLElement
   private swipeableElement: HTMLElement

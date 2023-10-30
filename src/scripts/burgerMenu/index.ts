@@ -7,5 +7,5 @@ new BurgerMenu({
   autoPadding: new autoPaddingOptions('.l-header'),
   menuActiveClass: 'active',
   burgerActiveClass: 'active',
-  closingByClickOnElement: true,
+  closeMenuByClickOnElement: true,
 }) 

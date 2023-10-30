@@ -1,6 +1,9 @@
 import { returnScrollbarWidth, sleep } from '../general.js'
 
 interface DialogsArgs {
+  /**
+   * @defaultValue `true`
+   */
   closeByClickOnBackdrop?: boolean
 }
 
@@ -10,6 +13,7 @@ export default class Dialogs {
   private static dialogWindowElements: NodeListOf<HTMLElement>
   private readonly dialogActiveStateAttribute = 'open'
   private readonly dialogCloseButtonAttribute = `[data-close-dialog-id]`
+  private readonly dialogDataAttribute = `[data-modal-dialog]`
   private readonly dialogActiveSelector = `dialog[${this.dialogActiveStateAttribute}]`
   private readonly dialogModalStateActiveClass = '_dialog_modal_'
   private readonly closeByClickOnBackdrop: boolean
@@ -18,6 +22,7 @@ export default class Dialogs {
     this.closeByClickOnBackdrop = arg.closeByClickOnBackdrop ?? true
 
     Dialogs.dialogOpeners = document.querySelectorAll('[data-open-dialog-id]')
+
     for (let dialogOpener of Dialogs.dialogOpeners) {
       dialogOpener.addEventListener('click', () => {
         let dialog = document.getElementById(dialogOpener.dataset.openDialogId) as HTMLDialogElement
@@ -64,7 +69,10 @@ export default class Dialogs {
     }
 
 
-    Dialogs.dialogModalElements = document.querySelectorAll('dialog[data-modal-dialog]')
+    Dialogs.dialogModalElements = document.querySelectorAll(
+      `dialog${this.dialogDataAttribute}`
+    )
+
     for (let dialogElement of Dialogs.dialogModalElements) {
       dialogElement.style.padding = '0'
       dialogElement.style.border = 'none'
@@ -78,8 +86,9 @@ export default class Dialogs {
       })
     }
 
+
     Dialogs.dialogWindowElements = document.querySelectorAll(
-      'dialog:not([data-modal-dialog])'
+      `dialog:not(${this.dialogDataAttribute})`
     )
   }
 
@@ -110,7 +119,7 @@ export default class Dialogs {
   }
 
   private openWindowDialog(dialogElement: HTMLDialogElement) {
-    dialogElement.show()
+    dialogElement?.show()
   }
   private closeWindowDialog(dialogElement: HTMLDialogElement) {
     dialogElement?.close()
@@ -119,9 +128,7 @@ export default class Dialogs {
 
   private async toggleBodyScroll(toggleScrollOn: boolean, activeDialog: HTMLElement) {
     if (toggleScrollOn) {
-      if (document.querySelector(`.${this.dialogModalStateActiveClass}`)) {
-        return
-      }
+      if (document.querySelector(`.${this.dialogModalStateActiveClass}`)) return
 
       let transitionDuration = parseFloat(
         getComputedStyle(activeDialog).transitionDuration
@@ -131,15 +138,16 @@ export default class Dialogs {
 
       document.body.style.paddingRight = ''
       document.body.style.overflow = ''
-    } else {
+    }
+    else {
       let scrollbarWidth = returnScrollbarWidth()
 
       if (scrollbarWidth > 0) {
         document.body.style.paddingRight = returnScrollbarWidth() + 'px'
       }
+
       document.body.style.overflow = 'hidden'
     }
-
   }
 
   private getParentDialog(clickedButton: HTMLElement): HTMLDialogElement {
@@ -150,6 +158,7 @@ export default class Dialogs {
 
   private closeByClickOnBackdropEvent(mouseEv: PointerEvent) {
     // ? Checks whether the dialog itself was pressed (including its ::backdoor), or its child.
+
     // When the dialog is active, a currentTarget will always be the dialog itself.
     if (mouseEv.target == mouseEv.currentTarget) {
       this.closeDialog(mouseEv.target as HTMLDialogElement)

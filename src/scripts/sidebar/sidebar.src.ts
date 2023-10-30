@@ -1,5 +1,5 @@
 import { elementIsExistWithLog } from '../general.js'
-import SwipeElement, { ChangePlane } from '../swipe/swipe.src.js'
+import SwipeElement, { ExportSwipeElementArgs, ChangePlane } from '../swipe/swipe.src.js'
 
 interface SidebarArgs {
   /** Id of sidebar. */
@@ -8,7 +8,7 @@ interface SidebarArgs {
   sidebarActiveClass?: string
   buttonActiveClass?: string
 
-  swipeElementOptions?: swipeElementOptions
+  swipeElementOptions?: ExportSwipeElementArgs
 }
 
 interface swipeElementOptions {

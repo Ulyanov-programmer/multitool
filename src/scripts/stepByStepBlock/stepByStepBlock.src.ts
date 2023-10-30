@@ -1,40 +1,80 @@
 import { elementIsExistWithLog } from '../general.js'
 
-interface FormArgs {
-  formSelector: string
-  onSubmitFunction: (observerEntry: SubmitEvent) => any
-}
-
-export class Form {
-  public formElement: HTMLElement
-  public onSubmitFunction: (submitEvent: SubmitEvent) => any
-
-  constructor(arg: FormArgs) {
-    if (!elementIsExistWithLog('StepByStep Form', arg.formSelector))
-      return
-
-    this.formElement = document.querySelector(arg.formSelector)
-    this.onSubmitFunction = arg.onSubmitFunction
-  }
-}
-
-
+/**
+ * The function that will be executed before switching steps.
+ * 
+ * Function syntax:
+ * @example 
+ * ``` js
+ * * // The function works before switching from a step with index 0 to another step.
+ * 0: () => {
+ *   return true
+ * },
+ * * // Instead of the step index, you can specify the keyword 'final' - the function will be used when switching (using the next step button) the last block.
+ * final: () => {
+ *   return false
+ * },
+ * ```
+ */
 type checkFunctions = {
   [stepBlockIndex: number | string]: () => boolean
 }
-
 interface StepByStepArgs {
+  /**
+   * A container-element selector for your step-elements.
+   */
   stepsContainerSelector: string
+  /**
+   * Selector for buttons that take a step forward.
+   */
   nextButtonsSelector: string
+  /**
+   * Selector for buttons that take a step back.
+   */
   prevButtonsSelector: string
+  /**
+   * Specify the value in milliseconds if you want to specify the speed at which a step will be taken.
+   * @defaultValue `500` (500ms)
+   */
   transitionTimeout: number
+  /**
+   * If you use certain elements to indicate which step is active, specify their selector.
+   */
   statusBlocksSelector?: string
+  /**
+   * Specify the index of the block that will be active initially.
+   * @remark The index starts from 0.
+   */
   currentActiveBlockIndex?: number
+  /**
+   * The indent in % of their width between the steps, which will be visible at the moment of switching them.
+   * @defaultValue `5` (5%)
+   */
   gapPercent?: number
+  /**
+   * Adds functions that will be started before the steps are switched.
+   * With their help, for example, you can cancel the switch.
+   * @remark Must return `true` or `false`. If `true` is returned, the block will be switched, otherwise it will not be.
+   * 
+   * Function syntax:
+   * @example 
+   * ``` js
+   * * // The function works before switching from a step with index 0 to another step.
+   * 0: () => {
+   *   return true
+   * },
+   * * // Instead of the step index, you can specify the keyword 'final' - the function will be used when switching (using the next step button) the last block.
+   * final: () => {
+   *   return false
+   * },
+   * ```
+   */
   checkFunctions?: checkFunctions
+  /**
+   * Add if your block with steps is a form and you want a certain function to be triggered when submitting the form.
+   */
   form?: Form
 }
-
 export default class StepByStepBlock {
   private stepsContainer: HTMLElement
   private stepBlocks: HTMLCollectionOf<HTMLElement>
@@ -80,15 +120,11 @@ export default class StepByStepBlock {
       prevButton.addEventListener('click', this.togglePrevFormBlock.bind(this))
     }
 
-    if (arg.form) {
-      arg.form.formElement.addEventListener('submit', (submitEvent: SubmitEvent) => {
-        arg.form.onSubmitFunction(submitEvent)
-      })
-    }
+    arg.form?.formElement.addEventListener('submit', (submitEvent: SubmitEvent) =>
+      arg.form?.onSubmitFunction(submitEvent)
+    )
 
-    if (arg.statusBlocksSelector) {
-      this.statusBlocksSelector[this.currentActiveBlockIndex].classList.add('active')
-    }
+    this.statusBlocksSelector[this.currentActiveBlockIndex]?.classList.add('active')
 
 
     this.initFormBlocksRow()
@@ -228,3 +264,27 @@ export default class StepByStepBlock {
   }
 }
 
+
+interface FormArgs {
+  /**
+   * Selector of your form.
+   */
+  formSelector: string
+  /**
+   * This function will be executed at the time the form is submitted (a `submit` form event).
+   * @param submitEvent A SubmitEvent object that can be processed in a function.
+   */
+  onSubmitFunction: (submitEvent: SubmitEvent) => any
+}
+export class Form {
+  public formElement: HTMLElement
+  public onSubmitFunction: (submitEvent: SubmitEvent) => any
+
+  constructor(arg: FormArgs) {
+    if (!elementIsExistWithLog('[StepByStep Form]', arg.formSelector))
+      return
+
+    this.formElement = document.querySelector(arg.formSelector)
+    this.onSubmitFunction = arg.onSubmitFunction
+  }
+}

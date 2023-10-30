@@ -1,18 +1,19 @@
 import { isNullOrWhiteSpaces, elementIsExistWithLog } from '../general.js'
+
 export enum SubmenuOpenEvents {
   Click,
   Hover,
-};
-
-interface SubmenuArgs {
-  /** The class for an active submenu menu. */
-  menuActiveClass: string
-  /** The class for an active submenu button. */
-  buttonActiveClass: string
-  /** If true, all menus that open with a click will be closed by pressing Esc. */
-  disableOnEsc?: boolean
 }
 
+interface SubmenuArgs {
+  menuActiveClass: string
+  buttonActiveClass: string
+  /** 
+   * If true, all menus that open with a click will be closed by pressing `Esc`.
+   * @defaultValue `false`
+   */
+  disableOnEsc?: boolean
+}
 export default class Submenu {
   private static submenuElements: SubmenuElementGroup[] = new Array()
   public static menuActiveClass: string
@@ -65,7 +66,7 @@ export default class Submenu {
 interface SubmenuElementGroupArgs {
   /** 
     The value of the SubmenuOpenEvents enumeration, depending on what you specify,
-    the menu will open either by mouse hover or by click. 
+    the menu will open either by mouse `SubmenuOpenEvents.Hover` or by `SubmenuOpenEvents.Click`. 
   */
   openEvent: SubmenuOpenEvents
   /** Selector of the buttons that will open a submenu. */
