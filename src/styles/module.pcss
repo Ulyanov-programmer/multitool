@@ -1,19 +1,21 @@
-.m-navmenu {
-  .body {
-    display: flex;
-    flex-flow: row wrap;
-    gap: 15px;
+@layer module {
+  .m-navmenu {
+    .body {
+      display: flex;
+      flex-flow: row wrap;
+      gap: 15px;
 
-    li {
-      a,
-      button {
-        display: inline-block;
-        padding: 8px;
-        transition: all 0.2s ease 0s;
+      li {
+        a,
+        button {
+          display: inline-block;
+          padding: 8px;
+          transition: all 0.2s ease 0s;
 
-        &:hover,
-        &:focus {
-          text-decoration: underline;
+          &:hover,
+          &:focus {
+            text-decoration: underline;
+          }
         }
       }
     }

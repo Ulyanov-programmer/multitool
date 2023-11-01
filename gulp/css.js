@@ -49,10 +49,6 @@ export default function css() {
     ))
 
     .pipe($.rename({ extname: '.css', }))
-    .pipe($.cleanCss({
-      format: 'beautify',
-      level: 0,
-    }))
 
     .pipe(gulp.dest(paths.build.css))
     .pipe(browsersync.stream())

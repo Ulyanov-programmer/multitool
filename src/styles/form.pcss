@@ -1,91 +1,93 @@
-form {
-}
-
-fieldset {
-}
-
-label {
-  cursor: pointer;
-}
-
-input {
-  &::placeholder {
+@layer base {
+  form {
   }
 
-  &:disabled {
+  fieldset {
   }
 
-  &:invalid {
+  label {
+    cursor: pointer;
   }
-}
 
-input[type="text"] {
-}
+  input {
+    &::placeholder {
+    }
 
-input[type="email"] {
-}
+    &:disabled {
+    }
 
-input[type="tel"] {
-}
+    &:invalid {
+    }
+  }
 
-input[type="number"] {
-  appearance: textfield;
+  input[type='text'] {
+  }
 
-  &::-webkit-inner-spin-button,
-  &::-webkit-outer-spin-button {
-    margin: 0;
+  input[type='email'] {
+  }
+
+  input[type='tel'] {
+  }
+
+  input[type='number'] {
+    appearance: textfield;
+
+    &::-webkit-inner-spin-button,
+    &::-webkit-outer-spin-button {
+      margin: 0;
+      appearance: none;
+    }
+  }
+
+  input[type='radio'],
+  input[type='checkbox'] {
+    display: none;
+
+    & + label {
+      svg {
+      }
+    }
+
+    &:checked + label {
+      svg {
+      }
+    }
+  }
+
+  input[type='checkbox'] {
+  }
+
+  input[type='radio'] {
+  }
+
+  input[type='file'] {
+    display: none;
+
+    input[type='file'] + label {
+    }
+  }
+
+  select {
+    cursor: pointer;
     appearance: none;
+    background: #fff;
   }
-}
 
-input[type="radio"],
-input[type="checkbox"] {
-  display: none;
+  textarea {
+    resize: none;
+    scrollbar-width: none;
 
-  & + label {
-    svg {
+    &::-webkit-scrollbar {
+      width: 0;
+      height: 0;
+    }
+
+    &::placeholder {
     }
   }
 
-  &:checked + label {
-    svg {
-    }
+  input[type='password'] {
+    --caption-font: 'caption';
+    font-family: var(--caption-font);
   }
-}
-
-input[type="checkbox"] {
-}
-
-input[type="radio"] {
-}
-
-input[type="file"] {
-  display: none;
-
-  input[type="file"] + label {
-  }
-}
-
-select {
-  cursor: pointer;
-  appearance: none;
-  background: #fff;
-}
-
-textarea {
-  resize: none;
-  scrollbar-width: none;
-
-  &::-webkit-scrollbar {
-    width: 0;
-    height: 0;
-  }
-
-  &::placeholder {
-  }
-}
-
-input[type="password"] {
-  --caption-font: "caption";
-  font-family: var(--caption-font);
 }

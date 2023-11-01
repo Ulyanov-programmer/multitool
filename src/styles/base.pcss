@@ -1,123 +1,127 @@
-* {
-  all: unset;
-  box-sizing: border-box;
-}
+@layer base, layout, form, module, state, theme;
 
-head,
-script {
-  display: none;
-}
+@layer base {
+  * {
+    all: unset;
+    box-sizing: border-box;
+  }
 
-::before,
-::after {
-  box-sizing: border-box;
-}
+  head,
+  script {
+    display: none;
+  }
 
-:active {
-  outline: none;
-}
+  ::before,
+  ::after {
+    box-sizing: border-box;
+  }
 
-:focus-visible {
-  outline: 1px solid;
-}
-
-nav,
-footer,
-header,
-aside,
-body,
-div {
-  display: block;
-}
-
-html,
-body {
-  line-height: 1;
-  text-size-adjust: auto;
-
-  -webkit-tap-highlight-color: #0000;
-}
-
-html {
-  scroll-behavior: smooth;
-}
-
-a,
-button {
-  cursor: pointer;
-  outline-color: transparent;
-}
-
-input {
-  width: fit-content;
-
-  &:focus-visible {
+  :active {
     outline: none;
   }
-}
 
-select {
-  cursor: pointer;
-  width: 100%;
-  appearance: none;
-
-  &:focus-visible {
-    outline: none;
+  :focus-visible {
+    outline: 1px solid;
   }
-}
 
-a {
-  display: inline-block;
-
-  &:hover,
-  &:visited {
-    text-decoration: none;
+  nav,
+  footer,
+  header,
+  aside,
+  body,
+  div {
+    display: block;
   }
-}
 
-ul,
-li {
-  list-style: none;
-}
+  html,
+  body {
+    line-height: 1;
+    text-size-adjust: auto;
 
-img {
-  vertical-align: top;
-}
+    -webkit-tap-highlight-color: #0000;
+  }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  text-wrap: balance;
-}
+  html {
+    scroll-behavior: smooth;
+  }
 
-body {
-  font-family: var(--main-font-family);
-  font-size: clamp(
-    pxRem($minFontSize),
-    pxToVw($mainFontSize, $layoutWidth),
-    pxRem($mainFontSize)
-  );
-  color: var(--main-text-color);
-  background: var(--background);
-}
+  a,
+  button {
+    cursor: pointer;
+    outline-color: transparent;
+  }
 
-:root {
-  --main-font-family: arial;
-  --main-text-color: black;
-  --background: white;
-}
+  input {
+    width: fit-content;
 
-h1 {
-}
+    &:focus-visible {
+      outline: none;
+    }
+  }
 
-h2 {
-}
+  select {
+    cursor: pointer;
+    width: 100%;
+    appearance: none;
 
-h3 {
-}
+    &:focus-visible {
+      outline: none;
+    }
+  }
 
-h4 {
+  a {
+    display: inline-block;
+
+    &:hover,
+    &:visited {
+      text-decoration: none;
+    }
+  }
+
+  ul,
+  li {
+    list-style: none;
+  }
+
+  img {
+    vertical-align: top;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    text-wrap: balance;
+  }
+
+  body {
+    font-family: var(--main-font-family);
+    font-size: clamp(
+      pxRem($minFontSize),
+      pxToVw($mainFontSize, $layoutWidth),
+      pxRem($mainFontSize)
+    );
+    color: var(--main-text-color);
+    background: var(--background);
+  }
+
+  :root {
+    --main-font-family: arial;
+    --main-text-color: black;
+    --background: white;
+  }
+
+  h1 {
+  }
+
+  h2 {
+  }
+
+  h3 {
+  }
+
+  h4 {
+  }
 }

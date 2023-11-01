@@ -1,114 +1,116 @@
-:root {
-  --content-inline-padding: 10vw;
-}
-
-.is-centered-content {
-  /* Paddings for site content with default value. */
-  padding-inline: var(--content-inline-padding, 10vw);
-
-  @media (--is-large-layout) {
-    /* Paddings in a large viewport. */
-    --content-inline-padding: 15vw;
-  }
-
-  @media (--is-layout-width) {
-    /* Paddings in a PC viewport. */
+@layer state {
+  :root {
     --content-inline-padding: 10vw;
   }
 
-  @media (--is-tablet) {
-    /* Paddings in a tablet viewport. */
-    --content-inline-padding: 5vw;
+  .is-centered-content {
+    /* Paddings for site content with default value. */
+    padding-inline: var(--content-inline-padding, 10vw);
+
+    @media (--is-large-layout) {
+      /* Paddings in a large viewport. */
+      --content-inline-padding: 15vw;
+    }
+
+    @media (--is-layout-width) {
+      /* Paddings in a PC viewport. */
+      --content-inline-padding: 10vw;
+    }
+
+    @media (--is-tablet) {
+      /* Paddings in a tablet viewport. */
+      --content-inline-padding: 5vw;
+    }
+
+    @media (--is-mobile) {
+      /* Paddings in a smartphone viewport. */
+      --content-inline-padding: 2.5vw;
+    }
   }
 
-  @media (--is-mobile) {
-    /* Paddings in a smartphone viewport. */
-    --content-inline-padding: 2.5vw;
+  .is-full-width-block {
+    display: grid;
+    grid-template-columns:
+      var(--content-inline-padding)
+      1fr
+      var(--content-inline-padding);
+    width: 100vw;
   }
-}
 
-.is-full-width-block {
-  display: grid;
-  grid-template-columns:
-    var(--content-inline-padding)
-    1fr
-    var(--content-inline-padding);
-  width: 100vw;
-}
-
-.is-contain-img {
-  img {
-    @mixin size 100%;
-    object-fit: contain;
+  .is-contain-img {
+    img {
+      @mixin size 100%;
+      object-fit: contain;
+    }
   }
-}
 
-.is-cover-img {
-  img {
-    @mixin size 100%;
-    object-fit: cover;
+  .is-cover-img {
+    img {
+      @mixin size 100%;
+      object-fit: cover;
+    }
   }
-}
 
-.is-thin {
-  font-weight: 100;
-}
+  .is-thin {
+    font-weight: 100;
+  }
 
-.is-extra-light {
-  font-weight: 200;
-}
+  .is-extra-light {
+    font-weight: 200;
+  }
 
-.is-light {
-  font-weight: 300;
-}
+  .is-light {
+    font-weight: 300;
+  }
 
-.is-medium {
-  font-weight: 500;
-}
+  .is-medium {
+    font-weight: 500;
+  }
 
-.is-semi-bold {
-  font-weight: 600;
-}
+  .is-semi-bold {
+    font-weight: 600;
+  }
 
-.is-bold {
-  font-weight: 700;
-}
+  .is-bold {
+    font-weight: 700;
+  }
 
-.is-extra-bold {
-  font-weight: 800;
-}
+  .is-extra-bold {
+    font-weight: 800;
+  }
 
-.is-black {
-  font-weight: 900;
-}
+  .is-black {
+    font-weight: 900;
+  }
 
-.is-uppercase {
-  text-transform: uppercase;
-}
+  .is-uppercase {
+    text-transform: uppercase;
+  }
 
-.is-logo {
-  z-index: 10;
-}
+  .is-logo {
+    z-index: 10;
+  }
 
-.is-visually-hidden {
-  position: absolute;
+  .is-visually-hidden {
+    position: absolute;
 
-  overflow: hidden;
+    overflow: hidden;
 
-  width: 1px;
-  height: 1px;
+    width: 1px;
+    height: 1px;
 
-  white-space: nowrap;
+    white-space: nowrap;
 
-  clip: rect(0 0 0 0);
-  clip-path: inset(50%);
-}
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+  }
 
-.is-hidden-scrollbar {
-  scrollbar-width: none;
+  .is-hidden-scrollbar {
+    scrollbar-width: none;
 
-  &::-webkit-scrollbar {
-    width: 0;
-    height: 0;
+    &::-webkit-scrollbar {
+      width: 0;
+      height: 0;
+    }
   }
 }
