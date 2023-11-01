@@ -6,7 +6,7 @@
 @custom-media --burger-menu-is-hidden (width > 768px);
 @custom-media --burger-menu-is-visible (width <= 769px);
 
-.m-burger-menu {
+.BurgerMenu {
   position: fixed;
   z-index: 4 !important;
   inset: 0;
@@ -47,7 +47,7 @@
   }
 }
 
-.burger-btn {
+.BurgerBtn {
   z-index: 5;
   display: block;
 
@@ -56,7 +56,7 @@
     If you find that a part of the <rect> extends beyond the boundaries of the <svg>,
     try to make the <svg> a square (width and height must be equal).
   */
-  .main-svg {
+  .BurgerSvg {
     > rect {
       transform-origin: center;
       transform-box: fill-box;
@@ -77,18 +77,18 @@
   }
 
   &.active {
-    .rect-top {
+    .rectTop {
       transform: rotate(45deg);
 
       x: 0%;
       y: 50%;
     }
 
-    .rect-center {
+    .rectCenter {
       @mixin hide;
     }
 
-    .rect-bottom {
+    .rectBottom {
       transform: rotate(-45deg);
 
       x: 0;
@@ -101,7 +101,7 @@
   }
 }
 
-.m-navmenu {
+.NavMenu {
   @media (--burger-menu-is-visible) {
     display: none;
   }

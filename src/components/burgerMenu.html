@@ -1,25 +1,25 @@
-<button type='button'
+<button class='BurgerBtn'
+        type='button'
         id='burgerButton'
-        class='burger-btn'
-        aria-label='Show the burger menu'>
-  <svg class='main-svg'
+        title='Open the burger menu'>
+  <svg class='BurgerSvg'
        width='40'
        height='40'
        viewBox='0 0 40 40'
        xmlns='http://www.w3.org/2000/svg'>
-    <rect class='rect-top'
+    <rect class='rectTop'
           width='40'
           height='3'
           x='0%'
           y='0%'
           fill='#000' />
-    <rect class='rect-center'
+    <rect class='rectCenter'
           width='40'
           height='3'
           x='0%'
           y='45%'
           fill='#000' />
-    <rect class='rect-bottom'
+    <rect class='rectBottom'
           width='40'
           height='3'
           x='0%'
@@ -28,19 +28,17 @@
   </svg>
 </button>
 
-<nav class='m-burger-menu'>
+<nav class='BurgerMenu'>
   <ul>
-    <li class='element'>
-      <a class=''
-         target='_blank'
+    <li>
+      <a target='_blank'
          rel='noopener'
          href='#'>
         ref
       </a>
     </li>
-    <li class='element'>
-      <button class=''
-              type='button'>
+    <li>
+      <button type='button'>
         button
       </button>
     </li>

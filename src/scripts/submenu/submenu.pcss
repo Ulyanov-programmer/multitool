@@ -1,8 +1,8 @@
-.submenu-wrapper {
+.SubmenuWrapper {
   position: relative;
 }
 
-.submenu-menu {
+.SubmenuMenu {
   @mixin hide;
   position: absolute;
   z-index: 1;
@@ -18,15 +18,15 @@
     @mixin show;
   }
 
-  &.is-to-left {
+  &.toLeft {
     right: 0;
   }
 
-  &.is-to-right {
+  &.toRight {
     left: 0;
   }
 
-  &.is-center {
+  &.toCenter {
     left: 50%;
     transform: translate(-50%, 0);
   }

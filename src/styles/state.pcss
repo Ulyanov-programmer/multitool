@@ -3,7 +3,7 @@
     --content-inline-padding: 10vw;
   }
 
-  .is-centered-content {
+  .centeredContent {
     /* Paddings for site content with default value. */
     padding-inline: var(--content-inline-padding, 10vw);
 
@@ -28,7 +28,7 @@
     }
   }
 
-  .is-full-width-block {
+  .fullWidthBlock {
     display: grid;
     grid-template-columns:
       var(--content-inline-padding)
@@ -37,61 +37,61 @@
     width: 100vw;
   }
 
-  .is-contain-img {
+  .containImg {
     img {
       @mixin size 100%;
       object-fit: contain;
     }
   }
 
-  .is-cover-img {
+  .coverImg {
     img {
       @mixin size 100%;
       object-fit: cover;
     }
   }
 
-  .is-thin {
+  .thin {
     font-weight: 100;
   }
 
-  .is-extra-light {
+  .extraLight {
     font-weight: 200;
   }
 
-  .is-light {
+  .light {
     font-weight: 300;
   }
 
-  .is-medium {
+  .medium {
     font-weight: 500;
   }
 
-  .is-semi-bold {
+  .semiBold {
     font-weight: 600;
   }
 
-  .is-bold {
+  .bold {
     font-weight: 700;
   }
 
-  .is-extra-bold {
+  .extraBold {
     font-weight: 800;
   }
 
-  .is-black {
+  .black {
     font-weight: 900;
   }
 
-  .is-uppercase {
+  .uppercase {
     text-transform: uppercase;
   }
 
-  .is-logo {
+  .logo {
     z-index: 10;
   }
 
-  .is-visually-hidden {
+  .visuallyHidden {
     position: absolute;
 
     overflow: hidden;
@@ -105,7 +105,7 @@
     clip-path: inset(50%);
   }
 
-  .is-hidden-scrollbar {
+  .hiddenScrollbar {
     scrollbar-width: none;
 
     &::-webkit-scrollbar {
