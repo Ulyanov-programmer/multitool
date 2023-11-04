@@ -3,16 +3,18 @@
   --burger-margin-top: 0.1px;
 }
 
-@custom-media --burger-menu-is-hidden (width > 768px);
+@custom-media --burger-menu-is-hidden (width >= 769px);
 @custom-media --burger-menu-is-visible (width <= 769px);
 
 .BurgerMenu {
+  --menu-margin: 15px;
   position: fixed;
   z-index: 4 !important;
   inset: 0;
   transform: translate3d(0, -100vh, 0);
 
   overflow: auto;
+  scroll-snap-type: y mandatory;
 
   width: 100vw;
 
@@ -31,12 +33,15 @@
   ul {
     display: grid;
     gap: 10px;
-    justify-items: center;
+    justify-items: right;
+    margin-right: var(--menu-margin);
 
     li {
+      scroll-snap-align: start;
+
       a,
       button {
-        padding: 15px 0;
+        padding: 20px 15px;
         color: var(--text-c);
       }
     }
