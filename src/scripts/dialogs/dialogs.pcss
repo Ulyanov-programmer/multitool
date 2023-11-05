@@ -1,7 +1,6 @@
 dialog[data-modal-dialog] {
   @mixin hide;
   position: fixed;
-
   top: 50%;
   left: 50%;
   transform: translate3d(-50%, -50%, 0);
@@ -25,4 +24,17 @@ dialog[data-modal-dialog] {
     height: 80vh;
     background: white;
   }
+}
+
+/* For dialogs like small windows. */
+dialog:not([data-modal-dialog]) {
+  @mixin hide;
+
+  &[open] {
+    @mixin show;
+  }
+}
+
+.wrap {
+  position: relative;
 }
