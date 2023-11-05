@@ -1,15 +1,10 @@
 dialog[data-modal-dialog] {
   @mixin hide;
   position: fixed;
+
   top: 50%;
   left: 50%;
   transform: translate3d(-50%, -50%, 0);
-
-  display: block;
-
-  text-align: center;
-
-  background: white;
 
   transition: all 0.2s ease;
 
@@ -18,7 +13,16 @@ dialog[data-modal-dialog] {
     backdrop-filter: blur(1px);
   }
 
+  &:not([open]) {
+  }
+
   &[open] {
     @mixin show;
+  }
+
+  .contentWrapper {
+    width: 50vw;
+    height: 80vh;
+    background: white;
   }
 }

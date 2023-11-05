@@ -77,8 +77,6 @@ export default class Dialogs {
       dialogElement.style.padding = '0'
       dialogElement.style.border = 'none'
       dialogElement.style.margin = '0'
-      dialogElement.style.height = 'fit-content'
-      dialogElement.style.width = 'fit-content'
 
       dialogElement.addEventListener('close', (closeEvent) => {
         closeEvent.preventDefault()
