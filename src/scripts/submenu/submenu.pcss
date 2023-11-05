@@ -1,8 +1,12 @@
 .SubmenuWrapper {
   position: relative;
+  width: fit-content;
 }
 
-.SubmenuMenu {
+[data-submenu-button] {
+}
+
+[data-submenu] {
   @mixin hide;
   position: absolute;
   z-index: 1;
@@ -15,7 +19,6 @@
   transition: all 0.2s ease;
 
   &.show {
-    @mixin show;
   }
 
   &.toLeft {

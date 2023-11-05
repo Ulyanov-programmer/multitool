@@ -4,8 +4,8 @@ new Submenu(
   { menuActiveClass: 'show', buttonActiveClass: 'active', disableOnEsc: true },
 
   new SubmenuElementGroup({
-    buttonsSelector: '.submenu__click_button',
-    menusSelector: '.submenu__click',
+    buttonsSelector: '[data-submenu-button]',
+    menusSelector: '[data-submenu]',
     openEvent: SubmenuOpenEvents.Click,
   }),
 )
