@@ -2,7 +2,6 @@ import { $, isProd } from '../gulpfile.js'
 
 import gulp from 'gulp'
 import browsersync from 'browser-sync'
-import imgToPicture from 'gulp_img_transform_to_picture'
 import { htmlValidator } from 'gulp-w3c-html-validator'
 import { paths } from './paths.js'
 
@@ -21,12 +20,26 @@ export default function html() {
           indent: 2,
           blankLines: false,
           eof: '<!-- Made in Russia, with ❤, by Ivan Ulyanov. -->',
-          sortAttr: true,
+          sortAttr: false,
         }
       }),
     ], {}))
 
-    .pipe(imgToPicture({}))
+    .pipe($.htmlImgToPicture({
+      logger: false,
+      sortBySize: false,
+      filterUnexistedImages: false,
+      sourceExtensions: [
+        {
+          extension: 'webp',
+          mimetype: 'image/webp',
+        },
+        {
+          extension: 'avif',
+          mimetype: 'image/avif',
+        },
+      ],
+    }))
 
     .pipe(
       $.if(isProd, $.versionNumber({

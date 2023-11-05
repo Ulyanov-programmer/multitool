@@ -29,7 +29,8 @@ interface SpoilerArgs {
    * @remark See spoiler HTML construction
    * @example
    * ``` html
-   * <div class='spoiler yourSpoilerClass'> <!-- Your wrapper -->
+   * <div class='spoiler'
+   *      data-spoiler> <!-- Your wrapper -->
    *  <button type='button'
    *          class='spoiler-button'>Open the spoiler</button>
    *  <div class='spoiler-content'>
@@ -64,7 +65,8 @@ interface SpoilerArgs {
  * @remark See spoiler HTML construction
  * @example
  * ``` html
- * <div class='spoiler yourSpoilerClass'> <!-- Your wrapper -->
+ * <div class='spoiler'
+ *      data-spoiler> <!-- Your wrapper -->
  *  <button type='button'
  *          class='spoiler-button'>Open the spoiler</button>
  *  <div class='spoiler-content'>
