@@ -37,18 +37,14 @@
     width: 100vw;
   }
 
-  .containImg {
-    img {
-      @mixin size 100%;
-      object-fit: contain;
-    }
+  img.containImg {
+    @mixin size 100%;
+    object-fit: contain;
   }
 
-  .coverImg {
-    img {
-      @mixin size 100%;
-      object-fit: cover;
-    }
+  img.coverImg {
+    @mixin size 100%;
+    object-fit: cover;
   }
 
   .thin {
