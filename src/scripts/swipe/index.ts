@@ -1,7 +1,7 @@
 import SwipeElement, { ChangePlane } from './swipe.src.js'
 
 new SwipeElement({
-  touchStartAreaSelector: '.swipe_area_element',
+  touchStartAreaSelector: '[data-swipe-area]',
   swipeableElementSelector: '.element',
   changePlane: ChangePlane.ToLeft,
   swipeSensitivity: 0.5,
