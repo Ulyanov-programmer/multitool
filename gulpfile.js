@@ -24,6 +24,7 @@ import images, { imagesSvg } from './gulp/images.js'
 import video from './gulp/video.js'
 import deleteUnlinkFiles from './gulp/deleteUnlinkFiles.js'
 import deleteDist from './gulp/deleteDist.js'
+import other from './gulp/otherFiles.js'
 
 
 function watchFiles() {
@@ -53,10 +54,13 @@ function watchFiles() {
 
   gulp.watch(paths.watch.libs, libs)
     .on('unlink', filePath => deleteUnlinkFiles(filePath))
+
+  gulp.watch(paths.watch.other, other)
+    .on('unlink', filePath => deleteUnlinkFiles(filePath))
 }
 
 const mainTasks = [
-  html, css, environmentCss, fonts, apiScripts, sourcesScripts, php, imagesSvg, images, video,
+  html, other, css, environmentCss, fonts, apiScripts, sourcesScripts, php, imagesSvg, images, video,
 ]
 
 let build = gulp.series(deleteDist, gulp.parallel(libs, mainTasks), fontsStyle)

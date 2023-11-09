@@ -7,12 +7,13 @@ export const paths = {
   build: {
     html: `${project}/`,
     php: `${project}/php/`,
-    css: `${project}/`,
+    css: `${project}/styles/`,
     scripts: `${project}/scripts/`,
     images: `${project}/img/`,
     fonts: `${project}/fonts/`,
     libs: `${project}/libs/`,
     video: `${project}/video/`,
+    other: `${project}/other/`,
   },
   src: {
     html: [
@@ -21,8 +22,7 @@ export const paths = {
     ],
     php: `${source}/php/*.php`,
     css: [
-      `${source}/**/*.pcss`,
-      `${source}/docs/*.pcss`,
+      `${source}/styles/**/*.pcss`,
       `!${source}/styles/**/_*.pcss`,
     ],
     cssNoAccessToDist: [
@@ -39,10 +39,11 @@ export const paths = {
     fontsFolder: `${source}/fonts/`,
     libs: `${source}/libs/**/*.*`,
     video: `${source}/video/**/*.{mp4,webm}`,
+    other: `${source}/other/**/*.*`,
   },
   watch: {
-    html: `${source}/**/*.{html,htm,php}`,
-    css: `${source}/**/*.pcss`,
+    html: `${source}/**/*.{html,htm}`,
+    css: `${source}/styles/**/*.pcss`,
     cssNoAccessToDist: `${source}/styles/**/_*.pcss`,
     php: `${source}/php/*.php`,
     demoCss: `${source}/docs/*.pcss`,
@@ -54,6 +55,7 @@ export const paths = {
     imagesSvg: `${source}/img/**/*.svg`,
     libs: `${source}/libs/**/*.*`,
     video: `${source}/video/**/*.{mp4,webm}`,
+    other: `${source}/other/**/*.*`,
   },
 }
 export const fontsFilePath = `${source}/styles/fonts.pcss`
