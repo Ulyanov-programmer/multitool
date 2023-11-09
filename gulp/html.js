@@ -2,6 +2,7 @@ import { $, isProd } from '../gulpfile.js'
 
 import gulp from 'gulp'
 import browsersync from 'browser-sync'
+import htmlFormatter from 'gulp-format-html'
 import { htmlValidator } from 'gulp-w3c-html-validator'
 import { paths } from './paths.js'
 
@@ -15,15 +16,13 @@ export default function html() {
       $.posthtmlImgAutosize({
         processEmptySize: true,
       }),
-      $.posthtmlBeautify({
-        rules: {
-          indent: 2,
-          blankLines: false,
-          eof: '<!-- Made in Russia, with ❤, by Ivan Ulyanov. -->',
-          sortAttr: false,
-        }
-      }),
     ], {}))
+
+    .pipe(htmlFormatter({
+      'indent_size': 2,
+      'preserve-newlines': false,
+      'wrap-attributes': 'force-aligned',
+    }))
 
     .pipe($.htmlImgToPicture({
       logger: false,
@@ -53,11 +52,7 @@ export default function html() {
       )
     )
 
-    .pipe(
-      $.changedInPlace({
-        firstPass: true,
-      })
-    )
+    .pipe($.changedInPlace({ firstPass: true, }))
 
     .pipe($.if(isProd, htmlValidator.analyzer()))
     .pipe($.if(isProd, htmlValidator.reporter()))
