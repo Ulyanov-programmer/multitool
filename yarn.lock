@@ -1502,6 +1502,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"change-case@npm:^5.1.2":
+  version: 5.1.2
+  resolution: "change-case@npm:5.1.2"
+  checksum: b3a5bdd59b50b96bc3e42f4cb3876aa75178dcc0aa9a5a44975e569c9cd809fc4fc15345a887fb45b9656e0fde98ffe028a41fc3d97c4748c6ab80422eea6e7a
+  languageName: node
+  linkType: hard
+
 "chokidar@npm:^2.0.0":
   version: 2.1.8
   resolution: "chokidar@npm:2.1.8"
@@ -3992,6 +3999,7 @@ __metadata:
     autoprefixer: ^10.4.13
     browser-sync: ^2.27.10
     chalk: ^5.2.0
+    change-case: ^5.1.2
     enquirer: ^2.3.6
     fs-extra: ^10.1.0
     gulp: ^4.0.2

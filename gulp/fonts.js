@@ -3,6 +3,7 @@ import { $ } from '../gulpfile.js'
 import gulp from 'gulp'
 import fs from 'fs-extra'
 import enquirer from 'enquirer'
+import { kebabCase } from 'change-case'
 import chalk from 'chalk'
 import { parseNumericWeightFromName, parseStyleFromName } from 'parse-font-name'
 import { fontsFilePath, paths } from './paths.js'
@@ -22,55 +23,69 @@ export default function fonts() {
     .pipe(gulp.dest(paths.build.fonts))
 }
 
-export function fontsStyle() {
-  let fontsFileContent = fs.readFileSync(fontsFilePath).toString().replace(/\s/g, '')
-
-  if (fontsFileContent.length > 0)
+export async function fontsStyle() {
+  // Checking the fonts style file is full.
+  if (fs.readFileSync(fontsFilePath).toString().replace(/\s/g, '').length > 0)
     return
 
-  let userFontNames = []
+  if (filesIsCorrect(fs.readdirSync(paths.src.fontsFolder)) == false) {
+    console.log(chalk.green.bold('No one font was found!'))
+    return
+  }
 
-  fs.readdir(paths.src.fontsFolder, async (err, fileNames) => {
-    if (filesIsCorrect(fileNames) == false) {
-      console.log('No one font was found!')
-      return
+
+  console.log(chalk.green.bold(
+    `Hey, i see that you have fonts, but i haven't connected them yet. Let me help you!`
+  ))
+
+  let fonts = []
+  let currentFontName
+
+  for (let fileName of fs.readdirSync(paths.src.fontsFolder)) {
+    if (fileName == '.gitkeep')
+      continue
+
+    let fileNameNoExt = fileName.split('.')[0]
+
+    let fontName = fileName.split('-')[0]
+    let weight = parseNumericWeightFromName(fileName)
+    let style = parseStyleFromName(fileName)
+    let isVariable = fileNameNoExt.toLocaleLowerCase().includes('variablefont')
+    let type
+
+    if (isVariable) {
+      type = 'woff2-variations'
+      weight = '100 1000'
+    } else {
+      type = 'woff2'
     }
 
-    console.log(
-      chalk.green.bold(`Hey, i see that you have fonts, but i haven't connected them yet. Let me help you!`)
-    )
+    let userFontName = await setupFontFaceRule({
+      filename: fileName,
+      fontName: fontName,
+      type: type,
+      fileNameNoExt: fileNameNoExt,
+      weight: weight,
+      style: style,
+    })
 
+    if (currentFontName != userFontName) {
+      currentFontName = userFontName
 
-    for (let fileName of fileNames) {
-      let fileNameNoExt = fileName.split('.')[0]
-
-      let fontName = fileName.split('-')[0]
-      let weight = parseNumericWeightFromName(fileName)
-      let style = parseStyleFromName(fileName)
-      let isVariable = fileNameNoExt.toLocaleLowerCase().includes('variablefont')
-      let type
-
-      if (isVariable) {
-        type = 'woff2-variations'
-        weight = '100 1000'
-      } else {
-        type = 'woff2'
-      }
-
-      let userFontName = await setupFontFaceRule({
-        filename: fileName,
-        fontName: fontName,
-        type: type,
-        fileNameNoExt: fileNameNoExt,
-        weight: weight,
-        style: style,
+      fonts.push({
+        userFontName: userFontName,
+        weights: [weight],
+        styles: [style],
       })
-
-      userFontNames.push(userFontName)
+    } else {
+      let indexOfCurrentFont = fonts.findIndex(item => item.userFontName == userFontName)
+      fonts[indexOfCurrentFont].weights.push(weight)
+      fonts[indexOfCurrentFont].styles.push(style)
     }
+  }
 
-    declareFontVariables(userFontNames)
-  })
+
+  declareFontVariablesAndModifiers(fonts)
 }
 
 async function setupFontFaceRule({ filename, fontName, type, fileNameNoExt, weight, style }) {
@@ -87,13 +102,13 @@ async function setupFontFaceRule({ filename, fontName, type, fileNameNoExt, weig
 @font-face {
   font-style: \${style};
   font-weight: \${fontWeight};
-  src: url("../../fonts/${fileNameNoExt}.woff2") format("${type}");
+  src: url("../fonts/${fileNameNoExt}.woff2") format("${type}");
   font-family: "\${fontName}";
   font-display: swap;
 }
 `,
 
-    footer: () => chalk.gray.italic(`Use tab to move, when you're done, press enter`)
+    footer: chalk.gray.italic(`Use tab to move, when you're done, press enter`)
   })
 
   fs.appendFileSync(fontsFilePath, enquirerResult.result)
@@ -101,45 +116,57 @@ async function setupFontFaceRule({ filename, fontName, type, fileNameNoExt, weig
   return enquirerResult.values.fontName
 }
 
-function declareFontVariables(fontNames) {
-  //? Removing duplicates
-  fontNames = [...new Set(fontNames)]
+function declareFontVariablesAndModifiers(fonts) {
+  if (fonts.length <= 0) return
 
-  for (let i = 0; i < fontNames.length; i++) {
-    // ? Transform from FontName to css-property (--font-name: 'FontName';)
-    fontNames[i] = `--${toKebabCase(fontNames[i])}: '${fontNames[i]}';\n\t`
+  let vars = []
+  let modifiers = []
 
-    if (i == fontNames.length - 1) {
-      fontNames[i] = fontNames[i].replace('\n\t', '')
+  for (let font of fonts) {
+    // Transform from FontName to css-property (--font-name: 'FontName';)
+    vars.push(`--${kebabCase(font.userFontName)}: '${font.userFontName}';\n\t`)
+
+    for (let i = 0; i < font.weights.length; i++) {
+      let modifierName = font.userFontName + '-' + font.weights[i] + '-' + font.styles[i]
+
+      if (font.weights[i] == '100 1000') {
+        modifierName = modifierName.replace(`-${font.weights[i]}`, '')
+      }
+      if (font.styles[i] == 'normal') {
+        modifierName = modifierName.replace(`-${font.styles[i]}`, '')
+      }
+
+      modifiers.push(`.${modifierName} {
+\tfont-family: var(--${kebabCase(font.userFontName)});
+\tfont-weight: ${font.weights[i]};
+\tfont-style: ${font.styles[i]};
+}\n`)
+
     }
   }
 
+  vars[vars.length - 1] = vars.at(-1).replace('\n\t', '')
+
   let variablesInRoot = `:root {
-  ${fontNames.toString().replaceAll(',', '')}
-}`
+\t${vars.toString().replaceAll(',', '')}
+}\n`
+
 
   fs.appendFileSync(fontsFilePath, variablesInRoot)
-}
-
-function toKebabCase(string) {
-  let kebab = string.replace(/[A-Z]+(?![a-z])|[A-Z]/g,
-    ($, ofs) =>
-      (ofs ? "-" : "") + $.toLowerCase()
-  )
-
-  return kebab
+  fs.appendFileSync(fontsFilePath, modifiers.toString().replaceAll(',', ''))
 }
 
 function filesIsCorrect(fileNames) {
-  // ? removing the .gitkeep from fileNames.
-  if (fileNames && fileNames.includes('.gitkeep')) {
-    fileNames.splice(fileNames.indexOf('.gitkeep'), 1)
-
-    if (fileNames.length == 0) {
-      return false
-    }
+  if (fileNames == undefined) {
+    return false
   }
-  else {
+
+  if (fileNames.includes('.gitkeep')) {
+    // ? removing the .gitkeep from fileNames.
+    fileNames.splice(fileNames.indexOf('.gitkeep'), 1)
+  }
+
+  if (fileNames.length == 0) {
     return false
   }
 }

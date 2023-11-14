@@ -32,6 +32,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["autoprefixer", "virtual:8478be7507d755314ad2aef21855a59474e8f3a2e580df89c96b0373a59f12e91422bee35aa833e3558be4fe3619324ce08947bedc2d64108cc4f112974ec1de#npm:10.4.14"],\
             ["browser-sync", "npm:2.29.1"],\
             ["chalk", "npm:5.2.0"],\
+            ["change-case", "npm:5.1.2"],\
             ["enquirer", "npm:2.3.6"],\
             ["fs-extra", "npm:10.1.0"],\
             ["gulp", "npm:4.0.2"],\
@@ -2148,6 +2149,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/chalk-npm-5.2.0-bedd808592-03d8060277.zip/node_modules/chalk/",\
           "packageDependencies": [\
             ["chalk", "npm:5.2.0"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["change-case", [\
+        ["npm:5.1.2", {\
+          "packageLocation": "./.yarn/cache/change-case-npm-5.1.2-30e62a08d4-b3a5bdd59b.zip/node_modules/change-case/",\
+          "packageDependencies": [\
+            ["change-case", "npm:5.1.2"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -4926,6 +4936,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["autoprefixer", "virtual:8478be7507d755314ad2aef21855a59474e8f3a2e580df89c96b0373a59f12e91422bee35aa833e3558be4fe3619324ce08947bedc2d64108cc4f112974ec1de#npm:10.4.14"],\
             ["browser-sync", "npm:2.29.1"],\
             ["chalk", "npm:5.2.0"],\
+            ["change-case", "npm:5.1.2"],\
             ["enquirer", "npm:2.3.6"],\
             ["fs-extra", "npm:10.1.0"],\
             ["gulp", "npm:4.0.2"],\
