@@ -1,0 +1,50 @@
+<x-layout title=UnnamedPage
+          swiper=false
+          typed=false
+          photoSwipe=false
+          noUiSlider=false
+          burgerMenu=false
+          formStyles=false
+          spoiler=false
+          submenu=false
+          observerTools=false
+          swipe=true
+          horizontalScroll=false
+          dialogs=false
+          parallax=false
+          autoScrollPadding=false
+          tabs=false
+          stepByStep=false>
+
+  <push name='styles'></push>
+  <push name='scripts'>
+    <script src='./scripts/scripts.js'
+            defer></script>
+  </push>
+
+  <fill:header></fill:header>
+
+  <!-- <picture>
+    <source srcset='images/logo.avif'>
+    <source srcset='images/logo.webp'>
+    <img src='images/logo.png'
+         loading='lazy'
+         alt=''>
+  </picture> -->
+
+  <!-- Write your content in the main tag here -->
+  <div class='swipe'
+       data-swipe-area></div>
+
+  <img src='images/logo.png'
+       loading='lazy'
+       alt=''>
+
+  <div class='element'>
+    Para bellum
+  </div>
+
+  <fill:footer></fill:footer>
+
+  <x-modals></x-modals>
+</x-layout>

@@ -46,33 +46,22 @@ class VariableTemplate {
 }
 
 const pathToProject = path.resolve('./'),
-  distFolderName = `${pathToProject}/dist/`,
-  snippetsFolderName = `${pathToProject}/snippets/`,
-  readmeFolder = `${pathToProject}/readmeFiles/`,
-  src = `${pathToProject}/src/`,
-  gulpFile = `${pathToProject}/gulpfile.js`,
-  readmeFilePath = `${pathToProject}/README.md`,
+  distFolderName = pathToProject + 'dist/',
+  snippetsFolderName = pathToProject + 'snippets/',
+  readmeFolder = pathToProject + 'readmeFiles/',
+  sources = pathToProject + 'sources/',
+  readmeFilePath = pathToProject + 'README.md',
 
-  scriptsFolder = `${src}/scripts/`,
-  stylesFolder = `${src}/styles/`,
-  componentsFolder = `${src}/components/`,
-  phpFolder = `${src}/php/`,
-  libsFolder = `${src}/libs/`,
+  scriptsFolder = sources + 'scripts/',
+  stylesFolder = sources + 'styles/',
+  componentsFolder = sources + 'components/',
+  assets = sources + 'assets/',
 
-  generalScriptsFile = `${scriptsFolder}scripts.ts`,
-  environmentFilePath = `${stylesFolder}_environment.pcss`,
-  baseStyleFile = `${stylesFolder}base.pcss`,
-  layoutHtmlFile = `${componentsFolder}/layout.html`,
-  fontsGitkeep = `${src}/fonts/.gitkeep`,
-  mainStyleFile = `${stylesFolder}module.pcss`,
-  indexPage = `${src}/index.html`,
-
-  srcDemoFoldersAndFIles = [
-    `${src}/docs`, `${src}/img/demo`,
-  ],
-  phpMailerFiles = [
-    `${phpFolder}Exception.php`, `${phpFolder}mail.php`, `${phpFolder}PHPMailer.php`, `${phpFolder}SMTP.php`,
-  ]
+  environmentFilePath = stylesFolder + '_environment.pcss',
+  baseStyleFile = stylesFolder + 'base.pcss',
+  layoutHtmlFile = componentsFolder + 'layout.html',
+  fontsGitkeep = sources + 'fonts/.gitkeep',
+  indexPage = sources + 'index.html'
 
 
 
@@ -105,49 +94,49 @@ await setImportModule(
     moduleName: `Just-validate`,
     htmlConnectSlug: `justValidate`,
     pathsToDelete: [
-      `${libsFolder}justValidate/`,
+      assets + 'justValidate/',
     ],
   }),
   new ImportModuleObject({
     moduleName: `Slider Swiper`,
     htmlConnectSlug: `swiper`,
     pathsToDelete: [
-      `${libsFolder}swiper/`,
+      assets + 'swiper/',
     ],
   }),
   new ImportModuleObject({
     moduleName: `Typed`,
     htmlConnectSlug: `typed`,
     pathsToDelete: [
-      `${libsFolder}typed/`,
+      assets + 'typed/',
     ],
   }),
   new ImportModuleObject({
     moduleName: `Input Mask`,
     htmlConnectSlug: '',
     pathsToDelete: [
-      `${libsFolder}inputmask.min.js`,
+      assets + 'inputmask.min.js',
     ],
   }),
   new ImportModuleObject({
     moduleName: `Air Date Picker`,
     htmlConnectSlug: '',
     pathsToDelete: [
-      `${libsFolder}air-datepicker/`,
+      assets + 'air-datepicker/',
     ],
   }),
   new ImportModuleObject({
     moduleName: `Photo Swipe`,
     htmlConnectSlug: `photoSwipe`,
     pathsToDelete: [
-      `${libsFolder}photoswipe/`,
+      assets + 'photoswipe/',
     ],
   }),
   new ImportModuleObject({
     moduleName: `noUiSlider`,
     htmlConnectSlug: `noUiSlider`,
     pathsToDelete: [
-      `${libsFolder}nouislider/`,
+      assets + 'nouislider/',
     ],
   })
 )
@@ -155,33 +144,24 @@ await includeModuleByQuestion(
   new ModuleObject({
     moduleName: 'Burger-menu',
     filesAndFolders: [
-      `${scriptsFolder}burgerMenu/`,
-      `${componentsFolder}burgerMenu.html`,
+      scriptsFolder + 'burgerMenu/',
+      componentsFolder + 'burgerMenu.html',
     ],
     htmlConnectStrings: [
       {
-        path: `${componentsFolder}/header.html`,
+        path: componentsFolder + 'header.html',
         strings: `<x-burgerMenu></x-burgerMenu>`,
       },
       {
-        strings: "burgerMenu='false'",
+        strings: `burgerMenu='false'`,
       },
-    ],
-  }),
-  new ModuleObject({
-    moduleName: 'Sidebar',
-    filesAndFolders: [
-      `${scriptsFolder}sidebar/`,
-    ],
-    htmlConnectStrings: [
-      { strings: "sidebar='false'" }
     ],
   }),
   new ModuleObject({
     moduleName: 'Scripts for dialog',
     filesAndFolders: [
-      `${scriptsFolder}dialogs/`,
-      `${componentsFolder}modals.html`,
+      scriptsFolder + 'dialogs/',
+      componentsFolder + 'modals.html',
     ],
     htmlConnectStrings: [
       { strings: `<x-modals></x-modals>`, },
@@ -191,104 +171,103 @@ await includeModuleByQuestion(
   new ModuleObject({
     moduleName: 'Spoilers',
     filesAndFolders: [
-      `${scriptsFolder}spoiler/`,
+      scriptsFolder + 'spoiler/',
     ],
     htmlConnectStrings: [
-      { strings: "spoiler='false'" }
+      { strings: `spoiler='false'` }
     ],
   }),
   new ModuleObject({
     moduleName: 'Submenu',
     filesAndFolders: [
-      `${scriptsFolder}submenu/`,
+      scriptsFolder + 'submenu/',
     ],
     htmlConnectStrings: [
-      { strings: "submenu='false'" }
+      { strings: `submenu='false'` }
     ],
   }),
   new ModuleObject({
     moduleName: 'Tabs',
     filesAndFolders: [
-      `${scriptsFolder}tab/`,
+      scriptsFolder + 'tab/',
     ],
     htmlConnectStrings: [
-      { strings: "tabs='false'" }
+      { strings: `tabs='false'` }
     ],
   }),
   new ModuleObject({
     moduleName: 'Element-modal',
     filesAndFolders: [
-      `${scriptsFolder}elementModal/`,
+      scriptsFolder + 'elementModal/',
     ],
     htmlConnectStrings: [
-      { strings: "elementModal='false'" }
+      { strings: `elementModal='false'` }
     ],
   }),
   new ModuleObject({
     moduleName: 'Parallax',
     filesAndFolders: [
-      `${scriptsFolder}parallax/`,
+      scriptsFolder + 'parallax/',
     ],
     htmlConnectStrings: [
-      { strings: "parallax='false'" }
+      { strings: `parallax='false'` }
     ],
   }),
   new ModuleObject({
     moduleName: 'AutoScrollPadding',
     filesAndFolders: [
-      `${scriptsFolder}autoScrollPadding/`,
+      scriptsFolder + 'autoScrollPadding/',
     ],
     htmlConnectStrings: [
-      { strings: "autoScrollPadding='false'" }
+      { strings: `autoScrollPadding='false'` }
     ],
   }),
   new ModuleObject({
     moduleName: 'Tools for observer',
     filesAndFolders: [
-      `${scriptsFolder}observerTools/`,
+      scriptsFolder + 'observerTools/',
     ],
     htmlConnectStrings: [
-      { strings: "observerTools='false'" }
+      { strings: `observerTools='false'` }
     ],
   }),
   new ModuleObject({
     moduleName: 'Horizontal scroll',
     filesAndFolders: [
-      `${scriptsFolder}horizontalScroll.ts`,
+      scriptsFolder + 'horizontalScroll.ts',
     ],
     htmlConnectStrings: [
-      { strings: "horizontalScroll='false'" }
+      { strings: `horizontalScroll='false'` }
     ],
   }),
   new ModuleObject({
     moduleName: 'Swipe module (required to switch a sidebar by swipe)',
     filesAndFolders: [
-      `${scriptsFolder}swipe/`,
+      scriptsFolder + 'swipe/',
     ],
     htmlConnectStrings: [
-      { strings: "swipe='false'" }
+      { strings: `swipe='false'` }
     ],
   }),
   new ModuleObject({
     moduleName: 'Form styles',
     filesAndFolders: [
-      `${stylesFolder}form.pcss`,
+      stylesFolder + 'form.pcss',
     ],
     htmlConnectStrings: [
-      { strings: "formStyles='false'" }
+      { strings: `formStyles='false'` }
     ],
   }),
   new ModuleObject({
     moduleName: 'Step By Step block',
     filesAndFolders: [
-      `${scriptsFolder}stepByStepBlock/`,
+      scriptsFolder + 'stepByStepBlock/',
     ],
     htmlConnectStrings: [
-      { strings: "stepByStep='false'" }
+      { strings: `stepByStep='false'` }
     ],
   }),
 )
-await setPhp()
 
 deleteUnusedFolders()
 
@@ -399,7 +378,7 @@ logSomeImportantInConsole(
 
 
 function deleteDemoContent() {
-  for (let pathToDemo of srcDemoFoldersAndFIles) {
+  for (let pathToDemo of sourcesDemoFoldersAndFIles) {
     deleteFolder(pathToDemo)
   }
 
@@ -422,11 +401,8 @@ function deleteGitKeep() {
   deleteFolder(fontsGitkeep, 'Gitkeep have been deleted.')
 }
 function deleteUnusedFolders() {
-  if (isFolderEmpty(phpFolder)) {
-    deleteFolder(phpFolder)
-  }
-  if (isFolderEmpty(libsFolder)) {
-    deleteFolder(libsFolder)
+  if (isFolderEmpty(assets)) {
+    deleteFolder(assets)
   }
 
   log(chalk.gray.italic('✅ Unused folders have been deleted.'))
@@ -504,31 +480,6 @@ async function setImportModule(...importModuleObjects) {
       for (let pathToDelete of module.pathsToDelete) {
         fs.removeSync(pathToDelete)
       }
-    }
-  }
-}
-async function setPhp() {
-  let includeSomePhp = await enquirer.toggle({
-    message: `Include ${chalk.blueBright('PHP scripts')}?`,
-    enabled: chalk.green('Yes!'),
-    disabled: chalk.red('Not'),
-  })
-
-  if (includeSomePhp == false) {
-    await fs.remove(phpFolder)
-    return
-  }
-
-
-  let phpMailerAnswer = await enquirer.toggle({
-    message: `Include ${chalk.blueBright('PHP - mailer')}?`,
-    enabled: chalk.green('Yes!'),
-    disabled: chalk.red('Not'),
-  })
-
-  if (phpMailerAnswer == false) {
-    for (let phpMailerFile of phpMailerFiles) {
-      await fs.remove(phpMailerFile)
     }
   }
 }

@@ -1,0 +1,176 @@
+@import url('./_environment.pcss');
+
+@layer base, layout, form, module, state, theme;
+
+@layer base {
+  * {
+    all: unset;
+    box-sizing: border-box;
+  }
+
+  svg * {
+    all: revert-layer;
+  }
+
+  head,
+  script {
+    display: none;
+  }
+
+  ::before,
+  ::after {
+    box-sizing: border-box;
+  }
+
+  :active {
+    outline: none;
+  }
+
+  :focus-visible {
+    outline: 1px solid;
+  }
+
+  nav,
+  footer,
+  header,
+  aside,
+  body,
+  div {
+    display: block;
+  }
+
+  html,
+  body {
+    line-height: 1;
+    text-size-adjust: auto;
+
+    -webkit-tap-highlight-color: #0000;
+  }
+
+  a,
+  button {
+    cursor: pointer;
+    outline-color: transparent;
+  }
+
+  input {
+    width: fit-content;
+
+    &:focus-visible {
+      outline: none;
+    }
+  }
+
+  select {
+    cursor: pointer;
+    width: 100%;
+    appearance: none;
+
+    &:focus-visible {
+      outline: none;
+    }
+  }
+
+  a,
+  p,
+  span,
+  mark,
+  abbr,
+  q,
+  blockquote,
+  cite,
+  strong,
+  small {
+    text-wrap: pretty;
+  }
+
+  a {
+    display: inline-block;
+
+    &:hover,
+    &:visited {
+      text-decoration: none;
+    }
+  }
+
+  ul,
+  li {
+    list-style: none;
+  }
+
+  img {
+    shape-margin: 0.75em;
+
+    max-width: 100%;
+
+    font-style: italic;
+    vertical-align: middle;
+
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    text-wrap: balance;
+  }
+
+  body {
+    font-family: var(--main-font-family);
+    font-size: clamp(
+      pxRem($minFontSize),
+      pxToVw($mainFontSize, $layoutWidth),
+      pxRem($mainFontSize)
+    );
+    color: var(--main-text-color);
+    background: var(--background);
+  }
+
+  :root {
+    --main-font-family: arial;
+    --main-text-color: black;
+    --background: white;
+  }
+
+  h1 {
+  }
+
+  h2 {
+  }
+
+  h3 {
+  }
+
+  h4 {
+  }
+
+  p {
+  }
+
+  address {
+  }
+
+  blockquote {
+  }
+
+  q {
+  }
+
+  cite {
+  }
+
+  mark {
+  }
+
+  s {
+  }
+
+  figure {
+    figcaption {
+    }
+  }
+}

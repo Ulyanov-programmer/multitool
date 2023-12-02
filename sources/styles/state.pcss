@@ -1,0 +1,114 @@
+@import url('./_environment.pcss');
+
+@layer state {
+  :root {
+    --content-inline-padding: 10vw;
+  }
+
+  .centeredContent {
+    /* Paddings for site content with default value. */
+    padding-inline: var(--content-inline-padding, 10vw);
+
+    @media (--is-large-layout) {
+      /* Paddings in a large viewport. */
+      --content-inline-padding: 15vw;
+    }
+
+    @media (--is-layout-width) {
+      /* Paddings in a PC viewport. */
+      --content-inline-padding: 10vw;
+    }
+
+    @media (--is-tablet) {
+      /* Paddings in a tablet viewport. */
+      --content-inline-padding: 5vw;
+    }
+
+    @media (--is-mobile) {
+      /* Paddings in a smartphone viewport. */
+      --content-inline-padding: 2.5vw;
+    }
+  }
+
+  .fullWidthBlock {
+    display: grid;
+    grid-template-columns:
+      var(--content-inline-padding)
+      1fr
+      var(--content-inline-padding);
+    width: 100vw;
+  }
+
+  img.containImg {
+    @mixin size 100%;
+    object-fit: contain;
+  }
+
+  img.coverImg {
+    @mixin size 100%;
+    object-fit: cover;
+  }
+
+  .thin {
+    font-weight: 100;
+  }
+
+  .extraLight {
+    font-weight: 200;
+  }
+
+  .light {
+    font-weight: 300;
+  }
+
+  .medium {
+    font-weight: 500;
+  }
+
+  .semiBold {
+    font-weight: 600;
+  }
+
+  .bold {
+    font-weight: 700;
+  }
+
+  .extraBold {
+    font-weight: 800;
+  }
+
+  .black {
+    font-weight: 900;
+  }
+
+  .uppercase {
+    text-transform: uppercase;
+  }
+
+  .logo {
+    z-index: 10;
+  }
+
+  .visuallyHidden {
+    position: absolute;
+
+    overflow: hidden;
+
+    width: 1px;
+    height: 1px;
+
+    white-space: nowrap;
+
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+  }
+
+  .hiddenScrollbar {
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+      width: 0;
+      height: 0;
+    }
+  }
+}
