@@ -2,7 +2,6 @@
   "recommendations": [
     "phoenisx.cssvar",
     "vunguyentuan.vscode-postcss",
-    "esbenp.prettier-vscode",
     "stylelint.vscode-stylelint",
     "redhat.vscode-yaml",
     "arcanis.vscode-zipfs"

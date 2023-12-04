@@ -61,7 +61,6 @@ const RAW_RUNTIME_STATE =
           ["posthtml", "npm:0.16.6"],\
           ["posthtml-component", "npm:1.1.0"],\
           ["posthtml-img-autosize", "npm:0.1.6"],\
-          ["prettier", "npm:3.1.0"],\
           ["replace-in-file", "npm:7.0.2"],\
           ["sharp", "npm:0.32.6"],\
           ["stylelint", "npm:15.11.0"],\
@@ -4450,7 +4449,6 @@ const RAW_RUNTIME_STATE =
           ["posthtml", "npm:0.16.6"],\
           ["posthtml-component", "npm:1.1.0"],\
           ["posthtml-img-autosize", "npm:0.1.6"],\
-          ["prettier", "npm:3.1.0"],\
           ["replace-in-file", "npm:7.0.2"],\
           ["sharp", "npm:0.32.6"],\
           ["stylelint", "npm:15.11.0"],\
@@ -7529,15 +7527,6 @@ const RAW_RUNTIME_STATE =
           ["simple-get", "npm:4.0.1"],\
           ["tar-fs", "npm:2.1.1"],\
           ["tunnel-agent", "npm:0.6.0"]\
-        ],\
-        "linkType": "HARD"\
-      }]\
-    ]],\
-    ["prettier", [\
-      ["npm:3.1.0", {\
-        "packageLocation": "./.yarn/unplugged/prettier-npm-3.1.0-708d6027b1/node_modules/prettier/",\
-        "packageDependencies": [\
-          ["prettier", "npm:3.1.0"]\
         ],\
         "linkType": "HARD"\
       }]\
