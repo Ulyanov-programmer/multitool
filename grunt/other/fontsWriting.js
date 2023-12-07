@@ -65,6 +65,8 @@ export default function () {
 
 
   declareFontVariablesAndModifiers(fonts)
+
+  console.log(chalk.green('Fonts have been successfully written, i continue...'))
 }
 
 function setupFontFaceRule({ fileBase, type, fileNameNoExt, weight, style }) {
