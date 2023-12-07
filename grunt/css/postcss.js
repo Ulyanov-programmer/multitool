@@ -12,38 +12,40 @@ import pxremFunction from 'postcss-pxrem-function'
 
 import paths from '../other/paths.js'
 
+const options = {
+  map: false,
+  parser: false,
+
+  processors: [
+    cssImport(),
+    discardComments({
+      remove: comment => {
+        // ? Deletes all comments that contain @removeInDist.
+        return comment.includes('@removeInDist')
+      }
+    }),
+    autoprefixer(),
+    presetEnv({
+      stage: 4,
+    }),
+    nested(),
+    simpleVars(),
+    mediaMinmax(),
+    functions({
+      functions: {
+        pxToVw: (px, layoutWidth) => pxToVw(px, layoutWidth),
+        bgImageMultiType: url => bgImageMultiType(url),
+      }
+    }),
+    mixins(),
+    customMedia(),
+    pxremFunction(),
+  ],
+}
+
 export default {
   base: {
-    options: {
-      map: false,
-      parser: false,
-
-      processors: [
-        cssImport(),
-        discardComments({
-          remove: comment => {
-            // ? Deletes all comments that contain @removeInDist.
-            return comment.includes('@removeInDist')
-          }
-        }),
-        autoprefixer(),
-        presetEnv({
-          stage: 4,
-        }),
-        nested(),
-        simpleVars(),
-        mediaMinmax(),
-        functions({
-          functions: {
-            pxToVw: (px, layoutWidth) => pxToVw(px, layoutWidth),
-            bgImageMultiType: url => bgImageMultiType(url),
-          }
-        }),
-        mixins(),
-        customMedia(),
-        pxremFunction(),
-      ],
-    },
+    options: options,
     files: [{
       expand: true,
 
@@ -54,36 +56,7 @@ export default {
     }]
   },
   modules: {
-    options: {
-      map: false,
-      parser: false,
-
-      processors: [
-        cssImport(),
-        discardComments({
-          remove: comment => {
-            // ? Deletes all comments that contain @removeInDist.
-            return comment.includes('@removeInDist')
-          }
-        }),
-        autoprefixer(),
-        presetEnv({
-          stage: 4,
-        }),
-        nested(),
-        simpleVars(),
-        mediaMinmax(),
-        functions({
-          functions: {
-            pxToVw: (px, layoutWidth) => pxToVw(px, layoutWidth),
-            bgImageMultiType: url => bgImageMultiType(url),
-          }
-        }),
-        mixins(),
-        customMedia(),
-        pxremFunction(),
-      ],
-    },
+    options: options,
     files: [{
       expand: true,
 

@@ -29,3 +29,19 @@ $minFontSize: 12px;
   overflow: auto;
   opacity: 1;
 }
+
+/* @removeInDist 
+ ? Use these mixins to visually highlight properties that depend on the <display> value.
+*/
+@define-mixin grid {
+  display: grid;
+  @mixin-content;
+}
+@define-mixin flex {
+  display: flex;
+  @mixin-content;
+}
+@define-mixin inline-flex {
+  display: inline-flex;
+  @mixin-content;
+}
