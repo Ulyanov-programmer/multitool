@@ -11,7 +11,7 @@ export default {
         folders: ['components'],
       }),
       imgAutosize({
-        root: paths.src.root,
+        root: paths.dest.root,
         processEmptySize: true,
       }),
     ],
