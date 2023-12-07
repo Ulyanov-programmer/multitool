@@ -4,6 +4,7 @@
     "vunguyentuan.vscode-postcss",
     "stylelint.vscode-stylelint",
     "redhat.vscode-yaml",
-    "arcanis.vscode-zipfs"
+    "arcanis.vscode-zipfs",
+    "ionutvmi.path-autocomplete"
   ]
 }

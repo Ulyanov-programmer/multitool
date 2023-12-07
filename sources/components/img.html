@@ -1,0 +1,28 @@
+<script props>
+  module.exports = {
+    source: props.source,
+    sourceWithoutExt: props.source.split('.')[0],
+    alt: props.alt || '',
+    loading: props.loading || 'auto',
+    class: props.class || '',
+  }
+</script>
+
+<!-- ? Usage example
+<x-img class='coverImg'
+         source='images/image.png'
+         loading='lazy'
+         alt='some alt' />
+-->
+
+<picture>
+  <source srcset='{{sourceWithoutExt}}.avif'
+          type='image/avif'>
+  <source srcset='{{sourceWithoutExt}}.webp'
+          type='image/webp'>
+
+  <img class='{{class}}'
+       src='{{source}}'
+       loading='{{loading}}'
+       alt='{{alt}}'>
+</picture>
