@@ -9,7 +9,8 @@
     "d": "grunt",
     "development": "grunt",
     "p": "grunt --production",
-    "production": "grunt --production"
+    "production": "grunt --production",
+    "setup": "node setup"
   },
   "dependencies": {
     "@csstools/postcss-media-minmax": "^1.1.0",

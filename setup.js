@@ -1,81 +1,63 @@
 import fs from 'fs-extra'
-import path from 'path'
 import replace from 'replace-in-file'
 import { log } from 'console'
 import enquirer from 'enquirer'
 import chalk from 'chalk'
+import { match } from 'assert'
 
-class ImportModuleObject {
-  moduleName
-  htmlConnectSlug
-  pathsToDelete
-
-  constructor({ moduleName, htmlConnectSlug, pathsToDelete }) {
-    this.moduleName = moduleName
-    this.htmlConnectSlug = htmlConnectSlug
-    this.pathsToDelete = pathsToDelete
-  }
-}
 class ModuleObject {
-  moduleName
-  filesAndFolders
-  htmlConnectStrings
+  constructor(config = {}) {
+    this.moduleName = null
+    this.filesAndFolders = null
+    this.htmlConnectStrings = null
 
-  constructor({ moduleName, filesAndFolders, htmlConnectStrings }) {
-    this.moduleName = moduleName
-    this.filesAndFolders = filesAndFolders
-    this.styleFilesPath = styleFilesPath
-    this.htmlFilesPaths = htmlFilesPaths
-    this.htmlConnectStrings = htmlConnectStrings
+    Object.assign(this, config)
   }
 }
 class VariableTemplate {
-  fields
-  message
-  template
-  snippetName
-  variableFilePath
+  constructor(config = {}) {
+    this.fields = null
+    this.message = null
+    this.template = null
+    this.snippetName = null
+    this.variableFilePath = null
 
-  constructor({ fields, message, template, snippetName, variableFilePath }) {
-    this.fields = fields
-    this.message = message
-    this.template = template
-    this.snippetName = snippetName
-    this.variableFilePath = variableFilePath
+    Object.assign(this, config)
   }
 }
 
-const pathToProject = path.resolve('./'),
+const pathToProject = './',
   distFolderName = pathToProject + 'dist/',
   snippetsFolderName = pathToProject + 'snippets/',
   readmeFolder = pathToProject + 'readmeFiles/',
   sources = pathToProject + 'sources/',
   readmeFilePath = pathToProject + 'README.md',
-
   scriptsFolder = sources + 'scripts/',
   stylesFolder = sources + 'styles/',
   componentsFolder = sources + 'components/',
   assets = sources + 'assets/',
-
   environmentFilePath = stylesFolder + '_environment.pcss',
   baseStyleFile = stylesFolder + 'base.pcss',
+  stateStyleFile = stylesFolder + 'state.pcss',
   layoutHtmlFile = componentsFolder + 'layout.html',
   fontsGitkeep = sources + 'fonts/.gitkeep',
   indexPage = sources + 'index.html'
 
+writeCompletelyPhrase()
 
 
 logSomeImportantInConsole(
   `Salute!
 You will have to use some keys, such as: 
-${chalk.greenBright('↑')} (focus up),
-${chalk.greenBright('↓')} (focus down),
-${chalk.greenBright('← →')} (choosing between elements on the same line),
-${chalk.greenBright('space')} (to select an option),
-${chalk.greenBright('⭾')} (tab, to move to a next element, for example, in templates)
+${chalk.greenBright('↑')} - focus up,
+${chalk.greenBright('↓')} - focus down,
+${chalk.greenBright('← →')} - choosing between elements on the same line,
+${chalk.greenBright('space')} - to select an option,
+${chalk.greenBright('⭾')} - tab, to move to a next element, for example, in templates.
 `,
   chalk.green
 )
+
 await enquirer.toggle({
   message: chalk.italic('Any questions?'),
   enabled: chalk.magenta('Nope, i totally understand!'),
@@ -83,66 +65,44 @@ await enquirer.toggle({
 })
 
 
-deleteDemoContent()
-cleanReadmeFilesAndFolders()
-deleteSnippets()
-deleteDist()
-deleteGitKeep()
+await includeModuleByQuestion(
+  'Whether you want to save the plugin...',
 
-await setImportModule(
-  new ImportModuleObject({
-    moduleName: `Just-validate`,
-    htmlConnectSlug: `justValidate`,
-    pathsToDelete: [
-      assets + 'justValidate/',
-    ],
+  new ModuleObject({
+    moduleName: 'Just Validate',
+    filesAndFolders: assets + 'justValidate/',
+    htmlConnectStrings: { strings: `justValidate=false` },
   }),
-  new ImportModuleObject({
-    moduleName: `Slider Swiper`,
-    htmlConnectSlug: `swiper`,
-    pathsToDelete: [
-      assets + 'swiper/',
-    ],
+  new ModuleObject({
+    moduleName: 'Slider Swiper',
+    filesAndFolders: assets + 'swiper/',
+    htmlConnectStrings: { strings: `swiper=false` },
   }),
-  new ImportModuleObject({
-    moduleName: `Typed`,
-    htmlConnectSlug: `typed`,
-    pathsToDelete: [
-      assets + 'typed/',
-    ],
+  new ModuleObject({
+    moduleName: 'Typed',
+    filesAndFolders: assets + 'typed/',
+    htmlConnectStrings: { strings: `typed=false` },
   }),
-  new ImportModuleObject({
-    moduleName: `Input Mask`,
-    htmlConnectSlug: '',
-    pathsToDelete: [
-      assets + 'inputmask.min.js',
-    ],
+  new ModuleObject({
+    moduleName: 'Input Mask',
+    filesAndFolders: assets + 'inputmask.min.js',
   }),
-  new ImportModuleObject({
-    moduleName: `Air Date Picker`,
-    htmlConnectSlug: '',
-    pathsToDelete: [
-      assets + 'air-datepicker/',
-    ],
+  new ModuleObject({
+    moduleName: 'Photo Swipe',
+    filesAndFolders: assets + 'photoswipe/',
+    htmlConnectStrings: { strings: `photoSwipe=false` },
   }),
-  new ImportModuleObject({
-    moduleName: `Photo Swipe`,
-    htmlConnectSlug: `photoSwipe`,
-    pathsToDelete: [
-      assets + 'photoswipe/',
-    ],
-  }),
-  new ImportModuleObject({
-    moduleName: `noUiSlider`,
-    htmlConnectSlug: `noUiSlider`,
-    pathsToDelete: [
-      assets + 'nouislider/',
-    ],
+  new ModuleObject({
+    moduleName: 'No Ui Slider',
+    filesAndFolders: assets + 'nouislider/',
+    htmlConnectStrings: { strings: `noUiSlider=false` },
   })
 )
 await includeModuleByQuestion(
+  'Whether you want to save the module...',
+
   new ModuleObject({
-    moduleName: 'Burger-menu',
+    moduleName: 'Burger menu',
     filesAndFolders: [
       scriptsFolder + 'burgerMenu/',
       componentsFolder + 'burgerMenu.html',
@@ -152,9 +112,7 @@ await includeModuleByQuestion(
         path: componentsFolder + 'header.html',
         strings: `<x-burgerMenu></x-burgerMenu>`,
       },
-      {
-        strings: `burgerMenu='false'`,
-      },
+      { strings: `burgerMenu=false`, },
     ],
   }),
   new ModuleObject({
@@ -165,111 +123,87 @@ await includeModuleByQuestion(
     ],
     htmlConnectStrings: [
       { strings: `<x-modals></x-modals>`, },
-      { strings: `dialogs='false'` },
+      { strings: `dialogs=false` },
     ],
   }),
   new ModuleObject({
     moduleName: 'Spoilers',
-    filesAndFolders: [
-      scriptsFolder + 'spoiler/',
-    ],
+    filesAndFolders: scriptsFolder + 'spoiler/',
     htmlConnectStrings: [
-      { strings: `spoiler='false'` }
+      { strings: `spoiler=false` }
     ],
   }),
   new ModuleObject({
     moduleName: 'Submenu',
-    filesAndFolders: [
-      scriptsFolder + 'submenu/',
-    ],
+    filesAndFolders: scriptsFolder + 'submenu/',
     htmlConnectStrings: [
-      { strings: `submenu='false'` }
+      { strings: `submenu=false` }
     ],
   }),
   new ModuleObject({
     moduleName: 'Tabs',
-    filesAndFolders: [
-      scriptsFolder + 'tab/',
-    ],
+    filesAndFolders: scriptsFolder + 'tab/',
     htmlConnectStrings: [
-      { strings: `tabs='false'` }
+      { strings: `tabs=false` }
     ],
   }),
   new ModuleObject({
     moduleName: 'Element-modal',
-    filesAndFolders: [
-      scriptsFolder + 'elementModal/',
-    ],
+    filesAndFolders: scriptsFolder + 'elementModal/',
     htmlConnectStrings: [
-      { strings: `elementModal='false'` }
+      { strings: `elementModal=false` }
     ],
   }),
   new ModuleObject({
     moduleName: 'Parallax',
-    filesAndFolders: [
-      scriptsFolder + 'parallax/',
-    ],
+    filesAndFolders: scriptsFolder + 'parallax/',
     htmlConnectStrings: [
-      { strings: `parallax='false'` }
+      { strings: `parallax=false` }
     ],
   }),
   new ModuleObject({
     moduleName: 'AutoScrollPadding',
-    filesAndFolders: [
-      scriptsFolder + 'autoScrollPadding/',
-    ],
+    filesAndFolders: scriptsFolder + 'autoScrollPadding/',
     htmlConnectStrings: [
-      { strings: `autoScrollPadding='false'` }
+      { strings: `autoScrollPadding=false` }
     ],
   }),
   new ModuleObject({
     moduleName: 'Tools for observer',
-    filesAndFolders: [
-      scriptsFolder + 'observerTools/',
-    ],
+    filesAndFolders: scriptsFolder + 'observerTools/',
     htmlConnectStrings: [
-      { strings: `observerTools='false'` }
+      { strings: `observerTools=false` }
     ],
   }),
   new ModuleObject({
     moduleName: 'Horizontal scroll',
-    filesAndFolders: [
-      scriptsFolder + 'horizontalScroll.ts',
-    ],
+    filesAndFolders: scriptsFolder + 'horizontalScroll.ts',
     htmlConnectStrings: [
-      { strings: `horizontalScroll='false'` }
+      { strings: `horizontalScroll=false` }
     ],
   }),
   new ModuleObject({
     moduleName: 'Swipe module (required to switch a sidebar by swipe)',
-    filesAndFolders: [
-      scriptsFolder + 'swipe/',
-    ],
+    filesAndFolders: scriptsFolder + 'swipe/',
     htmlConnectStrings: [
-      { strings: `swipe='false'` }
+      { strings: `swipe=false` }
     ],
   }),
   new ModuleObject({
     moduleName: 'Form styles',
-    filesAndFolders: [
-      stylesFolder + 'form.pcss',
-    ],
+    filesAndFolders: stylesFolder + 'form.pcss',
     htmlConnectStrings: [
-      { strings: `formStyles='false'` }
+      { strings: `formStyles=false` }
     ],
   }),
   new ModuleObject({
     moduleName: 'Step By Step block',
-    filesAndFolders: [
-      scriptsFolder + 'stepByStepBlock/',
-    ],
+    filesAndFolders: scriptsFolder + 'stepByStepBlock/',
     htmlConnectStrings: [
-      { strings: `stepByStep='false'` }
+      { strings: `stepByStep=false` }
     ],
   }),
 )
-
-deleteUnusedFolders()
 
 
 logSomeImportantInConsole(
@@ -284,7 +218,7 @@ logSomeImportantInConsole(
 await setVariables(
   new VariableTemplate({
     snippetName: 'htmlLayout',
-    message: chalk.magentaBright('Fill out the fields in the html-layout.'),
+    message: chalk.cyanBright('Fill in the fields in the html-layout.'),
     variableFilePath: layoutHtmlFile,
     fields: [
       { name: 'mainLangOfPages', initial: 'en' },
@@ -296,19 +230,22 @@ await setVariables(
   // Set a name for a preloaded font. Must be a file name without extension.
   preloadedFontName: '\${preloadedFontFilename}',`
   }),
+
   new VariableTemplate({
     snippetName: 'Title of index page',
-    message: chalk.magentaBright('Title of index page...'),
+    message: chalk.cyanBright('Title of index page...'),
     variableFilePath: indexPage,
     fields: [
-      { name: 'title', initial: 'UnnamedPage' },
+      { name: 'title', initial: 'Unnamed Page' },
     ],
     template:
       `<x-layout title='\${title}'`
   }),
+
   new VariableTemplate({
     snippetName: 'stylesheetVariables',
-    message: chalk.magentaBright('Fill out the general stylesheet variables.'),
+    message: chalk.cyanBright(
+      `Fill in some css variables (file - ${chalk.underline(baseStyleFile)}).`),
     variableFilePath: baseStyleFile,
     fields: [
       { name: 'mainFontName', initial: 'arial', },
@@ -320,34 +257,12 @@ await setVariables(
 --main-text-color: \${mainTextColor};
 --background: \${backgroundColor};`
   }),
-  new VariableTemplate({
-    snippetName: 'mediaContentWidthVariables',
-    message: chalk.magentaBright('Fill out the content width variables.'),
-    variableFilePath: baseStyleFile,
-    fields: [
-      { name: 'bigVpPaddings', initial: '15vw', },
-      { name: 'pcPaddings', initial: '10vw', },
-      { name: 'tabletPaddings', initial: '5vw', },
-      { name: 'mobilePaddings', initial: '2.5vw', },
-    ],
-    template:
-      `/* ? Paddings for site content assigned via the _centered-content class. */
 
-/* Paddings for site content, in a large viewport. */
---big-viewport-content-inline-padding: \${bigVpPaddings};
-
-/* Paddings for site content, in a PC viewport. */
---pc-content-inline-padding: \${pcPaddings};
-
-/* Paddings for site content, in a tablet viewport. */
---tablet-content-inline-padding: \${tabletPaddings};
-
-/* Paddings for site content, in a smartphone viewport. */
---mobile-content-inline-padding: \${mobilePaddings};`,
-  }),
   new VariableTemplate({
     snippetName: 'stylesheetSassLikeVariables',
-    message: chalk.magentaBright('Fill out the general... Sass-like stylesheet variables.'),
+    message: chalk.cyanBright(
+      'Fill in sass-like variables that are used in custom media \n'
+      + `(file - ${chalk.underline(environmentFilePath)})`),
     variableFilePath: environmentFilePath,
     fields: [
       { name: 'widthOfYourDesignLayout', initial: '1440', },
@@ -356,65 +271,87 @@ await setVariables(
       { name: 'minSize', initial: '12', },
     ],
     template:
-      `$layoutWidth: \${widthOfYourDesignLayout}px;
+      `@custom-media --is-large-layout (width > $layoutWidth);
+@custom-media --is-layout-width (769px <= width <= $layoutWidth);
+@custom-media --is-tablet (426px <= width <= 769px);
+@custom-media --is-mobile (width <= 426px);
+
+$layoutWidth: \${widthOfYourDesignLayout}px;
 $minLayoutWidth: \${minimalWidthOfYourDesign}px;
 $mainFontSize: \${mainSize}px;
 $minFontSize: \${minSize}px;`
   }),
+
+  new VariableTemplate({
+    snippetName: 'some name',
+    message: chalk.cyanBright(
+      'Set the values of the paddings that are assigned using the .centeredContent class \n'
+      + `(file - ${chalk.underline(stateStyleFile)}.`),
+    variableFilePath: stateStyleFile,
+    fields: [
+      { name: 'largePaddings', initial: '15vw', },
+    ],
+    template:
+      `
+@media (--is-large-layout) {
+  --content-inline-padding: \${largePaddings};
+}`,
+  }),
+
+  new VariableTemplate({
+    snippetName: 'some name 2',
+    message: chalk.cyan('Layout width...'),
+    variableFilePath: stateStyleFile,
+    fields: [
+      { name: 'defaultPaddings', initial: '10vw', },
+    ],
+    template:
+      `
+@media (--is-layout-width) {
+  --content-inline-padding: \${defaultPaddings};
+}`,
+  }),
+
+  new VariableTemplate({
+    snippetName: 'some name 3',
+    message: chalk.cyan('Tablets...'),
+    variableFilePath: stateStyleFile,
+    fields: [
+      { name: 'tabletPaddings', initial: '5vw', },
+    ],
+    template:
+      `
+@media (--is-tablet) {
+  --content-inline-padding: \${tabletPaddings};
+}`,
+  }),
+
+  new VariableTemplate({
+    snippetName: 'some name 4',
+    message: chalk.cyan('Mobiles...'),
+    variableFilePath: stateStyleFile,
+    fields: [
+      { name: 'mobilePaddings', initial: '2.5vw', },
+    ],
+    template:
+      `
+@media (--is-mobile) {
+  --content-inline-padding: \${mobilePaddings};
+}`,
+  }),
 )
 
-
-logSomeImportantInConsole(
-  `
-=====================================================
-          The setup is completely complete! 
-          I wish You a successful job. 
-                       🎆🎆🎆             
-=====================================================
-`,
-  chalk.greenBright
-)
+deleteUnnecessaryFilesAndFolders()
 
 
 
-function deleteDemoContent() {
-  for (let pathToDemo of sourcesDemoFoldersAndFIles) {
-    deleteFolder(pathToDemo)
-  }
 
-  log(chalk.gray.italic('✅ The demo content have been deleted.'))
-}
-function cleanReadmeFilesAndFolders() {
-  deleteFolder(readmeFolder, 'The readme folder have been deleted.')
-  deleteFolder(readmeFilePath)
-  fs.createFileSync('README.md')
-
-  log(chalk.gray.italic('✅ The readme file are clean.'))
-}
-function deleteDist() {
-  deleteFolder(distFolderName, 'Dist have been deleted.')
-}
-function deleteSnippets() {
-  deleteFolder(snippetsFolderName, 'Snippets have been deleted.')
-}
-function deleteGitKeep() {
-  deleteFolder(fontsGitkeep, 'Gitkeep have been deleted.')
-}
-function deleteUnusedFolders() {
-  if (isFolderEmpty(assets)) {
-    deleteFolder(assets)
-  }
-
-  log(chalk.gray.italic('✅ Unused folders have been deleted.'))
-}
-
-
-async function includeModuleByQuestion(...moduleObjects) {
-  let answers = await enquirer.multiselect({
+async function includeModuleByQuestion(title, ...moduleObjects) {
+  let selectedModules = await enquirer.multiselect({
     name: 'value',
-    message: chalk.magentaBright('Do you want to include the module...'),
+    message: chalk.magentaBright(title),
     limit: 5,
-    choices: moduleObjects.map(function (module) {
+    choices: moduleObjects.map(module => {
       return {
         name: module.moduleName, value: module.moduleName,
       }
@@ -425,61 +362,20 @@ async function includeModuleByQuestion(...moduleObjects) {
 
 
   for (let module of moduleObjects) {
-    let confirmedModuleName = answers.find(answer => answer == module.moduleName)
+    let confirmedModuleName = selectedModules.find(answer => answer == module.moduleName)
 
     if (confirmedModuleName) {
       replaceHtmlConnectionString(module.htmlConnectStrings, 'false', 'true')
     }
     else {
-      if (module.filesAndFolders) {
-        for (let fileOrFolder of module.filesAndFolders) {
-          fs.removeSync(fileOrFolder)
-        }
+      if (Array.isArray(module.filesAndFolders) == false)
+        module.filesAndFolders = new Array(module.filesAndFolders)
+
+      for (let fileOrFolder of module.filesAndFolders) {
+        fs.removeSync(fileOrFolder)
       }
 
       replaceHtmlConnectionString(module.htmlConnectStrings)
-    }
-  }
-}
-async function setImportModule(...importModuleObjects) {
-  let answers = await enquirer.multiselect({
-    name: 'value',
-    message: chalk.magentaBright('Do you want to import the plugin...'),
-    limit: 5,
-    choices: importModuleObjects.map(function (module) {
-      return {
-        name: module.moduleName, value: module.moduleName,
-      }
-    }),
-
-    footer: () => chalk.gray.italic('use ↑ and ↓ to switch, you can "scroll" this list')
-  })
-
-
-  for (let module of importModuleObjects) {
-    let confirmedModuleName = answers.find(answer => answer == module.moduleName)
-
-    if (confirmedModuleName) {
-      if (module.htmlConnectSlug == false) continue
-
-      replace.sync({
-        files: indexPage,
-        from: `${module.htmlConnectSlug}='false'`,
-        to: `${module.htmlConnectSlug}='true'`,
-      })
-    }
-    else {
-      if (module.htmlConnectSlug) {
-        replace.sync({
-          files: indexPage,
-          from: `${module.htmlConnectSlug}='false'`,
-          to: '',
-        })
-      }
-
-      for (let pathToDelete of module.pathsToDelete) {
-        fs.removeSync(pathToDelete)
-      }
     }
   }
 }
@@ -520,19 +416,31 @@ async function setVariables(...variableTemplates) {
   }
 }
 
+function deleteUnnecessaryFilesAndFolders() {
+  deleteFolder(readmeFolder, 'The readme folder have been deleted.')
+  deleteFolder(readmeFilePath)
+  fs.createFileSync('README.md')
+
+  log(chalk.gray.italic('✅ The readme file are clean.'))
+
+  deleteFolder(distFolderName, 'Dist have been deleted.')
+  deleteFolder(snippetsFolderName, 'Snippets have been deleted.')
+  deleteFolder(fontsGitkeep, 'Gitkeep in fonts have been deleted.')
+}
 
 function replaceHtmlConnectionString(htmlConnectStrings, replacedValue, replacedNewValue) {
-  if (htmlConnectStrings == undefined)
-    return
+  if (!htmlConnectStrings) return
+
+  if (Array.isArray(htmlConnectStrings) == false)
+    htmlConnectStrings = new Array(htmlConnectStrings)
 
   for (let htmlConnectStringData of htmlConnectStrings) {
-    if (htmlConnectStringData.path == undefined)
+    if (!htmlConnectStringData.path)
       htmlConnectStringData.path = indexPage
-
 
     let newHtmlConnectString
 
-    if (replacedValue == undefined || replacedNewValue == undefined) {
+    if (!replacedValue || !replacedNewValue) {
       newHtmlConnectString = ''
     } else {
       newHtmlConnectString = htmlConnectStringData.strings.replace(replacedValue, replacedNewValue)
@@ -550,16 +458,9 @@ function deleteFolder(folderPath, messageOnSuccessful) {
 
     if (messageOnSuccessful)
       log(chalk.gray.italic('✅ ' + messageOnSuccessful))
-
-  } catch (error) {
-    log(chalk.red('❌ ' + error))
   }
-}
-function isFolderEmpty(path) {
-  try {
-    return fs.readdirSync(path).length == 0
-  } catch (error) {
-    return false
+  catch (error) {
+    log(chalk.red('❌ ' + error))
   }
 }
 function replaceEnquirerTemplateValues(template, fields, values, replaceNamesToDefaults) {
@@ -585,4 +486,31 @@ function replaceEnquirerTemplateValues(template, fields, values, replaceNamesToD
 }
 function logSomeImportantInConsole(message, chalkColor) {
   log(chalkColor(message))
+}
+
+function writeCompletelyPhrase() {
+  let
+    lines,
+    topPhrase = 'The setup is completely complete!',
+    middlePhrase = 'I wish You a successful job.',
+    bottomPhrase = '🎆🎆🎆',
+
+    positionOfTop = Math.round(process.stdout.columns / 2) - Math.round(topPhrase.length / 2),
+    positionOfMiddle = Math.round(process.stdout.columns / 2) - Math.round(middlePhrase.length / 2),
+    positionOfBottom = Math.round(process.stdout.columns / 2) - Math.round(bottomPhrase.length / 2)
+
+  lines = '―'.repeat(process.stdout.columns)
+  topPhrase = ' '.repeat(positionOfTop) + topPhrase
+  middlePhrase = ' '.repeat(positionOfMiddle) + middlePhrase
+  bottomPhrase = ' '.repeat(positionOfBottom) + bottomPhrase
+
+  logSomeImportantInConsole(
+    lines + '\n'
+    + topPhrase + '\n'
+    + middlePhrase + '\n'
+    + bottomPhrase + '\n'
+    + lines
+
+    , chalk.greenBright
+  )
 }
