@@ -1,87 +1,96 @@
-# Hello, this is gulp_multitool!
-## **[EN]**
 <!-- Ctrl + Shift + V => live view this file in VS Code -->
 
-There is a lot of routine work in website development. Each developer does this in his own way, each creates his own gulp solution.
-I decided to make my assembly as reliable, thoughtful and rich in functionality as possible.
+# Why did I switch to grunt?
 
-**Gulp**, **ts-scripts**, **ready elements, modules**, **snippets** and much more.
+Gulp does not have support for node 20 and higher, which already complicates the use, and in the future will severely limit the available plugins.
 
-### Can i see how it works?
-Of course, just check out [this site on githubpages].
+Grunt is updated quite often, even having Node 20 and 21 support.
 
-### Get started? 
-See the [wiki].
-You will also find the user manual there.
+## Get started? 
+
+I will create a wonderful wiki... Someday. <br>
+Right now i can only give you the basics:
+
+#### Commands
+
+- Start development mode: <code>yarn d</code> or <code>yarn development</code>
+- Start production mode: <code>yarn p</code> or <code>yarn production</code>
+- Start the setup script: <code>yarn setup</code>
+
+#### Folders
+
+- sources
+  - assets 
+    - [**/*] Files from this folder will be moved to dist without changes 
+      - (including subfolders)
+  - components 
+    - [*.html] Reusable chunks of HTML. See posthtml-components
+  - fonts 
+    - [*.otf,ttf] Your fonts
+  - images 
+    - [**/*] Your images 
+      - (including subfolders)
+  - scripts 
+    - [**/*.js,ts] Scripts 
+      - (including subfolders)
+      - [**/*.pcss] and stylesheets (only in subfolders, was intended for modules)
+  - styles 
+    - [*.pcss] Stylesheets, including an <code>_environment</code> file with content common to all stylesheets
+  - [*.html] In root of directory you can write your <code>.html</code> files
+
+- <code>setup.js</code> - The file for initial configuration and cleaning.
+- tmp - Folder for the cache.
+- grunt - Folder for grunt configurations.
+- <code>Gruntfile.cjs</code> - The Grunt main file.
+- .yarn - Data for yarn, including the plugin cache.
+
+**Don't forget to install the recommended extensions.**
 
 ---
 
 ## **[RU]**
-В разработке сайтов много рутинной работы. Каждый разработчик решает её по-своему, каждый создает свой gulp-проект.
-Я создал свою сборку, сделав её максимально надежной, продуманной и богатой по функционалу.
 
-**Gulp**, **Typescript**, **готовые блоки, модули и элементы**, **сниппеты** а так же многое другое.
+# Почему я перешёл на Grunt?
 
-### А можно посмотреть?
-Конечно, можно взглянуть на функционал зайдя на [этот сайт на githubpages].
+Gulp не имеет поддержки Node 20 и выше, что усложняет использование уже сейчас, в будущем уменьшая количество доступных плагинов.
+Grunt достаточно часто обновляется, имеет поддержку для Node 20 и 21.
 
-### А как сим пользоваться? 
-Глянь [вики].
-Там же ты найдёшь инструкции по использованию.
+## Как пользоваться?
 
+Когда нибудь я напишу отличную вики... Но это будет потом.<br>
+А пока я могу написать лишь основы:
 
-[this site on githubpages]: https://ulyanov-programmer.github.io/Default_Project/Default_Project
-[этот сайт на githubpages]: https://ulyanov-programmer.github.io/Default_Project/Default_Project
-[wiki]: https://github.com/Ulyanov-programmer/Default_Project/wiki
-[вики]: https://github.com/Ulyanov-programmer/Default_Project/wiki
+#### Команды
 
----
----
+- Запустить в режиме разработки: <code>yarn d</code> или <code>yarn development</code>
+- Запустить в режиме выпуска: <code>yarn p</code> или <code>yarn production</code>
+- Запустить скрипт настройки и очистки: <code>yarn setup</code>
 
+#### Папки
 
-### The following technologies were used:
+- sources
+  - assets 
+    - [**/*] Файлы, что будут перемещены в dist без изменений
+      - (включая подпапки)
+  - components 
+    - [*.html] Переиспользуемые куски HTML. Смотри posthtml-components
+  - fonts 
+    - [*.otf,ttf] Ваши шрифты
+  - images 
+    - [**/*] Ваши изображения
+      - (включая подпапки)
+  - scripts 
+    - [**/*.js,ts] Скрипты 
+      - (включая подпапки)
+      - [**/*.pcss] и стили (только подпапки, изначально предназначено для модулей)
+  - styles 
+    - [*.pcss] Стили, включая файл <code>_environment</code> с содержимым общим для всех файлов
+  - [*.html] В корневой директории вы можете писать ваши <code>.html</code> файлы.
 
-<a href='//gulpjs.com/'>
-<img src="readmeFiles/readme/gulp.png" width=50px alt='gulp' />
-</a>
-<a href='//developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web/HTML_basics'>
-<img src="readmeFiles/readme/html5.png" width=50px alt='html5' />
-</a>
-<a href='//stylus-lang.com/'>
-<img src="readmeFiles/readme/stylus.png" width=50px alt='stylus' />
-</a>
-<a href='//typescriptlang.org/'>
-<img src="readmeFiles/readme/ts.png" width=50px  alt='typescript'/>
-</a>
-<a href='//developer.mozilla.org/en-US/docs/Web/JavaScript'>
-<img src="readmeFiles/readme/js.png" width=50px  alt='javascript'/>
-</a>
-<a href='//swiperjs.com/'><img src="readmeFiles/readme/swiper.png" width=50px alt='swiper' />
-</a>
-<br>
+- <code>setup.js</code> - Файл для запуска настройки и очистки.
+- tmp - Папка для кэша.
+- grunt - Папка для конфигураций Grunt.
+- <code>Gruntfile.cjs</code> - Главный исполняемый файл Grunt.
+- .yarn - Данные для yarn, включая кэш плагинов.
 
-### ...and packages:
-- browser-sync - 2.27.9
-- chokidar - 3.5.3
-- del - 6.0.0
-- fs-extra - 10.0.0
-- gulp - 4.0.2
-- gulp-autoprefixer - 8.0.0
-- gulp-changed - 4.0.3
-- gulp-clean-css - 4.3.0
-- gulp-file-include - 2.3.0
-- gulp-group-css-media-queries - 1.2.2
-- gulp-html-img-to-picture - 1.0.2
-- gulp-if - 3.0.0
-- gulp-imagemin - 8.0.0
-- gulp-libsquoosh - 1.1.2
-- gulp-plumber - 1.2.1
-- gulp-rename - 2.0.0
-- gulp-stylus - 2.7.1
-- gulp-terser - 2.1.0
-- gulp-ttf2woff2 - 4.0.1
-- gulp-typescript - 6.0.0-alpha.1
-- readline-sync - 1.4.10
-- replace-in-file - 6.3.2
-- typescript - 4.6.3
-- uuid - 8.3.2
+**Не забудь установить рекомендуемые расширения.**
