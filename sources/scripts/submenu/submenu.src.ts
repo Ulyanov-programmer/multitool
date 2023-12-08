@@ -119,7 +119,10 @@ export class SubmenuElementGroup {
             'pointerleave', () => Submenu.hideSubmenu(this)
           )
           button.addEventListener(
-            'focus', () => Submenu.openSubmenu(this)
+            'keyup', event => {
+              if (event.key == 'Enter')
+                Submenu.openSubmenu(this)
+            }
           )
           button.nextElementSibling.addEventListener(
             'focusout', () => Submenu.hideSubmenu(this)
