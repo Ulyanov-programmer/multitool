@@ -27,16 +27,14 @@ export default class Dialogs {
       dialogOpener.addEventListener('click', () => {
         let dialog = document.getElementById(dialogOpener.dataset.openDialogId) as HTMLDialogElement
 
-        if (dialog && dialog.dataset.modalDialog != undefined) {
-          if (dialogOpener.dataset.closeOpenedDialogs == undefined) {
-            this.openDialog(dialog)
-          } else {
-            this.openDialog(dialog, true)
-          }
-        }
-        else if (dialog) {
+        if (!dialog) return
+
+        if (dialog.dataset.modalDialog)
+          dialogOpener.dataset.closeOpenedDialogs
+            ? this.openDialog(dialog, true)
+            : this.openDialog(dialog)
+        else
           this.openWindowDialog(dialog)
-        }
       })
     }
 
@@ -50,21 +48,17 @@ export default class Dialogs {
         let dialog = document.getElementById(modalCloser.dataset.closeDialogId) as HTMLDialogElement
 
         // If the dialog is not found and its ID is not specified, it tries to find the parent one.
-        if (dialog == undefined && modalCloser.dataset.closeDialogId == '') {
+        if (!dialog && modalCloser.dataset.closeDialogId == '')
           dialog = this.getParentDialog(modalCloser)
-        }
 
-        if (dialog && dialog.dataset.modalDialog) {
-          if (modalCloser.dataset.closeDialogId) {
-            this.closeDialog(dialog)
-          }
-          else {
-            this.closeDialog(this.getParentDialog(modalCloser))
-          }
-        }
-        else if (dialog) {
+        if (!dialog) return
+
+        if (dialog.dataset.modalDialog)
+          modalCloser.dataset.closeDialogId
+            ? this.closeDialog(dialog)
+            : this.closeDialog(this.getParentDialog(modalCloser))
+        else
           this.closeWindowDialog(dialog)
-        }
       })
     }
 
@@ -74,11 +68,7 @@ export default class Dialogs {
     )
 
     for (let dialogElement of Dialogs.dialogModalElements) {
-      dialogElement.style.padding = '0'
-      dialogElement.style.border = 'none'
-      dialogElement.style.margin = '0'
-
-      dialogElement.addEventListener('close', (closeEvent) => {
+      dialogElement.addEventListener('close', closeEvent => {
         closeEvent.preventDefault()
         this.closeDialog(dialogElement)
       })
@@ -103,16 +93,18 @@ export default class Dialogs {
     dialogElement.classList.add(this.dialogModalStateActiveClass)
 
     if (this.closeByClickOnBackdrop) {
-      dialogElement.addEventListener('pointerdown', this.closeByClickOnBackdropEvent.bind(this))
+      dialogElement.addEventListener('click', this.closeByClickOnBackdropEvent.bind(this))
     }
   }
   private closeDialog(currentDialog: HTMLDialogElement) {
-    currentDialog?.close()
+    if (!currentDialog || currentDialog.nodeName != 'DIALOG') return
+
+    currentDialog.close()
     currentDialog.classList.remove(this.dialogModalStateActiveClass)
     this.toggleBodyScroll(true, currentDialog)
 
     if (this.closeByClickOnBackdrop) {
-      currentDialog?.removeEventListener('pointerdown', this.closeByClickOnBackdropEvent.bind(this))
+      currentDialog.removeEventListener('click', this.closeByClickOnBackdropEvent.bind(this))
     }
   }
 
@@ -155,10 +147,17 @@ export default class Dialogs {
   }
 
   private closeByClickOnBackdropEvent(mouseEv: PointerEvent) {
-    // ? Checks whether the dialog itself was pressed (including its ::backdoor), or its child.
+    //@ts-expect-error
+    let rect = mouseEv.target.getBoundingClientRect()
 
-    // When the dialog is active, a currentTarget will always be the dialog itself.
-    if (mouseEv.target == mouseEv.currentTarget) {
+    let isClickInDialogRect = (
+      rect.top <= mouseEv.clientY
+      && mouseEv.clientY <= rect.top + rect.height
+      && rect.left <= mouseEv.clientX
+      && mouseEv.clientX <= rect.left + rect.width
+    )
+
+    if (!isClickInDialogRect) {
       this.closeDialog(mouseEv.target as HTMLDialogElement)
     }
   }

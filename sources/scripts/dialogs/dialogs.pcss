@@ -1,4 +1,4 @@
-@import '../../styles/_environment.pcss';
+@import url('../../styles/_environment.pcss');
 
 dialog[data-modal-dialog] {
   @mixin hide;
@@ -6,6 +6,9 @@ dialog[data-modal-dialog] {
   top: 50%;
   left: 50%;
   transform: translate3d(-50%, -50%, 0);
+  background: gray;
+  padding: 20px;
+  width: 50vw;
 
   transition: all 0.2s ease;
 
