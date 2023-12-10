@@ -39,6 +39,10 @@ export type SwipeElementArgs = {
    * The maximum width of the viewport when a swipe will work.
    */
   maxWorkWidth: number
+  transition?: string
+  isSwipedClass?: string
+  isSwipedForAreaClass?: string
+  startPosition?: string
 }
 /**
  * Version of arguments for Swipe Element with some optional versions fields.
@@ -53,7 +57,10 @@ export type ExportSwipeElementArgs = Omit<
   touchStartAreaSelector?: string
   swipeableElementSelector?: string
 }
+
 export default class SwipeElement {
+  public isSwipedClass: string
+  public isSwipedForAreaClass: string
   private touchAreaElement: HTMLElement
   private swipeableElement: HTMLElement
 
@@ -79,6 +86,8 @@ export default class SwipeElement {
       return
     }
 
+    this.isSwipedClass = arg.isSwipedClass ?? 'isSwiped'
+    this.isSwipedForAreaClass = arg.isSwipedForAreaClass ?? 'isSwiped'
 
     this.touchAreaElement = document.querySelector(arg.touchStartAreaSelector)
     this.touchAreaElement.style.touchAction = 'none'
@@ -86,6 +95,7 @@ export default class SwipeElement {
     this.touchAreaElement.style.userSelect = 'none'
 
     this.changePlane = arg.changePlane
+
     if (this.changePlane == ChangePlane.ToLeft || this.changePlane == ChangePlane.ToRight) {
       this.changeOrientation = ChangeOrientation.Horizontal
     } else {
@@ -93,6 +103,7 @@ export default class SwipeElement {
     }
 
     this.swipeableElement = document.querySelector(arg.swipeableElementSelector)
+    this.swipeableElement.style.transition = arg.transition ?? 'transform 300ms ease'
     this.setStartPositionStateForSwipeableElement()
     this.swipeSensitivity = arg.swipeSensitivity
     this.maxWorkWidth = arg.maxWorkWidth
@@ -205,14 +216,14 @@ export default class SwipeElement {
         ? this.setEndTranslateStateForSwipeableElement()
         : this.swipeableElement.style.transform = 'translate3d(0, 0, 0)'
 
-      this.swipeableElement.classList.toggle('active')
-      this.touchAreaElement.classList.toggle('active')
+      this.swipeableElement.classList.toggle(this.isSwipedClass)
+      this.touchAreaElement.classList.toggle(this.isSwipedForAreaClass)
 
       window.removeEventListener('pointermove', this.pointerMoveHandler)
     }
 
     if (isSwipeEnd) {
-      this.swipeableElement.classList.contains('active')
+      this.swipeableElement.classList.contains(this.isSwipedClass)
         ? this.setEndTranslateStateForSwipeableElement()
         : this.swipeableElement.style.transform = ''
 
@@ -280,33 +291,14 @@ export default class SwipeElement {
         : result = delta - this.swipeableElement.clientHeight
 
       this.swipeableElement.style.transform = `translate3d(
-				${this.startX}px, ${result}px, 0)`
+        ${this.startX}px, ${result}px, 0)`
 
       this.checkIsSwipeEnd(delta, false)
     }
   }
 
-
-  // private getTranslateState(xOrY: string = 'x') {
-  //   let valueIndex = xOrY == 'x' ? 4 : 5
-  //   let state: number
-
-  //   // get a value of transformX or transformY of swipeableElement
-  //   try {
-  //     state = parseInt(
-  //       window.getComputedStyle(this.swipeableElement)
-  //         .getPropertyValue('transform')
-  //         .match(/(-?[0-9\.]+)/g)[valueIndex]
-  //     )
-  //   }
-  //   catch (error) {
-  //     state = 0
-  //   }
-
-  //   return state
-  // }
   private checkSwipeableElementContainActive() {
-    return this.swipeableElement.classList.contains('active')
+    return this.swipeableElement.classList.contains(this.isSwipedClass)
   }
   private checkMaxWorkWidth() {
     if (window.innerWidth <= this.maxWorkWidth) {
