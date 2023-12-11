@@ -30,11 +30,11 @@ export default class Dialogs {
         if (!dialog) return
 
         if (dialog.dataset.modalDialog)
+          this.openWindowDialog(dialog)
+        else
           dialogOpener.dataset.closeOpenedDialogs
             ? this.openDialog(dialog, true)
             : this.openDialog(dialog)
-        else
-          this.openWindowDialog(dialog)
       })
     }
 
@@ -54,11 +54,11 @@ export default class Dialogs {
         if (!dialog) return
 
         if (dialog.dataset.modalDialog)
+          this.closeWindowDialog(dialog)
+        else
           modalCloser.dataset.closeDialogId
             ? this.closeDialog(dialog)
             : this.closeDialog(this.getParentDialog(modalCloser))
-        else
-          this.closeWindowDialog(dialog)
       })
     }
 
