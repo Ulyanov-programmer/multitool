@@ -1,12 +1,14 @@
 import Tab, { ToggleTabsEvent } from './tab.src.js'
 
 new Tab({
-  buttonsSelector: '.tab__btn',
-  contentBlocksSelector: '.tab__item',
+  buttonsContainerSelector: '.tab__buttons',
+  tabsContainerSelector: '.tab__items',
+
   fadeEffect: true,
-  buttonsActiveClass: 'active',
-  contentActiveClass: 'active',
   autoHeight: true,
   animationDuration: 500,
-  toggleTabsBy: ToggleTabsEvent.Click
+  toggleTabsBy: ToggleTabsEvent.Click,
+
+  buttonActiveClass: 'active',
+  tabActiveClass: 'active',
 })

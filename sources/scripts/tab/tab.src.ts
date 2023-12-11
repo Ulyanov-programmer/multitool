@@ -6,15 +6,8 @@ export enum ToggleTabsEvent {
 }
 
 interface TabArgs {
-  /**
-    Selector for buttons that open some tab content.
-    @remark Must contain `data-toggle-elem-number="numberOfContentElement"` (starts from zero).
-  */
-  buttonsSelector: string
-  /** 
-   * Selector of blocks that contain some tab content.
-   */
-  contentBlocksSelector: string
+  buttonsContainerSelector: string
+  tabsContainerSelector: string
   /**
    * Enables the Fade effect (when one element is superimposed on another when switching).
    * @defaultValue `false`
@@ -47,56 +40,63 @@ interface TabArgs {
    */
   toggleTabsBy?: ToggleTabsEvent
 
-  buttonsActiveClass?: string
-  contentActiveClass?: string
+  buttonActiveClass?: string
+  tabActiveClass?: string
 }
 export default class Tab {
-  private buttons: NodeListOf<HTMLElement>
-  private contentElements: NodeListOf<HTMLElement>
-  private parentOfContentElements: HTMLElement
+  private buttons: HTMLCollectionOf<HTMLButtonElement>
+  private tabs: HTMLCollectionOf<HTMLElement>
+  private parentOfTabs: HTMLElement
+  private parentOfButtons: HTMLElement
   private animationDuration: number
   private switchingLockTime: number
   private isToggling: boolean = false
   private autoHeight: boolean
   private toggleTabsEvent: string = 'click'
   private containerHeight: number = 0
-  public buttonsActiveClass: string
-  public contentActiveClass: string
+  public buttonActiveClass: string
+  public tabActiveClass: string
 
   constructor(arg: TabArgs) {
-    if (!elementIsExistWithLog('Tab', arg.buttonsSelector, arg.contentBlocksSelector))
+    if (!elementIsExistWithLog('Tab', arg.buttonsContainerSelector, arg.tabsContainerSelector))
       return
 
-    this.buttons = document.querySelectorAll(arg.buttonsSelector)
-    this.contentElements = document.querySelectorAll(arg.contentBlocksSelector)
+    // Getting all links and tabs inside containers (the first level of nesting, all items)
+    this.parentOfButtons = document.querySelector(arg.buttonsContainerSelector)
+    this.parentOfTabs = document.querySelector(arg.tabsContainerSelector)
+    this.buttons = this.parentOfButtons.children as HTMLCollectionOf<HTMLButtonElement>
+    this.tabs = this.parentOfTabs.children as HTMLCollectionOf<HTMLElement>
 
-    if (this.buttons.length != this.contentElements.length) {
+    if (this.buttons.length != this.tabs.length) {
       console.log('[Tab] The count of buttons and content-elements is not equal.')
       return
     }
 
-    this.buttonsActiveClass = arg.buttonsActiveClass ?? 'active'
-    this.contentActiveClass = arg.contentActiveClass ?? 'active'
+    this.buttonActiveClass = arg.buttonActiveClass ?? 'active'
+    this.tabActiveClass = arg.tabActiveClass ?? 'active'
     this.autoHeight = arg.autoHeight ?? false
 
     if (arg.firstButtonIsNotActive == false)
-      this.buttons[0].classList.add(this.buttonsActiveClass)
+      this.buttons[0].classList.add(this.buttonActiveClass)
 
-    this.contentElements[0].classList.add(this.contentActiveClass)
-
-
-    let someTabElement = document.querySelector(arg.contentBlocksSelector) as HTMLElement
-    this.parentOfContentElements = someTabElement.parentElement as HTMLElement
+    this.tabs[0].classList.add(this.tabActiveClass)
+    this.parentOfButtons.setAttribute('role', 'tablist')
 
     if (arg.animationDuration) {
       this.animationDuration = arg.animationDuration
-    } else {
-      this.animationDuration = parseFloat(getComputedStyle(someTabElement)
+    }
+    else {
+      this.animationDuration = parseFloat(getComputedStyle(this.tabs[0])
         .getPropertyValue('transition-duration')) * 1000
     }
+
     this.switchingLockTime = this.animationDuration
 
     this.setToggleTabsEvent(arg.toggleTabsBy)
+
+    for (let button of this.buttons) {
+      button.setAttribute('role', 'tab')
+    }
 
 
     if (arg.fadeEffect) {
@@ -105,21 +105,26 @@ export default class Tab {
 
       window.addEventListener('resize', this.resizeFadeTabs.bind(this))
 
-      for (let tabButton of this.buttons) {
-        tabButton.addEventListener(this.toggleTabsEvent, () =>
-          this.toggleTabsFade(tabButton)
-        )
+      for (let button of this.buttons) {
+        button.addEventListener(this.toggleTabsEvent, event => {
+          event.preventDefault()
+
+          this.toggleTabsFade(button)
+        })
       }
-    } else {
+    }
+    else {
       this.setDefaultTabs()
       this.resizeTabs()
 
       window.addEventListener('resize', this.resizeTabs.bind(this))
 
-      for (let tabButton of this.buttons) {
-        tabButton.addEventListener(this.toggleTabsEvent, () =>
-          this.toggleTabs(tabButton)
-        )
+      for (let button of this.buttons) {
+        button.addEventListener(this.toggleTabsEvent, event => {
+          event.preventDefault()
+
+          this.toggleTabs(button)
+        })
       }
     }
   }
@@ -127,160 +132,169 @@ export default class Tab {
   private setFadeTabs() {
     let marginForCurrentElement = 0
 
-    for (let contentElement of this.contentElements) {
-      if (!this.autoHeight && contentElement.clientHeight > this.containerHeight) {
-        this.containerHeight = contentElement.clientHeight
+    for (let tab of this.tabs) {
+      tab.setAttribute('tabindex', '0')
+      tab.setAttribute('role', 'tabpanel')
+
+      if (!this.autoHeight && tab.clientHeight > this.containerHeight) {
+        this.containerHeight = tab.clientHeight
       } else if (this.autoHeight && this.containerHeight <= 0) {
-        this.containerHeight = this.contentElements[0].clientHeight
+        this.containerHeight = this.tabs[0].clientHeight
       }
 
-      if (contentElement.classList.contains(this.contentActiveClass) == false) {
-        contentElement.style.opacity = '0'
-        contentElement.style.pointerEvents = 'none'
+      if (tab.classList.contains(this.tabActiveClass) == false) {
+        tab.style.opacity = '0'
+        tab.style.pointerEvents = 'none'
       }
 
-      contentElement.style.transform = `translateY(-${marginForCurrentElement}px)`
-      marginForCurrentElement += contentElement.clientHeight
+      tab.style.transform = `translateY(-${marginForCurrentElement}px)`
+      marginForCurrentElement += tab.clientHeight
     }
 
-    this.parentOfContentElements.style.overflow = 'hidden'
+    this.parentOfTabs.style.overflow = 'hidden'
 
     this.setContainerHeight(this.containerHeight)
-    this.parentOfContentElements.style.transition = `height ${this.animationDuration}ms`
+    this.parentOfTabs.style.transition = `height ${this.animationDuration}ms`
 
-    for (let contentElement of this.contentElements) {
+    for (let contentElement of this.tabs) {
       contentElement.style.transition = `opacity ${this.animationDuration}ms`
     }
   }
   private setDefaultTabs() {
-    for (let contentElement of this.contentElements) {
-      if (contentElement.classList.contains(this.contentActiveClass) == false) {
-        contentElement.setAttribute('hidden', '')
-        contentElement.style.display = 'none'
-        contentElement.style.opacity = '0'
-        contentElement.style.pointerEvents = 'none'
+    for (let tab of this.tabs) {
+      tab.setAttribute('tabindex', '0')
+      tab.setAttribute('role', 'tabpanel')
+
+      if (tab.classList.contains(this.tabActiveClass) == false) {
+        tab.setAttribute('hidden', '')
+        tab.style.display = 'none'
+        tab.style.opacity = '0'
+        tab.style.pointerEvents = 'none'
       }
-      contentElement.style.transition = `opacity ${this.animationDuration}ms`
+      tab.style.transition = `opacity ${this.animationDuration}ms`
 
       this.setContainerHeight()
-      this.parentOfContentElements.style.transition = `height ${this.animationDuration}ms`
+      this.parentOfTabs.style.transition = `height ${this.animationDuration}ms`
     }
   }
 
   private resizeFadeTabs() {
-    let currentActiveElement = this.getCurrentActiveTab()
+    let currentActiveTab = this.getCurrentActiveTab()
     let marginForCurrentElement = 0
 
-    if (currentActiveElement) {
-      this.parentOfContentElements.style.height = `${currentActiveElement.clientHeight}px`
+    if (currentActiveTab) {
+      this.parentOfTabs.style.height = currentActiveTab.clientHeight + 'px'
     } else {
-      this.parentOfContentElements.style.height = `${this.contentElements[0].clientHeight}px`
+      this.parentOfTabs.style.height = this.tabs[0].clientHeight + 'px'
     }
 
-    for (let contentElement of this.contentElements) {
-      contentElement.style.transform = `translateY(-${marginForCurrentElement}px)`
-      marginForCurrentElement += contentElement.clientHeight
+    for (let tab of this.tabs) {
+      tab.style.transform = `translateY(-${marginForCurrentElement}px)`
+      marginForCurrentElement += tab.clientHeight
     }
   }
   private resizeTabs() {
-    let currentActiveElement = this.getCurrentActiveTab()
+    let currentActiveTab = this.getCurrentActiveTab()
 
-    if (currentActiveElement) {
-      this.parentOfContentElements.style.height = `${currentActiveElement.clientHeight}px`
+    if (currentActiveTab) {
+      this.parentOfTabs.style.height = currentActiveTab.clientHeight + 'px'
     } else {
-      this.parentOfContentElements.style.height = `${this.contentElements[0].clientHeight}px`
+      this.parentOfTabs.style.height = this.tabs[0].clientHeight + 'px'
     }
   }
 
-  private toggleTabsFade(activeTabButton: HTMLElement) {
-    if (this.toggleTogglingStateIfPossible(activeTabButton) == false) {
+  private toggleTabsFade(activeButton: HTMLButtonElement) {
+    if (this.toggleTogglingStateIfPossible(activeButton) == false)
       return
-    }
-    this.toggleTabButtons(activeTabButton)
 
-    let currentActiveElement = this.getCurrentActiveTab()
-    let nextContentElement = this.getTabByPressedButton(activeTabButton)
+    this.toggleTabButtons(activeButton)
 
-    currentActiveElement.style.opacity = '0'
-    currentActiveElement.style.pointerEvents = 'none'
+    let currentActiveTab = this.getCurrentActiveTab()
+    let nextContentTab = this.getTabByPressedButton(activeButton)
 
-    if (this.autoHeight) {
-      this.setContainerHeight(nextContentElement.clientHeight)
-    }
-    nextContentElement.style.opacity = '1'
-    nextContentElement.style.removeProperty('pointer-events')
+    currentActiveTab.style.opacity = '0'
+    currentActiveTab.style.pointerEvents = 'none'
 
-    currentActiveElement.classList.remove(this.contentActiveClass)
-    nextContentElement.classList.add(this.contentActiveClass)
+    if (this.autoHeight)
+      this.setContainerHeight(nextContentTab.clientHeight)
+
+    nextContentTab.style.opacity = '1'
+    nextContentTab.style.removeProperty('pointer-events')
+
+    currentActiveTab.classList.remove(this.tabActiveClass)
+    nextContentTab.classList.add(this.tabActiveClass)
 
     setTimeout(() => {
       this.isToggling = false
     }, this.switchingLockTime)
   }
-  private async toggleTabs(activeTabButton: HTMLElement) {
-    if (this.toggleTogglingStateIfPossible(activeTabButton) == false) {
+  private async toggleTabs(activeButton: HTMLButtonElement) {
+    if (this.toggleTogglingStateIfPossible(activeButton) == false)
       return
-    }
-    this.toggleTabButtons(activeTabButton)
 
-    let currentActiveElement = this.getCurrentActiveTab()
-    let nextContentElement = this.getTabByPressedButton(activeTabButton)
+    this.toggleTabButtons(activeButton)
 
-    currentActiveElement.classList.remove(this.contentActiveClass)
-    currentActiveElement.style.opacity = '0'
-    currentActiveElement.style.pointerEvents = 'none'
+    let currentActiveTab = this.getCurrentActiveTab()
+    let nextContentTab = this.getTabByPressedButton(activeButton)
+
+    currentActiveTab.classList.remove(this.tabActiveClass)
+    currentActiveTab.style.opacity = '0'
+    currentActiveTab.style.pointerEvents = 'none'
     await sleep(this.animationDuration)
-    currentActiveElement.setAttribute('hidden', '')
-    currentActiveElement.style.display = 'none'
+    currentActiveTab.setAttribute('hidden', '')
+    currentActiveTab.style.display = 'none'
 
 
-    nextContentElement.removeAttribute('hidden')
-    nextContentElement.style.removeProperty('pointer-events')
-    nextContentElement.style.display = ''
-    this.setContainerHeight(nextContentElement.clientHeight)
+    nextContentTab.removeAttribute('hidden')
+    nextContentTab.style.removeProperty('pointer-events')
+    nextContentTab.style.display = ''
+    this.setContainerHeight(nextContentTab.clientHeight)
 
     await sleep(20)
-    nextContentElement.style.opacity = '1'
-    nextContentElement.classList.add(this.contentActiveClass)
+    nextContentTab.style.opacity = '1'
+    nextContentTab.classList.add(this.tabActiveClass)
 
     setTimeout(() => {
       this.isToggling = false
     }, this.switchingLockTime)
   }
 
-  private toggleTabButtons(activeTabButton: HTMLElement) {
-    for (let accordBtn of this.buttons) {
-      if (accordBtn != activeTabButton) {
-        accordBtn.classList.remove(this.buttonsActiveClass)
-      } else {
-        accordBtn.classList.add(this.buttonsActiveClass)
-      }
+  private toggleTabButtons(activeButton: HTMLElement) {
+    for (let button of this.buttons) {
+      button != activeButton
+        ? button.classList.remove(this.buttonActiveClass)
+        : button.classList.add(this.buttonActiveClass)
     }
   }
-  private toggleTogglingStateIfPossible(activeTabButton: HTMLElement): boolean {
-    if (activeTabButton.classList.contains(this.buttonsActiveClass) || this.isToggling) {
+  private toggleTogglingStateIfPossible(activeButton: HTMLElement): boolean {
+    if (activeButton.classList.contains(this.buttonActiveClass) || this.isToggling) {
       return false
-    } else {
+    }
+    else {
       this.isToggling = true
       return true
     }
   }
   private getCurrentActiveTab(): HTMLElement {
-    for (let contElem of this.contentElements) {
-      if (contElem.classList.contains(this.contentActiveClass)) {
-        return contElem
-      }
-    }
-    return this.contentElements[0]
+    let activeTab = this.parentOfTabs.querySelector(
+      '.' + this.tabActiveClass
+    ) as HTMLElement
+
+    if (activeTab)
+      return activeTab
+
+    return this.tabs[0]
   }
-  private getTabByPressedButton(activeTabButton: HTMLElement): HTMLElement {
-    return this.contentElements[activeTabButton.dataset.toggleElemNumber]
+  private getTabByPressedButton(activeButton: HTMLButtonElement): HTMLElement {
+    return this.parentOfTabs.querySelector(
+      '#' + activeButton.getAttribute('aria-controls')
+    )
   }
   private setContainerHeight(height?: number) {
     if (height) {
-      this.parentOfContentElements.style.height = `${height}px`
+      this.parentOfTabs.style.height = height + 'px'
     } else {
-      this.parentOfContentElements.style.height = `${this.contentElements[0].clientHeight}px`
+      this.parentOfTabs.style.height = this.tabs[0].clientHeight + 'px'
     }
   }
   private setToggleTabsEvent(toggleTabsEvent: ToggleTabsEvent): void {

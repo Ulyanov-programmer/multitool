@@ -14,7 +14,7 @@
           dialogs=false
           parallax=false
           autoScrollPadding=false
-          tabs=false
+          tabs=true
           stepByStep=false>
 
   <push name='styles'></push>
@@ -26,6 +26,30 @@
   <fill:header></fill:header>
 
   <!-- Write your content in the main tag here -->
+
+  <div class='tab__buttons'>
+    <button aria-controls='content1'
+            type='button'>
+      Tab 1
+    </button>
+    <button aria-controls='content2'
+            type='button'>
+      Tab 2
+    </button>
+    <button aria-controls='content3'
+            type='button'>Tab 3</button>
+  </div>
+  <div class='tab__items'>
+    <div id='content1'>
+      content 1
+    </div>
+    <div id='content2'>
+      content 2
+    </div>
+    <div id='content3'>
+      content 3
+    </div>
+  </div>
 
   <fill:footer></fill:footer>
 
