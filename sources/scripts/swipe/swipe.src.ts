@@ -42,7 +42,8 @@ export type SwipeElementArgs = {
   transition?: string
   isSwipedClass?: string
   isSwipedForAreaClass?: string
-  startPosition?: string
+  actionOnOpening?: (openedElement: HTMLElement) => any
+  actionOnClosing?: (closedElement: HTMLElement) => any
 }
 /**
  * Version of arguments for Swipe Element with some optional versions fields.
@@ -61,6 +62,8 @@ export type ExportSwipeElementArgs = Omit<
 export default class SwipeElement {
   public isSwipedClass: string
   public isSwipedForAreaClass: string
+  public actionOnOpening: (openedElement: HTMLElement) => any
+  public actionOnClosing: (closedElement: HTMLElement) => any
   private touchAreaElement: HTMLElement
   private swipeableElement: HTMLElement
 
@@ -78,6 +81,7 @@ export default class SwipeElement {
   private minSwipeHeight: number
   private swipeSensitivity: number
   private maxWorkWidth: number
+  private isElementSwiped: boolean = false
 
 
   constructor(arg: SwipeElementArgs) {
@@ -88,6 +92,8 @@ export default class SwipeElement {
 
     this.isSwipedClass = arg.isSwipedClass ?? 'isSwiped'
     this.isSwipedForAreaClass = arg.isSwipedForAreaClass ?? 'isSwiped'
+    this.actionOnOpening = arg.actionOnOpening
+    this.actionOnClosing = arg.actionOnClosing
 
     this.touchAreaElement = document.querySelector(arg.touchStartAreaSelector)
     this.touchAreaElement.style.touchAction = 'none'
@@ -132,16 +138,13 @@ export default class SwipeElement {
 
   private pointerMoveHandler = ((event: PointerEvent) => {
     document.documentElement.style.cursor = 'grabbing'
+    window.addEventListener('pointerup', this.swipeEndHandler)
 
     this.swipeMove(event)
   }).bind(this)
 
-  private pointerUpHandler = ((event: PointerEvent) => {
-    this.swipeableElement.style.userSelect = ''
-    this.touchAreaElement.style.cursor = 'grab'
-    document.documentElement.style.cursor = ''
-
-    this.checkIsSwipeEnd(0, false, true)
+  private swipeEndHandler = ((event: PointerEvent) => {
+    this.swipeEnd(this.isElementSwiped, true)
   }).bind(this)
 
 
@@ -205,29 +208,37 @@ export default class SwipeElement {
       this.moveY()
     }
   }
-  private checkIsSwipeEnd(delta: number, changeSwipeEndStateTo: boolean, isSwipeEnd?: boolean) {
+  private isDeltaMoreThanMinValue(delta: number) {
     delta = Math.abs(delta)
 
-    if (
-      this.changeOrientation == ChangeOrientation.Horizontal && delta >= this.minSwipeWidth
-      || this.changeOrientation == ChangeOrientation.Vertical && delta >= this.minSwipeHeight
-    ) {
-      changeSwipeEndStateTo
-        ? this.setEndTranslateStateForSwipeableElement()
-        : this.swipeableElement.style.transform = 'translate3d(0, 0, 0)'
+    return (
+      this.changeOrientation == ChangeOrientation.Horizontal && delta >= this.minSwipeWidth ||
+      this.changeOrientation == ChangeOrientation.Vertical && delta >= this.minSwipeHeight
+    )
+  }
+  private swipeEnd(changeElementStateTo: boolean, isSwipeNotFully?: boolean) {
+    changeElementStateTo
+      ? this.setEndTranslateStateForSwipeableElement()
+      : this.swipeableElement.style.transform = ''
 
+    window.removeEventListener('pointermove', this.pointerMoveHandler)
+
+    this.swipeableElement.style.userSelect = ''
+    this.touchAreaElement.style.cursor = 'grab'
+    document.documentElement.style.cursor = ''
+    window.removeEventListener('pointerup', this.swipeEndHandler)
+
+    if (!isSwipeNotFully) {
       this.swipeableElement.classList.toggle(this.isSwipedClass)
       this.touchAreaElement.classList.toggle(this.isSwipedForAreaClass)
+      this.isElementSwiped = !this.isElementSwiped
 
-      window.removeEventListener('pointermove', this.pointerMoveHandler)
-    }
-
-    if (isSwipeEnd) {
-      this.swipeableElement.classList.contains(this.isSwipedClass)
-        ? this.setEndTranslateStateForSwipeableElement()
-        : this.swipeableElement.style.transform = ''
-
-      window.removeEventListener('pointermove', this.pointerMoveHandler)
+      if (changeElementStateTo) {
+        if (this.actionOnOpening) this.actionOnOpening(this.swipeableElement)
+      }
+      else {
+        if (this.actionOnClosing) this.actionOnClosing(this.swipeableElement)
+      }
     }
   }
 
@@ -235,21 +246,23 @@ export default class SwipeElement {
     // ? If the swipe goes for a hidden element
     if (this.checkSwipeableElementContainActive() == false) {
       if (
-        this.changePlane == ChangePlane.ToLeft && this.currentSide == SwipeSide.Left
-        || this.changePlane == ChangePlane.ToRight && this.currentSide == SwipeSide.Right
+        this.changePlane == ChangePlane.ToLeft && this.currentSide == SwipeSide.Left ||
+        this.changePlane == ChangePlane.ToRight && this.currentSide == SwipeSide.Right
       ) return
 
 
       this.swipeableElement.style.transform = `translate3d(
 				${delta}px, ${this.startY}px, 0)`
 
-      this.checkIsSwipeEnd(delta, true)
+      if (this.isDeltaMoreThanMinValue(delta)) {
+        this.swipeEnd(true)
+      }
     }
     else {
       // ? If the swipe goes for a visible element
       if (
-        this.changePlane == ChangePlane.ToLeft && this.currentSide == SwipeSide.Right
-        || this.changePlane == ChangePlane.ToRight && this.currentSide == SwipeSide.Left
+        this.changePlane == ChangePlane.ToLeft && this.currentSide == SwipeSide.Right ||
+        this.changePlane == ChangePlane.ToRight && this.currentSide == SwipeSide.Left
       ) return
 
       let result: number
@@ -261,27 +274,31 @@ export default class SwipeElement {
       this.swipeableElement.style.transform = `translate3d(
 				${result}px, ${this.startY}px, 0)`
 
-      this.checkIsSwipeEnd(delta, false)
+      if (this.isDeltaMoreThanMinValue(delta)) {
+        this.swipeEnd(false)
+      }
     }
   }
   private moveY(delta: number = this.deltaY) {
     // ? If the swipe goes for a hidden element
     if (this.checkSwipeableElementContainActive() == false) {
       if (
-        this.changePlane == ChangePlane.ToBottom && this.currentSide == SwipeSide.Bottom
-        || this.changePlane == ChangePlane.ToTop && this.currentSide == SwipeSide.Top
+        this.changePlane == ChangePlane.ToBottom && this.currentSide == SwipeSide.Bottom ||
+        this.changePlane == ChangePlane.ToTop && this.currentSide == SwipeSide.Top
       ) return
 
       this.swipeableElement.style.transform = `translate3d(
 				${this.startX}px, ${delta}px, 0)`
 
-      this.checkIsSwipeEnd(delta, true)
+      if (this.isDeltaMoreThanMinValue(delta)) {
+        this.swipeEnd(true)
+      }
     }
     else {
       // ? If the swipe goes for a visible element
       if (
-        this.changePlane == ChangePlane.ToBottom && this.currentSide == SwipeSide.Top
-        || this.changePlane == ChangePlane.ToTop && this.currentSide == SwipeSide.Bottom
+        this.changePlane == ChangePlane.ToBottom && this.currentSide == SwipeSide.Top ||
+        this.changePlane == ChangePlane.ToTop && this.currentSide == SwipeSide.Bottom
       ) return
 
       let result: number
@@ -293,7 +310,9 @@ export default class SwipeElement {
       this.swipeableElement.style.transform = `translate3d(
         ${this.startX}px, ${result}px, 0)`
 
-      this.checkIsSwipeEnd(delta, false)
+      if (this.isDeltaMoreThanMinValue(delta)) {
+        this.swipeEnd(false)
+      }
     }
   }
 
@@ -304,12 +323,12 @@ export default class SwipeElement {
     if (window.innerWidth <= this.maxWorkWidth) {
       this.touchAreaElement.addEventListener('pointerdown', this.pointerDownHandler)
       this.touchAreaElement.style.cursor = 'grab'
-      window.addEventListener('pointerup', this.pointerUpHandler)
+      window.addEventListener('pointerup', this.swipeEndHandler)
     } else {
       this.touchAreaElement.removeEventListener('pointerdown', this.pointerDownHandler)
       this.touchAreaElement.style.cursor = 'auto'
 
-      window.removeEventListener('pointerup', this.pointerUpHandler)
+      window.removeEventListener('pointerup', this.swipeEndHandler)
     }
   }
 }
