@@ -10,4 +10,9 @@ new SwipeElement({
 
   isSwipedClass: 'isSwiped',
   isSwipedForAreaClass: 'isSwipedArea',
+
+  // actionOnOpening(openedElement) {
+  // },
+  // actionOnClosing(closedElement) {
+  // },
 })
