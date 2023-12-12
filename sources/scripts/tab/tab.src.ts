@@ -30,10 +30,6 @@ interface TabArgs {
    */
   animationDuration?: number
   /**
-   * If true, does not set the class of the active button for the one that switches to the first tab when initializing tabs.
-   */
-  firstButtonIsNotActive?: boolean
-  /**
    * Specifies what action needs to be done with the tab switch button in order for it to work.
    * Takes the value of `ToggleTabsEvent` enumeration.
    * @defaultValue `ToggleTabsEvent.Click` (need to click on a button)
@@ -72,22 +68,26 @@ export default class Tab {
       return
     }
 
-    this.buttonActiveClass = arg.buttonActiveClass ?? 'active'
-    this.tabActiveClass = arg.tabActiveClass ?? 'active'
+    this.buttonActiveClass = arg.buttonActiveClass
+    this.tabActiveClass = arg.tabActiveClass
     this.autoHeight = arg.autoHeight ?? false
 
-    if (arg.firstButtonIsNotActive == false)
-      this.buttons[0].classList.add(this.buttonActiveClass)
+    if (this.tabActiveClass)
+      this.tabs[0].classList.add(this.tabActiveClass)
 
-    this.tabs[0].classList.add(this.tabActiveClass)
     this.parentOfButtons.setAttribute('role', 'tablist')
 
-    if (arg.animationDuration) {
-      this.animationDuration = arg.animationDuration
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches == false) {
+      if (arg.animationDuration) {
+        this.animationDuration = arg.animationDuration
+      }
+      else {
+        this.animationDuration = parseFloat(getComputedStyle(this.tabs[0])
+          .getPropertyValue('transition-duration')) * 1000
+      }
     }
     else {
-      this.animationDuration = parseFloat(getComputedStyle(this.tabs[0])
-        .getPropertyValue('transition-duration')) * 1000
+      this.animationDuration = 0
     }
 
     this.switchingLockTime = this.animationDuration
@@ -96,7 +96,9 @@ export default class Tab {
 
     for (let button of this.buttons) {
       button.setAttribute('role', 'tab')
+      button.setAttribute('aria-expanded', 'false')
     }
+    this.buttons[0].setAttribute('aria-expanded', 'true')
 
 
     if (arg.fadeEffect) {
@@ -135,16 +137,20 @@ export default class Tab {
     for (let tab of this.tabs) {
       tab.setAttribute('tabindex', '0')
       tab.setAttribute('role', 'tabpanel')
+      tab.setAttribute('aria-current', 'false')
 
       if (!this.autoHeight && tab.clientHeight > this.containerHeight) {
         this.containerHeight = tab.clientHeight
-      } else if (this.autoHeight && this.containerHeight <= 0) {
+      }
+      else if (this.autoHeight && this.containerHeight <= 0) {
         this.containerHeight = this.tabs[0].clientHeight
       }
 
-      if (tab.classList.contains(this.tabActiveClass) == false) {
+      if (tab != this.tabs[0]) {
         tab.style.opacity = '0'
         tab.style.pointerEvents = 'none'
+        tab.setAttribute('tabindex', '-1')
+        tab.setAttribute('aria-current', 'false')
       }
 
       tab.style.transform = `translateY(-${marginForCurrentElement}px)`
@@ -152,6 +158,7 @@ export default class Tab {
     }
 
     this.parentOfTabs.style.overflow = 'hidden'
+    this.tabs[0].setAttribute('aria-current', 'true')
 
     this.setContainerHeight(this.containerHeight)
     this.parentOfTabs.style.transition = `height ${this.animationDuration}ms`
@@ -164,18 +171,23 @@ export default class Tab {
     for (let tab of this.tabs) {
       tab.setAttribute('tabindex', '0')
       tab.setAttribute('role', 'tabpanel')
+      tab.setAttribute('aria-current', 'false')
 
-      if (tab.classList.contains(this.tabActiveClass) == false) {
+      if (tab != this.tabs[0]) {
         tab.setAttribute('hidden', '')
+        tab.setAttribute('tabindex', '-1')
         tab.style.display = 'none'
         tab.style.opacity = '0'
         tab.style.pointerEvents = 'none'
       }
+
       tab.style.transition = `opacity ${this.animationDuration}ms`
 
       this.setContainerHeight()
       this.parentOfTabs.style.transition = `height ${this.animationDuration}ms`
     }
+
+    this.tabs[0].setAttribute('aria-current', 'true')
   }
 
   private resizeFadeTabs() {
@@ -214,6 +226,8 @@ export default class Tab {
 
     currentActiveTab.style.opacity = '0'
     currentActiveTab.style.pointerEvents = 'none'
+    currentActiveTab.setAttribute('tabindex', '-1')
+    currentActiveTab.setAttribute('aria-current', 'false')
 
     if (this.autoHeight)
       this.setContainerHeight(nextContentTab.clientHeight)
@@ -222,7 +236,13 @@ export default class Tab {
     nextContentTab.style.removeProperty('pointer-events')
 
     currentActiveTab.classList.remove(this.tabActiveClass)
-    nextContentTab.classList.add(this.tabActiveClass)
+
+    if (this.tabActiveClass) {
+      nextContentTab.classList.add(this.tabActiveClass)
+    }
+
+    nextContentTab.setAttribute('tabindex', '0')
+    nextContentTab.setAttribute('aria-current', 'true')
 
     setTimeout(() => {
       this.isToggling = false
@@ -241,18 +261,25 @@ export default class Tab {
     currentActiveTab.style.opacity = '0'
     currentActiveTab.style.pointerEvents = 'none'
     await sleep(this.animationDuration)
-    currentActiveTab.setAttribute('hidden', '')
     currentActiveTab.style.display = 'none'
+    currentActiveTab.setAttribute('hidden', '')
+    currentActiveTab.setAttribute('tabindex', '-1')
+    currentActiveTab.setAttribute('aria-current', 'false')
 
 
     nextContentTab.removeAttribute('hidden')
+    nextContentTab.setAttribute('tabindex', '0')
+    nextContentTab.setAttribute('aria-current', 'true')
     nextContentTab.style.removeProperty('pointer-events')
     nextContentTab.style.display = ''
     this.setContainerHeight(nextContentTab.clientHeight)
 
     await sleep(20)
     nextContentTab.style.opacity = '1'
-    nextContentTab.classList.add(this.tabActiveClass)
+
+    if (this.tabActiveClass) {
+      nextContentTab.classList.add(this.tabActiveClass)
+    }
 
     setTimeout(() => {
       this.isToggling = false
@@ -261,13 +288,20 @@ export default class Tab {
 
   private toggleTabButtons(activeButton: HTMLElement) {
     for (let button of this.buttons) {
-      button != activeButton
-        ? button.classList.remove(this.buttonActiveClass)
-        : button.classList.add(this.buttonActiveClass)
+      if (button != activeButton) {
+        button.classList.remove(this.buttonActiveClass)
+        button.setAttribute('aria-expanded', 'false')
+      }
+      else {
+        if (button.classList.contains(this.buttonActiveClass)) {
+          button.classList.add(this.buttonActiveClass)
+        }
+        button.setAttribute('aria-expanded', 'true')
+      }
     }
   }
   private toggleTogglingStateIfPossible(activeButton: HTMLElement): boolean {
-    if (activeButton.classList.contains(this.buttonActiveClass) || this.isToggling) {
+    if (activeButton.getAttribute('aria-expanded') == 'true' || this.isToggling) {
       return false
     }
     else {
@@ -276,9 +310,7 @@ export default class Tab {
     }
   }
   private getCurrentActiveTab(): HTMLElement {
-    let activeTab = this.parentOfTabs.querySelector(
-      '.' + this.tabActiveClass
-    ) as HTMLElement
+    let activeTab = this.parentOfTabs.querySelector(`[aria-current="true"]`) as HTMLElement
 
     if (activeTab)
       return activeTab

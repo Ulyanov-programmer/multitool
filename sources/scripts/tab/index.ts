@@ -9,6 +9,15 @@ new Tab({
   animationDuration: 500,
   toggleTabsBy: ToggleTabsEvent.Click,
 
-  buttonActiveClass: 'active',
-  tabActiveClass: 'active',
+  /* 
+    ? It is recommended to use styling by attribute aria-expanded, 
+    for example: button[aria-expanded="true"]
+  */
+  // buttonActiveClass: 'active',
+
+  /* 
+   ? It is recommended to use styling by attribute aria-current, 
+   for example: div[aria-current="true"]
+  */
+  // tabActiveClass: 'active',
 })
