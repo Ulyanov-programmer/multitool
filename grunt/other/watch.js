@@ -51,23 +51,6 @@ export default {
       spawn: false,
     },
   },
-  scriptsApi: {
-    files: [
-      paths.src.scripts + '**/*.{js,ts}',
-      '!' + paths.src.scripts + '**/*.src.{js,ts}',
-    ],
-    tasks: 'newer:esbuild:api',
-    options: {
-      spawn: false,
-    },
-  },
-  scriptsSources: {
-    files: paths.src.scripts + '**/*.src.{js,ts}',
-    tasks: 'newer:esbuild:sources',
-    options: {
-      spawn: false,
-    },
-  },
   images: {
     files: [
       //! DO NOT SET AN ANOTHER REGEX VALUE, only **/** works. ¯\_(ツ)_/¯

@@ -20,17 +20,29 @@ module.exports = function (grunt) {
         return done(false)
       }
 
+      let inputOptions = this.options()
+      let isWatchMode = inputOptions.watchMode ?? false
+      delete inputOptions.watchMode
+
       let esbuildOptions = Object.assign(
         {
           entryPoints: this.files[0].src,
           write: true,
         },
         DEFAULT_OPTIONS,
-        this.options(),
+        inputOptions,
       )
 
       try {
-        await esbuild.build(esbuildOptions)
+        if (!isWatchMode) {
+          await esbuild.build(esbuildOptions)
+        }
+        else {
+          let buildProcess = await esbuild.context(esbuildOptions)
+
+          await buildProcess.watch()
+          console.log(chalk.bgGreen('\nWatch mode is active!'))
+        }
 
         console.log(
           chalk.green('The task ')

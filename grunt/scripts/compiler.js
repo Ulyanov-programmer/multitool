@@ -13,6 +13,7 @@ export default {
       target: 'es2018',
       bundle: false,
       outdir: paths.dest.scripts,
+      watchMode: true,
     }
   },
   sources: {
@@ -23,7 +24,8 @@ export default {
       target: 'es2018',
       bundle: false,
       outdir: paths.dest.scripts,
-      minify: isProductionMode ? true : false
+      minify: isProductionMode ? true : false,
+      watchMode: true,
     }
   }
 }
