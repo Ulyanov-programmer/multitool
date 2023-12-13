@@ -1,8 +1,8 @@
 import Tab, { ToggleTabsEvent } from './tab.src.js'
 
 new Tab({
-  buttonsContainerSelector: '.tab__buttons',
-  tabsContainerSelector: '.tab__items',
+  buttonsContainerSelector: '.tabButtons',
+  tabsContainerSelector: '.tabItems',
 
   fadeEffect: true,
   autoHeight: true,
@@ -10,14 +10,12 @@ new Tab({
   toggleTabsBy: ToggleTabsEvent.Click,
 
   /* 
-    ? It is recommended to use styling by attribute aria-expanded, 
+    ? Instead of using buttonActiveClass for styling, use the attribute aria-expanded, 
     for example: button[aria-expanded="true"]
   */
-  // buttonActiveClass: 'active',
 
   /* 
-   ? It is recommended to use styling by attribute aria-current, 
+   ? Instead of using tabActiveClass for styling, use the attribute aria-current, 
    for example: div[aria-current="true"]
   */
-  // tabActiveClass: 'active',
 })

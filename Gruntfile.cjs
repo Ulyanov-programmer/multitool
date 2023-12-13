@@ -33,7 +33,7 @@ module.exports = grunt => {
     environment.isDeleteDistBeforeLaunch ? 'clean' : null,
     'newer:posthtml',
     'newer:postcss',
-    'newer:esbuild',
+    'esbuild',
     'newer:ttf2woff2',
 
     'sharp',
