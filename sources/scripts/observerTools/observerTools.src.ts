@@ -90,6 +90,7 @@ interface ActionOnViewArgs {
    * @remark The function should be full-fledged, `not be arrow-function`!
    */
   functionOnView?: (observerEntry: IntersectionObserverEntry) => any
+  doNotRunUntilFirstBreakpoint?: boolean
 }
 
 /**
@@ -106,6 +107,7 @@ export class ActionOnView {
   private currentFunctionOnView: Function
   private observer: IntersectionObserver
   private currentActiveBreakpointId: number | string
+  private doNotRunUntilFirstBreakpoint: boolean
 
   constructor(arg: ActionOnViewArgs) {
     if (!elementsIsExist(arg.selectors)) {
@@ -122,6 +124,7 @@ export class ActionOnView {
     this.breakpoints = arg.breakpoints
     this.defaultFunctionOnView = arg.functionOnView
     this.currentFunctionOnView = arg.functionOnView
+    this.doNotRunUntilFirstBreakpoint = arg.doNotRunUntilFirstBreakpoint ?? false
 
     this.createIntersectionObserver()
     this.applyBreakpoints()
@@ -158,6 +161,11 @@ export class ActionOnView {
       this.currentActiveBreakpointId = Infinity
 
       for (let htmlElement of this.htmlElements) {
+        if (this.doNotRunUntilFirstBreakpoint) {
+          this.observer.unobserve(htmlElement)
+          return
+        }
+
         htmlElement.setAttribute('data-timeout', this.timeoutBeforeStart.toString())
         htmlElement.setAttribute('data-threshold', this.threshold.toString())
         this.observer.observe(htmlElement)
@@ -463,7 +471,7 @@ function getNearestMaxBreakpointOrInfinity(breakpoints: Breakpoint | TimelineBre
   if (!breakpoints) return Infinity
 
   let queriesActiveWidths = Object.keys(breakpoints).map(Number)
-  let windowWidth = window.outerWidth
+  let windowWidth = window.innerWidth
 
   let nearestMaxBreakpointWidth = Math.min(...queriesActiveWidths.filter(num => num >= windowWidth))
 

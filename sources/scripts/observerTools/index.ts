@@ -5,19 +5,21 @@ new ObserverTools(
 
   new ActionOnView({
     selectors: '.element_or_elements_group',
+
     threshold: 0,
     timeoutBeforeStart: 500,
+    doNotRunUntilFirstBreakpoint: false,
 
     // functionOnView: function onView(observerEntry: IntersectionObserverEntry) { },
 
-    // breakpoints: {
-    //   768: {
-    //     unobserve: false,
-    //     timeoutBeforeStart: 0,
+    breakpoints: {
+      768: {
+        unobserve: false,
+        timeoutBeforeStart: 0,
 
-    //     // functionOnView: function onViewTablets(observerEntry: IntersectionObserverEntry) { },
-    //   },
-    // }
+        // functionOnView: function onViewTablets(observerEntry: IntersectionObserverEntry) { },
+      },
+    }
   }),
 
 
