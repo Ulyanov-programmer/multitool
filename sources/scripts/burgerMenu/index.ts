@@ -1,11 +1,13 @@
-import BurgerMenu, { autoPaddingOptions } from './burgerMenu.src.js'
+import BurgerMenu, { AutoPaddingOptions } from './burgerMenu.src.js'
 
 new BurgerMenu({
   burgerSelector: '#burgerButton',
   burgerMenuSelector: '.BurgerMenu',
   buttonsSelector: '.BurgerMenu a, .BurgerMenu button',
-  autoPadding: new autoPaddingOptions('.HEADER'),
+
+  autoPadding: new AutoPaddingOptions('.HEADER'),
+  closeMenuByClickOnElement: true,
+
   menuActiveClass: 'active',
   burgerActiveClass: 'active',
-  closeMenuByClickOnElement: true,
 }) 

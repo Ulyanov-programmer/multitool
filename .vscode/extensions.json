@@ -5,6 +5,7 @@
     "stylelint.vscode-stylelint",
     "redhat.vscode-yaml",
     "arcanis.vscode-zipfs",
-    "ionutvmi.path-autocomplete"
+    "ionutvmi.path-autocomplete",
+    "sonarsource.sonarlint-vscode"
   ]
 }

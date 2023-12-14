@@ -2,6 +2,7 @@ import Spoiler, { Ajar } from './spoiler.src.js'
 
 new Spoiler({
   wrappersSelector: '[data-spoiler]',
+
   maxWorkWidth: 10000,
   animationDuration: 300,
 

@@ -13,7 +13,7 @@ interface BurgerMenuArgs {
   /** 
    * Add, if necessary, that when the menu is called, it has an offset from a certain fixed element.
    */
-  autoPadding?: autoPaddingOptions
+  autoPadding?: AutoPaddingOptions
   /**
    * Specify `true` if you want the menu to be closed by clicking on one of its items.
    * @defaultValue `true`
@@ -27,7 +27,7 @@ export default class BurgerMenu {
   private static burger: HTMLElement
   private static menu: HTMLElement
   private static buttons: NodeListOf<HTMLElement>
-  private static autoPaddingOptions: autoPaddingOptions
+  private static AutoPaddingOptions: AutoPaddingOptions
   private static closeMenuByClickOnElement: boolean = true
   private static burgerMenuStyles: CSSStyleDeclaration
   private static burgerMenuTransitionDurationMs: number = 100
@@ -61,7 +61,7 @@ export default class BurgerMenu {
     }
 
     if (args.autoPadding) {
-      BurgerMenu.autoPaddingOptions = args.autoPadding
+      BurgerMenu.AutoPaddingOptions = args.autoPadding
 
       this.changePaddingSizeBySizeOfHeader()
       window.addEventListener('resize', this.changePaddingSizeBySizeOfHeader)
@@ -72,10 +72,10 @@ export default class BurgerMenu {
   private toggleNavmenu() {
     let scrollbarWidth = returnScrollbarWidth()
 
-    if (BurgerMenu.menu.classList.contains(BurgerMenu.menuActiveClass) == false) {
-      BurgerMenu.showNavmenu(scrollbarWidth)
-    } else {
+    if (BurgerMenu.menu.classList.contains(BurgerMenu.menuActiveClass)) {
       BurgerMenu.hideNavmenu()
+    } else {
+      BurgerMenu.showNavmenu(scrollbarWidth)
     }
   }
 
@@ -99,11 +99,11 @@ export default class BurgerMenu {
   }
 
   private changePaddingSizeBySizeOfHeader() {
-    BurgerMenu.autoPaddingOptions.setHeaderPadding()
+    BurgerMenu.AutoPaddingOptions.setHeaderPadding()
   }
 }
 
-export class autoPaddingOptions {
+export class AutoPaddingOptions {
   private element: HTMLElement
   private root: HTMLElement
 
@@ -112,7 +112,7 @@ export class autoPaddingOptions {
    * @param selectorOfElement The element from whose height the indentation for the menu will be calculated when it appears.
    */
   constructor(selectorOfElement: string) {
-    if (elementIsExistWithLog('autoPaddingOptions', selectorOfElement)) {
+    if (elementIsExistWithLog('AutoPaddingOptions', selectorOfElement)) {
       this.element = document.querySelector(selectorOfElement)
     }
 

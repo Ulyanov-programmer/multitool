@@ -109,37 +109,35 @@ export class SubmenuElementGroup {
     this.buttonElements = document.querySelectorAll(args.buttonsSelector)
     this.openEvent = args.openEvent
 
-    switch (this.openEvent) {
-      case SubmenuOpenEvents.Hover:
-        for (let button of this.buttonElements) {
-          button.addEventListener(
-            'pointerenter', () => Submenu.openSubmenu(this)
-          )
-          button.parentElement.addEventListener(
-            'pointerleave', () => Submenu.hideSubmenu(this)
-          )
-          button.addEventListener(
-            'keyup', event => {
-              if (event.key == 'Enter')
-                Submenu.openSubmenu(this)
-            }
-          )
-          button.nextElementSibling.addEventListener(
-            'focusout', () => Submenu.hideSubmenu(this)
-          )
+    if (this.openEvent == SubmenuOpenEvents.Hover) {
+      for (let button of this.buttonElements) {
+        button.addEventListener(
+          'pointerenter', () => Submenu.openSubmenu(this)
+        )
+        button.parentElement.addEventListener(
+          'pointerleave', () => Submenu.hideSubmenu(this)
+        )
+        button.addEventListener(
+          'keyup', event => {
+            if (event.key == 'Enter')
+              Submenu.openSubmenu(this)
+          }
+        )
+        button.nextElementSibling.addEventListener(
+          'focusout', () => Submenu.hideSubmenu(this)
+        )
 
-          Submenu.hideSubmenu(this)
-        }
-        break
-      default:
-        for (let button of this.buttonElements) {
-          button.addEventListener(
-            'click', () => Submenu.toggleSubmenu(this)
-          )
+        Submenu.hideSubmenu(this)
+      }
+    }
+    else {
+      for (let button of this.buttonElements) {
+        button.addEventListener(
+          'click', () => Submenu.toggleSubmenu(this)
+        )
 
-          Submenu.hideSubmenu(this)
-        }
-        break
+        Submenu.hideSubmenu(this)
+      }
     }
   }
 

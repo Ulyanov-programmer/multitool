@@ -5,6 +5,7 @@ new Parallax(
 
   new ParallaxElement({
     selectorOrElement: '.parallax_el',
+
     parallaxCoeffX: 0.2,
     parallaxCoeffY: 0.2,
     reverseMode: false,

@@ -33,8 +33,9 @@ export default class ObserverTools {
     ObserverTools.isIntersectedClass = arg.isIntersectedClass ?? 'is-intersecting'
 
     if (elements.length <= 0) {
-      console.error('[ObserverTools] No one ActionOnView or AnimationTimeline have been created.')
-      return
+      console.error(
+        '[ObserverTools] No one ActionOnView or AnimationTimeline have been created.'
+      )
     }
   }
 }
@@ -107,7 +108,7 @@ export class ActionOnView {
   private currentActiveBreakpointId: number | string
 
   constructor(arg: ActionOnViewArgs) {
-    if (elementsIsExist(arg.selectors) == false) {
+    if (!elementsIsExist(arg.selectors)) {
       console.log('[ActionOnView] Element is not exist!')
     }
 
@@ -133,17 +134,14 @@ export class ActionOnView {
 
     if (currentBreakpointWidth == this.currentActiveBreakpointId) return
 
-
     if (currentBreakpointWidth != Infinity) {
       this.currentActiveBreakpointId = currentBreakpointWidth
       let activeBreakpoint = this.breakpoints[currentBreakpointWidth]
 
       for (let htmlElement of this.htmlElements) {
-        if (activeBreakpoint.unobserve) {
-          this.observer.unobserve(htmlElement)
-        } else {
-          this.observer.observe(htmlElement)
-        }
+        activeBreakpoint.unobserve
+          ? this.observer.unobserve(htmlElement)
+          : this.observer.observe(htmlElement)
 
         htmlElement.setAttribute(
           'data-timeout', activeBreakpoint.timeoutBeforeStart.toString() ?? '0'
@@ -186,8 +184,8 @@ export class ActionOnView {
           }
         }
         else if (
-          entry.isIntersecting == false &&
-          ObserverTools.repeatObserve == false &&
+          !entry.isIntersecting &&
+          !ObserverTools.repeatObserve &&
           // if entry.target was intersecting
           entry.target.classList.contains(ObserverTools.isIntersectedClass)
         ) {
@@ -382,9 +380,7 @@ export class TypedAnimationTimeline {
   private applyBreakpoints() {
     let currentBreakpointWidth = getNearestMaxBreakpointOrInfinity(this.breakpoints).toString()
 
-    if (currentBreakpointWidth == this.currentActiveBreakpointId)
-      return
-
+    if (currentBreakpointWidth == this.currentActiveBreakpointId) return
 
     if (currentBreakpointWidth != 'Infinity') {
       this.currentActiveBreakpointId = currentBreakpointWidth
@@ -435,7 +431,7 @@ export class TypedAnimationTimeline {
     settings: AnimateBreakpointTimelineSettings | AnimateTimelineSettings,
     animationId: string,
   ) {
-    let assignedSettings = Object.assign({}, this.settings, settings)
+    let assignedSettings = { ...this.settings, ...settings }
     assignedSettings.id = animationId
 
     for (let animatedHtml of this.animatedElements) {

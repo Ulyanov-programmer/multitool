@@ -134,18 +134,18 @@ export default class SwipeElement {
     this.touchAreaElement.style.cursor = 'grabbing'
 
     window.addEventListener('pointermove', this.pointerMoveHandler)
-  }).bind(this)
+  })
 
   private pointerMoveHandler = ((event: PointerEvent) => {
     document.documentElement.style.cursor = 'grabbing'
     window.addEventListener('pointerup', this.swipeEndHandler)
 
     this.swipeMove(event)
-  }).bind(this)
+  })
 
   private swipeEndHandler = ((event: PointerEvent) => {
     this.swipeEnd(this.isElementSwiped, true)
-  }).bind(this)
+  })
 
 
   private setStartPositionStateForSwipeableElement() {
@@ -158,15 +158,14 @@ export default class SwipeElement {
         this.swipeableElement.style.right = '100%'
         this.swipeableElement.style.left = 'unset'
       }
-    } else {
-      if (this.changePlane == ChangePlane.ToBottom) {
-        this.swipeableElement.style.bottom = '100%'
-        this.swipeableElement.style.top = 'unset'
-      }
-      else if (this.changePlane == ChangePlane.ToTop) {
-        this.swipeableElement.style.top = '100%'
-        this.swipeableElement.style.bottom = 'unset'
-      }
+    }
+    else if (this.changePlane == ChangePlane.ToBottom) {
+      this.swipeableElement.style.bottom = '100%'
+      this.swipeableElement.style.top = 'unset'
+    }
+    else if (this.changePlane == ChangePlane.ToTop) {
+      this.swipeableElement.style.top = '100%'
+      this.swipeableElement.style.bottom = 'unset'
     }
   }
   private setEndTranslateStateForSwipeableElement() {
@@ -177,13 +176,12 @@ export default class SwipeElement {
       else if (this.changePlane == ChangePlane.ToRight) {
         this.swipeableElement.style.transform = 'translate3d(100%, 0, 0)'
       }
-    } else {
-      if (this.changePlane == ChangePlane.ToBottom) {
-        this.swipeableElement.style.transform = 'translate3d(0, 100%, 0)'
-      }
-      else if (this.changePlane == ChangePlane.ToTop) {
-        this.swipeableElement.style.transform = 'translate3d(0, -100%, 0)'
-      }
+    }
+    else if (this.changePlane == ChangePlane.ToBottom) {
+      this.swipeableElement.style.transform = 'translate3d(0, 100%, 0)'
+    }
+    else if (this.changePlane == ChangePlane.ToTop) {
+      this.swipeableElement.style.transform = 'translate3d(0, -100%, 0)'
     }
   }
 
@@ -217,9 +215,11 @@ export default class SwipeElement {
     )
   }
   private swipeEnd(changeElementStateTo: boolean, isSwipeNotFully?: boolean) {
-    changeElementStateTo
-      ? this.setEndTranslateStateForSwipeableElement()
-      : this.swipeableElement.style.transform = ''
+    if (changeElementStateTo) {
+      this.setEndTranslateStateForSwipeableElement()
+    } else {
+      this.swipeableElement.style.transform = ''
+    }
 
     window.removeEventListener('pointermove', this.pointerMoveHandler)
 
@@ -236,20 +236,14 @@ export default class SwipeElement {
       if (changeElementStateTo) {
         if (this.actionOnOpening) this.actionOnOpening(this.swipeableElement)
       }
-      else {
-        if (this.actionOnClosing) this.actionOnClosing(this.swipeableElement)
-      }
+      else if (this.actionOnClosing) this.actionOnClosing(this.swipeableElement)
     }
   }
 
   private moveX(delta: number = this.deltaX) {
     // ? If the swipe goes for a hidden element
-    if (this.checkSwipeableElementContainActive() == false) {
-      if (
-        this.changePlane == ChangePlane.ToLeft && this.currentSide == SwipeSide.Left ||
-        this.changePlane == ChangePlane.ToRight && this.currentSide == SwipeSide.Right
-      ) return
-
+    if (!this.checkSwipeableElementContainActive()) {
+      if (!this.isSwipeDirectionCorrectXAxis(false)) return
 
       this.swipeableElement.style.transform = `translate3d(
 				${delta}px, ${this.startY}px, 0)`
@@ -260,16 +254,15 @@ export default class SwipeElement {
     }
     else {
       // ? If the swipe goes for a visible element
-      if (
-        this.changePlane == ChangePlane.ToLeft && this.currentSide == SwipeSide.Right ||
-        this.changePlane == ChangePlane.ToRight && this.currentSide == SwipeSide.Left
-      ) return
+      if (!this.isSwipeDirectionCorrectXAxis(true)) return
 
       let result: number
 
-      this.changePlane == ChangePlane.ToRight
-        ? result = delta + this.swipeableElement.clientWidth
-        : result = delta - this.swipeableElement.clientWidth
+      if (this.changePlane == ChangePlane.ToRight) {
+        result = delta + this.swipeableElement.clientWidth
+      } else {
+        result = delta - this.swipeableElement.clientWidth
+      }
 
       this.swipeableElement.style.transform = `translate3d(
 				${result}px, ${this.startY}px, 0)`
@@ -281,11 +274,8 @@ export default class SwipeElement {
   }
   private moveY(delta: number = this.deltaY) {
     // ? If the swipe goes for a hidden element
-    if (this.checkSwipeableElementContainActive() == false) {
-      if (
-        this.changePlane == ChangePlane.ToBottom && this.currentSide == SwipeSide.Bottom ||
-        this.changePlane == ChangePlane.ToTop && this.currentSide == SwipeSide.Top
-      ) return
+    if (!this.checkSwipeableElementContainActive()) {
+      if (!this.isSwipeDirectionCorrectYAxis(false)) return
 
       this.swipeableElement.style.transform = `translate3d(
 				${this.startX}px, ${delta}px, 0)`
@@ -296,16 +286,15 @@ export default class SwipeElement {
     }
     else {
       // ? If the swipe goes for a visible element
-      if (
-        this.changePlane == ChangePlane.ToBottom && this.currentSide == SwipeSide.Top ||
-        this.changePlane == ChangePlane.ToTop && this.currentSide == SwipeSide.Bottom
-      ) return
+      if (!this.isSwipeDirectionCorrectYAxis(true)) return
 
       let result: number
 
-      this.changePlane == ChangePlane.ToBottom
-        ? result = delta + this.swipeableElement.clientHeight
-        : result = delta - this.swipeableElement.clientHeight
+      if (this.changePlane == ChangePlane.ToBottom) {
+        result = delta + this.swipeableElement.clientHeight
+      } else {
+        result = delta - this.swipeableElement.clientHeight
+      }
 
       this.swipeableElement.style.transform = `translate3d(
         ${this.startX}px, ${result}px, 0)`
@@ -330,5 +319,41 @@ export default class SwipeElement {
 
       window.removeEventListener('pointerup', this.swipeEndHandler)
     }
+  }
+  private isSwipeDirectionCorrectXAxis(isElementSwiped: boolean): boolean {
+    if (isElementSwiped) {
+      if (
+        this.changePlane == ChangePlane.ToLeft && this.currentSide == SwipeSide.Left ||
+        this.changePlane == ChangePlane.ToRight && this.currentSide == SwipeSide.Right
+      ) {
+        return true
+      }
+    }
+    else if (
+      this.changePlane == ChangePlane.ToLeft && this.currentSide == SwipeSide.Right ||
+      this.changePlane == ChangePlane.ToRight && this.currentSide == SwipeSide.Left
+    ) {
+      return true
+    }
+
+    return false
+  }
+  private isSwipeDirectionCorrectYAxis(isElementSwiped: boolean): boolean {
+    if (isElementSwiped) {
+      if (
+        this.changePlane == ChangePlane.ToBottom && this.currentSide == SwipeSide.Bottom ||
+        this.changePlane == ChangePlane.ToTop && this.currentSide == SwipeSide.Top
+      ) {
+        return true
+      }
+    }
+    else if (
+      this.changePlane == ChangePlane.ToBottom && this.currentSide == SwipeSide.Top ||
+      this.changePlane == ChangePlane.ToTop && this.currentSide == SwipeSide.Bottom
+    ) {
+      return true
+    }
+
+    return false
   }
 }

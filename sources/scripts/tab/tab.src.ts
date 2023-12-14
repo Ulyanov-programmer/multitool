@@ -63,6 +63,7 @@ export default class Tab {
     this.buttons = this.parentOfButtons.children as HTMLCollectionOf<HTMLButtonElement>
     this.tabs = this.parentOfTabs.children as HTMLCollectionOf<HTMLElement>
 
+
     if (this.buttons.length != this.tabs.length) {
       console.log('[Tab] The count of buttons and content-elements is not equal.')
       return
@@ -77,7 +78,7 @@ export default class Tab {
 
     this.parentOfButtons.setAttribute('role', 'tablist')
 
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches == false) {
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
       if (arg.animationDuration) {
         this.animationDuration = arg.animationDuration
       }
@@ -93,12 +94,7 @@ export default class Tab {
     this.switchingLockTime = this.animationDuration
 
     this.setToggleTabsEvent(arg.toggleTabsBy)
-
-    for (let button of this.buttons) {
-      button.setAttribute('role', 'tab')
-      button.setAttribute('aria-expanded', 'false')
-    }
-    this.buttons[0].setAttribute('aria-expanded', 'true')
+    this.setButtons(arg.fadeEffect)
 
 
     if (arg.fadeEffect) {
@@ -106,31 +102,31 @@ export default class Tab {
       this.resizeFadeTabs()
 
       window.addEventListener('resize', this.resizeFadeTabs.bind(this))
-
-      for (let button of this.buttons) {
-        button.addEventListener(this.toggleTabsEvent, event => {
-          event.preventDefault()
-
-          this.toggleTabsFade(button)
-        })
-      }
     }
     else {
       this.setDefaultTabs()
       this.resizeTabs()
 
       window.addEventListener('resize', this.resizeTabs.bind(this))
-
-      for (let button of this.buttons) {
-        button.addEventListener(this.toggleTabsEvent, event => {
-          event.preventDefault()
-
-          this.toggleTabs(button)
-        })
-      }
     }
   }
 
+  private setButtons(isFadeTabs: boolean) {
+    for (let button of this.buttons) {
+      button.setAttribute('role', 'tab')
+      button.setAttribute('aria-expanded', 'false')
+
+      button.addEventListener(this.toggleTabsEvent, event => {
+        event.preventDefault()
+
+        isFadeTabs
+          ? this.toggleTabsFade(button)
+          : this.toggleTabs(button)
+      })
+    }
+
+    this.buttons[0].setAttribute('aria-expanded', 'true')
+  }
   private setFadeTabs() {
     let marginForCurrentElement = 0
 
@@ -216,8 +212,7 @@ export default class Tab {
   }
 
   private toggleTabsFade(activeButton: HTMLButtonElement) {
-    if (this.toggleTogglingStateIfPossible(activeButton) == false)
-      return
+    if (!this.toggleTogglingStateIfPossible(activeButton)) return
 
     this.toggleTabButtons(activeButton)
 
@@ -249,8 +244,7 @@ export default class Tab {
     }, this.switchingLockTime)
   }
   private async toggleTabs(activeButton: HTMLButtonElement) {
-    if (this.toggleTogglingStateIfPossible(activeButton) == false)
-      return
+    if (!this.toggleTogglingStateIfPossible(activeButton)) return
 
     this.toggleTabButtons(activeButton)
 
@@ -310,7 +304,7 @@ export default class Tab {
     }
   }
   private getCurrentActiveTab(): HTMLElement {
-    let activeTab = this.parentOfTabs.querySelector(`[aria-current="true"]`) as HTMLElement
+    let activeTab = this.parentOfTabs.querySelector<HTMLElement>(`[aria-current="true"]`)
 
     if (activeTab)
       return activeTab
@@ -329,15 +323,13 @@ export default class Tab {
       this.parentOfTabs.style.height = this.tabs[0].clientHeight + 'px'
     }
   }
-  private setToggleTabsEvent(toggleTabsEvent: ToggleTabsEvent): void {
-    switch (toggleTabsEvent) {
-      case ToggleTabsEvent.Hover:
-        this.toggleTabsEvent = 'mouseenter'
-        this.switchingLockTime = 0
-        break
-      default:
-        this.toggleTabsEvent = 'click'
-        break
+  private setToggleTabsEvent(toggleTabsEvent: ToggleTabsEvent) {
+    if (toggleTabsEvent == ToggleTabsEvent.Hover) {
+      this.toggleTabsEvent = 'mouseenter'
+      this.switchingLockTime = 0
+    }
+    else {
+      this.toggleTabsEvent = 'click'
     }
   }
 }

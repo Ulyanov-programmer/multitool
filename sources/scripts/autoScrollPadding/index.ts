@@ -5,6 +5,7 @@ import { AutoScrollPadding, AutoScrollPaddingItem, PaddingDirection } from './au
 new AutoScrollPadding(
   new AutoScrollPaddingItem({
     fixedElementSelector: '#some_fixed_header',
+
     gap: 10,
     scrollBehavior: 'smooth',
     scrollableParentSelector: 'html',

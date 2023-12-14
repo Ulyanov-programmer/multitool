@@ -178,9 +178,9 @@ export default class Spoiler {
   private toggleSpoilerState(event: PointerEvent) {
     let spoilerWrapper = this.getActiveSpoilerWrapper(event)
     let targetSpoilerButton = event.currentTarget as HTMLButtonElement
-    let spoilerContainer = spoilerWrapper.querySelector(`.${this.contentClass}`) as HTMLElement
+    let spoilerContainer = spoilerWrapper.querySelector<HTMLElement>(`.${this.contentClass}`)
 
-    if (this.canToggleSpoiler(spoilerContainer) == false) return
+    if (!this.canToggleSpoiler(spoilerContainer)) return
 
     this.toggleSpoiler(spoilerContainer, this.animationDuration)
     targetSpoilerButton.classList.toggle(this.contentActiveClass)
@@ -245,13 +245,11 @@ export default class Spoiler {
 
 
   private setAjarSpoilers() {
-    for (let i = 0; i < this.contentElements.length; i++) {
-      if (window.innerWidth <= this.maxWorkWidth) {
-        this.toggleAjarFunctionality(true, this.ajar)
-      }
-      else {
-        this.toggleAjarFunctionality(false, this.ajar)
-      }
+    if (window.innerWidth <= this.maxWorkWidth) {
+      this.toggleAjarFunctionality(true, this.ajar)
+    }
+    else {
+      this.toggleAjarFunctionality(false, this.ajar)
     }
   }
   enableAjarSpoilerStateHandler = (function (e: PointerEvent) {
@@ -259,13 +257,22 @@ export default class Spoiler {
   }).bind(this)
 
   private async toggleAjarSpoiler(event: PointerEvent, ajarParams: Ajar, spoilerWrapper: HTMLElement) {
-    let targetSpoilerButton = spoilerWrapper.querySelector(`.${this.buttonClass}`)
-    let spoilerContainer = spoilerWrapper.querySelector(`.${this.contentClass}`) as HTMLElement
+    let targetSpoilerButton = spoilerWrapper.querySelector('.' + this.buttonClass)
+    let spoilerContainer = spoilerWrapper.querySelector<HTMLElement>('.' + this.contentClass)
 
     spoilerContainer.style.transitionProperty = 'height'
     spoilerContainer.style.transitionDuration = `${this.animationDuration}ms`
 
-    if (this.isSpoilerContentActive(spoilerContainer) == false) {
+    if (this.isSpoilerContentActive(spoilerContainer)) {
+      spoilerContainer.style.overflow = 'hidden'
+      spoilerContainer.style.height = `${spoilerContainer.clientHeight}px`
+      await sleep(10)
+      spoilerContainer.style.height = ajarParams.defaultHeight
+      await sleep(this.animationDuration)
+
+      spoilerContainer.classList.remove(this.contentActiveClass)
+    }
+    else {
       spoilerContainer.style.height = `${spoilerContainer.scrollHeight - 1}px`
       await sleep(this.animationDuration)
 
@@ -276,21 +283,11 @@ export default class Spoiler {
         targetSpoilerButton.remove()
       }
     }
-    else {
-      spoilerContainer.style.overflow = 'hidden'
-      spoilerContainer.style.height = `${spoilerContainer.clientHeight}px`
-      await sleep(10)
-      spoilerContainer.style.height = ajarParams.defaultHeight
-      await sleep(this.animationDuration)
-
-      spoilerContainer.classList.remove(this.contentActiveClass)
-    }
   }
   private toggleAjarFunctionality(toggleTo: boolean, ajarParams: Ajar) {
     if (toggleTo) {
       for (let i = 0; i < this.contentElements.length; i++) {
-
-        if (this.isSpoilerContentActive(this.contentElements[i]) == false) {
+        if (!this.isSpoilerContentActive(this.contentElements[i])) {
           this.contentElements[i].style.overflow = 'hidden'
           this.contentElements[i].style.height = ajarParams.defaultHeight
 

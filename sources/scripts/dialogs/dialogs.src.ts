@@ -22,7 +22,26 @@ export default class Dialogs {
     this.closeByClickOnBackdrop = arg.closeByClickOnBackdrop ?? true
 
     Dialogs.dialogOpeners = document.querySelectorAll('[data-open-dialog-id]')
+    this.setOpeners()
+    this.setClosers(document.querySelectorAll(this.dialogCloseButtonAttribute))
 
+    Dialogs.dialogModalElements = document.querySelectorAll(
+      `dialog${this.dialogDataAttribute}`
+    )
+
+    for (let dialogElement of Dialogs.dialogModalElements) {
+      dialogElement.addEventListener('close', closeEvent => {
+        closeEvent.preventDefault()
+        this.closeDialog(dialogElement)
+      })
+    }
+
+    Dialogs.dialogWindowElements = document.querySelectorAll(
+      `dialog:not(${this.dialogDataAttribute})`
+    )
+  }
+
+  private setOpeners() {
     for (let dialogOpener of Dialogs.dialogOpeners) {
       dialogOpener.addEventListener('click', () => {
         let dialog = document.getElementById(dialogOpener.dataset.openDialogId) as HTMLDialogElement
@@ -37,13 +56,9 @@ export default class Dialogs {
             : this.openDialog(dialog)
       })
     }
-
-
-    let modalClosers = document.querySelectorAll(
-      this.dialogCloseButtonAttribute
-    ) as NodeListOf<HTMLElement>
-
-    for (let modalCloser of modalClosers) {
+  }
+  private setClosers(closers: NodeListOf<HTMLElement>) {
+    for (let modalCloser of closers) {
       modalCloser.addEventListener('click', () => {
         let dialog = document.getElementById(modalCloser.dataset.closeDialogId) as HTMLDialogElement
 
@@ -61,26 +76,7 @@ export default class Dialogs {
             : this.closeDialog(this.getParentDialog(modalCloser))
       })
     }
-
-
-    Dialogs.dialogModalElements = document.querySelectorAll(
-      `dialog${this.dialogDataAttribute}`
-    )
-
-    for (let dialogElement of Dialogs.dialogModalElements) {
-      dialogElement.addEventListener('close', closeEvent => {
-        closeEvent.preventDefault()
-        this.closeDialog(dialogElement)
-      })
-    }
-
-
-    Dialogs.dialogWindowElements = document.querySelectorAll(
-      `dialog:not(${this.dialogDataAttribute})`
-    )
   }
-
-
   private openDialog(dialogElement: HTMLDialogElement, closeCurrentDialogs = false) {
     if (closeCurrentDialogs) {
       for (let dialogElement of Dialogs.dialogModalElements) {
@@ -141,7 +137,7 @@ export default class Dialogs {
   }
 
   private getParentDialog(clickedButton: HTMLElement): HTMLDialogElement {
-    let activeDialog = clickedButton.closest('dialog') as HTMLDialogElement
+    let activeDialog = clickedButton.closest<HTMLDialogElement>('dialog')
 
     return activeDialog
   }

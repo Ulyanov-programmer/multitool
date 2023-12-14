@@ -6,6 +6,7 @@ new Submenu(
   new SubmenuElementGroup({
     buttonsSelector: '[data-submenu-button]',
     menusSelector: '[data-submenu]',
+
     openEvent: SubmenuOpenEvents.Click,
   }),
 )
