@@ -17,9 +17,9 @@ export class Ajar {
   defaultHeight: string
   deleteButtonAfterOpening: boolean = false
 
-  constructor(args: AjarSpoilerArgs) {
-    this.defaultHeight = args.defaultHeight
-    this.deleteButtonAfterOpening = args.deleteButtonAfterOpening
+  constructor(arg: AjarSpoilerArgs) {
+    this.defaultHeight = arg.defaultHeight
+    this.deleteButtonAfterOpening = arg.deleteButtonAfterOpening
   }
 }
 
@@ -88,46 +88,51 @@ export default class Spoiler {
   public readonly contentClass: string = `${this.spoilerClass}-content`
   public readonly contentWrapperClass: string = `${this.contentClass}-wrapper`
   public readonly animationTogglingClass: string = '_slide_'
-  public buttonActiveClass: string = 'active'
-  public contentActiveClass: string = 'active'
+  public buttonActiveClass: string
+  public contentActiveClass: string
   private ajar?: Ajar
 
-  constructor(args: SpoilerArgs) {
-    if (!elementIsExistWithLog('Spoiler', args.wrappersSelector)) {
+  constructor(arg: SpoilerArgs) {
+    if (!elementIsExistWithLog('Spoiler', arg.wrappersSelector)) {
       return
     }
-    else if (args.maxWorkWidth < 0) {
+    else if (arg.maxWorkWidth < 0) {
       console.log('[Spoiler] maxWorkWidth smaller than 0!')
     }
-    else if (args.animationDuration < 0) {
+    else if (arg.animationDuration < 0) {
       console.log('[Spoiler] animationDuration smaller than 0!')
     }
 
 
     this.buttons = document.querySelectorAll(
-      `${args.wrappersSelector} .${this.buttonClass}`
+      `${arg.wrappersSelector} .${this.buttonClass}`
     )
     this.contentElements = document.querySelectorAll(
-      `${args.wrappersSelector} .${this.contentClass}`
+      `${arg.wrappersSelector} .${this.contentClass}`
     )
     this.contentWrapperElements = document.querySelectorAll(
-      `${args.wrappersSelector} .${this.contentClass} .${this.contentWrapperClass}`
+      `${arg.wrappersSelector} .${this.contentClass} .${this.contentWrapperClass}`
     )
-    this.buttonActiveClass = args.buttonActiveClass ?? this.buttonActiveClass
-    this.contentActiveClass = args.contentActiveClass ?? this.contentActiveClass
-    this.maxWorkWidth = args.maxWorkWidth ?? this.maxWorkWidth
-    this.animationDuration = args.animationDuration
+    this.buttonActiveClass = arg.buttonActiveClass ?? 'active'
+    this.contentActiveClass = arg.contentActiveClass ?? 'active'
+    this.maxWorkWidth = arg.maxWorkWidth ?? this.maxWorkWidth
+
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      this.animationDuration = arg.animationDuration ?? 200
+    } else {
+      this.animationDuration = 0
+    }
 
 
-    if (args.ajar) {
-      this.ajar = args.ajar
+    if (arg.ajar) {
+      this.ajar = arg.ajar
       this.setAjarSpoilers()
 
-      //? Determines spoilers when the page is resized.
-      window.addEventListener(`resize`, this.setAjarSpoilers.bind(this))
-    } else {
+      window.addEventListener('resize', this.setAjarSpoilers.bind(this))
+    }
+    else {
       this.setSpoilers()
-      window.addEventListener(`resize`, this.setSpoilers.bind(this))
+      window.addEventListener('resize', this.setSpoilers.bind(this))
     }
   }
 
@@ -143,13 +148,13 @@ export default class Spoiler {
         this.contentWrapperElements[i].style.overflow = 'hidden'
 
         this.buttons[i].style.cursor = ''
-        this.buttons[i].addEventListener('click', this.toggleSpoilerStateHandler)
+        this.buttons[i].addEventListener('click', this.toggleSpoiler.bind(this))
 
         if (this.isSpoilerContentActive(this.contentElements[i])) {
-          this.spoilerDown(this.contentElements[i], this.animationDuration)
+          this.toggleSpoilerState(this.contentElements[i], this.buttons[i], true)
         }
         else {
-          this.spoilerUp(this.contentElements[i], this.animationDuration)
+          this.toggleSpoilerState(this.contentElements[i], this.buttons[i], false)
 
           this.toggleSpoilerContentNodesVisibility(false, this.contentWrapperElements[i])
         }
@@ -161,75 +166,90 @@ export default class Spoiler {
         this.contentElements[i].style.transitionDuration = ``
         this.contentElements[i].style.transitionTimingFunction = ''
         this.contentElements[i].style.pointerEvents = ''
+        this.contentElements[i].removeAttribute('tabindex')
+        this.contentElements[i].removeAttribute('aria-hidden')
 
         this.contentWrapperElements[i].style.overflow = ''
 
         this.buttons[i].style.cursor = 'default'
-        this.buttons[i].removeEventListener('click', this.toggleSpoilerStateHandler)
+        this.buttons[i].removeEventListener('click', this.toggleSpoiler.bind(this))
 
         this.toggleSpoilerContentNodesVisibility(true, this.contentWrapperElements[i])
       }
     }
   }
-  private toggleSpoilerStateHandler = function (event: PointerEvent) {
-    this.toggleSpoilerState(event)
-  }.bind(this)
 
-  private toggleSpoilerState(event: PointerEvent) {
+  private toggleSpoiler(event: Event) {
     let spoilerWrapper = this.getActiveSpoilerWrapper(event)
     let targetSpoilerButton = event.currentTarget as HTMLButtonElement
-    let spoilerContainer = spoilerWrapper.querySelector<HTMLElement>(`.${this.contentClass}`)
+    let spoilerContainer = spoilerWrapper.querySelector<HTMLElement>('.' + this.contentClass)
 
-    if (!this.canToggleSpoiler(spoilerContainer)) return
+    if (this.isSpoilerChanging(spoilerContainer)) return
 
-    this.toggleSpoiler(spoilerContainer, this.animationDuration)
-    targetSpoilerButton.classList.toggle(this.contentActiveClass)
-    spoilerContainer.classList.toggle(this.contentActiveClass)
+    this.toggleSpoilerState(spoilerContainer, targetSpoilerButton)
   }
-  private toggleSpoiler(spoilerContainer: HTMLElement, duration: number) {
-    if (spoilerContainer.style.gridTemplateRows == '0fr') {
-      this.spoilerDown(spoilerContainer, duration)
-    }
-    else {
-      this.spoilerUp(spoilerContainer, duration)
-    }
-  }
-  private canToggleSpoiler(spoilerContainer: HTMLElement): boolean {
-    if (spoilerContainer.classList.contains(this.animationTogglingClass)) {
-      return false
-    }
+  private isSpoilerChanging(spoilerContainer: HTMLElement): boolean {
+    if (spoilerContainer.classList.contains(this.animationTogglingClass))
+      return true
 
-    spoilerContainer.classList.add(this.animationTogglingClass)
-    return true
+    return false
   }
-  private spoilerUp(spoilerContainer: HTMLElement, duration: number) {
-    spoilerContainer.style.gridTemplateRows = '0fr'
-    spoilerContainer.style.pointerEvents = 'none'
+  private async toggleSpoilerState(container: HTMLElement, button: HTMLElement, toggleTo?: boolean) {
+    let spoilerIsClosed = container.style.gridTemplateRows == '0fr'
 
-    window.setTimeout(() => {
-      spoilerContainer.classList.remove(this.animationTogglingClass)
+    if (spoilerIsClosed || toggleTo) {
+      container.classList.add(this.animationTogglingClass)
+
+      container.style.gridTemplateRows = '1fr'
+      container.style.pointerEvents = 'all'
+      container.setAttribute('tabindex', '0')
+      container.setAttribute('aria-hidden', 'false')
+
+      if (this.contentActiveClass)
+        container.classList.add(this.contentActiveClass)
+
+      button.setAttribute('aria-expanded', 'true')
+
+      if (this.buttonActiveClass)
+        button.classList.add(this.buttonActiveClass)
+
+      this.toggleSpoilerContentNodesVisibility(
+        true,
+        container.querySelector('.' + this.contentWrapperClass)
+      )
+
+      await sleep(this.animationDuration)
+      container.classList.remove(this.animationTogglingClass)
+    }
+    else if (!spoilerIsClosed || !toggleTo) {
+      container.classList.add(this.animationTogglingClass)
+
+      container.style.gridTemplateRows = '0fr'
+      container.style.pointerEvents = 'none'
+      container.setAttribute('tabindex', '-1')
+      container.setAttribute('aria-hidden', 'true')
+
+      if (this.contentActiveClass)
+        container.classList.remove(this.contentActiveClass)
+
+      button.setAttribute('aria-expanded', 'false')
+
+      if (this.buttonActiveClass)
+        button.classList.remove(this.buttonActiveClass)
+
+      await sleep(this.animationDuration)
+
+      container.classList.remove(this.animationTogglingClass)
 
       this.toggleSpoilerContentNodesVisibility(
         false,
-        spoilerContainer.querySelector(`.${this.contentWrapperClass}`)
+        container.querySelector(`.${this.contentWrapperClass}`)
       )
-    }, duration)
-  }
-  private spoilerDown(spoilerContainer: HTMLElement, duration: number) {
-    spoilerContainer.style.gridTemplateRows = '1fr'
-    spoilerContainer.style.pointerEvents = 'all'
-
-    this.toggleSpoilerContentNodesVisibility(
-      true,
-      spoilerContainer.querySelector(`.${this.contentWrapperClass}`)
-    )
-
-    window.setTimeout(() => {
-      spoilerContainer.classList.remove(this.animationTogglingClass)
-    }, duration)
+    }
   }
   private toggleSpoilerContentNodesVisibility(toggleTo: boolean, spoilerContentWrapper: HTMLElement) {
-    let nodes = spoilerContentWrapper.children as unknown as NodeListOf<HTMLElement>
+    //@ts-expect-error
+    let nodes = spoilerContentWrapper.children as NodeListOf<HTMLElement>
 
     if (toggleTo) {
       for (let node of nodes) {
@@ -252,37 +272,56 @@ export default class Spoiler {
       this.toggleAjarFunctionality(false, this.ajar)
     }
   }
-  enableAjarSpoilerStateHandler = (function (e: PointerEvent) {
-    this.toggleAjarSpoiler(e, this.ajar, this.getActiveSpoilerWrapper(e))
-  }).bind(this)
+  enableAjarSpoilerStateHandler = (event: Event) => {
+    this.toggleAjarSpoiler(event, this.ajar, this.getActiveSpoilerWrapper(event))
+  }
 
-  private async toggleAjarSpoiler(event: PointerEvent, ajarParams: Ajar, spoilerWrapper: HTMLElement) {
-    let targetSpoilerButton = spoilerWrapper.querySelector('.' + this.buttonClass)
-    let spoilerContainer = spoilerWrapper.querySelector<HTMLElement>('.' + this.contentClass)
+  private async toggleAjarSpoiler(event: Event, ajarParams: Ajar, wrapper: HTMLElement) {
+    let targetSpoilerButton = wrapper.querySelector('.' + this.buttonClass)
+    let container = wrapper.querySelector<HTMLElement>('.' + this.contentClass)
 
-    spoilerContainer.style.transitionProperty = 'height'
-    spoilerContainer.style.transitionDuration = `${this.animationDuration}ms`
+    if (this.isSpoilerChanging(container)) return
 
-    if (this.isSpoilerContentActive(spoilerContainer)) {
-      spoilerContainer.style.overflow = 'hidden'
-      spoilerContainer.style.height = `${spoilerContainer.clientHeight}px`
+    let button = wrapper.querySelector<HTMLElement>('.' + this.buttonClass)
+
+    container.classList.add(this.animationTogglingClass)
+
+    container.style.transitionProperty = 'height'
+    container.style.transitionDuration = this.animationDuration + 'ms'
+
+    if (this.isSpoilerContentActive(container)) {
+      container.style.overflow = 'hidden'
+      container.style.height = container.clientHeight + 'px'
       await sleep(10)
-      spoilerContainer.style.height = ajarParams.defaultHeight
+      container.style.height = ajarParams.defaultHeight
       await sleep(this.animationDuration)
 
-      spoilerContainer.classList.remove(this.contentActiveClass)
+      if (this.contentActiveClass)
+        container.classList.remove(this.contentActiveClass)
+      container.setAttribute('tabindex', '-1')
+      container.setAttribute('aria-hidden', 'true')
+
+      button.setAttribute('aria-expanded', 'false')
     }
     else {
-      spoilerContainer.style.height = `${spoilerContainer.scrollHeight - 1}px`
+      container.style.height = container.scrollHeight - 1 + 'px'
       await sleep(this.animationDuration)
 
-      spoilerContainer.style.height = ''
-      spoilerContainer.classList.add(this.contentActiveClass)
+      container.style.height = ''
+
+      if (this.contentActiveClass)
+        container.classList.add(this.contentActiveClass)
+      container.setAttribute('tabindex', '0')
+      container.setAttribute('aria-hidden', 'false')
+
+      button.setAttribute('aria-expanded', 'true')
 
       if (ajarParams.deleteButtonAfterOpening && targetSpoilerButton) {
         targetSpoilerButton.remove()
       }
     }
+
+    container.classList.remove(this.animationTogglingClass)
   }
   private toggleAjarFunctionality(toggleTo: boolean, ajarParams: Ajar) {
     if (toggleTo) {
@@ -290,6 +329,10 @@ export default class Spoiler {
         if (!this.isSpoilerContentActive(this.contentElements[i])) {
           this.contentElements[i].style.overflow = 'hidden'
           this.contentElements[i].style.height = ajarParams.defaultHeight
+          this.contentElements[i].setAttribute('tabindex', '-1')
+          this.contentElements[i].setAttribute('aria-hidden', 'true')
+
+          this.buttons[i].setAttribute('aria-expanded', 'false')
 
           this.buttons[i].addEventListener('click', this.enableAjarSpoilerStateHandler, false)
         }
@@ -299,6 +342,10 @@ export default class Spoiler {
       for (let i = 0; i < this.contentElements.length; i++) {
         this.contentElements[i].style.overflow = ''
         this.contentElements[i].style.height = ''
+        this.contentElements[i].removeAttribute('tabindex')
+        this.contentElements[i].removeAttribute('aria-hidden')
+
+        this.buttons[i].removeAttribute('aria-expanded')
 
         this.buttons[i].removeEventListener('click', this.enableAjarSpoilerStateHandler, false)
       }
@@ -306,11 +353,11 @@ export default class Spoiler {
   }
 
 
-  private getActiveSpoilerWrapper(buttonEvent: PointerEvent) {
+  private getActiveSpoilerWrapper(buttonEvent: Event): HTMLElement {
     let button = buttonEvent.currentTarget as HTMLElement
     return button.parentElement
   }
-  private isSpoilerContentActive(spoilerContentElement: HTMLElement) {
+  private isSpoilerContentActive(spoilerContentElement: HTMLElement): boolean {
     if (spoilerContentElement.classList.contains(this.contentActiveClass)) {
       return true
     } else {
