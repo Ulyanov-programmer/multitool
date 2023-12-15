@@ -15,28 +15,22 @@ interface ObserverToolsArgs {
    */
   isIntersectedClass?: string
 }
-export default class ObserverTools {
+export class ObserverTools {
   /**
-    Do you want the animations to be played again if the blocks they leave the screen? 
-    Set it to true, but i don't recommend to use this as true in production.
+    Do you want the action to be played again if the blocks leave the screen?
+    Set it to `true`.
     @defaultValue `false`
   */
-  public static repeatObserve: boolean
+  public static repeatObserve: boolean = false
   /** 
    * This class will be applied when the blocks are intersected.
    * @defaultValue `'is-intersecting'`
    */
-  public static isIntersectedClass: string
+  public static isIntersectedClass: string = 'is-intersecting'
 
-  constructor(arg: ObserverToolsArgs, ...elements: (ActionOnView | TypedAnimationTimeline)[]) {
-    ObserverTools.repeatObserve = arg.repeatObserve ?? false
-    ObserverTools.isIntersectedClass = arg.isIntersectedClass ?? 'is-intersecting'
-
-    if (elements.length <= 0) {
-      console.error(
-        '[ObserverTools] No one ActionOnView or AnimationTimeline have been created.'
-      )
-    }
+  constructor(arg: ObserverToolsArgs) {
+    ObserverTools.repeatObserve = arg.repeatObserve ?? ObserverTools.repeatObserve
+    ObserverTools.isIntersectedClass = arg.isIntersectedClass ?? ObserverTools.isIntersectedClass
   }
 }
 
@@ -96,7 +90,7 @@ interface ActionOnViewArgs {
 /**
  * Creates an instance of `IntersectionObserver` and allows you to configure it.
  */
-export class ActionOnView {
+export default class ActionOnView {
   private htmlElements: NodeListOf<HTMLElement>
   private breakpoints: Breakpoint
   private threshold: number | number[]
@@ -378,7 +372,9 @@ export class TypedAnimationTimeline {
     window.addEventListener('resize', this.applyBreakpoints.bind(this))
   }
 
-  private setDefaultSettingsIfEmpty(settings: AnimateTimelineSettings | AnimateBreakpointTimelineSettings): AnimateTimelineSettings {
+  private setDefaultSettingsIfEmpty(
+    settings: AnimateTimelineSettings | AnimateBreakpointTimelineSettings
+  ): AnimateTimelineSettings {
     if (!settings) return
 
     settings.fill = settings.fill ?? 'forwards'

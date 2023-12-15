@@ -34,6 +34,8 @@ interface AutoScrollPaddingItemArgs {
   setInCssVariable?: string
   /**
    * Specify `PaddingDirection.Top` | `PaddingDirection.Bottom` so that the indentation size is measured by the height of the element, or `PaddingDirection.Left` | `PaddingDirection.Right` to be measured by the width of the element.
+   * 
+   * Depending on which direction you specify, the appropriate side of the `scrollPadding` will be selected (`scroll-padding-right`, `scroll-padding-top`, etc).
    * @defaultValue `PaddingDirection.Top`
    */
   paddingDirection?: PaddingDirection
@@ -41,7 +43,7 @@ interface AutoScrollPaddingItemArgs {
 export class AutoScrollPaddingItem {
   public scrollableParent: HTMLElement
   public fixedElement: HTMLElement
-  public childRefs: NodeListOf<HTMLAnchorElement>
+  public childRefs: NodeListOf<HTMLLinkElement>
   public gap: number = 5
   public useCssVar: string
   public paddingDirection: PaddingDirection
@@ -58,11 +60,25 @@ export class AutoScrollPaddingItem {
       this.scrollableParent = document.querySelector('html')
     }
 
-    if (this.fixedElement.style.scrollBehavior == '') {
+    if (!this.fixedElement.style.scrollBehavior) {
       this.scrollableParent.style.scrollBehavior = arg.scrollBehavior ?? 'smooth'
     }
 
     this.childRefs = this.scrollableParent.querySelectorAll('a[href^="#"]')
+
+    for (let ref of this.childRefs) {
+      ref.addEventListener('click', this.updatePaddingValue)
+    }
+
+    this.updatePaddingValue()
+    window.addEventListener('resize', this.updatePaddingValue)
+
+    document.addEventListener('DOMContentLoaded', () => {
+      let scrollElement = document.querySelector(location.hash ?? null)
+
+      if (scrollElement)
+        scrollElement.scrollIntoView(true)
+    })
   }
 
   updatePaddingValue() {
@@ -98,41 +114,5 @@ export class AutoScrollPaddingItem {
           break
       }
     }
-  }
-}
-
-
-export class AutoScrollPadding {
-  private autoPaddingItems: AutoScrollPaddingItem[]
-
-  constructor(...autoScrollPaddingItems: AutoScrollPaddingItem[]) {
-    this.autoPaddingItems = autoScrollPaddingItems
-    if (this.autoPaddingItems == undefined && this.autoPaddingItems.length <= 0) {
-      return
-    }
-
-
-    for (let autoPaddingItem of this.autoPaddingItems) {
-      autoPaddingItem.updatePaddingValue.bind(autoPaddingItem)()
-    }
-
-    for (let autoPaddingItem of this.autoPaddingItems) {
-      for (let ref of autoPaddingItem.childRefs) {
-        ref.addEventListener('click', autoPaddingItem.updatePaddingValue.bind(autoPaddingItem))
-      }
-
-      window.addEventListener('resize', () => {
-        autoPaddingItem.updatePaddingValue()
-      })
-    }
-
-
-    document.addEventListener('DOMContentLoaded', () => {
-      let scrollElement = document.querySelector(location.hash ? location.hash : null)
-
-      if (scrollElement) {
-        scrollElement.scrollIntoView(true)
-      }
-    })
   }
 }
