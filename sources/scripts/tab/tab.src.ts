@@ -230,7 +230,8 @@ export default class Tab {
     nextContentTab.style.opacity = '1'
     nextContentTab.style.removeProperty('pointer-events')
 
-    currentActiveTab.classList.remove(this.tabActiveClass)
+    if (this.tabActiveClass)
+      currentActiveTab.classList.remove(this.tabActiveClass)
 
     if (this.tabActiveClass) {
       nextContentTab.classList.add(this.tabActiveClass)
@@ -251,7 +252,9 @@ export default class Tab {
     let currentActiveTab = this.getCurrentActiveTab()
     let nextContentTab = this.getTabByPressedButton(activeButton)
 
-    currentActiveTab.classList.remove(this.tabActiveClass)
+    if (this.tabActiveClass)
+      currentActiveTab.classList.remove(this.tabActiveClass)
+
     currentActiveTab.style.opacity = '0'
     currentActiveTab.style.pointerEvents = 'none'
     await sleep(this.animationDuration)
@@ -283,8 +286,10 @@ export default class Tab {
   private toggleTabButtons(activeButton: HTMLElement) {
     for (let button of this.buttons) {
       if (button != activeButton) {
-        button.classList.remove(this.buttonActiveClass)
         button.setAttribute('aria-expanded', 'false')
+
+        if (this.buttonActiveClass)
+          button.classList.remove(this.buttonActiveClass)
       }
       else {
         if (button.classList.contains(this.buttonActiveClass)) {
