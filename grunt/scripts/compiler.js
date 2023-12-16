@@ -10,7 +10,7 @@ export default {
       ],
     },
     options: {
-      target: 'es2018',
+      target: 'es2021',
       bundle: false,
       outdir: paths.dest.scripts,
       watchMode: true,
@@ -21,7 +21,7 @@ export default {
       src: paths.src.scripts + '**/*.src.{js,ts}',
     },
     options: {
-      target: 'es2018',
+      target: 'es2021',
       bundle: false,
       outdir: paths.dest.scripts,
       minify: isProductionMode ? true : false,
