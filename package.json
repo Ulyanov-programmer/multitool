@@ -43,7 +43,7 @@
     "postcss-mixins": "^9.0.4",
     "postcss-nested": "^6.0.1",
     "postcss-preset-env": "^9.3.0",
-    "postcss-pxrem-function": "^0.1.0",
+    "postcss-rem": "^3.0.0",
     "postcss-simple-vars": "^7.0.1",
     "posthtml": "^0.16.6",
     "posthtml-component": "^1.1.0",

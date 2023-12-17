@@ -8,7 +8,7 @@ import mediaMinmax from '@csstools/postcss-media-minmax'
 import functions from 'postcss-functions'
 import mixins from 'postcss-mixins'
 import customMedia from 'postcss-custom-media'
-import pxremFunction from 'postcss-pxrem-function'
+import rem from 'postcss-rem'
 
 import paths from '../other/paths.js'
 
@@ -39,7 +39,9 @@ const options = {
     }),
     mixins(),
     customMedia(),
-    pxremFunction(),
+    rem({
+      name: 'rem',
+    }),
   ],
 }
 

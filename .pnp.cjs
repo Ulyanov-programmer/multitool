@@ -56,7 +56,7 @@ const RAW_RUNTIME_STATE =
           ["postcss-mixins", "virtual:f1571cd32476bd3b119b044c60b9b1a5cc196aa5e88d29fdb3f4ea6740eaef5997566a6ada297106308bd20d74779e81e370845008944305dc9bc0838acdd3a1#npm:9.0.4"],\
           ["postcss-nested", "virtual:f1571cd32476bd3b119b044c60b9b1a5cc196aa5e88d29fdb3f4ea6740eaef5997566a6ada297106308bd20d74779e81e370845008944305dc9bc0838acdd3a1#npm:6.0.1"],\
           ["postcss-preset-env", "virtual:f1571cd32476bd3b119b044c60b9b1a5cc196aa5e88d29fdb3f4ea6740eaef5997566a6ada297106308bd20d74779e81e370845008944305dc9bc0838acdd3a1#npm:9.3.0"],\
-          ["postcss-pxrem-function", "virtual:f1571cd32476bd3b119b044c60b9b1a5cc196aa5e88d29fdb3f4ea6740eaef5997566a6ada297106308bd20d74779e81e370845008944305dc9bc0838acdd3a1#npm:0.1.0"],\
+          ["postcss-rem", "npm:3.0.0"],\
           ["postcss-simple-vars", "virtual:f1571cd32476bd3b119b044c60b9b1a5cc196aa5e88d29fdb3f4ea6740eaef5997566a6ada297106308bd20d74779e81e370845008944305dc9bc0838acdd3a1#npm:7.0.1"],\
           ["posthtml", "npm:0.16.6"],\
           ["posthtml-component", "npm:1.1.0"],\
@@ -4444,7 +4444,7 @@ const RAW_RUNTIME_STATE =
           ["postcss-mixins", "virtual:f1571cd32476bd3b119b044c60b9b1a5cc196aa5e88d29fdb3f4ea6740eaef5997566a6ada297106308bd20d74779e81e370845008944305dc9bc0838acdd3a1#npm:9.0.4"],\
           ["postcss-nested", "virtual:f1571cd32476bd3b119b044c60b9b1a5cc196aa5e88d29fdb3f4ea6740eaef5997566a6ada297106308bd20d74779e81e370845008944305dc9bc0838acdd3a1#npm:6.0.1"],\
           ["postcss-preset-env", "virtual:f1571cd32476bd3b119b044c60b9b1a5cc196aa5e88d29fdb3f4ea6740eaef5997566a6ada297106308bd20d74779e81e370845008944305dc9bc0838acdd3a1#npm:9.3.0"],\
-          ["postcss-pxrem-function", "virtual:f1571cd32476bd3b119b044c60b9b1a5cc196aa5e88d29fdb3f4ea6740eaef5997566a6ada297106308bd20d74779e81e370845008944305dc9bc0838acdd3a1#npm:0.1.0"],\
+          ["postcss-rem", "npm:3.0.0"],\
           ["postcss-simple-vars", "virtual:f1571cd32476bd3b119b044c60b9b1a5cc196aa5e88d29fdb3f4ea6740eaef5997566a6ada297106308bd20d74779e81e370845008944305dc9bc0838acdd3a1#npm:7.0.1"],\
           ["posthtml", "npm:0.16.6"],\
           ["posthtml-component", "npm:1.1.0"],\
@@ -7212,24 +7212,13 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
-    ["postcss-pxrem-function", [\
-      ["npm:0.1.0", {\
-        "packageLocation": "./.yarn/cache/postcss-pxrem-function-npm-0.1.0-bc0e7d18ac-f1175666f8.zip/node_modules/postcss-pxrem-function/",\
+    ["postcss-rem", [\
+      ["npm:3.0.0", {\
+        "packageLocation": "./.yarn/cache/postcss-rem-npm-3.0.0-5482441fd2-4bfa2cafd5.zip/node_modules/postcss-rem/",\
         "packageDependencies": [\
-          ["postcss-pxrem-function", "npm:0.1.0"]\
-        ],\
-        "linkType": "SOFT"\
-      }],\
-      ["virtual:f1571cd32476bd3b119b044c60b9b1a5cc196aa5e88d29fdb3f4ea6740eaef5997566a6ada297106308bd20d74779e81e370845008944305dc9bc0838acdd3a1#npm:0.1.0", {\
-        "packageLocation": "./.yarn/__virtual__/postcss-pxrem-function-virtual-67f95dc83e/0/cache/postcss-pxrem-function-npm-0.1.0-bc0e7d18ac-f1175666f8.zip/node_modules/postcss-pxrem-function/",\
-        "packageDependencies": [\
-          ["postcss-pxrem-function", "virtual:f1571cd32476bd3b119b044c60b9b1a5cc196aa5e88d29fdb3f4ea6740eaef5997566a6ada297106308bd20d74779e81e370845008944305dc9bc0838acdd3a1#npm:0.1.0"],\
-          ["@types/postcss", null],\
-          ["postcss", "npm:8.4.32"]\
-        ],\
-        "packagePeers": [\
-          "@types/postcss",\
-          "postcss"\
+          ["postcss-rem", "npm:3.0.0"],\
+          ["postcss", "npm:8.4.32"],\
+          ["startijenn-rem", "npm:1.1.1"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -8364,6 +8353,15 @@ const RAW_RUNTIME_STATE =
         "packageDependencies": [\
           ["ssri", "npm:9.0.1"],\
           ["minipass", "npm:3.3.6"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["startijenn-rem", [\
+      ["npm:1.1.1", {\
+        "packageLocation": "./.yarn/cache/startijenn-rem-npm-1.1.1-cfae045370-79929ccfba.zip/node_modules/startijenn-rem/",\
+        "packageDependencies": [\
+          ["startijenn-rem", "npm:1.1.1"]\
         ],\
         "linkType": "HARD"\
       }]\

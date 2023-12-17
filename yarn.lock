@@ -3409,7 +3409,7 @@ __metadata:
     postcss-mixins: "npm:^9.0.4"
     postcss-nested: "npm:^6.0.1"
     postcss-preset-env: "npm:^9.3.0"
-    postcss-pxrem-function: "npm:^0.1.0"
+    postcss-rem: "npm:^3.0.0"
     postcss-simple-vars: "npm:^7.0.1"
     posthtml: "npm:^0.16.6"
     posthtml-component: "npm:^1.1.0"
@@ -5630,12 +5630,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss-pxrem-function@npm:^0.1.0":
-  version: 0.1.0
-  resolution: "postcss-pxrem-function@npm:0.1.0"
-  peerDependencies:
-    postcss: ^8.3.0
-  checksum: f1175666f8c1e77b6e93ea5768990b3f49bdc219491cf811b2680f66c0bdd1e5abd7d9d7d12eac8c59e00fb82e337a17f287f63a6d3133f5d6e67fea2ecc7ecc
+"postcss-rem@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "postcss-rem@npm:3.0.0"
+  dependencies:
+    postcss: "npm:^8.4.31"
+    startijenn-rem: "npm:^1.1.1"
+  checksum: 4bfa2cafd5d8233e78c9d8b5e0ea7f8a1ca8d81091b3bb369f13389e779f622f57833a051485665cb3a8dd4e2c4e90683a459bba6480d99980829cd26fe45291
   languageName: node
   linkType: hard
 
@@ -6611,6 +6612,13 @@ __metadata:
   dependencies:
     minipass: "npm:^3.1.1"
   checksum: c5d153ce03b5980d683ecaa4d805f6a03d8dc545736213803e168a1907650c46c08a4e5ce6d670a0205482b35c35713d9d286d9133bdd79853a406e22ad81f04
+  languageName: node
+  linkType: hard
+
+"startijenn-rem@npm:^1.1.1":
+  version: 1.1.1
+  resolution: "startijenn-rem@npm:1.1.1"
+  checksum: 79929ccfbadb4a24953a36f79fcd5a02963e2186cbd5c9611ab4d98942531fe8e45d30b2b0a405151db3714f280e3dee952468f2954bc1b6f25d9bfbbf74206e
   languageName: node
   linkType: hard
 
