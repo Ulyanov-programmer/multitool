@@ -1,10 +1,13 @@
 <script props>
   module.exports = {
     source: props.source,
-    sourceWithoutExt: props.source.split('.')[0],
+    // Deleting the last extension from the file path.
+    sourceWithoutExt: props.source.replace('.' + props.source.split('.').at(-1), ''),
     alt: props.alt || '',
     loading: props.loading || 'auto',
-    class: props.class || '',
+    class: props.class ?? '',
+    webp: props.webp,
+    avif: props.avif,
   }
 </script>
 
@@ -12,14 +15,20 @@
 <x-img class='coverImg'
          source='images/image.png'
          loading='lazy'
+         webp
+         avif
          alt='some alt' />
 -->
 
 <picture>
-  <source srcset='{{sourceWithoutExt}}.avif'
-          type='image/avif'>
-  <source srcset='{{sourceWithoutExt}}.webp'
-          type='image/webp'>
+  <if condition='avif != undefined'>
+    <source srcset='{{sourceWithoutExt}}.avif'
+            type='image/avif'>
+  </if>
+  <if condition='webp != undefined'>
+    <source srcset='{{sourceWithoutExt}}.webp'
+            type='image/webp'>
+  </if>
 
   <img class='{{class}}'
        src='{{source}}'
