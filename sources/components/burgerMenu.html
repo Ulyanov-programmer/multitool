@@ -1,4 +1,6 @@
-<button class='BurgerBtn'
+<button aria-controls='burgerMenu'
+        data-open-dialog-id="burgerMenu"
+        class='BurgerBtn'
         type='button'
         id='burgerButton'
         title='Open the burger menu'>
@@ -28,19 +30,26 @@
   </svg>
 </button>
 
-<nav class='BurgerMenu'>
-  <ul>
-    <li>
-      <a target='_blank'
-         rel='noopener'
-         href='#'>
-        ref
-      </a>
-    </li>
-    <li>
-      <button type='button'>
-        button
-      </button>
-    </li>
-  </ul>
-</nav>
+<dialog id='burgerMenu'
+        class='BurgerMenu'
+        data-modal-dialog>
+  <nav>
+    <ul>
+
+      <li>
+        <a target='_self'
+           rel='noopener'
+           href='#'>
+          ref
+        </a>
+      </li>
+
+      <li>
+        <button type='button'>
+          button
+        </button>
+      </li>
+
+    </ul>
+  </nav>
+</dialog>
