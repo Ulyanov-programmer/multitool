@@ -32,6 +32,7 @@ interface AutoScrollPaddingItemArgs {
    * @example '--scroll-padding'
    */
   setInCssVariable?: string
+  cssVariableLocation?: string
   /**
    * Specify `PaddingDirection.Top` | `PaddingDirection.Bottom` so that the indentation size is measured by the height of the element, or `PaddingDirection.Left` | `PaddingDirection.Right` to be measured by the width of the element.
    * 
@@ -46,12 +47,15 @@ export class AutoScrollPaddingItem {
   public childRefs: NodeListOf<HTMLLinkElement>
   public gap: number = 5
   public useCssVar: string
+  private cssVariableLocation: HTMLElement
   public paddingDirection: PaddingDirection
 
   constructor(arg: AutoScrollPaddingItemArgs) {
     this.fixedElement = document.querySelector(arg.fixedElementSelector)
     this.gap = arg.gap ?? this.gap
     this.useCssVar = arg.setInCssVariable
+    this.cssVariableLocation = document.querySelector(arg.cssVariableLocation)
+
     this.paddingDirection = arg.paddingDirection ?? PaddingDirection.Top
 
     if (arg.scrollableParentSelector) {
@@ -74,10 +78,12 @@ export class AutoScrollPaddingItem {
     window.addEventListener('resize', this.updatePaddingValue)
 
     document.addEventListener('DOMContentLoaded', () => {
-      let scrollElement = document.querySelector(location.hash ?? null)
-
-      if (scrollElement)
-        scrollElement.scrollIntoView(true)
+      try {
+        let scrollElement = document.querySelector(location.hash)
+        if (scrollElement)
+          scrollElement.scrollIntoView(true)
+      }
+      catch (error) { }
     })
   }
 
@@ -96,7 +102,11 @@ export class AutoScrollPaddingItem {
     }
 
     if (this.useCssVar) {
-      this.scrollableParent.style.setProperty(this.useCssVar, padding)
+      if (this.cssVariableLocation) {
+        this.cssVariableLocation.style.setProperty(this.useCssVar, padding)
+      } else {
+        this.scrollableParent.style.setProperty(this.useCssVar, padding)
+      }
     }
     else {
       switch (this.paddingDirection) {
