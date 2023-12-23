@@ -11,8 +11,6 @@
     photoSwipe: props.photoSwipe,
     noUiSlider: props.noUiSlider,
     formStyles: props.formStyles,
-    detailsTools: props.detailsTools,
-    submenu: props.submenu,
     observerTools: props.observerTools,
     swipe: props.swipe,
     horizontalScroll: props.horizontalScroll,
@@ -117,22 +115,6 @@
     <!-- Form styles -->
     <link rel='stylesheet'
           href='./styles/form.css'>
-  </if>
-
-  <if condition='detailsTools'>
-    <!-- DetailsTools -->
-    <script type='module'
-            src='./scripts/detailsTools/index.js'></script>
-    <link rel='stylesheet'
-          href='./scripts/detailsTools/details.css'>
-  </if>
-
-  <if condition='submenu'>
-    <!-- Submenu -->
-    <script type='module'
-            src='./scripts/submenu/index.js'></script>
-    <link rel='stylesheet'
-          href='./scripts/submenu/submenu.css'>
   </if>
 
   <if condition='observerTools'>
