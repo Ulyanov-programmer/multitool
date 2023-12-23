@@ -1,26 +1,27 @@
+<!--
+  You can use 
+    data-open-dialog-id | data-close-dialog-id | data-toggle-dialog-id
+  for buttons.
+
+  data-close-dialog-id closes the nearest parent without specifying the dialog ID.
+
+  Also you can use data-type-hover (activation on pointerenter event).
+
+  To close all previously opened dialogs (does not work when opening a dialog as a window), use data-close-opened-dialogs 
+
+  Use data-close-on-parent-pointerleave to close a dialog when pointerleave from a parent. 
+-->
+
 <button class=''
         type='button'
-        data-close-dialog-id="specificDialogId">
-  Close a specific dialog
-</button>
-<button class=''
-        type='button'
-        data-open-dialog-id="modalDialog">
-  Open a specific dialog
-</button>
-<button class=''
-        type='button'
-        data-open-dialog-id="modalDialog2"
-        data-close-opened-dialogs>
-  Open a specific dialog and close all previously opened ones.
+        data-toggle-dialog-id="windowDialog">
+  Toggle a specific dialog
 </button>
 
-<dialog id='windowDialog'>
-  Some content!
-  <button class=''
-          type='button'
-          data-close-dialog-id>Close the parent dialog!</button>
-</dialog>
+<!--
+  Use data-modal-dialog to open the dialog as a modal window. 
+  By default, it opens as just a window. 
+-->
 
 <dialog id='modalDialog'
         data-modal-dialog>

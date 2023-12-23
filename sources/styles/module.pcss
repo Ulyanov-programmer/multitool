@@ -22,4 +22,49 @@
       }
     }
   }
+
+  .SubmenuWrapper {
+    width: fit-content;
+    position: relative;
+    
+    [data-open-dialog-id] {
+    }
+  
+    [data-close-dialog-id] {
+    }
+    
+    [data-submenu] {
+      display: block;
+      pointer-events: none;
+
+      position: absolute;
+      z-index: 1;
+      top: 100%;
+    
+      width: max-content;
+
+      opacity: 0;
+      background: white;
+    
+      transition: all 0.2s ease;
+    
+      &[open] {
+        pointer-events: all;
+        opacity: 1;
+      }
+    
+      &.toLeft {
+        right: 0;
+      }
+    
+      &.toRight {
+        left: 0;
+      }
+    
+      &.toCenter {
+        left: 50%;
+        transform: translate(-50%, 0);
+      }
+    }
+  }
 }

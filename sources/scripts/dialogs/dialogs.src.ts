@@ -8,12 +8,13 @@ interface DialogsArgs {
 }
 
 export default class Dialogs {
-  private static dialogOpeners: NodeListOf<HTMLElement>
   private static dialogModalElements: NodeListOf<HTMLDialogElement>
-  private static dialogWindowElements: NodeListOf<HTMLElement>
+  private static dialogWindowElements: NodeListOf<HTMLDialogElement>
   private readonly dialogActiveStateAttribute = 'open'
-  private readonly dialogCloseButtonAttribute = `[data-close-dialog-id]`
-  private readonly dialogDataAttribute = `[data-modal-dialog]`
+  private readonly dialogCloserAttribute = '[data-close-dialog-id]'
+  private readonly dialogOpenerAttribute = '[data-open-dialog-id]'
+  private readonly dialogTogglerAttribute = '[data-toggle-dialog-id]'
+  private readonly dialogDataAttribute = '[data-modal-dialog]'
   private readonly dialogActiveSelector = `dialog[${this.dialogActiveStateAttribute}]`
   private readonly dialogModalStateActiveClass = '_dialog_modal_'
   private readonly closeByClickOnBackdrop: boolean
@@ -21,97 +22,148 @@ export default class Dialogs {
   constructor(arg: DialogsArgs) {
     this.closeByClickOnBackdrop = arg.closeByClickOnBackdrop ?? true
 
-    Dialogs.dialogOpeners = document.querySelectorAll('[data-open-dialog-id]')
-    this.setOpeners()
-    this.setClosers(document.querySelectorAll(this.dialogCloseButtonAttribute))
+    this.setOpeners(document.querySelectorAll(this.dialogOpenerAttribute))
+    this.setClosers(document.querySelectorAll(this.dialogCloserAttribute))
+    this.setTogglers(document.querySelectorAll(this.dialogTogglerAttribute))
 
     Dialogs.dialogModalElements = document.querySelectorAll(
       `dialog${this.dialogDataAttribute}`
     )
-
-    for (let dialogElement of Dialogs.dialogModalElements) {
-      dialogElement.addEventListener('close', closeEvent => {
-        closeEvent.preventDefault()
-        this.closeDialog(dialogElement)
-      })
-    }
 
     Dialogs.dialogWindowElements = document.querySelectorAll(
       `dialog:not(${this.dialogDataAttribute})`
     )
   }
 
-  private setOpeners() {
-    for (let dialogOpener of Dialogs.dialogOpeners) {
-      dialogOpener.addEventListener('click', () => {
-        let dialog = document.getElementById(dialogOpener.dataset.openDialogId) as HTMLDialogElement
+  private setOpeners(openers: NodeListOf<HTMLElement>) {
+    for (let opener of openers) {
+      if (opener.dataset.typeHover != undefined) {
+        this.setButtonHandlerOnHover(opener, true)
+      }
+      else {
+        opener.addEventListener('click', this.openDialog)
+      }
 
-        if (!dialog) return
-
-        if (dialog.dataset.modalDialog != undefined)
-          dialogOpener.dataset.closeOpenedDialogs
-            ? this.openDialog(dialog, true)
-            : this.openDialog(dialog)
-        else
-          this.openWindowDialog(dialog)
-      })
+      this.closeOnParentPointerLeaveIfSpecified(opener as HTMLButtonElement)
     }
   }
   private setClosers(closers: NodeListOf<HTMLElement>) {
-    for (let modalCloser of closers) {
-      modalCloser.addEventListener('click', () => {
-        let dialog = document.getElementById(modalCloser.dataset.closeDialogId) as HTMLDialogElement
+    for (let closer of closers) {
+      if (closer.dataset.typeHover != undefined) {
+        this.setButtonHandlerOnHover(closer, false)
+      }
+      else {
+        closer.addEventListener('click', this.closeDialog)
+      }
 
-        // If the dialog is not found and its ID is not specified, it tries to find the parent one.
-        if (!dialog && modalCloser.dataset.closeDialogId == '')
-          dialog = this.getParentDialog(modalCloser)
+      this.closeOnParentPointerLeaveIfSpecified(closer as HTMLButtonElement)
+    }
+  }
+  private setTogglers(togglers: NodeListOf<HTMLElement>) {
+    for (let toggler of togglers) {
+      if (toggler.dataset.typeHover != undefined) {
+        this.setButtonHandlerOnHover(toggler)
+        this.closeOnParentPointerLeaveIfSpecified(toggler as HTMLButtonElement)
+        return
+      }
 
-        if (!dialog) return
+      this.closeOnParentPointerLeaveIfSpecified(toggler as HTMLButtonElement)
 
-        if (dialog.dataset.modalDialog != undefined)
-          modalCloser.dataset.closeDialogId
-            ? this.closeDialog(dialog)
-            : this.closeDialog(this.getParentDialog(modalCloser))
-        else
-          this.closeWindowDialog(dialog)
+      toggler.addEventListener('click', event => {
+        let dialog = document.getElementById(toggler.dataset.toggleDialogId) as HTMLDialogElement
+
+        dialog.open ? this.closeDialog(event) : this.openDialog(event)
       })
     }
   }
-  private openDialog(dialogElement: HTMLDialogElement, closeCurrentDialogs = false) {
-    if (closeCurrentDialogs) {
-      for (let dialogElement of Dialogs.dialogModalElements) {
-        this.closeDialog(dialogElement)
-      }
+
+  private openDialog(event: Event) {
+    let toggler = event.target as HTMLButtonElement
+    let dialog = Dialogs.getDialogByData(toggler)
+
+    if (dialog?.open || dialog.nodeName != 'DIALOG') return
+
+    if (!dialog.dataset.modalDialog) {
+      dialog.show()
+      return
     }
 
-    this.toggleBodyScroll(false, dialogElement)
-    dialogElement.showModal()
-    dialogElement.classList.add(this.dialogModalStateActiveClass)
+    Dialogs.closeAllDialogsIfSpecified(toggler, Dialogs.dialogModalElements)
+
+    this.toggleBodyScroll(false, dialog)
+    dialog.showModal()
+    dialog.classList.add(this.dialogModalStateActiveClass)
 
     if (this.closeByClickOnBackdrop) {
-      dialogElement.addEventListener('click', this.closeByClickOnBackdropEvent.bind(this))
+      dialog.addEventListener('click', this.closeByClickOnBackdropEvent.bind(this))
     }
   }
-  private closeDialog(currentDialog: HTMLDialogElement) {
-    if (!currentDialog || currentDialog.nodeName != 'DIALOG') return
+  private closeDialog(event: Event, currentDialog?: HTMLDialogElement) {
+    let toggler = event.target as HTMLButtonElement
+    let dialog
 
-    currentDialog.close()
-    currentDialog.classList.remove(this.dialogModalStateActiveClass)
-    this.toggleBodyScroll(true, currentDialog)
+    if (currentDialog) {
+      dialog = currentDialog
+    }
+    else if (toggler.nodeName != 'DIALOG') {
+      dialog = Dialogs.getDialogByData(toggler) ?? Dialogs.getParentDialog(toggler)
+    }
+    else {
+      dialog = toggler
+    }
+
+    if (!dialog?.open || dialog.nodeName != 'DIALOG') return
+
+    if (!dialog.dataset.modalDialog) {
+      Dialogs.closeAllDialogsIfSpecified(toggler, Dialogs.dialogWindowElements)
+
+      dialog.close()
+      return
+    }
+
+    Dialogs.closeAllDialogsIfSpecified(toggler, Dialogs.dialogModalElements)
+
+    dialog.close()
+    dialog.classList.remove(this.dialogModalStateActiveClass)
+    this.toggleBodyScroll(true, dialog)
 
     if (this.closeByClickOnBackdrop) {
-      currentDialog.removeEventListener('click', this.closeByClickOnBackdropEvent.bind(this))
+      dialog.removeEventListener('click', this.closeByClickOnBackdropEvent.bind(this))
     }
   }
 
-  private openWindowDialog(dialogElement: HTMLDialogElement) {
-    dialogElement?.show()
-  }
-  private closeWindowDialog(dialogElement: HTMLDialogElement) {
-    dialogElement?.close()
-  }
 
+  private setButtonHandlerOnHover(toggler: HTMLElement, toggleTo?: boolean) {
+    if (toggleTo == undefined) {
+      toggler.addEventListener('pointerenter', event => {
+        let dialog = document.getElementById(toggler.dataset.toggleDialogId) as HTMLDialogElement
 
+        dialog.open ? this.closeDialog(event) : this.openDialog(event)
+      })
+
+      toggler.addEventListener('keyup', event => {
+        let dialog = document.getElementById(toggler.dataset.toggleDialogId) as HTMLDialogElement
+
+        if (event.key == 'Enter') {
+          dialog.open ? this.closeDialog(event) : this.openDialog(event)
+        }
+      })
+    }
+    else if (toggleTo) {
+      toggler.addEventListener('pointerenter', this.openDialog)
+
+      toggler.addEventListener('keyup', event => {
+        if (event.key == 'Enter') this.openDialog(event)
+      })
+    }
+    else {
+      toggler.addEventListener('pointerenter', this.closeDialog)
+
+      toggler.addEventListener('keyup', event => {
+        if (event.key == 'Enter') this.closeDialog(event)
+      })
+    }
+  }
   private async toggleBodyScroll(toggleScrollOn: boolean, activeDialog: HTMLElement) {
     if (toggleScrollOn) {
       if (document.querySelector(`.${this.dialogModalStateActiveClass}`)) return
@@ -135,26 +187,57 @@ export default class Dialogs {
       document.body.style.overflow = 'hidden'
     }
   }
-
-  private getParentDialog(clickedButton: HTMLElement): HTMLDialogElement {
+  private static getParentDialog(clickedButton: HTMLElement): HTMLDialogElement {
     let activeDialog = clickedButton.closest<HTMLDialogElement>('dialog')
 
     return activeDialog
   }
+  private static getDialogByData(toggler: HTMLButtonElement) {
+    let activeDataset: string
 
-  private closeByClickOnBackdropEvent(mouseEv: PointerEvent) {
+    if (toggler.dataset.toggleDialogId) {
+      activeDataset = toggler.dataset.toggleDialogId
+    }
+    else if (toggler.dataset.openDialogId) {
+      activeDataset = toggler.dataset.openDialogId
+    }
+    else if (toggler.dataset.closeDialogId) {
+      activeDataset = toggler.dataset.closeDialogId
+    }
+
+    return document.getElementById(activeDataset) as HTMLDialogElement
+  }
+  private closeByClickOnBackdropEvent(event: PointerEvent) {
     //@ts-expect-error
-    let rect = mouseEv.target.getBoundingClientRect()
+    let rect = event.target.getBoundingClientRect()
 
     let isClickInDialogRect = (
-      rect.top <= mouseEv.clientY
-      && mouseEv.clientY <= rect.top + rect.height
-      && rect.left <= mouseEv.clientX
-      && mouseEv.clientX <= rect.left + rect.width
+      rect.top <= event.clientY
+      && event.clientY <= rect.top + rect.height
+      && rect.left <= event.clientX
+      && event.clientX <= rect.left + rect.width
     )
 
     if (!isClickInDialogRect) {
-      this.closeDialog(mouseEv.target as HTMLDialogElement)
+      this.closeDialog(event)
+    }
+  }
+  private closeOnParentPointerLeaveIfSpecified(toggler: HTMLButtonElement) {
+    if (toggler.dataset.closeOnParentPointerleave != undefined) {
+      let dialog = Dialogs.getDialogByData(toggler)
+
+      toggler.parentElement.addEventListener('pointerleave', event => {
+        this.closeDialog(event, dialog)
+      })
+    }
+  }
+  private static closeAllDialogsIfSpecified(
+    toggler: HTMLButtonElement, dialogs: NodeListOf<HTMLDialogElement>
+  ) {
+    if (toggler.dataset.closeOpenedDialogs == undefined) return
+
+    for (let dialog of dialogs) {
+      dialog.close()
     }
   }
 }

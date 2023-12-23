@@ -1,19 +1,6 @@
 @import url('../../styles/_environment.pcss');
 
 dialog[data-modal-dialog] {
-  @mixin hide;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate3d(-50%, -50%, 0);
-
-  width: 50vw;
-  padding: 20px;
-
-  background: gray;
-
-  transition: all 0.2s ease;
-
   &::backdrop {
     background: rgb(0 0 0 / 30%);
     backdrop-filter: blur(1px);
@@ -23,22 +10,17 @@ dialog[data-modal-dialog] {
   }
 
   &[open] {
-    @mixin show;
-  }
-
-  .contentWrapper {
-    width: 50vw;
-    height: 80vh;
-    background: white;
   }
 }
 
 /* For dialogs like small windows. */
 dialog:not([data-modal-dialog]) {
-  @mixin hide;
-
   &[open] {
-    @mixin show;
+  }
+
+  &:not([open]) {
+    opacity: 0;
+    pointer-events: none;
   }
 }
 
