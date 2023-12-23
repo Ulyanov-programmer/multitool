@@ -1,26 +1,27 @@
 @import url('../../styles/_environment.pcss');
 
-dialog[data-modal-dialog] {
-  &::backdrop {
-    background: rgb(0 0 0 / 30%);
-    backdrop-filter: blur(1px);
+@layer modules {
+  dialog[data-modal-dialog] {
+    &::backdrop {
+      background: rgb(0 0 0 / 30%);
+      backdrop-filter: blur(1px);
+    }
+
+    &:not([open]) {
+    }
+
+    &[open] {
+    }
   }
 
-  &:not([open]) {
-  }
+  /* For dialogs like small windows. */
+  dialog:not([data-modal-dialog]) {
+    &[open] {
+    }
 
-  &[open] {
+    &:not([open]) {
+      pointer-events: none;
+      opacity: 0;
+    }
   }
 }
-
-/* For dialogs like small windows. */
-dialog:not([data-modal-dialog]) {
-  &[open] {
-  }
-
-  &:not([open]) {
-    opacity: 0;
-    pointer-events: none;
-  }
-}
-

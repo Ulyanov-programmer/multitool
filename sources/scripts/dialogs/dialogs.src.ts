@@ -85,6 +85,7 @@ export default class Dialogs {
 
     if (!dialog.dataset.modalDialog) {
       dialog.show()
+      toggler.setAttribute('aria-expanded', 'true')
       return
     }
 
@@ -93,6 +94,8 @@ export default class Dialogs {
     this.toggleBodyScroll(false, dialog)
     dialog.showModal()
     dialog.classList.add(this.dialogModalStateActiveClass)
+
+    toggler.setAttribute('aria-expanded', 'true')
 
     if (this.closeByClickOnBackdrop) {
       dialog.addEventListener('click', this.closeByClickOnBackdropEvent.bind(this))
@@ -118,6 +121,7 @@ export default class Dialogs {
       Dialogs.closeAllDialogsIfSpecified(toggler, Dialogs.dialogWindowElements)
 
       dialog.close()
+      toggler.setAttribute('aria-expanded', 'false')
       return
     }
 
@@ -126,6 +130,8 @@ export default class Dialogs {
     dialog.close()
     dialog.classList.remove(this.dialogModalStateActiveClass)
     this.toggleBodyScroll(true, dialog)
+
+    toggler.setAttribute('aria-expanded', 'false')
 
     if (this.closeByClickOnBackdrop) {
       dialog.removeEventListener('click', this.closeByClickOnBackdropEvent.bind(this))
