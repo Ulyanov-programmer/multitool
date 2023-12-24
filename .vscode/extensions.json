@@ -6,6 +6,7 @@
     "redhat.vscode-yaml",
     "arcanis.vscode-zipfs",
     "ionutvmi.path-autocomplete",
-    "sonarsource.sonarlint-vscode"
+    "sonarsource.sonarlint-vscode",
+    "esbenp.prettier-vscode"
   ]
 }

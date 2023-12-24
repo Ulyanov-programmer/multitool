@@ -26,7 +26,7 @@ export function isNullOrWhiteSpaces(...strings: string[]): boolean {
  * @param timeMs Awaiting time in ms.
  * @returns New `Promise`. Pay no attention to it.
  */
-export function sleep(timeMs: number) {
+export function sleep(timeMs: number): Promise<any> {
   return new Promise(r => setTimeout(r, timeMs))
 }
 export function elementsIsExist(...selectors: string[]): boolean {
