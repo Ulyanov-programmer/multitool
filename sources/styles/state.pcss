@@ -3,7 +3,7 @@
 @layer state {
   :root {
     --content-inline-padding: none;
-  } 
+  }
 
   .centeredContent {
     /* Paddings for site content with default value. */
@@ -37,11 +37,13 @@
 
   img.containImg {
     @mixin size 100%;
+
     object-fit: contain;
   }
 
   img.coverImg {
     @mixin size 100%;
+
     object-fit: cover;
   }
 

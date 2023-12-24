@@ -2,7 +2,7 @@
 
 @layer general {
   .spoiler {
-    /*? Example of usage. Don't forget to connect the dialogs scripts.
+    /* ? Example of usage. Don't forget to connect the dialogs scripts.
     <div class='spoiler'>
       <button type='button'
               data-toggle-dialog-id='spoiler'>
@@ -19,14 +19,14 @@
     > .content {
       display: grid;
 
-      /* You can "ajar" the container by setting a value between 0 and 1 fr. */
+      /* You can "ajar" a content element by setting a value between 0 and 1 fr. */
       grid-template-rows: 0fr;
       transition: grid-template-rows 0.3s ease;
 
       dialog {
         overflow: hidden;
         opacity: 1;
-  
+
         &:not([open]) {
           pointer-events: none;
         }
@@ -38,7 +38,7 @@
     }
 
     > button {
-      &[aria-expanded="true"] {
+      &[aria-expanded='true'] {
         ~ .content {
           grid-template-rows: 1fr;
         }
@@ -72,13 +72,13 @@
 .SubmenuWrapper {
   position: relative;
   width: fit-content;
-    
+
   [data-open-dialog-id] {
   }
-  
+
   [data-close-dialog-id] {
   }
-    
+
   [data-submenu] {
     pointer-events: none;
 
@@ -87,31 +87,30 @@
     top: 100%;
 
     display: block;
-    
+
     width: max-content;
 
     opacity: 0;
     background: white;
-    
+
     transition: all 0.2s ease;
-    
+
     &[open] {
       pointer-events: all;
       opacity: 1;
     }
-    
+
     &.toLeft {
       right: 0;
     }
-    
+
     &.toRight {
       left: 0;
     }
-    
+
     &.toCenter {
       left: 50%;
       transform: translate(-50%, 0);
     }
   }
 }
-
