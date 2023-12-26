@@ -19,6 +19,8 @@
     autoScrollPadding: props.autoScrollPadding,
     tabs: props.tabs,
     stepByStep: props.stepByStep,
+    observerTools: props.observerTools,
+    infiniteScroll: props.infiniteScroll,
     styles: isArray(props.styles) ? props.styles : [],
     scripts: isObject(props.scripts) ? props.scripts : {},
   }
@@ -165,6 +167,13 @@
     <!-- StepByStep -->
     <script type='module'
             src='./scripts/stepByStepBlock/index.js'></script>
+  </if>
+  <if condition='infiniteScroll'>
+    <!-- StepByStep -->
+    <script type='module'
+            src='./scripts/infiniteScroll/index.js'></script>
+    <link rel='stylesheet'
+          href='./scripts/infiniteScroll/index.css'>
   </if>
 
   <!-- /-/ Other stylesheets and scripts for this page -->

@@ -1,0 +1,69 @@
+@import url('../../styles/_environment.pcss');
+
+/* Usage exaple:
+<infinite-scroll>
+  <c-inner>
+    <div>item1</div>
+    <div>item2</div>
+    ...
+  </c-inner>
+</infinite-scroll>
+*/
+
+@layer modules {
+  infinite-scroll {
+    --direction: forwards;
+    --duration: 20s;
+    --gap: 15px;
+
+    display: grid;
+    place-items: center left;
+    width: 40vw;
+
+    &[to-left] {
+      --direction: forwards;
+    }
+
+    &[to-right] {
+      --direction: reverse;
+    }
+
+    c-inner {
+      @mixin flex {
+        flex-flow: row nowrap;
+        gap: var(--gap);
+      }
+
+      > * {
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        flex-wrap: wrap;
+      }
+
+      @media (prefers-reduced-motion: no-preference) {
+        width: fit-content;
+        animation: infinite-scrolling var(--duration) linear infinite
+          var(--direction);
+      }
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      contain: paint;
+      /* Use this to create the effect of smoothly hiding the elements. */
+      mask: linear-gradient(
+        90deg,
+        transparent,
+        rgb(0 0 0 / 100%) 10%,
+        rgb(0 0 0 / 100%) 90%,
+        transparent
+      );
+    }
+
+    @keyframes infinite-scrolling {
+      to {
+        transform: translate3d(calc(-50% - var(--gap) / 2), 0, 0);
+      }
+    }
+  }
+}
