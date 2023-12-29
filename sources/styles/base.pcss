@@ -3,7 +3,7 @@
 @layer base, layout, form, modules, general, state, theme;
 
 @layer base {
-  * {
+  *:not(table, caption, thead, tbody, tfoot, colgroup, tr, th, td) {
     all: unset;
     box-sizing: border-box;
   }
@@ -117,7 +117,8 @@
   h3,
   h4,
   h5,
-  h6 {
+  h6,
+  caption {
     text-wrap: balance;
   }
 
@@ -136,6 +137,44 @@
     );
     color: var(--main-text-color);
     background: var(--background);
+  }
+
+  table-wrapper {
+    overflow-x: auto;
+    display: block;
+    max-width: 100%;
+  }
+
+  table {
+    display: table;
+    border-collapse: collapse;
+    width: 100%;
+    min-width: 700px;
+
+    caption {
+      background: inherit;
+    }
+
+    thead {
+    }
+
+    tbody {
+    }
+
+    tfoot {
+    }
+
+    tr {
+      th,
+      td {
+      }
+
+      th {
+      }
+
+      td {
+      }
+    }
   }
 
   h1 {
