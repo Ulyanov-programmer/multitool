@@ -78,9 +78,7 @@ interface StepByStepArgs {
 export default class StepByStepBlock {
   private stepsContainer: HTMLElement
   private stepBlocks: HTMLCollectionOf<HTMLElement>
-  private prevButtons: NodeListOf<HTMLElement>
-  private nextButtons: NodeListOf<HTMLElement>
-  private statusBlocksSelector: NodeListOf<HTMLElement>
+  private statusBlocks: NodeListOf<HTMLElement>
   private currentActiveBlockIndex: number
   private currentTranslateMultiplier: number
   private transitionTimeout: number
@@ -92,175 +90,156 @@ export default class StepByStepBlock {
     if (!elementIsExistWithLog('StepByStep', arg.stepsContainerSelector, arg.nextButtonsSelector, arg.prevButtonsSelector))
       return
 
-    this.stepsContainer = document.querySelector(arg.stepsContainerSelector)
-    this.stepBlocks = this.stepsContainer.children as HTMLCollectionOf<HTMLElement>
-
     this.currentActiveBlockIndex = 0
     this.currentTranslateMultiplier = this.currentActiveBlockIndex
     this.transitionTimeout = arg.transitionTimeout ?? 500
     this.gapPercent = arg.gapPercent ?? 5
     this.checkFunctions = arg.checkFunctions
 
-    this.statusBlocksSelector = document.querySelectorAll(arg.statusBlocksSelector)
-    this.nextButtons = document.querySelectorAll(arg.nextButtonsSelector)
-    this.prevButtons = document.querySelectorAll(arg.prevButtonsSelector)
+    this.initContainer(arg)
+    this.initSteps()
+    this.initButtons(arg)
+    this.initStatusElements(arg)
 
+    arg.form?.formElement?.addEventListener('submit', submitEvent =>
+      arg.form.onSubmitFunction(submitEvent)
+    )
+
+    this.statusBlocks[this.currentActiveBlockIndex]?.classList.add('active')
+
+    this.initRow()
+  }
+
+
+  private initButtons(arg: StepByStepArgs) {
+    for (let nextButton of document.querySelectorAll(arg.nextButtonsSelector)) {
+      nextButton.addEventListener('click', this.nextButtonEventHandler.bind(this))
+    }
+    for (let prevButton of document.querySelectorAll(arg.prevButtonsSelector)) {
+      prevButton.addEventListener('click', this.togglePrevFormBlock.bind(this))
+    }
+  }
+  private initContainer(arg: StepByStepArgs) {
+    this.stepsContainer = document.querySelector(arg.stepsContainerSelector)
 
     this.stepsContainer.style.display = 'flex'
     this.stepsContainer.style.flexFlow = 'row nowrap'
     this.stepsContainer.style.overflowX = 'hidden'
+    this.stepsContainer.style.height = '100%'
+  }
+  private initSteps() {
+    this.stepBlocks = this.stepsContainer.children as HTMLCollectionOf<HTMLElement>
 
-    for (let stepBlock of this.stepBlocks) {
-      stepBlock.style.transition = `transform ${this.transitionTimeout}ms ease`
+    for (let step of this.stepBlocks) {
+      step.style.width = '100%'
+      step.style.height = '100%'
+      step.style.flexShrink = '0'
+      step.style.transition = `transform ${this.transitionTimeout}ms ease`
     }
-    for (let nextButton of this.nextButtons) {
-      nextButton.addEventListener('click', this.nextButtonEventHandler.bind(this))
-    }
-    for (let prevButton of this.prevButtons) {
-      prevButton.addEventListener('click', this.togglePrevFormBlock.bind(this))
-    }
-
-    arg.form?.formElement.addEventListener('submit', (submitEvent: SubmitEvent) =>
-      arg.form?.onSubmitFunction(submitEvent)
-    )
-
-    this.statusBlocksSelector[this.currentActiveBlockIndex]?.classList.add('active')
-
-
-    this.initFormBlocksRow()
+  }
+  private initStatusElements(arg: StepByStepArgs) {
+    this.statusBlocks = document.querySelectorAll(arg.statusBlocksSelector)
   }
 
-  private initFormBlocksRow() {
+  private initRow() {
     let activeElement = this.stepBlocks[this.currentActiveBlockIndex]
     let nextElement = this.stepBlocks[this.currentActiveBlockIndex + 1]
 
-    if (nextElement == undefined)
-      return
+    if (!nextElement) return
 
-    activeElement.style.transform = `translateX(0%)`
+    activeElement.style.transform = 'translateX(0%)'
     nextElement.style.transform = `translateX(${this.gapPercent}%)`
   }
 
 
   private toggleNextFormBlock() {
-    let activeElement = this.getActiveBlock()
-    let nextElement = this.getSecondBlock(false)
-    let afterNextElement = this.getThirdBlock(false)
+    let activeElement = this.getBlock(0),
+      nextElement = this.getBlock(1, false),
+      afterNextElement = this.getBlock(2, false)
 
-    let activeDependentBlock = this.statusBlocksSelector[this.currentActiveBlockIndex + 1]
-
-    if (nextElement == undefined)
-      return
-
+    if (!nextElement) return
 
     this.currentTranslateMultiplier += 1
 
-    activeElement.style.transform = `translateX(-${this.currentTranslateMultiplier * 100 + this.gapPercent}%)`
-    if (activeDependentBlock) {
-      activeDependentBlock.classList.add('active')
-    }
+    activeElement.style.transform =
+      `translateX(-${this.currentTranslateMultiplier * 100 + this.gapPercent}%)`
+
+    this.statusBlocks[this.currentActiveBlockIndex + 1]?.classList.add('active')
 
     this.currentActiveBlockIndex += 1
 
-    nextElement.style.transform = `translateX(-${this.currentTranslateMultiplier * 100}%)`
+    nextElement.style.transform =
+      `translateX(-${this.currentTranslateMultiplier * 100}%)`
 
     if (afterNextElement) {
-      afterNextElement.style.transform = `translateX(-${this.currentTranslateMultiplier * 100 - this.gapPercent}%)`
+      afterNextElement.style.transform =
+        `translateX(-${this.currentTranslateMultiplier * 100 - this.gapPercent}%)`
     }
   }
   private togglePrevFormBlock() {
-    let activeElement = this.getActiveBlock()
-    let prevElement = this.getSecondBlock(true)
-    let beforePrevElement = this.getThirdBlock(true)
+    let activeElement = this.getBlock(0),
+      prevElement = this.getBlock(1, true),
+      beforePrevElement = this.getBlock(2, true)
 
-    let activeDependentBlock = this.statusBlocksSelector[this.currentActiveBlockIndex]
-
-    if (prevElement == undefined)
-      return
+    if (!prevElement) return
 
     this.currentTranslateMultiplier -= 1
 
-    let activeElementTransform = this.currentTranslateMultiplier * 100 - this.gapPercent
+    let activeElementTransform =
+      this.currentTranslateMultiplier * 100 - this.gapPercent
 
     if (activeElementTransform < 0) {
       activeElementTransform = this.gapPercent
       activeElement.style.transform = `translateX(${activeElementTransform}%)`
-    } else {
+    }
+    else {
       activeElement.style.transform = `translateX(-${activeElementTransform}%)`
     }
 
-    if (activeDependentBlock) {
-      activeDependentBlock.classList.remove('active')
-    }
-
+    this.statusBlocks[this.currentActiveBlockIndex]?.classList.remove('active')
 
     this.currentActiveBlockIndex -= 1
 
-    prevElement.style.transform = `translateX(-${this.currentTranslateMultiplier * 100}%)`
+    prevElement.style.transform =
+      `translateX(-${this.currentTranslateMultiplier * 100}%)`
 
     if (beforePrevElement) {
-      beforePrevElement.style.transform = `translateX(-${this.currentTranslateMultiplier * 100 + this.gapPercent}%)`
+      beforePrevElement.style.transform =
+        `translateX(-${this.currentTranslateMultiplier * 100 + this.gapPercent}%)`
     }
   }
 
   private nextButtonEventHandler() {
     // Pulls the validation function intended for the currently active block
     let func = this.getFunctionForCurrentActiveBlock()
-    let result = func()
+    let result = func ? func() : true
 
     // If the result of the function is a promise
-    if (typeof (result) != 'boolean') {
+    if (typeof result != 'boolean') {
       result.then(
-        (promiseValue: boolean) => {
-          if (promiseValue) this.toggleNextFormBlock()
-        }
+        promiseValue => promiseValue ? this.toggleNextFormBlock() : false
       )
     }
-    else if (result) {
-      this.toggleNextFormBlock()
-    }
+    else if (result) this.toggleNextFormBlock()
   }
 
 
-  private getActiveBlock(): HTMLElement {
-    let activeElement = this.stepBlocks[this.currentActiveBlockIndex]
+  private getBlock(howManyBlocksToSkip: number, prevOrNextElement?: boolean): HTMLElement {
+    let block = prevOrNextElement
+      ? this.stepBlocks[this.currentActiveBlockIndex - howManyBlocksToSkip]
+      : this.stepBlocks[this.currentActiveBlockIndex + howManyBlocksToSkip]
 
-    return activeElement
-  }
-  private getSecondBlock(prevOrNextElement: boolean): HTMLElement {
-    let multiplier = this.returnMultiplier(prevOrNextElement)
-
-    let prevElement = this.stepBlocks[eval(`${this.currentActiveBlockIndex} ${multiplier} 1`)]
-
-    return prevElement
-  }
-  private getThirdBlock(prevOrNextElement: boolean): HTMLElement {
-    let multiplier = this.returnMultiplier(prevOrNextElement)
-
-
-    let beforePrevElement = this.stepBlocks[eval(`${this.currentActiveBlockIndex} ${multiplier} 2`)]
-
-    return beforePrevElement
+    return block
   }
   private getFunctionForCurrentActiveBlock(): Function {
-    if (this.currentActiveBlockIndex == this.stepBlocks.length - 1 &&
-      this.checkFunctions['final']) {
-      return this.checkFunctions['final']
+    if (!this.checkFunctions) {
+      return undefined
     }
-    else if (this.checkFunctions == undefined) {
-      return () => true
+    else if (this.currentActiveBlockIndex == this.stepBlocks.length - 1) {
+      return this.checkFunctions['final'] ?? undefined
     }
-    else {
-      return this.checkFunctions[this.currentActiveBlockIndex]
-    }
-  }
 
-  private returnMultiplier(prevOrNextElement: boolean): string {
-    if (prevOrNextElement) {
-      return '-'
-    } else {
-      return '+'
-    }
+    return this.checkFunctions[this.currentActiveBlockIndex]
   }
 }
 
