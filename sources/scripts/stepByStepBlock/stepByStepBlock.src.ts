@@ -1,4 +1,11 @@
-import { elementIsExistWithLog } from '../general.js'
+import { elementIsExistWithLog, sleep } from '../general.js'
+
+export enum Direction {
+  toRight,
+  toLeft,
+  toTop,
+  toBottom,
+}
 
 /**
  * The function that will be executed before switching steps.
@@ -36,7 +43,9 @@ interface StepByStepArgs {
    * Specify the value in milliseconds if you want to specify the speed at which a step will be taken.
    * @defaultValue `500` (500ms)
    */
-  transitionTimeout: number
+  transitionDuration?: number
+
+  transitionTimingFunction?: string
   /**
    * If you use certain elements to indicate which step is active, specify their selector.
    */
@@ -74,17 +83,25 @@ interface StepByStepArgs {
    * Add if your block with steps is a form and you want a certain function to be triggered when submitting the form.
    */
   form?: Form
+
+  direction?: Direction
+  switchCurrentBlockByClickOnStatus?: boolean
 }
 export default class StepByStepBlock {
   private stepsContainer: HTMLElement
   private stepBlocks: HTMLCollectionOf<HTMLElement>
   private statusBlocks: NodeListOf<HTMLElement>
+  private prevButtons: NodeListOf<HTMLButtonElement>
+  private nextButtons: NodeListOf<HTMLButtonElement>
   private currentActiveBlockIndex: number
   private currentTranslateMultiplier: number
-  private transitionTimeout: number
+  private transitionDuration: number
   private gapPercent: number
   private checkFunctions: checkFunctions
-
+  private direction: Direction
+  private transitionTimingFunction: string
+  private readonly activeStepClass: string = 'active-step'
+  private readonly completedStepClass: string = 'completed'
 
   constructor(arg: StepByStepArgs) {
     if (!elementIsExistWithLog('StepByStep', arg.stepsContainerSelector, arg.nextButtonsSelector, arg.prevButtonsSelector))
@@ -92,9 +109,14 @@ export default class StepByStepBlock {
 
     this.currentActiveBlockIndex = 0
     this.currentTranslateMultiplier = this.currentActiveBlockIndex
-    this.transitionTimeout = arg.transitionTimeout ?? 500
+
+    this.transitionDuration = window.matchMedia('(prefers-reduced-motion: reduce)')
+      .matches ? 0 : arg.transitionDuration ?? 500
+
     this.gapPercent = arg.gapPercent ?? 5
     this.checkFunctions = arg.checkFunctions
+    this.direction = arg.direction ?? Direction.toRight
+    this.transitionTimingFunction = arg.transitionTimingFunction ?? 'ease-in-out'
 
     this.initContainer(arg)
     this.initSteps()
@@ -105,27 +127,53 @@ export default class StepByStepBlock {
       arg.form.onSubmitFunction(submitEvent)
     )
 
-    this.statusBlocks[this.currentActiveBlockIndex]?.classList.add('active')
+    this.statusBlocks[this.currentActiveBlockIndex]?.classList.add(this.activeStepClass)
 
-    this.initRow()
+    this.initStepsByDirection()
   }
 
 
   private initButtons(arg: StepByStepArgs) {
-    for (let nextButton of document.querySelectorAll(arg.nextButtonsSelector)) {
-      nextButton.addEventListener('click', this.nextButtonEventHandler.bind(this))
+    this.nextButtons = document.querySelectorAll(arg.nextButtonsSelector)
+    this.prevButtons = document.querySelectorAll(arg.prevButtonsSelector)
+
+    for (let nextButton of this.nextButtons) {
+      nextButton.addEventListener('click', this.toNextStepHandler.bind(this))
     }
-    for (let prevButton of document.querySelectorAll(arg.prevButtonsSelector)) {
-      prevButton.addEventListener('click', this.togglePrevFormBlock.bind(this))
+
+    this.changeInactiveButtonsIfFirstOrLastStep()
+
+    for (let prevButton of this.prevButtons) {
+      prevButton.addEventListener('click', this.toPreviousStepHandler.bind(this))
     }
   }
   private initContainer(arg: StepByStepArgs) {
     this.stepsContainer = document.querySelector(arg.stepsContainerSelector)
 
     this.stepsContainer.style.display = 'flex'
-    this.stepsContainer.style.flexFlow = 'row nowrap'
-    this.stepsContainer.style.overflowX = 'hidden'
-    this.stepsContainer.style.height = '100%'
+    this.stepsContainer.style.width = '100%'
+    this.stepsContainer.style.flexWrap = 'nowrap'
+
+    if (this.direction == Direction.toRight || this.direction == Direction.toLeft)
+      this.stepsContainer.style.overflowX = 'hidden'
+    else
+      this.stepsContainer.style.overflowY = 'hidden'
+
+    switch (this.direction) {
+      case Direction.toLeft:
+        this.stepsContainer.style.flexDirection = 'row-reverse'
+        break
+      case Direction.toBottom:
+        this.stepsContainer.style.flexDirection = 'column'
+        break
+      case Direction.toTop:
+        this.stepsContainer.style.flexDirection = 'column-reverse'
+        break
+
+      default:
+        this.stepsContainer.style.flexDirection = 'row'
+        break
+    }
   }
   private initSteps() {
     this.stepBlocks = this.stepsContainer.children as HTMLCollectionOf<HTMLElement>
@@ -134,82 +182,125 @@ export default class StepByStepBlock {
       step.style.width = '100%'
       step.style.height = '100%'
       step.style.flexShrink = '0'
-      step.style.transition = `transform ${this.transitionTimeout}ms ease`
+      step.style.flexGrow = '1'
+      step.style.transition =
+        `transform ${this.transitionDuration}ms ${this.transitionTimingFunction}`
+
+      step.setAttribute('aria-current', 'false')
     }
+
+    this.stepBlocks[0].setAttribute('aria-current', 'true')
   }
   private initStatusElements(arg: StepByStepArgs) {
     this.statusBlocks = document.querySelectorAll(arg.statusBlocksSelector)
+
+    if (!arg.switchCurrentBlockByClickOnStatus) return
+
+    for (let i = 0; i < this.statusBlocks.length; i++) {
+      if (!this.statusBlocks[i].dataset.controls) {
+        this.statusBlocks[i].dataset.controls = i.toString()
+      }
+
+      this.statusBlocks[i].role = 'button'
+      this.statusBlocks[i].addEventListener('click', this.statusButtonEventHandler.bind(this))
+      this.toggleCompletedStatusBlock(this.statusBlocks[i], false)
+    }
   }
 
-  private initRow() {
+  private initStepsByDirection() {
     let activeElement = this.stepBlocks[this.currentActiveBlockIndex]
     let nextElement = this.stepBlocks[this.currentActiveBlockIndex + 1]
 
     if (!nextElement) return
 
-    activeElement.style.transform = 'translateX(0%)'
-    nextElement.style.transform = `translateX(${this.gapPercent}%)`
+    if (this.direction == Direction.toRight || this.direction == Direction.toLeft)
+      activeElement.style.transform = 'translateX(0%)'
+    else
+      activeElement.style.transform = 'translateY(0%)'
+
+    switch (this.direction) {
+      case Direction.toLeft:
+        nextElement.style.transform = `translateX(-${this.gapPercent}%)`
+        break
+      case Direction.toTop:
+        nextElement.style.transform = `translateY(-${this.gapPercent}%)`
+        break
+      case Direction.toBottom:
+        nextElement.style.transform = `translateY(${this.gapPercent}%)`
+        break
+
+      default:
+        nextElement.style.transform = `translateX(${this.gapPercent}%)`
+        break
+    }
   }
 
+  private toggleToNextBlock() {
+    let firstBlock = this.getBlock(0),
+      nextBlock = this.getBlock(1, false)
 
-  private toggleNextFormBlock() {
-    let activeElement = this.getBlock(0),
-      nextElement = this.getBlock(1, false),
-      afterNextElement = this.getBlock(2, false)
-
-    if (!nextElement) return
+    if (!nextBlock) return
 
     this.currentTranslateMultiplier += 1
+    firstBlock.setAttribute('aria-current', 'false')
+    firstBlock.classList.remove(this.activeStepClass)
+    firstBlock.classList.add(this.completedStepClass)
 
-    activeElement.style.transform =
-      `translateX(-${this.currentTranslateMultiplier * 100 + this.gapPercent}%)`
+    nextBlock.setAttribute('aria-current', 'true')
+    nextBlock.classList.add(this.activeStepClass)
 
-    this.statusBlocks[this.currentActiveBlockIndex + 1]?.classList.add('active')
+    this.moveSteps(firstBlock, nextBlock, this.getBlock(2, false), true)
 
-    this.currentActiveBlockIndex += 1
+    this.toggleCompletedStatusBlock(
+      this.statusBlocks[this.currentActiveBlockIndex] ?? undefined,
+      true
+    )
 
-    nextElement.style.transform =
-      `translateX(-${this.currentTranslateMultiplier * 100}%)`
-
-    if (afterNextElement) {
-      afterNextElement.style.transform =
-        `translateX(-${this.currentTranslateMultiplier * 100 - this.gapPercent}%)`
-    }
+    this.toggleActiveStatusBlock(true)
+    this.changeInactiveButtonsIfFirstOrLastStep()
   }
-  private togglePrevFormBlock() {
-    let activeElement = this.getBlock(0),
-      prevElement = this.getBlock(1, true),
-      beforePrevElement = this.getBlock(2, true)
+  private toggleToPreviousBlock() {
+    let activeBlock = this.getBlock(0),
+      prevBlock = this.getBlock(1, true)
 
-    if (!prevElement) return
+    if (!prevBlock) return
 
     this.currentTranslateMultiplier -= 1
+    activeBlock.setAttribute('aria-current', 'false')
+    activeBlock.classList.remove(this.activeStepClass)
 
-    let activeElementTransform =
-      this.currentTranslateMultiplier * 100 - this.gapPercent
+    prevBlock.setAttribute('aria-current', 'true')
+    prevBlock.classList.add(this.activeStepClass)
+    prevBlock.classList.remove(this.completedStepClass)
 
-    if (activeElementTransform < 0) {
-      activeElementTransform = this.gapPercent
-      activeElement.style.transform = `translateX(${activeElementTransform}%)`
-    }
-    else {
-      activeElement.style.transform = `translateX(-${activeElementTransform}%)`
-    }
+    this.moveSteps(activeBlock, prevBlock, this.getBlock(2, true), false)
 
-    this.statusBlocks[this.currentActiveBlockIndex]?.classList.remove('active')
+    this.toggleActiveStatusBlock(false)
 
-    this.currentActiveBlockIndex -= 1
+    this.toggleCompletedStatusBlock(
+      this.statusBlocks[this.currentActiveBlockIndex] ?? undefined,
+      false
+    )
 
-    prevElement.style.transform =
-      `translateX(-${this.currentTranslateMultiplier * 100}%)`
+    this.changeInactiveButtonsIfFirstOrLastStep()
+  }
+  private moveSteps(
+    activeElement: HTMLElement,
+    nextElement: HTMLElement,
+    afterNextElement: HTMLElement,
+    moveTo: boolean
+  ) {
+    let [activeItemTranslate, nextItemTranslate, nextAfterNextTranslate] =
+      this.getTranslateValuesForSteps(moveTo)
 
-    if (beforePrevElement) {
-      beforePrevElement.style.transform =
-        `translateX(-${this.currentTranslateMultiplier * 100 + this.gapPercent}%)`
-    }
+    activeElement.style.transform = activeItemTranslate
+    nextElement.style.transform = nextItemTranslate
+
+    if (afterNextElement)
+      afterNextElement.style.transform = nextAfterNextTranslate
   }
 
-  private nextButtonEventHandler() {
+  private toNextStepHandler() {
     // Pulls the validation function intended for the currently active block
     let func = this.getFunctionForCurrentActiveBlock()
     let result = func ? func() : true
@@ -217,13 +308,181 @@ export default class StepByStepBlock {
     // If the result of the function is a promise
     if (typeof result != 'boolean') {
       result.then(
-        promiseValue => promiseValue ? this.toggleNextFormBlock() : false
+        promiseValue => promiseValue ? this.toggleToNextBlock() : false
       )
     }
-    else if (result) this.toggleNextFormBlock()
+    else if (result) this.toggleToNextBlock()
+
+    this.changeInactiveButtonsIfFirstOrLastStep()
+  }
+  private toPreviousStepHandler() {
+    this.changeInactiveButtonsIfFirstOrLastStep()
+    this.toggleToPreviousBlock()
+  }
+  private async statusButtonEventHandler(event: MouseEvent) {
+    let target = event.target as HTMLElement
+    let delta: number
+    let controlsSmallerThanCurrentIndex =
+      parseInt(target.dataset.controls) < this.currentActiveBlockIndex
+
+    if (parseInt(target.dataset.controls) == this.currentActiveBlockIndex) return
+
+    delta = controlsSmallerThanCurrentIndex
+      ? this.currentActiveBlockIndex - (parseInt(target.dataset.controls))
+      : delta = parseInt(target.dataset.controls) - this.currentActiveBlockIndex
+
+    if (delta > 1) this.setNullTransitionForSteps()
+
+    for (let i = 0; i < delta; i++) {
+      controlsSmallerThanCurrentIndex
+        ? this.toggleToPreviousBlock()
+        : this.toNextStepHandler()
+    }
+
+    await sleep(100)
+    this.setDefaultTransitionForSteps()
   }
 
+  private changeInactiveButtonsIfFirstOrLastStep() {
+    if (this.currentActiveBlockIndex == 0) {
+      this.disableButtons(this.prevButtons)
+    }
+    else if (this.currentActiveBlockIndex == this.stepBlocks.length - 1) {
+      this.disableButtons(this.nextButtons)
+    }
+    // if no button should be disabled but there are disabled ones
+    else if (this.prevButtons[0].disabled) {
+      this.enableButtons(this.prevButtons)
+    }
+    else if (this.nextButtons[0].disabled) {
+      this.enableButtons(this.nextButtons)
+    }
+  }
+  private enableButtons(buttons: NodeListOf<HTMLButtonElement>) {
+    for (let button of buttons) {
+      button.disabled = false
+      button.style.pointerEvents = ''
+    }
+  }
+  private disableButtons(buttons: NodeListOf<HTMLButtonElement>) {
+    for (let button of buttons) {
+      button.disabled = true
+      button.style.pointerEvents = 'none'
+    }
+  }
 
+  private toggleActiveStatusBlock(toggleToNextOrPrev: boolean) {
+    this.statusBlocks[this.currentActiveBlockIndex]?.
+      classList.remove(this.activeStepClass)
+
+    toggleToNextOrPrev
+      ? this.currentActiveBlockIndex += 1
+      : this.currentActiveBlockIndex -= 1
+
+    this.statusBlocks[this.currentActiveBlockIndex]?.
+      classList.add(this.activeStepClass)
+  }
+  private toggleCompletedStatusBlock(block: HTMLElement, toggleTo: boolean) {
+    if (!block) return
+
+    if (toggleTo) {
+      block.classList.add(this.completedStepClass)
+      block.style.pointerEvents = ''
+
+      return
+    }
+
+    block.classList.remove(this.completedStepClass)
+    block.style.pointerEvents = 'none'
+  }
+
+  private getTranslateValuesForSteps(toggleTo: boolean): Array<string> {
+    let activeElementTransform =
+      this.currentTranslateMultiplier * 100 - this.gapPercent
+
+    if (toggleTo) {
+      switch (this.direction) {
+        case Direction.toLeft:
+          return [
+            // translate for the active item
+            `translateX(${this.currentTranslateMultiplier * 100 + this.gapPercent}%)`,
+            // translate for next item
+            `translateX(${this.currentTranslateMultiplier * 100}%)`,
+            // translate for the next after the next item
+            `translateX(${this.currentTranslateMultiplier * 100 - this.gapPercent}%)`
+          ]
+          break
+        case Direction.toBottom:
+          return [
+            // translate for the active item
+            `translateY(-${this.currentTranslateMultiplier * 100 + this.gapPercent}%)`,
+            // translate for next item
+            `translateY(-${this.currentTranslateMultiplier * 100}%)`,
+            // translate for the next after the next item
+            `translateY(-${this.currentTranslateMultiplier * 100 - this.gapPercent}%)`
+          ]
+          break
+        case Direction.toTop:
+          return [
+            // translate for the active item
+            `translateY(${this.currentTranslateMultiplier * 100 + this.gapPercent}%)`,
+            // translate for next item
+            `translateY(${this.currentTranslateMultiplier * 100}%)`,
+            // translate for the next after the next item
+            `translateY(${this.currentTranslateMultiplier * 100 - this.gapPercent}%)`
+          ]
+          break
+
+        default:
+          return [
+            `translateX(-${this.currentTranslateMultiplier * 100 + this.gapPercent}%)`,
+            `translateX(-${this.currentTranslateMultiplier * 100}%)`,
+            `translateX(-${this.currentTranslateMultiplier * 100 - this.gapPercent}%)`
+          ]
+          break
+      }
+    }
+
+    switch (this.direction) {
+      case Direction.toLeft:
+        return [
+          activeElementTransform < 0
+            ? `translateX(-${this.gapPercent}%)`
+            : `translateX(${activeElementTransform}%)`,
+          `translateX(${this.currentTranslateMultiplier * 100}%)`,
+          `translateX(${this.currentTranslateMultiplier * 100 + this.gapPercent}%)`
+        ]
+        break
+      case Direction.toBottom:
+        return [
+          activeElementTransform < 0
+            ? `translateY(${this.gapPercent}%)`
+            : `translateY(-${activeElementTransform}%)`,
+          `translateY(-${this.currentTranslateMultiplier * 100}%)`,
+          `translateY(-${this.currentTranslateMultiplier * 100 + this.gapPercent}%)`
+        ]
+        break
+      case Direction.toTop:
+        return [
+          activeElementTransform < 0
+            ? `translateY(-${this.gapPercent}%)`
+            : `translateY(${activeElementTransform}%)`,
+          `translateY(${this.currentTranslateMultiplier * 100}%)`,
+          `translateY(${this.currentTranslateMultiplier * 100 + this.gapPercent}%)`
+        ]
+        break
+
+      default:
+        return [
+          activeElementTransform < 0
+            ? `translateX(${this.gapPercent}%)`
+            : `translateX(-${activeElementTransform}%)`,
+          `translateX(-${this.currentTranslateMultiplier * 100}%)`,
+          `translateX(-${this.currentTranslateMultiplier * 100 + this.gapPercent}%)`
+        ]
+        break
+    }
+  }
   private getBlock(howManyBlocksToSkip: number, prevOrNextElement?: boolean): HTMLElement {
     let block = prevOrNextElement
       ? this.stepBlocks[this.currentActiveBlockIndex - howManyBlocksToSkip]
@@ -240,6 +499,17 @@ export default class StepByStepBlock {
     }
 
     return this.checkFunctions[this.currentActiveBlockIndex]
+  }
+  private setNullTransitionForSteps() {
+    for (let step of this.stepBlocks) {
+      step.style.transitionDuration = `0ms`
+    }
+  }
+  private setDefaultTransitionForSteps() {
+    for (let step of this.stepBlocks) {
+      step.style.transitionDuration = this.transitionDuration + 'ms'
+      step.style.transitionTimingFunction = this.transitionTimingFunction
+    }
   }
 }
 
