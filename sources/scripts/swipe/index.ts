@@ -1,15 +1,14 @@
-import SwipeElement, { ChangePlane } from './swipe.src.js'
+import SwipeArea, { ChangePlane } from './swipe.src.js'
 
-new SwipeElement({
-  touchStartAreaSelector: '[data-swipe-area]',
-  swipeableElementSelector: '.element',
+new SwipeArea({
+  selector: `[for-element='some_id']`,
 
   changePlane: ChangePlane.ToLeft,
   swipeSensitivity: 0.5,
-  maxWorkWidth: 5000,
+  maxWorkWidth: 768,
 
   isSwipedClass: 'isSwiped',
-  isSwipedForAreaClass: 'isSwipedArea',
+  isSwipedAreaClass: 'isSwiped',
 
   // actionOnOpening(openedElement) {
   // },

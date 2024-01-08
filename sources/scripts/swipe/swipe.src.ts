@@ -17,15 +17,9 @@ enum ChangeOrientation {
   Horizontal,
 }
 
-export type SwipeElementArgs = {
-  /** 
-   * The selector of the element by which the swipe is supposed to be.
-   */
-  touchStartAreaSelector: string
-  /**
-   * The element that will be displayed after the full swipe.
-   */
-  swipeableElementSelector: string
+export type SwipeAreaArgs = {
+
+  selector: string
   /** 
    * Which way you need to swipe your finger to make the element appear.
    */
@@ -41,27 +35,25 @@ export type SwipeElementArgs = {
   maxWorkWidth: number
   transition?: string
   isSwipedClass?: string
-  isSwipedForAreaClass?: string
+  isSwipedAreaClass?: string
   actionOnOpening?: (openedElement: HTMLElement) => any
   actionOnClosing?: (closedElement: HTMLElement) => any
 }
 /**
  * Version of arguments for Swipe Element with some optional versions fields.
- * @remark optional fields: `touchStartAreaSelector` and `swipeableElementSelector`
+ * @remark optional fields: `forElementId`
  */
-export type ExportSwipeElementArgs = Omit<
-  SwipeElementArgs,
-  'touchStartAreaSelector' |
-  'swipeableElementSelector'
+export type ExportSwipeAreaArgs = Omit<
+  SwipeAreaArgs,
+  'forElementId'
 > &
 {
-  touchStartAreaSelector?: string
-  swipeableElementSelector?: string
+  forElementId?: string
 }
 
-export default class SwipeElement {
+export default class SwipeArea {
   public isSwipedClass: string
-  public isSwipedForAreaClass: string
+  public isSwipedAreaClass: string
   public actionOnOpening: (openedElement: HTMLElement) => any
   public actionOnClosing: (closedElement: HTMLElement) => any
   private touchAreaElement: HTMLElement
@@ -84,21 +76,15 @@ export default class SwipeElement {
   private isElementSwiped: boolean = false
 
 
-  constructor(arg: SwipeElementArgs) {
-    if (!elementIsExistWithLog(arg.touchStartAreaSelector, arg.swipeableElementSelector)) {
-      console.log('[SwipeElement] Some elements is not exist!')
-      return
-    }
+  constructor(arg: SwipeAreaArgs) {
+    if (!elementIsExistWithLog(arg.selector)) return
 
     this.isSwipedClass = arg.isSwipedClass ?? 'isSwiped'
-    this.isSwipedForAreaClass = arg.isSwipedForAreaClass ?? 'isSwiped'
+    this.isSwipedAreaClass = arg.isSwipedAreaClass ?? 'isSwiped'
     this.actionOnOpening = arg.actionOnOpening
     this.actionOnClosing = arg.actionOnClosing
 
-    this.touchAreaElement = document.querySelector(arg.touchStartAreaSelector)
-    this.touchAreaElement.style.touchAction = 'none'
-    this.touchAreaElement.style.cursor = 'grab'
-    this.touchAreaElement.style.userSelect = 'none'
+    this.touchAreaElement = document.querySelector(arg.selector)
 
     this.changePlane = arg.changePlane
 
@@ -108,15 +94,18 @@ export default class SwipeElement {
       this.changeOrientation = ChangeOrientation.Vertical
     }
 
-    this.swipeableElement = document.querySelector(arg.swipeableElementSelector)
-    this.swipeableElement.style.transition = arg.transition ?? 'transform 300ms ease'
+    this.swipeableElement =
+      document.getElementById(this.touchAreaElement.getAttribute('for-element'))
+
+    this.swipeableElement.style.transition = arg.transition ?? 'translate 300ms ease'
+
     this.setStartPositionStateForSwipeableElement()
+
     this.swipeSensitivity = arg.swipeSensitivity
     this.maxWorkWidth = arg.maxWorkWidth
 
     this.minSwipeWidth = Math.trunc(this.swipeableElement.clientWidth * this.swipeSensitivity)
     this.minSwipeHeight = Math.trunc(this.swipeableElement.clientHeight * this.swipeSensitivity)
-
 
     this.checkMaxWorkWidth()
     window.addEventListener('resize', this.checkMaxWorkWidth.bind(this))
@@ -171,17 +160,17 @@ export default class SwipeElement {
   private setEndTranslateStateForSwipeableElement() {
     if (this.changeOrientation == ChangeOrientation.Horizontal) {
       if (this.changePlane == ChangePlane.ToLeft) {
-        this.swipeableElement.style.transform = 'translate3d(-100%, 0, 0)'
+        this.swipeableElement.style.translate = '-100% 0 0'
       }
       else if (this.changePlane == ChangePlane.ToRight) {
-        this.swipeableElement.style.transform = 'translate3d(100%, 0, 0)'
+        this.swipeableElement.style.translate = '100% 0 0'
       }
     }
     else if (this.changePlane == ChangePlane.ToBottom) {
-      this.swipeableElement.style.transform = 'translate3d(0, 100%, 0)'
+      this.swipeableElement.style.translate = '0 100% 0'
     }
     else if (this.changePlane == ChangePlane.ToTop) {
-      this.swipeableElement.style.transform = 'translate3d(0, -100%, 0)'
+      this.swipeableElement.style.translate = '0 -100% 0'
     }
   }
 
@@ -215,22 +204,21 @@ export default class SwipeElement {
     )
   }
   private swipeEnd(changeElementStateTo: boolean, isSwipeNotFully?: boolean) {
-    if (changeElementStateTo) {
-      this.setEndTranslateStateForSwipeableElement()
-    } else {
-      this.swipeableElement.style.transform = ''
-    }
+    changeElementStateTo
+      ? this.setEndTranslateStateForSwipeableElement()
+      : this.swipeableElement.style.translate = ''
 
     window.removeEventListener('pointermove', this.pointerMoveHandler)
 
     this.swipeableElement.style.userSelect = ''
-    this.touchAreaElement.style.cursor = 'grab'
+    this.touchAreaElement.style.cursor = ''
+
     document.documentElement.style.cursor = ''
     window.removeEventListener('pointerup', this.swipeEndHandler)
 
     if (!isSwipeNotFully) {
       this.swipeableElement.classList.toggle(this.isSwipedClass)
-      this.touchAreaElement.classList.toggle(this.isSwipedForAreaClass)
+      this.touchAreaElement.classList.toggle(this.isSwipedAreaClass)
       this.isElementSwiped = !this.isElementSwiped
 
       if (changeElementStateTo) {
@@ -245,8 +233,7 @@ export default class SwipeElement {
     if (!this.checkSwipeableElementContainActive()) {
       if (!this.isSwipeDirectionCorrectXAxis(false)) return
 
-      this.swipeableElement.style.transform = `translate3d(
-				${delta}px, ${this.startY}px, 0)`
+      this.swipeableElement.style.translate = `${delta}px ${this.startY}px 0`
 
       if (this.isDeltaMoreThanMinValue(delta)) {
         this.swipeEnd(true)
@@ -256,16 +243,11 @@ export default class SwipeElement {
       // ? If the swipe goes for a visible element
       if (!this.isSwipeDirectionCorrectXAxis(true)) return
 
-      let result: number
+      let result = this.changePlane == ChangePlane.ToRight
+        ? delta + this.swipeableElement.clientWidth
+        : delta - this.swipeableElement.clientWidth
 
-      if (this.changePlane == ChangePlane.ToRight) {
-        result = delta + this.swipeableElement.clientWidth
-      } else {
-        result = delta - this.swipeableElement.clientWidth
-      }
-
-      this.swipeableElement.style.transform = `translate3d(
-				${result}px, ${this.startY}px, 0)`
+      this.swipeableElement.style.translate = `${result}px ${this.startY}px 0`
 
       if (this.isDeltaMoreThanMinValue(delta)) {
         this.swipeEnd(false)
@@ -277,8 +259,7 @@ export default class SwipeElement {
     if (!this.checkSwipeableElementContainActive()) {
       if (!this.isSwipeDirectionCorrectYAxis(false)) return
 
-      this.swipeableElement.style.transform = `translate3d(
-				${this.startX}px, ${delta}px, 0)`
+      this.swipeableElement.style.translate = `${this.startX}px ${delta}px 0`
 
       if (this.isDeltaMoreThanMinValue(delta)) {
         this.swipeEnd(true)
@@ -288,16 +269,11 @@ export default class SwipeElement {
       // ? If the swipe goes for a visible element
       if (!this.isSwipeDirectionCorrectYAxis(true)) return
 
-      let result: number
+      let result = this.changePlane == ChangePlane.ToBottom
+        ? delta + this.swipeableElement.clientHeight
+        : delta - this.swipeableElement.clientHeight
 
-      if (this.changePlane == ChangePlane.ToBottom) {
-        result = delta + this.swipeableElement.clientHeight
-      } else {
-        result = delta - this.swipeableElement.clientHeight
-      }
-
-      this.swipeableElement.style.transform = `translate3d(
-        ${this.startX}px, ${result}px, 0)`
+      this.swipeableElement.style.translate = `${this.startX}px ${result}px 0`
 
       if (this.isDeltaMoreThanMinValue(delta)) {
         this.swipeEnd(false)
@@ -311,8 +287,8 @@ export default class SwipeElement {
   private checkMaxWorkWidth() {
     if (window.innerWidth <= this.maxWorkWidth) {
       this.touchAreaElement.addEventListener('pointerdown', this.pointerDownHandler)
-      this.touchAreaElement.style.cursor = 'grab'
       window.addEventListener('pointerup', this.swipeEndHandler)
+      this.touchAreaElement.style.cursor = ''
     } else {
       this.touchAreaElement.removeEventListener('pointerdown', this.pointerDownHandler)
       this.touchAreaElement.style.cursor = 'auto'
