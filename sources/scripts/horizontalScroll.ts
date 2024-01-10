@@ -1,4 +1,4 @@
-for (let element of document.querySelectorAll('.horizontal-scroll')) {
+for (let element of document.querySelectorAll('[data-horizontal-mouse-scroll]')) {
   // Chrome, Safari, Opera
   element.addEventListener('mousewheel', scrollHorizontally)
   // Firefox
@@ -8,8 +8,11 @@ for (let element of document.querySelectorAll('.horizontal-scroll')) {
 function scrollHorizontally(event: any) {
   event.preventDefault()
 
-  let delta = Math.max(-1, Math.min(1, (-event.deltaY || -event.detail)))
-
-  event.currentTarget.scrollLeft -= (delta * 15)
+  event.currentTarget.scrollLeft -= (
+    Math.max(
+      -1, Math.min(1, -event.deltaY)
+      // Set the data-scroll-sensitivity attribute to indicate the scroll sensitivity.
+    ) * parseInt(this.dataset.scrollSensitivity ?? 20)
+  )
 }
 
