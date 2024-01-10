@@ -1,4 +1,4 @@
-import { elementIsExistWithLog } from '../general.js'
+import { elementIsExistWithLog } from '../generalFunctions.js'
 
 enum SwipeSide {
   Top,

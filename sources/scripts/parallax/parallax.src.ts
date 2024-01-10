@@ -1,4 +1,4 @@
-import { elementIsExistWithLog } from '../general.js'
+import { elementIsExistWithLog } from '../generalFunctions.js'
 
 interface ParallaxArgs {
   /** Selector of a block that contains the elements to be parallaxed. */

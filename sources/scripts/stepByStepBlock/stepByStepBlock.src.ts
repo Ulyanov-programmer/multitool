@@ -1,4 +1,4 @@
-import { elementIsExistWithLog, sleep } from '../general.js'
+import { elementIsExistWithLog, sleep } from '../generalFunctions.js'
 
 export enum Direction {
   toRight,

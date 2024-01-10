@@ -1,4 +1,4 @@
-import { elementsIsExist, sleep } from '../general.js'
+import { elementsIsExist, sleep } from '../generalFunctions.js'
 import './scroll-timeline.js'
 
 
