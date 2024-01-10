@@ -10,10 +10,9 @@
     typed: props.typed,
     photoSwipe: props.photoSwipe,
     noUiSlider: props.noUiSlider,
-    formStyles: props.formStyles,
     observerTools: props.observerTools,
     swipe: props.swipe,
-    horizontalScroll: props.horizontalScroll,
+    horizontalMouseScroll: props.horizontalMouseScroll,
     dialogs: props.dialogs,
     parallax: props.parallax,
     autoScrollPadding: props.autoScrollPadding,
@@ -113,12 +112,6 @@
             src='./libs/noUiSlider/index.js'></script>
   </if>
 
-  <if condition='formStyles'>
-    <!-- Form styles -->
-    <link rel='stylesheet'
-          href='./styles/form.css'>
-  </if>
-
   <if condition='observerTools'>
     <!-- Observer Tools -->
     <script type='module'
@@ -133,10 +126,10 @@
           href='./scripts/swipe/index.css'>
   </if>
 
-  <if condition='horizontalScroll'>
+  <if condition='horizontalMouseScroll'>
     <!-- Horizontal scroll -->
     <script type='module'
-            src='./scripts/horizontalScroll.js'></script>
+            src='./scripts/horizontalMouseScroll.js'></script>
   </if>
 
   <if condition='dialogs'>

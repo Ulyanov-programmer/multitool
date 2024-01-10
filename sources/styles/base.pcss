@@ -1,6 +1,6 @@
 @import url('./_environment.pcss');
 
-@layer base, layout, form, modules, general, state, theme;
+@layer base, layout, modules, general, state, theme;
 
 @layer base {
   *:not(table, caption, thead, tbody, tfoot, colgroup, tr, th, td) {
@@ -27,7 +27,7 @@
   }
 
   :focus-visible {
-    outline: 1px solid;
+    outline: 2px solid black;
   }
 
   nav,
@@ -44,7 +44,6 @@
   body {
     line-height: 1;
     text-size-adjust: auto;
-
     -webkit-tap-highlight-color: #0000;
   }
 
@@ -52,24 +51,6 @@
   button {
     cursor: pointer;
     outline-color: transparent;
-  }
-
-  input {
-    width: fit-content;
-
-    &:focus-visible {
-      outline: none;
-    }
-  }
-
-  select {
-    cursor: pointer;
-    width: 100%;
-    appearance: none;
-
-    &:focus-visible {
-      outline: none;
-    }
   }
 
   a,
@@ -175,6 +156,107 @@
       td {
       }
     }
+  }
+
+  form {
+    fieldset {
+      legend {
+      }
+    }
+
+    label {
+      cursor: pointer;
+    }
+
+    input {
+      width: fit-content;
+
+      &::placeholder {
+      }
+
+      &:disabled {
+      }
+
+      &:invalid {
+      }
+
+      &[type='password'] {
+        --caption-font: 'caption';
+
+        font-family: var(--caption-font);
+      }
+
+      &[type='text'] {
+        &::placeholder {
+        }
+      }
+
+      &[type='email'] {
+        &::placeholder {
+        }
+      }
+
+      &[type='tel'] {
+        &::placeholder {
+        }
+      }
+
+      &[type='number'] {
+        appearance: textfield;
+
+        &::-webkit-inner-spin-button,
+        &::-webkit-outer-spin-button {
+          margin: 0;
+          appearance: none;
+        }
+      }
+
+      &[type='radio'],
+      &[type='checkbox'],
+      &[type='file'] {
+        display: none;
+
+        & + label {
+          svg {
+          }
+        }
+
+        &:checked + label {
+          svg {
+          }
+        }
+      }
+
+      &[type='checkbox'] {
+      }
+
+      &[type='radio'] {
+      }
+
+      &[type='file'] {
+      }
+    }
+  }
+
+  select {
+    cursor: pointer;
+    appearance: none;
+    background: #fff;
+
+    &:focus-visible {
+      outline: none;
+    }
+  }
+
+  textarea {
+    &::placeholder {
+    }
+    &:focus-visible {
+      outline: none;
+    }
+  }
+
+  button[type='submit'] {
   }
 
   h1 {
