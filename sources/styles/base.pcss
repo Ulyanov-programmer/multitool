@@ -1,15 +1,11 @@
 @import url('./_environment.pcss');
 
-@layer base, layout, modules, general, state, theme;
+@layer base, layout, modules, state, theme;
 
 @layer base {
-  *:not(table, caption, thead, tbody, tfoot, colgroup, tr, th, td) {
+  *:not(table, caption, thead, tbody, tfoot, colgroup, tr, th, td, svg *) {
     all: unset;
     box-sizing: border-box;
-  }
-
-  svg * {
-    all: revert-layer;
   }
 
   head,
@@ -44,6 +40,7 @@
   body {
     line-height: 1;
     text-size-adjust: auto;
+
     -webkit-tap-highlight-color: #0000;
   }
 
@@ -251,6 +248,7 @@
   textarea {
     &::placeholder {
     }
+
     &:focus-visible {
       outline: none;
     }
@@ -295,5 +293,8 @@
   figure {
     figcaption {
     }
+  }
+
+  hr {
   }
 }
