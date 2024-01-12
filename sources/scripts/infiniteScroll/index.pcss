@@ -1,6 +1,7 @@
 @import url('../../styles/_environment.pcss');
 
 /* Usage exaple:
+! Please note that the width of this element should be much smaller than the width of its content.
 <infinite-scroll>
   <c-inner>
     <div>item1</div>
@@ -18,7 +19,6 @@
 
     display: grid;
     place-items: center left;
-    width: 40vw;
 
     &[to-left] {
       --direction: forwards;
@@ -29,20 +29,16 @@
     }
 
     c-inner {
-      @mixin flex {
-        flex-flow: row nowrap;
-        gap: var(--gap);
-      }
-
-      > * {
-      }
+      display: flex;
+      flex-flow: row nowrap;
+      gap: var(--gap);
 
       @media (prefers-reduced-motion: reduce) {
         flex-wrap: wrap;
       }
 
       @media (prefers-reduced-motion: no-preference) {
-        width: fit-content;
+        width: max-content;
         animation: infinite-scrolling var(--duration) linear infinite
           var(--direction);
       }
@@ -50,6 +46,7 @@
 
     @media (prefers-reduced-motion: no-preference) {
       contain: paint;
+
       /* Use this to create the effect of smoothly hiding the elements. */
       mask: linear-gradient(
         90deg,

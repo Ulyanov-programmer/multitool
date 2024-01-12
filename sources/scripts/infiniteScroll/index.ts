@@ -1,12 +1,23 @@
-const scrollerInners = document.querySelectorAll('infinite-scroll c-inner')
+class HTMLInfiniteScroll extends HTMLElement {
+  public innerContainer: HTMLElement
 
-if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-  for (let inner of scrollerInners) {
-    for (let element of Array.from(inner.children)) {
-      let clonedElement = element.cloneNode(true) as HTMLElement
-      clonedElement.setAttribute('aria-hidden', 'true')
+  constructor() {
+    super()
+  }
 
-      inner.appendChild(clonedElement)
-    }
+  connectedCallback() {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+
+    document.addEventListener('DOMContentLoaded', this.init.bind(this))
+  }
+
+  init() {
+    this.innerContainer = this.querySelector('c-inner')
+
+    this.innerContainer.insertAdjacentHTML(
+      'beforeend', this.innerContainer.innerHTML
+    )
   }
 }
+
+customElements.define('infinite-scroll', HTMLInfiniteScroll)
