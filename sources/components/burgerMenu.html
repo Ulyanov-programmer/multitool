@@ -1,11 +1,9 @@
-<button aria-controls='burgerMenu'
-        data-open-dialog-id="burgerMenu"
-        class='BurgerBtn'
+<button data-open-dialog-id="burger-menu"
         type='button'
         id='burgerButton'
+        class='AnimatedSvgBurger'
         title='Open the burger menu'>
-  <svg class='BurgerSvg'
-       width='40'
+  <svg width='40'
        height='40'
        viewBox='0 0 40 40'
        xmlns='http://www.w3.org/2000/svg'>
@@ -30,12 +28,10 @@
   </svg>
 </button>
 
-<dialog id='burgerMenu'
-        class='BurgerMenu'
+<dialog id='burger-menu'
         data-modal-dialog>
   <nav>
     <ul>
-
       <li>
         <a target='_self'
            rel='noopener'
@@ -43,13 +39,11 @@
           ref
         </a>
       </li>
-
       <li>
         <button type='button'>
           button
         </button>
       </li>
-
     </ul>
   </nav>
 </dialog>

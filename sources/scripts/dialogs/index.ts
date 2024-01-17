@@ -150,7 +150,7 @@ export default class Dialogs {
   }
   private closeByClickOnBackdropEvent(event: PointerEvent) {
     //@ts-expect-error
-    let rect = event.target.getBoundingClientRect()
+    let rect = event.currentTarget.getBoundingClientRect()
 
     let isClickInDialogRect = (
       rect.top <= event.clientY

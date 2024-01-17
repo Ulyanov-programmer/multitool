@@ -66,6 +66,10 @@
         }
       }
     }
+
+    @media (--burger-menu-is-visible) {
+      display: none;
+    }
   }
 
   .SubmenuWrapper {
@@ -110,6 +114,115 @@
       &.toCenter {
         left: 50%;
         transform: translate(-50%, 0);
+      }
+    }
+  }
+
+  #burger-menu {
+    @custom-media --burger-menu-is-hidden (width > 768px);
+    @custom-media --burger-menu-is-visible (width <= 768px);
+
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    display: grid;
+    place-content: center center;
+
+    height: 100vh;
+
+    transition: all 0.3s ease;
+
+    &::backdrop {
+    }
+
+    &:not([open]) {
+      translate: 0 -100% 0;
+      opacity: 0;
+    }
+
+    nav {
+      scroll-snap-type: y mandatory;
+      overflow: auto;
+
+      /* For normal outline visibility */
+      padding: 1px;
+
+      ul {
+        display: grid;
+        gap: 10px;
+        justify-items: right;
+
+        li {
+          scroll-snap-align: start;
+
+          a,
+          button {
+            padding: 10px 7px;
+          }
+
+          a {
+          }
+
+          button {
+          }
+        }
+      }
+    }
+
+    @media (--burger-menu-is-hidden) {
+      display: none;
+    }
+  }
+
+  button[data-open-dialog-id='burger-menu'] {
+    @media (--burger-menu-is-hidden) {
+      display: none;
+    }
+  }
+
+  /*
+    ? This is the basic properties and animations of the burger button.
+    If you find that a part of the <rect> extends beyond the boundaries of the <svg>, try to make the <svg> a square (width and height must be equal).
+  */
+  button.AnimatedSvgBurger {
+    svg {
+      > rect {
+        transform-origin: center;
+        transform-box: fill-box;
+        transition: all 0.3s ease;
+
+        &:nth-child(1) {
+          width: 100%;
+        }
+
+        &:nth-child(2) {
+          width: 100%;
+        }
+
+        &:nth-child(3) {
+          width: 100%;
+        }
+      }
+    }
+
+    &[aria-expanded='true'] {
+      .rectTop {
+        rotate: 45deg;
+
+        x: 0%;
+        y: 50%;
+      }
+
+      .rectCenter {
+        @mixin hide;
+      }
+
+      .rectBottom {
+        rotate: -45deg;
+
+        x: 0;
+        y: 50%;
       }
     }
   }
