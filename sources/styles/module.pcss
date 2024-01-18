@@ -1,6 +1,47 @@
 @import url('./_environment.pcss');
 
 @layer general {
+  emerge-menu {
+    position: relative;
+    display: inline-block;
+    width: fit-content;
+
+    > button {
+    }
+
+    > dialog {
+      position: absolute;
+      z-index: 1;
+      top: 100%;
+
+      display: block;
+
+      width: max-content;
+
+      background: white;
+
+      transition: all 0.2s ease;
+
+      &:not([open]) {
+        pointer-events: none;
+        opacity: 0;
+      }
+
+      &.toLeft {
+        right: 0;
+      }
+
+      &.toRight {
+        left: 0;
+      }
+
+      &.toCenter {
+        left: 50%;
+        translate: -50% 0;
+      }
+    }
+  }
+
   spoiler-wrapper {
     /* ? Example of usage. Don't forget to connect the dialogs scripts.
     <spoiler-wrapper>
@@ -69,52 +110,6 @@
 
     @media (--burger-menu-is-visible) {
       display: none;
-    }
-  }
-
-  .SubmenuWrapper {
-    position: relative;
-    width: fit-content;
-
-    [data-open-dialog-id] {
-    }
-
-    [data-close-dialog-id] {
-    }
-
-    [data-submenu] {
-      pointer-events: none;
-
-      position: absolute;
-      z-index: 1;
-      top: 100%;
-
-      display: block;
-
-      width: max-content;
-
-      opacity: 0;
-      background: white;
-
-      transition: all 0.2s ease;
-
-      &[open] {
-        pointer-events: all;
-        opacity: 1;
-      }
-
-      &.toLeft {
-        right: 0;
-      }
-
-      &.toRight {
-        left: 0;
-      }
-
-      &.toCenter {
-        left: 50%;
-        transform: translate(-50%, 0);
-      }
     }
   }
 
