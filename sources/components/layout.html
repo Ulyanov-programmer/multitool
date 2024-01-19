@@ -10,7 +10,6 @@
     typed: props.typed,
     photoSwipe: props.photoSwipe,
     noUiSlider: props.noUiSlider,
-    observerTools: props.observerTools,
     swipe: props.swipe,
     horizontalMouseScroll: props.horizontalMouseScroll,
     dialogs: props.dialogs,
@@ -19,6 +18,7 @@
     tabs: props.tabs,
     stepByStep: props.stepByStep,
     observerTools: props.observerTools,
+    scrollTimeline: props.scrollTimeline,
     infiniteScroll: props.infiniteScroll,
     styles: isArray(props.styles) ? props.styles : [],
     scripts: isObject(props.scripts) ? props.scripts : {},
@@ -116,6 +116,10 @@
     <!-- Observer Tools -->
     <script type='module'
             src='./scripts/observerTools/index.js'></script>
+  </if>
+
+  <if condition='scrollTimeline'>
+    <script src='./scripts/scroll-timeline.js'></script>
   </if>
 
   <if condition='swipe'>

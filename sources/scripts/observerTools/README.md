@@ -30,16 +30,14 @@ You can use this script more fully using the following functions:
 
 ### General options
 
-Use it in the your file to:
-
-- Change the assigned class for the observed elements.
-- Allow the Observer to be triggered not once, but every time an element is observed on the screen.
-
 ```ts
 import ActionOnView, { ObserverTools } from './observerTools.src.js';
 
 new ObserverTools({
+  // Change the assigned class for the observed elements.
   repeatObserve: true,
+
+  // Allow the Observer to be triggered not once, but every time an element is observed on the screen.
   isIntersectedClass: 'is-intersecting',
 });
 ```
@@ -97,125 +95,5 @@ new ActionOnView({
 
     // Make as many breakpoints as you want!
   }
-});
-```
-
-### Typed timeline
-
-At the time of creating the documentation, there is no support for @scroll-timeline (https://caniuse.com/css-scroll-timeline). To implement its functionality, this script uses the polyfill. <br>
-To use it, write the following code:
-
-```ts
-import ActionOnView, {
-  TypedAnimationTimeline,
-  TypedViewTimeline,
-  TypedScrollTimeline,
-} from './observerTools.src.js';
-
-new TypedAnimationTimeline({
-  selectors: '.element_or_elements_group',
-
-  // See the "Parameters" section below.
-  properties: {
-    background: ['black', 'red'],
-  },
-
-  // See the "Settings" section below.
-  settings: {
-    timeline:
-      new TypedViewTimeline({
-        subject: '.wrapper',
-      })
-      // or use it
-      new TypedScrollTimeline({
-        axis: 'block' | 'inline' | 'y' | 'x',
-      }),
-
-    timeRange: 'cover 0% 50%',
-  },
-});
-```
-
-#### Parameters
-
-Specify which properties will be subject to change, and also specify the values by listing them in an array (there may be more than two). <br>
-When scrolling through the element, the values will be assigned from the first to the last, changing smoothly if possible.
-
-```ts
-properties: {
-  background: ['red', 'green', 'blue'],
-},
-```
-
-#### Settings
-
-```ts
-settings: {
-  /*
-    Specify the timeline type. Depending on the value, the timeline will work differently.
-
-    If a TypedViewTimeline is passed, the animation will work depending on how visible the element is.
-    If the TypedScrollTimeline is passed, the animation will work depending on how much the element is scrolled.
-  */
-  timeline: new TypedViewTimeline({
-    subject: '.wrapper',
-
-    /* The following are optional parameters: */
-
-    // https://developer.mozilla.org/en-US/docs/Web/API/ViewTimeline/subject
-    subject: '',
-
-    // https://developer.mozilla.org/en-US/docs/Web/API/ScrollTimeline/axis
-    axis: 'block' | 'inline' | 'y' | 'x',
-
-    // https://developer.mozilla.org/en-US/docs/Web/API/ViewTimeline/startOffset
-    startOffset: CSSUnitValue,
-
-    // https://developer.mozilla.org/en-US/docs/Web/API/ViewTimeline/endOffset
-    endOffset: CSSUnitValue,
-  }),
-
-  // or use it
-  timeline: new TypedScrollTimeline({
-    // https://developer.mozilla.org/en-US/docs/Web/API/ScrollTimeline/axis
-    axis: 'block' | 'inline' | 'y' | 'x',
-
-    // https://developer.mozilla.org/en-US/docs/Web/API/ScrollTimeline/source
-    // Is optional.
-    source: '',
-  }),
-
-  /*
-    Specify the time range and how it should be perceived.
-    hint:
-    timeRange: 'fill-type scroll-block-for-start scroll-block-for-end'
-  */
-  timeRange: 'cover 0% 50%',
-},
-```
-
-#### Breakpoint API
-
-You can also change the behavior depending on the width of the screen.
-
-```ts
-new TypedAnimationTimeline({
-  ...,
-
-  // Attention, the PC-first style is used.
-  breakpoints: {
-    768: {
-      // Turn off the timeline for the duration of the breakpoint
-      disable: false,
-
-      // Override used properties.
-      properties: {},
-
-      // Override used settings.
-      settings: {},
-    },
-
-    // Make as many breakpoints as you want!
-  },
 });
 ```
