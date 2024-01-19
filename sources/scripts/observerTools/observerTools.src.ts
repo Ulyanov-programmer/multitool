@@ -61,7 +61,7 @@ interface ActionOnViewArgs {
   /**
    * {@link https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API#threshold | MDN reference on this parameter}
    */
-  threshold: number | number[]
+  threshold?: number | number[]
   /**
    * {@link https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API#root  | MDN reference on this parameter}
    */
@@ -73,7 +73,7 @@ interface ActionOnViewArgs {
   /** 
    * The delay before the animation starts in milliseconds. 
    */
-  timeoutBeforeStart: number
+  timeoutBeforeStart?: number
   /**
    * Allows you to change the Observer object at certain screen widths.
    */
