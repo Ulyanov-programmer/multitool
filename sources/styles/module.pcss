@@ -221,4 +221,24 @@
       }
     }
   }
+
+  #infinite-line {
+    --direction: normal;
+    --duration: 10s;
+    --gap: 15px;
+
+    @media (prefers-reduced-motion: reduce) {
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      /* Use this to create the effect of smoothly hiding the elements. */
+      mask: linear-gradient(
+        90deg,
+        transparent,
+        rgb(0 0 0 / 100%) 10%,
+        rgb(0 0 0 / 100%) 90%,
+        transparent
+      );
+    }
+  }
 }

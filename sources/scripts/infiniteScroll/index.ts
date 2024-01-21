@@ -12,11 +12,46 @@ class HTMLInfiniteScroll extends HTMLElement {
   }
 
   init() {
-    this.innerContainer = this.querySelector('c-inner')
-
-    this.innerContainer.insertAdjacentHTML(
-      'beforeend', this.innerContainer.innerHTML
+    this.insertAdjacentHTML(
+      'beforeend', this.innerHTML
     )
+
+    this.initShadowRoot()
+  }
+  private initShadowRoot() {
+    this.attachShadow({ mode: 'open' })
+      .innerHTML = `
+<style>
+@keyframes infinite-scrolling {
+  to { translate: calc(-50% - var(--gap) / 2) 0 0; }
+}
+:host {
+  --direction: normal;
+  --duration: 5s;
+  --gap: 15px;
+  display: grid !important;
+  place-items: center left !important;
+  contain: paint !important;
+}
+c-inner {
+  display: flex !important;
+  flex-flow: row nowrap !important;
+  gap: var(--gap) !important;
+  width: max-content !important;
+  animation: infinite-scrolling 
+    var(--duration) 
+    linear 
+    infinite 
+    var(--direction)
+    !important;
+  }
+}
+
+</style>
+<c-inner>
+  <slot></slot>
+</c-inner>
+  `
   }
 }
 
