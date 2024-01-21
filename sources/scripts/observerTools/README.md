@@ -62,6 +62,9 @@ new ActionOnView({
   // The delay before launching the Observer action in milliseconds.
   timeoutBeforeStart: 0,
 
+  // Do not run the Observer action until at least one breakpoint has been reached.
+  doNotRunUntilFirstBreakpoint: false,
+
   /* 
     A function that will be executed when the item being observed is visible on the screen.
     It will work after the time specified by the timeoutBeforeStart parameter.
