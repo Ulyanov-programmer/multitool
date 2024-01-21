@@ -31,6 +31,7 @@ class HTMLTabButton extends HTMLElement {
     this.addEventListener('keyup', event =>
       event.key == 'Enter' ? this.openTab() : false
     )
+    this.initShadowRoot()
 
     document.addEventListener('DOMContentLoaded', this.init.bind(this))
   }
@@ -38,6 +39,18 @@ class HTMLTabButton extends HTMLElement {
     this.controlsTab = document.getElementById(
       this.getAttribute('aria-controls')
     ) as HTMLTabItem
+  }
+  private initShadowRoot() {
+    this.attachShadow({ mode: 'closed' })
+      .innerHTML = `
+<style>
+  :host {
+    cursor: pointer !important;
+    display: inline-block;
+  }
+</style>
+<slot></slot>
+    `
   }
 
   openTab() {
@@ -69,6 +82,8 @@ class HTMLTabFrame extends HTMLElement {
     this.autoHeight = this.hasAttribute('auto-height')
     this.isFade = this.hasAttribute('fade')
 
+    this.initShadowRoot()
+
     document.addEventListener('DOMContentLoaded', this.init.bind(this))
     window.addEventListener('resize', this.setFrameHeight.bind(this))
   }
@@ -87,6 +102,31 @@ class HTMLTabFrame extends HTMLElement {
     this.setFrameHeight(this.containerHeight)
 
     this.setTabs()
+  }
+
+  private initShadowRoot() {
+    this.attachShadow({ mode: 'closed' })
+      .innerHTML = `
+<style>
+  :host {
+    contain: paint !important;
+    display: grid !important;
+    grid-template: 1fr / 1fr !important;
+    place-items: start stretch;
+    transition-property: height;
+  }
+  ::slotted(tab-item) {
+    grid-column: 1 / 2 !important;
+    grid-row: 1 / 2 !important;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    :host {
+      transition-duration: 300ms;
+    }
+  }
+</style>
+<slot></slot>
+    `
   }
 
   private setTabs() {
@@ -184,11 +224,37 @@ class HTMLTabItem extends HTMLElement {
     this.parentFrame = this.parentElement as HTMLTabFrame
     this.current = this.hasAttribute('current')
 
+    this.initShadowRoot()
+
     document.addEventListener('DOMContentLoaded', this.init.bind(this))
   }
   init() {
     this.controlsButtons = this.controlsButtons ??
       document.querySelectorAll(`tab-button[aria-controls=${this.id}]`)
+  }
+  private initShadowRoot() {
+    HTMLStyleElement
+    this.attachShadow({ mode: 'closed' })
+      .innerHTML = `
+<style>
+  :host {
+    pointer-events: none !important;
+    display: block !important;
+    opacity: 0 !important;
+    transition-property: opacity;
+  }
+  :host([current]) {
+    pointer-events: all !important;
+    opacity: 1 !important;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    :host {
+      transition-duration: 300ms;
+    }
+  }
+</style>
+<slot></slot>
+    `
   }
 
   private hide() {
