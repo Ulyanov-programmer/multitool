@@ -64,6 +64,7 @@ class HTMLTabFrame extends HTMLElement {
   private items: HTMLCollectionOf<HTMLTabItem>
   private containerHeight: number = 0
   private isSwitching: boolean
+  private resizeObserver: ResizeObserver
 
   constructor() {
     super()
@@ -78,16 +79,11 @@ class HTMLTabFrame extends HTMLElement {
   init() {
     this.items = this.children as HTMLCollectionOf<HTMLTabItem>
 
-    if (!this.isAutoHeight()) {
-      // Setting the height of the largest child.
-      this.containerHeight = Math.max(...Array.from(this.items).map(item => item.clientHeight))
-    }
-    else {
-      this.containerHeight =
-        this.getCurrentItem()?.clientHeight ?? this.items[0].clientHeight
-    }
-
-    this.setFrameHeight(this.containerHeight)
+    this.resizeObserver = new ResizeObserver(entries => {
+      for (const entry of entries) {
+        this.setFrameHeight(entry.borderBoxSize[0].blockSize)
+      }
+    })
 
     this.setTabs()
   }
@@ -97,7 +93,6 @@ class HTMLTabFrame extends HTMLElement {
       .innerHTML = `
 <style>
   :host {
-    contain: paint !important;
     display: grid !important;
     grid-template: 1fr / 1fr !important;
     place-items: start stretch;
@@ -135,22 +130,30 @@ class HTMLTabFrame extends HTMLElement {
     if (this.isAutoHeight()) this.setFrameHeight(switchedItem.clientHeight)
 
     switchedItem.current = true
+    this.resizeObserver.observe(switchedItem)
 
     await sleep(switchedItem.transitionDurationValue)
     this.isSwitching = false
   }
 
   private setFrameHeight(height: number | Event) {
+    if (!this.isAutoHeight()) return
+
+    let heightOfPaddings =
+      parseInt(window.getComputedStyle(this).paddingBlock.replace('px', '')) * 2
+
     if (typeof height != 'number') {
       // Get the height of the current tab.
       height = Array.from(this.items).find(item => item.current).clientHeight
     }
 
-    this.style.height = height + 'px'
+    this.style.height = heightOfPaddings + height + 'px'
   }
   private disableAnotherItems(switchedItem: HTMLTabItem, isInitial?: Boolean) {
     for (let item of this.items) {
       if (item != switchedItem) {
+        this.resizeObserver.unobserve(item)
+
         if (isInitial) {
           item.style.transition = 'none'
           item.current = false
@@ -168,6 +171,7 @@ class HTMLTabFrame extends HTMLElement {
   private activateFirstItem() {
     this.items[0].style.transition = 'none'
     this.items[0].current = true
+    this.resizeObserver.observe(this.items[0])
 
     setTimeout(() => {
       this.items[0].style.transition = ''
