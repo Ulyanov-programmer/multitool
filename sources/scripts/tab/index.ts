@@ -20,11 +20,12 @@ class HTMLTabButton extends HTMLElement {
     this.tabIndex = 0
     this.ariaExpanded = 'false'
     this.expanded = Boolean(this.ariaExpanded)
+    let switchEvent = getComputedStyle(this).getPropertyValue('--switch-event').trim()
 
-    if (this.hasAttribute('hover')) {
+    if (switchEvent == 'hover') {
       this.addEventListener('mouseenter', this.openTab)
     }
-    else {
+    else if (switchEvent == 'click' || switchEvent == '') {
       this.addEventListener('click', this.openTab)
     }
 
@@ -61,27 +62,14 @@ class HTMLTabButton extends HTMLElement {
 }
 class HTMLTabFrame extends HTMLElement {
   private items: HTMLCollectionOf<HTMLTabItem>
-  private autoHeight: boolean
   private containerHeight: number = 0
   private isSwitching: boolean
-
-  private _isFade: boolean
-  public get isFade(): boolean {
-    return this._isFade
-  }
-  public set isFade(v: boolean) {
-    v ? this.setAttribute('fade', '') : this.removeAttribute('fade')
-    this._isFade = v
-  }
 
   constructor() {
     super()
   }
 
   connectedCallback() {
-    this.autoHeight = this.hasAttribute('auto-height')
-    this.isFade = this.hasAttribute('fade')
-
     this.initShadowRoot()
 
     document.addEventListener('DOMContentLoaded', this.init.bind(this))
@@ -90,7 +78,7 @@ class HTMLTabFrame extends HTMLElement {
   init() {
     this.items = this.children as HTMLCollectionOf<HTMLTabItem>
 
-    if (!this.autoHeight) {
+    if (!this.isAutoHeight()) {
       // Setting the height of the largest child.
       this.containerHeight = Math.max(...Array.from(this.items).map(item => item.clientHeight))
     }
@@ -143,8 +131,8 @@ class HTMLTabFrame extends HTMLElement {
 
     this.disableAnotherItems(switchedItem)
 
-    if (!this.isFade) await sleep(switchedItem.transitionDurationValue)
-    if (this.autoHeight) this.setFrameHeight(switchedItem.clientHeight)
+    if (!this.isFade()) await sleep(switchedItem.transitionDurationValue)
+    if (this.isAutoHeight()) this.setFrameHeight(switchedItem.clientHeight)
 
     switchedItem.current = true
 
@@ -191,6 +179,12 @@ class HTMLTabFrame extends HTMLElement {
     }
 
     return currentItem
+  }
+  private isFade() {
+    return getComputedStyle(this).getPropertyValue('--fade').trim() == 'fade'
+  }
+  private isAutoHeight() {
+    return getComputedStyle(this).getPropertyValue('--auto-height').trim() == 'auto-height'
   }
 }
 class HTMLTabItem extends HTMLElement {
