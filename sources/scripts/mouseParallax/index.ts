@@ -4,10 +4,7 @@ new Parallax(
   { parallaxContainerSelector: '.parallax_wrapper', minWorkWidth: 768 },
 
   new ParallaxElement({
-    selectorOrElement: '.parallax_el',
-
-    parallaxCoeffX: 0.2,
-    parallaxCoeffY: 0.2,
-    reverseMode: false,
-  })
+    selector: '.parallax_el',
+    parallaxCoefficients: [-0.2, 0.2],
+  }),
 )

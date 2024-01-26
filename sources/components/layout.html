@@ -13,7 +13,7 @@
     swipe: props.swipe,
     horizontalMouseScroll: props.horizontalMouseScroll,
     dialogs: props.dialogs,
-    parallax: props.parallax,
+    mouseParallax: props.mouseParallax,
     autoScrollPadding: props.autoScrollPadding,
     tabs: props.tabs,
     stepByStep: props.stepByStep,
@@ -144,10 +144,10 @@
             src='./scripts/dialogs/index.js'></script>
   </if>
 
-  <if condition='parallax'>
-    <!-- Parallax -->
+  <if condition='mouseParallax'>
+    <!-- MouseParallax -->
     <script type='module'
-            src='./scripts/parallax/index.js'></script>
+            src='./scripts/mouseParallax/index.js'></script>
   </if>
 
   <if condition='autoScrollPadding'>
