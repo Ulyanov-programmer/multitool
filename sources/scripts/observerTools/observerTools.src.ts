@@ -38,7 +38,7 @@ type Breakpoint = {
     /**
      * Specify `true` if you want to disable the Observer.
      */
-    unobserve: boolean
+    unobserve?: boolean
     /** 
      * The delay before the animation starts in milliseconds. 
      */
@@ -139,13 +139,11 @@ export default class ActionOnView {
           : this.observer.observe(htmlElement)
 
         htmlElement.setAttribute(
-          'data-timeout', activeBreakpoint.timeoutBeforeStart.toString() ?? '0'
+          'data-timeout', activeBreakpoint.timeoutBeforeStart?.toString() ?? '0'
         )
 
         if (this.currentFunctionOnView != activeBreakpoint.functionOnView) {
           this.currentFunctionOnView = activeBreakpoint.functionOnView
-
-          if (this.currentFunctionOnView) this.currentFunctionOnView(htmlElement)
         }
       }
     }
@@ -164,8 +162,6 @@ export default class ActionOnView {
 
         if (this.currentFunctionOnView != this.defaultFunctionOnView) {
           this.currentFunctionOnView = this.defaultFunctionOnView
-
-          if (this.currentFunctionOnView) this.currentFunctionOnView(htmlElement)
         }
       }
     }

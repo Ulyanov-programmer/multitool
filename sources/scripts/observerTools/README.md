@@ -68,9 +68,8 @@ new ActionOnView({
   /* 
     A function that will be executed when the item being observed is visible on the screen.
     It will work after the time specified by the timeoutBeforeStart parameter.
-    ! The function name must be unique, otherwise problems may occur.
   */
-  functionOnView: function onView(observerEntry: IntersectionObserverEntry) {},
+  functionOnView(observerEntry: IntersectionObserverEntry) {},
 });
 ```
 
@@ -92,8 +91,7 @@ new ActionOnView({
       timeoutBeforeStart: 0,
 
       // Override the function that will be executed when the file is being observed.
-      //! The function name must be unique, otherwise problems may occur.
-      functionOnView: function onViewTablets(observerEntry: IntersectionObserverEntry) { },
+      functionOnView(observerEntry: IntersectionObserverEntry) {},
     },
 
     // Make as many breakpoints as you want!
