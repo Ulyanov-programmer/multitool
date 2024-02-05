@@ -17,10 +17,10 @@ module.exports = grunt => {
   grunt.initConfig({
     posthtml: require('./grunt/html/posthtml.js').default,
     postcss: require('./grunt/css/postcss.js').default,
-    cssmin: require('./grunt/css/formatting.js').default,
+    cssmin: require('./grunt/css/minifier&formatter.js').default,
     esbuild: require('./grunt/scripts/compiler.js').default,
     sharp: require('./grunt/images/sharp.js').default,
-    prettify: require('./grunt/html/formatter.js').default,
+    prettier: require('./grunt/html/formatter.js').default,
     htmllint: require('./grunt/html/validator.js').default,
     ttf2woff2: require('./grunt/other/ttf2woff2.js').default,
     newer: require('./grunt/other/newer.js').default,
@@ -41,7 +41,7 @@ module.exports = grunt => {
     'sharp',
 
     'newer:copy',
-    'prettify',
+    'prettier',
     environment.isProductionMode ? 'htmllint' : null,
     'watch',
   ].filter(task => task))

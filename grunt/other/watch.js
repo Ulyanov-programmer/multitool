@@ -4,14 +4,14 @@ import { isProductionMode } from './environment.js'
 export default {
   html: {
     files: paths.src.root + '*.html',
-    tasks: ['newer:posthtml', 'newer:prettify'],
+    tasks: ['newer:posthtml', 'newer:prettier'],
     options: {
       spawn: false,
     },
   },
   htmlComponents: {
     files: paths.src.root + 'components/*.html',
-    tasks: ['posthtml', 'prettify'],
+    tasks: ['posthtml', 'prettier'],
     options: {
       spawn: false,
     },
