@@ -1,5 +1,4 @@
 import paths from './paths.js'
-import { isProductionMode } from './environment.js'
 
 export default {
   html: {
@@ -16,13 +15,6 @@ export default {
       spawn: false,
     },
   },
-  // htmlLint: {
-  //   files: paths.dest.root + '*.html',
-  //   tasks: 'newer:htmllint',
-  //   options: {
-  //     spawn: false,
-  //   },
-  // },
   css: {
     files: paths.src.styles + '*.pcss',
     tasks: ['newer:postcss:base', 'newer:cssmin:main'],

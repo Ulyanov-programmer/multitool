@@ -42,7 +42,6 @@ const RAW_RUNTIME_STATE =
           ["grunt-contrib-copy", "npm:1.0.0"],\
           ["grunt-contrib-cssmin", "npm:5.0.0"],\
           ["grunt-contrib-watch", "npm:1.1.0"],\
-          ["grunt-html", "virtual:f1571cd32476bd3b119b044c60b9b1a5cc196aa5e88d29fdb3f4ea6740eaef5997566a6ada297106308bd20d74779e81e370845008944305dc9bc0838acdd3a1#npm:17.0.0"],\
           ["grunt-newer", "virtual:f1571cd32476bd3b119b044c60b9b1a5cc196aa5e88d29fdb3f4ea6740eaef5997566a6ada297106308bd20d74779e81e370845008944305dc9bc0838acdd3a1#npm:1.3.0"],\
           ["grunt-posthtml", "virtual:f1571cd32476bd3b119b044c60b9b1a5cc196aa5e88d29fdb3f4ea6740eaef5997566a6ada297106308bd20d74779e81e370845008944305dc9bc0838acdd3a1#npm:0.5.2"],\
           ["grunt-prettier", "npm:2.2.0"],\
@@ -4268,31 +4267,6 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
-    ["grunt-html", [\
-      ["npm:17.0.0", {\
-        "packageLocation": "./.yarn/cache/grunt-html-npm-17.0.0-f8fe1ad53d-a5fa387c9e.zip/node_modules/grunt-html/",\
-        "packageDependencies": [\
-          ["grunt-html", "npm:17.0.0"]\
-        ],\
-        "linkType": "SOFT"\
-      }],\
-      ["virtual:f1571cd32476bd3b119b044c60b9b1a5cc196aa5e88d29fdb3f4ea6740eaef5997566a6ada297106308bd20d74779e81e370845008944305dc9bc0838acdd3a1#npm:17.0.0", {\
-        "packageLocation": "./.yarn/__virtual__/grunt-html-virtual-c90768378d/0/cache/grunt-html-npm-17.0.0-f8fe1ad53d-a5fa387c9e.zip/node_modules/grunt-html/",\
-        "packageDependencies": [\
-          ["grunt-html", "virtual:f1571cd32476bd3b119b044c60b9b1a5cc196aa5e88d29fdb3f4ea6740eaef5997566a6ada297106308bd20d74779e81e370845008944305dc9bc0838acdd3a1#npm:17.0.0"],\
-          ["@types/grunt", null],\
-          ["async", "npm:3.2.5"],\
-          ["grunt", "npm:1.6.1"],\
-          ["picocolors", "npm:1.0.0"],\
-          ["vnu-jar", "npm:23.4.11"]\
-        ],\
-        "packagePeers": [\
-          "@types/grunt",\
-          "grunt"\
-        ],\
-        "linkType": "HARD"\
-      }]\
-    ]],\
     ["grunt-known-options", [\
       ["npm:2.0.0", {\
         "packageLocation": "./.yarn/cache/grunt-known-options-npm-2.0.0-bce4400d18-bfad7ea853.zip/node_modules/grunt-known-options/",\
@@ -4410,7 +4384,6 @@ const RAW_RUNTIME_STATE =
           ["grunt-contrib-copy", "npm:1.0.0"],\
           ["grunt-contrib-cssmin", "npm:5.0.0"],\
           ["grunt-contrib-watch", "npm:1.1.0"],\
-          ["grunt-html", "virtual:f1571cd32476bd3b119b044c60b9b1a5cc196aa5e88d29fdb3f4ea6740eaef5997566a6ada297106308bd20d74779e81e370845008944305dc9bc0838acdd3a1#npm:17.0.0"],\
           ["grunt-newer", "virtual:f1571cd32476bd3b119b044c60b9b1a5cc196aa5e88d29fdb3f4ea6740eaef5997566a6ada297106308bd20d74779e81e370845008944305dc9bc0838acdd3a1#npm:1.3.0"],\
           ["grunt-posthtml", "virtual:f1571cd32476bd3b119b044c60b9b1a5cc196aa5e88d29fdb3f4ea6740eaef5997566a6ada297106308bd20d74779e81e370845008944305dc9bc0838acdd3a1#npm:0.5.2"],\
           ["grunt-prettier", "npm:2.2.0"],\
@@ -9091,15 +9064,6 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./.yarn/cache/vary-npm-1.1.2-b49f70ae63-f15d588d79.zip/node_modules/vary/",\
         "packageDependencies": [\
           ["vary", "npm:1.1.2"]\
-        ],\
-        "linkType": "HARD"\
-      }]\
-    ]],\
-    ["vnu-jar", [\
-      ["npm:23.4.11", {\
-        "packageLocation": "./.yarn/unplugged/vnu-jar-npm-23.4.11-b6c837ff91/node_modules/vnu-jar/",\
-        "packageDependencies": [\
-          ["vnu-jar", "npm:23.4.11"]\
         ],\
         "linkType": "HARD"\
       }]\

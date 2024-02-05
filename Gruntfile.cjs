@@ -21,7 +21,6 @@ module.exports = grunt => {
     esbuild: require('./grunt/scripts/compiler.js').default,
     sharp: require('./grunt/images/sharp.js').default,
     prettier: require('./grunt/html/formatter.js').default,
-    htmllint: require('./grunt/html/validator.js').default,
     ttf2woff2: require('./grunt/other/ttf2woff2.js').default,
     newer: require('./grunt/other/newer.js').default,
     copy: require('./grunt/other/copy.js').default,
@@ -42,7 +41,6 @@ module.exports = grunt => {
 
     'newer:copy',
     'prettier',
-    environment.isProductionMode ? 'htmllint' : null,
     'watch',
   ].filter(task => task))
 }
