@@ -4,7 +4,8 @@ export default {
   main: {
     expand: true,
 
-    src: paths.src.assets + '**/*',
+    cwd: paths.src.assets,
+    src: '**/*',
     dest: paths.dest.assets,
   },
 }
