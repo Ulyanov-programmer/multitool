@@ -1,8 +1,6 @@
-import Swiper from './swiper-bundle.esm.browser.min.js'
+import Swiper from './swiper-bundle.min.mjs'
 
-let sliderClassName = 'demo__slider'
-new Swiper(`.${sliderClassName}`, {
-  spaceBetween: 15,
+new Swiper(`#someSlider`, {
 })
 
 
