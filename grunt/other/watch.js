@@ -25,14 +25,14 @@ export default {
   // },
   css: {
     files: paths.src.styles + '*.pcss',
-    tasks: 'newer:postcss:base',
+    tasks: ['newer:postcss:base', 'newer:cssmin:main'],
     options: {
       spawn: false,
     },
   },
   cssForScripts: {
     files: paths.src.scripts + '**/*.pcss',
-    tasks: 'newer:postcss:modules',
+    tasks: ['newer:postcss:modules', 'newer:cssmin:scripts'],
     options: {
       spawn: false,
     },

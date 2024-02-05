@@ -9,6 +9,7 @@ import functions from 'postcss-functions'
 import mixins from 'postcss-mixins'
 import customMedia from 'postcss-custom-media'
 import rem from 'postcss-rem'
+import extend from 'postcss-extend-rule'
 
 import paths from '../other/paths.js'
 
@@ -42,6 +43,7 @@ const options = {
     rem({
       name: 'rem',
     }),
+    extend(),
   ],
 }
 
