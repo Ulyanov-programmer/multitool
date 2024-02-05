@@ -23,9 +23,9 @@ What can this script do?
   <a href="#content">Link to the content block</a>
 </div>
 
-<hr style="display: block; height: 300px; background: gray;" />
+<hr style="display: block; height: 100vh; background: gray;" />
 <div id="content">Content</div>
-<hr style="display: block; height: 300px; background: gray;" />
+<hr style="display: block; height: 100vh; background: gray;" />
 ```
 
 2. Click on the link with the text: _"Link to the content block"_.

@@ -4,7 +4,7 @@ Allows you to perform a parallax effect when moving the cursor.
 
 ## Initialization
 
-1. To initialize, create an ts/js API file.
+1. To initialize, create an ts/js file and connect it to your HTML page.
 
 2. Write the following code in the created file:
 
