@@ -10,7 +10,7 @@
     typed: props.typed,
     photoSwipe: props.photoSwipe,
     noUiSlider: props.noUiSlider,
-    swipe: props.swipe,
+    toggleBySwipe: props.toggleBySwipe,
     horizontalMouseScroll: props.horizontalMouseScroll,
     dialogs: props.dialogs,
     mouseParallax: props.mouseParallax,
@@ -29,49 +29,49 @@
 <html lang='{{ lang }}'>
 
 <head>
-  <meta charset='UTF-8'>
+  <meta charset='UTF-8' />
   <meta http-equiv='X-UA-Compatible'
-        content='IE=edge'>
+        content='IE=edge' />
   <meta name='viewport'
-        content='width=device-width, initial-scale=1.0'>
+        content='width=device-width, initial-scale=1.0' />
   <!--? ↓ Disables forced link for phone number on iOS -->
   <meta name='format-detection'
-        content='telephone=no'>
+        content='telephone=no' />
   <meta name='description'
-        content='description'>
+        content='description' />
   <meta name='theme-color'
-        content='#000000'>
+        content='#000000' />
   <link rel='icon'
-        href='./img/favicon.svg'>
+        href='./img/favicon.svg' />
   <link rel='mask-icon'
         href='./img/favicon.svg'
-        color='#000000'>
+        color='#000000' />
   <link rel='apple-touch-icon'
-        href='apple-touch-icon.png'>
+        href='apple-touch-icon.png' />
 
   <if condition='preloadedFontName != "none"'>
     <link rel='preload'
           href='./fonts/{{ preloadedFontName }}.woff2'
           as='font'
           type='font/woff2'
-          crossorigin>
+          crossorigin />
   </if>
 
-  <title> {{ title }} </title>
+  <title>{{ title }}</title>
 
   <!-- /-/ General stylesheets -->
   <link rel='stylesheet'
-        href='./styles/fonts.css'>
+        href='./styles/fonts.css' />
   <link rel='stylesheet'
-        href='./styles/base.css'>
+        href='./styles/base.css' />
   <link rel='stylesheet'
-        href='./styles/layout.css'>
+        href='./styles/layout.css' />
   <link rel='stylesheet'
-        href='./styles/module.css'>
+        href='./styles/module.css' />
   <link rel='stylesheet'
-        href='./styles/state.css'>
+        href='./styles/state.css' />
   <link rel='stylesheet'
-        href='./styles/theme.css'>
+        href='./styles/theme.css' />
 
   <!-- /-/ General scripts -->
   <if condition='justValidate'>
@@ -83,7 +83,7 @@
   <if condition='swiper || stepByStep'>
     <!-- Swiper -->
     <link rel='stylesheet'
-          href='./assets/swiper/swiper-bundle.min.css'>
+          href='./assets/swiper/swiper-bundle.min.css' />
     <script type='module'
             src='./assets/swiper/index.js'></script>
   </if>
@@ -101,13 +101,13 @@
     <script type='module'
             src='./assets/photoSwipe/index.js'></script>
     <link rel='stylesheet'
-          href='./assets/photoswipe/photoswipe.css'>
+          href='./assets/photoswipe/photoswipe.css' />
   </if>
 
   <if condition='noUiSlider'>
     <!-- NoUiSlider -->
     <link href='./assets/noUiSlider/nouislider.min.css'
-          rel='stylesheet'>
+          rel='stylesheet' />
     <script type='module'
             src='./assets/noUiSlider/index.js'></script>
   </if>
@@ -122,12 +122,12 @@
     <script src='./scripts/scroll-timeline.js'></script>
   </if>
 
-  <if condition='swipe'>
-    <!-- Swipe -->
+  <if condition='toggleBySwipe'>
+    <!-- Toggle by swipe -->
     <script type='module'
-            src='./scripts/swipe/index.js'></script>
+            src='./scripts/toggleBySwipe/index.js'></script>
     <link rel='stylesheet'
-          href='./scripts/swipe/index.css'>
+          href='./scripts/toggleBySwipe/index.css' />
   </if>
 
   <if condition='horizontalMouseScroll'>
@@ -139,7 +139,7 @@
   <if condition='dialogs'>
     <!-- For dialogs -->
     <link rel='stylesheet'
-          href='./scripts/dialogs/index.css'>
+          href='./scripts/dialogs/index.css' />
     <script type='module'
             src='./scripts/dialogs/index.js'></script>
   </if>
@@ -151,7 +151,7 @@
   </if>
 
   <if condition='autoScrollPadding'>
-    <!-- Scroll to element -->
+    <!-- For scroll padding -->
     <script type='module'
             src='./scripts/autoScrollPadding/index.js'></script>
   </if>
@@ -160,7 +160,7 @@
     <!-- Tabs -->
     <script src='./scripts/tab/index.js'></script>
     <link rel='stylesheet'
-          href='./scripts/tab/index.css'>
+          href='./scripts/tab/index.css' />
   </if>
 
   <if condition='stepByStep'>
@@ -169,7 +169,7 @@
             src='./scripts/stepByStepBlock/index.js'></script>
   </if>
   <if condition='infiniteScroll'>
-    <!-- StepByStep -->
+    <!-- Infinite Scroll -->
     <script src='./scripts/infiniteScroll/index.js'></script>
   </if>
 

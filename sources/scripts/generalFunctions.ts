@@ -40,7 +40,7 @@ export function elementsIsExist(...selectors: string[]): boolean {
 export function elementIsExistWithLog(nameOfErrorRoot: string, ...selectors: string[]): boolean {
   for (let selector of selectors) {
     if (document.querySelector(selector) == null) {
-      console.log(`[${nameOfErrorRoot}] Some element is not exist.`)
+      console.log(`[${nameOfErrorRoot}] Element ${selector} was not found!`)
       return false
     }
   }

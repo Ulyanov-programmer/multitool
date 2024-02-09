@@ -53,7 +53,7 @@ module.exports = function (grunt) {
           fileCwd = parsedFile.dir.replace(sourceCwd, '')
 
         if (
-          extnamesIsCorrect(fileExtname) == false
+          !extnamesIsCorrect(fileExtname)
           && !fs.existsSync(createPathToNewFileInDist(fileName, fileExtname, fileCwd))
         ) {
           fs.copyFileSync(fileSrc, createPathToNewFileInDist(fileName, fileExtname, fileCwd))
@@ -65,7 +65,7 @@ module.exports = function (grunt) {
         for (let [conversionRule, conversionRuleOptions] of Object.entries(options)) {
           let [convertFrom, convertTo] = conversionRule.split('_to_')
 
-          if (extnamesIsCorrect(convertFrom, convertTo) == false) {
+          if (!extnamesIsCorrect(convertFrom, convertTo)) {
             console.error(chalk.red.bold('Invalid name of an conversion rule! Make sure you have spelled the extension names correctly.'))
 
             return done(false)
@@ -111,6 +111,9 @@ module.exports = function (grunt) {
   )
 
   async function convert(filePath, newFileFormat, options, newFilePath) {
+    if (newFileFormat == 'heif')
+      options.compression = 'av1'
+
     let sharpInstance = await sharp(filePath, DEFAULT_SHARP_OPTIONS)
       .toFormat(newFileFormat, Object.assign(DEFAULT_CONVERSION_OPTIONS, options))
 

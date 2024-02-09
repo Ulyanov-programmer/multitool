@@ -6,16 +6,16 @@ Attention! Requires the [Swiper](https://swiperjs.com/) plugin to work.
 
 ## Initialization
 
-1. To initialize, create an ts/js file and connect it to your HTML page.
+1. To initialize, create an `.js` file and connect it to your HTML page.
 
 2. Write the following code in the created file:
 
 ```ts
-import Swiper from "./your_path_to_/swiper.js"
-import StepByStepBlock from "./your_path_to/stepByStepBlock.src.js"
+import Swiper from './your_path_to_/swiper.js'
+import StepByStepBlock from './your_path_to/stepByStepBlock.src.js'
 
 new StepByStepBlock({
-  swiperInstance: new Swiper("#step-by-step", {
+  swiperInstance: new Swiper('#step-by-step', {
     allowTouchMove: false,
     allowSlideNext: false,
     allowSlidePrev: false,
@@ -23,7 +23,7 @@ new StepByStepBlock({
     navigation: {
       nextEl: `.swiper-button-next`,
       prevEl: `.swiper-button-prev`,
-      disabledClass: "inactive",
+      disabledClass: 'inactive',
     },
   }),
   checkFunctions: {
@@ -65,7 +65,7 @@ To fine-tune the script, you can use the following API functions:
 
 ```ts
 new StepByStepBlock({
-  swiperInstance: new Swiper("#step-by-step", {
+  swiperInstance: new Swiper('#step-by-step', {
     // Use these parameters to prevent skipping steps.
     allowTouchMove: false,
     allowSlideNext: false,
@@ -75,7 +75,7 @@ new StepByStepBlock({
     navigation: {
       nextEl: `.swiper-button-next`,
       prevEl: `.swiper-button-prev`,
-      disabledClass: "inactive",
+      disabledClass: 'inactive',
     },
 
     /* 
