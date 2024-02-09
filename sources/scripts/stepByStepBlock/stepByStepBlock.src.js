@@ -6,14 +6,19 @@ export default class StepByStepBlock {
     this.swiper = arg.swiperInstance
     this.checkFunctions = arg.checkFunctions
 
-    for (let bullet of this.swiper.pagination.bullets) {
+    for (let bullet of this.swiper.pagination?.bullets) {
       bullet.addEventListener('click', this.bulletHandler.bind(this))
     }
-    for (let button of this.swiper.navigation.nextEl) {
-      button.addEventListener('click', this.nextButtonHandler.bind(this))
+
+    if (this.swiper.navigation?.nextEl) {
+      for (let button of this.swiper.navigation.nextEl) {
+        button.addEventListener('click', this.nextButtonHandler.bind(this))
+      }
     }
-    for (let button of this.swiper.navigation.prevEl) {
-      button.addEventListener('click', this.prevButtonHandler.bind(this))
+    if (this.swiper.navigation?.prevEl) {
+      for (let button of this.swiper.navigation.prevEl) {
+        button.addEventListener('click', this.prevButtonHandler.bind(this))
+      }
     }
   }
 
