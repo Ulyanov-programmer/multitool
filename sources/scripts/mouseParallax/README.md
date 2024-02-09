@@ -11,7 +11,7 @@ Allows you to perform a parallax effect when moving the cursor.
 ```ts
 import Parallax, {
   ParallaxElement,
-} from './path_to_parallax_folder/parallax.src.js';
+} from './path_to_parallax_folder/parallax.src.js'
 
 new Parallax(
   { parallaxContainerSelector: '.parallax_wrapper', minWorkWidth: 768 },
@@ -20,7 +20,7 @@ new Parallax(
     selector: '.parallax_el',
     parallaxCoefficients: [-0.2, 0.2],
   })
-);
+)
 ```
 
 ## API
@@ -47,5 +47,5 @@ new Parallax(
     */
     parallaxCoefficients: [-0.2, 0.2],
   })
-);
+)
 ```

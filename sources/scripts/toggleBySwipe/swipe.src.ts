@@ -14,24 +14,37 @@ export enum ChangePlane {
 }
 
 export type SwipeAreaArgs = {
-
+  /**
+   * The selector of the `swipe-area` element for which the swipe will be active. 
+   * Attention! The `swipe-area` element must have the `for-element` attribute, with the ID of the element that will move during the swipe.
+   */
   selector: string
   /** 
-   * Which way do you need to swipe in order for the element to appear.
+   *  Which way do you need to swipe in order for the element to appear.
    */
   changePlane: ChangePlane
   /** 
-   * The higher or lower the value, the more or less you need to swipe in order 
-   * for the menu to appear. Usually the values range from `0.5` to `0.7`.
-   */
+    The higher or lower the value, the more or less you need to swipe in order 
+    for the menu to appear. Usually the values range from `0.3` to `0.7`.
+  */
   swipeSensitivity: number
   /** 
    * The maximum width of the viewport when a swipe will work.
+   * 
+   * Default value: `100000`
    */
   maxWorkWidth?: number
   isSwipedClass?: string
   isSwipedAreaClass?: string
+  /**
+   * A function that will trigger when the element is switched to open by swipe.
+   * @param openedElement The element that was switched by swipe.
+   */
   actionOnOpening?: (openedElement: HTMLElement) => any
+  /**
+   * A function that will trigger when the element is switched to close by swipe.
+   * @param closedElement The element that was switched by swipe.
+   */
   actionOnClosing?: (closedElement: HTMLElement) => any
 }
 /**

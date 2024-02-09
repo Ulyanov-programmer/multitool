@@ -36,17 +36,15 @@ export class ObserverTools {
 type Breakpoint = {
   [activeWidth: number]: {
     /**
-     * Specify `true` if you want to disable the Observer.
+     * Use it to disable this observer while this breakpoint is in effect.
      */
     unobserve?: boolean
     /** 
-     * The delay before the animation starts in milliseconds. 
+     * Override the delay before launching the Observer action in milliseconds.
      */
     timeoutBeforeStart?: number
     /**
-      * The function that will be executed when the intersected element is on the screen.
-      * @param observerEntry The IntersectionObserverEntry object for processing inside the function.
-      * @remark The function should be full-fledged, `not be arrow-function`!
+      * Override the function that will be executed when the element is being observed.
       */
     functionOnView?: (observerEntry: IntersectionObserverEntry) => any
   }
@@ -69,25 +67,25 @@ interface ActionOnViewArgs {
    */
   rootMargin?: string
   /** 
-   * The delay before the animation starts in milliseconds. 
+   * The delay before launching the Observer action in milliseconds.
    */
   timeoutBeforeStart?: number
   /**
-   * Allows you to change the Observer object at certain screen widths.
+   * Allows you to change the `IntersectionObserver` object at certain screen widths.
    */
   breakpoints?: Breakpoint
   /**
-   * The function that will be executed when the intersected element is on the screen.
-   * @param observerEntry The IntersectionObserverEntry object for processing inside the function.
-   * @remark The function should be full-fledged, `not be arrow-function`!
-   */
+   * A function that will be executed when the item being observed is visible on the screen.
+   * 
+   * It will work after the time specified by the `timeoutBeforeStart` parameter.
+  */
   functionOnView?: (observerEntry: IntersectionObserverEntry) => any
+  /**
+   * Do not run the `Observer` action until at least one `breakpoint` has been reached.
+   */
   doNotRunUntilFirstBreakpoint?: boolean
 }
 
-/**
- * Creates an instance of `IntersectionObserver` and allows you to configure it.
- */
 export default class ActionOnView {
   private htmlElements: NodeListOf<HTMLElement>
   private breakpoints: Breakpoint

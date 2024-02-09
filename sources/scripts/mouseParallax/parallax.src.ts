@@ -1,9 +1,13 @@
 import { elementIsExistWithLog } from '../generalFunctions.js'
 
 interface ParallaxArgs {
-  /** Selector of a block that contains the elements to be parallaxed. */
+  /** 
+   * The selector of the element, the movement of the cursor over which will cause parallax.
+   */
   parallaxContainerSelector: string
-  /** Parallax will only work if the window width is greater than or equal to this number. */
+  /** 
+   * If the screen width becomes less than the specified width, the parallax will stop working.
+   */
   minWorkWidth: number
 }
 

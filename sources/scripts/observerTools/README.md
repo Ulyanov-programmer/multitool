@@ -9,11 +9,11 @@ To initialize:
 1. Create a file with the following contents:
 
 ```ts
-import ActionOnView from './path_to_observerTools_folder/observerTools.src.js';
+import ActionOnView from './path_to_observerTools_folder/observerTools.src.js'
 
 new ActionOnView({
   selectors: '.element_or_elements_group',
-});
+})
 ```
 
 2. Connect this file:
@@ -31,7 +31,7 @@ You can use this script more fully using the following functions:
 ### General options
 
 ```ts
-import ActionOnView, { ObserverTools } from './observerTools.src.js';
+import ActionOnView, { ObserverTools } from './observerTools.src.js'
 
 new ObserverTools({
   // Change the assigned class for the observed elements.
@@ -39,7 +39,7 @@ new ObserverTools({
 
   // Allow the Observer to be triggered not once, but every time an element is observed on the screen.
   isIntersectedClass: 'is-intersecting',
-});
+})
 ```
 
 ### Action options
@@ -70,7 +70,7 @@ new ActionOnView({
     It will work after the time specified by the timeoutBeforeStart parameter.
   */
   functionOnView(observerEntry: IntersectionObserverEntry) {},
-});
+})
 ```
 
 #### Breakpoint API
@@ -90,7 +90,7 @@ new ActionOnView({
       // Override the delay before launching the Observer action in milliseconds.
       timeoutBeforeStart: 0,
 
-      // Override the function that will be executed when the file is being observed.
+      // Override the function that will be executed when the element is being observed.
       functionOnView(observerEntry: IntersectionObserverEntry) {},
     },
 
