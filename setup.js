@@ -3,7 +3,6 @@ import replace from 'replace-in-file'
 import { log } from 'console'
 import enquirer from 'enquirer'
 import chalk from 'chalk'
-import { match } from 'assert'
 
 class ModuleObject {
   constructor(config = {}) {
@@ -37,13 +36,11 @@ const pathToProject = './',
   componentsFolder = sources + 'components/',
   assets = sources + 'assets/',
   environmentFilePath = stylesFolder + '_environment.pcss',
-  baseStyleFile = stylesFolder + 'base.pcss',
-  stateStyleFile = stylesFolder + 'state.pcss',
+  baseStyleFile = stylesFolder + 'normalize.pcss',
+  stateStyleFile = stylesFolder + 'thirdLevelRules.pcss',
   layoutHtmlFile = componentsFolder + 'layout.html',
   fontsGitkeep = sources + 'fonts/.gitkeep',
   indexPage = sources + 'index.html'
-
-writeCompletelyPhrase()
 
 
 logSomeImportantInConsole(
@@ -102,20 +99,6 @@ await includeModuleByQuestion(
   'Whether you want to save the module...',
 
   new ModuleObject({
-    moduleName: 'Burger menu',
-    filesAndFolders: [
-      scriptsFolder + 'burgerMenu/',
-      componentsFolder + 'burgerMenu.html',
-    ],
-    htmlConnectStrings: [
-      {
-        path: componentsFolder + 'header.html',
-        strings: `<x-burgerMenu></x-burgerMenu>`,
-      },
-      { strings: `burgerMenu=false`, },
-    ],
-  }),
-  new ModuleObject({
     moduleName: 'Scripts for dialog',
     filesAndFolders: [
       scriptsFolder + 'dialogs/',
@@ -127,20 +110,6 @@ await includeModuleByQuestion(
     ],
   }),
   new ModuleObject({
-    moduleName: 'Spoilers',
-    filesAndFolders: scriptsFolder + 'spoiler/',
-    htmlConnectStrings: [
-      { strings: `spoiler=false` }
-    ],
-  }),
-  new ModuleObject({
-    moduleName: 'Submenu',
-    filesAndFolders: scriptsFolder + 'submenu/',
-    htmlConnectStrings: [
-      { strings: `submenu=false` }
-    ],
-  }),
-  new ModuleObject({
     moduleName: 'Tabs',
     filesAndFolders: scriptsFolder + 'tab/',
     htmlConnectStrings: [
@@ -148,17 +117,10 @@ await includeModuleByQuestion(
     ],
   }),
   new ModuleObject({
-    moduleName: 'Element-modal',
-    filesAndFolders: scriptsFolder + 'elementModal/',
+    moduleName: 'Parallax by mouse',
+    filesAndFolders: scriptsFolder + 'mouseParallax/',
     htmlConnectStrings: [
-      { strings: `elementModal=false` }
-    ],
-  }),
-  new ModuleObject({
-    moduleName: 'Parallax',
-    filesAndFolders: scriptsFolder + 'parallax/',
-    htmlConnectStrings: [
-      { strings: `parallax=false` }
+      { strings: `mouseParallax=false` }
     ],
   }),
   new ModuleObject({
@@ -176,24 +138,17 @@ await includeModuleByQuestion(
     ],
   }),
   new ModuleObject({
-    moduleName: 'Horizontal scroll',
-    filesAndFolders: scriptsFolder + 'horizontalScroll.ts',
+    moduleName: 'Horizontal scroll by mouse wheel',
+    filesAndFolders: scriptsFolder + 'horizontalMouseScroll.ts',
     htmlConnectStrings: [
-      { strings: `horizontalScroll=false` }
+      { strings: `horizontalMouseScroll=false` }
     ],
   }),
   new ModuleObject({
-    moduleName: 'Swipe module (required to switch a sidebar by swipe)',
-    filesAndFolders: scriptsFolder + 'swipe/',
+    moduleName: 'Switching by swipe',
+    filesAndFolders: scriptsFolder + 'toggleBySwipe/',
     htmlConnectStrings: [
-      { strings: `swipe=false` }
-    ],
-  }),
-  new ModuleObject({
-    moduleName: 'Form styles',
-    filesAndFolders: stylesFolder + 'form.pcss',
-    htmlConnectStrings: [
-      { strings: `formStyles=false` }
+      { strings: `toggleBySwipe=false` }
     ],
   }),
   new ModuleObject({
@@ -201,6 +156,20 @@ await includeModuleByQuestion(
     filesAndFolders: scriptsFolder + 'stepByStepBlock/',
     htmlConnectStrings: [
       { strings: `stepByStep=false` }
+    ],
+  }),
+  new ModuleObject({
+    moduleName: 'scroll-timeline polyfill',
+    filesAndFolders: scriptsFolder + 'scroll-timeline.js',
+    htmlConnectStrings: [
+      { strings: `scrollTimeline=false` }
+    ],
+  }),
+  new ModuleObject({
+    moduleName: 'Infinite auto-scroll',
+    filesAndFolders: scriptsFolder + 'infiniteScroll/',
+    htmlConnectStrings: [
+      { strings: `infiniteScroll=false` }
     ],
   }),
 )
@@ -344,6 +313,7 @@ $minFontSize: \${minSize}px;`
 deleteUnnecessaryFilesAndFolders()
 
 
+writeCompletelyPhrase()
 
 
 async function includeModuleByQuestion(title, ...moduleObjects) {
@@ -366,17 +336,17 @@ async function includeModuleByQuestion(title, ...moduleObjects) {
 
     if (confirmedModuleName) {
       replaceHtmlConnectionString(module.htmlConnectStrings, 'false', 'true')
+      continue
     }
-    else {
-      if (Array.isArray(module.filesAndFolders) == false)
-        module.filesAndFolders = new Array(module.filesAndFolders)
 
-      for (let fileOrFolder of module.filesAndFolders) {
-        fs.removeSync(fileOrFolder)
-      }
+    if (!Array.isArray(module.filesAndFolders))
+      module.filesAndFolders = new Array(module.filesAndFolders)
 
-      replaceHtmlConnectionString(module.htmlConnectStrings)
+    for (let fileOrFolder of module.filesAndFolders) {
+      fs.removeSync(fileOrFolder)
     }
+
+    replaceHtmlConnectionString(module.htmlConnectStrings)
   }
 }
 async function setVariables(...variableTemplates) {
@@ -431,7 +401,7 @@ function deleteUnnecessaryFilesAndFolders() {
 function replaceHtmlConnectionString(htmlConnectStrings, replacedValue, replacedNewValue) {
   if (!htmlConnectStrings) return
 
-  if (Array.isArray(htmlConnectStrings) == false)
+  if (!Array.isArray(htmlConnectStrings))
     htmlConnectStrings = new Array(htmlConnectStrings)
 
   for (let htmlConnectStringData of htmlConnectStrings) {
@@ -473,7 +443,8 @@ function replaceEnquirerTemplateValues(template, fields, values, replaceNamesToD
         field.initial ?? ''
       )
     }
-  } else {
+  }
+  else {
     for (let field of fields) {
       newTemplate = newTemplate.replaceAll(
         '${' + field.name + '}',
@@ -490,7 +461,6 @@ function logSomeImportantInConsole(message, chalkColor) {
 
 function writeCompletelyPhrase() {
   let
-    lines,
     topPhrase = 'The setup is completely complete!',
     middlePhrase = 'I wish You a successful job.',
     bottomPhrase = '🎆🎆🎆',
@@ -499,18 +469,19 @@ function writeCompletelyPhrase() {
     positionOfMiddle = Math.round(process.stdout.columns / 2) - Math.round(middlePhrase.length / 2),
     positionOfBottom = Math.round(process.stdout.columns / 2) - Math.round(bottomPhrase.length / 2)
 
-  lines = '―'.repeat(process.stdout.columns)
   topPhrase = ' '.repeat(positionOfTop) + topPhrase
   middlePhrase = ' '.repeat(positionOfMiddle) + middlePhrase
   bottomPhrase = ' '.repeat(positionOfBottom) + bottomPhrase
 
   logSomeImportantInConsole(
-    lines + '\n'
+    '\n'
     + topPhrase + '\n'
     + middlePhrase + '\n'
     + bottomPhrase + '\n'
-    + lines
 
     , chalk.greenBright
   )
+
+  // An empty line to correct one error in the visualization
+  console.log('')
 }
