@@ -1,8 +1,8 @@
 @import url('./_environment.pcss');
 
-@layer base, layout, modules, state, theme;
+@layer normalizing, firstLevel, secondLevel, thirdLevel;
 
-@layer base {
+@layer normalizing {
   *:not(table, caption, thead, tbody, tfoot, colgroup, tr, th, td, svg *) {
     all: unset;
     box-sizing: border-box;
@@ -42,6 +42,12 @@
     text-size-adjust: auto;
 
     -webkit-tap-highlight-color: #0000;
+  }
+
+  html {
+    @media (prefers-reduced-motion: no-preference) {
+      scroll-behavior: smooth;
+    }
   }
 
   a,

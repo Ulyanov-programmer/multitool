@@ -1,0 +1,71 @@
+@import url('./_environment.pcss');
+
+@layer secondLevel {
+  .fullWidthWithPaddings {
+    display: grid;
+    grid-template-columns:
+      var(--content-inline-padding)
+      1fr
+      var(--content-inline-padding);
+    width: 100vw;
+  }
+
+  img.containImg {
+    @mixin size 100%;
+
+    object-fit: contain;
+  }
+
+  img.coverImg {
+    @mixin size 100%;
+
+    object-fit: cover;
+  }
+
+  .visuallyHidden {
+    position: absolute;
+
+    overflow: hidden;
+
+    width: 1px;
+    height: 1px;
+
+    white-space: nowrap;
+
+    clip-path: inset(50%);
+  }
+
+  .imageInText {
+    width: fit-content;
+
+    color: transparent;
+
+    background-image: url('');
+    background-clip: text;
+    background-size: cover;
+  }
+
+  .gradientInText {
+    width: fit-content;
+
+    color: transparent;
+
+    background-image: linear-gradient(90deg, red, blue);
+    background-clip: text;
+    background-size: cover;
+  }
+
+  .stickyOnTop {
+    position: sticky;
+    top: 0;
+  }
+
+  .flexRowWrap {
+    display: flex;
+    flex-flow: row wrap;
+  }
+  .gridCentring {
+    display: grid;
+    place-content: center center;
+  }
+}

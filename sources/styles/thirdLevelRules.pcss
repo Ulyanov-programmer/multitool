@@ -1,0 +1,88 @@
+@layer thirdLevel {
+  .thin,
+  .100 {
+    font-weight: 100;
+  }
+
+  .extra_light,
+  .200 {
+    font-weight: 200;
+  }
+
+  .light,
+  .300 {
+    font-weight: 300;
+  }
+
+  .medium,
+  .500 {
+    font-weight: 500;
+  }
+
+  .semi_bold,
+  .600 {
+    font-weight: 600;
+  }
+
+  .bold,
+  .700 {
+    font-weight: 700;
+  }
+
+  .extra_bold,
+  .800 {
+    font-weight: 800;
+  }
+
+  .black,
+  .900 {
+    font-weight: 900;
+  }
+
+  .upper {
+    text-transform: uppercase;
+  }
+
+  .smooth_hiding_sides {
+    /* Use this to create the effect of smoothly hiding the elements. */
+
+    mask: linear-gradient(
+      90deg,
+      transparent,
+      rgb(0 0 0 / 100%) 10%,
+      rgb(0 0 0 / 100%) 90%,
+      transparent
+    );
+  }
+
+  .hide_scrollbar {
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+      width: 0;
+      height: 0;
+    }
+  }
+
+  .content_paddings {
+    --content-inline-padding: 10vw;
+    /* Paddings for site content. */
+    padding-inline: var(--content-inline-padding);
+
+    @media (--is-large-layout) {
+      --content-inline-padding: 15vw;
+    }
+
+    @media (--is-layout-width) {
+      --content-inline-padding: 10vw;
+    }
+
+    @media (--is-tablet) {
+      --content-inline-padding: 5vw;
+    }
+
+    @media (--is-mobile) {
+      --content-inline-padding: 2.5vw;
+    }
+  }
+}

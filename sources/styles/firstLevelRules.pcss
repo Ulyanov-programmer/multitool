@@ -1,6 +1,16 @@
 @import url('./_environment.pcss');
 
-@layer general {
+@layer firstLevel {
+  .Header {
+    position: relative;
+  }
+
+  .Footer {
+  }
+
+  main {
+  }
+
   emerge-menu {
     position: relative;
     display: inline-block;
@@ -57,6 +67,7 @@
       </c-content>
     </spoiler-wrapper>
     */
+
     > c-content {
       display: grid;
 
@@ -89,8 +100,8 @@
 
   .NavMenu {
     ul {
-      display: flex;
-      flex-flow: row wrap;
+      @extend flexRowWrap;
+
       gap: 15px;
 
       li {
@@ -121,8 +132,7 @@
     top: 0;
     left: 0;
 
-    display: grid;
-    place-content: center center;
+    @extend gridCentring;
 
     height: 100vh;
 
@@ -231,14 +241,7 @@
     }
 
     @media (prefers-reduced-motion: no-preference) {
-      /* Use this to create the effect of smoothly hiding the elements. */
-      mask: linear-gradient(
-        90deg,
-        transparent,
-        rgb(0 0 0 / 100%) 10%,
-        rgb(0 0 0 / 100%) 90%,
-        transparent
-      );
+      @extend smooth_hiding_sides;
     }
   }
 }
