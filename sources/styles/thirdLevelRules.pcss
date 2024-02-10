@@ -65,9 +65,9 @@
   }
 
   .content_paddings {
-    --content-inline-padding: 10vw;
+    --content-inline-padding: none;
     /* Paddings for site content. */
-    padding-inline: var(--content-inline-padding);
+    padding-inline: var(--content-inline-padding, 10vw);
 
     @media (--is-large-layout) {
       --content-inline-padding: 15vw;
