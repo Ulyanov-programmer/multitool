@@ -1,4 +1,4 @@
-"use strict"
+'use strict'
 
 const sharp = require('sharp'),
   globParent = require('glob-parent'),
@@ -26,10 +26,7 @@ const
     limitInputPixels: false,
   }
 
-let
-  logLevel,
-  destCwd,
-  sourceCwd
+let logLevel, destCwd, sourceCwd, isDistCwdCreated
 
 module.exports = function (grunt) {
   grunt.task.registerMultiTask('sharp', 'Convert and optimize images with Sharp.',
@@ -37,11 +34,14 @@ module.exports = function (grunt) {
       let done = this.async()
 
       let options = this.options()
+
       logLevel = options.logLevel ?? 'small'
       destCwd = this.files[0].dest
       sourceCwd = globParent(this.data.src)
 
       delete options.logLevel
+
+      if (!isDistCwdCreated) createDistFolderIfNotExists()
 
 
       for (let fileSrc of this.filesSrc) {
@@ -160,4 +160,11 @@ function extnamesIsCorrect(...extnames) {
   }
 
   return true
+}
+function createDistFolderIfNotExists() {
+  if (!fs.existsSync(destCwd)) {
+    fs.mkdirSync(destCwd)
+  }
+
+  isDistCwdCreated = true
 }
