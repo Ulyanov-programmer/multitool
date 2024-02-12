@@ -230,7 +230,7 @@ await setVariables(
   new VariableTemplate({
     snippetName: 'stylesheetSassLikeVariables',
     message: chalk.cyanBright(
-      'Fill in sass-like variables that are used in custom media \n'
+      'Fill in sass-like variables that are used in custom media. \n'
       + `(file - ${chalk.underline(environmentFilePath)})`),
     variableFilePath: environmentFilePath,
     fields: [
@@ -254,7 +254,7 @@ $minFontSize: \${minSize}px;`
   new VariableTemplate({
     snippetName: 'some name',
     message: chalk.cyanBright(
-      'Set the values of the paddings that are assigned using the .centeredContent class \n'
+      'Set the values of the paddings that are assigned using the .content_paddings class (used to center content in blocks)\n'
       + `(file - ${chalk.underline(stateStyleFile)}.`),
     variableFilePath: stateStyleFile,
     fields: [
