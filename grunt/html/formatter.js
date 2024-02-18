@@ -1,6 +1,6 @@
 import paths from '../other/paths.js'
 
-export default {
+export let prettier = {
   options: {},
   files: {
     src: [

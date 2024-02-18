@@ -1,6 +1,6 @@
 import paths from './paths.js'
 
-export default {
+export let watch = {
   html: {
     files: paths.src.root + '*.html',
     tasks: ['newer:posthtml', 'newer:prettier'],

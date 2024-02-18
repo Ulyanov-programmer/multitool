@@ -1,7 +1,7 @@
 import paths from '../other/paths.js'
 import { isProductionMode } from '../other/environment.js'
 
-export default {
+export let esbuild = {
   api: {
     files: {
       src: [

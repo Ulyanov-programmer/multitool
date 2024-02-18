@@ -1,11 +1,14 @@
 'use strict'
 
-require('fix-esm').register() // Allows to require any ECMAScript module in this file
+// Allows to require any ECMAScript module in this file
+require('fix-esm').register()
 
 const environment = require('./grunt/other/environment.js')
 
-require('./grunt/other/server.js').default() // Starting the server
-require('./grunt/other/fontsWriting.js').default() // Parsing fonts into the style file
+require('./grunt/other/server.js')
+  .server() // Starting the server
+require('./grunt/other/fontsWriting.js')
+  .fontsWriting() // Parsing fonts into the style file
 
 
 module.exports = grunt => {
@@ -15,29 +18,28 @@ module.exports = grunt => {
   grunt.loadTasks('./grunt/sharp/tasks/')
 
   grunt.initConfig({
-    posthtml: require('./grunt/html/posthtml.js').default,
-    postcss: require('./grunt/css/postcss.js').default,
-    cssmin: require('./grunt/css/minifier&formatter.js').default,
-    esbuild: require('./grunt/scripts/compiler.js').default,
-    sharp: require('./grunt/images/sharp.js').default,
-    prettier: require('./grunt/html/formatter.js').default,
-    ttf2woff2: require('./grunt/other/ttf2woff2.js').default,
-    newer: require('./grunt/other/newer.js').default,
-    copy: require('./grunt/other/copy.js').default,
-    watch: require('./grunt/other/watch.js').default,
-    clean: require('./grunt/other/deleteDist.js').default,
+    ...require('./grunt/html/posthtml.js'),
+    ...require('./grunt/css/postcss.js'),
+    ...require('./grunt/css/minifier&formatter.js'),
+    ...require('./grunt/scripts/compiler.js'),
+    ...require('./grunt/images/sharp.js'),
+    ...require('./grunt/html/formatter.js'),
+    ...require('./grunt/other/ttf2woff2.js'),
+    ...require('./grunt/other/newer.js'),
+    ...require('./grunt/other/copy.js'),
+    ...require('./grunt/other/watch.js'),
+    ...require('./grunt/other/deleteDist.js'),
   })
 
   grunt.registerTask('default', [
     // Delete the dist folder if the --update-dist flag is set.
-    environment.isDeleteDistBeforeLaunch ? 'clean' : null,
+    environment.isDeleteDistBeforeLaunch && 'clean',
     'sharp',
     'newer:posthtml',
     'newer:postcss',
     'newer:cssmin',
     'esbuild',
     'newer:ttf2woff2',
-
 
     'newer:copy',
     environment.isProductionMode && 'prettier',

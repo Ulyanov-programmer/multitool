@@ -1,6 +1,6 @@
 import paths from '../other/paths.js'
 
-export default {
+export let cssmin = {
   main: {
     options: {
       format: 'beautify',

@@ -1,7 +1,7 @@
 import browserSync from 'browser-sync'
 import paths from './paths.js'
 
-export default function () {
+export function server() {
   browserSync.exit()
 
   let server = browserSync.create()

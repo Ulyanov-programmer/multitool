@@ -1,6 +1,6 @@
 import paths from './paths.js'
 
-export default {
+export let copy = {
   main: {
     expand: true,
 

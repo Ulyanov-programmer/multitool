@@ -1,6 +1,6 @@
 import paths from './paths.js'
 
-export default {
+export let clean = {
   dest: paths.dest.root + '*.html',
   styles: paths.dest.styles + '*',
   scripts: paths.dest.scripts + '**/*',

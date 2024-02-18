@@ -5,12 +5,12 @@ import { parseNumericWeightFromName, parseStyleFromName } from 'parse-font-name'
 import paths from './paths.js'
 
 
-export default function () {
+export function fontsWriting() {
   // Checking the fonts style file is full.
   if (fs.readFileSync(paths.src.fontsFilePath).toString().replace(/\s/g, '').length > 0)
     return
 
-  if (filesIsCorrect(fs.readdirSync(paths.src.fontsFolder)) == false) {
+  if (!filesIsCorrect(fs.readdirSync(paths.src.fontsFolder))) {
     console.log(chalk.green('No one font was found!'))
     return
   }
@@ -56,7 +56,8 @@ export default function () {
         weights: [weight],
         styles: [style],
       })
-    } else {
+    }
+    else {
       let indexOfCurrentFont = fonts.findIndex(item => item.fontName == fontName)
       fonts[indexOfCurrentFont].weights.push(weight)
       fonts[indexOfCurrentFont].styles.push(style)
@@ -86,8 +87,7 @@ function setupFontFaceRule({ fileBase, type, fileNameNoExt, weight, style }) {
 function declareFontVariablesAndModifiers(fonts) {
   if (fonts.length <= 0) return
 
-  let vars = [],
-    modifiers = []
+  let vars = [], modifiers = []
 
   for (let font of fonts) {
     // Transform from FontName to css-property (--font-name: 'FontName';)
@@ -132,7 +132,5 @@ function filesIsCorrect(fileNames) {
     fileNames.splice(fileNames.indexOf('.gitkeep'), 1)
   }
 
-  if (fileNames.length == 0) {
-    return false
-  }
+  if (fileNames.length <= 0) return false
 }

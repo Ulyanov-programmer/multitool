@@ -3,7 +3,7 @@ import imgAutosize from 'posthtml-img-autosize'
 
 import paths from '../other/paths.js'
 
-export default {
+export let posthtml = {
   options: {
     use: [
       component({
