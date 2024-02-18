@@ -4,6 +4,8 @@
 require('fix-esm').register()
 
 const environment = require('./grunt/other/environment.js')
+const isFontFilesConverted = require('./grunt/other/checkFontFilesConverted.js')
+  .isFontFilesConverted()
 
 require('./grunt/other/server.js')
   .server() // Starting the server
@@ -39,7 +41,7 @@ module.exports = grunt => {
     'newer:postcss',
     'newer:cssmin',
     'esbuild',
-    'newer:ttf2woff2',
+    !isFontFilesConverted && 'ttf2woff2',
 
     'newer:copy',
     environment.isProductionMode && 'prettier',
