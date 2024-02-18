@@ -100,21 +100,9 @@
 
   .NavMenu {
     ul {
-      @extend flexRowWrap;
-
-      gap: 15px;
-
       li {
         a,
         button {
-          display: inline-block;
-          padding: 8px;
-          transition: all 0.2s ease 0s;
-
-          &:hover,
-          &:focus {
-            text-decoration: underline;
-          }
         }
       }
     }
@@ -132,7 +120,9 @@
     top: 0;
     left: 0;
 
-    @extend gridCentring;
+    display: grid;
+    place-items: center;
+    place-content: center;
 
     height: 100vh;
 
@@ -241,7 +231,13 @@
     }
 
     @media (prefers-reduced-motion: no-preference) {
-      @extend smooth_hiding_sides;
+      mask: linear-gradient(
+        90deg,
+        transparent,
+        rgb(0 0 0 / 100%) 10%,
+        rgb(0 0 0 / 100%) 90%,
+        transparent
+      );
     }
   }
 }

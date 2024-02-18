@@ -31,16 +31,16 @@ module.exports = grunt => {
   grunt.registerTask('default', [
     // Delete the dist folder if the --update-dist flag is set.
     environment.isDeleteDistBeforeLaunch ? 'clean' : null,
+    'sharp',
     'newer:posthtml',
     'newer:postcss',
     'newer:cssmin',
     'esbuild',
     'newer:ttf2woff2',
 
-    'sharp',
 
     'newer:copy',
-    'prettier',
+    environment.isProductionMode && 'prettier',
     'watch',
   ].filter(task => task))
 }

@@ -38,7 +38,6 @@
     "postcss": "^8.4.31",
     "postcss-custom-media": "^10.0.2",
     "postcss-discard-comments": "^6.0.0",
-    "postcss-extend-rule": "^4.0.0",
     "postcss-functions": "^4.0.2",
     "postcss-import": "^15.1.0",
     "postcss-mixins": "^9.0.4",
