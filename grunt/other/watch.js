@@ -1,16 +1,21 @@
 import paths from './paths.js'
+import { isProductionMode } from './environment.js'
 
 export let watch = {
   html: {
     files: paths.src.root + '*.html',
-    tasks: ['newer:posthtml', 'newer:prettier'],
+    tasks: isProductionMode
+      ? ['newer:posthtml', 'newer:prettier']
+      : ['newer:posthtml'],
     options: {
       spawn: false,
     },
   },
   htmlComponents: {
     files: paths.src.root + 'components/*.html',
-    tasks: ['posthtml', 'prettier'],
+    tasks: isProductionMode
+      ? ['posthtml', 'prettier']
+      : ['posthtml'],
     options: {
       spawn: false,
     },
