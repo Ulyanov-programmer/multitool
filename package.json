@@ -46,7 +46,7 @@
     "postcss-rem": "^3.0.0",
     "postcss-simple-vars": "^7.0.1",
     "posthtml": "^0.16.6",
-    "posthtml-component": "^1.1.0",
+    "posthtml-component": "^1.1.1",
     "posthtml-img-autosize": "^0.1.6",
     "replace-in-file": "^7.0.2",
     "sharp": "^0.32.6",
