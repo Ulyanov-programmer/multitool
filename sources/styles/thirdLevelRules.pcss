@@ -67,24 +67,33 @@
   }
 
   .content_paddings {
-    --content-inline-padding: none;
     /* Paddings for site content. */
     padding-inline: var(--content-inline-padding, 10vw);
 
-    @media (--is-large-layout) {
-      --content-inline-padding: 15vw;
-    }
+    @at-root {
+      :root {
+        --content-inline-padding: none;
 
-    @media (--is-layout-width) {
-      --content-inline-padding: 10vw;
-    }
+        @media (--is-large-layout) {
+          --content-inline-padding: 12vw;
+        }
 
-    @media (--is-tablet) {
-      --content-inline-padding: 5vw;
-    }
+        @media (--is-layout-width) {
+          --content-inline-padding: 10vw;
+        }
 
-    @media (--is-mobile) {
-      --content-inline-padding: 2.5vw;
+        @media (--is-tablet) {
+          --content-inline-padding: 8vw;
+        }
+
+        @media (--is-mobile) {
+          --content-inline-padding: 4vw;
+        }
+      }
     }
+  }
+
+  .contain_paint {
+    contain: paint;
   }
 }

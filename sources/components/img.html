@@ -9,15 +9,15 @@
     webp: props.webp,
     avif: props.avif,
   }
+  /* Usage example
+  <x-img class='coverImg'
+         source='images/image.jpg'
+         webp
+         avif
+         alt=''>
+  </x-img>
+  */
 </script>
-
-<!-- ? Usage example
-<x-img source='images/image.png'
-       loading='lazy'
-       webp
-       avif
-       alt='some alt' />
--->
 
 <picture>
   <if condition='avif != undefined'>
