@@ -26,7 +26,7 @@ const
     limitInputPixels: false,
   }
 
-let logLevel, destCwd, sourceCwd, isDistCwdCreated
+let logLevel, destCwd, sourceCwd
 
 module.exports = function (grunt) {
   grunt.task.registerMultiTask('sharp', 'Convert and optimize images with Sharp.',
@@ -41,8 +41,6 @@ module.exports = function (grunt) {
 
       delete options.logLevel
 
-      if (!isDistCwdCreated) createDistFolderIfNotExists()
-
 
       for (let fileSrc of this.filesSrc) {
         let
@@ -50,13 +48,16 @@ module.exports = function (grunt) {
           fileExtname = parsedFile.ext.replace('.', ''),
           fileName = parsedFile.name,
           fileBase = parsedFile.base,
-          fileCwd = parsedFile.dir.replace(sourceCwd, '')
+          fileCwd = parsedFile.dir.replace(sourceCwd, ''),
 
-        if (
-          !extnamesIsCorrect(fileExtname)
-          && !fs.existsSync(createPathToNewFileInDist(fileName, fileExtname, fileCwd))
-        ) {
-          fs.copyFileSync(fileSrc, createPathToNewFileInDist(fileName, fileExtname, fileCwd))
+          pathToDist = createPathToNewFileInDist(fileName, fileExtname, fileCwd)
+
+        fs.ensureDirSync(pathToDist.replace(parsedFile.base, ''))
+
+        if (!extnamesIsCorrect(fileExtname)) {
+          if (fs.existsSync(pathToDist)) continue
+
+          fs.copySync(fileSrc, pathToDist)
 
           logAboutSuccessfulCopy(fileBase)
           continue
@@ -160,11 +161,4 @@ function extnamesIsCorrect(...extnames) {
   }
 
   return true
-}
-function createDistFolderIfNotExists() {
-  if (!fs.existsSync(destCwd)) {
-    fs.mkdirSync(destCwd)
-  }
-
-  isDistCwdCreated = true
 }
