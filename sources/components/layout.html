@@ -26,170 +26,137 @@
 </script>
 
 <!DOCTYPE html>
-<html lang='{{ lang }}'>
+<html lang="{{ lang }}">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!--? ↓ Disables forced link for phone number on iOS -->
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="description" content="description" />
+    <meta name="theme-color" content="#000000" />
+    <link rel="icon" href="./img/favicon.svg" />
+    <link rel="mask-icon" href="./img/favicon.svg" color="#000000" />
+    <link rel="apple-touch-icon" href="apple-touch-icon.png" />
 
-<head>
-  <meta charset='UTF-8' />
-  <meta http-equiv='X-UA-Compatible'
-        content='IE=edge' />
-  <meta name='viewport'
-        content='width=device-width, initial-scale=1.0' />
-  <!--? ↓ Disables forced link for phone number on iOS -->
-  <meta name='format-detection'
-        content='telephone=no' />
-  <meta name='description'
-        content='description' />
-  <meta name='theme-color'
-        content='#000000' />
-  <link rel='icon'
-        href='./img/favicon.svg' />
-  <link rel='mask-icon'
-        href='./img/favicon.svg'
-        color='#000000' />
-  <link rel='apple-touch-icon'
-        href='apple-touch-icon.png' />
+    <if condition='preloadedFontName != "none"'>
+      <link
+        rel="preload"
+        href="./fonts/{{ preloadedFontName }}.woff2"
+        as="font"
+        type="font/woff2"
+        crossorigin
+      />
+    </if>
 
-  <if condition='preloadedFontName != "none"'>
-    <link rel='preload'
-          href='./fonts/{{ preloadedFontName }}.woff2'
-          as='font'
-          type='font/woff2'
-          crossorigin />
-  </if>
+    <title>{{ title }}</title>
 
-  <title>{{ title }}</title>
+    <!-- /-/ General stylesheets -->
+    <link rel="stylesheet" href="./styles/fonts.css" />
+    <link rel="stylesheet" href="./styles/normalize.css" />
+    <link rel="stylesheet" href="./styles/firstLevelRules.css" />
+    <link rel="stylesheet" href="./styles/secondLevelRules.css" />
+    <link rel="stylesheet" href="./styles/thirdLevelRules.css" />
 
-  <!-- /-/ General stylesheets -->
-  <link rel='stylesheet'
-        href='./styles/fonts.css' />
-  <link rel='stylesheet'
-        href='./styles/normalize.css' />
-  <link rel='stylesheet'
-        href='./styles/firstLevelRules.css' />
-  <link rel='stylesheet'
-        href='./styles/secondLevelRules.css' />
-  <link rel='stylesheet'
-        href='./styles/thirdLevelRules.css' />
+    <!-- /-/ General scripts -->
+    <if condition="justValidate">
+      <!-- JustValidate -->
+      <script type="module" src="./assets/justValidate/index.js"></script>
+    </if>
 
-  <!-- /-/ General scripts -->
-  <if condition='justValidate'>
-    <!-- JustValidate -->
-    <script type='module'
-            src='./assets/justValidate/index.js'></script>
-  </if>
+    <if condition="swiper || stepByStep">
+      <!-- Swiper -->
+      <link rel="stylesheet" href="./assets/swiper/swiper-bundle.min.css" />
+      <script type="module" src="./assets/swiper/index.js"></script>
+    </if>
 
-  <if condition='swiper || stepByStep'>
-    <!-- Swiper -->
-    <link rel='stylesheet'
-          href='./assets/swiper/swiper-bundle.min.css' />
-    <script type='module'
-            src='./assets/swiper/index.js'></script>
-  </if>
+    <if condition="typed">
+      <!-- Typed -->
+      <script defer src="./assets/typed/typed.min.js"></script>
+      <script defer src="./assets/typed/index.js"></script>
+    </if>
 
-  <if condition='typed'>
-    <!-- Typed -->
-    <script defer
-            src='./assets/typed/typed.min.js'></script>
-    <script defer
-            src='./assets/typed/index.js'></script>
-  </if>
+    <if condition="photoSwipe">
+      <!-- PhotoSwipe -->
+      <script type="module" src="./assets/photoSwipe/index.js"></script>
+      <link rel="stylesheet" href="./assets/photoswipe/photoswipe.css" />
+    </if>
 
-  <if condition='photoSwipe'>
-    <!-- PhotoSwipe -->
-    <script type='module'
-            src='./assets/photoSwipe/index.js'></script>
-    <link rel='stylesheet'
-          href='./assets/photoswipe/photoswipe.css' />
-  </if>
+    <if condition="noUiSlider">
+      <!-- NoUiSlider -->
+      <link href="./assets/noUiSlider/nouislider.min.css" rel="stylesheet" />
+      <script type="module" src="./assets/noUiSlider/index.js"></script>
+    </if>
 
-  <if condition='noUiSlider'>
-    <!-- NoUiSlider -->
-    <link href='./assets/noUiSlider/nouislider.min.css'
-          rel='stylesheet' />
-    <script type='module'
-            src='./assets/noUiSlider/index.js'></script>
-  </if>
+    <if condition="observerTools">
+      <!-- Observer Tools -->
+      <script type="module" src="./scripts/observerTools/index.js"></script>
+    </if>
 
-  <if condition='observerTools'>
-    <!-- Observer Tools -->
-    <script type='module'
-            src='./scripts/observerTools/index.js'></script>
-  </if>
+    <if condition="scrollTimeline">
+      <script src="./scripts/scroll-timeline.js"></script>
+    </if>
 
-  <if condition='scrollTimeline'>
-    <script src='./scripts/scroll-timeline.js'></script>
-  </if>
+    <if condition="toggleBySwipe">
+      <!-- Toggle by swipe -->
+      <script type="module" src="./scripts/toggleBySwipe/index.js"></script>
+      <link rel="stylesheet" href="./scripts/toggleBySwipe/index.css" />
+    </if>
 
-  <if condition='toggleBySwipe'>
-    <!-- Toggle by swipe -->
-    <script type='module'
-            src='./scripts/toggleBySwipe/index.js'></script>
-    <link rel='stylesheet'
-          href='./scripts/toggleBySwipe/index.css' />
-  </if>
+    <if condition="horizontalMouseScroll">
+      <!-- Horizontal scroll -->
+      <script type="module" src="./scripts/horizontalMouseScroll.js"></script>
+    </if>
 
-  <if condition='horizontalMouseScroll'>
-    <!-- Horizontal scroll -->
-    <script type='module'
-            src='./scripts/horizontalMouseScroll.js'></script>
-  </if>
+    <if condition="dialogs">
+      <!-- For dialogs -->
+      <link rel="stylesheet" href="./scripts/dialogs/index.css" />
+      <script type="module" src="./scripts/dialogs/index.js"></script>
+    </if>
 
-  <if condition='dialogs'>
-    <!-- For dialogs -->
-    <link rel='stylesheet'
-          href='./scripts/dialogs/index.css' />
-    <script type='module'
-            src='./scripts/dialogs/index.js'></script>
-  </if>
+    <if condition="mouseParallax">
+      <!-- MouseParallax -->
+      <script type="module" src="./scripts/mouseParallax/index.js"></script>
+    </if>
 
-  <if condition='mouseParallax'>
-    <!-- MouseParallax -->
-    <script type='module'
-            src='./scripts/mouseParallax/index.js'></script>
-  </if>
+    <if condition="autoScrollPadding">
+      <!-- For scroll padding -->
+      <script type="module" src="./scripts/autoScrollPadding/index.js"></script>
+    </if>
 
-  <if condition='autoScrollPadding'>
-    <!-- For scroll padding -->
-    <script type='module'
-            src='./scripts/autoScrollPadding/index.js'></script>
-  </if>
+    <if condition="tabs">
+      <!-- Tabs -->
+      <script src="./scripts/tab/index.js"></script>
+      <link rel="stylesheet" href="./scripts/tab/index.css" />
+    </if>
 
-  <if condition='tabs'>
-    <!-- Tabs -->
-    <script src='./scripts/tab/index.js'></script>
-    <link rel='stylesheet'
-          href='./scripts/tab/index.css' />
-  </if>
+    <if condition="stepByStep">
+      <!-- StepByStep -->
+      <script type="module" src="./scripts/stepByStepBlock/index.js"></script>
+    </if>
+    <if condition="infiniteScroll">
+      <!-- Infinite Scroll -->
+      <script src="./scripts/infiniteScroll/index.js"></script>
+    </if>
 
-  <if condition='stepByStep'>
-    <!-- StepByStep -->
-    <script type='module'
-            src='./scripts/stepByStepBlock/index.js'></script>
-  </if>
-  <if condition='infiniteScroll'>
-    <!-- Infinite Scroll -->
-    <script src='./scripts/infiniteScroll/index.js'></script>
-  </if>
+    <!-- /-/ Other stylesheets and scripts for this page -->
+    <stack name="styles"></stack>
+    <stack name="scripts"></stack>
+  </head>
 
-  <!-- /-/ Other stylesheets and scripts for this page -->
-  <stack name='styles'></stack>
-  <stack name='scripts'></stack>
-</head>
+  <body>
+    <if condition="$slots.header?.filled">
+      <x-header></x-header>
+    </if>
 
-<body>
-  <if condition='$slots.header?.filled'>
-    <x-header></x-header>
-  </if>
+    <main>
+      <yield></yield>
+    </main>
 
-  <main>
-    <yield></yield>
-  </main>
+    <if condition="$slots.footer?.filled">
+      <x-footer></x-footer>
+    </if>
+  </body>
 
-  <if condition='$slots.footer?.filled'>
-    <x-footer></x-footer>
-  </if>
-</body>
-
-<!-- Made in Russia, with ❤, by Ivan Ulyanov. -->
-
+  <!-- Made in Russia, with ❤, by Ivan Ulyanov. -->
 </html>
