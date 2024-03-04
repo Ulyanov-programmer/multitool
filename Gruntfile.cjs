@@ -37,7 +37,7 @@ module.exports = grunt => {
     // Delete the dist folder if the --update-dist flag is set.
     environment.isDeleteDistBeforeLaunch && 'clean',
     'sharp',
-    'newer:posthtml',
+    'posthtml',
     'newer:postcss',
     'newer:cssmin',
     'esbuild',
