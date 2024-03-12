@@ -6,6 +6,8 @@ export let sharp = {
     dest: paths.dest.images,
   },
   options: {
+    sharpOptions: {
+    },
     logLevel: 'small',
 
     png_to_png: {

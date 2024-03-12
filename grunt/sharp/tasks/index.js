@@ -26,7 +26,7 @@ const
     limitInputPixels: false,
   }
 
-let logLevel, destCwd, sourceCwd
+let logLevel, sharpOptions, destCwd, sourceCwd
 
 module.exports = function (grunt) {
   grunt.task.registerMultiTask('sharp', 'Convert and optimize images with Sharp.',
@@ -36,10 +36,12 @@ module.exports = function (grunt) {
       let options = this.options()
 
       logLevel = options.logLevel ?? 'small'
+      sharpOptions = options.sharpOptions ?? {}
       destCwd = this.files[0].dest
       sourceCwd = globParent(this.data.src)
 
       delete options.logLevel
+      delete options.sharpOptions
 
 
       for (let fileSrc of this.filesSrc) {
@@ -112,11 +114,12 @@ module.exports = function (grunt) {
   )
 
   async function convert(filePath, newFileFormat, options, newFilePath) {
-    if (newFileFormat == 'heif')
+    if (newFileFormat == 'heif' && !options.compression)
       options.compression = 'av1'
 
-    let sharpInstance = await sharp(filePath, DEFAULT_SHARP_OPTIONS)
-      .toFormat(newFileFormat, Object.assign(DEFAULT_CONVERSION_OPTIONS, options))
+    let sharpInstance =
+      await sharp(filePath, Object.assign(DEFAULT_SHARP_OPTIONS, sharpOptions))
+        .toFormat(newFileFormat, Object.assign(DEFAULT_CONVERSION_OPTIONS, options))
 
     fs.createFileSync(newFilePath)
 
