@@ -3,7 +3,7 @@
 @layer normalizing, firstLevel, secondLevel, thirdLevel;
 
 @layer normalizing {
-  *:not(table, caption, thead, tbody, tfoot, colgroup, tr, th, td, svg *) {
+  *:not(img, table, caption, thead, tbody, tfoot, colgroup, tr, th, td, svg *) {
     all: unset;
     box-sizing: border-box;
   }
@@ -56,6 +56,9 @@
   }
 
   html {
+    ::selection {
+    }
+
     @media (prefers-reduced-motion: no-preference) {
       scroll-behavior: smooth;
     }
@@ -317,5 +320,10 @@
   }
 
   hr {
+  }
+
+  inline-container {
+    container-type: inline-size;
+    display: block;
   }
 }
