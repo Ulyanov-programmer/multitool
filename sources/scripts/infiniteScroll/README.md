@@ -44,5 +44,9 @@ infinite-scroll#your-infinite-line {
     It is important to set the gap here, because it will be taken into account when calculating the animation.
   */
   --gap: 15px;
+
+  @media (prefers-reduced-motion: reduce) {
+    /* If reduce animations is set */
+  }
 }
 ```

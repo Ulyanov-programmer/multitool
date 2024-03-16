@@ -78,13 +78,15 @@ function pxToVw(px, layoutWidth) {
 }
 
 function bgImageMultiType(url) {
-  let webpUrl = url.replace('.jpg', '.webp')
+  let webpUrl, avifUrl, newParams
+
+  webpUrl = url.replace('.jpg', '.webp')
   webpUrl = webpUrl.replace('.png', '.webp')
 
-  let avifUrl = url.replace('.jpg', '.avif')
+  avifUrl = url.replace('.jpg', '.avif')
   avifUrl = avifUrl.replace('.png', '.avif')
 
-  let newParams = `image-set(url(${url}) 1x, url(${webpUrl}) 1x, url(${avifUrl}) 1x)`
+  newParams = `image-set(url(${url}) 1x, url(${webpUrl}) 1x, url(${avifUrl}) 1x)`
 
   return newParams
 }
