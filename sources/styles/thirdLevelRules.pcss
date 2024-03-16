@@ -1,48 +1,63 @@
 @import url('./_environment.pcss');
 
 @layer thirdLevel {
-  .thin,
-  .fw_100 {
-    font-weight: 100;
+  [class*='pos'] {
+    &[class*='_r'] {
+      position: relative;
+    }
+
+    &[class*='_a'] {
+      position: absolute;
+    }
+
+    &[class*='_sticky'] {
+      position: sticky;
+      top: 0;
+    }
   }
 
-  .extra_light,
-  .fw_200 {
-    font-weight: 200;
+  [class*='t'] {
+    &[class*='_upper'] {
+      text-transform: uppercase;
+    }
+
+    &[class*='_center'] {
+      text-align: center;
+    }
   }
 
-  .light,
-  .fw_300 {
-    font-weight: 300;
-  }
+  [class*='fw'] {
+    &[class*='_100'] {
+      font-weight: 100;
+    }
 
-  .medium,
-  .fw_500 {
-    font-weight: 500;
-  }
+    &[class*='_200'] {
+      font-weight: 200;
+    }
 
-  .semi_bold,
-  .fw_600 {
-    font-weight: 600;
-  }
+    &[class*='_300'] {
+      font-weight: 300;
+    }
 
-  .bold,
-  .fw_700 {
-    font-weight: 700;
-  }
+    &[class*='_500'] {
+      font-weight: 500;
+    }
 
-  .extra_bold,
-  .fw_800 {
-    font-weight: 800;
-  }
+    &[class*='_600'] {
+      font-weight: 600;
+    }
 
-  .black,
-  .fw_900 {
-    font-weight: 900;
-  }
+    &[class*='_700'] {
+      font-weight: 700;
+    }
 
-  .upper {
-    text-transform: uppercase;
+    &[class*='_800'] {
+      font-weight: 800;
+    }
+
+    &[class*='_900'] {
+      font-weight: 900;
+    }
   }
 
   .smooth_hiding_sides {
@@ -93,11 +108,11 @@
     }
   }
 
-  .contain_paint {
+  .contain_p {
     contain: paint;
   }
 
-  .inline_container {
+  .cntr_inline_size {
     container-type: inline-size;
   }
 }
