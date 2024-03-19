@@ -15,9 +15,7 @@ module.exports = function (grunt) {
       let done = this.async()
 
       if (this.files[0].src.length == 0) {
-        console.error(chalk.red('No file was found on the src path.'))
-
-        return done(false)
+        return done()
       }
 
       let inputOptions = this.options()

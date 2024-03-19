@@ -3,7 +3,7 @@
 @layer normalizing, firstLevel, secondLevel, thirdLevel;
 
 @layer normalizing {
-  *:not(img, table, caption, thead, tbody, tfoot, colgroup, tr, th, td, svg *) {
+  :not(svg, img, table, caption, thead, tbody, tfoot, colgroup, tr, th, td, svg *) {
     all: unset;
     box-sizing: border-box;
   }

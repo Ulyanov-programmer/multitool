@@ -41,7 +41,6 @@ export function fontsWriting() {
     }
 
     setupFontFaceRule({
-      fileBase: fileName,
       type: type,
       fileNameNoExt: fileNameNoExt,
       weight: weight,
@@ -70,9 +69,8 @@ export function fontsWriting() {
   console.log(chalk.green('Fonts have been successfully written, i continue...'))
 }
 
-function setupFontFaceRule({ fileBase, type, fileNameNoExt, weight, style }) {
-  let fontFaceRule = `/* ${fileBase} */
-@font-face {
+function setupFontFaceRule({ type, fileNameNoExt, weight, style }) {
+  let fontFaceRule = `@font-face {
   font-style: ${style};
   font-weight: ${weight};
   src: url("../fonts/${fileNameNoExt}.woff2") format("${type}");
