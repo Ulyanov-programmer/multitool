@@ -6,6 +6,7 @@
     // Set a name for a preloaded font. Must be a file name without extension.
     preloadedFontName: 'none',
     justValidate: props.justValidate,
+    inputmask: props.inputmask,
     swiper: props.swiper,
     typed: props.typed,
     photoSwipe: props.photoSwipe,
@@ -62,6 +63,11 @@
     <if condition="justValidate">
       <!-- JustValidate -->
       <script type="module" src="./assets/justValidate/index.js"></script>
+    </if>
+
+    <if condition="inputmask">
+      <!-- Inputmask -->
+      <script defer src="./assets/inputmask.min.js"></script>
     </if>
 
     <if condition="swiper || stepByStep">
