@@ -31,7 +31,7 @@
     "grunt-contrib-watch": "^1.1.0",
     "grunt-newer": "^1.3.0",
     "grunt-posthtml": "^0.5.2",
-    "grunt-prettier": "^2.2.0",
+    "grunt-prettify": "^0.4.0",
     "grunt-ttf2woff2": "^1.0.1",
     "load-grunt-tasks": "^5.1.0",
     "parse-font-name": "^1.2.0",

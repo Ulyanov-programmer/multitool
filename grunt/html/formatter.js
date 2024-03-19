@@ -1,10 +1,14 @@
 import paths from '../other/paths.js'
 
-export let prettier = {
-  options: {},
-  files: {
-    src: [
-      paths.dest.root + '*.html',
-    ],
+export let prettify = {
+  options: {
+    progress: true,
+  },
+  all: {
+    expand: true,
+    cwd: paths.dest.root,
+    ext: '.html',
+    src: ['*.html'],
+    dest: paths.dest.root
   },
 }

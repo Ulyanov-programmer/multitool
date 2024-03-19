@@ -44,7 +44,7 @@ module.exports = grunt => {
     !isFontFilesConverted && 'ttf2woff2',
 
     'newer:copy',
-    environment.isProductionMode && 'prettier',
+    environment.isProductionMode && 'prettify',
     'watch',
   ].filter(task => task))
 }
