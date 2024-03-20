@@ -2,7 +2,7 @@ import paths from '../other/paths.js'
 
 export let sharp = {
   files: {
-    src: paths.src.images + '**/*.{gif,ico,webp,avif,png,jpg,jpeg,svg}',
+    src: paths.src.images + '**/*.{gif,webp,avif,png,jpg,jpeg,svg}',
     dest: paths.dest.images,
   },
   options: {

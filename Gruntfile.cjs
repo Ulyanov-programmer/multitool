@@ -17,7 +17,6 @@ module.exports = grunt => {
   // Load all grunt tasks matching the ['grunt-*', '@*/grunt-*'] patterns
   require('load-grunt-tasks')(grunt)
   grunt.loadTasks('./grunt/esbuild/tasks/')
-  grunt.loadTasks('./grunt/sharp/tasks/')
 
   grunt.initConfig({
     ...require('./grunt/html/posthtml.js'),
