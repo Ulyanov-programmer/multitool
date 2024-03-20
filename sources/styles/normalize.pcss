@@ -3,13 +3,27 @@
 @layer normalizing, firstLevel, secondLevel, thirdLevel;
 
 @layer normalizing {
-  :not(svg, img, table, caption, thead, tbody, tfoot, colgroup, tr, th, td, svg *) {
+  :not(
+      svg,
+      svg *,
+      td,
+      img,
+      table,
+      caption,
+      thead,
+      tbody,
+      tfoot,
+      colgroup,
+      tr,
+      th
+    ) {
     all: unset;
     box-sizing: border-box;
   }
 
   head,
-  script {
+  script,
+  style {
     display: none;
   }
 
@@ -97,6 +111,7 @@
   li {
     list-style: none;
   }
+
   ol,
   li {
     list-style: decimal inside;

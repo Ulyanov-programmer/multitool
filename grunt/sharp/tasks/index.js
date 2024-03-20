@@ -31,9 +31,9 @@ let logLevel, sharpOptions, destCwd, sourceCwd
 module.exports = function (grunt) {
   grunt.task.registerMultiTask('sharp', 'Convert and optimize images with Sharp.',
     async function () {
-      let done = this.async()
-
-      let options = this.options()
+      let
+        done = this.async(),
+        options = this.options()
 
       logLevel = options.logLevel ?? 'small'
       sharpOptions = options.sharpOptions ?? {}
@@ -103,7 +103,7 @@ module.exports = function (grunt) {
 
             if (fs.existsSync(newFilePath)) continue
 
-            await convert(fileSrc, convertTo, conversionRuleOptions, newFilePath)
+            await convert(fileSrc, convertFrom, convertTo, conversionRuleOptions, newFilePath)
             logAboutSuccessfulConversion(fileBase, fileName, convertTo)
           }
         }
@@ -113,9 +113,11 @@ module.exports = function (grunt) {
     }
   )
 
-  async function convert(filePath, newFileFormat, options, newFilePath) {
+  async function convert(filePath, oldFileFormat, newFileFormat, options, newFilePath) {
     if (newFileFormat == 'heif' && !options.compression)
       options.compression = 'av1'
+    else if (oldFileFormat == 'heif' && !options.compression)
+      options.compression = 'jpeg'
 
     let sharpInstance =
       await sharp(filePath, Object.assign(DEFAULT_SHARP_OPTIONS, sharpOptions))
@@ -158,7 +160,7 @@ function createPathToNewFileInDist(fileName, newFileExt, fileCwd) {
 
 function extnamesIsCorrect(...extnames) {
   for (let extname of extnames) {
-    if (extname && ALLOWED_EXTENSIONS.includes(extname) == false) {
+    if (!ALLOWED_EXTENSIONS.includes(extname)) {
       return false
     }
   }
