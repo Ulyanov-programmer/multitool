@@ -3,6 +3,7 @@ import replace from 'replace-in-file'
 import { log } from 'console'
 import enquirer from 'enquirer'
 import chalk from 'chalk'
+import paths from './grunt/other/paths.js'
 
 class ModuleObject {
   constructor(config = {}) {
@@ -31,16 +32,22 @@ const pathToProject = './',
   readmeFolder = pathToProject + 'readmeFiles/',
   sources = pathToProject + 'sources/',
   readmeFilePath = pathToProject + 'README.md',
-  scriptsFolder = sources + 'scripts/',
   stylesFolder = sources + 'styles/',
-  componentsFolder = sources + 'components/',
+  scriptsFolder = sources + 'scripts/',
   assets = sources + 'assets/',
-  environmentFilePath = stylesFolder + '_environment.pcss',
-  baseStyleFile = stylesFolder + 'normalize.pcss',
-  stateStyleFile = stylesFolder + 'thirdLevelRules.pcss',
-  layoutHtmlFile = componentsFolder + 'layout.html',
   fontsGitkeep = sources + 'fonts/.gitkeep',
-  indexPage = sources + 'index.html'
+  styles = {
+    folder: stylesFolder,
+    environment: stylesFolder + '_environment.pcss',
+    normalize: stylesFolder + 'normalize.pcss',
+    modifiers: stylesFolder + 'modifiers.pcss',
+  },
+  html = {
+    folder: sources,
+    components: sources + 'components/',
+    layout: sources + 'components/' + 'layout.html',
+    index: sources + 'index.html',
+  }
 
 
 logSomeImportantInConsole(
@@ -102,7 +109,7 @@ await includeModuleByQuestion(
     moduleName: 'Scripts for dialog',
     filesAndFolders: [
       scriptsFolder + 'dialogs/',
-      componentsFolder + 'modals.html',
+      html.components + 'modals.html',
     ],
     htmlConnectStrings: [
       { strings: `<x-modals></x-modals>`, },
@@ -184,26 +191,25 @@ logSomeImportantInConsole(
   chalk.magentaBright
 )
 
+await setMainFont()
+
 await setVariables(
   new VariableTemplate({
     snippetName: 'htmlLayout',
     message: chalk.cyanBright('Fill in the fields in the html-layout.'),
-    variableFilePath: layoutHtmlFile,
+    variableFilePath: html.layout,
     fields: [
       { name: 'mainLangOfPages', initial: 'en' },
-      { name: 'preloadedFontFilename', initial: 'none', },
     ],
     template:
       `// Set the main language of pages below.
-  lang: '\${mainLangOfPages}',
-  // Set a name for a preloaded font. Must be a file name without extension.
-  preloadedFontName: '\${preloadedFontFilename}',`
+  lang: '\${mainLangOfPages}',`
   }),
 
   new VariableTemplate({
     snippetName: 'Title of index page',
     message: chalk.cyanBright('Title of index page...'),
-    variableFilePath: indexPage,
+    variableFilePath: html.index,
     fields: [
       { name: 'title', initial: 'Unnamed Page' },
     ],
@@ -214,16 +220,14 @@ await setVariables(
   new VariableTemplate({
     snippetName: 'stylesheetVariables',
     message: chalk.cyanBright(
-      `Fill in some css variables (file - ${chalk.underline(baseStyleFile)}).`),
-    variableFilePath: baseStyleFile,
+      `Fill in some css variables (file - ${chalk.underline(styles.normalize)}).`),
+    variableFilePath: styles.normalize,
     fields: [
-      { name: 'mainFontName', initial: 'arial', },
       { name: 'mainTextColor', initial: 'black', },
       { name: 'backgroundColor', initial: 'white', },
     ],
     template:
-      `--main-font-family: \${mainFontName};
---main-text-color: \${mainTextColor};
+      `--main-text-color: \${mainTextColor};
 --background: \${backgroundColor};`
   }),
 
@@ -231,8 +235,8 @@ await setVariables(
     snippetName: 'stylesheetSassLikeVariables',
     message: chalk.cyanBright(
       'Fill in sass-like variables that are used in custom media. \n'
-      + `(file - ${chalk.underline(environmentFilePath)})`),
-    variableFilePath: environmentFilePath,
+      + `(file - ${chalk.underline(styles.environment)})`),
+    variableFilePath: styles.environment,
     fields: [
       { name: 'widthOfYourDesignLayout', initial: '1440', },
       { name: 'minimalWidthOfYourDesign', initial: '320', },
@@ -255,8 +259,8 @@ $minFontSize: \${minSize}px;`
     snippetName: 'some name',
     message: chalk.cyanBright(
       'Set the values of the paddings that are assigned using the .content_paddings class (used to center content in blocks)\n'
-      + `(file - ${chalk.underline(stateStyleFile)}.`),
-    variableFilePath: stateStyleFile,
+      + `(file - ${chalk.underline(styles.modifiers)}.`),
+    variableFilePath: styles.modifiers,
     fields: [
       { name: 'largePaddings', initial: '15vw', },
     ],
@@ -270,7 +274,7 @@ $minFontSize: \${minSize}px;`
   new VariableTemplate({
     snippetName: 'some name 2',
     message: chalk.cyan('Layout width...'),
-    variableFilePath: stateStyleFile,
+    variableFilePath: styles.modifiers,
     fields: [
       { name: 'defaultPaddings', initial: '10vw', },
     ],
@@ -284,7 +288,7 @@ $minFontSize: \${minSize}px;`
   new VariableTemplate({
     snippetName: 'some name 3',
     message: chalk.cyan('Tablets...'),
-    variableFilePath: stateStyleFile,
+    variableFilePath: styles.modifiers,
     fields: [
       { name: 'tabletPaddings', initial: '5vw', },
     ],
@@ -298,7 +302,7 @@ $minFontSize: \${minSize}px;`
   new VariableTemplate({
     snippetName: 'some name 4',
     message: chalk.cyan('Mobiles...'),
-    variableFilePath: stateStyleFile,
+    variableFilePath: styles.modifiers,
     fields: [
       { name: 'mobilePaddings', initial: '2.5vw', },
     ],
@@ -310,10 +314,11 @@ $minFontSize: \${minSize}px;`
   }),
 )
 
+
 deleteUnnecessaryFilesAndFolders()
 
-
 writeCompletelyPhrase()
+
 
 
 async function includeModuleByQuestion(title, ...moduleObjects) {
@@ -385,6 +390,32 @@ async function setVariables(...variableTemplates) {
     }
   }
 }
+async function setMainFont() {
+  let filesInSources = fs.readdirSync(paths.src.fontsFolder)
+  filesInSources.splice(filesInSources.indexOf('.gitkeep'), 1)
+
+  if (filesInSources?.length <= 0) return
+
+  let selectedFont = await enquirer.select({
+    name: 'set font',
+    message: 'Select the font that will be preloaded, and it will also be in the --main-font-family variable.' + '\n',
+    required: true,
+    choices: filesInSources,
+
+    footer: () => chalk.gray.italic("use ↑↓ to move, when you're done, press enter")
+  })
+
+  replace.sync({
+    files: styles.normalize,
+    from: `--main-font-family: arial;`,
+    to: `--main-font-family: '${selectedFont.split('.')[0]}';`,
+  })
+  replace.sync({
+    files: html.layout,
+    from: `preloadedFontName: 'none'`,
+    to: `preloadedFontName: '${selectedFont.split('.')[0]}'`,
+  })
+}
 
 function deleteUnnecessaryFilesAndFolders() {
   deleteFolder(readmeFolder, 'The readme folder have been deleted.')
@@ -406,7 +437,7 @@ function replaceHtmlConnectionString(htmlConnectStrings, replacedValue, replaced
 
   for (let htmlConnectStringData of htmlConnectStrings) {
     if (!htmlConnectStringData.path)
-      htmlConnectStringData.path = indexPage
+      htmlConnectStringData.path = html.index
 
     let newHtmlConnectString
 
