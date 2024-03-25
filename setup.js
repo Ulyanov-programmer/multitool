@@ -388,6 +388,16 @@ async function setVariables(...variableTemplates) {
   }
 }
 async function setMainFont() {
+  await enquirer.toggle({
+    message: chalk.italic(`Now i will analyze your folder ${chalk.underline(paths.src.fontsFolder)}, make sure that you have added font files there. \n`),
+    enabled: chalk.magenta(
+      `I added the font files to this folder.`
+    ),
+    disabled: chalk.magenta(
+      `I added the font files to this folder.`
+    ),
+  })
+
   let filesInSources = fs.readdirSync(paths.src.fontsFolder)
   filesInSources.splice(filesInSources.indexOf('.gitkeep'), 1)
 
