@@ -75,17 +75,17 @@ await includeModuleByQuestion(
   new ModuleObject({
     moduleName: 'Just Validate',
     filesAndFolders: assets + 'justValidate/',
-    htmlConnectStrings: { strings: `justValidate=false` },
+    htmlConnectStrings: { strings: `justValidate="false"` },
   }),
   new ModuleObject({
     moduleName: 'Slider Swiper',
     filesAndFolders: assets + 'swiper/',
-    htmlConnectStrings: { strings: `swiper=false` },
+    htmlConnectStrings: { strings: `swiper="false"` },
   }),
   new ModuleObject({
     moduleName: 'Typed',
     filesAndFolders: assets + 'typed/',
-    htmlConnectStrings: { strings: `typed=false` },
+    htmlConnectStrings: { strings: `typed="false"` },
   }),
   new ModuleObject({
     moduleName: 'Input Mask',
@@ -94,12 +94,12 @@ await includeModuleByQuestion(
   new ModuleObject({
     moduleName: 'Photo Swipe',
     filesAndFolders: assets + 'photoswipe/',
-    htmlConnectStrings: { strings: `photoSwipe=false` },
+    htmlConnectStrings: { strings: `photoSwipe="false"` },
   }),
   new ModuleObject({
     moduleName: 'No Ui Slider',
     filesAndFolders: assets + 'nouislider/',
-    htmlConnectStrings: { strings: `noUiSlider=false` },
+    htmlConnectStrings: { strings: `noUiSlider="false"` },
   })
 )
 await includeModuleByQuestion(
@@ -113,70 +113,70 @@ await includeModuleByQuestion(
     ],
     htmlConnectStrings: [
       { strings: `<x-modals></x-modals>`, },
-      { strings: `dialogs=false` },
+      { strings: `dialogs="false"` },
     ],
   }),
   new ModuleObject({
     moduleName: 'Tabs',
     filesAndFolders: scriptsFolder + 'tab/',
     htmlConnectStrings: [
-      { strings: `tabs=false` }
+      { strings: `tabs="false"` }
     ],
   }),
   new ModuleObject({
     moduleName: 'Parallax by mouse',
     filesAndFolders: scriptsFolder + 'mouseParallax/',
     htmlConnectStrings: [
-      { strings: `mouseParallax=false` }
+      { strings: `mouseParallax="false"` }
     ],
   }),
   new ModuleObject({
     moduleName: 'AutoScrollPadding',
     filesAndFolders: scriptsFolder + 'autoScrollPadding/',
     htmlConnectStrings: [
-      { strings: `autoScrollPadding=false` }
+      { strings: `autoScrollPadding="false"` }
     ],
   }),
   new ModuleObject({
     moduleName: 'Tools for observer',
     filesAndFolders: scriptsFolder + 'observerTools/',
     htmlConnectStrings: [
-      { strings: `observerTools=false` }
+      { strings: `observerTools="false"` }
     ],
   }),
   new ModuleObject({
     moduleName: 'Horizontal scroll by mouse wheel',
     filesAndFolders: scriptsFolder + 'horizontalMouseScroll.ts',
     htmlConnectStrings: [
-      { strings: `horizontalMouseScroll=false` }
+      { strings: `horizontalMouseScroll="false"` }
     ],
   }),
   new ModuleObject({
     moduleName: 'Switching by swipe',
     filesAndFolders: scriptsFolder + 'toggleBySwipe/',
     htmlConnectStrings: [
-      { strings: `toggleBySwipe=false` }
+      { strings: `toggleBySwipe="false"` }
     ],
   }),
   new ModuleObject({
     moduleName: 'Step By Step block',
     filesAndFolders: scriptsFolder + 'stepByStepBlock/',
     htmlConnectStrings: [
-      { strings: `stepByStep=false` }
+      { strings: `stepByStep="false"` }
     ],
   }),
   new ModuleObject({
     moduleName: 'scroll-timeline polyfill',
     filesAndFolders: scriptsFolder + 'scroll-timeline.js',
     htmlConnectStrings: [
-      { strings: `scrollTimeline=false` }
+      { strings: `scrollTimeline="false"` }
     ],
   }),
   new ModuleObject({
     moduleName: 'Infinite auto-scroll',
     filesAndFolders: scriptsFolder + 'infiniteScroll/',
     htmlConnectStrings: [
-      { strings: `infiniteScroll=false` }
+      { strings: `infiniteScroll="false"` }
     ],
   }),
 )
@@ -195,26 +195,24 @@ await setMainFont()
 
 await setVariables(
   new VariableTemplate({
-    snippetName: 'htmlLayout',
+    snippetName: 'html layout',
     message: chalk.cyanBright('Fill in the fields in the html-layout.'),
     variableFilePath: html.layout,
     fields: [
       { name: 'mainLangOfPages', initial: 'en' },
     ],
-    template:
-      `// Set the main language of pages below.
+    template: `// Set the main language of pages below.
   lang: '\${mainLangOfPages}',`
   }),
 
   new VariableTemplate({
-    snippetName: 'Title of index page',
+    snippetName: 'title of index page',
     message: chalk.cyanBright('Title of index page...'),
     variableFilePath: html.index,
     fields: [
       { name: 'title', initial: 'Unnamed Page' },
     ],
-    template:
-      `<x-layout title='\${title}'`
+    template: `title="\${title}"`
   }),
 
   new VariableTemplate({
@@ -226,8 +224,7 @@ await setVariables(
       { name: 'mainTextColor', initial: 'black', },
       { name: 'backgroundColor', initial: 'white', },
     ],
-    template:
-      `--main-text-color: \${mainTextColor};
+    template: `--main-text-color: \${mainTextColor};
 --background: \${backgroundColor};`
   }),
 
@@ -427,6 +424,9 @@ function deleteUnnecessaryFilesAndFolders() {
   deleteFolder(distFolderName, 'Dist have been deleted.')
   deleteFolder(snippetsFolderName, 'Snippets have been deleted.')
   deleteFolder(fontsGitkeep, 'Gitkeep in fonts have been deleted.')
+
+  if (fs.readdirSync(assets).length == 0)
+    deleteFolder(assets, 'Assets have been deleted.')
 }
 
 function replaceHtmlConnectionString(htmlConnectStrings, replacedValue, replacedNewValue) {
