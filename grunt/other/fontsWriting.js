@@ -131,4 +131,6 @@ function filesIsCorrect(fileNames) {
   }
 
   if (fileNames.length <= 0) return false
+
+  return true
 }
