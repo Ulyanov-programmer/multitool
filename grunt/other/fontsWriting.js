@@ -42,6 +42,7 @@ export function fontsWriting() {
 
     setupFontFaceRule({
       type: type,
+      fontName: fontName,
       fileNameNoExt: fileNameNoExt,
       weight: weight,
       style: style,
@@ -51,7 +52,7 @@ export function fontsWriting() {
       currentFontName = fileNameNoExt
 
       fonts.push({
-        fontName: fileNameNoExt,
+        fontName: fontName,
         weights: [weight],
         styles: [style],
       })
@@ -69,12 +70,12 @@ export function fontsWriting() {
   console.log(chalk.green('Fonts have been successfully written, i continue...'))
 }
 
-function setupFontFaceRule({ type, fileNameNoExt, weight, style }) {
+function setupFontFaceRule({ type, fontName, fileNameNoExt, weight, style }) {
   let fontFaceRule = `@font-face {
   font-style: ${style};
   font-weight: ${weight};
   src: url("../fonts/${fileNameNoExt}.woff2") format("${type}");
-  font-family: "${fileNameNoExt}";
+  font-family: "${fontName}";
   font-display: swap;
 }
 `
@@ -111,26 +112,29 @@ function declareFontVariablesAndModifiers(fonts) {
     }
   }
 
+  for (let variable of vars) {
+    vars.splice(vars.indexOf(variable), 1)
+  }
+
   vars[vars.length - 1] = vars.at(-1).replace('\n\t', '')
+  vars = vars.toString().replaceAll(',', '')
+  modifiers = modifiers.toString().replaceAll(',', '')
 
   let variablesInRoot = `:root {
-\t${vars.toString().replaceAll(',', '')}
+\t${vars}
 }\n`
 
 
-  fs.appendFileSync(paths.src.fontsFilePath, variablesInRoot)
-  fs.appendFileSync(paths.src.fontsFilePath, modifiers.toString().replaceAll(',', ''))
+  fs.appendFileSync(paths.src.fontsFilePath,
+    variablesInRoot + modifiers
+  )
 }
 
 function filesIsCorrect(fileNames) {
-  if (!fileNames) return false
+  fileNames = fileNames?.filter(name => name != '.gitkeep')
 
-  if (fileNames.includes('.gitkeep')) {
-    // ? removing the .gitkeep from fileNames.
-    fileNames.splice(fileNames.indexOf('.gitkeep'), 1)
-  }
-
-  if (fileNames.length <= 0) return false
-
-  return true
+  if (fileNames?.length <= 0)
+    return false
+  else
+    return true
 }
