@@ -281,7 +281,7 @@ $minFontSize: \${minSize}px;`
 
   new VariableTemplate({
     snippetName: 'some name 2',
-    message: chalk.cyan('PC screen...'),
+    message: chalk.cyan('PC screen (1024px <= width <= 1440px)...'),
     variableFilePath: styles.modifiers,
     fields: [
       { name: 'defaultPaddings', initial: '13vw', },
@@ -295,7 +295,7 @@ $minFontSize: \${minSize}px;`
 
   new VariableTemplate({
     snippetName: 'some name 2.1',
-    message: chalk.cyan('Small PC screens...'),
+    message: chalk.cyan('Small PC screens (769px <= width <= 1024px)...'),
     variableFilePath: styles.modifiers,
     fields: [
       { name: 'smallPcPaddings', initial: '10vw', },
@@ -309,7 +309,7 @@ $minFontSize: \${minSize}px;`
 
   new VariableTemplate({
     snippetName: 'some name 3',
-    message: chalk.cyan('Tablets...'),
+    message: chalk.cyan('Tablets (426px <= width <= 769px)...'),
     variableFilePath: styles.modifiers,
     fields: [
       { name: 'tabletPaddings', initial: '5vw', },
@@ -323,7 +323,7 @@ $minFontSize: \${minSize}px;`
 
   new VariableTemplate({
     snippetName: 'some name 4',
-    message: chalk.cyan('Mobiles...'),
+    message: chalk.cyan('Mobiles (width <= 426px)...'),
     variableFilePath: styles.modifiers,
     fields: [
       { name: 'mobilePaddings', initial: '3vw', },
