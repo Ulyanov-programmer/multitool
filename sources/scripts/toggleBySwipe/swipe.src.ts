@@ -64,7 +64,7 @@ export default class SwipeArea {
   public actionOnOpening: (openedElement: HTMLElement) => any
   public actionOnClosing: (closedElement: HTMLElement) => any
   private touchAreaElement: HTMLElement
-  private swipeableElement: HTMLElement
+  private swipeableElement: HTMLElement | HTMLDialogElement
 
   private startX: number = 0
   private startY: number = 0
@@ -178,9 +178,14 @@ export default class SwipeArea {
       this.touchAreaElement.classList.toggle(this.isSwipedAreaClass)
       this.isElementSwiped = !this.isElementSwiped
 
-      changeElementStateTo
-        ? this.actionOnOpening?.(this.swipeableElement)
-        : this.actionOnClosing?.(this.swipeableElement)
+      if (changeElementStateTo) {
+        this.swipeableElement.showModal?.()
+        this.actionOnOpening?.(this.swipeableElement)
+      }
+      else {
+        this.swipeableElement.close?.()
+        this.actionOnClosing?.(this.swipeableElement)
+      }
     }
   }
 
@@ -230,6 +235,9 @@ export default class SwipeArea {
   }
 
   private checkSwipeableElementContainActive() {
+    if (this.swipeableElement.open != undefined)
+      return this.swipeableElement.open
+
     return this.swipeableElement.classList.contains(this.isSwipedClass)
   }
   private checkMaxWorkWidth() {

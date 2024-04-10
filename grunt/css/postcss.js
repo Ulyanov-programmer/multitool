@@ -35,6 +35,8 @@ const options = {
       functions: {
         pxToVw: (px, layoutWidth) => pxToVw(px, layoutWidth),
         bgImageMultiType: url => bgImageMultiType(url),
+        grid: (gap, columns, rows) => grid(gap, columns, rows),
+        flex: (gap, flexFlow, inline) => flex(gap, flexFlow, inline),
       }
     }),
     mixins(),
@@ -70,11 +72,11 @@ export let postcss = {
   }
 }
 
-function pxToVw(px, layoutWidth) {
+const LAYOUT_WIDTH = 1440
+function pxToVw(px) {
   let pxNumber = px.replace('px', '')
-  let layoutNumber = layoutWidth.replace('px', '')
 
-  return `calc(${pxNumber} * 100vw / ${layoutNumber})`
+  return `calc(${pxNumber} * 100vw / ${LAYOUT_WIDTH})`
 }
 
 function bgImageMultiType(url) {
@@ -89,4 +91,33 @@ function bgImageMultiType(url) {
   newParams = `image-set(url(${url}) 1x, url(${webpUrl}) 1x, url(${avifUrl}) 1x)`
 
   return newParams
+}
+
+function grid(gap, columns, rows) {
+  let props = 'grid'
+
+  if (gap)
+    props += `;\ngap: ${gap}`
+
+  if (columns)
+    props += `;\ngrid-template-columns: ${columns}`
+
+  if (rows)
+    props += `;\ngrid-template-rows: ${rows}`
+
+  return props
+}
+function flex(gap, flexFlow, inline) {
+  if (inline == 'inline')
+    var props = `inline-flex`
+  else
+    var props = `flex`
+
+  if (gap)
+    props += `;\ngap: ${gap}`
+
+  if (flexFlow)
+    props += `;\nflex-flow: ${flexFlow}`
+
+  return props
 }

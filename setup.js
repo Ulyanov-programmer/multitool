@@ -36,6 +36,7 @@ const pathToProject = './',
   scriptsFolder = sources + 'scripts/',
   assets = sources + 'assets/',
   fontsGitkeep = sources + 'fonts/.gitkeep',
+  gruntPostcss = pathToProject + 'grunt/css/postcss.js',
   styles = {
     folder: stylesFolder,
     environment: stylesFolder + '_environment.pcss',
@@ -235,21 +236,31 @@ await setVariables(
       + `(file - ${chalk.underline(styles.environment)})`),
     variableFilePath: styles.environment,
     fields: [
-      { name: 'widthOfYourDesignLayout', initial: '1440', },
       { name: 'minimalWidthOfYourDesign', initial: '320', },
       { name: 'mainSize', initial: '16', },
       { name: 'minSize', initial: '12', },
     ],
     template:
-      `@custom-media --is-large-layout (width > $layoutWidth);
-@custom-media --is-layout-width (769px <= width <= $layoutWidth);
-@custom-media --is-tablet (426px <= width <= 769px);
-@custom-media --is-mobile (width <= 426px);
+      `@custom-media --pc-large (width > 1440px);
+@custom-media --pc (1024px <= width <= 1440px);
+@custom-media --pc-small (769px <= width <= 1024px);
+@custom-media --tablet (426px <= width <= 769px);
+@custom-media --mobile (width <= 426px);
 
-$layoutWidth: \${widthOfYourDesignLayout}px;
 $minLayoutWidth: \${minimalWidthOfYourDesign}px;
 $mainFontSize: \${mainSize}px;
 $minFontSize: \${minSize}px;`
+  }),
+
+  new VariableTemplate({
+    snippetName: 'another name',
+    message: chalk.cyanBright('Enter the width of the largest design layout.'
+      + `(file - ${chalk.underline(gruntPostcss)}.`),
+    variableFilePath: gruntPostcss,
+    fields: [
+      { name: 'maxDesignLayoutWidth', initial: '1440', },
+    ],
+    template: `const LAYOUT_WIDTH = \${maxDesignLayoutWidth}`,
   }),
 
   new VariableTemplate({
@@ -263,7 +274,7 @@ $minFontSize: \${minSize}px;`
     ],
     template:
       `
-@media (--is-large-layout) {
+@media (--large-layout) {
   --content-inline-padding: \${largePaddings};
 }`,
   }),
@@ -277,8 +288,22 @@ $minFontSize: \${minSize}px;`
     ],
     template:
       `
-@media (--is-layout-width) {
+@media (--layout-width) {
   --content-inline-padding: \${defaultPaddings};
+}`,
+  }),
+
+  new VariableTemplate({
+    snippetName: 'some name 2.1',
+    message: chalk.cyan('Small PC screens...'),
+    variableFilePath: styles.modifiers,
+    fields: [
+      { name: 'smallPcPaddings', initial: '10vw', },
+    ],
+    template:
+      `
+@media (--small-pc) {
+  --content-inline-padding: \${smallPcPaddings};
 }`,
   }),
 
@@ -291,7 +316,7 @@ $minFontSize: \${minSize}px;`
     ],
     template:
       `
-@media (--is-tablet) {
+@media (--tablet) {
   --content-inline-padding: \${tabletPaddings};
 }`,
   }),
@@ -305,7 +330,7 @@ $minFontSize: \${minSize}px;`
     ],
     template:
       `
-@media (--is-mobile) {
+@media (--mobile) {
   --content-inline-padding: \${mobilePaddings};
 }`,
   }),

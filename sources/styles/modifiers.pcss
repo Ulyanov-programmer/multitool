@@ -83,25 +83,29 @@
 
   .content_paddings {
     /* Paddings for site content. */
-    padding-inline: var(--content-inline-padding, 10vw);
+    padding-inline: var(--content-inline-padding);
 
     @at-root {
       :root {
         --content-inline-padding: none;
 
-        @media (--is-large-layout) {
+        @media (--large-layout) {
           --content-inline-padding: 12vw;
         }
 
-        @media (--is-layout-width) {
+        @media (--small-pc) {
+          --content-inline-padding: 12vw;
+        }
+
+        @media (--layout-width) {
           --content-inline-padding: 10vw;
         }
 
-        @media (--is-tablet) {
+        @media (--tablet) {
           --content-inline-padding: 8vw;
         }
 
-        @media (--is-mobile) {
+        @media (--mobile) {
           --content-inline-padding: 4vw;
         }
       }

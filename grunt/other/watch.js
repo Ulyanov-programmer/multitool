@@ -5,7 +5,7 @@ export let watch = {
   html: {
     files: paths.src.root + '*.html',
     tasks: isProductionMode
-      ? ['newer:posthtml', 'newer:prettier']
+      ? ['newer:posthtml', 'newer:prettify']
       : ['newer:posthtml'],
     options: {
       spawn: false,
@@ -14,7 +14,7 @@ export let watch = {
   htmlComponents: {
     files: paths.src.root + 'components/*.html',
     tasks: isProductionMode
-      ? ['posthtml', 'prettier']
+      ? ['posthtml', 'prettify']
       : ['posthtml'],
     options: {
       spawn: false,
