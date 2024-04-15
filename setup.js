@@ -63,136 +63,136 @@ ${chalk.greenBright('⭾')} - tab, to move to a next element, for example, in te
   chalk.green
 )
 
-// await enquirer.toggle({
-//   message: chalk.italic('Any questions?'),
-//   enabled: chalk.magenta('Nope, i totally understand!'),
-//   disabled: chalk.magenta('Nope, i understand!'),
-// })
+await enquirer.toggle({
+  message: chalk.italic('Any questions?'),
+  enabled: chalk.magenta('Nope, i totally understand!'),
+  disabled: chalk.magenta('Nope, i understand!'),
+})
 
 
-// await includeModuleByQuestion(
-//   'Whether you want to save the plugin...',
+await includeModuleByQuestion(
+  'Whether you want to save the plugin...',
 
-//   new ModuleObject({
-//     moduleName: 'Just Validate',
-//     filesAndFolders: assets + 'justValidate/',
-//     htmlConnectStrings: { strings: `justValidate="false"` },
-//   }),
-//   new ModuleObject({
-//     moduleName: 'Slider Swiper',
-//     filesAndFolders: assets + 'swiper/',
-//     htmlConnectStrings: { strings: `swiper="false"` },
-//   }),
-//   new ModuleObject({
-//     moduleName: 'Typed',
-//     filesAndFolders: assets + 'typed/',
-//     htmlConnectStrings: { strings: `typed="false"` },
-//   }),
-//   new ModuleObject({
-//     moduleName: 'Input Mask',
-//     filesAndFolders: assets + 'inputmask.min.js',
-//   }),
-//   new ModuleObject({
-//     moduleName: 'Photo Swipe',
-//     filesAndFolders: assets + 'photoswipe/',
-//     htmlConnectStrings: { strings: `photoSwipe="false"` },
-//   }),
-//   new ModuleObject({
-//     moduleName: 'No Ui Slider',
-//     filesAndFolders: assets + 'nouislider/',
-//     htmlConnectStrings: { strings: `noUiSlider="false"` },
-//   })
-// )
-// await includeModuleByQuestion(
-//   'Whether you want to save the module...',
+  new ModuleObject({
+    moduleName: 'Just Validate',
+    filesAndFolders: assets + 'justValidate/',
+    htmlConnectStrings: { strings: `justValidate="false"` },
+  }),
+  new ModuleObject({
+    moduleName: 'scroll-timeline polyfill',
+    filesAndFolders: assets + 'scroll-timeline.js',
+    htmlConnectStrings: [
+      { strings: `scrollTimeline="false"` }
+    ],
+  }),
+  new ModuleObject({
+    moduleName: 'Slider Swiper',
+    filesAndFolders: assets + 'swiper/',
+    htmlConnectStrings: { strings: `swiper="false"` },
+  }),
+  new ModuleObject({
+    moduleName: 'Typed',
+    filesAndFolders: assets + 'typed/',
+    htmlConnectStrings: { strings: `typed="false"` },
+  }),
+  new ModuleObject({
+    moduleName: 'Input Mask',
+    filesAndFolders: assets + 'inputmask.min.js',
+  }),
+  new ModuleObject({
+    moduleName: 'Photo Swipe',
+    filesAndFolders: assets + 'photoswipe/',
+    htmlConnectStrings: { strings: `photoSwipe="false"` },
+  }),
+  new ModuleObject({
+    moduleName: 'No Ui Slider',
+    filesAndFolders: assets + 'nouislider/',
+    htmlConnectStrings: { strings: `noUiSlider="false"` },
+  })
+)
+await includeModuleByQuestion(
+  'Whether you want to save the module...',
 
-//   new ModuleObject({
-//     moduleName: 'Scripts for dialog',
-//     filesAndFolders: [
-//       scriptsFolder + 'dialogs/',
-//       html.components + 'modals.html',
-//     ],
-//     htmlConnectStrings: [
-//       { strings: `<x-modals></x-modals>`, },
-//       { strings: `dialogs="false"` },
-//     ],
-//   }),
-//   new ModuleObject({
-//     moduleName: 'Tabs',
-//     filesAndFolders: scriptsFolder + 'tab/',
-//     htmlConnectStrings: [
-//       { strings: `tabs="false"` }
-//     ],
-//   }),
-//   new ModuleObject({
-//     moduleName: 'Parallax by mouse',
-//     filesAndFolders: scriptsFolder + 'mouseParallax/',
-//     htmlConnectStrings: [
-//       { strings: `mouseParallax="false"` }
-//     ],
-//   }),
-//   new ModuleObject({
-//     moduleName: 'AutoScrollPadding',
-//     filesAndFolders: scriptsFolder + 'autoScrollPadding/',
-//     htmlConnectStrings: [
-//       { strings: `autoScrollPadding="false"` }
-//     ],
-//   }),
-//   new ModuleObject({
-//     moduleName: 'Tools for observer',
-//     filesAndFolders: scriptsFolder + 'observerTools/',
-//     htmlConnectStrings: [
-//       { strings: `observerTools="false"` }
-//     ],
-//   }),
-//   new ModuleObject({
-//     moduleName: 'Horizontal scroll by mouse wheel',
-//     filesAndFolders: scriptsFolder + 'horizontalMouseScroll.ts',
-//     htmlConnectStrings: [
-//       { strings: `horizontalMouseScroll="false"` }
-//     ],
-//   }),
-//   new ModuleObject({
-//     moduleName: 'Switching by swipe',
-//     filesAndFolders: scriptsFolder + 'toggleBySwipe/',
-//     htmlConnectStrings: [
-//       { strings: `toggleBySwipe="false"` }
-//     ],
-//   }),
-//   new ModuleObject({
-//     moduleName: 'Step By Step block',
-//     filesAndFolders: scriptsFolder + 'stepByStepBlock/',
-//     htmlConnectStrings: [
-//       { strings: `stepByStep="false"` }
-//     ],
-//   }),
-//   new ModuleObject({
-//     moduleName: 'scroll-timeline polyfill',
-//     filesAndFolders: scriptsFolder + 'scroll-timeline.js',
-//     htmlConnectStrings: [
-//       { strings: `scrollTimeline="false"` }
-//     ],
-//   }),
-//   new ModuleObject({
-//     moduleName: 'Infinite auto-scroll',
-//     filesAndFolders: scriptsFolder + 'infiniteScroll/',
-//     htmlConnectStrings: [
-//       { strings: `infiniteScroll="false"` }
-//     ],
-//   }),
-// )
+  new ModuleObject({
+    moduleName: 'Scripts for dialog',
+    filesAndFolders: [
+      scriptsFolder + 'dialogs/',
+      html.components + 'modals.html',
+    ],
+    htmlConnectStrings: [
+      { strings: `<x-modals></x-modals>`, },
+      { strings: `dialogs="false"` },
+    ],
+  }),
+  new ModuleObject({
+    moduleName: 'Tabs',
+    filesAndFolders: scriptsFolder + 'tab/',
+    htmlConnectStrings: [
+      { strings: `tabs="false"` }
+    ],
+  }),
+  new ModuleObject({
+    moduleName: 'Parallax by mouse',
+    filesAndFolders: scriptsFolder + 'mouseParallax/',
+    htmlConnectStrings: [
+      { strings: `mouseParallax="false"` }
+    ],
+  }),
+  new ModuleObject({
+    moduleName: 'AutoScrollPadding',
+    filesAndFolders: scriptsFolder + 'autoScrollPadding/',
+    htmlConnectStrings: [
+      { strings: `autoScrollPadding="false"` }
+    ],
+  }),
+  new ModuleObject({
+    moduleName: 'Tools for observer',
+    filesAndFolders: scriptsFolder + 'observerTools/',
+    htmlConnectStrings: [
+      { strings: `observerTools="false"` }
+    ],
+  }),
+  new ModuleObject({
+    moduleName: 'Horizontal scroll by mouse wheel',
+    filesAndFolders: scriptsFolder + 'horizontalMouseScroll.ts',
+    htmlConnectStrings: [
+      { strings: `horizontalMouseScroll="false"` }
+    ],
+  }),
+  new ModuleObject({
+    moduleName: 'Switching by swipe',
+    filesAndFolders: scriptsFolder + 'toggleBySwipe/',
+    htmlConnectStrings: [
+      { strings: `toggleBySwipe="false"` }
+    ],
+  }),
+  new ModuleObject({
+    moduleName: 'Step By Step block',
+    filesAndFolders: scriptsFolder + 'stepByStepBlock/',
+    htmlConnectStrings: [
+      { strings: `stepByStep="false"` }
+    ],
+  }),
+  new ModuleObject({
+    moduleName: 'Infinite auto-scroll',
+    filesAndFolders: scriptsFolder + 'infiniteScroll/',
+    htmlConnectStrings: [
+      { strings: `infiniteScroll="false"` }
+    ],
+  }),
+)
 
 
-// logSomeImportantInConsole(
-//   `\nThe configuration of files and folders is complete.\n`,
-//   chalk.greenBright
-// )
-// logSomeImportantInConsole(
-//   `\nNow, i suggest you change the values of the main variables.\n`,
-//   chalk.magentaBright
-// )
+logSomeImportantInConsole(
+  `\nThe configuration of files and folders is complete.\n`,
+  chalk.greenBright
+)
+logSomeImportantInConsole(
+  `\nNow, i suggest you change the values of the main variables.\n`,
+  chalk.magentaBright
+)
 
-// await setMainFont()
+await setMainFont()
 
 await setVariables(
   new VariableTemplate({
@@ -337,9 +337,9 @@ $minFontSize: \${minSize}px;`
 )
 
 
-// deleteUnnecessaryFilesAndFolders()
+deleteUnnecessaryFilesAndFolders()
 
-// writeCompletelyPhrase()
+writeCompletelyPhrase()
 
 
 
