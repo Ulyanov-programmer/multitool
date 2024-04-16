@@ -1,3 +1,7 @@
+/*
+  https://github.com/mattboldt/typed.js#readme
+*/
+
 new Typed('.selector', {
   strings: [
     'string',

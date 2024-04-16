@@ -1,26 +1,35 @@
-import './just-validate.production.min.js'
-// import '../inputmask.min.js'
+/*
+  https://just-validate.dev/docs/intro
+  https://robinherbots.github.io/Inputmask/#/documentation
+*/
 
-// const inputMaskTel = new Inputmask('+7 (999) 999-99-99')
-// let telInputSelector = document.querySelector('input[type="tel"]')
-// inputMaskTel.mask(telInputSelector)
+import './just-validate.production.min.js'
+import Inputmask from "../inputmask/inputmask.es6.js"
+
+
+new Inputmask('+7 (999) 999-99-99')
+  .mask(document.querySelector('input[type="tel"]'))
+
 
 new JustValidate('#form', {
   errorFieldCssClass: 'invalid',
-  errorLabelCssClass: 'invalid',
-  errorLabelStyle: {
-    // position: 'absolute',
-    // top: '0',
-    // left: '0',
-    fontSize: '14px',
-    color: 'white',
-    marginBlock: '5px',
-  },
-  // tooltip: {
-  // 	position: 'bottom',
+
+  // errorLabelCssClass: 'invalid',
+  // errorLabelStyle: {
+  //   // position: 'absolute',
+  //   // top: '0',
+  //   // left: '0',
+  //   fontSize: '14px',
+  //   color: 'white',
   // },
 
-  // ? Must be inside a form.
+  // OR
+
+  // tooltip: {
+  // 	position: 'top',
+  // },
+
+  // ? Must be inside the form.
   errorsContainer: '#errorsContainer',
 })
   .addField('[name="inputName"]', [
@@ -101,6 +110,7 @@ new JustValidate('#form', {
     errorMessage: 'error',
   },
 
+  ? your validator
   {
     rule: 'function',
     validator: () => {
@@ -113,6 +123,7 @@ new JustValidate('#form', {
   {
     rule: 'function',
     validator: () => {
+      ? If you use inputmask...
       let phoneUnmaskedValue = telInputSelector.inputmask.unmaskedvalue()
       return Number(phoneUnmaskedValue) && phoneUnmaskedValue.length > 9
     },
@@ -131,20 +142,6 @@ new JustValidate('#form', {
     },
     errorMessage: 'error',
   }
-  ? Sending a mail.
-  let formData = new FormData(e.target)
-
-  fetch('../php/mail.php', { method: 'POST', body: formData, })
-    .then((response) => {
-      if (response.ok) {
-        console.log('The letter was send.')
-      } else {
-        console.log('The letter was not sended!')
-      }
-    })
-    .catch((error) => {
-      console.log('Mail error!' + error)
-    })
 
   ? Tooltips displayed instead of regular error labels.
   tooltip: {

@@ -1,3 +1,7 @@
+/*
+  https://swiperjs.com/swiper-api
+*/
+
 import Swiper from './swiper-bundle.min.mjs'
 
 new Swiper(`#someSlider`, {
