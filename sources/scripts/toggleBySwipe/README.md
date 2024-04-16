@@ -15,7 +15,7 @@ new SwipeArea({
   selector: `swipe-area[for-element='some-id']`,
 
   changePlane: ChangePlane.ToLeft,
-  swipeSensitivity: 0.4,
+  swipeSensitivity: '25%',
 })
 ```
 
@@ -73,10 +73,9 @@ new SwipeArea({
   changePlane: ChangePlane.ToLeft,
 
   /*
-    The higher or lower the value, the more or less you need to swipe in order 
-    for the menu to appear. Usually the values range from `0.3` to `0.7`.
+    
   */
-  swipeSensitivity: 0.5,
+  swipeSensitivity: '25%',
 
   // The maximum width of the viewport when a swipe will work.
   // Default value: 100000.

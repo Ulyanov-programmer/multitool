@@ -24,10 +24,9 @@ export type SwipeAreaArgs = {
    */
   changePlane: ChangePlane
   /** 
-    The higher or lower the value, the more or less you need to swipe in order 
-    for the menu to appear. Usually the values range from `0.3` to `0.7`.
+    
   */
-  swipeSensitivity: number
+  swipeSensitivity: string
   /** 
    * The maximum width of the viewport when a swipe will work.
    * 
@@ -74,10 +73,10 @@ export default class SwipeArea {
   private deltaY: number = 0
   private changePlane: ChangePlane
   private currentSide: SwipeSide
+  private argSwipeSensitivity: string
 
   private minSwipeWidth: number
   private minSwipeHeight: number
-  private swipeSensitivity: number
   private maxWorkWidth: number
   private isElementSwiped: boolean = false
 
@@ -97,14 +96,49 @@ export default class SwipeArea {
     this.swipeableElement =
       document.getElementById(this.touchAreaElement.getAttribute('for-element'))
 
-    this.swipeSensitivity = arg.swipeSensitivity
-    this.maxWorkWidth = arg.maxWorkWidth ?? 1e5
+    this.argSwipeSensitivity = arg.swipeSensitivity
+    this.setSwipeSensitivity()
 
-    this.minSwipeWidth = Math.trunc(this.swipeableElement.clientWidth * this.swipeSensitivity)
-    this.minSwipeHeight = Math.trunc(this.swipeableElement.clientHeight * this.swipeSensitivity)
+    this.maxWorkWidth = arg.maxWorkWidth ?? 1e5
 
     this.checkMaxWorkWidth()
     window.addEventListener('resize', this.checkMaxWorkWidth.bind(this))
+  }
+
+  private setSwipeSensitivity() {
+    if (this.argSwipeSensitivity.includes('%')) {
+      let sensitivityValue = parseFloat(this.argSwipeSensitivity.replace('%', ''))
+
+      this.minSwipeWidth = Math.trunc(
+        this.swipeableElement.clientWidth * (sensitivityValue / 100)
+      )
+      this.minSwipeHeight = Math.trunc(
+        this.swipeableElement.clientHeight * (sensitivityValue / 100)
+      )
+    }
+    else if (this.argSwipeSensitivity.includes('vw')) {
+      let sensitivityValue = parseFloat(this.argSwipeSensitivity.replace('vw', ''))
+
+      this.minSwipeWidth = Math.trunc(
+        window.innerWidth * (sensitivityValue / 100)
+      )
+      this.minSwipeHeight = Math.trunc(
+        window.innerWidth * (sensitivityValue / 100)
+      )
+    }
+    else if (this.argSwipeSensitivity.includes('vh')) {
+      let sensitivityValue = parseFloat(this.argSwipeSensitivity.replace('vh', ''))
+
+      this.minSwipeWidth = Math.trunc(
+        window.innerHeight * (sensitivityValue / 100)
+      )
+      this.minSwipeHeight = Math.trunc(
+        window.innerHeight * (sensitivityValue / 100)
+      )
+    }
+    else {
+      throw new Error('[toggleBySwipe] Incorrect swipe size specified!')
+    }
   }
 
   private pointerDownHandler = ((event: PointerEvent) => {
@@ -179,10 +213,12 @@ export default class SwipeArea {
       this.isElementSwiped = !this.isElementSwiped
 
       if (changeElementStateTo) {
+        //@ts-expect-error
         this.swipeableElement.showModal?.()
         this.actionOnOpening?.(this.swipeableElement)
       }
       else {
+        //@ts-expect-error
         this.swipeableElement.close?.()
         this.actionOnClosing?.(this.swipeableElement)
       }
@@ -235,8 +271,8 @@ export default class SwipeArea {
   }
 
   private checkSwipeableElementContainActive() {
-    if (this.swipeableElement.open != undefined)
-      return this.swipeableElement.open
+    //@ts-expect-error
+    if (this.swipeableElement.open != undefined) return this.swipeableElement.open
 
     return this.swipeableElement.classList.contains(this.isSwipedClass)
   }
@@ -246,6 +282,7 @@ export default class SwipeArea {
       this.touchAreaElement.style.cursor = ''
 
       window.addEventListener('pointerup', this.swipeEndHandler)
+      this.setSwipeSensitivity()
     }
     else {
       this.touchAreaElement.removeEventListener('pointerdown', this.pointerDownHandler)

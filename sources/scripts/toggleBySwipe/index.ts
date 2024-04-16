@@ -4,6 +4,6 @@ new SwipeArea({
   selector: `swipe-area[for-element='some-id']`,
 
   changePlane: ChangePlane.ToLeft,
-  swipeSensitivity: 0.5,
+  swipeSensitivity: '15vh',
   maxWorkWidth: 768
 })
