@@ -97,7 +97,7 @@ await includeModuleByQuestion(
   }),
   new ModuleObject({
     moduleName: 'Input Mask',
-    filesAndFolders: assets + 'inputmask.min.js',
+    filesAndFolders: assets + 'inputmask/',
   }),
   new ModuleObject({
     moduleName: 'Photo Swipe',
