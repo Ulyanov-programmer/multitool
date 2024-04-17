@@ -72,8 +72,11 @@ new SwipeArea({
   // Which way do you need to swipe in order for the element to appear.
   changePlane: ChangePlane.ToLeft,
 
-  /*
-    
+  /** 
+    Specify the swipe size for successful switching.
+
+    Accepts strings with the following units: '%' 'vw' 'vh'
+    @example '15vw' | '15%' '25vh'
   */
   swipeSensitivity: '25%',
 

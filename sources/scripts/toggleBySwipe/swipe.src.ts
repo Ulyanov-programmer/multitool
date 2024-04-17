@@ -24,7 +24,10 @@ export type SwipeAreaArgs = {
    */
   changePlane: ChangePlane
   /** 
-    
+    Specify the swipe size for successful switching.
+
+    Accepts strings with the following units: `'%'` `'vw'` `'vh'`
+    @example '15vw' | '15%' '25vh'
   */
   swipeSensitivity: string
   /** 
