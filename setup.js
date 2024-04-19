@@ -41,7 +41,7 @@ const pathToProject = './',
     folder: stylesFolder,
     environment: stylesFolder + '_environment.pcss',
     normalize: stylesFolder + 'normalize.pcss',
-    modifiers: stylesFolder + 'modifiers.pcss',
+    others: stylesFolder + 'other.pcss',
   },
   html = {
     folder: sources,
@@ -54,19 +54,19 @@ const pathToProject = './',
 logSomeImportantInConsole(
   `Salute!
 You will have to use some keys, such as: 
-${chalk.greenBright('↑')} - focus up,
-${chalk.greenBright('↓')} - focus down,
-${chalk.greenBright('← →')} - choosing between elements on the same line,
-${chalk.greenBright('space')} - to select an option,
-${chalk.greenBright('⭾')} - tab, to move to a next element, for example, in templates.
+${chalk.yellowBright('↑')} - focus up,
+${chalk.yellowBright('↓')} - focus down,
+${chalk.yellowBright('← →')} - choosing between elements on the same line,
+${chalk.yellowBright('space')} - to select an option,
+${chalk.yellowBright('⭾')} - tab, to move to a next element, for example, in templates.
 `,
   chalk.green
 )
 
 await enquirer.toggle({
   message: chalk.italic('Any questions?'),
-  enabled: chalk.magenta('Nope, i totally understand!'),
-  disabled: chalk.magenta('Nope, i understand!'),
+  enabled: chalk.greenBright('Nope, i totally understand!'),
+  disabled: chalk.greenBright('Nope, i understand!'),
 })
 
 
@@ -86,7 +86,8 @@ await includeModuleByQuestion(
     ],
   }),
   new ModuleObject({
-    moduleName: 'Slider Swiper',
+    moduleName: `Slider Swiper ${chalk.magenta(`[MANDATORY FOR MODULE 'TOGGLE BY SWIPE]'`)
+      }`,
     filesAndFolders: assets + 'swiper/',
     htmlConnectStrings: { strings: `swiper="false"` },
   }),
@@ -182,22 +183,17 @@ await includeModuleByQuestion(
   }),
 )
 
+await setMainFont()
 
-logSomeImportantInConsole(
-  `\nThe configuration of files and folders is complete.\n`,
-  chalk.greenBright
-)
 logSomeImportantInConsole(
   `\nNow, i suggest you change the values of the main variables.\n`,
-  chalk.magentaBright
+  chalk.greenBright
 )
-
-await setMainFont()
 
 await setVariables(
   new VariableTemplate({
     snippetName: 'html layout',
-    message: chalk.cyanBright('Fill in the fields in the html-layout.'),
+    message: chalk.cyanBright(`Fill in the fields in the html-layout ${chalk.yellow.underline(html.layout)}`),
     variableFilePath: html.layout,
     fields: [
       { name: 'mainLangOfPages', initial: 'en' },
@@ -219,7 +215,7 @@ await setVariables(
   new VariableTemplate({
     snippetName: 'stylesheetVariables',
     message: chalk.cyanBright(
-      `Fill in some css variables (file - ${chalk.underline(styles.normalize)}).`),
+      `Fill in some css variables ${chalk.yellow.underline(styles.normalize)}`),
     variableFilePath: styles.normalize,
     fields: [
       { name: 'mainTextColor', initial: 'black', },
@@ -232,8 +228,8 @@ await setVariables(
   new VariableTemplate({
     snippetName: 'stylesheetSassLikeVariables',
     message: chalk.cyanBright(
-      'Fill in sass-like variables that are used in custom media. \n'
-      + `(file - ${chalk.underline(styles.environment)})`),
+      'Fill in sass-like variables that are used in custom media.'
+      + `\n${chalk.yellow.underline(styles.environment)}`),
     variableFilePath: styles.environment,
     fields: [
       { name: 'minimalWidthOfYourDesign', initial: '320', },
@@ -255,7 +251,7 @@ $minFontSize: \${minSize}px;`
   new VariableTemplate({
     snippetName: 'another name',
     message: chalk.cyanBright('Enter the width of the largest design layout.'
-      + `(file - ${chalk.underline(gruntPostcss)}.`),
+      + `\n${chalk.yellow.underline(gruntPostcss)}`),
     variableFilePath: gruntPostcss,
     fields: [
       { name: 'maxDesignLayoutWidth', initial: '1440', },
@@ -266,15 +262,15 @@ $minFontSize: \${minSize}px;`
   new VariableTemplate({
     snippetName: 'some name',
     message: chalk.cyanBright(
-      'Set the values of the paddings that are assigned using the .content_paddings class (used to center content in blocks)\n'
-      + `(file - ${chalk.underline(styles.modifiers)}.`),
-    variableFilePath: styles.modifiers,
+      'Set the values of the paddings that are assigned using the .content_paddings class (used to center content in blocks)'
+      + `\n${chalk.yellow.underline(styles.normalize)}`),
+    variableFilePath: styles.normalize,
     fields: [
       { name: 'largePaddings', initial: '15vw', },
     ],
     template:
       `
-@media (--pc-large) {
+@media(--pc-large) {
   --content-inline-padding: \${largePaddings};
 }`,
   }),
@@ -282,13 +278,13 @@ $minFontSize: \${minSize}px;`
   new VariableTemplate({
     snippetName: 'some name 2',
     message: chalk.cyan('PC screen (1024px <= width <= 1440px)...'),
-    variableFilePath: styles.modifiers,
+    variableFilePath: styles.normalize,
     fields: [
       { name: 'defaultPaddings', initial: '13vw', },
     ],
     template:
       `
-@media (--pc) {
+@media(--pc) {
   --content-inline-padding: \${defaultPaddings};
 }`,
   }),
@@ -296,13 +292,13 @@ $minFontSize: \${minSize}px;`
   new VariableTemplate({
     snippetName: 'some name 2.1',
     message: chalk.cyan('Small PC screens (769px <= width <= 1024px)...'),
-    variableFilePath: styles.modifiers,
+    variableFilePath: styles.normalize,
     fields: [
       { name: 'smallPcPaddings', initial: '10vw', },
     ],
     template:
       `
-@media (--pc-small) {
+@media(--pc-small) {
   --content-inline-padding: \${smallPcPaddings};
 }`,
   }),
@@ -310,13 +306,13 @@ $minFontSize: \${minSize}px;`
   new VariableTemplate({
     snippetName: 'some name 3',
     message: chalk.cyan('Tablets (426px <= width <= 769px)...'),
-    variableFilePath: styles.modifiers,
+    variableFilePath: styles.normalize,
     fields: [
       { name: 'tabletPaddings', initial: '5vw', },
     ],
     template:
       `
-@media (--tablet) {
+@media(--tablet) {
   --content-inline-padding: \${tabletPaddings};
 }`,
   }),
@@ -324,13 +320,13 @@ $minFontSize: \${minSize}px;`
   new VariableTemplate({
     snippetName: 'some name 4',
     message: chalk.cyan('Mobiles (width <= 426px)...'),
-    variableFilePath: styles.modifiers,
+    variableFilePath: styles.normalize,
     fields: [
       { name: 'mobilePaddings', initial: '3vw', },
     ],
     template:
       `
-@media (--mobile) {
+@media(--mobile) {
   --content-inline-padding: \${mobilePaddings};
 }`,
   }),
@@ -346,7 +342,7 @@ writeCompletelyPhrase()
 async function includeModuleByQuestion(title, ...moduleObjects) {
   let selectedModules = await enquirer.multiselect({
     name: 'value',
-    message: chalk.magentaBright(title),
+    message: chalk.greenBright(title),
     limit: 5,
     choices: moduleObjects.map(module => {
       return {
@@ -414,11 +410,11 @@ async function setVariables(...variableTemplates) {
 }
 async function setMainFont() {
   await enquirer.toggle({
-    message: chalk.italic(`Now i will analyze your folder ${chalk.underline(paths.src.fontsFolder)}, make sure that you have added font files there. \n`),
-    enabled: chalk.magenta(
+    message: chalk.italic(`Now i will analyze your folder ${chalk.underline.yellow(paths.src.fontsFolder)}, make sure that you have added font files there.\n`),
+    enabled: chalk.greenBright(
       `I added the font files to this folder.`
     ),
-    disabled: chalk.magenta(
+    disabled: chalk.greenBright(
       `I added the font files to this folder.`
     ),
   })
@@ -439,8 +435,8 @@ async function setMainFont() {
 
   replace.sync({
     files: styles.normalize,
-    from: `--main-font-family: arial;`,
-    to: `--main-font-family: '${selectedFont.split('.')[0]}';`,
+    from: `--main - font - family: arial; `,
+    to: `--main - font - family: '${selectedFont.split('.')[0]}'; `,
   })
   replace.sync({
     files: html.layout,
