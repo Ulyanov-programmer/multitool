@@ -1,6 +1,6 @@
 @import url('./_environment.pcss');
 
-@layer normalizing, firstLevel, secondLevel, thirdLevel;
+@layer normalizing;
 
 @layer normalizing {
   :not(
@@ -143,13 +143,35 @@
     --main-font-family: arial;
     --main-text-color: black;
     --background: white;
+
+    --content-inline-padding: none;
+
+    @media (--pc-large) {
+      --content-inline-padding: 15vw;
+    }
+
+    @media (--pc) {
+      --content-inline-padding: 13vw;
+    }
+
+    @media (--pc-small) {
+      --content-inline-padding: 10vw;
+    }
+
+    @media (--tablet) {
+      --content-inline-padding: 5vw;
+    }
+
+    @media (--mobile) {
+      --content-inline-padding: 3vw;
+    }
   }
 
   body {
     font-family: var(--main-font-family);
     font-size: clamp(
       rem($minFontSize),
-      pxToVw($mainFontSize),
+      pxToVw($mainFontSize) + 0.1rem,
       rem($mainFontSize)
     );
     color: var(--main-text-color);
