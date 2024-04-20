@@ -86,7 +86,7 @@ await includeModuleByQuestion(
     ],
   }),
   new ModuleObject({
-    moduleName: `Slider Swiper ${chalk.magenta(`[MANDATORY FOR MODULE 'TOGGLE BY SWIPE]'`)
+    moduleName: `Slider Swiper ${chalk.magenta(`[MANDATORY FOR MODULE 'STEP BY STEP BLOCK']`)
       }`,
     filesAndFolders: assets + 'swiper/',
     htmlConnectStrings: { strings: `swiper="false"` },
@@ -435,8 +435,8 @@ async function setMainFont() {
 
   replace.sync({
     files: styles.normalize,
-    from: `--main - font - family: arial; `,
-    to: `--main - font - family: '${selectedFont.split('.')[0]}'; `,
+    from: `--main-font-family: arial;`,
+    to: `--main-font-family: '${selectedFont.split('.')[0]}'; `,
   })
   replace.sync({
     files: html.layout,
