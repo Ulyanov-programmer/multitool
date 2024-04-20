@@ -422,6 +422,11 @@ async function setMainFont() {
   let filesInSources = fs.readdirSync(paths.src.fontsFolder)
   filesInSources.splice(filesInSources.indexOf('.gitkeep'), 1)
 
+  for (let i = 0; i < filesInSources.length; i++) {
+    filesInSources[i] +=
+      chalk.magenta(` (as ${filesInSources[i].split('-')[0]})`)
+  }
+
   if (filesInSources?.length <= 0) return
 
   let selectedFont = await enquirer.select({
@@ -436,7 +441,7 @@ async function setMainFont() {
   replace.sync({
     files: styles.normalize,
     from: `--main-font-family: arial;`,
-    to: `--main-font-family: '${selectedFont.split('.')[0]}'; `,
+    to: `--main-font-family: '${selectedFont.split('-')[0]}'; `,
   })
   replace.sync({
     files: html.layout,
