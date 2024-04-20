@@ -48,8 +48,8 @@ export function fontsWriting() {
       style: style,
     })
 
-    if (currentFontName != fileNameNoExt) {
-      currentFontName = fileNameNoExt
+    if (currentFontName != fontName) {
+      currentFontName = fontName
 
       fonts.push({
         fontName: fontName,
@@ -110,10 +110,6 @@ function declareFontVariablesAndModifiers(fonts) {
 \tfont-style: ${font.styles[i]};
 }\n`)
     }
-  }
-
-  for (let variable of vars) {
-    vars.splice(vars.indexOf(variable), 1)
   }
 
   vars[vars.length - 1] = vars.at(-1).replace('\n\t', '')
