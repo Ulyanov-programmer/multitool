@@ -13,6 +13,8 @@ export let esbuild = {
       target: 'es2021',
       bundle: false,
       outdir: paths.dest.scripts,
+      //? Necessary if the task works with only one file.
+      outbase: paths.src.scripts,
       watchMode: true,
     }
   },
@@ -24,6 +26,8 @@ export let esbuild = {
       target: 'es2021',
       bundle: false,
       outdir: paths.dest.scripts,
+      //? Necessary if the task works with only one file.
+      outbase: paths.src.scripts,
       minify: isProductionMode ? true : false,
       watchMode: true,
     }
