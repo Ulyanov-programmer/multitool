@@ -60,7 +60,7 @@ function watchFiles() {
 }
 
 const mainTasks = [
-  html, other, css, environmentCss, fonts, apiScripts, sourcesScripts, php, imagesSvg, images, video,
+  html, other, css, environmentCss, fonts, apiScripts, sourcesScripts, php, imagesSvg, images,
 ]
 
 let build = gulp.series(deleteDist, gulp.parallel(libs, mainTasks), fontsStyle)
