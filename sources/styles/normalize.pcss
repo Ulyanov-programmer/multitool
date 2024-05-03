@@ -1,5 +1,3 @@
-@import url('./_environment.pcss');
-
 @layer normalizing;
 
 @layer normalizing {
@@ -148,37 +146,32 @@
     --main-font-family: arial;
     --main-text-color: black;
     --background: white;
-
     --content-inline-padding: none;
 
-    @media (--pc-large) {
+    @media (width > 1440px) {
       --content-inline-padding: 15vw;
     }
 
-    @media (--pc) {
+    @media (1024px <= width <= 1440px) {
       --content-inline-padding: 13vw;
     }
 
-    @media (--pc-small) {
+    @media (769px <= width <= 1024px) {
       --content-inline-padding: 10vw;
     }
 
-    @media (--tablet) {
+    @media (426px <= width <= 769px) {
       --content-inline-padding: 5vw;
     }
 
-    @media (--mobile) {
+    @media (width <= 426px) {
       --content-inline-padding: 3vw;
     }
   }
 
   body {
     font-family: var(--main-font-family);
-    font-size: clamp(
-      rem($minFontSize),
-      pxToVw($mainFontSize) + 0.1rem,
-      rem($mainFontSize)
-    );
+    font-size: clamp(rem(12px), pxToVw(16px) + 0.01rem, rem(16px));
     color: var(--main-text-color);
     background: var(--background);
   }
@@ -283,7 +276,9 @@
       &[type='file'] {
         display: none;
 
-        & + label {
+        + label {
+          pointer-events: all;
+
           svg {
           }
         }

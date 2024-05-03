@@ -1,5 +1,3 @@
-@import url('./_environment.pcss');
-
 [class*='pos'] {
   &[class*='_r'] {
     position: relative;
@@ -278,7 +276,9 @@ button.AnimatedSvgBurger {
     }
 
     .rectCenter {
-      @mixin hide;
+      pointer-events: none;
+      overflow: hidden;
+      opacity: 0;
     }
 
     .rectBottom {

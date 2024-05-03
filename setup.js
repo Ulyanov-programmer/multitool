@@ -226,29 +226,6 @@ await setVariables(
   }),
 
   new VariableTemplate({
-    snippetName: 'stylesheetSassLikeVariables',
-    message: chalk.cyanBright(
-      'Fill in sass-like variables that are used in custom media.'
-      + `\n${chalk.yellow.underline(styles.environment)}`),
-    variableFilePath: styles.environment,
-    fields: [
-      { name: 'minimalWidthOfYourDesign', initial: '320', },
-      { name: 'mainSize', initial: '16', },
-      { name: 'minSize', initial: '12', },
-    ],
-    template:
-      `@custom-media --pc-large (width > 1440px);
-@custom-media --pc (1024px <= width <= 1440px);
-@custom-media --pc-small (769px <= width <= 1024px);
-@custom-media --tablet (426px <= width <= 769px);
-@custom-media --mobile (width <= 426px);
-
-$minLayoutWidth: \${minimalWidthOfYourDesign}px;
-$mainFontSize: \${mainSize}px;
-$minFontSize: \${minSize}px;`
-  }),
-
-  new VariableTemplate({
     snippetName: 'another name',
     message: chalk.cyanBright('Enter the width of the largest design layout.'
       + `\n${chalk.yellow.underline(gruntPostcss)}`),
@@ -262,7 +239,7 @@ $minFontSize: \${minSize}px;`
   new VariableTemplate({
     snippetName: 'some name',
     message: chalk.cyanBright(
-      'Set the values of the paddings that are assigned using the .content_paddings class (used to center content in blocks)'
+      `Set the values for the ${chalk.red('content-inline-padding')} variable, which is intended to center the content.`
       + `\n${chalk.yellow.underline(styles.normalize)}`),
     variableFilePath: styles.normalize,
     fields: [
@@ -270,63 +247,63 @@ $minFontSize: \${minSize}px;`
     ],
     template:
       `
-@media(--pc-large) {
+@media (width > 1440px) {
   --content-inline-padding: \${largePaddings};
 }`,
   }),
 
   new VariableTemplate({
     snippetName: 'some name 2',
-    message: chalk.cyan('PC screen (1024px <= width <= 1440px)...'),
+    message: chalk.cyan('PC screen...'),
     variableFilePath: styles.normalize,
     fields: [
       { name: 'defaultPaddings', initial: '13vw', },
     ],
     template:
       `
-@media(--pc) {
+@media (1024px <= width <= 1440px) {
   --content-inline-padding: \${defaultPaddings};
 }`,
   }),
 
   new VariableTemplate({
     snippetName: 'some name 2.1',
-    message: chalk.cyan('Small PC screens (769px <= width <= 1024px)...'),
+    message: chalk.cyan('Small PC screens...'),
     variableFilePath: styles.normalize,
     fields: [
       { name: 'smallPcPaddings', initial: '10vw', },
     ],
     template:
       `
-@media(--pc-small) {
+@media (769px <= width <= 1024px) {
   --content-inline-padding: \${smallPcPaddings};
 }`,
   }),
 
   new VariableTemplate({
     snippetName: 'some name 3',
-    message: chalk.cyan('Tablets (426px <= width <= 769px)...'),
+    message: chalk.cyan('Tablets...'),
     variableFilePath: styles.normalize,
     fields: [
       { name: 'tabletPaddings', initial: '5vw', },
     ],
     template:
       `
-@media(--tablet) {
+@media (426px <= width <= 769px) {
   --content-inline-padding: \${tabletPaddings};
 }`,
   }),
 
   new VariableTemplate({
     snippetName: 'some name 4',
-    message: chalk.cyan('Mobiles (width <= 426px)...'),
+    message: chalk.cyan('Mobiles...'),
     variableFilePath: styles.normalize,
     fields: [
       { name: 'mobilePaddings', initial: '3vw', },
     ],
     template:
       `
-@media(--mobile) {
+@media (width <= 426px) {
   --content-inline-padding: \${mobilePaddings};
 }`,
   }),
