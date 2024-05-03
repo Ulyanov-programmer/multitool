@@ -9,6 +9,7 @@ import functions from 'postcss-functions'
 import mixins from 'postcss-mixins'
 import customMedia from 'postcss-custom-media'
 import rem from 'postcss-rem'
+import size from 'postcss-size'
 
 import paths from '../other/paths.js'
 
@@ -24,6 +25,7 @@ const options = {
         return comment.includes('@removeInDist')
       }
     }),
+    size(),
     autoprefixer(),
     presetEnv({
       stage: 4,
@@ -37,6 +39,7 @@ const options = {
         bgImageMultiType: url => bgImageMultiType(url),
         grid: (gap, columns, rows) => grid(gap, columns, rows),
         flex: (gap, flexFlow, inline) => flex(gap, flexFlow, inline),
+        absolute: (inset, zIndex) => absolute(inset, zIndex),
       }
     }),
     mixins(),
@@ -118,6 +121,18 @@ function flex(gap, flexFlow, inline) {
 
   if (flexFlow)
     props += `;\nflex-flow: ${flexFlow}`
+
+  return props
+}
+
+function absolute(inset, zIndex) {
+  var props = `absolute`
+
+  if (inset)
+    props += `;\ninset: ${inset}`
+
+  if (zIndex)
+    props += `;\nz-index: ${zIndex}`
 
   return props
 }
