@@ -10,13 +10,20 @@ new StepByStepBlock({
     allowSlidePrev: false,
 
     navigation: {
-      nextEl: `.swiper-button-next`,
-      prevEl: `.swiper-button-prev`,
+      nextEl: `your_next_button_selector`,
+      prevEl: `your_prev_button_selector`,
       disabledClass: 'inactive',
     },
     pagination: {
-      el: `.swiper-pagination`,
+      el: `#your_pagination_id`,
       clickable: true,
+      bulletClass: 'bullet',
+      bulletActiveClass: 'current',
+
+      // ? See https://swiperjs.com/swiper-api#param-renderBullet
+      // renderBullet: function (index, className) {
+      //   return ''
+      // }
     },
   }),
   checkFunctions: {

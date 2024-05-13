@@ -7,40 +7,46 @@ import './just-validate.production.min.js'
 import Inputmask from "../inputmask/inputmask.es6.js"
 
 
-new Inputmask('+7 (999) 999-99-99')
-  .mask(document.querySelector('input[type="tel"]'))
+new Inputmask({
+  mask: "A9[*]{1,10}",
+  // repeat: 10,
+
+  // definitions: {
+  //   '*': {
+  //     validator: "[0-9A-Za-z]",
+  //     casing: "upper"
+  //   }
+  // },
+}).mask(document.querySelector('input[name="your_name"]'))
 
 
 new JustValidate('#form', {
   errorFieldCssClass: 'invalid',
 
-  // errorLabelCssClass: 'invalid',
   // errorLabelStyle: {
-  //   // position: 'absolute',
-  //   // top: '0',
-  //   // left: '0',
   //   fontSize: '14px',
-  //   color: 'white',
   // },
 
-  // OR
-
+  // ? Tooltips displayed instead of regular error labels.
   // tooltip: {
-  // 	position: 'top',
+  //   position: 'left' | 'top' | 'right' | 'bottom',
   // },
 
-  // ? Must be inside the form.
-  errorsContainer: '#errorsContainer',
+  // errorLabelStyle: { display: 'none', },
+
+  // errorsContainer: '#errorsContainer', // ? Must be inside the form.
 })
+  .onSuccess(event => {
+    // ? Use the code below if you send data through a particular backend system.
+    // event.preventDefault()
+    // submitRequestForm()
+  })
+
   .addField('[name="inputName"]', [
 
   ])
 
-  .onSuccess((e) => {
-    // ? Use the code below if you send data through a particular backend system.
-    // e.preventDefault()
-    // submitRequestForm()
-  })
+
 
 /* ? HINTS
   .addField('[name="inputName"]', [
@@ -49,20 +55,46 @@ new JustValidate('#form', {
 
   {
     rule: 'required',
-    errorMessage: 'error',
-  },
-  {
-    rule: 'minLength',
-    value: 3,
-    errorMessage: 'error',
-  },
-  {
-    rule: 'maxLength',
-    value: 30,
-    errorMessage: 'error',
-  },
-  {
+    rule: 'minLength', value: 1,
+    rule: 'maxLength', value: 10,
+    rule: 'minFilesCount', value: 1,
+    rule: 'maxFilesCount', value: 10,
     rule: 'email',
+
+    rule: 'function',
+    validator: (str) => {
+      ? only LETTERS and NUMBERS, RU and EN, with spaces.
+      // ru: [а-яА-ЯёЁ ]
+      // en: [a-zA-Z ]
+      return /^[а-яА-ЯёЁa-zA-Z ]+$/.test(str)
+
+      ? only LETTERS, with spaces.
+      return /^[a-zA-Z() ]+$/.test(str)
+
+      ? only CAPITAL LETTERS, with spaces.
+      return /^[A-Z() ]+$/.test(str)
+      
+      ? only NUMBERS with count.
+      return /^[0-9]{countOfNumbers}/.test(str)
+
+      ? Checking for a phone number
+      return Number(unmaskedValue) && unmaskedValue.length >= 11
+
+      ? If you use inputmask...
+      let unmaskedValue = HTMLElement.inputmask.unmaskedvalue()
+    },
+
+    rule: 'files',
+    value: {
+      files: {
+        extensions: ['jpg', 'jpeg', 'png'],
+        types: ['image/jpeg', 'image/jpg', 'image/png'],
+        // in bytes, 1 000 = ~1kb
+        minSize: 1000,
+        maxSize: 25000,
+      }
+    }
+
     errorMessage: 'error',
   },
 
@@ -71,80 +103,4 @@ new JustValidate('#form', {
     '.selector',
     'Message'
   )
-
-  ? only LETTERS and NUMBERS, RU and EN, with spaces.
-  {
-    rule: 'function',
-    validator: (str) => {
-      // ru: [а-яА-ЯёЁ ]
-      // en: [a-zA-Z ]
-      return /^[а-яА-ЯёЁa-zA-Z ]+$/.test(str)
-    },
-    errorMessage: 'error',
-  },
-
-  ? only LETTERS, with spaces.
-  {
-    rule: 'function',
-    validator: (str) => {
-      return /^[a-zA-Z() ]+$/.test(str)
-    },
-    errorMessage: 'error',
-  },
-
-  ? only CAPITAL LETTERS, with spaces.
-  {
-    rule: 'function',
-    validator: (str) => {
-      return /^[A-Z() ]+$/.test(str)
-    },
-    errorMessage: 'error',
-  },
-
-  ? only NUMBERS with min count.
-  {
-    rule: 'function',
-    validator: (str) => {
-      return /^[0-9]{countOfNumbers}/.test(str)
-    },
-    errorMessage: 'error',
-  },
-
-  ? your validator
-  {
-    rule: 'function',
-    validator: () => {
-      return true
-    },
-    errorMessage: 'error',
-  },
-
-  ? Checking for a number
-  {
-    rule: 'function',
-    validator: () => {
-      ? If you use inputmask...
-      let phoneUnmaskedValue = telInputSelector.inputmask.unmaskedvalue()
-      return Number(phoneUnmaskedValue) && phoneUnmaskedValue.length > 9
-    },
-    errorMessage: 'error',
-  },
-
-  ? File input validation
-  {
-    rule: 'files',
-    files: {
-      extensions: ['.jpg', 'png'],
-      types: ['image/jpeg', 'image/png'],
-      // in bytes, 1 000 = ~1kb
-      minSize: 1000,
-      maxSize: 25000,
-    },
-    errorMessage: 'error',
-  }
-
-  ? Tooltips displayed instead of regular error labels.
-  tooltip: {
-    position: 'left' | 'top' | 'right' | 'bottom',
-  },
 */

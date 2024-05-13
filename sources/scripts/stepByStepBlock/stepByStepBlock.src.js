@@ -4,6 +4,13 @@ export default class StepByStepBlock {
 
   constructor(arg) {
     this.swiper = arg.swiperInstance
+
+    // Corrects an error that makes it impossible to press the last button in the slider (it can be a submit button).
+    this.swiper.on('slideNextTransitionEnd', function (swiper) {
+      swiper.navigation.nextEl.at(-1).disabled = false
+      swiper.navigation.nextEl.at(-1).ariaDisabled = 'false'
+    })
+
     this.checkFunctions = arg.checkFunctions
 
     for (let bullet of this.swiper.pagination?.bullets) {
@@ -41,7 +48,7 @@ export default class StepByStepBlock {
   }
 
   bulletHandler(event) {
-    let clickedBulletIndex = this.swiper.pagination.bullets.findIndex(bullet => bullet == event.target)
+    let clickedBulletIndex = this.swiper.pagination.bullets.findIndex(bullet => bullet == event.currentTarget)
 
     if (clickedBulletIndex < this.swiper.activeIndex) {
       this.slideToHandler(clickedBulletIndex)
