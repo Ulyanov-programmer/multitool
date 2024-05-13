@@ -35,7 +35,8 @@
   }
 
   :focus-visible {
-    outline: 2px solid black;
+    /* Creates an outline that will be clearly visible regardless of the background color and border. */
+    outline: 2px solid color-mix(in hsl, transparent, currentColor);
   }
 
   nav,

@@ -12,11 +12,12 @@ new Swiper(`#someSlider`, {
   grabCursor: true,
 
   navigation: {
-    nextEl: `.class__button-next`, prevEl: `.class__button-prev`,
+    nextEl: `next_button_selector`, 
+    prevEl: `prev_button_selector`,
     disabledClass: 'inactive',
   },
   pagination: { 
-    el: `.class__pagination`, 
+    el: `pagination_selector`, 
     clickable: true, 
   },
 
@@ -31,10 +32,11 @@ new Swiper(`#someSlider`, {
     stopOnLastSlide: false,
   },
   
-  ? Infinite scrolling.
+  ? Infinite scrolling
   loop: false,
 
-  ? Changes the slider settings based on the width of the screen.
+  ? Changes the slider settings based on the width of the screen
+  ! Initialize the default settings!
   breakpoints: {
     // ? when window width is >= 320px
     320: {
@@ -43,48 +45,33 @@ new Swiper(`#someSlider`, {
     },
   },
 
-  ? Changes the height of the slider in runtime depending on the height of the slides.
+  ? Changes the height of the slider in runtime depending on the height of the slides
   autoHeight: true,
 
-  ? If there are no more than one slides, the slider stops working.
+  ? If there are no more than one slides, the slider stops working
   watchOverflow: true,
 
-  direction: 'horizontal' or 'vertical',
+  direction: 'horizontal' | 'vertical',
 
-  ? Indent between slides.
+  ? Indent between slides in px
   spaceBetween: 150,
 
-  ? Enable parallax effect.
+  ? Enable parallax effect
   parallax: true,
   ?? For working add and set attributes on elements in slide:
   data-swiper-parallax='toRight_InPixels'
   data-swiper-parallax-duration='1000'
 
-  effect: 'fade',
-  fadeEffect: {
-    crossFade: true,
-  }
-
-  ? Thumbs construction:
-  new Swiper(`.thumbs`, {
-    spaceBetween: 15,
+  ? Thumbs
+  let thumbsSwiper = new Swiper(`your_thumbs_selector`, {
     slidesPerView: 6,
-    watchOverflow: true,
   })
-
-  new Swiper(`.main`, {
-    watchOverflow: true,
-
+  new Swiper(`your_main_slider_selector`, {
     thumbs: {
-      swiper: demosSwiper,
+      swiper: thumbsSwiper,
       slideThumbActiveClass: 'active',
     },
   })
-  ? Multiple rows
-  grid: {
-    rows: 2,
-    fill: 'row',
-  },
 
   scrollbar: {
     el: '.swiper_scrollbar',
