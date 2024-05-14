@@ -1,33 +1,11 @@
 <script props>
   module.exports = {
-    // Set the main language of pages below.
-    lang: 'en',
-    title: props.title || 'Unnamed page',
-    // Set a name for a preloaded font. Must be a file name without extension.
-    preloadedFontName: 'none',
-    justValidate: props.justValidate,
-    inputmask: props.inputmask,
-    swiper: props.swiper,
-    typed: props.typed,
-    photoSwipe: props.photoSwipe,
-    noUiSlider: props.noUiSlider,
-    toggleBySwipe: props.toggleBySwipe,
-    horizontalMouseScroll: props.horizontalMouseScroll,
-    dialogs: props.dialogs,
-    mouseParallax: props.mouseParallax,
-    autoScrollPadding: props.autoScrollPadding,
-    tabs: props.tabs,
-    stepByStep: props.stepByStep,
-    observerTools: props.observerTools,
-    scrollTimeline: props.scrollTimeline,
-    infiniteScroll: props.infiniteScroll,
-    styles: isArray(props.styles) ? props.styles : [],
-    scripts: isObject(props.scripts) ? props.scripts : {},
+    props: props,
   }
 </script>
 
 <!DOCTYPE html>
-<html lang="{{ lang }}">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -36,115 +14,114 @@
     <meta name="format-detection" content="telephone=no" />
     <meta name="description" content="description" />
     <meta name="theme-color" content="#000000" />
+
     <link rel="icon" href="./images/favicon.svg" />
     <link rel="mask-icon" href="./images/favicon.svg" color="#000000" />
     <link rel="apple-touch-icon" href="apple-touch-icon.png" />
 
-    <if condition='preloadedFontName != "none"'>
-      <link
-        rel="preload"
-        href="./fonts/{{ preloadedFontName }}.woff2"
-        as="font"
-        type="font/woff2"
-        crossorigin
-      />
-    </if>
+    <link
+      rel="preload"
+      href="./fonts/your_preloadedFontName.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
 
-    <title>{{ title }}</title>
+    <title>{{ props.pageTitle }}</title>
 
-    <!-- /-/ General stylesheets -->
+    <!-- #region /-/ General stylesheets -->
     <link rel="stylesheet" href="./styles/fonts.css" />
     <link rel="stylesheet" href="./styles/normalize.css" />
 
     <!-- /-/ General scripts -->
-    <if condition="justValidate">
+    <if condition="props.justValidate">
       <!-- JustValidate -->
       <script type="module" src="./assets/justValidate/index.js"></script>
     </if>
 
-    <if condition="inputmask">
+    <if condition="props.inputmask">
       <!-- Inputmask -->
       <script defer src="./assets/inputmask.min.js"></script>
     </if>
 
-    <if condition="swiper || stepByStep">
+    <if condition="props.swiper || props.stepByStep">
       <!-- Swiper -->
       <link rel="stylesheet" href="./assets/swiper/swiper-bundle.min.css" />
       <script type="module" src="./assets/swiper/index.js"></script>
     </if>
 
-    <if condition="typed">
+    <if condition="props.typed">
       <!-- Typed -->
       <script defer src="./assets/typed/typed.min.js"></script>
       <script defer src="./assets/typed/index.js"></script>
     </if>
 
-    <if condition="photoSwipe">
+    <if condition="props.photoSwipe">
       <!-- PhotoSwipe -->
       <script type="module" src="./assets/photoSwipe/index.js"></script>
       <link rel="stylesheet" href="./assets/photoswipe/photoswipe.css" />
     </if>
 
-    <if condition="noUiSlider">
+    <if condition="props.noUiSlider">
       <!-- NoUiSlider -->
       <link href="./assets/noUiSlider/nouislider.min.css" rel="stylesheet" />
       <script type="module" src="./assets/noUiSlider/index.js"></script>
     </if>
 
-    <if condition="observerTools">
+    <if condition="props.observerTools">
       <!-- Observer Tools -->
       <script type="module" src="./scripts/observerTools/index.js"></script>
     </if>
 
-    <if condition="scrollTimeline">
+    <if condition="props.scrollTimeline">
       <script src="./assets/scroll-timeline.js"></script>
     </if>
 
-    <if condition="toggleBySwipe">
+    <if condition="props.toggleBySwipe">
       <!-- Toggle by swipe -->
       <script type="module" src="./scripts/toggleBySwipe/index.js"></script>
       <link rel="stylesheet" href="./scripts/toggleBySwipe/index.css" />
     </if>
 
-    <if condition="horizontalMouseScroll">
+    <if condition="props.horizontalMouseScroll">
       <!-- Horizontal scroll -->
       <script type="module" src="./scripts/horizontalMouseScroll.js"></script>
     </if>
 
-    <if condition="dialogs">
+    <if condition="props.dialogs">
       <!-- For dialogs -->
       <link rel="stylesheet" href="./scripts/dialogs/index.css" />
       <script type="module" src="./scripts/dialogs/index.js"></script>
     </if>
 
-    <if condition="mouseParallax">
+    <if condition="props.mouseParallax">
       <!-- MouseParallax -->
       <script type="module" src="./scripts/mouseParallax/index.js"></script>
     </if>
 
-    <if condition="autoScrollPadding">
+    <if condition="props.autoScrollPadding">
       <!-- For scroll padding -->
       <script type="module" src="./scripts/autoScrollPadding/index.js"></script>
     </if>
 
-    <if condition="tabs">
+    <if condition="props.tabs">
       <!-- Tabs -->
       <script src="./scripts/tab/index.js"></script>
       <link rel="stylesheet" href="./scripts/tab/index.css" />
     </if>
 
-    <if condition="stepByStep">
+    <if condition="props.stepByStep">
       <!-- StepByStep -->
       <script type="module" src="./scripts/stepByStepBlock/index.js"></script>
     </if>
-    <if condition="infiniteScroll">
+    <if condition="props.infiniteScroll">
       <!-- Infinite Scroll -->
       <script src="./scripts/infiniteScroll/index.js"></script>
     </if>
+    <!-- #endregion -->
 
     <!-- /-/ Other stylesheets and scripts for this page -->
-    <stack name="styles"></stack>
-    <stack name="scripts"></stack>
+    <stack name="additional"></stack>
   </head>
 
   <body>
