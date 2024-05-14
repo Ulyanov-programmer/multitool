@@ -1,7 +1,5 @@
 <script props>
-  module.exports = {
-    props: props,
-  }
+  module.exports = { props: props }
 </script>
 
 <!DOCTYPE html>
@@ -27,7 +25,7 @@
       crossorigin
     />
 
-    <title>{{ props.pageTitle }}</title>
+    <title>{{ props.page_title }}</title>
 
     <!-- #region /-/ General stylesheets -->
     <link rel="stylesheet" href="./styles/fonts.css" />
@@ -125,7 +123,7 @@
   </head>
 
   <body>
-    <if condition="$slots.header?.filled">
+    <if condition="props.include_header != undefined">
       <x-header></x-header>
     </if>
 
@@ -133,7 +131,7 @@
       <yield></yield>
     </main>
 
-    <if condition="$slots.footer?.filled">
+    <if condition="props.include_footer != undefined">
       <x-footer></x-footer>
     </if>
   </body>

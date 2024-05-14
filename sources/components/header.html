@@ -1,4 +1,9 @@
-<header class="Header content_paddings">
+<script props>
+  //You can pass an argument here via x-layout using 'aware'. See https://posthtml.github.io/posthtml-components/docs.html#props
+  module.exports = { props: props }
+</script>
+
+<header>
   <!--? Use if the header can be clearly divided into two parts. -->
   <!-- <header-top></header-top>
   <header-bottom></header-bottom> -->
@@ -7,14 +12,14 @@
     <img src="images/logo.png" alt="logo" />
   </a> -->
 
-  <!-- <form class="SearchBar" role="search">
+  <!-- <form role="search">
     <input type="text" placeholder="input" required />
     <button type="submit">
       <img src="images" alt="search" />
     </button>
   </form> -->
 
-  <nav class="NavMenu">
+  <nav>
     <ul>
       <li>
         <a target="_self" rel="noopener" href="#"> ref </a>
