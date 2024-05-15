@@ -77,6 +77,7 @@ export default class SwipeArea {
   private changePlane: ChangePlane
   private currentSide: SwipeSide
   private argSwipeSensitivity: string
+  private timeStamp: Number
 
   private minSwipeWidth: number
   private minSwipeHeight: number
@@ -155,14 +156,19 @@ export default class SwipeArea {
     this.swipeableElement.style.userSelect = 'none'
     this.touchAreaElement.style.cursor = 'grabbing'
 
+    document.documentElement.style.cursor = 'grabbing'
+
     window.addEventListener('pointermove', this.pointerMoveHandler)
+    window.addEventListener('pointerup', this.swipeEndHandler)
   })
 
   private pointerMoveHandler = ((event: PointerEvent) => {
-    document.documentElement.style.cursor = 'grabbing'
-    window.addEventListener('pointerup', this.swipeEndHandler)
-
-    this.swipeMove(event)
+    if (!this.timeStamp) {
+      window.requestAnimationFrame(timeStamp => {
+        this.timeStamp = timeStamp
+        this.swipeMove(event)
+      })
+    }
   })
 
   private swipeEndHandler = ((event: PointerEvent) => {
@@ -189,6 +195,8 @@ export default class SwipeArea {
 
       this.moveY()
     }
+
+    this.timeStamp = null
   }
   private isDeltaMoreThanMinValue(delta: number) {
     delta = Math.abs(delta)

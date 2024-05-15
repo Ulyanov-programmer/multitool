@@ -37,7 +37,7 @@ new SwipeArea({
   width: var(--width);
   height: 100vh;
   background: gainsboro;
-  transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease;
 
   &.isSwiped {
     right: 0;
