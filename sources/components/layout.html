@@ -123,17 +123,13 @@
   </head>
 
   <body>
-    <if condition="props.include_header != undefined">
-      <x-header></x-header>
-    </if>
+    <x-header></x-header>
 
     <main>
       <yield></yield>
     </main>
 
-    <if condition="props.include_footer != undefined">
-      <x-footer></x-footer>
-    </if>
+    <x-footer></x-footer>
   </body>
 
   <!-- Made in Russia, with ❤, by Ivan Ulyanov. -->
