@@ -193,13 +193,12 @@ logSomeImportantInConsole(
 await setVariables(
   new VariableTemplate({
     snippetName: 'html layout',
-    message: chalk.cyanBright(`Fill in the fields in the html-layout ${chalk.yellow.underline(html.layout)}`),
+    message: chalk.cyanBright(`Fill in the fields in the html-layout. \nSet the main language of pages. (${chalk.yellow.underline(html.layout)})`),
     variableFilePath: html.layout,
     fields: [
       { name: 'mainLangOfPages', initial: 'en' },
     ],
-    template: `// Set the main language of pages below.
-  lang: '\${mainLangOfPages}',`
+    template: `<html lang="\${mainLangOfPages}">`
   }),
 
   new VariableTemplate({
@@ -207,9 +206,9 @@ await setVariables(
     message: chalk.cyanBright('Title of index page...'),
     variableFilePath: html.index,
     fields: [
-      { name: 'title', initial: 'Unnamed Page' },
+      { name: 'title', initial: '' },
     ],
-    template: `title="\${title}"`
+    template: `page_title="\${title}"`
   }),
 
   new VariableTemplate({
@@ -397,7 +396,10 @@ async function setMainFont() {
   })
 
   let filesInSources = fs.readdirSync(paths.src.fontsFolder)
-  filesInSources.splice(filesInSources.indexOf('.gitkeep'), 1)
+
+  if (filesInSources.indexOf('.gitkeep') != -1) {
+    filesInSources.splice(filesInSources.indexOf('.gitkeep'), 1)
+  }
 
   for (let i = 0; i < filesInSources.length; i++) {
     filesInSources[i] +=
@@ -422,8 +424,8 @@ async function setMainFont() {
   })
   replace.sync({
     files: html.layout,
-    from: `preloadedFontName: 'none'`,
-    to: `preloadedFontName: '${selectedFont.split('.')[0]}'`,
+    from: `href="./fonts/your_preloadedFontName.woff2"`,
+    to: `href="./fonts/${selectedFont.split('.')[0]}.woff2"`,
   })
 }
 
