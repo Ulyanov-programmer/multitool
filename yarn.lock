@@ -1174,6 +1174,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@one-ini/wasm@npm:0.1.1":
+  version: 0.1.1
+  resolution: "@one-ini/wasm@npm:0.1.1"
+  checksum: 54700e055037f1a63bfcc86d24822203b25759598c2c3e295d1435130a449108aebc119c9c2e467744767dbe0b6ab47a182c61aa1071ba7368f5e20ab197ba65
+  languageName: node
+  linkType: hard
+
 "@pkgjs/parseargs@npm:^0.11.0":
   version: 0.11.0
   resolution: "@pkgjs/parseargs@npm:0.11.0"
@@ -2049,6 +2056,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"commander@npm:^10.0.0":
+  version: 10.0.1
+  resolution: "commander@npm:10.0.1"
+  checksum: 53f33d8927758a911094adadda4b2cbac111a5b377d8706700587650fd8f45b0bbe336de4b5c3fe47fd61f420a3d9bd452b6e0e6e5600a7e74d7bf0174f6efe3
+  languageName: node
+  linkType: hard
+
 "commander@npm:^2.2.0":
   version: 2.20.3
   resolution: "commander@npm:2.20.3"
@@ -2063,7 +2077,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"config-chain@npm:~1.1.5":
+"config-chain@npm:^1.1.13, config-chain@npm:~1.1.5":
   version: 1.1.13
   resolution: "config-chain@npm:1.1.13"
   dependencies:
@@ -2509,6 +2523,20 @@ __metadata:
   dependencies:
     chalk: "npm:4.1.2"
   checksum: e562265e7c49bd5a4535c66a61749b22e55b4978c48223f0f5b84ed1c5b59397510d655e24b764c0f4b0209f45c7e70a02cb00eaa748d5f44f6d58a4caaac971
+  languageName: node
+  linkType: hard
+
+"editorconfig@npm:^1.0.4":
+  version: 1.0.4
+  resolution: "editorconfig@npm:1.0.4"
+  dependencies:
+    "@one-ini/wasm": "npm:0.1.1"
+    commander: "npm:^10.0.0"
+    minimatch: "npm:9.0.1"
+    semver: "npm:^7.5.3"
+  bin:
+    editorconfig: bin/editorconfig
+  checksum: ed6985959d7b34a56e1c09bef118758c81c969489b768d152c93689fce8403b0452462e934f665febaba3478eebc0fd41c0a36100783eaadf6d926c4abc87a3d
   languageName: node
   linkType: hard
 
@@ -3237,7 +3265,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"glob@npm:^10.4.1":
+"glob@npm:^10.3.3, glob@npm:^10.4.1":
   version: 10.4.1
   resolution: "glob@npm:10.4.1"
   dependencies:
@@ -3570,6 +3598,7 @@ __metadata:
     grunt-prettify: "npm:^0.4.0"
     grunt-sharp-optimize: "npm:^1.0.0"
     grunt-ttf2woff2: "npm:^1.0.1"
+    js-beautify: "npm:^1.15.1"
     load-grunt-tasks: "npm:^5.1.0"
     parse-font-name: "npm:^1.2.0"
     postcss: "npm:^8.4.31"
@@ -4238,6 +4267,23 @@ __metadata:
   languageName: node
   linkType: hard
 
+"js-beautify@npm:^1.15.1":
+  version: 1.15.1
+  resolution: "js-beautify@npm:1.15.1"
+  dependencies:
+    config-chain: "npm:^1.1.13"
+    editorconfig: "npm:^1.0.4"
+    glob: "npm:^10.3.3"
+    js-cookie: "npm:^3.0.5"
+    nopt: "npm:^7.2.0"
+  bin:
+    css-beautify: js/bin/css-beautify.js
+    html-beautify: js/bin/html-beautify.js
+    js-beautify: js/bin/js-beautify.js
+  checksum: 4140dd95537143eb429b6c8e47e21310f16c032d97a03163c6c7c0502bc663242a5db08d3ad941b87f24a142ce4f9190c556d2340bcd056545326377dfae5362
+  languageName: node
+  linkType: hard
+
 "js-beautify@npm:~1.5.4":
   version: 1.5.10
   resolution: "js-beautify@npm:1.5.10"
@@ -4250,6 +4296,13 @@ __metadata:
     html-beautify: ./js/bin/html-beautify.js
     js-beautify: ./js/bin/js-beautify.js
   checksum: 0069dcdfc69c331fa9e9d3eb4e4941f0013c7eae2c4aefbaf39f530104688cec0603ec764c7fdf5052cc86782f699406806da4e10cfe27bae73a464325b15026
+  languageName: node
+  linkType: hard
+
+"js-cookie@npm:^3.0.5":
+  version: 3.0.5
+  resolution: "js-cookie@npm:3.0.5"
+  checksum: 04a0e560407b4489daac3a63e231d35f4e86f78bff9d792011391b49c59f721b513411cd75714c418049c8dc9750b20fcddad1ca5a2ca616c3aca4874cce5b3a
   languageName: node
   linkType: hard
 
@@ -4689,6 +4742,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"minimatch@npm:9.0.1":
+  version: 9.0.1
+  resolution: "minimatch@npm:9.0.1"
+  dependencies:
+    brace-expansion: "npm:^2.0.1"
+  checksum: aa043eb8822210b39888a5d0d28df0017b365af5add9bd522f180d2a6962de1cbbf1bdeacdb1b17f410dc3336bc8d76fb1d3e814cdc65d00c2f68e01f0010096
+  languageName: node
+  linkType: hard
+
 "minimatch@npm:^2.0.1":
   version: 2.0.10
   resolution: "minimatch@npm:2.0.10"
@@ -5029,6 +5091,17 @@ __metadata:
   bin:
     nopt: bin/nopt.js
   checksum: 9bd7198df6f16eb29ff16892c77bcf7f0cc41f9fb5c26280ac0def2cf8cf319f3b821b3af83eba0e74c85807cc430a16efe0db58fe6ae1f41e69519f585b6aff
+  languageName: node
+  linkType: hard
+
+"nopt@npm:^7.2.0":
+  version: 7.2.1
+  resolution: "nopt@npm:7.2.1"
+  dependencies:
+    abbrev: "npm:^2.0.0"
+  bin:
+    nopt: bin/nopt.js
+  checksum: a069c7c736767121242037a22a788863accfa932ab285a1eb569eb8cd534b09d17206f68c37f096ae785647435e0c5a5a0a67b42ec743e481a455e5ae6a6df81
   languageName: node
   linkType: hard
 
@@ -6424,6 +6497,15 @@ __metadata:
   bin:
     semver: bin/semver.js
   checksum: 5160b06975a38b11c1ab55950cb5b8a23db78df88275d3d8a42ccf1f29e55112ac995b3a26a522c36e3b5f76b0445f1eef70d696b8c7862a2b4303d7b0e7609e
+  languageName: node
+  linkType: hard
+
+"semver@npm:^7.5.3":
+  version: 7.6.2
+  resolution: "semver@npm:7.6.2"
+  bin:
+    semver: bin/semver.js
+  checksum: 97d3441e97ace8be4b1976433d1c32658f6afaff09f143e52c593bae7eef33de19e3e369c88bd985ce1042c6f441c80c6803078d1de2a9988080b66684cbb30c
   languageName: node
   linkType: hard
 

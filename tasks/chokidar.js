@@ -1,6 +1,7 @@
 import chokidar from 'chokidar'
 import paths from '../grunt/other/paths.js'
 import htmlTask from '../api/html.js'
+import beautifyHtml from '../api/beautify.js'
 
 
 const CHOKIDAR_OPTIONS = {
@@ -9,11 +10,11 @@ const CHOKIDAR_OPTIONS = {
 
 chokidar
   .watch(paths.src.root + '*.html', CHOKIDAR_OPTIONS)
-  .on('add',
-    path => htmlTask(path)
-  )
   .on('change',
-    path => htmlTask(path)
+    async path => {
+      let processedFiles = await htmlTask(path)
+      beautifyHtml(processedFiles)
+    }
   )
 
 // .add()

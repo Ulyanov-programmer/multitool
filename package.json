@@ -33,6 +33,7 @@
     "grunt-prettify": "^0.4.0",
     "grunt-sharp-optimize": "^1.0.0",
     "grunt-ttf2woff2": "^1.0.1",
+    "js-beautify": "^1.15.1",
     "load-grunt-tasks": "^5.1.0",
     "parse-font-name": "^1.2.0",
     "postcss": "^8.4.31",
