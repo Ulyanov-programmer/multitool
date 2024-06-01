@@ -10,7 +10,7 @@ export let esbuild = {
       ],
     },
     options: {
-      target: 'es2021',
+      target: 'es2022',
       bundle: false,
       outdir: paths.dest.scripts,
       //? Necessary if the task works with only one file.
@@ -23,7 +23,7 @@ export let esbuild = {
       src: paths.src.scripts + '**/*.src.{js,ts}',
     },
     options: {
-      target: 'es2021',
+      target: 'es2022',
       bundle: false,
       outdir: paths.dest.scripts,
       //? Necessary if the task works with only one file.
