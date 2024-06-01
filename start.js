@@ -11,13 +11,13 @@
 // fontsWriting()
 
 
-import './tasks/chokidar.js'
-import htmlTask from './api/html.js'
-import beautifyHtml from './api/beautify.js'
+import './plugins/chokidar.js'
+import { posthtmlConfig } from './api/posthtml.js'
+import { beautifyHtmlConfig } from './api/beautifyHtml.js'
 
 
-let processedFiles = await htmlTask()
-processedFiles = beautifyHtml(processedFiles)
+let processedFiles = await posthtmlConfig.runProcess()
+processedFiles = beautifyHtmlConfig.runProcess(processedFiles)
 
 
 
