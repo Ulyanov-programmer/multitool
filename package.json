@@ -1,13 +1,13 @@
 {
   "name": "grunt-pr",
   "version": "1.0.0",
-  "main": "./Gruntfile.ts",
+  "main": "./index.js",
   "browserslist": "> 0.5%, last 2 versions, Firefox ESR, not dead",
   "type": "module",
   "license": "MIT",
   "scripts": {
     "setup": "node setup",
-    "start": "node start"
+    "start": "node index.js"
   },
   "dependencies": {
     "@csstools/postcss-media-minmax": "^1.1.0",
