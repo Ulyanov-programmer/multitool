@@ -1,52 +1,51 @@
-import fs from 'fs-extra'
 import posthtml from 'posthtml'
-import { globSync, hasMagic } from 'glob'
-import path from 'path'
+import { Plugin } from './_plugin.js'
 
-
-export class PostHtml {
-  #src
-  #dest
+export class PostHtml extends Plugin {
   #pluginsArray
-  static #ENCODING = 'utf8'
 
   constructor({ paths, plugins }) {
-    this.#src = paths.src
-    this.#dest = paths.dest
+    super({
+      srcPath: paths.src,
+      destPath: paths.dest,
+    })
     this.#pluginsArray = plugins
   }
 
-  async runProcess(paths = this.#src) {
-    let processedFiles = []
+  async runProcess(paths = this.srcPath) {
+    paths = this.transformPathsToArrayIfHasMagic(paths)
 
-    if (hasMagic(paths)) {
-      paths = globSync(paths, {
-        dotRelative: true,
-      })
-    }
     if (paths instanceof Array) {
       for (let pathToFile of paths) {
-        processedFiles.push(await this.#process(pathToFile))
+        this.processedBuffer.push(await this.#process(pathToFile))
       }
     }
     else {
-      processedFiles.push(await this.#process(paths))
+      this.processedBuffer.push(await this.#process(paths))
     }
 
-    return processedFiles
+    return this.cleanProcessedBufferAndReturnIt(this.processedBuffer)
   }
 
   async #process(pathToFile) {
-    pathToFile = path.normalize(pathToFile)
+    pathToFile = this.path.normalize(pathToFile)
 
     let result = await posthtml(this.#pluginsArray)
-      .process(fs.readFileSync(pathToFile, PostHtml.#ENCODING))
+      .process(this.fs.readFileSync(pathToFile, Plugin.ENCODING))
 
-    let fileName = pathToFile.split(path.sep).at(-1)
+    let fileName = pathToFile.split(this.path.sep).at(-1)
 
-    fs.writeFileSync(this.#dest + fileName, result.html, PostHtml.#ENCODING)
+    this.fs.writeFileSync(this.destPath + fileName, result.html, Plugin.ENCODING)
+
+    this.log({
+      plugin: this.constructor.name,
+      processedFile: {
+        name: pathToFile,
+        style: 'cyan'
+      }
+    })
 
     // a link to the processed file is returned 
-    return this.#dest + fileName
+    return this.destPath + fileName
   }
 }

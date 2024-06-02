@@ -1,51 +1,52 @@
 import beautify from 'js-beautify'
-import fs from 'fs-extra'
-import { globSync, hasMagic } from 'glob'
-import path from 'path'
+import { Plugin } from './_plugin.js'
 
-export class BeautifyHtml {
-  #src
-  #dest
+export class BeautifyHtml extends Plugin {
   #options
-  static #ENCODING = 'utf8'
 
   constructor({ paths, options }) {
-    this.#src = paths.src
-    this.#dest = paths.dest
+    super({
+      srcPath: paths.src,
+      destPath: paths.dest,
+    })
     this.#options = options
   }
 
-  runProcess(paths = this.#src) {
-    let processedFiles = []
+  runProcess(paths = this.srcPath) {
+    paths = this.transformPathsToArrayIfHasMagic(paths)
 
-    if (hasMagic(paths)) {
-      paths = globSync(paths, {
-        dotRelative: true,
-      })
-    }
     if (paths instanceof Array) {
       for (let pathToFile of paths) {
-        processedFiles.push(this.#process(pathToFile))
+        this.processedBuffer.push(this.#process(pathToFile))
       }
     }
     else {
-      processedFiles.push(this.#process(paths))
+      this.processedBuffer.push(this.#process(paths))
     }
 
-    return processedFiles
+    return this.cleanProcessedBufferAndReturnIt(this.processedBuffer)
   }
 
   #process(pathToFile) {
-    pathToFile = path.normalize(pathToFile)
+    pathToFile = this.path.normalize(pathToFile)
 
-    let data = fs.readFileSync(pathToFile, BeautifyHtml.#ENCODING)
+    let data = this.fs.readFileSync(pathToFile, Plugin.ENCODING)
 
     let result = beautify.html(data, this.#options)
 
-    let fileName = pathToFile.split(path.sep).at(-1)
+    let fileName = pathToFile.split(this.path.sep).at(-1)
 
-    fs.writeFileSync(this.#dest + fileName, result, BeautifyHtml.#ENCODING)
+    this.fs.writeFileSync(this.destPath + fileName, result, Plugin.ENCODING)
 
-    return this.#dest + fileName
+    this.log({
+      plugin: this.constructor.name,
+      processedFile: {
+        name: pathToFile,
+        style: 'yellow'
+      }
+    })
+
+    // a link to the processed file is returned 
+    return this.destPath + fileName
   }
 }
