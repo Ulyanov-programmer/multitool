@@ -2,6 +2,7 @@ const project = 'dist/',
   sources = 'sources/'
 
 export default {
+  root: './',
   dest: {
     root: project,
     styles: project + 'styles/',

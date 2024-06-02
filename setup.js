@@ -26,17 +26,17 @@ class VariableTemplate {
   }
 }
 
-const pathToProject = './',
-  distFolderName = pathToProject + 'dist/',
-  snippetsFolderName = pathToProject + 'snippets/',
-  readmeFolder = pathToProject + 'readmeFiles/',
-  sources = pathToProject + 'sources/',
-  readmeFilePath = pathToProject + 'README.md',
+const
+  distFolderName = paths.root + 'dist/',
+  snippetsFolderName = paths.root + 'snippets/',
+  readmeFolder = paths.root + 'readmeFiles/',
+  sources = paths.root + 'sources/',
+  readmeFilePath = paths.root + 'README.md',
   stylesFolder = sources + 'styles/',
   scriptsFolder = sources + 'scripts/',
   assets = sources + 'assets/',
   fontsGitkeep = sources + 'fonts/.gitkeep',
-  gruntPostcss = pathToProject + 'grunt/css/postcss.js',
+  gruntPostcss = paths.root + 'grunt/css/postcss.js',
   styles = {
     folder: stylesFolder,
     environment: stylesFolder + '_environment.pcss',
