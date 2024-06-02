@@ -13,6 +13,8 @@ export class BeautifyHtml extends Plugin {
   }
 
   runProcess(paths = this.srcPath) {
+    this.performanceTimerStart()
+
     paths = this.transformPathsToArrayIfHasMagic(paths)
 
     if (paths instanceof Array) {
@@ -23,6 +25,8 @@ export class BeautifyHtml extends Plugin {
     else {
       this.processedBuffer.push(this.#process(paths))
     }
+
+    this.performanceTimerEnd(this.constructor.name)
 
     return this.cleanProcessedBufferAndReturnIt(this.processedBuffer)
   }
