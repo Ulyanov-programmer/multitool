@@ -1,7 +1,7 @@
 import browserSync from 'browser-sync'
 import paths from './paths.js'
 
-export function server() {
+function server() {
   browserSync.exit()
 
   let server = browserSync.create()
@@ -15,3 +15,5 @@ export function server() {
     watch: true,
   })
 }
+
+server()

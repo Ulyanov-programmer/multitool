@@ -1,7 +1,7 @@
 import fs from 'fs-extra'
 import paths from './paths.js'
 
-export function isFontFilesConverted() {
+function isFontFilesConverted() {
   fs.ensureDirSync(paths.dest.fonts)
 
   let
@@ -19,3 +19,5 @@ export function isFontFilesConverted() {
 
   return true
 }
+
+export let isFontsConverted = isFontFilesConverted()

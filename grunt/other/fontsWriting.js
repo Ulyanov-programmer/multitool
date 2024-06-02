@@ -5,7 +5,7 @@ import { parseNumericWeightFromName, parseStyleFromName } from 'parse-font-name'
 import paths from './paths.js'
 
 
-export function fontsWriting() {
+function fontsWriting() {
   // Checking the fonts style file is full.
   if (fs.readFileSync(paths.src.fontsFilePath).toString().replace(/\s/g, '').length > 0)
     return
@@ -134,3 +134,7 @@ function filesIsCorrect(fileNames) {
   else
     return true
 }
+
+
+
+fontsWriting()
