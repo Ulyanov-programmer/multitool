@@ -5,15 +5,13 @@ export class BeautifyHtml extends Plugin {
   #options
 
   constructor({ paths, options }) {
-    super({
-      srcPath: paths.src,
-      destPath: paths.dest,
-    })
+    super({ srcPath: paths.src, destPath: paths.dest, })
+
     this.#options = options
   }
 
   runProcess(paths = this.srcPath) {
-    this.performanceTimerStart()
+    this.emitter.emit('processStart')
 
     paths = this.transformPathsToArrayIfHasMagic(paths)
 
@@ -26,9 +24,9 @@ export class BeautifyHtml extends Plugin {
       this.processedBuffer.push(this.#process(paths))
     }
 
-    this.performanceTimerEnd(this.constructor.name)
+    this.emitter.emit('processEnd')
 
-    return this.cleanProcessedBufferAndReturnIt(this.processedBuffer)
+    return this.cleanProcessedBufferAndReturnIt()
   }
 
   #process(pathToFile) {
@@ -42,12 +40,9 @@ export class BeautifyHtml extends Plugin {
 
     this.fs.writeFileSync(this.destPath + fileName, result, Plugin.ENCODING)
 
-    this.log({
-      plugin: this.constructor.name,
-      processedFile: {
-        name: pathToFile,
-        style: 'yellow'
-      }
+    this.emitter.emit('processedFile', {
+      name: pathToFile,
+      style: 'yellow'
     })
 
     // a link to the processed file is returned 

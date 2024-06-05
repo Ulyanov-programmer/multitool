@@ -3,11 +3,13 @@ import { globSync, hasMagic } from 'glob'
 import path from 'path'
 import chalk from 'chalk'
 import { performance } from 'perf_hooks'
+import { EventEmitter } from 'node:events'
 
 export class Plugin {
   static ENCODING = 'utf8'
   static performanceStartValue
   static performanceEndValue
+  emitter
 
   constructor({ srcPath, destPath }) {
     this.path = path
@@ -15,15 +17,22 @@ export class Plugin {
     this.hasMagic = hasMagic
     this.fs = fs
     this.performance = performance
+    this.emitter = new EventEmitter()
 
     this.srcPath = srcPath
     this.destPath = destPath
 
     this.processedBuffer = []
+
+    this.emitter.on('processedFile', this.processedLog.bind(this))
+
+    this.emitter.on('processStart', this.performanceTimerStart.bind(this))
+    this.emitter.on('processStart', this.taskRunLog.bind(this))
+    this.emitter.on('processEnd', this.performanceTimerEnd.bind(this))
   }
 
-  cleanProcessedBufferAndReturnIt(processedBuffer) {
-    return processedBuffer.splice(0, processedBuffer.length)
+  cleanProcessedBufferAndReturnIt() {
+    return this.processedBuffer.splice(0, this.processedBuffer.length)
   }
 
   transformPathsToArrayIfHasMagic(paths) {
@@ -36,24 +45,33 @@ export class Plugin {
     return paths
   }
 
-  log({ plugin, processedFile }) {
-    // locks like `[plugin_name] file_name was processed`
+  processedLog({ name, style }) {
+    // locks like `[child_plugin_name] file_name was processed`
     console.log(
       chalk.grey('[') +
-      plugin +
+      this.constructor.name +
       chalk.grey('] ') +
-      chalk[processedFile.style](processedFile.name) +
+      chalk[style](name) +
       ` was processed`
+    )
+  }
+  taskRunLog() {
+    // locks like `[plugin_name] starts!`
+    console.log(
+      chalk.grey('[') +
+      this.constructor.name +
+      chalk.grey('] ') +
+      `starts!`
     )
   }
   performanceTimerStart() {
     Plugin.performanceStartValue = this.performance.now()
   }
-  performanceTimerEnd(pluginName) {
+  performanceTimerEnd() {
     Plugin.performanceEndValue = this.performance.now()
 
     console.log(
-      `[${pluginName}] ` +
+      `[${this.constructor.name}] ` +
       'Done in ' +
       Math.trunc(Plugin.performanceEndValue - Plugin.performanceStartValue) +
       'ms'

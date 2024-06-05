@@ -5,15 +5,13 @@ export class PostHtml extends Plugin {
   #pluginsArray
 
   constructor({ paths, plugins }) {
-    super({
-      srcPath: paths.src,
-      destPath: paths.dest,
-    })
+    super({ srcPath: paths.src, destPath: paths.dest, })
+
     this.#pluginsArray = plugins
   }
 
   async runProcess(paths = this.srcPath) {
-    this.performanceTimerStart()
+    this.emitter.emit('processStart')
 
     paths = this.transformPathsToArrayIfHasMagic(paths)
 
@@ -26,9 +24,9 @@ export class PostHtml extends Plugin {
       this.processedBuffer.push(await this.#process(paths))
     }
 
-    this.performanceTimerEnd(this.constructor.name)
+    this.emitter.emit('processEnd')
 
-    return this.cleanProcessedBufferAndReturnIt(this.processedBuffer)
+    return this.cleanProcessedBufferAndReturnIt()
   }
 
   async #process(pathToFile) {
@@ -41,12 +39,9 @@ export class PostHtml extends Plugin {
 
     this.fs.writeFileSync(this.destPath + fileName, result.html, Plugin.ENCODING)
 
-    this.log({
-      plugin: this.constructor.name,
-      processedFile: {
-        name: pathToFile,
-        style: 'cyan'
-      }
+    this.emitter.emit('processedFile', {
+      name: pathToFile,
+      style: 'cyan'
     })
 
     // a link to the processed file is returned 
