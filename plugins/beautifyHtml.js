@@ -11,18 +11,31 @@ export class BeautifyHtml extends Plugin {
   }
 
   runProcess(paths = this.srcPath) {
+    if (!paths)
+      return
+    if (paths instanceof Array &&
+      paths.length == 0 || paths.some(filePath => !filePath)
+    ) return
+
     this.emitter.emit('processStart')
 
     paths = this.transformPathsToArrayIfHasMagic(paths)
 
-    if (paths instanceof Array) {
-      for (let pathToFile of paths) {
-        this.processedBuffer.push(this.#process(pathToFile))
+    try {
+      if (paths instanceof Array) {
+        for (let pathToFile of paths) {
+          this.processedBuffer.push(this.#process(pathToFile))
+        }
+      }
+      else {
+        this.processedBuffer.push(this.#process(paths))
       }
     }
-    else {
-      this.processedBuffer.push(this.#process(paths))
+    catch (error) {
+      this.errorLog(error)
+      return this.cleanProcessedBufferAndReturnIt()
     }
+
 
     this.emitter.emit('processEnd')
 

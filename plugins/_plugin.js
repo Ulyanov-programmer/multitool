@@ -64,6 +64,16 @@ export class Plugin {
       `starts!`
     )
   }
+  errorLog(error) {
+    // locks like `[child_plugin_name] throw an error!`
+    console.log(
+      chalk.grey('[') +
+      this.constructor.name +
+      chalk.grey('] ') +
+      chalk.red('throw an error!\n') +
+      chalk.red(error)
+    )
+  }
   performanceTimerStart() {
     Plugin.performanceStartValue = this.performance.now()
   }
