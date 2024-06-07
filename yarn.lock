@@ -1799,6 +1799,26 @@ __metadata:
   languageName: node
   linkType: hard
 
+"cacache@npm:^18.0.3":
+  version: 18.0.3
+  resolution: "cacache@npm:18.0.3"
+  dependencies:
+    "@npmcli/fs": "npm:^3.1.0"
+    fs-minipass: "npm:^3.0.0"
+    glob: "npm:^10.2.2"
+    lru-cache: "npm:^10.0.1"
+    minipass: "npm:^7.0.3"
+    minipass-collect: "npm:^2.0.1"
+    minipass-flush: "npm:^1.0.5"
+    minipass-pipeline: "npm:^1.2.4"
+    p-map: "npm:^4.0.0"
+    ssri: "npm:^10.0.0"
+    tar: "npm:^6.1.11"
+    unique-filename: "npm:^3.0.0"
+  checksum: dfda92840bb371fb66b88c087c61a74544363b37a265023223a99965b16a16bbb87661fe4948718d79df6e0cc04e85e62784fbcf1832b2a5e54ff4c46fbb45b7
+  languageName: node
+  linkType: hard
+
 "call-bind@npm:^1.0.0":
   version: 1.0.5
   resolution: "call-bind@npm:1.0.5"
@@ -3579,6 +3599,7 @@ __metadata:
     "@lodder/grunt-postcss": "npm:^3.1.1"
     autoprefixer: "npm:^10.4.16"
     browser-sync: "npm:^2.29.3"
+    cacache: "npm:^18.0.3"
     case-anything: "npm:^2.1.13"
     chalk: "npm:^5.3.0"
     chokidar: "npm:^3.6.0"

@@ -11,34 +11,26 @@ export class PostHtml extends Plugin {
   }
 
   async runProcess(paths = this.srcPath) {
-    if (!paths)
-      return
-    if (paths instanceof Array && paths.some(filePath => !filePath))
-      return
+    let normalizedPaths = this.normalizeInputPaths(paths)
+    if (!normalizedPaths) return []
+
 
     this.emitter.emit('processStart')
 
-    paths = this.transformPathsToArrayIfHasMagic(paths)
-
     try {
-      if (paths instanceof Array) {
-        for (let pathToFile of paths) {
-          this.processedBuffer.push(await this.#process(pathToFile))
-        }
-      }
-      else {
-        this.processedBuffer.push(await this.#process(paths))
+      for (let pathToFile of normalizedPaths) {
+        this.processedBuffer.push(await this.#process(pathToFile))
       }
     }
     catch (error) {
       this.errorLog(error)
-      return this.cleanProcessedBufferAndReturnIt()
+      return this.returnAndCleanProcessedBuffer()
     }
 
 
     this.emitter.emit('processEnd')
 
-    return this.cleanProcessedBufferAndReturnIt()
+    return this.returnAndCleanProcessedBuffer()
   }
 
   async #process(pathToFile) {
@@ -55,6 +47,7 @@ export class PostHtml extends Plugin {
       name: pathToFile,
       style: 'cyan'
     })
+
 
     // a link to the processed file is returned 
     return this.destPath + fileName

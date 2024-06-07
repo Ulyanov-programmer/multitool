@@ -30,6 +30,7 @@ const RAW_RUNTIME_STATE =
           ["@lodder/grunt-postcss", "virtual:f1571cd32476bd3b119b044c60b9b1a5cc196aa5e88d29fdb3f4ea6740eaef5997566a6ada297106308bd20d74779e81e370845008944305dc9bc0838acdd3a1#npm:3.1.1"],\
           ["autoprefixer", "virtual:f1571cd32476bd3b119b044c60b9b1a5cc196aa5e88d29fdb3f4ea6740eaef5997566a6ada297106308bd20d74779e81e370845008944305dc9bc0838acdd3a1#npm:10.4.16"],\
           ["browser-sync", "npm:2.29.3"],\
+          ["cacache", "npm:18.0.3"],\
           ["case-anything", "npm:2.1.13"],\
           ["chalk", "npm:5.3.0"],\
           ["chokidar", "npm:3.6.0"],\
@@ -2543,6 +2544,25 @@ const RAW_RUNTIME_STATE =
           ["unique-filename", "npm:3.0.0"]\
         ],\
         "linkType": "HARD"\
+      }],\
+      ["npm:18.0.3", {\
+        "packageLocation": "./.yarn/cache/cacache-npm-18.0.3-7936f526c3-dfda92840b.zip/node_modules/cacache/",\
+        "packageDependencies": [\
+          ["cacache", "npm:18.0.3"],\
+          ["@npmcli/fs", "npm:3.1.0"],\
+          ["fs-minipass", "npm:3.0.3"],\
+          ["glob", "npm:10.3.10"],\
+          ["lru-cache", "npm:10.1.0"],\
+          ["minipass", "npm:7.0.4"],\
+          ["minipass-collect", "npm:2.0.1"],\
+          ["minipass-flush", "npm:1.0.5"],\
+          ["minipass-pipeline", "npm:1.2.4"],\
+          ["p-map", "npm:4.0.0"],\
+          ["ssri", "npm:10.0.5"],\
+          ["tar", "npm:6.2.0"],\
+          ["unique-filename", "npm:3.0.0"]\
+        ],\
+        "linkType": "HARD"\
       }]\
     ]],\
     ["call-bind", [\
@@ -4587,6 +4607,7 @@ const RAW_RUNTIME_STATE =
           ["@lodder/grunt-postcss", "virtual:f1571cd32476bd3b119b044c60b9b1a5cc196aa5e88d29fdb3f4ea6740eaef5997566a6ada297106308bd20d74779e81e370845008944305dc9bc0838acdd3a1#npm:3.1.1"],\
           ["autoprefixer", "virtual:f1571cd32476bd3b119b044c60b9b1a5cc196aa5e88d29fdb3f4ea6740eaef5997566a6ada297106308bd20d74779e81e370845008944305dc9bc0838acdd3a1#npm:10.4.16"],\
           ["browser-sync", "npm:2.29.3"],\
+          ["cacache", "npm:18.0.3"],\
           ["case-anything", "npm:2.1.13"],\
           ["chalk", "npm:5.3.0"],\
           ["chokidar", "npm:3.6.0"],\

@@ -31,16 +31,35 @@ export class Plugin {
     this.emitter.on('processEnd', this.performanceTimerEnd.bind(this))
   }
 
-  cleanProcessedBufferAndReturnIt() {
-    return this.processedBuffer.splice(0, this.processedBuffer.length)
+  normalizeInputPaths(paths) {
+    if (!this.#checkPath(paths)) {
+      return false
+    }
+
+    return this.#unmaskPathsAndTransformToArray(paths)
   }
 
-  transformPathsToArrayIfHasMagic(paths) {
+  #checkPath(paths) {
+    if (!paths)
+      return false
+    if (paths instanceof Array &&
+      paths.some(filePath => !filePath) ||
+      paths.length == 0
+    )
+      return false
+
+    return true
+  }
+
+  #unmaskPathsAndTransformToArray(paths) {
     if (this.hasMagic(paths)) {
-      return this.globSync(paths, {
+      paths = this.globSync(paths, {
         dotRelative: true,
       })
     }
+
+    if (!Array.isArray(paths))
+      paths = [paths]
 
     return paths
   }
@@ -74,6 +93,7 @@ export class Plugin {
       chalk.red(error)
     )
   }
+
   performanceTimerStart() {
     Plugin.performanceStartValue = this.performance.now()
   }
@@ -86,5 +106,9 @@ export class Plugin {
       Math.trunc(Plugin.performanceEndValue - Plugin.performanceStartValue) +
       'ms'
     )
+  }
+
+  returnAndCleanProcessedBuffer() {
+    return this.processedBuffer.splice(0, this.processedBuffer.length)
   }
 }
