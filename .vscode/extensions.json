@@ -7,6 +7,7 @@
     "ionutvmi.path-autocomplete",
     "esbenp.prettier-vscode",
     "vscode-icons-team.vscode-icons",
-    "vunguyentuan.vscode-css-variables"
+    "vunguyentuan.vscode-css-variables",
+    "andersonbruceb.json-in-html"
   ]
 }
