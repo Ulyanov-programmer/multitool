@@ -51,45 +51,8 @@ export const postcssConfig = new PostCss({
       name: 'rem',
     }),
   ],
-  outputExtname: 'css'
+  outputExtname: 'css',
 })
-
-// const options = {
-//   map: false,
-//   parser: false,
-
-//   processors: [
-//     cssImport(),
-//     discardComments({
-//       remove: comment => {
-//         // ? Deletes all comments that contain @removeInDist.
-//         return comment.includes('@removeInDist')
-//       }
-//     }),
-//     size(),
-//     autoprefixer(),
-//     presetEnv({
-//       stage: 4,
-//     }),
-//     nested(),
-//     simpleVars(),
-//     mediaMinmax(),
-//     functions({
-//       functions: {
-//         pxToVw: (px, layoutWidth) => pxToVw(px, layoutWidth),
-//         bgImageMultiType: url => bgImageMultiType(url),
-//         grid: (gap, columns, rows) => grid(gap, columns, rows),
-//         flex: (gap, flexFlow, inline) => flex(gap, flexFlow, inline),
-//         absolute: (inset, zIndex) => absolute(inset, zIndex),
-//       }
-//     }),
-//     mixins(),
-//     customMedia(),
-//     rem({
-//       name: 'rem',
-//     }),
-//   ],
-// }
 
 // export let postcss = {
 //   base: {

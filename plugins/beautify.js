@@ -1,13 +1,15 @@
 import beautify from 'js-beautify'
 import { Plugin } from './_plugin.js'
 
-export class BeautifyHtml extends Plugin {
+export class Beautify extends Plugin {
   #options
+  #beautifyPlugin
 
-  constructor({ paths, options }) {
+  constructor({ paths, options, beautifyPlugin }) {
     super({ srcPath: paths.src, destPath: paths.dest, })
 
     this.#options = options
+    this.#beautifyPlugin = beautifyPlugin
   }
 
   runProcess(paths = this.srcPath) {
@@ -35,8 +37,16 @@ export class BeautifyHtml extends Plugin {
 
   #process(pathToFile) {
     let data = this.fs.readFileSync(pathToFile, Plugin.ENCODING)
+    let result
 
-    let result = beautify.html(data, this.#options)
+    switch (this.#beautifyPlugin) {
+      case 'html':
+        result = beautify.html(data, this.#options)
+        break
+      case 'css':
+        result = beautify.css(data, this.#options)
+        break
+    }
 
     let fileName = this.path.parse(pathToFile).base
 

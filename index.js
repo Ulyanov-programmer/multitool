@@ -1,7 +1,7 @@
 import chokidar from 'chokidar'
 import paths from './grunt/other/paths.js'
 import { posthtmlConfig } from './api/posthtml.js'
-import { beautifyHtmlConfig } from './api/beautifyHtml.js'
+import { beautifyHtmlConfig, beautifyCssConfig } from './api/beautify.js'
 import { cacacheHtmlConfig, cacacheCssConfig } from './api/cacache.js'
 import { postcssConfig } from './api/postcss.js'
 
@@ -17,8 +17,11 @@ beautifyHtmlConfig.runProcess(
     await cacacheHtmlConfig.getChangedFiles()
   )
 )
-postcssConfig.runProcess(
-  await cacacheCssConfig.getChangedFiles()
+
+beautifyCssConfig.runProcess(
+  await postcssConfig.runProcess(
+    // await cacacheCssConfig.getChangedFiles()
+  )
 )
 
 
@@ -40,8 +43,10 @@ chokidar.watch(paths.src.root + 'components/*.html')
   })
 chokidar.watch(paths.src.styles + '*.pcss')
   .on('change', async path => {
-    postcssConfig.runProcess(
-      await cacacheCssConfig.getChangedFiles()
+    beautifyCssConfig.runProcess(
+      await postcssConfig.runProcess(
+        await cacacheCssConfig.getChangedFiles(path)
+      )
     )
   })
 
