@@ -60,8 +60,8 @@ export class Cacache extends Plugin {
 
   async setCacheIfNotCached(paths = this.srcPath) {
     let normalizedPaths = this.normalizeInputPaths(paths)
-
     if (!normalizedPaths) return []
+
 
     try {
       let cachedObjects = await this.#getCacheInfo()

@@ -34,13 +34,11 @@ export class BeautifyHtml extends Plugin {
   }
 
   #process(pathToFile) {
-    pathToFile = this.path.normalize(pathToFile)
-
     let data = this.fs.readFileSync(pathToFile, Plugin.ENCODING)
 
     let result = beautify.html(data, this.#options)
 
-    let fileName = pathToFile.split(this.path.sep).at(-1)
+    let fileName = this.path.parse(pathToFile).base
 
     this.fs.writeFileSync(this.destPath + fileName, result, Plugin.ENCODING)
 

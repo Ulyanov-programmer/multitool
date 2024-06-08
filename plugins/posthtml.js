@@ -34,12 +34,10 @@ export class PostHtml extends Plugin {
   }
 
   async #process(pathToFile) {
-    pathToFile = this.path.normalize(pathToFile)
-
     let result = await posthtml(this.#pluginsArray)
       .process(this.fs.readFileSync(pathToFile, Plugin.ENCODING))
 
-    let fileName = pathToFile.split(this.path.sep).at(-1)
+    let fileName = this.path.parse(pathToFile).base
 
     this.fs.writeFileSync(this.destPath + fileName, result.html, Plugin.ENCODING)
 
