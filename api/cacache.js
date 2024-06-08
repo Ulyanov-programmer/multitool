@@ -1,10 +1,17 @@
 import { Cacache } from '../plugins/cacache.js'
 import paths from '../grunt/other/paths.js'
 
-export const cacacheConfig = new Cacache({
+export const cacacheHtmlConfig = new Cacache({
   paths: {
     src: paths.src.root + '*.html',
   },
   keyPrefix: 'html',
   cacheFolderPath: './tmp/html/'
+})
+export const cacacheCssConfig = new Cacache({
+  paths: {
+    src: paths.src.styles + '*.pcss',
+  },
+  keyPrefix: 'css',
+  cacheFolderPath: './tmp/css/'
 })

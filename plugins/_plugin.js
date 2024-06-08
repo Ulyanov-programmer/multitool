@@ -36,7 +36,11 @@ export class Plugin {
       return false
     }
 
-    return this.#unmaskPathsAndTransformToArray(paths)
+    paths = this.#unmaskPathsAndTransformToArray(paths)
+
+    this.#normalizePaths(paths)
+
+    return paths
   }
 
   #checkPath(paths) {
@@ -62,6 +66,12 @@ export class Plugin {
       paths = [paths]
 
     return paths
+  }
+
+  #normalizePaths(paths) {
+    for (let i = 0; i < paths.length; i++) {
+      paths[i] = this.path.normalize(paths[i])
+    }
   }
 
   processedLog({ name, style }) {
