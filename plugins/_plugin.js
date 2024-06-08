@@ -18,6 +18,7 @@ export class Plugin {
     this.fs = fs
     this.performance = performance
     this.emitter = new EventEmitter()
+    this.chalk = chalk
 
     this.srcPath = srcPath
     this.destPath = destPath
@@ -75,14 +76,25 @@ export class Plugin {
   }
 
   processedLog({ name, style }) {
-    // locks like `[child_plugin_name] file_name was processed`
-    console.log(
-      chalk.grey('[') +
-      this.constructor.name +
-      chalk.grey('] ') +
-      chalk[style](name) +
-      ` was processed`
-    )
+    if (!name) {
+      // locks like `[child_plugin_name] was completed`
+      console.log(
+        chalk.grey('[') +
+        this.constructor.name +
+        chalk.grey(']') +
+        ` was completed`
+      )
+    }
+    else {
+      // locks like `[child_plugin_name] file_name was processed`
+      console.log(
+        chalk.grey('[') +
+        this.constructor.name +
+        chalk.grey('] ') +
+        chalk[style](name) +
+        ` was processed`
+      )
+    }
   }
   taskRunLog() {
     // locks like `[plugin_name] starts!`

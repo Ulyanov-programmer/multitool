@@ -2,8 +2,12 @@ import chokidar from 'chokidar'
 import paths from './grunt/other/paths.js'
 import { posthtmlConfig } from './api/posthtml.js'
 import { beautifyHtmlConfig, beautifyCssConfig } from './api/beautify.js'
-import { cacacheHtmlConfig, cacacheCssConfig } from './api/cacache.js'
+import {
+  cacacheHtmlConfig,
+  cacacheCssConfig,
+} from './api/cacache.js'
 import { postcssConfig } from './api/postcss.js'
+import { esbuildConfig } from './api/esbuild.js'
 
 import { isDeleteDistBeforeLaunch, isProductionMode } from './grunt/other/environment.js'
 import { isFontsConverted } from './grunt/other/checkFontFilesConverted.js'
@@ -11,6 +15,8 @@ import { isFontsConverted } from './grunt/other/checkFontFilesConverted.js'
 // import './grunt/other/server.js'
 import './grunt/other/fontsWriting.js' // Parsing fonts into the style file
 
+
+await esbuildConfig.runProcess()
 
 beautifyHtmlConfig.runProcess(
   await posthtmlConfig.runProcess(
@@ -20,7 +26,7 @@ beautifyHtmlConfig.runProcess(
 
 beautifyCssConfig.runProcess(
   await postcssConfig.runProcess(
-    // await cacacheCssConfig.getChangedFiles()
+    await cacacheCssConfig.getChangedFiles()
   )
 )
 
