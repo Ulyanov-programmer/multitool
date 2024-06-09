@@ -6,12 +6,12 @@ export const cacacheHtmlConfig = new Cacache({
     src: paths.src.root + '*.html',
   },
   keyPrefix: 'html',
-  cacheFolderPath: './tmp/html/'
+  cacheFolderPath: paths.cache + 'html/'
 })
 export const cacacheCssConfig = new Cacache({
   paths: {
     src: paths.src.styles + '*.pcss',
   },
   keyPrefix: 'css',
-  cacheFolderPath: './tmp/css/'
+  cacheFolderPath: paths.cache + 'css/'
 })

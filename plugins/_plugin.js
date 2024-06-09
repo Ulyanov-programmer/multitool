@@ -108,9 +108,9 @@ export class Plugin {
   errorLog(error) {
     // locks like `[child_plugin_name] throw an error!`
     console.log(
-      chalk.grey('[') +
+      chalk.red('[') +
       this.constructor.name +
-      chalk.grey('] ') +
+      chalk.red('] ') +
       chalk.red('throw an error!\n') +
       chalk.red(error)
     )
@@ -123,7 +123,9 @@ export class Plugin {
     Plugin.performanceEndValue = this.performance.now()
 
     console.log(
-      `[${this.constructor.name}] ` +
+      chalk.gray('[') +
+      this.constructor.name +
+      chalk.gray('] ') +
       'Done in ' +
       Math.trunc(Plugin.performanceEndValue - Plugin.performanceStartValue) +
       'ms'

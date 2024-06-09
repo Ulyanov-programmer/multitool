@@ -3,6 +3,7 @@ const project = 'dist/',
 
 export default {
   root: './',
+  cache: 'tmp/',
   dest: {
     root: project,
     styles: project + 'styles/',
