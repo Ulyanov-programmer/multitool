@@ -8,6 +8,9 @@ import {
 } from './api/cacache.js'
 import { postcssConfig } from './api/postcss.js'
 import { esbuildConfig } from './api/esbuild.js'
+import { copyAssets } from './api/copy.js'
+import { deleteDist } from './api/deleteDist.js'
+import { cleanCache } from './api/cleanCache.js'
 
 import { isDeleteDistBeforeLaunch, isProductionMode } from './grunt/other/environment.js'
 import { isFontsConverted } from './grunt/other/checkFontFilesConverted.js'
@@ -16,6 +19,12 @@ import { isFontsConverted } from './grunt/other/checkFontFilesConverted.js'
 import './grunt/other/fontsWriting.js' // Parsing fonts into the style file
 
 
+if (isDeleteDistBeforeLaunch) {
+  deleteDist()
+  cleanCache()
+}
+
+copyAssets()
 await esbuildConfig.runProcess()
 
 beautifyHtmlConfig.runProcess(
