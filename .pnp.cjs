@@ -70,7 +70,8 @@ const RAW_RUNTIME_STATE =
           ["replace-in-file", "npm:7.0.2"],\
           ["stylelint", "npm:15.11.0"],\
           ["stylelint-config-clean-order", "virtual:f1571cd32476bd3b119b044c60b9b1a5cc196aa5e88d29fdb3f4ea6740eaef5997566a6ada297106308bd20d74779e81e370845008944305dc9bc0838acdd3a1#npm:5.2.0"],\
-          ["stylelint-config-standard", "virtual:f1571cd32476bd3b119b044c60b9b1a5cc196aa5e88d29fdb3f4ea6740eaef5997566a6ada297106308bd20d74779e81e370845008944305dc9bc0838acdd3a1#npm:34.0.0"]\
+          ["stylelint-config-standard", "virtual:f1571cd32476bd3b119b044c60b9b1a5cc196aa5e88d29fdb3f4ea6740eaef5997566a6ada297106308bd20d74779e81e370845008944305dc9bc0838acdd3a1#npm:34.0.0"],\
+          ["ttf2woff2", "npm:5.0.0"]\
         ],\
         "linkType": "SOFT"\
       }]\
@@ -4647,7 +4648,8 @@ const RAW_RUNTIME_STATE =
           ["replace-in-file", "npm:7.0.2"],\
           ["stylelint", "npm:15.11.0"],\
           ["stylelint-config-clean-order", "virtual:f1571cd32476bd3b119b044c60b9b1a5cc196aa5e88d29fdb3f4ea6740eaef5997566a6ada297106308bd20d74779e81e370845008944305dc9bc0838acdd3a1#npm:5.2.0"],\
-          ["stylelint-config-standard", "virtual:f1571cd32476bd3b119b044c60b9b1a5cc196aa5e88d29fdb3f4ea6740eaef5997566a6ada297106308bd20d74779e81e370845008944305dc9bc0838acdd3a1#npm:34.0.0"]\
+          ["stylelint-config-standard", "virtual:f1571cd32476bd3b119b044c60b9b1a5cc196aa5e88d29fdb3f4ea6740eaef5997566a6ada297106308bd20d74779e81e370845008944305dc9bc0838acdd3a1#npm:34.0.0"],\
+          ["ttf2woff2", "npm:5.0.0"]\
         ],\
         "linkType": "SOFT"\
       }]\

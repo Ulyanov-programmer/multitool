@@ -15,3 +15,10 @@ export const cacacheCssConfig = new Cacache({
   keyPrefix: 'css',
   cacheFolderPath: paths.cache + 'css/'
 })
+export const cacacheFontsConfig = new Cacache({
+  paths: {
+    src: paths.src.fontsFolder + '*.{otf,ttf}',
+  },
+  keyPrefix: 'font',
+  cacheFolderPath: paths.cache + 'fonts/'
+})

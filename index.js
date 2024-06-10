@@ -5,12 +5,14 @@ import { beautifyHtmlConfig, beautifyCssConfig } from './api/beautify.js'
 import {
   cacacheHtmlConfig,
   cacacheCssConfig,
+  cacacheFontsConfig,
 } from './api/cacache.js'
 import { postcssConfig } from './api/postcss.js'
 import { esbuildConfig } from './api/esbuild.js'
 import { copyAssets } from './api/copy.js'
 import { deleteDist } from './api/deleteDist.js'
 import { cleanCache } from './api/cleanCache.js'
+import { ttf2Woff2Config } from './api/ttf2woff2.js'
 
 import { isDeleteDistBeforeLaunch, isProductionMode } from './grunt/other/environment.js'
 import { isFontsConverted } from './grunt/other/checkFontFilesConverted.js'
@@ -19,12 +21,18 @@ import { isFontsConverted } from './grunt/other/checkFontFilesConverted.js'
 import './grunt/other/fontsWriting.js' // Parsing fonts into the style file
 
 
+
 if (isDeleteDistBeforeLaunch) {
   deleteDist()
   cleanCache()
 }
 
 copyAssets()
+
+ttf2Woff2Config.runProcess(
+  await cacacheFontsConfig.getChangedFiles()
+)
+
 await esbuildConfig.runProcess()
 
 beautifyHtmlConfig.runProcess(
@@ -38,6 +46,7 @@ beautifyCssConfig.runProcess(
     await cacacheCssConfig.getChangedFiles()
   )
 )
+
 
 
 chokidar.watch(paths.src.root + '*.html')
