@@ -127,8 +127,9 @@ export class Plugin {
       this.constructor.name +
       chalk.gray('] ') +
       'Done in ' +
-      Math.trunc(Plugin.performanceEndValue - Plugin.performanceStartValue) +
-      'ms'
+
+      Math.trunc(Plugin.performanceEndValue - Plugin.performanceStartValue) / 1000 +
+      's'
     )
   }
 

@@ -73,6 +73,13 @@ chokidar.watch(paths.src.styles + '*.pcss')
       )
     )
   })
+chokidar.watch(paths.src.fontsFolder + '*.{otf,ttf}', { ignoreInitial: true })
+  .on('add', async path => {
+    ttf2Woff2Config.runProcess(
+      await cacacheFontsConfig.getChangedFiles(path)
+    )
+  })
+
 
 
 
