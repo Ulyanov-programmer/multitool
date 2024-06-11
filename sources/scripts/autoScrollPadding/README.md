@@ -11,7 +11,13 @@ What can this script do?
 
 ## Using
 
-1. Write the following code:
+0. Connect the source code:
+
+```html
+<script type="module" src="./scripts/autoScrollPadding/index.js"></script>
+```
+
+1.  Write the following code:
 
 ```html
 <!-- styles are for demonstration purposes only -->

@@ -26,99 +26,13 @@
 
     <title>{{ props.page_title }}</title>
 
-    <!-- #region /-/ General stylesheets -->
+    <!-- General stylesheets -->
     <link rel="stylesheet" href="./styles/fonts.css" />
     <link rel="stylesheet" href="./styles/normalize.css" />
 
-    <!-- /-/ General scripts -->
-    <if condition="props.justValidate">
-      <!-- JustValidate -->
-      <script type="module" src="./assets/justValidate/index.js"></script>
-    </if>
-
-    <if condition="props.inputmask">
-      <!-- Inputmask -->
-      <script defer src="./assets/inputmask.min.js"></script>
-    </if>
-
-    <if condition="props.swiper || props.stepByStep">
-      <!-- Swiper -->
-      <link rel="stylesheet" href="./assets/swiper/swiper-bundle.min.css" />
-      <script type="module" src="./assets/swiper/index.js"></script>
-    </if>
-
-    <if condition="props.typed">
-      <!-- Typed -->
-      <script defer src="./assets/typed/typed.min.js"></script>
-      <script defer src="./assets/typed/index.js"></script>
-    </if>
-
-    <if condition="props.photoSwipe">
-      <!-- PhotoSwipe -->
-      <script type="module" src="./assets/photoSwipe/index.js"></script>
-      <link rel="stylesheet" href="./assets/photoswipe/photoswipe.css" />
-    </if>
-
-    <if condition="props.noUiSlider">
-      <!-- NoUiSlider -->
-      <link href="./assets/noUiSlider/nouislider.min.css" rel="stylesheet" />
-      <script type="module" src="./assets/noUiSlider/index.js"></script>
-    </if>
-
-    <if condition="props.observerTools">
-      <!-- Observer Tools -->
-      <script type="module" src="./scripts/observerTools/index.js"></script>
-    </if>
-
-    <if condition="props.scrollTimeline">
-      <script src="./assets/scroll-timeline.js"></script>
-    </if>
-
-    <if condition="props.toggleBySwipe">
-      <!-- Toggle by swipe -->
-      <script type="module" src="./scripts/toggleBySwipe/index.js"></script>
-      <link rel="stylesheet" href="./scripts/toggleBySwipe/index.css" />
-    </if>
-
-    <if condition="props.horizontalMouseScroll">
-      <!-- Horizontal scroll -->
-      <script type="module" src="./scripts/horizontalMouseScroll.js"></script>
-    </if>
-
-    <if condition="props.dialogs">
-      <!-- For dialogs -->
-      <link rel="stylesheet" href="./scripts/dialogs/index.css" />
-      <script type="module" src="./scripts/dialogs/index.js"></script>
-    </if>
-
-    <if condition="props.mouseParallax">
-      <!-- MouseParallax -->
-      <script type="module" src="./scripts/mouseParallax/index.js"></script>
-    </if>
-
-    <if condition="props.autoScrollPadding">
-      <!-- For scroll padding -->
-      <script type="module" src="./scripts/autoScrollPadding/index.js"></script>
-    </if>
-
-    <if condition="props.tabs">
-      <!-- Tabs -->
-      <script src="./scripts/tab/index.js"></script>
-      <link rel="stylesheet" href="./scripts/tab/index.css" />
-    </if>
-
-    <if condition="props.stepByStep">
-      <!-- StepByStep -->
-      <script type="module" src="./scripts/stepByStepBlock/index.js"></script>
-    </if>
-    <if condition="props.infiniteScroll">
-      <!-- Infinite Scroll -->
-      <script src="./scripts/infiniteScroll/index.js"></script>
-    </if>
-    <!-- #endregion -->
-
-    <!-- /-/ Other stylesheets and scripts for this page -->
-    <stack name="additional"></stack>
+    <stack name="additional">
+      <!-- Other stylesheets and scripts for this page -->
+    </stack>
   </head>
 
   <body>

@@ -1,11 +1,10 @@
 # Instruction.
 
 For tabs to work, you need to connect scripts and styles: <br>
-(If you use gulp\*multitool, you can connect them by switching `tabs=false` to `tabs=true` on the `sources/index.html` page)
 
 ```html
-<script src="./path_to_tab_folder/index.js"></script>
-<link rel="stylesheet" href="./path_to_tab_folder/index.css" />
+<script src="./scripts/tab/index.js"></script>
+<link rel="stylesheet" href="./scripts/tab/index.css" />
 ```
 
 After connecting, write the following HTML code:

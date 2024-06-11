@@ -8,6 +8,12 @@ Attention! Requires the [Swiper](https://swiperjs.com/) plugin to work.
 
 1. To initialize, create an `.js` file and connect it to your HTML page.
 
+- Don't forget to connect styles!
+
+```html
+<link rel="stylesheet" href="./assets/swiper/swiper-bundle.min.css" />
+```
+
 2. Write the following code in the created file:
 
 ```ts
@@ -16,6 +22,7 @@ import StepByStepBlock from './your_path_to/stepByStepBlock.src.js'
 
 new StepByStepBlock({
   swiperInstance: new Swiper('#step-by-step', {
+    autoHeight: true,
     allowTouchMove: false,
     allowSlideNext: false,
     allowSlidePrev: false,
@@ -66,6 +73,7 @@ To fine-tune the script, you can use the following API functions:
 ```ts
 new StepByStepBlock({
   swiperInstance: new Swiper('#step-by-step', {
+    autoHeight: true,
     // Use these parameters to prevent skipping steps.
     allowTouchMove: false,
     allowSlideNext: false,
@@ -84,8 +92,15 @@ new StepByStepBlock({
       If you specify the `clickable: true` parameter, the plugin will allow you to switch to the previous steps by clicking on the pagination buttons.
     */
     pagination: {
-      el: `.swiper-pagination`,
+      el: `#your_pagination_id`,
       clickable: true,
+      bulletClass: 'bullet',
+      bulletActiveClass: 'current',
+
+      // ? See https://swiperjs.com/swiper-api#param-renderBullet
+      // renderBullet: function (index, className) {
+      //   return ''
+      // }
     },
   }),
 

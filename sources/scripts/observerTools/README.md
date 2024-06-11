@@ -9,7 +9,7 @@ To initialize:
 1. Create a file with the following contents:
 
 ```ts
-import ActionOnView from './path_to_observerTools_folder/observerTools.src.js'
+import ActionOnView from './scripts/observerTools/index.js'
 
 new ActionOnView({
   selectors: '.element_or_elements_group',

@@ -3,7 +3,6 @@
 ## Installation
 
 Connect the script and styles as follows: <br>
-(If you use gulp_multitool, you can connect them by switching `dialogs=false` to `dialogs=true` on the `sources/index.html` page)
 
 ```html
 <link rel="stylesheet" href="./path_to_folder/dialogs.css" />

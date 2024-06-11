@@ -6,6 +6,12 @@ Allows you to change the state of elements using swipe.
 
 1. To initialize, create an `.js` file and connect it to your HTML page.
 
+- Don't forget to connect styles!
+
+```html
+<link rel="stylesheet" href="./scripts/toggleBySwipe/index.css" />
+```
+
 2. Write the following code in the created file:
 
 ```ts
