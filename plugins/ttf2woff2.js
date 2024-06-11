@@ -35,7 +35,7 @@ export class Ttf2Woff2 extends Plugin {
     this.fs.ensureDirSync(this.destPath)
 
     this.fs.writeFileSync(
-      this.destPath + this.path.parse(pathToFile).name + '.woff2',
+      this.getDistPathForFile(pathToFile, '.woff2'),
       ttf2woff2(fontInput)
     )
 
@@ -45,6 +45,6 @@ export class Ttf2Woff2 extends Plugin {
     })
 
     // a link to the processed file is returned 
-    return this.destPath + this.path.parse(pathToFile).base
+    return this.getDistPathForFile(pathToFile)
   }
 }

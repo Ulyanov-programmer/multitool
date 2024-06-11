@@ -48,9 +48,7 @@ export class Beautify extends Plugin {
         break
     }
 
-    let fileName = this.path.parse(pathToFile).base
-
-    this.fs.writeFileSync(this.destPath + fileName, result, Plugin.ENCODING)
+    this.fs.writeFileSync(pathToFile, result, Plugin.ENCODING)
 
     this.emitter.emit('processedFile', {
       name: pathToFile,
@@ -58,6 +56,6 @@ export class Beautify extends Plugin {
     })
 
     // a link to the processed file is returned 
-    return this.destPath + fileName
+    return this.getDistPathForFile(pathToFile)
   }
 }

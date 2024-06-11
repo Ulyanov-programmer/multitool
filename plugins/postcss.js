@@ -39,9 +39,7 @@ export class PostCss extends Plugin {
   }
 
   async #process(pathToFile) {
-    let destFilePath = this.#outputExtname
-      ? this.destPath + this.path.parse(pathToFile).name + '.' + this.#outputExtname
-      : this.destPath + this.path.parse(pathToFile).base
+    let destFilePath = this.getDistPathForFile(pathToFile, this.#outputExtname)
 
     let css = this.fs.readFileSync(pathToFile)
 

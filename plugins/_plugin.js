@@ -1,5 +1,6 @@
 import fs from 'fs-extra'
 import { globSync, hasMagic } from 'glob'
+import globParent from 'glob-parent'
 import path from 'path'
 import chalk from 'chalk'
 import { performance } from 'perf_hooks'
@@ -14,6 +15,7 @@ export class Plugin {
   constructor({ srcPath, destPath }) {
     this.path = path
     this.globSync = globSync
+    this.globParent = globParent
     this.hasMagic = hasMagic
     this.fs = fs
     this.performance = performance
@@ -22,6 +24,7 @@ export class Plugin {
 
     this.srcPath = srcPath
     this.destPath = destPath
+    this.cwd = path.normalize(this.globParent(srcPath))
 
     this.processedBuffer = []
 
@@ -135,5 +138,19 @@ export class Plugin {
 
   returnAndCleanProcessedBuffer() {
     return this.processedBuffer.splice(0, this.processedBuffer.length)
+  }
+
+  getDistPathForFile(filePath, newFileExt) {
+    let parsedPath = this.path.parse(filePath)
+
+    if (newFileExt) {
+      return path.resolve(
+        `${this.destPath}/${parsedPath.dir.replace(this.cwd, '')}/${parsedPath.name}.${newFileExt}`
+      )
+    }
+
+    return path.resolve(
+      `${this.destPath}/${parsedPath.dir.replace(this.cwd, '')}/${parsedPath.base}`
+    )
   }
 }

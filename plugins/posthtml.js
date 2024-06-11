@@ -37,9 +37,7 @@ export class PostHtml extends Plugin {
     let result = await posthtml(this.#pluginsArray)
       .process(this.fs.readFileSync(pathToFile, Plugin.ENCODING))
 
-    let fileName = this.path.parse(pathToFile).base
-
-    this.fs.writeFileSync(this.destPath + fileName, result.html, Plugin.ENCODING)
+    this.fs.writeFileSync(this.getDistPathForFile(pathToFile), result.html, Plugin.ENCODING)
 
     this.emitter.emit('processedFile', {
       name: pathToFile,
@@ -48,6 +46,6 @@ export class PostHtml extends Plugin {
 
 
     // a link to the processed file is returned 
-    return this.destPath + fileName
+    return this.getDistPathForFile(pathToFile)
   }
 }
