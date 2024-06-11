@@ -8,6 +8,7 @@ export const beautifyHtmlConfig = new Beautify({
   },
   options: {
     indent_size: 2,
+    max_preserve_newlines: 1,
   },
   beautifyPlugin: 'html',
 })

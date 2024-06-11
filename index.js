@@ -9,9 +9,9 @@ import {
 } from './api/cacache.js'
 import { postcssConfig } from './api/postcss.js'
 import { esbuildConfig } from './api/esbuild.js'
-import { copyAssets } from './api/copy.js'
-import { deleteDist } from './api/deleteDist.js'
-import { cleanCache } from './api/cleanCache.js'
+import { copyAssets } from './plugins/other/copy.js'
+import { deleteDist } from './plugins/other/deleteDist.js'
+import { cleanCache } from './plugins/other/cleanCache.js'
 import { ttf2Woff2Config } from './api/ttf2woff2.js'
 
 import { isDeleteDistBeforeLaunch, isProductionMode } from './grunt/other/environment.js'
@@ -60,9 +60,7 @@ chokidar.watch(paths.src.root + '*.html')
 chokidar.watch(paths.src.root + 'components/*.html')
   .on('change', async path => {
     beautifyHtmlConfig.runProcess(
-      await posthtmlConfig.runProcess(
-        await cacacheHtmlConfig.getChangedFiles()
-      )
+      await posthtmlConfig.runProcess()
     )
   })
 chokidar.watch(paths.src.styles + '*.pcss')
