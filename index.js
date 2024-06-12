@@ -7,6 +7,7 @@ import {
   cacacheCssConfig,
   cacacheFontsConfig,
   cacacheCssForScriptsConfig,
+  cacacheImagesConfig,
 } from './api/cacache.js'
 import { postcssConfig, postcssForScriptsConfig } from './api/postcss.js'
 import { esbuildConfig } from './api/esbuild.js'
@@ -14,6 +15,7 @@ import { copyAssets } from './plugins/other/copy.js'
 import { deleteDist } from './plugins/other/deleteDist.js'
 import { cleanCache } from './plugins/other/cleanCache.js'
 import { ttf2Woff2Config } from './api/ttf2woff2.js'
+import { sharpConfig } from './api/sharp.js'
 
 import { isDeleteDistBeforeLaunch, isProductionMode } from './grunt/other/environment.js'
 import { isFontsConverted } from './grunt/other/checkFontFilesConverted.js'
@@ -29,6 +31,9 @@ if (isDeleteDistBeforeLaunch) {
 }
 
 copyAssets()
+sharpConfig.runProcess(
+  await cacacheImagesConfig.getChangedFiles()
+)
 
 ttf2Woff2Config.runProcess(
   await cacacheFontsConfig.getChangedFiles()
@@ -91,7 +96,15 @@ chokidar.watch(paths.src.fontsFolder + '*.{otf,ttf}', { ignoreInitial: true })
       await cacacheFontsConfig.getChangedFiles(path)
     )
   })
-
+chokidar.watch(
+  paths.src.images + '**/*.{gif,webp,avif,png,jpg,jpeg,svg}',
+  { ignoreInitial: true }
+)
+  .on('add', async path => {
+    sharpConfig.runProcess(
+      await cacacheImagesConfig.getChangedFiles(path)
+    )
+  })
 
 
 

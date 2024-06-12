@@ -29,3 +29,10 @@ export const cacacheFontsConfig = new Cacache({
   keyPrefix: 'font',
   cacheFolderPath: paths.cache + 'fonts/'
 })
+export const cacacheImagesConfig = new Cacache({
+  paths: {
+    src: paths.src.images + '**/*.{gif,webp,avif,png,jpg,jpeg,svg}',
+  },
+  keyPrefix: 'image',
+  cacheFolderPath: paths.cache + 'images/'
+})
