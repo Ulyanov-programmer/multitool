@@ -15,69 +15,56 @@ import paths from '../grunt/other/paths.js'
 import { PostCss } from '../plugins/postcss.js'
 
 
+const plugins = [
+  cssImport(),
+  discardComments({
+    remove: comment => {
+      // ? Deletes all comments that contain @removeInDist.
+      return comment.includes('@removeInDist')
+    }
+  }),
+  size(),
+  autoprefixer(),
+  presetEnv({
+    stage: 4,
+  }),
+  nested(),
+  simpleVars(),
+  mediaMinmax(),
+  functions({
+    functions: {
+      pxToVw: (px, layoutWidth) => pxToVw(px, layoutWidth),
+      bgImageMultiType: url => bgImageMultiType(url),
+      grid: (gap, columns, rows) => grid(gap, columns, rows),
+      flex: (gap, flexFlow, inline) => flex(gap, flexFlow, inline),
+      absolute: (inset, zIndex) => absolute(inset, zIndex),
+    }
+  }),
+  mixins(),
+  customMedia(),
+  rem({
+    name: 'rem',
+  }),
+]
+
 export const postcssConfig = new PostCss({
   paths: {
     src: paths.src.styles + '*.pcss',
     dest: paths.dest.styles,
   },
-  plugins: [
-    cssImport(),
-    discardComments({
-      remove: comment => {
-        // ? Deletes all comments that contain @removeInDist.
-        return comment.includes('@removeInDist')
-      }
-    }),
-    size(),
-    autoprefixer(),
-    presetEnv({
-      stage: 4,
-    }),
-    nested(),
-    simpleVars(),
-    mediaMinmax(),
-    functions({
-      functions: {
-        pxToVw: (px, layoutWidth) => pxToVw(px, layoutWidth),
-        bgImageMultiType: url => bgImageMultiType(url),
-        grid: (gap, columns, rows) => grid(gap, columns, rows),
-        flex: (gap, flexFlow, inline) => flex(gap, flexFlow, inline),
-        absolute: (inset, zIndex) => absolute(inset, zIndex),
-      }
-    }),
-    mixins(),
-    customMedia(),
-    rem({
-      name: 'rem',
-    }),
-  ],
+  plugins: plugins,
+  outputExtname: 'css',
+})
+export const postcssForScriptsConfig = new PostCss({
+  paths: {
+    src: paths.src.scripts + '**/*.pcss',
+    dest: paths.dest.scripts,
+  },
+  plugins: plugins,
   outputExtname: 'css',
 })
 
-// export let postcss = {
-//   base: {
-//     options: options,
-//     files: [{
-//       expand: true,
 
-//       cwd: paths.src.styles,
-//       src: ['*.pcss', '!_*.pcss'],
-//       dest: paths.dest.styles,
-//       ext: '.css',
-//     }]
-//   },
-//   modules: {
-//     options: options,
-//     files: [{
-//       expand: true,
-
-//       cwd: paths.src.scripts,
-//       src: '**/*.pcss',
-//       dest: paths.dest.scripts,
-//       ext: '.css',
-//     }]
-//   }
-// }
 
 const LAYOUT_WIDTH = 1440
 function pxToVw(px) {

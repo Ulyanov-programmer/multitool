@@ -6,8 +6,9 @@ import {
   cacacheHtmlConfig,
   cacacheCssConfig,
   cacacheFontsConfig,
+  cacacheCssForScriptsConfig,
 } from './api/cacache.js'
-import { postcssConfig } from './api/postcss.js'
+import { postcssConfig, postcssForScriptsConfig } from './api/postcss.js'
 import { esbuildConfig } from './api/esbuild.js'
 import { copyAssets } from './plugins/other/copy.js'
 import { deleteDist } from './plugins/other/deleteDist.js'
@@ -47,6 +48,11 @@ beautifyCssConfig.runProcess(
   )
 )
 
+beautifyCssConfig.runProcess(
+  await postcssForScriptsConfig.runProcess(
+    await cacacheCssForScriptsConfig.getChangedFiles()
+  )
+)
 
 
 chokidar.watch(paths.src.root + '*.html')
@@ -68,6 +74,14 @@ chokidar.watch(paths.src.styles + '*.pcss')
     beautifyCssConfig.runProcess(
       await postcssConfig.runProcess(
         await cacacheCssConfig.getChangedFiles(path)
+      )
+    )
+  })
+chokidar.watch(paths.src.scripts + '**/*.pcss',)
+  .on('change', async path => {
+    beautifyCssConfig.runProcess(
+      await postcssForScriptsConfig.runProcess(
+        await cacacheCssForScriptsConfig.getChangedFiles(path)
       )
     )
   })

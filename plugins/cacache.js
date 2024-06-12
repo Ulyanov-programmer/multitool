@@ -99,6 +99,12 @@ export class Cacache extends Plugin {
   }
 
   #getCacheKeyByFilepath(pathToFile) {
-    return this.#keyPrefix + '_' + this.path.parse(pathToFile).name
+    let parsedFileName = this.path.parse(pathToFile)
+
+    return this.#keyPrefix
+      + '_'
+      + parsedFileName.dir.replaceAll(this.path.sep, '_')
+      + '_'
+      + parsedFileName.name
   }
 }
