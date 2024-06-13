@@ -54,8 +54,7 @@ export class PostCss extends Plugin {
       }
     )
 
-    this.fs.ensureFileSync(destFilePath)
-    this.fs.writeFileSync(destFilePath, result.css, Plugin.ENCODING)
+    this.fs.outputFileSync(destFilePath, result.css, Plugin.ENCODING)
 
     this.emitter.emit('processedFile', {
       name: pathToFile,

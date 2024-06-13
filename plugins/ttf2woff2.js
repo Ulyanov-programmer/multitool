@@ -36,9 +36,7 @@ export class Ttf2Woff2 extends Plugin {
   #process(pathToFile) {
     let fontInput = this.fs.readFileSync(pathToFile)
 
-    this.fs.ensureDirSync(this.destPath)
-
-    this.fs.writeFileSync(
+    this.fs.outputFileSync(
       this.getDistPathForFile(pathToFile, '.woff2'),
       ttf2woff2(fontInput)
     )
