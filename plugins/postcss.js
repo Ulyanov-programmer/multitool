@@ -13,11 +13,15 @@ export class PostCss extends Plugin {
     this.#outputExtname = outputExtname
 
     this.#postcssItem = postcss(this.#plugins)
+
+    this.runProcess()
   }
 
   async runProcess(paths = this.srcPath) {
+    paths = await this.getCachedFiles(paths)
+
     let normalizedPaths = this.normalizeInputPaths(paths)
-    if (!normalizedPaths) return []
+    if (!normalizedPaths) return
 
 
     this.emitter.emit('processStart')

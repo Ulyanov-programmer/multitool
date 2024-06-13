@@ -16,11 +16,15 @@ export class Esbuild extends Plugin {
     delete options.watchMode
 
     this.#options = options
+
+    this.runProcess()
   }
 
   async runProcess(paths = this.srcPath) {
+    paths = await this.getCachedFiles(paths)
+
     let normalizedPaths = this.normalizeInputPaths(paths)
-    if (!normalizedPaths) return []
+    if (!normalizedPaths) return
 
 
     this.emitter.emit('processStart')
@@ -50,6 +54,8 @@ export class Esbuild extends Plugin {
 
     if (!this.#watchMode) {
       await esbuild.build(this.#options)
+
+      this.emitter.emit('processedFile', {})
     }
     else {
       let buildContext = await esbuild.context(this.#options)
@@ -57,9 +63,6 @@ export class Esbuild extends Plugin {
 
       console.log(this.chalk.bgGreen('Watch mode is active!'))
     }
-
-
-    this.emitter.emit('processedFile', {})
 
     return paths
   }

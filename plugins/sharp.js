@@ -37,11 +37,15 @@ export class Sharp extends Plugin {
     delete options.sharpOptions
 
     this.#options = this.#parseOptionObject(options)
+
+    this.runProcess()
   }
 
   async runProcess(paths = this.srcPath) {
+    paths = await this.getCachedFiles(paths)
+
     let normalizedPaths = this.normalizeInputPaths(paths)
-    if (!normalizedPaths) return []
+    if (!normalizedPaths) return
 
 
     this.emitter.emit('processStart')

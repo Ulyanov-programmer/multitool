@@ -7,7 +7,7 @@ export class Cacache extends Plugin {
   #cacheFolderPath
 
   constructor({ paths, cacheFolderPath, keyPrefix }) {
-    super({ srcPath: paths.src, })
+    super({ srcPath: paths.src })
 
     this.#keyPrefix = keyPrefix
     this.#cacheFolderPath = cacheFolderPath

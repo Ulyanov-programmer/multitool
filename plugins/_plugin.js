@@ -5,12 +5,14 @@ import path from 'path'
 import chalk from 'chalk'
 import { performance } from 'perf_hooks'
 import { EventEmitter } from 'node:events'
+import paths from './other/paths.js'
 
 export class Plugin {
   static ENCODING = 'utf8'
   static performanceStartValue
   static performanceEndValue
   emitter
+  cacheEntity
 
   constructor({ srcPath, destPath }) {
     this.path = path
@@ -45,6 +47,25 @@ export class Plugin {
     this.#normalizePaths(paths)
 
     return paths
+  }
+
+  async initCache() {
+    let { Cacache } = await import('./cacache.js')
+
+    this.cacheEntity = new Cacache({
+      paths: {
+        src: this.srcPath,
+      },
+      keyPrefix: this.constructor.name,
+      cacheFolderPath: paths.cache + this.constructor.name + '/'
+    })
+  }
+  async getCachedFiles(paths) {
+    if (!this.cacheEntity) {
+      await this.initCache()
+    }
+
+    return await this.cacheEntity.getChangedFiles(paths)
   }
 
   #checkPath(paths) {

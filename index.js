@@ -1,114 +1,181 @@
 import chokidar from 'chokidar'
-import paths from './grunt/other/paths.js'
-import { posthtmlConfig } from './api/posthtml.js'
-import { beautifyHtmlConfig, beautifyCssConfig } from './api/beautify.js'
-import {
-  cacacheHtmlConfig,
-  cacacheCssConfig,
-  cacacheFontsConfig,
-  cacacheCssForScriptsConfig,
-  cacacheImagesConfig,
-} from './api/cacache.js'
-import { postcssConfig, postcssForScriptsConfig } from './api/postcss.js'
-import { esbuildConfig } from './api/esbuild.js'
-import { copyAssets } from './plugins/other/copy.js'
-import { deleteDist } from './plugins/other/deleteDist.js'
-import { cleanCache } from './plugins/other/cleanCache.js'
-import { ttf2Woff2Config } from './api/ttf2woff2.js'
-import { sharpConfig } from './api/sharp.js'
+import paths from './plugins/other/paths.js'
 
-import { isDeleteDistBeforeLaunch, isProductionMode } from './grunt/other/environment.js'
-import { isFontsConverted } from './grunt/other/checkFontFilesConverted.js'
+import { Sharp } from './plugins/sharp.js'
+import { Ttf2Woff2 } from './plugins/ttf2woff2.js'
+import { Esbuild } from './plugins/esbuild.js'
+import { Beautify } from './plugins/beautify.js'
+
+import { PostCss } from './plugins/postcss.js'
+import { plugins } from './plugins/other/postcssConfig.js'
+
+import { PostHtml } from './plugins/posthtml.js'
+import component from 'posthtml-component'
+import imgAutosize from 'posthtml-img-autosize'
+
+import { isDeleteDistBeforeLaunch, isProductionMode }
+  from './plugins/other/environment.js'
 
 // import './grunt/other/server.js'
-import './grunt/other/fontsWriting.js' // Parsing fonts into the style file
+import './plugins/other/fontsWriting.js' // Parsing fonts into the style file
 
 
 
 if (isDeleteDistBeforeLaunch) {
-  deleteDist()
-  cleanCache()
+  await import('./plugins/other/deleteDist.js')
+  await import('./plugins/other/cleanCache.js')
 }
 
-copyAssets()
-sharpConfig.runProcess(
-  await cacacheImagesConfig.getChangedFiles()
-)
-
-ttf2Woff2Config.runProcess(
-  await cacacheFontsConfig.getChangedFiles()
-)
-
-await esbuildConfig.runProcess()
-
-beautifyHtmlConfig.runProcess(
-  await posthtmlConfig.runProcess(
-    await cacacheHtmlConfig.getChangedFiles()
-  )
-)
-
-beautifyCssConfig.runProcess(
-  await postcssConfig.runProcess(
-    await cacacheCssConfig.getChangedFiles()
-  )
-)
-
-beautifyCssConfig.runProcess(
-  await postcssForScriptsConfig.runProcess(
-    await cacacheCssForScriptsConfig.getChangedFiles()
-  )
-)
+import './plugins/other/copy.js'
 
 
-chokidar.watch(paths.src.root + '*.html')
-  .on('change', async path => {
-    beautifyHtmlConfig.runProcess(
-      await posthtmlConfig.runProcess(
-        await cacacheHtmlConfig.getChangedFiles(path)
-      )
-    )
-  })
+const beautifyHtml = new Beautify({
+  paths: {
+    src: paths.dest.root + '*.html',
+    dest: paths.dest.root,
+  },
+  options: {
+    indent_size: 2,
+    max_preserve_newlines: 1,
+  },
+  beautifyPlugin: 'html',
+  runOnInit: false,
+})
+
+const beautifyCss = new Beautify({
+  paths: {
+    src: paths.dest.styles + '*.css',
+    dest: paths.dest.styles,
+  },
+  options: {
+    indent_size: 2,
+  },
+  beautifyPlugin: 'css',
+  runOnInit: false,
+})
+
+const beautifyScriptCss = new Beautify({
+  paths: {
+    src: paths.dest.scripts + '**/*.css',
+    dest: paths.dest.scripts,
+  },
+  options: {
+    indent_size: 2,
+  },
+  beautifyPlugin: 'css',
+  runOnInit: false,
+})
+
+chokidar.watch(beautifyHtml.srcPath)
+  .on('change', path => beautifyHtml.runProcess(path))
+
+chokidar.watch(beautifyCss.srcPath)
+  .on('change', path => beautifyCss.runProcess(path))
+
+chokidar.watch(beautifyScriptCss.srcPath)
+  .on('change', path => beautifyScriptCss.runProcess(path))
+
+
+const sharpConfig = new Sharp({
+  paths: {
+    src: paths.src.images + '**/*.{gif,webp,avif,png,jpg,jpeg,svg}',
+    dest: paths.dest.images,
+  },
+  options: {
+    sharpOptions: {},
+    logLevel: 'small',
+
+    png: {
+      quality: 90,
+
+      webp: {},
+      avif: {},
+    },
+    jpg: {
+      mozjpeg: true,
+
+      webp: {},
+      avif: {},
+    },
+    gif: {
+      webp: {},
+    },
+    webp: {},
+    avif: {},
+  },
+})
+
+const ttf2woff2Config = new Ttf2Woff2({
+  paths: {
+    src: paths.src.fontsFolder + '*.{otf,ttf}',
+    dest: paths.dest.fonts,
+  },
+})
+
+new Esbuild({
+  paths: {
+    src: paths.src.scripts + '**/*.{js,ts}',
+  },
+  options: {
+    target: 'es2022',
+    bundle: false,
+    outdir: paths.dest.scripts,
+    //? Necessary if the task works with only one file.
+    outbase: paths.src.scripts,
+    watchMode: true,
+    minify: isProductionMode,
+  },
+})
+
+const posthtmlConfig = new PostHtml({
+  paths: {
+    src: paths.src.root + '*.html',
+    dest: paths.dest.root,
+  },
+  plugins: [
+    component({
+      root: paths.src.root,
+      folders: ['components'],
+    }),
+    imgAutosize({
+      root: paths.dest.root,
+      processEmptySize: true,
+    }),
+  ],
+})
+
+const postcssConfig = new PostCss({
+  paths: {
+    src: paths.src.styles + '*.pcss',
+    dest: paths.dest.styles,
+  },
+  plugins: plugins,
+  outputExtname: 'css',
+})
+const postcssForScriptsConfig = new PostCss({
+  paths: {
+    src: paths.src.scripts + '**/*.pcss',
+    dest: paths.dest.scripts,
+  },
+  plugins: plugins,
+  outputExtname: 'css',
+})
+
+
+chokidar.watch(posthtmlConfig.srcPath)
+  .on('change', path => posthtmlConfig.runProcess(path))
+
 chokidar.watch(paths.src.root + 'components/*.html')
-  .on('change', async path => {
-    beautifyHtmlConfig.runProcess(
-      await posthtmlConfig.runProcess()
-    )
-  })
-chokidar.watch(paths.src.styles + '*.pcss')
-  .on('change', async path => {
-    beautifyCssConfig.runProcess(
-      await postcssConfig.runProcess(
-        await cacacheCssConfig.getChangedFiles(path)
-      )
-    )
-  })
-chokidar.watch(paths.src.scripts + '**/*.pcss',)
-  .on('change', async path => {
-    beautifyCssConfig.runProcess(
-      await postcssForScriptsConfig.runProcess(
-        await cacacheCssForScriptsConfig.getChangedFiles(path)
-      )
-    )
-  })
-chokidar.watch(paths.src.fontsFolder + '*.{otf,ttf}', { ignoreInitial: true })
-  .on('add', async path => {
-    ttf2Woff2Config.runProcess(
-      await cacacheFontsConfig.getChangedFiles(path)
-    )
-  })
-chokidar.watch(
-  paths.src.images + '**/*.{gif,webp,avif,png,jpg,jpeg,svg}',
-  { ignoreInitial: true }
-)
-  .on('add', async path => {
-    sharpConfig.runProcess(
-      await cacacheImagesConfig.getChangedFiles(path)
-    )
-  })
+  .on('change', () => posthtmlConfig.runProcess())
 
+chokidar.watch(postcssConfig.srcPath)
+  .on('change', path => postcssConfig.runProcess(path))
 
+chokidar.watch(postcssForScriptsConfig.srcPath)
+  .on('change', path => postcssForScriptsConfig.runProcess(path))
 
+chokidar.watch(ttf2woff2Config.srcPath, { ignoreInitial: true })
+  .on('add', path => ttf2woff2Config.runProcess(path))
 
-
-
-
+chokidar.watch(sharpConfig.srcPath, { ignoreInitial: true })
+  .on('add', path => sharpConfig.runProcess(path))

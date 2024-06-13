@@ -8,11 +8,15 @@ export class PostHtml extends Plugin {
     super({ srcPath: paths.src, destPath: paths.dest, })
 
     this.#pluginsArray = plugins
+
+    this.runProcess()
   }
 
   async runProcess(paths = this.srcPath) {
+    paths = await this.getCachedFiles(paths)
+
     let normalizedPaths = this.normalizeInputPaths(paths)
-    if (!normalizedPaths) return []
+    if (!normalizedPaths) return
 
 
     this.emitter.emit('processStart')
@@ -34,18 +38,20 @@ export class PostHtml extends Plugin {
   }
 
   async #process(pathToFile) {
+    let distPathToFile = this.getDistPathForFile(pathToFile)
+
     let result = await posthtml(this.#pluginsArray)
       .process(this.fs.readFileSync(pathToFile, Plugin.ENCODING))
 
-    this.fs.writeFileSync(this.getDistPathForFile(pathToFile), result.html, Plugin.ENCODING)
+    this.fs.ensureFileSync(distPathToFile)
+
+    this.fs.writeFileSync(distPathToFile, result.html, Plugin.ENCODING)
 
     this.emitter.emit('processedFile', {
       name: pathToFile,
       style: 'cyan'
     })
 
-
-    // a link to the processed file is returned 
     return this.getDistPathForFile(pathToFile)
   }
 }

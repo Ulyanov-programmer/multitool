@@ -4,11 +4,15 @@ import { Plugin } from './_plugin.js'
 export class Ttf2Woff2 extends Plugin {
   constructor({ paths, }) {
     super({ srcPath: paths.src, destPath: paths.dest, })
+
+    this.runProcess()
   }
 
-  runProcess(paths = this.srcPath) {
+  async runProcess(paths = this.srcPath) {
+    paths = await this.getCachedFiles(paths)
+
     let normalizedPaths = this.normalizeInputPaths(paths)
-    if (!normalizedPaths) return []
+    if (!normalizedPaths) return
 
 
     this.emitter.emit('processStart')

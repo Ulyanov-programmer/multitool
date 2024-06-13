@@ -5,16 +5,22 @@ export class Beautify extends Plugin {
   #options
   #beautifyPlugin
 
-  constructor({ paths, options, beautifyPlugin }) {
+  constructor({ paths, options, beautifyPlugin, runOnInit = true }) {
     super({ srcPath: paths.src, destPath: paths.dest, })
 
     this.#options = options
     this.#beautifyPlugin = beautifyPlugin
+
+    if (runOnInit) {
+      this.runProcess()
+    }
   }
 
-  runProcess(paths = this.srcPath) {
+  async runProcess(paths = this.srcPath) {
+    paths = await this.getCachedFiles(paths)
+
     let normalizedPaths = this.normalizeInputPaths(paths)
-    if (!normalizedPaths) return []
+    if (!normalizedPaths) return
 
 
     this.emitter.emit('processStart')
