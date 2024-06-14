@@ -2,8 +2,10 @@ import ttf2woff2 from 'ttf2woff2'
 import { Plugin } from './_plugin.js'
 
 export class Ttf2Woff2 extends Plugin {
-  constructor({ paths, }) {
+  constructor({ paths, reLaunchOn }) {
     super({ srcPath: paths.src, destPath: paths.dest, })
+
+    reLaunchOn && this.startWatching(reLaunchOn)
 
     this.runProcess()
   }

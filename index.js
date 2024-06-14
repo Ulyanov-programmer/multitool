@@ -29,7 +29,7 @@ if (isDeleteDistBeforeLaunch) {
 import './plugins/other/copy.js'
 
 
-const beautifyHtml = new Beautify({
+new Beautify({
   paths: {
     src: paths.dest.root + '*.html',
     dest: paths.dest.root,
@@ -40,9 +40,10 @@ const beautifyHtml = new Beautify({
   },
   beautifyPlugin: 'html',
   runOnInit: false,
+  reLaunchOn: ['change'],
 })
 
-const beautifyCss = new Beautify({
+new Beautify({
   paths: {
     src: paths.dest.styles + '*.css',
     dest: paths.dest.styles,
@@ -52,9 +53,10 @@ const beautifyCss = new Beautify({
   },
   beautifyPlugin: 'css',
   runOnInit: false,
+  reLaunchOn: ['change'],
 })
 
-const beautifyScriptCss = new Beautify({
+new Beautify({
   paths: {
     src: paths.dest.scripts + '**/*.css',
     dest: paths.dest.scripts,
@@ -64,19 +66,10 @@ const beautifyScriptCss = new Beautify({
   },
   beautifyPlugin: 'css',
   runOnInit: false,
+  reLaunchOn: ['change'],
 })
 
-chokidar.watch(beautifyHtml.srcPath)
-  .on('change', path => beautifyHtml.runProcess(path))
-
-chokidar.watch(beautifyCss.srcPath)
-  .on('change', path => beautifyCss.runProcess(path))
-
-chokidar.watch(beautifyScriptCss.srcPath)
-  .on('change', path => beautifyScriptCss.runProcess(path))
-
-
-const sharpConfig = new Sharp({
+new Sharp({
   paths: {
     src: paths.src.images + '**/*.{gif,webp,avif,png,jpg,jpeg,svg}',
     dest: paths.dest.images,
@@ -103,13 +96,15 @@ const sharpConfig = new Sharp({
     webp: {},
     avif: {},
   },
+  reLaunchOn: ['add'],
 })
 
-const ttf2woff2Config = new Ttf2Woff2({
+new Ttf2Woff2({
   paths: {
     src: paths.src.fontsFolder + '*.{otf,ttf}',
     dest: paths.dest.fonts,
   },
+  reLaunchOn: ['add'],
 })
 
 new Esbuild({
@@ -142,40 +137,29 @@ const posthtmlConfig = new PostHtml({
       processEmptySize: true,
     }),
   ],
+  reLaunchOn: ['change'],
 })
 
-const postcssConfig = new PostCss({
+new PostCss({
   paths: {
     src: paths.src.styles + '*.pcss',
     dest: paths.dest.styles,
   },
   plugins: plugins,
   outputExtname: 'css',
+  reLaunchOn: ['change'],
 })
-const postcssForScriptsConfig = new PostCss({
+new PostCss({
   paths: {
     src: paths.src.scripts + '**/*.pcss',
     dest: paths.dest.scripts,
   },
   plugins: plugins,
   outputExtname: 'css',
+  reLaunchOn: ['change'],
 })
 
 
-chokidar.watch(posthtmlConfig.srcPath)
-  .on('change', path => posthtmlConfig.runProcess(path))
 
 chokidar.watch(paths.src.root + 'components/*.html')
   .on('change', () => posthtmlConfig.runProcess())
-
-chokidar.watch(postcssConfig.srcPath)
-  .on('change', path => postcssConfig.runProcess(path))
-
-chokidar.watch(postcssForScriptsConfig.srcPath)
-  .on('change', path => postcssForScriptsConfig.runProcess(path))
-
-chokidar.watch(ttf2woff2Config.srcPath, { ignoreInitial: true })
-  .on('add', path => ttf2woff2Config.runProcess(path))
-
-chokidar.watch(sharpConfig.srcPath, { ignoreInitial: true })
-  .on('add', path => sharpConfig.runProcess(path))

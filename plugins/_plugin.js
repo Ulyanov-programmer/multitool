@@ -3,6 +3,7 @@ import { globSync, hasMagic } from 'glob'
 import globParent from 'glob-parent'
 import path from 'path'
 import chalk from 'chalk'
+import chokidar from 'chokidar'
 import { performance } from 'perf_hooks'
 import { EventEmitter } from 'node:events'
 import paths from './other/paths.js'
@@ -23,6 +24,7 @@ export class Plugin {
     this.performance = performance
     this.emitter = new EventEmitter()
     this.chalk = chalk
+    this.chokidar = chokidar
 
     this.srcPath = srcPath
     this.destPath = destPath
@@ -173,5 +175,15 @@ export class Plugin {
     return path.resolve(
       `${this.destPath}/${parsedPath.dir.replace(this.cwd, '')}/${parsedPath.base}`
     )
+  }
+
+  startWatching(runEvents) {
+    for (let runEvent of runEvents) {
+      this.chokidar
+        .watch(
+          this.srcPath, { ignoreInitial: true }
+        )
+        .on(runEvent, this.runProcess.bind(this))
+    }
   }
 }

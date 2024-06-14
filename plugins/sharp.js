@@ -24,7 +24,7 @@ export class Sharp extends Plugin {
   #logLevel
   #sharpOptions
 
-  constructor({ paths, options }) {
+  constructor({ paths, options, reLaunchOn }) {
     super({ srcPath: paths.src, destPath: paths.dest })
 
     this.#logLevel = options.logLevel ?? 'small'
@@ -37,6 +37,8 @@ export class Sharp extends Plugin {
     delete options.sharpOptions
 
     this.#options = this.#parseOptionObject(options)
+
+    reLaunchOn && this.startWatching(reLaunchOn)
 
     this.runProcess()
   }

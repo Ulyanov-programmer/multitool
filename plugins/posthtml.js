@@ -4,10 +4,12 @@ import { Plugin } from './_plugin.js'
 export class PostHtml extends Plugin {
   #pluginsArray
 
-  constructor({ paths, plugins }) {
+  constructor({ paths, plugins, reLaunchOn }) {
     super({ srcPath: paths.src, destPath: paths.dest, })
 
     this.#pluginsArray = plugins
+
+    reLaunchOn && this.startWatching(reLaunchOn)
 
     this.runProcess()
   }

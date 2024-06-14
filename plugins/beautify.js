@@ -5,15 +5,15 @@ export class Beautify extends Plugin {
   #options
   #beautifyPlugin
 
-  constructor({ paths, options, beautifyPlugin, runOnInit = true }) {
+  constructor({ paths, options, beautifyPlugin, reLaunchOn, runOnInit = true }) {
     super({ srcPath: paths.src, destPath: paths.dest, })
 
     this.#options = options
     this.#beautifyPlugin = beautifyPlugin
 
-    if (runOnInit) {
-      this.runProcess()
-    }
+    reLaunchOn && this.startWatching(reLaunchOn)
+
+    runOnInit && this.runProcess()
   }
 
   async runProcess(paths = this.srcPath) {

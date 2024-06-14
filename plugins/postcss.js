@@ -6,13 +6,15 @@ export class PostCss extends Plugin {
   #postcssItem
   #outputExtname
 
-  constructor({ paths, plugins, outputExtname }) {
+  constructor({ paths, plugins, outputExtname, reLaunchOn }) {
     super({ srcPath: paths.src, destPath: paths.dest, })
 
     this.#plugins = plugins
     this.#outputExtname = outputExtname
 
     this.#postcssItem = postcss(this.#plugins)
+
+    reLaunchOn && this.startWatching(reLaunchOn)
 
     this.runProcess()
   }
