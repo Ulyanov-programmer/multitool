@@ -107,8 +107,9 @@ export class Sharp extends Plugin {
       await sharpInstance.toFile(destFilePath)
 
       this.emitter.emit('processedFile', {
-        pathToFile: parsedPath.name + '.' + outputExtname,
-        style: 'magenta'
+        pathToFile: pathToFile,
+        style: 'magenta',
+        extension: outputExtname,
       })
     }
 
@@ -145,18 +146,11 @@ export class Sharp extends Plugin {
   #copyWithLog(pathToFile, fileBase) {
     this.fs.copySync(pathToFile, this.getDistPathForFile(fileBase))
 
-    if (this.#logLevel == 'full')
-      console.log(this.chalk.hex('#FF8800')
-        (
-          `The image ${this.chalk.bold(fileBase)} cannot be processed, so it is copied to dest.`
-        )
-      )
-    else if (this.#logLevel == 'small')
-      console.log(this.chalk.hex('#FF8800')
-        (
-          fileBase + ' => ' + this.chalk.bold('copied')
-        )
-      )
+    this.emitter.emit('processedFile', {
+      pathToFile: pathToFile,
+      style: 'red',
+      extension: this.path.extname(pathToFile).replace('.', ''),
+    })
   }
   #extnameIsCorrect(extname) {
     if (!this.#ALLOWED_EXTENSIONS.includes(extname)) {

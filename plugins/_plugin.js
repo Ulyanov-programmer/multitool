@@ -84,7 +84,7 @@ export class Plugin {
     }
   }
 
-  processedLog({ pathToFile, style }) {
+  processedLog({ pathToFile, style, extension }) {
     if (!pathToFile) {
       // locks like `[child_plugin_name] was completed`
       console.log(
@@ -95,12 +95,26 @@ export class Plugin {
       )
     }
     else {
-      // locks like `[child_plugin_name] file_name was processed`
+      // locks like `[child_plugin_name] X was processed`
+      if (!extension) {
+        console.log(
+          chalk.grey('[') +
+          this.constructor.name +
+          chalk.grey('] ') +
+          chalk[style](pathToFile) +
+          ` was processed`
+        )
+
+        return
+      }
+
+      let fileName = path.parse(pathToFile).name
+
       console.log(
         chalk.grey('[') +
         this.constructor.name +
         chalk.grey('] ') +
-        chalk[style](pathToFile) +
+        chalk[style](fileName + '.' + extension) +
         ` was processed`
       )
     }
@@ -111,9 +125,9 @@ export class Plugin {
       chalk.grey('[') +
       this.constructor.name +
       chalk.grey('] ') +
-      chalk.grey('--') +
+      chalk.grey('-- ') +
       `starts` +
-      chalk.grey('--')
+      chalk.grey(' --')
     )
   }
   errorLog(error) {
@@ -137,13 +151,13 @@ export class Plugin {
       chalk.gray('[') +
       this.constructor.name +
       chalk.gray('] ') +
-      chalk.gray('--') +
+      chalk.gray('-- ') +
       'Done in ' +
 
       Math.trunc(Plugin.performanceEndValue - Plugin.performanceStartValue) / 1000 +
 
       's' +
-      chalk.gray('--')
+      chalk.gray(' --')
     )
   }
 
