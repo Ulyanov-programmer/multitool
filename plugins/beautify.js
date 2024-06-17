@@ -1,11 +1,13 @@
 import beautify from 'js-beautify'
 import { Plugin } from './_plugin.js'
+import { FlatCache } from './flatCache.js'
 
 export class Beautify extends Plugin {
   #options
   #beautifyPlugin
+  cache
 
-  constructor({ paths, options, beautifyPlugin, reLaunchOn, runOnInit = true }) {
+  constructor({ paths, options, beautifyPlugin, reLaunchOn }) {
     super({ srcPath: paths.src, destPath: paths.dest, })
 
     this.#options = options
@@ -13,11 +15,17 @@ export class Beautify extends Plugin {
 
     reLaunchOn && this.startWatching(reLaunchOn)
 
-    runOnInit && this.runProcess()
+    this.cache = new FlatCache({
+      paths: {
+        src: this.srcPath,
+      },
+      id: this.constructor.name,
+      cacheFolderPath: this.paths.cache + this.constructor.name + '/'
+    })
   }
 
-  async runProcess(paths = this.srcPath) {
-    paths = await this.getCachedFiles(paths)
+  runProcess(paths = this.srcPath) {
+    paths = this.cache.getChangedFiles(paths)
 
     let normalizedPaths = this.normalizeInputPaths(paths)
     if (!normalizedPaths) return
@@ -57,7 +65,7 @@ export class Beautify extends Plugin {
     this.fs.writeFileSync(pathToFile, result, Plugin.ENCODING)
 
     this.emitter.emit('processedFile', {
-      name: pathToFile,
+      pathToFile: pathToFile,
       style: 'yellow'
     })
 

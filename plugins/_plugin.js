@@ -13,10 +13,12 @@ export class Plugin {
   static performanceStartValue
   static performanceEndValue
   emitter
-  cacheEntity
 
   constructor({ srcPath, destPath }) {
     this.path = path
+    // paths of user 
+    this.paths = paths
+
     this.globSync = globSync
     this.globParent = globParent
     this.hasMagic = hasMagic
@@ -33,6 +35,7 @@ export class Plugin {
     this.processedBuffer = []
 
     this.emitter.on('processedFile', this.processedLog.bind(this))
+    this.emitter.on('processedFile', this.saveToCache.bind(this))
 
     this.emitter.on('processStart', this.performanceTimerStart.bind(this))
     this.emitter.on('processStart', this.taskRunLog.bind(this))
@@ -40,34 +43,14 @@ export class Plugin {
   }
 
   normalizeInputPaths(paths) {
-    if (!this.#checkPath(paths)) {
+    if (!this.#checkPath(paths))
       return false
-    }
 
     paths = this.#unmaskPathsAndTransformToArray(paths)
 
     this.#normalizePaths(paths)
 
     return paths
-  }
-
-  async initCache() {
-    let { Cacache } = await import('./cacache.js')
-
-    this.cacheEntity = new Cacache({
-      paths: {
-        src: this.srcPath,
-      },
-      keyPrefix: this.constructor.name,
-      cacheFolderPath: paths.cache + this.constructor.name + '/'
-    })
-  }
-  async getCachedFiles(paths) {
-    if (!this.cacheEntity) {
-      await this.initCache()
-    }
-
-    return await this.cacheEntity.getChangedFiles(paths)
   }
 
   #checkPath(paths) {
@@ -101,14 +84,14 @@ export class Plugin {
     }
   }
 
-  processedLog({ name, style }) {
-    if (!name) {
+  processedLog({ pathToFile, style }) {
+    if (!pathToFile) {
       // locks like `[child_plugin_name] was completed`
       console.log(
         chalk.grey('[') +
         this.constructor.name +
         chalk.grey(']') +
-        ` was completed`
+        ` was [completed]`
       )
     }
     else {
@@ -117,7 +100,7 @@ export class Plugin {
         chalk.grey('[') +
         this.constructor.name +
         chalk.grey('] ') +
-        chalk[style](name) +
+        chalk[style](pathToFile) +
         ` was processed`
       )
     }
@@ -128,7 +111,9 @@ export class Plugin {
       chalk.grey('[') +
       this.constructor.name +
       chalk.grey('] ') +
-      `starts!`
+      chalk.grey('--') +
+      `starts` +
+      chalk.grey('--')
     )
   }
   errorLog(error) {
@@ -152,10 +137,13 @@ export class Plugin {
       chalk.gray('[') +
       this.constructor.name +
       chalk.gray('] ') +
+      chalk.gray('--') +
       'Done in ' +
 
       Math.trunc(Plugin.performanceEndValue - Plugin.performanceStartValue) / 1000 +
-      's'
+
+      's' +
+      chalk.gray('--')
     )
   }
 
@@ -178,12 +166,16 @@ export class Plugin {
   }
 
   startWatching(runEvents) {
+    this.watcher = this.chokidar.watch(this.srcPath, { ignoreInitial: true })
+
     for (let runEvent of runEvents) {
-      this.chokidar
-        .watch(
-          this.srcPath, { ignoreInitial: true }
-        )
-        .on(runEvent, this.runProcess.bind(this))
+      this.watcher.on(runEvent, this.runProcess.bind(this))
+    }
+  }
+
+  saveToCache({ pathToFile }) {
+    if (this.cache) {
+      this.cache.setCache(pathToFile)
     }
   }
 }

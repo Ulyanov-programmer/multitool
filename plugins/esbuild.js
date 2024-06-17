@@ -1,5 +1,6 @@
 import esbuild from 'esbuild'
 import { Plugin } from './_plugin.js'
+import { FlatCache } from './flatCache.js'
 
 export class Esbuild extends Plugin {
   #DEFAULT_OPTIONS = {
@@ -8,6 +9,7 @@ export class Esbuild extends Plugin {
   }
   #watchMode
   #options
+  cache
 
   constructor({ paths, options }) {
     super({ srcPath: paths.src, })
@@ -17,11 +19,19 @@ export class Esbuild extends Plugin {
 
     this.#options = options
 
+    this.cache = new FlatCache({
+      paths: {
+        src: this.srcPath,
+      },
+      id: this.constructor.name,
+      cacheFolderPath: this.paths.cache + this.constructor.name + '/'
+    })
+
     this.runProcess()
   }
 
   async runProcess(paths = this.srcPath) {
-    paths = await this.getCachedFiles(paths)
+    paths = this.cache.getChangedFiles(paths)
 
     let normalizedPaths = this.normalizeInputPaths(paths)
     if (!normalizedPaths) return

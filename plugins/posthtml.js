@@ -1,8 +1,10 @@
 import posthtml from 'posthtml'
 import { Plugin } from './_plugin.js'
+import { FlatCache } from './flatCache.js'
 
 export class PostHtml extends Plugin {
   #pluginsArray
+  cache
 
   constructor({ paths, plugins, reLaunchOn }) {
     super({ srcPath: paths.src, destPath: paths.dest, })
@@ -11,11 +13,19 @@ export class PostHtml extends Plugin {
 
     reLaunchOn && this.startWatching(reLaunchOn)
 
+    this.cache = new FlatCache({
+      paths: {
+        src: this.srcPath,
+      },
+      id: this.constructor.name,
+      cacheFolderPath: this.paths.cache + this.constructor.name + '/'
+    })
+
     this.runProcess()
   }
 
   async runProcess(paths = this.srcPath) {
-    paths = await this.getCachedFiles(paths)
+    paths = this.cache.getChangedFiles(paths)
 
     let normalizedPaths = this.normalizeInputPaths(paths)
     if (!normalizedPaths) return
@@ -48,7 +58,7 @@ export class PostHtml extends Plugin {
     this.fs.outputFileSync(distPathToFile, result.html, Plugin.ENCODING)
 
     this.emitter.emit('processedFile', {
-      name: pathToFile,
+      pathToFile: pathToFile,
       style: 'cyan'
     })
 

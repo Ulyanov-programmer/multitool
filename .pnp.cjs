@@ -30,13 +30,13 @@ const RAW_RUNTIME_STATE =
           ["@lodder/grunt-postcss", "virtual:f1571cd32476bd3b119b044c60b9b1a5cc196aa5e88d29fdb3f4ea6740eaef5997566a6ada297106308bd20d74779e81e370845008944305dc9bc0838acdd3a1#npm:3.1.1"],\
           ["autoprefixer", "virtual:f1571cd32476bd3b119b044c60b9b1a5cc196aa5e88d29fdb3f4ea6740eaef5997566a6ada297106308bd20d74779e81e370845008944305dc9bc0838acdd3a1#npm:10.4.16"],\
           ["browser-sync", "npm:2.29.3"],\
-          ["cacache", "npm:18.0.3"],\
           ["case-anything", "npm:2.1.13"],\
           ["chalk", "npm:5.3.0"],\
           ["chokidar", "npm:3.6.0"],\
           ["enquirer", "npm:2.4.1"],\
           ["esbuild", "npm:0.19.8"],\
           ["fix-esm", "npm:1.0.1"],\
+          ["flat-cache", "npm:5.0.0"],\
           ["fs-extra", "npm:11.2.0"],\
           ["glob", "npm:10.4.1"],\
           ["glob-parent", "npm:6.0.2"],\
@@ -2696,25 +2696,6 @@ const RAW_RUNTIME_STATE =
           ["unique-filename", "npm:3.0.0"]\
         ],\
         "linkType": "HARD"\
-      }],\
-      ["npm:18.0.3", {\
-        "packageLocation": "./.yarn/cache/cacache-npm-18.0.3-7936f526c3-dfda92840b.zip/node_modules/cacache/",\
-        "packageDependencies": [\
-          ["cacache", "npm:18.0.3"],\
-          ["@npmcli/fs", "npm:3.1.0"],\
-          ["fs-minipass", "npm:3.0.3"],\
-          ["glob", "npm:10.3.10"],\
-          ["lru-cache", "npm:10.1.0"],\
-          ["minipass", "npm:7.0.4"],\
-          ["minipass-collect", "npm:2.0.1"],\
-          ["minipass-flush", "npm:1.0.5"],\
-          ["minipass-pipeline", "npm:1.2.4"],\
-          ["p-map", "npm:4.0.0"],\
-          ["ssri", "npm:10.0.5"],\
-          ["tar", "npm:6.2.0"],\
-          ["unique-filename", "npm:3.0.0"]\
-        ],\
-        "linkType": "HARD"\
       }]\
     ]],\
     ["call-bind", [\
@@ -4130,6 +4111,15 @@ const RAW_RUNTIME_STATE =
           ["rimraf", "npm:3.0.2"]\
         ],\
         "linkType": "HARD"\
+      }],\
+      ["npm:5.0.0", {\
+        "packageLocation": "./.yarn/cache/flat-cache-npm-5.0.0-6b0bc31d4a-847f25eefe.zip/node_modules/flat-cache/",\
+        "packageDependencies": [\
+          ["flat-cache", "npm:5.0.0"],\
+          ["flatted", "npm:3.3.1"],\
+          ["keyv", "npm:4.5.4"]\
+        ],\
+        "linkType": "HARD"\
       }]\
     ]],\
     ["flatted", [\
@@ -4137,6 +4127,13 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./.yarn/cache/flatted-npm-3.2.9-0462256d3c-5c91c5a0a2.zip/node_modules/flatted/",\
         "packageDependencies": [\
           ["flatted", "npm:3.2.9"]\
+        ],\
+        "linkType": "HARD"\
+      }],\
+      ["npm:3.3.1", {\
+        "packageLocation": "./.yarn/cache/flatted-npm-3.3.1-458870f59b-324166b125.zip/node_modules/flatted/",\
+        "packageDependencies": [\
+          ["flatted", "npm:3.3.1"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -4759,13 +4756,13 @@ const RAW_RUNTIME_STATE =
           ["@lodder/grunt-postcss", "virtual:f1571cd32476bd3b119b044c60b9b1a5cc196aa5e88d29fdb3f4ea6740eaef5997566a6ada297106308bd20d74779e81e370845008944305dc9bc0838acdd3a1#npm:3.1.1"],\
           ["autoprefixer", "virtual:f1571cd32476bd3b119b044c60b9b1a5cc196aa5e88d29fdb3f4ea6740eaef5997566a6ada297106308bd20d74779e81e370845008944305dc9bc0838acdd3a1#npm:10.4.16"],\
           ["browser-sync", "npm:2.29.3"],\
-          ["cacache", "npm:18.0.3"],\
           ["case-anything", "npm:2.1.13"],\
           ["chalk", "npm:5.3.0"],\
           ["chokidar", "npm:3.6.0"],\
           ["enquirer", "npm:2.4.1"],\
           ["esbuild", "npm:0.19.8"],\
           ["fix-esm", "npm:1.0.1"],\
+          ["flat-cache", "npm:5.0.0"],\
           ["fs-extra", "npm:11.2.0"],\
           ["glob", "npm:10.4.1"],\
           ["glob-parent", "npm:6.0.2"],\

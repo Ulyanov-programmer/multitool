@@ -1,5 +1,6 @@
 import sharp from 'sharp'
 import { Plugin } from './_plugin.js'
+import { FlatCache } from './flatCache.js'
 
 export class Sharp extends Plugin {
   #ALLOWED_EXTENSIONS = [
@@ -23,6 +24,7 @@ export class Sharp extends Plugin {
   #options
   #logLevel
   #sharpOptions
+  cache
 
   constructor({ paths, options, reLaunchOn }) {
     super({ srcPath: paths.src, destPath: paths.dest })
@@ -40,11 +42,19 @@ export class Sharp extends Plugin {
 
     reLaunchOn && this.startWatching(reLaunchOn)
 
+    this.cache = new FlatCache({
+      paths: {
+        src: this.srcPath,
+      },
+      id: this.constructor.name,
+      cacheFolderPath: this.paths.cache + this.constructor.name + '/'
+    })
+
     this.runProcess()
   }
 
   async runProcess(paths = this.srcPath) {
-    paths = await this.getCachedFiles(paths)
+    paths = this.cache.getChangedFiles(paths)
 
     let normalizedPaths = this.normalizeInputPaths(paths)
     if (!normalizedPaths) return
@@ -97,7 +107,7 @@ export class Sharp extends Plugin {
       await sharpInstance.toFile(destFilePath)
 
       this.emitter.emit('processedFile', {
-        name: parsedPath.name + '.' + outputExtname,
+        pathToFile: parsedPath.name + '.' + outputExtname,
         style: 'magenta'
       })
     }

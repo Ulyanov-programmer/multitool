@@ -39,7 +39,6 @@ new Beautify({
     max_preserve_newlines: 1,
   },
   beautifyPlugin: 'html',
-  runOnInit: false,
   reLaunchOn: ['change'],
 })
 
@@ -52,7 +51,6 @@ new Beautify({
     indent_size: 2,
   },
   beautifyPlugin: 'css',
-  runOnInit: false,
   reLaunchOn: ['change'],
 })
 
@@ -65,7 +63,6 @@ new Beautify({
     indent_size: 2,
   },
   beautifyPlugin: 'css',
-  runOnInit: false,
   reLaunchOn: ['change'],
 })
 

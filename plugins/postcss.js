@@ -1,5 +1,6 @@
 import postcss from 'postcss'
 import { Plugin } from './_plugin.js'
+import { FlatCache } from './flatCache.js'
 
 export class PostCss extends Plugin {
   #plugins
@@ -16,11 +17,19 @@ export class PostCss extends Plugin {
 
     reLaunchOn && this.startWatching(reLaunchOn)
 
+    this.cache = new FlatCache({
+      paths: {
+        src: this.srcPath,
+      },
+      id: this.constructor.name,
+      cacheFolderPath: this.paths.cache + this.constructor.name + '/'
+    })
+
     this.runProcess()
   }
 
   async runProcess(paths = this.srcPath) {
-    paths = await this.getCachedFiles(paths)
+    paths = this.cache.getChangedFiles(paths)
 
     let normalizedPaths = this.normalizeInputPaths(paths)
     if (!normalizedPaths) return
@@ -59,7 +68,7 @@ export class PostCss extends Plugin {
     this.fs.outputFileSync(destFilePath, result.css, Plugin.ENCODING)
 
     this.emitter.emit('processedFile', {
-      name: pathToFile,
+      pathToFile: pathToFile,
       style: 'green'
     })
 

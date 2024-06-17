@@ -1,17 +1,28 @@
 import ttf2woff2 from 'ttf2woff2'
 import { Plugin } from './_plugin.js'
+import { FlatCache } from './flatCache.js'
 
 export class Ttf2Woff2 extends Plugin {
+  cache
+
   constructor({ paths, reLaunchOn }) {
     super({ srcPath: paths.src, destPath: paths.dest, })
 
     reLaunchOn && this.startWatching(reLaunchOn)
 
+    this.cache = new FlatCache({
+      paths: {
+        src: this.srcPath,
+      },
+      id: this.constructor.name,
+      cacheFolderPath: this.paths.cache + this.constructor.name + '/'
+    })
+
     this.runProcess()
   }
 
   async runProcess(paths = this.srcPath) {
-    paths = await this.getCachedFiles(paths)
+    paths = this.cache.getChangedFiles(paths)
 
     let normalizedPaths = this.normalizeInputPaths(paths)
     if (!normalizedPaths) return
@@ -44,7 +55,7 @@ export class Ttf2Woff2 extends Plugin {
     )
 
     this.emitter.emit('processedFile', {
-      name: pathToFile,
+      pathToFile: pathToFile,
       style: 'blue'
     })
 
