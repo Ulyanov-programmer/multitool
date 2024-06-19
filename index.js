@@ -30,50 +30,32 @@ import './plugins/other/copy.js'
 
 
 new Beautify({
-  paths: {
-    src: paths.dest.root + '*.html',
-    dest: paths.dest.root,
-  },
+  associations: 'html',
+  workingDirectory: paths.dest.root,
   options: {
     indent_size: 2,
     max_preserve_newlines: 1,
   },
-  beautifyPlugin: 'html',
+  beautifyPluginSlug: 'html',
   reLaunchOn: ['change'],
 })
 
 new Beautify({
-  paths: {
-    src: paths.dest.styles + '*.css',
-    dest: paths.dest.styles,
-  },
+  associations: 'css',
+  ignore: paths.dest.assets + '**',
+  workingDirectory: paths.dest.root,
   options: {
     indent_size: 2,
   },
-  beautifyPlugin: 'css',
-  reLaunchOn: ['change'],
-})
-
-new Beautify({
-  paths: {
-    src: paths.dest.scripts + '**/*.css',
-    dest: paths.dest.scripts,
-  },
-  options: {
-    indent_size: 2,
-  },
-  beautifyPlugin: 'css',
+  beautifyPluginSlug: 'css',
   reLaunchOn: ['change'],
 })
 
 new Sharp({
-  paths: {
-    src: paths.src.images + '**/*.{gif,webp,avif,png,jpg,jpeg,svg}',
-    dest: paths.dest.images,
-  },
-  options: {
+  associations: '{gif,webp,avif,png,jpg,jpeg,svg}',
+  ignore: paths.src.assets + '**',
+  params: {
     sharpOptions: {},
-    logLevel: 'small',
 
     png: {
       quality: 90,
@@ -97,18 +79,15 @@ new Sharp({
 })
 
 new Ttf2Woff2({
-  paths: {
-    src: paths.src.fontsFolder + '*.{otf,ttf}',
-    dest: paths.dest.fonts,
-  },
+  associations: '{otf,ttf}',
+  ignore: paths.src.assets + '**',
   reLaunchOn: ['add'],
 })
 
 new Esbuild({
-  paths: {
-    src: paths.src.scripts + '**/*.{js,ts}',
-  },
-  options: {
+  associations: '{js,ts}',
+  ignore: paths.src.assets + '**',
+  params: {
     target: 'es2022',
     bundle: false,
     outdir: paths.dest.scripts,
@@ -120,10 +99,8 @@ new Esbuild({
 })
 
 const posthtmlConfig = new PostHtml({
-  paths: {
-    src: paths.src.root + '*.html',
-    dest: paths.dest.root,
-  },
+  associations: 'html',
+  ignore: [paths.src.assets + '**', paths.src.htmlComponents + '**'],
   plugins: [
     component({
       root: paths.src.root,
@@ -138,19 +115,8 @@ const posthtmlConfig = new PostHtml({
 })
 
 new PostCss({
-  paths: {
-    src: paths.src.styles + '*.pcss',
-    dest: paths.dest.styles,
-  },
-  plugins: plugins,
-  outputExtname: 'css',
-  reLaunchOn: ['change'],
-})
-new PostCss({
-  paths: {
-    src: paths.src.scripts + '**/*.pcss',
-    dest: paths.dest.scripts,
-  },
+  associations: 'pcss',
+  ignore: paths.src.assets + '**',
   plugins: plugins,
   outputExtname: 'css',
   reLaunchOn: ['change'],

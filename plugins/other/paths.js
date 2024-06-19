@@ -14,6 +14,7 @@ export default {
   },
   src: {
     root: sources,
+    htmlComponents: sources + 'components/',
     styles: sources + 'styles/',
     scripts: sources + 'scripts/',
     images: sources + 'images/',

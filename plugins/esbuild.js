@@ -11,18 +11,19 @@ export class Esbuild extends Plugin {
   #options
   cache
 
-  constructor({ paths, options }) {
-    super({ srcPath: paths.src, })
+  constructor(options) {
+    super({
+      associations: options.associations,
+      workingDirectory: options.workingDirectory,
+      ignore: options.ignore,
+    })
 
-    this.#watchMode = options.watchMode ?? false
-    delete options.watchMode
+    this.#watchMode = options.params.watchMode ?? false
+    delete options.params.watchMode
 
-    this.#options = options
+    this.#options = options.params
 
     this.cache = new FlatCache({
-      paths: {
-        src: this.srcPath,
-      },
       id: this.constructor.name,
       cacheFolderPath: this.paths.cache + this.constructor.name + '/'
     })
@@ -30,7 +31,7 @@ export class Esbuild extends Plugin {
     this.runProcess()
   }
 
-  async runProcess(paths = this.srcPath) {
+  async runProcess(paths = this.files()) {
     paths = this.cache.getChangedFiles(paths)
 
     let normalizedPaths = this.normalizeInputPaths(paths)

@@ -7,20 +7,20 @@ export class PostCss extends Plugin {
   #postcssItem
   #outputExtname
 
-  constructor({ paths, plugins, outputExtname, reLaunchOn }) {
-    super({ srcPath: paths.src, destPath: paths.dest, })
+  constructor(options) {
+    super({
+      associations: options.associations,
+      workingDirectory: options.workingDirectory,
+    })
 
-    this.#plugins = plugins
-    this.#outputExtname = outputExtname
+    this.#plugins = options.plugins
+    this.#outputExtname = options.outputExtname
 
     this.#postcssItem = postcss(this.#plugins)
 
-    reLaunchOn && this.startWatching(reLaunchOn)
+    options.reLaunchOn && this.startWatching(options.reLaunchOn)
 
     this.cache = new FlatCache({
-      paths: {
-        src: this.srcPath,
-      },
       id: this.constructor.name,
       cacheFolderPath: this.paths.cache + this.constructor.name + '/'
     })
@@ -28,7 +28,7 @@ export class PostCss extends Plugin {
     this.runProcess()
   }
 
-  async runProcess(paths = this.srcPath) {
+  async runProcess(paths = this.files()) {
     paths = this.cache.getChangedFiles(paths)
 
     let normalizedPaths = this.normalizeInputPaths(paths)

@@ -14,7 +14,17 @@ export class Plugin {
   static performanceEndValue
   emitter
 
-  constructor({ srcPath, destPath }) {
+  constructor({ associations, workingDirectory, ignore }) {
+    this.glob = (workingDirectory ?? paths.src.root) + '**/*.' + associations
+    this.globOptions = {
+      ignore: ignore,
+      dotRelative: true,
+    }
+
+    this.files = () => this.#unmaskPathsAndTransformToArray(this.glob)
+
+    this.destPath = paths.dest.root
+
     this.path = path
     // paths of user 
     this.paths = paths
@@ -28,9 +38,7 @@ export class Plugin {
     this.chalk = chalk
     this.chokidar = chokidar
 
-    this.srcPath = srcPath
-    this.destPath = destPath
-    this.cwd = path.normalize(this.globParent(srcPath))
+    this.cwd = path.normalize(this.globParent(workingDirectory ?? paths.src.root))
 
     this.processedBuffer = []
 
@@ -67,9 +75,7 @@ export class Plugin {
 
   #unmaskPathsAndTransformToArray(paths) {
     if (this.hasMagic(paths)) {
-      paths = this.globSync(paths, {
-        dotRelative: true,
-      })
+      paths = this.globSync(paths, this.globOptions)
     }
 
     if (!Array.isArray(paths))
@@ -167,20 +173,17 @@ export class Plugin {
 
   getDistPathForFile(filePath, newFileExt) {
     let parsedPath = this.path.parse(filePath)
+    let newFileBase = newFileExt ? parsedPath.name + `.${newFileExt}` : parsedPath.base
 
-    if (newFileExt) {
-      return path.resolve(
-        `${this.destPath}/${parsedPath.dir.replace(this.cwd, '')}/${parsedPath.name}.${newFileExt}`
-      )
-    }
+    let newPath = this.destPath +
+      parsedPath.dir.replace(this.cwd, '') + '/' +
+      newFileBase
 
-    return path.resolve(
-      `${this.destPath}/${parsedPath.dir.replace(this.cwd, '')}/${parsedPath.base}`
-    )
+    return path.normalize(newPath)
   }
 
   startWatching(runEvents) {
-    this.watcher = this.chokidar.watch(this.srcPath, { ignoreInitial: true })
+    this.watcher = this.chokidar.watch(this.glob, { ignoreInitial: true })
 
     for (let runEvent of runEvents) {
       this.watcher.on(runEvent, this.runProcess.bind(this))

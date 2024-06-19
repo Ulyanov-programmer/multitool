@@ -6,15 +6,15 @@ export class FlatCache extends Plugin {
   #id
   #cacheFolderPath
 
-  constructor({ paths, cacheFolderPath, id }) {
-    super({ srcPath: paths.src })
+  constructor({ cacheFolderPath, id }) {
+    super({})
 
     this.#id = id
     this.#cacheFolderPath = cacheFolderPath
     this.#cache = flatCache.load(this.#id, this.#cacheFolderPath)
   }
 
-  getChangedFiles(paths = this.srcPath) {
+  getChangedFiles(paths = this.files) {
     let normalizedPaths = this.normalizeInputPaths(paths)
     if (!normalizedPaths) return []
 

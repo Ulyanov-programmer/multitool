@@ -22,30 +22,27 @@ export class Sharp extends Plugin {
     limitInputPixels: false,
   }
   #options
-  #logLevel
   #sharpOptions
   cache
 
-  constructor({ paths, options, reLaunchOn }) {
-    super({ srcPath: paths.src, destPath: paths.dest })
-
-    this.#logLevel = options.logLevel ?? 'small'
-    delete options.logLevel
+  constructor(options) {
+    super({
+      associations: options.associations,
+      workingDirectory: options.workingDirectory,
+      ignore: options.ignore,
+    })
 
     this.#sharpOptions = Object.assign(
       this.#DEFAULT_SHARP_OPTIONS,
-      options.sharpOptions ?? {}
+      options.params.sharpOptions ?? {}
     )
-    delete options.sharpOptions
+    delete options.params.sharpOptions
 
-    this.#options = this.#parseOptionObject(options)
+    this.#options = this.#parseOptionObject(options.params)
 
-    reLaunchOn && this.startWatching(reLaunchOn)
+    options.reLaunchOn && this.startWatching(options.reLaunchOn)
 
     this.cache = new FlatCache({
-      paths: {
-        src: this.srcPath,
-      },
       id: this.constructor.name,
       cacheFolderPath: this.paths.cache + this.constructor.name + '/'
     })
@@ -53,7 +50,7 @@ export class Sharp extends Plugin {
     this.runProcess()
   }
 
-  async runProcess(paths = this.srcPath) {
+  async runProcess(paths = this.files()) {
     paths = this.cache.getChangedFiles(paths)
 
     let normalizedPaths = this.normalizeInputPaths(paths)
@@ -143,8 +140,8 @@ export class Sharp extends Plugin {
     return options
   }
 
-  #copyWithLog(pathToFile, fileBase) {
-    this.fs.copySync(pathToFile, this.getDistPathForFile(fileBase))
+  #copyWithLog(pathToFile) {
+    this.fs.copySync(pathToFile, this.getDistPathForFile(pathToFile))
 
     this.emitter.emit('processedFile', {
       pathToFile: pathToFile,

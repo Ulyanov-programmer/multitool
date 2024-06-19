@@ -6,17 +6,18 @@ export class PostHtml extends Plugin {
   #pluginsArray
   cache
 
-  constructor({ paths, plugins, reLaunchOn }) {
-    super({ srcPath: paths.src, destPath: paths.dest, })
+  constructor(options) {
+    super({
+      associations: options.associations,
+      workingDirectory: options.workingDirectory,
+      ignore: options.ignore,
+    })
 
-    this.#pluginsArray = plugins
+    this.#pluginsArray = options.plugins
 
-    reLaunchOn && this.startWatching(reLaunchOn)
+    options.reLaunchOn && this.startWatching(options.reLaunchOn)
 
     this.cache = new FlatCache({
-      paths: {
-        src: this.srcPath,
-      },
       id: this.constructor.name,
       cacheFolderPath: this.paths.cache + this.constructor.name + '/'
     })
@@ -24,7 +25,7 @@ export class PostHtml extends Plugin {
     this.runProcess()
   }
 
-  async runProcess(paths = this.srcPath) {
+  async runProcess(paths = this.files()) {
     paths = this.cache.getChangedFiles(paths)
 
     let normalizedPaths = this.normalizeInputPaths(paths)

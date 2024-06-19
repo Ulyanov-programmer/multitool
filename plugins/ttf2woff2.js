@@ -5,15 +5,16 @@ import { FlatCache } from './flatCache.js'
 export class Ttf2Woff2 extends Plugin {
   cache
 
-  constructor({ paths, reLaunchOn }) {
-    super({ srcPath: paths.src, destPath: paths.dest, })
+  constructor(options) {
+    super({
+      associations: options.associations,
+      workingDirectory: options.workingDirectory,
+      ignore: options.ignore,
+    })
 
-    reLaunchOn && this.startWatching(reLaunchOn)
+    options.reLaunchOn && this.startWatching(options.reLaunchOn)
 
     this.cache = new FlatCache({
-      paths: {
-        src: this.srcPath,
-      },
       id: this.constructor.name,
       cacheFolderPath: this.paths.cache + this.constructor.name + '/'
     })
@@ -21,7 +22,7 @@ export class Ttf2Woff2 extends Plugin {
     this.runProcess()
   }
 
-  async runProcess(paths = this.srcPath) {
+  async runProcess(paths = this.files()) {
     paths = this.cache.getChangedFiles(paths)
 
     let normalizedPaths = this.normalizeInputPaths(paths)

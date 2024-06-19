@@ -7,24 +7,25 @@ export class Beautify extends Plugin {
   #beautifyPlugin
   cache
 
-  constructor({ paths, options, beautifyPlugin, reLaunchOn }) {
-    super({ srcPath: paths.src, destPath: paths.dest, })
+  constructor(options) {
+    super({
+      associations: options.associations,
+      workingDirectory: options.workingDirectory,
+      ignore: options.ignore,
+    })
 
-    this.#options = options
-    this.#beautifyPlugin = beautifyPlugin
+    this.#options = options.options
+    this.#beautifyPlugin = options.beautifyPluginSlug
 
-    reLaunchOn && this.startWatching(reLaunchOn)
+    options.reLaunchOn && this.startWatching(options.reLaunchOn)
 
     this.cache = new FlatCache({
-      paths: {
-        src: this.srcPath,
-      },
       id: this.constructor.name,
       cacheFolderPath: this.paths.cache + this.constructor.name + '/'
     })
   }
 
-  runProcess(paths = this.srcPath) {
+  runProcess(paths = this.files()) {
     paths = this.cache.getChangedFiles(paths)
 
     let normalizedPaths = this.normalizeInputPaths(paths)
@@ -69,7 +70,6 @@ export class Beautify extends Plugin {
       style: 'yellow'
     })
 
-    // a link to the processed file is returned 
     return this.getDistPathForFile(pathToFile)
   }
 }
