@@ -44,7 +44,6 @@ export class Sharp extends Plugin {
 
     this.cache = new FlatCache({
       id: this.constructor.name,
-      cacheFolderPath: this.paths.cache + this.constructor.name + '/'
     })
 
     this.runProcess()
@@ -61,7 +60,7 @@ export class Sharp extends Plugin {
 
     try {
       for (let pathToFile of normalizedPaths) {
-        this.processedBuffer.push(await this.#process(pathToFile))
+        await this.#process(pathToFile)
       }
     }
     catch (error) {
@@ -109,9 +108,6 @@ export class Sharp extends Plugin {
         extension: outputExtname,
       })
     }
-
-
-    return this.getDistPathForFile(parsedPath.base)
   }
 
   #parseOptionObject(options) {

@@ -21,7 +21,6 @@ export class Beautify extends Plugin {
 
     this.cache = new FlatCache({
       id: this.constructor.name,
-      cacheFolderPath: this.paths.cache + this.constructor.name + '/'
     })
   }
 
@@ -36,7 +35,7 @@ export class Beautify extends Plugin {
 
     try {
       for (let pathToFile of normalizedPaths) {
-        this.processedBuffer.push(this.#process(pathToFile))
+        this.#process(pathToFile)
       }
     }
     catch (error) {
@@ -69,7 +68,5 @@ export class Beautify extends Plugin {
       pathToFile: pathToFile,
       style: 'yellow'
     })
-
-    return this.getDistPathForFile(pathToFile)
   }
 }

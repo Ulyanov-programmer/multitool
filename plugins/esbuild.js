@@ -25,7 +25,6 @@ export class Esbuild extends Plugin {
 
     this.cache = new FlatCache({
       id: this.constructor.name,
-      cacheFolderPath: this.paths.cache + this.constructor.name + '/'
     })
 
     this.runProcess()

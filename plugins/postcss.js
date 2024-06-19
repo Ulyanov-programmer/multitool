@@ -22,7 +22,6 @@ export class PostCss extends Plugin {
 
     this.cache = new FlatCache({
       id: this.constructor.name,
-      cacheFolderPath: this.paths.cache + this.constructor.name + '/'
     })
 
     this.runProcess()
@@ -39,7 +38,7 @@ export class PostCss extends Plugin {
 
     try {
       for (let pathToFile of normalizedPaths) {
-        this.processedBuffer.push(await this.#process(pathToFile))
+        await this.#process(pathToFile)
       }
     }
     catch (error) {
@@ -71,7 +70,5 @@ export class PostCss extends Plugin {
       pathToFile: pathToFile,
       style: 'green'
     })
-
-    return destFilePath
   }
 }

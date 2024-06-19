@@ -44,6 +44,7 @@ export class Plugin {
 
     this.emitter.on('processedFile', this.processedLog.bind(this))
     this.emitter.on('processedFile', this.saveToCache.bind(this))
+    this.emitter.on('processedFile', this.updateTaskBufferForProcessedFiles.bind(this))
 
     this.emitter.on('processStart', this.performanceTimerStart.bind(this))
     this.emitter.on('processStart', this.taskRunLog.bind(this))
@@ -194,5 +195,8 @@ export class Plugin {
     if (this.cache) {
       this.cache.setCache(pathToFile)
     }
+  }
+  updateTaskBufferForProcessedFiles({ pathToFile }) {
+    this.processedBuffer.push(this.getDistPathForFile(pathToFile))
   }
 }

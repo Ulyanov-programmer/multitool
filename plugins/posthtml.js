@@ -19,7 +19,6 @@ export class PostHtml extends Plugin {
 
     this.cache = new FlatCache({
       id: this.constructor.name,
-      cacheFolderPath: this.paths.cache + this.constructor.name + '/'
     })
 
     this.runProcess()
@@ -36,7 +35,7 @@ export class PostHtml extends Plugin {
 
     try {
       for (let pathToFile of normalizedPaths) {
-        this.processedBuffer.push(await this.#process(pathToFile))
+        await this.#process(pathToFile)
       }
     }
     catch (error) {
@@ -62,7 +61,5 @@ export class PostHtml extends Plugin {
       pathToFile: pathToFile,
       style: 'cyan'
     })
-
-    return this.getDistPathForFile(pathToFile)
   }
 }

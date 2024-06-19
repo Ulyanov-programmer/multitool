@@ -16,7 +16,6 @@ export class Ttf2Woff2 extends Plugin {
 
     this.cache = new FlatCache({
       id: this.constructor.name,
-      cacheFolderPath: this.paths.cache + this.constructor.name + '/'
     })
 
     this.runProcess()
@@ -33,7 +32,7 @@ export class Ttf2Woff2 extends Plugin {
 
     try {
       for (let pathToFile of normalizedPaths) {
-        this.processedBuffer.push(this.#process(pathToFile))
+        this.#process(pathToFile)
       }
     }
     catch (error) {
@@ -59,8 +58,5 @@ export class Ttf2Woff2 extends Plugin {
       pathToFile: pathToFile,
       style: 'blue'
     })
-
-    // a link to the processed file is returned 
-    return this.getDistPathForFile(pathToFile)
   }
 }

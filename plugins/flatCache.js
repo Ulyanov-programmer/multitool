@@ -11,7 +11,7 @@ export class FlatCache extends Plugin {
 
     this.#id = id
     this.#cacheFolderPath = cacheFolderPath
-    this.#cache = flatCache.load(this.#id, this.#cacheFolderPath)
+    this.#cache = flatCache.load(this.#id, this.#cacheFolderPath ?? this.paths.cache)
   }
 
   getChangedFiles(paths = this.files) {
