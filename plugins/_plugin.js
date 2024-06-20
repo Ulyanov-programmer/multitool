@@ -6,7 +6,7 @@ import chalk from 'chalk'
 import chokidar from 'chokidar'
 import { performance } from 'perf_hooks'
 import { EventEmitter } from 'node:events'
-import paths from './other/paths.js'
+import { paths } from '../paths.js'
 
 export class Plugin {
   static ENCODING = 'utf8'
@@ -15,7 +15,7 @@ export class Plugin {
   emitter
 
   constructor({ associations, workingDirectory, ignore }) {
-    this.glob = (workingDirectory ?? paths.src.root) + '**/*.' + associations
+    this.glob = (workingDirectory ?? paths.sources.root) + '**/*.' + associations
     this.globOptions = {
       ignore: ignore,
       dotRelative: true,
@@ -23,7 +23,7 @@ export class Plugin {
 
     this.files = () => this.#unmaskPathsAndTransformToArray(this.glob)
 
-    this.destPath = paths.dest.root
+    this.outputPath = paths.output.root
 
     this.path = path
     // paths of user 
@@ -38,7 +38,7 @@ export class Plugin {
     this.chalk = chalk
     this.chokidar = chokidar
 
-    this.cwd = path.normalize(this.globParent(workingDirectory ?? paths.src.root))
+    this.cwd = path.normalize(this.globParent(workingDirectory ?? paths.sources.root))
 
     this.processedBuffer = []
 
@@ -176,7 +176,7 @@ export class Plugin {
     let parsedPath = this.path.parse(filePath)
     let newFileBase = newFileExt ? parsedPath.name + `.${newFileExt}` : parsedPath.base
 
-    let newPath = this.destPath +
+    let newPath = this.outputPath +
       parsedPath.dir.replace(this.cwd, '') + '/' +
       newFileBase
 

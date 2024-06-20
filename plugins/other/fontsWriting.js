@@ -2,15 +2,15 @@ import fs from 'fs-extra'
 import { kebabCase } from 'case-anything'
 import chalk from 'chalk'
 import { parseNumericWeightFromName, parseStyleFromName } from 'parse-font-name'
-import paths from './paths.js'
+import { paths } from '../../paths.js'
 
 
 function fontsWriting() {
   // Checking the fonts style file is full.
-  if (fs.readFileSync(paths.src.fontsFilePath).toString().replace(/\s/g, '').length > 0)
+  if (fs.readFileSync(paths.sources.fontsFilePath).toString().replace(/\s/g, '').length > 0)
     return
 
-  if (!filesIsCorrect(fs.readdirSync(paths.src.fontsFolder))) {
+  if (!filesIsCorrect(fs.readdirSync(paths.sources.fontsFolder))) {
     console.log(chalk.green('No one font was found!'))
     return
   }
@@ -23,7 +23,7 @@ function fontsWriting() {
   let fonts = []
   let currentFontName
 
-  for (let fileName of fs.readdirSync(paths.src.fontsFolder)) {
+  for (let fileName of fs.readdirSync(paths.sources.fontsFolder)) {
     if (fileName == '.gitkeep') continue
 
     let
@@ -80,7 +80,7 @@ function setupFontFaceRule({ type, fontName, fileNameNoExt, weight, style }) {
 }
 `
 
-  fs.appendFileSync(paths.src.fontsFilePath, fontFaceRule)
+  fs.appendFileSync(paths.sources.fontsFilePath, fontFaceRule)
 }
 
 function declareFontVariablesAndModifiers(fonts) {
@@ -121,7 +121,7 @@ function declareFontVariablesAndModifiers(fonts) {
 }\n`
 
 
-  fs.appendFileSync(paths.src.fontsFilePath,
+  fs.appendFileSync(paths.sources.fontsFilePath,
     variablesInRoot + modifiers
   )
 }

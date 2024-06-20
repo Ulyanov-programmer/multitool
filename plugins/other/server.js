@@ -1,5 +1,5 @@
 import browserSync from 'browser-sync'
-import paths from './paths.js'
+import { paths } from '../../paths.js'
 
 function server() {
   browserSync.exit()
@@ -8,7 +8,7 @@ function server() {
 
   server.init({
     server: {
-      baseDir: paths.dest.root,
+      baseDir: paths.output.root,
     },
     port: 1243,
     notify: false,

@@ -1,5 +1,5 @@
 import chokidar from 'chokidar'
-import paths from './plugins/other/paths.js'
+import { paths } from './paths.js'
 
 import { Sharp } from './plugins/sharp.js'
 import { Ttf2Woff2 } from './plugins/ttf2woff2.js'
@@ -16,11 +16,12 @@ import imgAutosize from 'posthtml-img-autosize'
 import { isDeleteDistBeforeLaunch, isProductionMode }
   from './plugins/other/environment.js'
 
-// import './grunt/other/server.js'
+import './plugins/other/server.js'
 import './plugins/other/fontsWriting.js' // Parsing fonts into the style file
 
 
 
+// Delete the dict folder and clear the cache if the --update-dist flag is set.
 if (isDeleteDistBeforeLaunch) {
   await import('./plugins/other/deleteDist.js')
   await import('./plugins/other/cleanCache.js')
@@ -31,7 +32,7 @@ import './plugins/other/copy.js'
 
 new Beautify({
   associations: 'html',
-  workingDirectory: paths.dest.root,
+  workingDirectory: paths.output.root,
   options: {
     indent_size: 2,
     max_preserve_newlines: 1,
@@ -42,8 +43,8 @@ new Beautify({
 
 new Beautify({
   associations: 'css',
-  ignore: paths.dest.assets + '**',
-  workingDirectory: paths.dest.root,
+  ignore: paths.output.assets + '**',
+  workingDirectory: paths.output.root,
   options: {
     indent_size: 2,
   },
@@ -53,7 +54,7 @@ new Beautify({
 
 new Sharp({
   associations: '{gif,webp,avif,png,jpg,jpeg,svg}',
-  ignore: paths.src.assets + '**',
+  ignore: paths.sources.assets + '**',
   params: {
     sharpOptions: {},
 
@@ -75,24 +76,24 @@ new Sharp({
     webp: {},
     avif: {},
   },
-  reLaunchOn: ['add'],
+  reLaunchOn: ['add', 'changed'],
 })
 
 new Ttf2Woff2({
   associations: '{otf,ttf}',
-  ignore: paths.src.assets + '**',
+  ignore: paths.sources.assets + '**',
   reLaunchOn: ['add'],
 })
 
 new Esbuild({
   associations: '{js,ts}',
-  ignore: paths.src.assets + '**',
+  ignore: paths.sources.assets + '**',
   params: {
     target: 'es2022',
     bundle: false,
-    outdir: paths.dest.scripts,
+    outdir: paths.output.scripts,
     //? Necessary if the task works with only one file.
-    outbase: paths.src.scripts,
+    outbase: paths.sources.scripts,
     watchMode: true,
     minify: isProductionMode,
   },
@@ -100,14 +101,14 @@ new Esbuild({
 
 const posthtmlConfig = new PostHtml({
   associations: 'html',
-  ignore: [paths.src.assets + '**', paths.src.htmlComponents + '**'],
+  ignore: [paths.sources.assets + '**', paths.sources.htmlComponents + '**'],
   plugins: [
     component({
-      root: paths.src.root,
+      root: paths.sources.root,
       folders: ['components'],
     }),
     imgAutosize({
-      root: paths.dest.root,
+      root: paths.output.root,
       processEmptySize: true,
     }),
   ],
@@ -116,7 +117,7 @@ const posthtmlConfig = new PostHtml({
 
 new PostCss({
   associations: 'pcss',
-  ignore: paths.src.assets + '**',
+  ignore: paths.sources.assets + '**',
   plugins: plugins,
   outputExtname: 'css',
   reLaunchOn: ['change'],
@@ -124,5 +125,5 @@ new PostCss({
 
 
 
-chokidar.watch(paths.src.root + 'components/*.html')
+chokidar.watch(paths.sources.root + 'components/*.html')
   .on('change', () => posthtmlConfig.runProcess())
