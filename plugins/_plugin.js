@@ -184,11 +184,20 @@ export class Plugin {
   }
 
   startWatching(runEvents) {
-    this.watcher = this.chokidar.watch(this.glob, { ignoreInitial: true })
+    this.watcher = this.chokidar.watch(this.glob, {
+      ignoreInitial: true,
+      ignored: this.globOptions.ignore,
+    })
 
     for (let runEvent of runEvents) {
       this.watcher.on(runEvent, this.runProcess.bind(this))
     }
+  }
+  startWatchingForThirdPartyFile(runEvent, triggerFilesPath) {
+    let localChokidar = this.chokidar.watch(triggerFilesPath, { ignoreInitial: true, })
+
+    // running the task in such a way that it processes all the files it is associated with
+    localChokidar.on(runEvent, () => this.runProcess(this.glob, null, true,))
   }
 
   saveToCache({ pathToFile }) {

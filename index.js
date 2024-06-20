@@ -1,4 +1,3 @@
-import chokidar from 'chokidar'
 import { paths } from './paths.js'
 
 import { Sharp } from './plugins/sharp.js'
@@ -99,7 +98,7 @@ new Esbuild({
   },
 })
 
-const posthtmlConfig = new PostHtml({
+new PostHtml({
   associations: 'html',
   ignore: [paths.sources.assets + '**', paths.sources.htmlComponents + '**'],
   plugins: [
@@ -113,6 +112,9 @@ const posthtmlConfig = new PostHtml({
     }),
   ],
   reLaunchOn: ['change'],
+  reLaunchForAllFilesOn: {
+    'change': paths.sources.htmlComponents + '*.html',
+  },
 })
 
 new PostCss({
@@ -122,8 +124,3 @@ new PostCss({
   outputExtname: 'css',
   reLaunchOn: ['change'],
 })
-
-
-
-chokidar.watch(paths.sources.root + 'components/*.html')
-  .on('change', () => posthtmlConfig.runProcess())

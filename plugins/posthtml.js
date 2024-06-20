@@ -17,6 +17,12 @@ export class PostHtml extends Plugin {
 
     options.reLaunchOn && this.startWatching(options.reLaunchOn)
 
+    if (options.reLaunchForAllFilesOn) {
+      for (let [changeTrigger, pathToFiles] of Object.entries(options.reLaunchForAllFilesOn)) {
+        this.startWatchingForThirdPartyFile(changeTrigger, pathToFiles)
+      }
+    }
+
     this.cache = new FlatCache({
       id: this.constructor.name,
     })
@@ -24,8 +30,10 @@ export class PostHtml extends Plugin {
     this.runProcess()
   }
 
-  async runProcess(paths = this.files()) {
-    paths = this.cache.getChangedFiles(paths)
+  async runProcess(paths = this.files(), stats, ignoreCache = false) {
+    if (!ignoreCache) {
+      paths = this.cache.getChangedFiles(paths)
+    }
 
     let normalizedPaths = this.normalizeInputPaths(paths)
     if (!normalizedPaths) return
