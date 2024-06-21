@@ -10,6 +10,7 @@ export class Ttf2Woff2 extends Plugin {
       associations: options.associations,
       workingDirectory: options.workingDirectory,
       ignore: options.ignore,
+      logColor: '#2986cc',
     })
 
     options.reLaunchOn && this.startWatching(options.reLaunchOn)
@@ -24,7 +25,7 @@ export class Ttf2Woff2 extends Plugin {
   async runProcess(paths = this.files()) {
     paths = this.cache.getChangedFiles(paths)
 
-    let normalizedPaths = this.normalizeInputPaths(paths)
+    let normalizedPaths = this.unGlobAndNormalizePaths(paths)
     if (!normalizedPaths) return
 
 
@@ -56,7 +57,6 @@ export class Ttf2Woff2 extends Plugin {
 
     this.emitter.emit('processedFile', {
       pathToFile: pathToFile,
-      style: 'blue'
     })
   }
 }

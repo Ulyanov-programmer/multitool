@@ -11,6 +11,7 @@ export class PostCss extends Plugin {
     super({
       associations: options.associations,
       workingDirectory: options.workingDirectory,
+      logColor: '#8e7cc3',
     })
 
     this.#plugins = options.plugins
@@ -30,7 +31,7 @@ export class PostCss extends Plugin {
   async runProcess(paths = this.files()) {
     paths = this.cache.getChangedFiles(paths)
 
-    let normalizedPaths = this.normalizeInputPaths(paths)
+    let normalizedPaths = this.unGlobAndNormalizePaths(paths)
     if (!normalizedPaths) return
 
 
@@ -68,7 +69,6 @@ export class PostCss extends Plugin {
 
     this.emitter.emit('processedFile', {
       pathToFile: pathToFile,
-      style: 'green'
     })
   }
 }

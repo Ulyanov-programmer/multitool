@@ -14,7 +14,7 @@ export class Plugin {
   static performanceEndValue
   emitter
 
-  constructor({ associations, workingDirectory, ignore }) {
+  constructor({ associations, workingDirectory, ignore, logColor }) {
     this.glob = (workingDirectory ?? paths.sources.root) + '**/*.' + associations
     this.globOptions = {
       ignore: ignore,
@@ -41,6 +41,12 @@ export class Plugin {
     this.cwd = path.normalize(this.globParent(workingDirectory ?? paths.sources.root))
 
     this.processedBuffer = []
+    this.logColor = logColor ?? '#FFF'
+    // locks like `[child_plugin_name]`
+    this.pluginStringInLog =
+      chalk.grey('[') +
+      chalk.hex(this.logColor).bold(this.constructor.name) +
+      chalk.grey('] ')
 
     this.emitter.on('processedFile', this.processedLog.bind(this))
     this.emitter.on('processedFile', this.saveToCache.bind(this))
@@ -51,7 +57,7 @@ export class Plugin {
     this.emitter.on('processEnd', this.performanceTimerEnd.bind(this))
   }
 
-  normalizeInputPaths(paths) {
+  unGlobAndNormalizePaths(paths) {
     if (!this.#checkPath(paths))
       return false
 
@@ -91,57 +97,37 @@ export class Plugin {
     }
   }
 
-  processedLog({ pathToFile, style, extension }) {
+  processedLog({ pathToFile, extension }) {
     if (!pathToFile) {
-      // locks like `[child_plugin_name] was completed`
-      console.log(
-        chalk.grey('[') +
-        this.constructor.name +
-        chalk.grey(']') +
-        ` was [completed]`
-      )
+      // locks like `[child_plugin_name] was -- completed --`
+      console.log(this.pluginStringInLog + ` was -- completed --`)
+
+      return
     }
-    else {
-      // locks like `[child_plugin_name] X was processed`
-      if (!extension) {
-        console.log(
-          chalk.grey('[') +
-          this.constructor.name +
-          chalk.grey('] ') +
-          chalk[style](pathToFile) +
-          ` was processed`
-        )
 
-        return
-      }
+    // locks like `[child_plugin_name] X was processed`
+    if (!extension) {
+      console.log(this.pluginStringInLog + chalk.underline(pathToFile) + ` was processed`)
 
-      let fileName = path.parse(pathToFile).name
-
-      console.log(
-        chalk.grey('[') +
-        this.constructor.name +
-        chalk.grey('] ') +
-        chalk[style](fileName + '.' + extension) +
-        ` was processed`
-      )
+      return
     }
+
+    // locks like `[child_plugin_name] X was processed to .extName`
+    console.log(
+      this.pluginStringInLog +
+      chalk.underline(pathToFile) +
+      ` was processed to .${chalk.underline(extension)}`
+    )
   }
   taskRunLog() {
-    // locks like `[plugin_name] starts!`
-    console.log(
-      chalk.grey('[') +
-      this.constructor.name +
-      chalk.grey('] ') +
-      chalk.grey('-- ') +
-      `starts` +
-      chalk.grey(' --')
-    )
+    // locks like `[plugin_name] -- starts --`
+    console.log(this.pluginStringInLog + chalk.grey('--') + ` starts ` + chalk.grey('--'))
   }
   errorLog(error) {
     // locks like `[child_plugin_name] throw an error!`
     console.log(
       chalk.red('[') +
-      this.constructor.name +
+      chalk.hex(this.logColor).bold(this.constructor.name) +
       chalk.red('] ') +
       chalk.red('throw an error!\n') +
       chalk.red(error)
@@ -155,16 +141,14 @@ export class Plugin {
     Plugin.performanceEndValue = this.performance.now()
 
     console.log(
-      chalk.gray('[') +
-      this.constructor.name +
-      chalk.gray('] ') +
-      chalk.gray('-- ') +
-      'Done in ' +
+      this.pluginStringInLog +
+      chalk.gray('--') + ' Done in ' +
 
-      Math.trunc(Plugin.performanceEndValue - Plugin.performanceStartValue) / 1000 +
+      Math.trunc(
+        Plugin.performanceEndValue - Plugin.performanceStartValue
+      ) / 1000 +
 
-      's' +
-      chalk.gray(' --')
+      's ' + chalk.gray('--')
     )
   }
 

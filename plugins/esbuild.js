@@ -16,6 +16,7 @@ export class Esbuild extends Plugin {
       associations: options.associations,
       workingDirectory: options.workingDirectory,
       ignore: options.ignore,
+      logColor: '#f1c232',
     })
 
     this.#watchMode = options.params.watchMode ?? false
@@ -33,7 +34,7 @@ export class Esbuild extends Plugin {
   async runProcess(paths = this.files()) {
     paths = this.cache.getChangedFiles(paths)
 
-    let normalizedPaths = this.normalizeInputPaths(paths)
+    let normalizedPaths = this.unGlobAndNormalizePaths(paths)
     if (!normalizedPaths) return
 
 

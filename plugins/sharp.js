@@ -30,6 +30,7 @@ export class Sharp extends Plugin {
       associations: options.associations,
       workingDirectory: options.workingDirectory,
       ignore: options.ignore,
+      logColor: '#f44336',
     })
 
     this.#sharpOptions = Object.assign(
@@ -52,7 +53,7 @@ export class Sharp extends Plugin {
   async runProcess(paths = this.files()) {
     paths = this.cache.getChangedFiles(paths)
 
-    let normalizedPaths = this.normalizeInputPaths(paths)
+    let normalizedPaths = this.unGlobAndNormalizePaths(paths)
     if (!normalizedPaths) return
 
 
@@ -104,7 +105,6 @@ export class Sharp extends Plugin {
 
       this.emitter.emit('processedFile', {
         pathToFile: pathToFile,
-        style: 'magenta',
         extension: outputExtname,
       })
     }
@@ -141,7 +141,6 @@ export class Sharp extends Plugin {
 
     this.emitter.emit('processedFile', {
       pathToFile: pathToFile,
-      style: 'red',
       extension: this.path.extname(pathToFile).replace('.', ''),
     })
   }

@@ -12,6 +12,7 @@ export class Beautify extends Plugin {
       associations: options.associations,
       workingDirectory: options.workingDirectory,
       ignore: options.ignore,
+      logColor: '#e69138',
     })
 
     this.#options = options.options
@@ -27,7 +28,7 @@ export class Beautify extends Plugin {
   runProcess(paths = this.files()) {
     paths = this.cache.getChangedFiles(paths)
 
-    let normalizedPaths = this.normalizeInputPaths(paths)
+    let normalizedPaths = this.unGlobAndNormalizePaths(paths)
     if (!normalizedPaths) return
 
 
@@ -66,7 +67,6 @@ export class Beautify extends Plugin {
 
     this.emitter.emit('processedFile', {
       pathToFile: pathToFile,
-      style: 'yellow'
     })
   }
 }

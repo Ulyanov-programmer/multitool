@@ -11,6 +11,7 @@ export class PostHtml extends Plugin {
       associations: options.associations,
       workingDirectory: options.workingDirectory,
       ignore: options.ignore,
+      logColor: '#93c47d',
     })
 
     this.#pluginsArray = options.plugins
@@ -35,7 +36,7 @@ export class PostHtml extends Plugin {
       paths = this.cache.getChangedFiles(paths)
     }
 
-    let normalizedPaths = this.normalizeInputPaths(paths)
+    let normalizedPaths = this.unGlobAndNormalizePaths(paths)
     if (!normalizedPaths) return
 
 
@@ -67,7 +68,6 @@ export class PostHtml extends Plugin {
 
     this.emitter.emit('processedFile', {
       pathToFile: pathToFile,
-      style: 'cyan'
     })
   }
 }

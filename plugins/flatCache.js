@@ -15,7 +15,7 @@ export class FlatCache extends Plugin {
   }
 
   getChangedFiles(paths = this.files) {
-    let normalizedPaths = this.normalizeInputPaths(paths)
+    let normalizedPaths = this.unGlobAndNormalizePaths(paths)
     if (!normalizedPaths) return []
 
     let cache = this.#cache.getKey(this.#id)
