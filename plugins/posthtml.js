@@ -1,6 +1,6 @@
 import posthtml from 'posthtml'
 import { Plugin } from './_plugin.js'
-import { FlatCache } from './flatCache.js'
+import { LocalCache } from './cache.js'
 
 export class PostHtml extends Plugin {
   #pluginsArray
@@ -24,9 +24,7 @@ export class PostHtml extends Plugin {
       }
     }
 
-    this.cache = new FlatCache({
-      id: this.constructor.name,
-    })
+    this.cache = new LocalCache()
 
     this.runProcess()
   }

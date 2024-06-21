@@ -34,7 +34,6 @@ const RAW_RUNTIME_STATE =
           ["chokidar", "npm:3.6.0"],\
           ["enquirer", "npm:2.4.1"],\
           ["esbuild", "npm:0.19.8"],\
-          ["flat-cache", "npm:5.0.0"],\
           ["fs-extra", "npm:11.2.0"],\
           ["glob", "npm:10.4.1"],\
           ["glob-parent", "npm:6.0.2"],\
@@ -3095,15 +3094,6 @@ const RAW_RUNTIME_STATE =
           ["rimraf", "npm:3.0.2"]\
         ],\
         "linkType": "HARD"\
-      }],\
-      ["npm:5.0.0", {\
-        "packageLocation": "./.yarn/cache/flat-cache-npm-5.0.0-6b0bc31d4a-847f25eefe.zip/node_modules/flat-cache/",\
-        "packageDependencies": [\
-          ["flat-cache", "npm:5.0.0"],\
-          ["flatted", "npm:3.3.1"],\
-          ["keyv", "npm:4.5.4"]\
-        ],\
-        "linkType": "HARD"\
       }]\
     ]],\
     ["flatted", [\
@@ -3111,13 +3101,6 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./.yarn/cache/flatted-npm-3.2.9-0462256d3c-5c91c5a0a2.zip/node_modules/flatted/",\
         "packageDependencies": [\
           ["flatted", "npm:3.2.9"]\
-        ],\
-        "linkType": "HARD"\
-      }],\
-      ["npm:3.3.1", {\
-        "packageLocation": "./.yarn/cache/flatted-npm-3.3.1-458870f59b-324166b125.zip/node_modules/flatted/",\
-        "packageDependencies": [\
-          ["flatted", "npm:3.3.1"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -4559,7 +4542,6 @@ const RAW_RUNTIME_STATE =
           ["chokidar", "npm:3.6.0"],\
           ["enquirer", "npm:2.4.1"],\
           ["esbuild", "npm:0.19.8"],\
-          ["flat-cache", "npm:5.0.0"],\
           ["fs-extra", "npm:11.2.0"],\
           ["glob", "npm:10.4.1"],\
           ["glob-parent", "npm:6.0.2"],\

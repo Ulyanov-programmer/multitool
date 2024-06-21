@@ -1,6 +1,6 @@
 import beautify from 'js-beautify'
 import { Plugin } from './_plugin.js'
-import { FlatCache } from './flatCache.js'
+import { LocalCache } from './cache.js'
 
 export class Beautify extends Plugin {
   #options
@@ -20,9 +20,7 @@ export class Beautify extends Plugin {
 
     options.reLaunchOn && this.startWatching(options.reLaunchOn)
 
-    this.cache = new FlatCache({
-      id: this.constructor.name,
-    })
+    this.cache = new LocalCache()
   }
 
   runProcess(paths = this.files()) {

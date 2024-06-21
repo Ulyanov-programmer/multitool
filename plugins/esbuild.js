@@ -1,6 +1,6 @@
 import esbuild from 'esbuild'
 import { Plugin } from './_plugin.js'
-import { FlatCache } from './flatCache.js'
+import { LocalCache } from './cache.js'
 
 export class Esbuild extends Plugin {
   #DEFAULT_OPTIONS = {
@@ -24,9 +24,7 @@ export class Esbuild extends Plugin {
 
     this.#options = options.params
 
-    this.cache = new FlatCache({
-      id: this.constructor.name,
-    })
+    this.cache = new LocalCache()
 
     this.runProcess()
   }

@@ -1,6 +1,6 @@
 import ttf2woff2 from 'ttf2woff2'
 import { Plugin } from './_plugin.js'
-import { FlatCache } from './flatCache.js'
+import { LocalCache } from './cache.js'
 
 export class Ttf2Woff2 extends Plugin {
   cache
@@ -15,9 +15,7 @@ export class Ttf2Woff2 extends Plugin {
 
     options.reLaunchOn && this.startWatching(options.reLaunchOn)
 
-    this.cache = new FlatCache({
-      id: this.constructor.name,
-    })
+    this.cache = new LocalCache()
 
     this.runProcess()
   }

@@ -1,6 +1,6 @@
 import postcss from 'postcss'
 import { Plugin } from './_plugin.js'
-import { FlatCache } from './flatCache.js'
+import { LocalCache } from './cache.js'
 
 export class PostCss extends Plugin {
   #plugins
@@ -21,9 +21,7 @@ export class PostCss extends Plugin {
 
     options.reLaunchOn && this.startWatching(options.reLaunchOn)
 
-    this.cache = new FlatCache({
-      id: this.constructor.name,
-    })
+    this.cache = new LocalCache()
 
     this.runProcess()
   }

@@ -186,7 +186,7 @@ export class Plugin {
 
   saveToCache({ pathToFile }) {
     if (this.cache) {
-      this.cache.setCache(pathToFile)
+      this.cache.setModificationTime({ pathToFile })
     }
   }
   updateTaskBufferForProcessedFiles({ pathToFile }) {
