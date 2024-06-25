@@ -1,24 +1,25 @@
 import fs from 'fs-extra'
 import { kebabCase } from 'case-anything'
 import chalk from 'chalk'
+import path from 'path'
 import { parseNumericWeightFromName, parseStyleFromName } from 'parse-font-name'
 import { paths } from '../../paths.js'
 
 
 function fontsWriting() {
-  // Checking the fonts style file is full.
-  if (fs.readFileSync(paths.sources.fontsFilePath).toString().replace(/\s/g, '').length > 0)
+  if (isFontsStyleFileFull()) {
+    console.log(chalk.green('The font styles file is already filled in.'))
     return
+  }
 
-  if (!filesIsCorrect(fs.readdirSync(paths.sources.fontsFolder))) {
+  if (!filesIsCorrect()) {
     console.log(chalk.green('No one font was found!'))
     return
   }
 
+  writeWelcomePhrase()
 
-  console.log(chalk.green.bold(
-    `Hey, i see that you have fonts, but i haven't connected them yet. Let me help you!`
-  ))
+
 
   let fonts = []
   let currentFontName
@@ -27,26 +28,25 @@ function fontsWriting() {
     if (fileName == '.gitkeep') continue
 
     let
-      fileNameNoExt = fileName.split('.')[0],
-      fontName = fileName.split('-')[0],
+      fileNameNoExt = path.parse(fileName).name,
+      fontName = fileName.split('-').at(0),
       weight = parseNumericWeightFromName(fileName),
       style = parseStyleFromName(fileName),
       type
 
-    if (fileNameNoExt.toLocaleLowerCase().includes('variablefont')) {
+    if (
+      fileNameNoExt.toLocaleLowerCase().includes('variablefont') ||
+      fileNameNoExt.toLocaleLowerCase().includes('wght')
+    ) {
       type = 'woff2-variations'
       weight = '100 1000'
-    } else {
+    }
+    else {
       type = 'woff2'
     }
 
-    setupFontFaceRule({
-      type: type,
-      fontName: fontName,
-      fileNameNoExt: fileNameNoExt,
-      weight: weight,
-      style: style,
-    })
+    setupFontFaceRule(type, fontName, fileNameNoExt, weight, style)
+
 
     if (currentFontName != fontName) {
       currentFontName = fontName
@@ -59,28 +59,36 @@ function fontsWriting() {
     }
     else {
       let indexOfCurrentFont = fonts.findIndex(item => item.fontName == fontName)
-      fonts[indexOfCurrentFont].weights.push(weight)
-      fonts[indexOfCurrentFont].styles.push(style)
+
+      if (indexOfCurrentFont != -1) {
+        fonts[indexOfCurrentFont].weights.push(weight)
+        fonts[indexOfCurrentFont].styles.push(style)
+      }
     }
   }
 
 
   declareFontVariablesAndModifiers(fonts)
 
-  console.log(chalk.green('Fonts have been successfully written, i continue...'))
+  writeEndingPhrase()
 }
 
-function setupFontFaceRule({ type, fontName, fileNameNoExt, weight, style }) {
-  let fontFaceRule = `@font-face {
+fontsWriting()
+
+
+
+function setupFontFaceRule(type, fontName, fileNameNoExt, weight, style) {
+  fs.appendFileSync(
+    paths.sources.fontsFilePath,
+
+    `@font-face {
   font-style: ${style};
   font-weight: ${weight};
   src: url("../fonts/${fileNameNoExt}.woff2") format("${type}");
   font-family: "${fontName}";
   font-display: swap;
 }
-`
-
-  fs.appendFileSync(paths.sources.fontsFilePath, fontFaceRule)
+`)
 }
 
 function declareFontVariablesAndModifiers(fonts) {
@@ -126,8 +134,9 @@ function declareFontVariablesAndModifiers(fonts) {
   )
 }
 
-function filesIsCorrect(fileNames) {
-  fileNames = fileNames?.filter(name => name != '.gitkeep')
+function filesIsCorrect() {
+  let fileNames = fs.readdirSync(paths.sources.fontsFolder)
+    ?.filter(name => name != '.gitkeep')
 
   if (fileNames?.length <= 0)
     return false
@@ -135,6 +144,19 @@ function filesIsCorrect(fileNames) {
     return true
 }
 
+function isFontsStyleFileFull() {
+  return fs.readFileSync(paths.sources.fontsFilePath, 'utf8')
+    .replace(/\s/g, '')
+    .length > 0
+}
 
-
-fontsWriting()
+function writeWelcomePhrase() {
+  console.log(chalk.green.bold(
+    `Hey, i see that you have fonts, but i haven't connected them yet. Let me help you!`
+  ))
+}
+function writeEndingPhrase() {
+  console.log(chalk.green(
+    'Fonts have been successfully written, i continue...'
+  ))
+}
