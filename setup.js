@@ -3,51 +3,46 @@ import replace from 'replace-in-file'
 import { log } from 'console'
 import enquirer from 'enquirer'
 import chalk from 'chalk'
-import paths from './grunt/other/paths.js'
+import { paths } from './paths.js'
+
+
 
 class ModuleObject {
-  constructor(config = {}) {
-    this.moduleName = null
-    this.filesAndFolders = null
-    this.htmlConnectStrings = null
+  constructor(config) {
+    this.moduleName = config.moduleName
 
-    Object.assign(this, config)
+    this.filesAndFolders = config.filesAndFolders instanceof Array
+      ? config.filesAndFolders
+      : [config.filesAndFolders]
+
+    this.htmlConnectStrings = config.htmlConnectStrings
+  }
+
+  deleteFilesAndFolders() {
+    for (let fileOrFolder of this.filesAndFolders) {
+      fs.removeSync(fileOrFolder)
+    }
   }
 }
 class VariableTemplate {
-  constructor(config = {}) {
-    this.fields = null
-    this.message = null
-    this.template = null
-    this.snippetName = null
-    this.variableFilePath = null
-
-    Object.assign(this, config)
+  constructor(config) {
+    this.fields = config.fields
+    this.message = config.message
+    this.template = config.template
+    this.snippetName = config.snippetName
+    this.variableFilePath = config.variableFilePath
   }
 }
 
+
 const
-  distFolderName = paths.root + 'dist/',
-  snippetsFolderName = paths.root + 'snippets/',
-  readmeFolder = paths.root + 'readmeFiles/',
-  sources = paths.root + 'sources/',
-  readmeFilePath = paths.root + 'README.md',
-  stylesFolder = sources + 'styles/',
-  scriptsFolder = sources + 'scripts/',
-  assets = sources + 'assets/',
-  fontsGitkeep = sources + 'fonts/.gitkeep',
-  gruntPostcss = paths.root + 'grunt/css/postcss.js',
+  postcssFunctionsFile = paths.root + 'plugins/other/postcssFunctions.js',
   styles = {
-    folder: stylesFolder,
-    environment: stylesFolder + '_environment.pcss',
-    normalize: stylesFolder + 'normalize.pcss',
-    others: stylesFolder + 'other.pcss',
+    normalize: paths.sources.styles + 'normalize.pcss',
   },
   html = {
-    folder: sources,
-    components: sources + 'components/',
-    layout: sources + 'components/' + 'layout.html',
-    index: sources + 'index.html',
+    layout: paths.sources.htmlComponents + 'layout.html',
+    index: paths.sources.root + 'index.html',
   }
 
 
@@ -58,7 +53,7 @@ ${chalk.yellowBright('↑')} - focus up,
 ${chalk.yellowBright('↓')} - focus down,
 ${chalk.yellowBright('← →')} - choosing between elements on the same line,
 ${chalk.yellowBright('space')} - to select an option,
-${chalk.yellowBright('⭾')} - tab, to move to a next element, for example, in templates.
+${chalk.yellowBright('⭾ (tab)')} - to move to a next element, for example, in templates.
 `,
   chalk.green
 )
@@ -75,40 +70,32 @@ await includeModuleByQuestion(
 
   new ModuleObject({
     moduleName: 'Just Validate',
-    filesAndFolders: assets + 'justValidate/',
-    htmlConnectStrings: { strings: `justValidate="false"` },
+    filesAndFolders: paths.sources.assets + 'justValidate/',
   }),
   new ModuleObject({
     moduleName: 'scroll-timeline polyfill',
-    filesAndFolders: assets + 'scroll-timeline.js',
-    htmlConnectStrings: [
-      { strings: `scrollTimeline="false"` }
-    ],
+    filesAndFolders: paths.sources.assets + 'scroll-timeline.js',
   }),
   new ModuleObject({
     moduleName: `Slider Swiper ${chalk.magenta(`[MANDATORY FOR MODULE 'STEP BY STEP BLOCK']`)
       }`,
-    filesAndFolders: assets + 'swiper/',
-    htmlConnectStrings: { strings: `swiper="false"` },
+    filesAndFolders: paths.sources.assets + 'swiper/',
   }),
   new ModuleObject({
     moduleName: 'Typed',
-    filesAndFolders: assets + 'typed/',
-    htmlConnectStrings: { strings: `typed="false"` },
+    filesAndFolders: paths.sources.assets + 'typed/',
   }),
   new ModuleObject({
     moduleName: 'Input Mask',
-    filesAndFolders: assets + 'inputmask/',
+    filesAndFolders: paths.sources.assets + 'inputmask/',
   }),
   new ModuleObject({
     moduleName: 'Photo Swipe',
-    filesAndFolders: assets + 'photoswipe/',
-    htmlConnectStrings: { strings: `photoSwipe="false"` },
+    filesAndFolders: paths.sources.assets + 'photoswipe/',
   }),
   new ModuleObject({
     moduleName: 'No Ui Slider',
-    filesAndFolders: assets + 'nouislider/',
-    htmlConnectStrings: { strings: `noUiSlider="false"` },
+    filesAndFolders: paths.sources.assets + 'nouislider/',
   })
 )
 await includeModuleByQuestion(
@@ -117,69 +104,45 @@ await includeModuleByQuestion(
   new ModuleObject({
     moduleName: 'Scripts for dialog',
     filesAndFolders: [
-      scriptsFolder + 'dialogs/',
-      html.components + 'modals.html',
-    ],
-    htmlConnectStrings: [
-      { strings: `<x-modals></x-modals>`, },
-      { strings: `dialogs="false"` },
+      paths.sources.scripts + 'dialogs/',
+      paths.sources.htmlComponents + 'modals.html',
     ],
   }),
   new ModuleObject({
     moduleName: 'Tabs',
-    filesAndFolders: scriptsFolder + 'tab/',
-    htmlConnectStrings: [
-      { strings: `tabs="false"` }
-    ],
+    filesAndFolders: paths.sources.scripts + 'tab/',
   }),
   new ModuleObject({
     moduleName: 'Parallax by mouse',
-    filesAndFolders: scriptsFolder + 'mouseParallax/',
-    htmlConnectStrings: [
-      { strings: `mouseParallax="false"` }
-    ],
+    filesAndFolders: paths.sources.scripts + 'mouseParallax/',
   }),
   new ModuleObject({
     moduleName: 'AutoScrollPadding',
-    filesAndFolders: scriptsFolder + 'autoScrollPadding/',
-    htmlConnectStrings: [
-      { strings: `autoScrollPadding="false"` }
-    ],
+    filesAndFolders: paths.sources.scripts + 'autoScrollPadding/',
   }),
   new ModuleObject({
     moduleName: 'Tools for observer',
-    filesAndFolders: scriptsFolder + 'observerTools/',
-    htmlConnectStrings: [
-      { strings: `observerTools="false"` }
-    ],
+    filesAndFolders: paths.sources.scripts + 'observerTools/',
   }),
   new ModuleObject({
     moduleName: 'Horizontal scroll by mouse wheel',
-    filesAndFolders: scriptsFolder + 'horizontalMouseScroll.ts',
-    htmlConnectStrings: [
-      { strings: `horizontalMouseScroll="false"` }
-    ],
+    filesAndFolders: paths.sources.scripts + 'horizontalMouseScroll.ts',
   }),
   new ModuleObject({
     moduleName: 'Switching by swipe',
-    filesAndFolders: scriptsFolder + 'toggleBySwipe/',
-    htmlConnectStrings: [
-      { strings: `toggleBySwipe="false"` }
-    ],
+    filesAndFolders: paths.sources.scripts + 'toggleBySwipe/',
   }),
   new ModuleObject({
     moduleName: 'Step By Step block',
-    filesAndFolders: scriptsFolder + 'stepByStepBlock/',
-    htmlConnectStrings: [
-      { strings: `stepByStep="false"` }
-    ],
+    filesAndFolders: paths.sources.scripts + 'stepByStepBlock/',
   }),
   new ModuleObject({
     moduleName: 'Infinite auto-scroll',
-    filesAndFolders: scriptsFolder + 'infiniteScroll/',
-    htmlConnectStrings: [
-      { strings: `infiniteScroll="false"` }
-    ],
+    filesAndFolders: paths.sources.scripts + 'infiniteScroll/',
+  }),
+  new ModuleObject({
+    moduleName: 'Horizontal scrolling with a mouse wheel',
+    filesAndFolders: paths.sources.scripts + 'horizontalMouseScroll/',
   }),
 )
 
@@ -227,8 +190,8 @@ await setVariables(
   new VariableTemplate({
     snippetName: 'another name',
     message: chalk.cyanBright('Enter the width of the largest design layout.'
-      + `\n${chalk.yellow.underline(gruntPostcss)}`),
-    variableFilePath: gruntPostcss,
+      + `\n${chalk.yellow.underline(postcssFunctionsFile)}`),
+    variableFilePath: postcssFunctionsFile,
     fields: [
       { name: 'maxDesignLayoutWidth', initial: '1440', },
     ],
@@ -333,21 +296,10 @@ async function includeModuleByQuestion(title, ...moduleObjects) {
   for (let module of moduleObjects) {
     let confirmedModuleName = selectedModules.find(answer => answer == module.moduleName)
 
-    if (confirmedModuleName) {
-      replaceHtmlConnectionString(module.htmlConnectStrings, 'false', 'true')
-      continue
-    }
-
-    if (!Array.isArray(module.filesAndFolders))
-      module.filesAndFolders = new Array(module.filesAndFolders)
-
-    for (let fileOrFolder of module.filesAndFolders) {
-      fs.removeSync(fileOrFolder)
-    }
-
-    replaceHtmlConnectionString(module.htmlConnectStrings)
+    if (!confirmedModuleName) module.deleteFilesAndFolders()
   }
 }
+
 async function setVariables(...variableTemplates) {
   for (let variableTemplate of variableTemplates) {
     let result = await enquirer.snippet({
@@ -384,9 +336,10 @@ async function setVariables(...variableTemplates) {
     }
   }
 }
+
 async function setMainFont() {
   await enquirer.toggle({
-    message: chalk.italic(`Now i will analyze your folder ${chalk.underline.yellow(paths.src.fontsFolder)}, make sure that you have added font files there.\n`),
+    message: chalk.italic(`Now i will analyze your folder ${chalk.underline.yellow(paths.sources.fontsFolder)}, make sure that you have added font files there.\n`),
     enabled: chalk.greenBright(
       `I added the font files to this folder.`
     ),
@@ -395,24 +348,26 @@ async function setMainFont() {
     ),
   })
 
-  let filesInSources = fs.readdirSync(paths.src.fontsFolder)
+  let filesSources = fs.readdirSync(paths.sources.fontsFolder)
 
-  if (filesInSources.indexOf('.gitkeep') != -1) {
-    filesInSources.splice(filesInSources.indexOf('.gitkeep'), 1)
+  if (filesSources.indexOf('.gitkeep') != -1) {
+    filesSources.splice(filesSources.indexOf('.gitkeep'), 1)
   }
 
-  for (let i = 0; i < filesInSources.length; i++) {
-    filesInSources[i] +=
-      chalk.magenta(` (as ${filesInSources[i].split('-')[0]})`)
+  for (let i = 0; i < filesSources.length; i++) {
+    filesSources[i] +=
+      chalk.magenta(` (as ${filesSources[i].split('-')[0]})`)
   }
 
-  if (filesInSources?.length <= 0) return
+
+  if (filesSources?.length <= 0) return
+
 
   let selectedFont = await enquirer.select({
     name: 'set font',
     message: 'Select the font that will be preloaded, and it will also be in the --main-font-family variable.' + '\n',
     required: true,
-    choices: filesInSources,
+    choices: filesSources,
 
     footer: () => chalk.gray.italic("use ↑↓ to move, when you're done, press enter")
   })
@@ -430,44 +385,19 @@ async function setMainFont() {
 }
 
 function deleteUnnecessaryFilesAndFolders() {
-  deleteFolder(readmeFolder, 'The readme folder have been deleted.')
-  deleteFolder(readmeFilePath)
+  deleteFolder(paths.root + 'README.md')
   fs.createFileSync('README.md')
 
   log(chalk.gray.italic('✅ The readme file are clean.'))
 
-  deleteFolder(distFolderName, 'Dist have been deleted.')
-  deleteFolder(snippetsFolderName, 'Snippets have been deleted.')
-  deleteFolder(fontsGitkeep, 'Gitkeep in fonts have been deleted.')
+  deleteFolder(paths.output.root, 'Dist have been deleted.')
+  deleteFolder(paths.root + 'snippets/', 'Snippets have been deleted.')
+  deleteFolder(paths.sources.fontsFolder + '.gitkeep', 'Gitkeep in fonts have been deleted.')
 
-  if (fs.readdirSync(assets).length == 0)
-    deleteFolder(assets, 'Assets have been deleted.')
+  if (fs.readdirSync(paths.sources.assets).length == 0)
+    deleteFolder(paths.sources.assets, 'paths.sources.assets have been deleted.')
 }
 
-function replaceHtmlConnectionString(htmlConnectStrings, replacedValue, replacedNewValue) {
-  if (!htmlConnectStrings) return
-
-  if (!Array.isArray(htmlConnectStrings))
-    htmlConnectStrings = new Array(htmlConnectStrings)
-
-  for (let htmlConnectStringData of htmlConnectStrings) {
-    if (!htmlConnectStringData.path)
-      htmlConnectStringData.path = html.index
-
-    let newHtmlConnectString
-
-    if (!replacedValue || !replacedNewValue) {
-      newHtmlConnectString = ''
-    } else {
-      newHtmlConnectString = htmlConnectStringData.strings.replace(replacedValue, replacedNewValue)
-    }
-
-    replace.sync({
-      files: htmlConnectStringData.path,
-      from: htmlConnectStringData.strings, to: newHtmlConnectString,
-    })
-  }
-}
 function deleteFolder(folderPath, messageOnSuccessful) {
   try {
     fs.removeSync(folderPath)
