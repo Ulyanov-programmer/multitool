@@ -1,6 +1,5 @@
 import esbuild from 'esbuild'
 import { Plugin } from './_plugin.js'
-import { LocalCache } from './cache.js'
 
 export class Esbuild extends Plugin {
   #DEFAULT_OPTIONS = {
@@ -16,7 +15,8 @@ export class Esbuild extends Plugin {
       associations: options.associations,
       workingDirectory: options.workingDirectory,
       ignore: options.ignore,
-      logColor: '#f1c232',
+      logColor: '#f3cb36',
+      runTaskCallback: paths => { return this.#process(paths) },
     })
 
     this.#watchMode = options.params.watchMode ?? false
@@ -24,32 +24,7 @@ export class Esbuild extends Plugin {
 
     this.#options = options.params
 
-    this.cache = new LocalCache()
-
-    this.runProcess()
-  }
-
-  async runProcess(paths = this.files()) {
-    paths = this.cache.getChangedFiles(paths)
-
-    let normalizedPaths = this.unGlobAndNormalizePaths(paths)
-    if (!normalizedPaths) return
-
-
-    this.emitter.emit('processStart')
-
-    try {
-      this.processedBuffer.push(await this.#process(normalizedPaths))
-    }
-    catch (error) {
-      this.errorLog(error)
-      return this.returnAndCleanProcessedBuffer()
-    }
-
-
-    this.emitter.emit('processEnd')
-
-    return this.returnAndCleanProcessedBuffer()
+    this.emitter.emit('runTask')
   }
 
   async #process(paths) {
@@ -64,13 +39,23 @@ export class Esbuild extends Plugin {
     if (!this.#watchMode) {
       await esbuild.build(this.#options)
 
-      this.emitter.emit('processedFile', {})
+      for (let entry of paths) {
+        this.emitter.emit('processedFile', {
+          pathToFile: entry,
+        })
+      }
     }
     else {
       let buildContext = await esbuild.context(this.#options)
       buildContext.watch()
 
-      console.log(this.chalk.bgGreen('Watch mode is active!'))
+      console.log(this.chalk.bgGreen('Watch mode is active'))
+
+      for (let entry of paths) {
+        this.emitter.emit('processedFile', {
+          pathToFile: entry,
+        })
+      }
     }
 
     return paths

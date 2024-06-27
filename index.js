@@ -15,7 +15,7 @@ import imgAutosize from 'posthtml-img-autosize'
 import { isDeleteDistBeforeLaunch, isProductionMode }
   from './plugins/other/environment.js'
 
-import './plugins/other/server.js'
+// import './plugins/other/server.js'
 import './plugins/other/fontsWriting.js' // Parsing fonts into the style file
 
 
@@ -29,74 +29,75 @@ if (isDeleteDistBeforeLaunch) {
 import './plugins/other/copy.js'
 
 
-new Beautify({
-  associations: 'html',
-  workingDirectory: paths.output.root,
-  options: {
-    indent_size: 2,
-    max_preserve_newlines: 1,
-  },
-  beautifyPluginSlug: 'html',
-  reLaunchOn: ['change'],
-})
+// new Beautify({
+//   associations: 'html',
+//   workingDirectory: paths.output.root,
+//   options: {
+//     indent_size: 2,
+//     max_preserve_newlines: 1,
+//   },
+//   beautifyPluginSlug: 'html',
+//   reLaunchOn: ['change'],
+// })
 
-new Beautify({
-  associations: 'css',
-  ignore: paths.output.assets + '**',
-  workingDirectory: paths.output.root,
-  options: {
-    indent_size: 2,
-  },
-  beautifyPluginSlug: 'css',
-  reLaunchOn: ['change'],
-})
+// new Beautify({
+//   associations: 'css',
+//   ignore: paths.output.assets + '**',
+//   workingDirectory: paths.output.root,
+//   options: {
+//     indent_size: 2,
+//   },
+//   beautifyPluginSlug: 'css',
+//   reLaunchOn: ['change'],
+// })
 
-new Sharp({
-  associations: '{gif,webp,avif,png,jpg,jpeg,svg}',
-  ignore: paths.sources.assets + '**',
-  params: {
-    sharpOptions: {},
+// new Sharp({
+//   associations: '{gif,webp,avif,png,jpg,jpeg,svg}',
+//   ignore: paths.sources.assets + '**',
+//   params: {
+//     sharpOptions: {},
 
-    png: {
-      quality: 90,
+//     png: {
+//       quality: 90,
 
-      webp: {},
-      avif: {},
-    },
-    jpg: {
-      mozjpeg: true,
+//       webp: {},
+//       avif: {},
+//     },
+//     jpg: {
+//       mozjpeg: true,
 
-      webp: {},
-      avif: {},
-    },
-    gif: {
-      webp: {},
-    },
-    webp: {},
-    avif: {},
-  },
-  reLaunchOn: ['add', 'changed'],
-})
+//       webp: {},
+//       avif: {},
+//     },
+//     gif: {
+//       webp: {},
+//     },
+//     webp: {},
+//     avif: {},
+//   },
+//   reLaunchOn: ['add', 'changed'],
+// })
 
-new Ttf2Woff2({
-  associations: '{otf,ttf}',
-  ignore: paths.sources.assets + '**',
-  reLaunchOn: ['add'],
-})
+// new Ttf2Woff2({
+//   associations: '{otf,ttf}',
+//   ignore: paths.sources.assets + '**',
+//   reLaunchOn: ['add'],
+// })
 
-new Esbuild({
-  associations: '{js,ts}',
-  ignore: paths.sources.assets + '**',
-  params: {
-    target: 'es2022',
-    bundle: false,
-    outdir: paths.output.scripts,
-    //? Necessary if the task works with only one file.
-    outbase: paths.sources.scripts,
-    watchMode: true,
-    minify: isProductionMode,
-  },
-})
+// ! при перезапуске
+// new Esbuild({
+//   associations: '{js,ts}',
+//   ignore: paths.sources.assets + '**',
+//   params: {
+//     target: 'es2022',
+//     bundle: false,
+//     outdir: paths.output.scripts,
+//     //? Necessary if the task works with only one file.
+//     outbase: paths.sources.scripts,
+//     watchMode: true,
+//     minify: isProductionMode,
+//   },
+// })
 
 new PostHtml({
   associations: 'html',
@@ -117,10 +118,10 @@ new PostHtml({
   },
 })
 
-new PostCss({
-  associations: 'pcss',
-  ignore: paths.sources.assets + '**',
-  plugins: plugins,
-  outputExtname: 'css',
-  reLaunchOn: ['change'],
-})
+// new PostCss({
+//   associations: 'pcss',
+//   ignore: paths.sources.assets + '**',
+//   plugins: plugins,
+//   outputExtname: 'css',
+//   reLaunchOn: ['change'],
+// })

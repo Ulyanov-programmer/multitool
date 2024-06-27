@@ -1,6 +1,5 @@
 import posthtml from 'posthtml'
 import { Plugin } from './_plugin.js'
-import { LocalCache } from './cache.js'
 
 export class PostHtml extends Plugin {
   #pluginsArray
@@ -11,61 +10,30 @@ export class PostHtml extends Plugin {
       associations: options.associations,
       workingDirectory: options.workingDirectory,
       ignore: options.ignore,
-      logColor: '#93c47d',
+      logColor: '#e54d26',
+      runTaskCallback: paths => { return this.#process(paths) },
     })
 
     this.#pluginsArray = options.plugins
 
-    options.reLaunchOn && this.startWatching(options.reLaunchOn)
+    this.startWatching(options.reLaunchOn)
+    this.startWatchingForThirdPartyFiles(options.reLaunchForAllFilesOn)
 
-    if (options.reLaunchForAllFilesOn) {
-      for (let [changeTrigger, pathToFiles] of Object.entries(options.reLaunchForAllFilesOn)) {
-        this.startWatchingForThirdPartyFile(changeTrigger, pathToFiles)
-      }
-    }
-
-    this.cache = new LocalCache()
-
-    this.runProcess()
+    this.emitter.emit('runTask')
   }
 
-  async runProcess(paths = this.files(), stats, ignoreCache = false) {
-    if (!ignoreCache) {
-      paths = this.cache.getChangedFiles(paths)
+  async #process(paths) {
+    for (let pathToFile of paths) {
+      let distPathToFile = this.getDistPathForFile(pathToFile)
+
+      let result = await posthtml(this.#pluginsArray)
+        .process(this.fs.readFileSync(pathToFile, Plugin.ENCODING))
+
+      this.fs.outputFileSync(distPathToFile, result.html, Plugin.ENCODING)
+
+      this.emitter.emit('processedFile', {
+        pathToFile: pathToFile,
+      })
     }
-
-    let normalizedPaths = this.unGlobAndNormalizePaths(paths)
-    if (!normalizedPaths) return
-
-
-    this.emitter.emit('processStart')
-
-    try {
-      for (let pathToFile of normalizedPaths) {
-        await this.#process(pathToFile)
-      }
-    }
-    catch (error) {
-      this.errorLog(error)
-      return this.returnAndCleanProcessedBuffer()
-    }
-
-
-    this.emitter.emit('processEnd')
-
-    return this.returnAndCleanProcessedBuffer()
-  }
-
-  async #process(pathToFile) {
-    let distPathToFile = this.getDistPathForFile(pathToFile)
-
-    let result = await posthtml(this.#pluginsArray)
-      .process(this.fs.readFileSync(pathToFile, Plugin.ENCODING))
-
-    this.fs.outputFileSync(distPathToFile, result.html, Plugin.ENCODING)
-
-    this.emitter.emit('processedFile', {
-      pathToFile: pathToFile,
-    })
   }
 }

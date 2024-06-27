@@ -1,6 +1,5 @@
 import postcss from 'postcss'
 import { Plugin } from './_plugin.js'
-import { LocalCache } from './cache.js'
 
 export class PostCss extends Plugin {
   #plugins
@@ -11,7 +10,9 @@ export class PostCss extends Plugin {
     super({
       associations: options.associations,
       workingDirectory: options.workingDirectory,
-      logColor: '#8e7cc3',
+      ignore: options.ignore,
+      logColor: '#2277ff',
+      runTaskCallback: paths => { return this.#process(paths) },
     })
 
     this.#plugins = options.plugins
@@ -19,54 +20,29 @@ export class PostCss extends Plugin {
 
     this.#postcssItem = postcss(this.#plugins)
 
-    options.reLaunchOn && this.startWatching(options.reLaunchOn)
+    this.startWatching(options.reLaunchOn)
 
-    this.cache = new LocalCache()
-
-    this.runProcess()
+    this.emitter.emit('runTask')
   }
 
-  async runProcess(paths = this.files()) {
-    paths = this.cache.getChangedFiles(paths)
+  async #process(paths) {
+    for (let pathToFile of paths) {
+      let destFilePath = this.getDistPathForFile(pathToFile, this.#outputExtname)
 
-    let normalizedPaths = this.unGlobAndNormalizePaths(paths)
-    if (!normalizedPaths) return
+      let css = this.fs.readFileSync(pathToFile)
 
+      let result = await this.#postcssItem.process(css,
+        {
+          from: pathToFile,
+          to: destFilePath,
+        }
+      )
 
-    this.emitter.emit('processStart')
+      this.fs.outputFileSync(destFilePath, result.css, Plugin.ENCODING)
 
-    try {
-      for (let pathToFile of normalizedPaths) {
-        await this.#process(pathToFile)
-      }
+      this.emitter.emit('processedFile', {
+        pathToFile: pathToFile,
+      })
     }
-    catch (error) {
-      this.errorLog(error)
-      return this.returnAndCleanProcessedBuffer()
-    }
-
-
-    this.emitter.emit('processEnd')
-
-    return this.returnAndCleanProcessedBuffer()
-  }
-
-  async #process(pathToFile) {
-    let destFilePath = this.getDistPathForFile(pathToFile, this.#outputExtname)
-
-    let css = this.fs.readFileSync(pathToFile)
-
-    let result = await this.#postcssItem.process(css,
-      {
-        from: pathToFile,
-        to: destFilePath,
-      }
-    )
-
-    this.fs.outputFileSync(destFilePath, result.css, Plugin.ENCODING)
-
-    this.emitter.emit('processedFile', {
-      pathToFile: pathToFile,
-    })
   }
 }

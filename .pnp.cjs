@@ -35,6 +35,7 @@ const RAW_RUNTIME_STATE =
           ["enquirer", "npm:2.4.1"],\
           ["esbuild", "npm:0.19.8"],\
           ["fs-extra", "npm:11.2.0"],\
+          ["fs-xattr", "npm:0.4.0"],\
           ["glob", "npm:10.4.1"],\
           ["glob-parent", "npm:6.0.2"],\
           ["js-beautify", "npm:1.15.1"],\
@@ -3196,6 +3197,16 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
+    ["fs-xattr", [\
+      ["npm:0.4.0", {\
+        "packageLocation": "./.yarn/unplugged/fs-xattr-npm-0.4.0-8e62613e09/node_modules/fs-xattr/",\
+        "packageDependencies": [\
+          ["fs-xattr", "npm:0.4.0"],\
+          ["node-gyp", "npm:10.0.1"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
     ["fs.realpath", [\
       ["npm:1.0.0", {\
         "packageLocation": "./.yarn/cache/fs.realpath-npm-1.0.0-c8f05d8126-444cf1291d.zip/node_modules/fs.realpath/",\
@@ -4543,6 +4554,7 @@ const RAW_RUNTIME_STATE =
           ["enquirer", "npm:2.4.1"],\
           ["esbuild", "npm:0.19.8"],\
           ["fs-extra", "npm:11.2.0"],\
+          ["fs-xattr", "npm:0.4.0"],\
           ["glob", "npm:10.4.1"],\
           ["glob-parent", "npm:6.0.2"],\
           ["js-beautify", "npm:1.15.1"],\

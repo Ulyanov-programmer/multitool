@@ -1,6 +1,5 @@
 import sharp from 'sharp'
 import { Plugin } from './_plugin.js'
-import { LocalCache } from './cache.js'
 
 export class Sharp extends Plugin {
   #ALLOWED_EXTENSIONS = [
@@ -30,7 +29,8 @@ export class Sharp extends Plugin {
       associations: options.associations,
       workingDirectory: options.workingDirectory,
       ignore: options.ignore,
-      logColor: '#f44336',
+      logColor: '#009900',
+      runTaskCallback: paths => { return this.#process(paths) },
     })
 
     this.#sharpOptions = Object.assign(
@@ -43,68 +43,43 @@ export class Sharp extends Plugin {
 
     options.reLaunchOn && this.startWatching(options.reLaunchOn)
 
-    this.cache = new LocalCache()
-
-    this.runProcess()
+    this.emitter.emit('runTask')
   }
 
-  async runProcess(paths = this.files()) {
-    paths = this.cache.getChangedFiles(paths)
+  async #process(paths) {
+    for (let pathToFile of paths) {
+      let parsedPath = this.path.parse(pathToFile)
+      let extWithoutDot = parsedPath.ext.replace('.', '')
 
-    let normalizedPaths = this.unGlobAndNormalizePaths(paths)
-    if (!normalizedPaths) return
+      if (!this.#extnameIsCorrect(extWithoutDot)) {
+        this.#copyWithLog(pathToFile, parsedPath.base)
 
-
-    this.emitter.emit('processStart')
-
-    try {
-      for (let pathToFile of normalizedPaths) {
-        await this.#process(pathToFile)
+        return
       }
-    }
-    catch (error) {
-      this.errorLog(error)
-      return this.returnAndCleanProcessedBuffer()
-    }
 
+      for (let paramName of Object.keys(this.#options[extWithoutDot])) {
+        let outputExtname = paramName == 'this' ? extWithoutDot : paramName
 
-    this.emitter.emit('processEnd')
+        let destFilePath = this.getDistPathForFile(pathToFile, outputExtname)
 
-    return this.returnAndCleanProcessedBuffer()
-  }
+        let sharpInstance = await sharp(pathToFile, this.#sharpOptions)
+          .toFormat(
+            outputExtname,
+            {
+              ...this.#DEFAULT_CONVERSION_OPTIONS,
+              ...this.#options[extWithoutDot][paramName]
+            }
+          )
 
-  async #process(pathToFile) {
-    let parsedPath = this.path.parse(pathToFile)
-    let extWithoutDot = parsedPath.ext.replace('.', '')
+        this.fs.createFileSync(destFilePath)
 
-    if (!this.#extnameIsCorrect(extWithoutDot)) {
-      this.#copyWithLog(pathToFile, parsedPath.base)
+        await sharpInstance.toFile(destFilePath)
 
-      return this.getDistPathForFile(pathToFile)
-    }
-
-    for (let paramName of Object.keys(this.#options[extWithoutDot])) {
-      let outputExtname = paramName == 'this' ? extWithoutDot : paramName
-
-      let destFilePath = this.getDistPathForFile(pathToFile, outputExtname)
-
-      let sharpInstance = await sharp(pathToFile, this.#sharpOptions)
-        .toFormat(
-          outputExtname,
-          {
-            ...this.#DEFAULT_CONVERSION_OPTIONS,
-            ...this.#options[extWithoutDot][paramName]
-          }
-        )
-
-      this.fs.createFileSync(destFilePath)
-
-      await sharpInstance.toFile(destFilePath)
-
-      this.emitter.emit('processedFile', {
-        pathToFile: pathToFile,
-        extension: outputExtname,
-      })
+        this.emitter.emit('processedFile', {
+          pathToFile: pathToFile,
+          extension: outputExtname,
+        })
+      }
     }
   }
 

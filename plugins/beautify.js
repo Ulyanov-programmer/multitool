@@ -1,6 +1,5 @@
 import beautify from 'js-beautify'
 import { Plugin } from './_plugin.js'
-import { LocalCache } from './cache.js'
 
 export class Beautify extends Plugin {
   #options
@@ -12,59 +11,35 @@ export class Beautify extends Plugin {
       associations: options.associations,
       workingDirectory: options.workingDirectory,
       ignore: options.ignore,
-      logColor: '#e69138',
+      logColor: '#99005C',
+      runTaskCallback: paths => { return this.#process(paths) },
     })
 
     this.#options = options.options
     this.#beautifyPlugin = options.beautifyPluginSlug
 
-    options.reLaunchOn && this.startWatching(options.reLaunchOn)
-
-    this.cache = new LocalCache()
+    this.startWatching(options.reLaunchOn)
   }
 
-  runProcess(paths = this.files()) {
-    paths = this.cache.getChangedFiles(paths)
+  #process(paths) {
+    for (let pathToFile of paths) {
+      let data = this.fs.readFileSync(pathToFile, Plugin.ENCODING)
+      let result
 
-    let normalizedPaths = this.unGlobAndNormalizePaths(paths)
-    if (!normalizedPaths) return
-
-
-    this.emitter.emit('processStart')
-
-    try {
-      for (let pathToFile of normalizedPaths) {
-        this.#process(pathToFile)
+      switch (this.#beautifyPlugin) {
+        case 'html':
+          result = beautify.html(data, this.#options)
+          break
+        case 'css':
+          result = beautify.css(data, this.#options)
+          break
       }
+
+      this.fs.writeFileSync(pathToFile, result, Plugin.ENCODING)
+
+      this.emitter.emit('processedFile', {
+        pathToFile: pathToFile,
+      })
     }
-    catch (error) {
-      this.errorLog(error)
-      return this.returnAndCleanProcessedBuffer()
-    }
-
-
-    this.emitter.emit('processEnd')
-
-    return this.returnAndCleanProcessedBuffer()
-  }
-
-  #process(pathToFile) {
-    let data = this.fs.readFileSync(pathToFile, Plugin.ENCODING)
-    let result
-
-    switch (this.#beautifyPlugin) {
-      case 'html':
-        result = beautify.html(data, this.#options)
-        break
-      case 'css':
-        result = beautify.css(data, this.#options)
-        break
-    }
-
-    this.fs.writeFileSync(pathToFile, result, Plugin.ENCODING)
-
-    this.emitter.emit('processedFile', {
-      pathToFile: pathToFile,
-    })
   }
 }

@@ -7,6 +7,7 @@ import chokidar from 'chokidar'
 import { performance } from 'perf_hooks'
 import { EventEmitter } from 'node:events'
 import { paths } from '../paths.js'
+import { FileComparer } from './comparer.js'
 
 export class Plugin {
   static ENCODING = 'utf8'
@@ -14,20 +15,36 @@ export class Plugin {
   static performanceEndValue
   emitter
 
-  constructor({ associations, workingDirectory, ignore, logColor }) {
+  constructor({ associations, workingDirectory, ignore, logColor, runTaskCallback }) {
     this.glob = (workingDirectory ?? paths.sources.root) + '**/*.' + associations
     this.globOptions = {
       ignore: ignore,
       dotRelative: true,
     }
 
-    this.files = () => this.#unmaskPathsAndTransformToArray(this.glob)
+    this.files = (paths = this.glob, onlyChanged) => {
+      paths = this.unGlobPaths(paths)
+
+      if (onlyChanged) {
+        path = FileComparer.getChangedFiles(paths)
+      }
+
+      if (this.thirdPartyFiles?.length && changedFiles) {
+        for (let file of changedFiles)
+          if (this.thirdPartyFiles.includes(file))
+            return paths
+      }
+
+      return changedFiles
+    }
 
     this.outputPath = paths.output.root
 
     this.path = path
     // paths of user 
     this.paths = paths
+
+    this.runTaskCallback = runTaskCallback
 
     this.globSync = globSync
     this.globParent = globParent
@@ -41,25 +58,27 @@ export class Plugin {
     this.cwd = path.normalize(this.globParent(workingDirectory ?? paths.sources.root))
 
     this.processedBuffer = []
-    this.logColor = logColor ?? '#FFF'
+    this.thirdPartyFiles = []
+
+    this.chalkColor = chalk.hex(logColor ?? '#FFF')
     // locks like `[child_plugin_name]`
     this.pluginStringInLog =
       chalk.grey('[') +
-      chalk.hex(this.logColor).bold(this.constructor.name) +
+      this.chalkColor.bold(this.constructor.name) +
       chalk.grey('] ')
 
     this.emitter.on('processedFile', this.processedLog.bind(this))
-    this.emitter.on('processedFile', this.saveToCache.bind(this))
     this.emitter.on('processedFile', this.updateTaskBufferForProcessedFiles.bind(this))
 
-    this.emitter.on('processStart', this.performanceTimerStart.bind(this))
+    this.emitter.on('processStart', Plugin.#performanceTimerStart.bind(this))
     this.emitter.on('processStart', this.taskRunLog.bind(this))
-    this.emitter.on('processEnd', this.performanceTimerEnd.bind(this))
+    this.emitter.on('processEnd', Plugin.#performanceTimerEnd.bind(this))
+
+    this.emitter.on('runTask', this.#runProcess.bind(this))
   }
 
-  unGlobAndNormalizePaths(paths) {
-    if (!this.#checkPath(paths))
-      return false
+  unGlobPaths(paths) {
+    if (!this.#checkPath(paths)) return false
 
     paths = this.#unmaskPathsAndTransformToArray(paths)
 
@@ -81,9 +100,8 @@ export class Plugin {
   }
 
   #unmaskPathsAndTransformToArray(paths) {
-    if (this.hasMagic(paths)) {
+    if (this.hasMagic(paths))
       paths = this.globSync(paths, this.globOptions)
-    }
 
     if (!Array.isArray(paths))
       paths = [paths]
@@ -100,14 +118,20 @@ export class Plugin {
   processedLog({ pathToFile, extension }) {
     if (!pathToFile) {
       // locks like `[child_plugin_name] was -- completed --`
-      console.log(this.pluginStringInLog + ` was -- completed --`)
+      console.log(
+        this.pluginStringInLog +
+        this.chalkColor(` was -- completed --`)
+      )
 
       return
     }
 
     // locks like `[child_plugin_name] X was processed`
     if (!extension) {
-      console.log(this.pluginStringInLog + chalk.underline(pathToFile) + ` was processed`)
+      console.log(
+        this.pluginStringInLog +
+        this.chalkColor(pathToFile) + ` was processed`
+      )
 
       return
     }
@@ -115,40 +139,41 @@ export class Plugin {
     // locks like `[child_plugin_name] X was processed to .extName`
     console.log(
       this.pluginStringInLog +
-      chalk.underline(pathToFile) +
+      this.chalkColor(pathToFile) +
       ` was processed to .${chalk.underline(extension)}`
     )
   }
   taskRunLog() {
     // locks like `[plugin_name] -- starts --`
-    console.log(this.pluginStringInLog + chalk.grey('--') + ` starts ` + chalk.grey('--'))
+    console.log(this.pluginStringInLog + this.chalkColor('-- starts --'))
   }
   errorLog(error) {
     // locks like `[child_plugin_name] throw an error!`
     console.log(
       chalk.red('[') +
-      chalk.hex(this.logColor).bold(this.constructor.name) +
+      this.chalkColor.bold(this.constructor.name) +
       chalk.red('] ') +
       chalk.red('throw an error!\n') +
       chalk.red(error)
     )
   }
 
-  performanceTimerStart() {
+  static #performanceTimerStart() {
     Plugin.performanceStartValue = this.performance.now()
   }
-  performanceTimerEnd() {
+  static #performanceTimerEnd() {
     Plugin.performanceEndValue = this.performance.now()
 
     console.log(
       this.pluginStringInLog +
-      chalk.gray('--') + ' Done in ' +
+      this.chalkColor('-- Done in ') +
 
       Math.trunc(
         Plugin.performanceEndValue - Plugin.performanceStartValue
       ) / 1000 +
 
-      's ' + chalk.gray('--')
+      's ' +
+      this.chalkColor('--')
     )
   }
 
@@ -168,28 +193,58 @@ export class Plugin {
   }
 
   startWatching(runEvents) {
+    if (runEvents?.length <= 0) return
+
+
     this.watcher = this.chokidar.watch(this.glob, {
       ignoreInitial: true,
       ignored: this.globOptions.ignore,
     })
 
     for (let runEvent of runEvents) {
-      this.watcher.on(runEvent, this.runProcess.bind(this))
+      this.watcher.on(runEvent, this.#runProcess.bind(this))
     }
   }
-  startWatchingForThirdPartyFile(runEvent, triggerFilesPath) {
-    let localChokidar = this.chokidar.watch(triggerFilesPath, { ignoreInitial: true, })
+  startWatchingForThirdPartyFiles(options) {
+    for (let [runEvent, triggerFilesPath] of Object.entries(options ?? {})) {
+      this.thirdPartyFiles.push(...this.globSync(triggerFilesPath))
 
-    // running the task in such a way that it processes all the files it is associated with
-    localChokidar.on(runEvent, () => this.runProcess(this.glob, null, true,))
-  }
+      let localChokidar = this.chokidar.watch(triggerFilesPath, { ignoreInitial: true, })
 
-  saveToCache({ pathToFile }) {
-    if (this.cache) {
-      this.cache.setModificationTime({ pathToFile })
+      // running the task in such a way that it processes all the files it is associated with
+      localChokidar.on(runEvent, () => this.#runProcess(this.glob, null, false))
     }
   }
+
   updateTaskBufferForProcessedFiles({ pathToFile }) {
     this.processedBuffer.push(this.getDistPathForFile(pathToFile))
+  }
+
+  async #runProcess(paths, stats, onlyChangedFiles = true) {
+    paths = this.files(paths, onlyChangedFiles)
+
+    if (!paths) return
+
+
+    this.emitter.emit('processStart')
+
+    try {
+      let result = await this.runTaskCallback(paths)
+
+      if (result instanceof Promise) {
+        result.then(() =>
+          this.emitter.emit('processEnd')
+        )
+      }
+      else {
+        this.emitter.emit('processEnd')
+      }
+    }
+    catch (error) {
+      this.errorLog(error)
+    }
+    finally {
+      return this.returnAndCleanProcessedBuffer()
+    }
   }
 }
