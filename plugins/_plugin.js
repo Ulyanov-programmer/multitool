@@ -126,7 +126,7 @@ export class Plugin {
     switch (eventName) {
       case 'processed':
         if (!options.pathToFile) {
-          mainLogString = '# ' + this.chalkColor(`completed`)
+          mainLogString = ': ' + this.chalkColor(`completed`)
         }
         else if (!options.extension) {
           mainLogString = this.chalkColor(options.pathToFile) + ` was processed`
@@ -140,7 +140,7 @@ export class Plugin {
         break
 
       case 'start':
-        console.log(this.pluginStringInLog + '# ' + this.chalkColor('starts'))
+        console.log(this.pluginStringInLog + ': ' + this.chalkColor('starts'))
         break
 
       case 'error':
@@ -148,15 +148,15 @@ export class Plugin {
           chalk.red('[') +
           this.chalkColor.bold(this.constructor.name) +
           chalk.red('] ') +
-          chalk.white(`throw an ${chalk.red('error')}!\n`) +
+          ':' + chalk.red('error!\n') +
           chalk.red(options.error)
         )
         break
 
       case 'end':
         console.log(
-          this.pluginStringInLog + '# ' +
-          this.chalkColor('Done in ') + options.time + 's'
+          this.pluginStringInLog + ': ' +
+          this.chalkColor('done in ') + options.time + 's'
         )
         break
     }
