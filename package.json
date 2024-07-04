@@ -43,7 +43,8 @@
     "stylelint": "^15.11.0",
     "stylelint-config-clean-order": "^5.2.0",
     "stylelint-config-standard": "^34.0.0",
-    "ttf2woff2": "^5.0.0"
+    "ttf2woff2": "^5.0.0",
+    "utimes": "^5.2.1"
   },
   "packageManager": "yarn@4.0.2"
 }

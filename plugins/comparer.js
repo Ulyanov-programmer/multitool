@@ -1,16 +1,16 @@
 import fs from 'fs-extra'
 import { globSync } from 'glob'
 import path from 'path'
-import { getAttribute, setAttribute } from 'fs-xattr'
+import { utimesSync } from 'utimes'
 import { paths } from '../paths.js'
 
 export class FileComparer {
-  static getChangedFiles(inputPaths = []) {
-    getAttribute()
-    let changedFiles = []
+  static onlyChangedFiles(inputPaths = [], thirdPartyFiles) {
+    if (this.thirdPartyFileHasBeenModified(inputPaths, thirdPartyFiles))
+      return false
 
-    for (let pathToFile of inputPaths) {
-      let parsedPath = path.parse(pathToFile)
+    for (let i = 0; i < inputPaths.length;) {
+      let parsedPath = path.parse(inputPaths[i])
 
       let sourceFile = globSync(
         paths.sources.root + '**/' + parsedPath.name + '.*'
@@ -18,17 +18,60 @@ export class FileComparer {
       let destFile = globSync(
         paths.output.root + '**/' + parsedPath.name + '.*'
       )
+
       let sourceStats = sourceFile[0] && fs.statSync(sourceFile[0])
       let outputStats = destFile[0] && fs.statSync(destFile[0])
 
-      if (
-        !sourceStats || !outputStats ||
-        sourceStats.ctimeMs > outputStats.ctimeMs
-      ) {
-        changedFiles.push(pathToFile)
+
+      if (sourceStats?.ctimeMs <= outputStats?.ctimeMs)
+        inputPaths.splice([i], 1)
+      else
+        i++
+    }
+
+    return inputPaths
+  }
+
+  static thirdPartyFileHasBeenModified(inputPaths, thirdPartyFiles = []) {
+    if (!thirdPartyFiles) return false
+
+    let isThirdPartyFileModded
+
+    for (let inputPath of inputPaths) {
+      // If at least one of the paths is the path to a third-party file
+      if (thirdPartyFiles.includes(inputPath))
+        isThirdPartyFileModded = true
+    }
+
+    if (isThirdPartyFileModded) {
+      return true
+    }
+    else {
+      let inputFilesStatsCtime = []
+      let otherFilesStatsCtime = []
+
+      for (let thirdPartyFile of thirdPartyFiles) {
+        otherFilesStatsCtime.push(fs.statSync(thirdPartyFile).ctimeMs)
+      }
+      for (let inputPath of inputPaths) {
+        inputFilesStatsCtime.push(fs.statSync(inputPath).ctimeMs)
+      }
+
+      let latestModTimeOfThirdParty = Math.max(...otherFilesStatsCtime)
+      let latestModTimeOfInputs = Math.max(...inputFilesStatsCtime)
+
+      if (latestModTimeOfThirdParty >= latestModTimeOfInputs) {
+        // This is necessary to prevent the files from being processed again
+        for (let inputPath of inputPaths) {
+          utimesSync(inputPath, {
+            mtime: Math.ceil(latestModTimeOfThirdParty + 1),
+          })
+        }
+
+        return true
       }
     }
 
-    return changedFiles
+    return false
   }
 }

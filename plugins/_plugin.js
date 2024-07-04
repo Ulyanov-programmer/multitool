@@ -14,28 +14,23 @@ export class Plugin {
   static performanceStartValue
   static performanceEndValue
   emitter
+  processedBuffer = []
+  globArray
+  thirdPartyFilesGlobArray
+  globOptions = {
+    ignore: null,
+  }
 
-  constructor({ associations, workingDirectory, ignore, logColor, runTaskCallback }) {
-    this.glob = (workingDirectory ?? paths.sources.root) + '**/*.' + associations
-    this.globOptions = {
-      ignore: ignore,
-      dotRelative: true,
-    }
+  constructor(options) {
+    this.glob =
+      `${options.workingDirectory ?? paths.sources.root}**/*.${options.associations}`
 
-    this.files = (paths = this.glob, onlyChanged) => {
-      paths = this.unGlobPaths(paths)
+    this.thirdPartyFilesGlobArray = options.thirdPartyFiles
 
-      if (onlyChanged) {
-        path = FileComparer.getChangedFiles(paths)
-      }
+    this.globOptions.ignore = options.ignore
 
-      if (this.thirdPartyFiles?.length && changedFiles) {
-        for (let file of changedFiles)
-          if (this.thirdPartyFiles.includes(file))
-            return paths
-      }
-
-      return changedFiles
+    if (options.workingDirectory?.includes(paths.output.root)) {
+      this.workingInOutputDir = true
     }
 
     this.outputPath = paths.output.root
@@ -44,7 +39,7 @@ export class Plugin {
     // paths of user 
     this.paths = paths
 
-    this.runTaskCallback = runTaskCallback
+    this.runTaskCallback = options.runTaskCallback
 
     this.globSync = globSync
     this.globParent = globParent
@@ -55,12 +50,11 @@ export class Plugin {
     this.chalk = chalk
     this.chokidar = chokidar
 
-    this.cwd = path.normalize(this.globParent(workingDirectory ?? paths.sources.root))
+    this.cwd = path.normalize(this.globParent(options.workingDirectory ?? paths.sources.root))
 
-    this.processedBuffer = []
-    this.thirdPartyFiles = []
+    this.startWatchingForThirdPartyFiles(options.thirdPartyFiles)
 
-    this.chalkColor = chalk.hex(logColor ?? '#FFF')
+    this.chalkColor = chalk.hex(options.logColor ?? '#FFF')
     // locks like `[child_plugin_name]`
     this.pluginStringInLog =
       chalk.grey('[') +
@@ -74,45 +68,46 @@ export class Plugin {
     this.emitter.on('processStart', this.taskRunLog.bind(this))
     this.emitter.on('processEnd', Plugin.#performanceTimerEnd.bind(this))
 
-    this.emitter.on('runTask', this.#runProcess.bind(this))
+    this.emitter.on('runTask', options => this.#runProcess(undefined, options))
   }
 
-  unGlobPaths(paths) {
+  getChangedFiles(files = this.glob) {
+    files = FileComparer.onlyChangedFiles(
+      // main files
+      this.unGlobPaths(files, this.globOptions),
+      // third party files
+      this.unGlobPaths(this.thirdPartyFilesGlobArray)
+    )
+
+    if (files === false)
+      files = this.unGlobPaths(this.glob, this.globOptions)
+
+    return files
+  }
+
+  unGlobPaths(paths, globOptions) {
     if (!this.#checkPath(paths)) return false
 
-    paths = this.#unmaskPathsAndTransformToArray(paths)
-
-    this.#normalizePaths(paths)
-
-    return paths
+    return this.#unmaskPathsAndTransformToArray(paths, globOptions)
   }
 
   #checkPath(paths) {
-    if (!paths)
-      return false
     if (paths instanceof Array &&
-      paths.some(filePath => !filePath) ||
-      paths.length == 0
+      paths.some(filePath => !filePath) || !paths?.length
     )
       return false
 
     return true
   }
 
-  #unmaskPathsAndTransformToArray(paths) {
+  #unmaskPathsAndTransformToArray(paths, globOptions) {
     if (this.hasMagic(paths))
-      paths = this.globSync(paths, this.globOptions)
+      paths = this.globSync(paths, globOptions)
 
     if (!Array.isArray(paths))
       paths = [paths]
 
     return paths
-  }
-
-  #normalizePaths(paths) {
-    for (let i = 0; i < paths.length; i++) {
-      paths[i] = this.path.normalize(paths[i])
-    }
   }
 
   processedLog({ pathToFile, extension }) {
@@ -195,50 +190,63 @@ export class Plugin {
   startWatching(runEvents) {
     if (runEvents?.length <= 0) return
 
-
     this.watcher = this.chokidar.watch(this.glob, {
       ignoreInitial: true,
       ignored: this.globOptions.ignore,
     })
 
     for (let runEvent of runEvents) {
-      this.watcher.on(runEvent, this.#runProcess.bind(this))
+      if (this.workingInOutputDir) {
+        this.runningTaskCounter = 0
+
+        this.watcher.on(runEvent, async pathToFile => {
+          if (this.runningTaskCounter == 0) {
+            this.runningTaskCounter++
+
+            await this.#runProcess(pathToFile, {
+              ignoreCache: true,
+            })
+          }
+
+          this.runningTaskCounter = 0
+        })
+      }
+      else {
+        this.watcher.on(runEvent, this.#runProcess.bind(this))
+      }
     }
   }
-  startWatchingForThirdPartyFiles(options) {
-    for (let [runEvent, triggerFilesPath] of Object.entries(options ?? {})) {
-      this.thirdPartyFiles.push(...this.globSync(triggerFilesPath))
 
-      let localChokidar = this.chokidar.watch(triggerFilesPath, { ignoreInitial: true, })
+  startWatchingForThirdPartyFiles(globToFiles = []) {
+    let localChokidar = this.chokidar.watch(globToFiles, { ignoreInitial: true, })
 
-      // running the task in such a way that it processes all the files it is associated with
-      localChokidar.on(runEvent, () => this.#runProcess(this.glob, null, false))
-    }
+    // running the task in such a way that it processes all the files it is associated with
+    localChokidar.on('change', this.#runProcess.bind(this))
   }
 
   updateTaskBufferForProcessedFiles({ pathToFile }) {
     this.processedBuffer.push(this.getDistPathForFile(pathToFile))
   }
 
-  async #runProcess(paths, stats, onlyChangedFiles = true) {
-    paths = this.files(paths, onlyChangedFiles)
+  async #runProcess(paths, options) {
+    if (options?.ignoreCache && !paths) {
+      paths = this.unGlobPaths(this.glob, this.globOptions)
+    }
+    else if (!paths) {
+      paths = this.getChangedFiles(paths)
+    }
 
-    if (!paths) return
+    if (!Array.isArray(paths)) paths = [paths]
+
+    if (!paths?.length) return
 
 
     this.emitter.emit('processStart')
 
     try {
-      let result = await this.runTaskCallback(paths)
+      await this.runTaskCallback(paths)
 
-      if (result instanceof Promise) {
-        result.then(() =>
-          this.emitter.emit('processEnd')
-        )
-      }
-      else {
-        this.emitter.emit('processEnd')
-      }
+      this.emitter.emit('processEnd')
     }
     catch (error) {
       this.errorLog(error)

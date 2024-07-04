@@ -11,13 +11,13 @@ export class PostHtml extends Plugin {
       workingDirectory: options.workingDirectory,
       ignore: options.ignore,
       logColor: '#e54d26',
+      thirdPartyFiles: options.thirdPartyFiles,
       runTaskCallback: paths => { return this.#process(paths) },
     })
 
     this.#pluginsArray = options.plugins
 
     this.startWatching(options.reLaunchOn)
-    this.startWatchingForThirdPartyFiles(options.reLaunchForAllFilesOn)
 
     this.emitter.emit('runTask')
   }

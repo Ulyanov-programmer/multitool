@@ -24,7 +24,9 @@ export class Esbuild extends Plugin {
 
     this.#options = options.params
 
-    this.emitter.emit('runTask')
+    this.emitter.emit('runTask', {
+      ignoreCache: true,
+    })
   }
 
   async #process(paths) {
