@@ -60,7 +60,7 @@ export class Sharp extends Plugin {
       for (let paramName of Object.keys(this.#options[extWithoutDot])) {
         let outputExtname = paramName == 'this' ? extWithoutDot : paramName
 
-        let destFilePath = this.getDistPathForFile(pathToFile, outputExtname)
+        let destFilePath = Plugin.getDistPathForFile(pathToFile, outputExtname)
 
         let sharpInstance = await sharp(pathToFile, this.#sharpOptions)
           .toFormat(
@@ -110,7 +110,7 @@ export class Sharp extends Plugin {
   }
 
   #copyWithLog(pathToFile) {
-    this.fs.copySync(pathToFile, this.getDistPathForFile(pathToFile))
+    this.fs.copySync(pathToFile, Plugin.getDistPathForFile(pathToFile))
 
     this.emitter.emit('processedFile', {
       pathToFile: pathToFile,

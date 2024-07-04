@@ -24,7 +24,7 @@ export class PostHtml extends Plugin {
 
   async #process(paths) {
     for (let pathToFile of paths) {
-      let distPathToFile = this.getDistPathForFile(pathToFile)
+      let distPathToFile = Plugin.getDistPathForFile(pathToFile)
 
       let result = await posthtml(this.#pluginsArray)
         .process(this.fs.readFileSync(pathToFile, Plugin.ENCODING))

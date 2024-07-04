@@ -33,24 +33,19 @@ export class Plugin {
       this.workingInOutputDir = true
     }
 
-    this.outputPath = paths.output.root
-
-    this.path = path
     // paths of user 
     this.paths = paths
 
     this.runTaskCallback = options.runTaskCallback
 
     this.globSync = globSync
-    this.globParent = globParent
     this.hasMagic = hasMagic
     this.fs = fs
-    this.performance = performance
     this.emitter = new EventEmitter()
     this.chalk = chalk
     this.chokidar = chokidar
 
-    this.cwd = path.normalize(this.globParent(options.workingDirectory ?? paths.sources.root))
+    this.cwd = Plugin.getCwd(options)
 
     this.startWatchingForThirdPartyFiles(options.thirdPartyFiles)
 
@@ -61,14 +56,25 @@ export class Plugin {
       this.chalkColor.bold(this.constructor.name) +
       chalk.grey('] ')
 
-    this.emitter.on('processedFile', this.processedLog.bind(this))
-    this.emitter.on('processedFile', this.updateTaskBufferForProcessedFiles.bind(this))
+    this.emitter.on('processedFile', options => {
+      this.log('processed', options)
+      this.updateTaskBufferForProcessedFiles(options.pathToFile)
+    })
 
-    this.emitter.on('processStart', Plugin.#performanceTimerStart.bind(this))
-    this.emitter.on('processStart', this.taskRunLog.bind(this))
-    this.emitter.on('processEnd', Plugin.#performanceTimerEnd.bind(this))
+    this.emitter.on('processStart', options => {
+      this.log('start', options)
+      Plugin.#setPerformanceTimer()
+    })
 
-    this.emitter.on('runTask', options => this.#runProcess(undefined, options))
+    this.emitter.on('processEnd', () => {
+      this.log('end', {
+        time: Plugin.#getPerformanceTimerValue()
+      })
+    })
+
+    this.emitter.on('runTask', options => {
+      this.#runProcess(undefined, options)
+    })
   }
 
   getChangedFiles(files = this.glob) {
@@ -91,6 +97,10 @@ export class Plugin {
     return this.#unmaskPathsAndTransformToArray(paths, globOptions)
   }
 
+  static getCwd(options) {
+    return path.normalize(globParent(options?.workingDirectory ?? paths.sources.root))
+  }
+
   #checkPath(paths) {
     if (paths instanceof Array &&
       paths.some(filePath => !filePath) || !paths?.length
@@ -110,78 +120,69 @@ export class Plugin {
     return paths
   }
 
-  processedLog({ pathToFile, extension }) {
-    if (!pathToFile) {
-      // locks like `[child_plugin_name] was -- completed --`
-      console.log(
-        this.pluginStringInLog +
-        this.chalkColor(` was -- completed --`)
-      )
+  log(eventName, options) {
+    let mainLogString
 
-      return
+    switch (eventName) {
+      case 'processed':
+        if (!options.pathToFile) {
+          mainLogString = '# ' + this.chalkColor(`completed`)
+        }
+        else if (!options.extension) {
+          mainLogString = this.chalkColor(options.pathToFile) + ` was processed`
+        }
+        else {
+          mainLogString = this.chalkColor(options.pathToFile) +
+            ` was processed to .${chalk.underline(options.extension)}`
+        }
+
+        console.log(this.pluginStringInLog + mainLogString)
+        break
+
+      case 'start':
+        console.log(this.pluginStringInLog + '# ' + this.chalkColor('starts'))
+        break
+
+      case 'error':
+        console.log(
+          chalk.red('[') +
+          this.chalkColor.bold(this.constructor.name) +
+          chalk.red('] ') +
+          chalk.white(`throw an ${chalk.red('error')}!\n`) +
+          chalk.red(options.error)
+        )
+        break
+
+      case 'end':
+        console.log(
+          this.pluginStringInLog + '# ' +
+          this.chalkColor('Done in ') + options.time + 's'
+        )
+        break
     }
-
-    // locks like `[child_plugin_name] X was processed`
-    if (!extension) {
-      console.log(
-        this.pluginStringInLog +
-        this.chalkColor(pathToFile) + ` was processed`
-      )
-
-      return
-    }
-
-    // locks like `[child_plugin_name] X was processed to .extName`
-    console.log(
-      this.pluginStringInLog +
-      this.chalkColor(pathToFile) +
-      ` was processed to .${chalk.underline(extension)}`
-    )
-  }
-  taskRunLog() {
-    // locks like `[plugin_name] -- starts --`
-    console.log(this.pluginStringInLog + this.chalkColor('-- starts --'))
-  }
-  errorLog(error) {
-    // locks like `[child_plugin_name] throw an error!`
-    console.log(
-      chalk.red('[') +
-      this.chalkColor.bold(this.constructor.name) +
-      chalk.red('] ') +
-      chalk.red('throw an error!\n') +
-      chalk.red(error)
-    )
   }
 
-  static #performanceTimerStart() {
-    Plugin.performanceStartValue = this.performance.now()
+  static #setPerformanceTimer() {
+    Plugin.performanceStartValue = performance.now()
   }
-  static #performanceTimerEnd() {
-    Plugin.performanceEndValue = this.performance.now()
+  static #getPerformanceTimerValue() {
+    Plugin.performanceEndValue = performance.now()
 
-    console.log(
-      this.pluginStringInLog +
-      this.chalkColor('-- Done in ') +
-
-      Math.trunc(
-        Plugin.performanceEndValue - Plugin.performanceStartValue
-      ) / 1000 +
-
-      's ' +
-      this.chalkColor('--')
-    )
+    return Math.trunc(
+      Plugin.performanceEndValue - Plugin.performanceStartValue
+    ) / 1000
   }
 
   returnAndCleanProcessedBuffer() {
     return this.processedBuffer.splice(0, this.processedBuffer.length)
   }
 
-  getDistPathForFile(filePath, newFileExt) {
-    let parsedPath = this.path.parse(filePath)
+  static getDistPathForFile(filePath, newFileExt) {
+    let parsedPath = path.parse(filePath)
     let newFileBase = newFileExt ? parsedPath.name + `.${newFileExt}` : parsedPath.base
 
-    let newPath = this.outputPath +
-      parsedPath.dir.replace(this.cwd, '') + '/' +
+    let newPath = paths.output.root +
+      parsedPath.dir.replace(this.cwd ?? Plugin.getCwd(), '') + '/' +
       newFileBase
 
     return path.normalize(newPath)
@@ -224,8 +225,8 @@ export class Plugin {
     localChokidar.on('change', this.#runProcess.bind(this))
   }
 
-  updateTaskBufferForProcessedFiles({ pathToFile }) {
-    this.processedBuffer.push(this.getDistPathForFile(pathToFile))
+  updateTaskBufferForProcessedFiles(pathToFile) {
+    this.processedBuffer.push(Plugin.getDistPathForFile(pathToFile))
   }
 
   async #runProcess(paths, options) {
@@ -249,7 +250,9 @@ export class Plugin {
       this.emitter.emit('processEnd')
     }
     catch (error) {
-      this.errorLog(error)
+      this.log('error', {
+        error: error,
+      })
     }
     finally {
       return this.returnAndCleanProcessedBuffer()

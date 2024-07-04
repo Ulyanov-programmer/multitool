@@ -2,7 +2,7 @@ import fs from 'fs-extra'
 import { globSync } from 'glob'
 import path from 'path'
 import { utimesSync } from 'utimes'
-import { paths } from '../paths.js'
+import { Plugin } from './_plugin.js'
 
 export class FileComparer {
   static onlyChangedFiles(inputPaths = [], thirdPartyFiles) {
@@ -12,14 +12,14 @@ export class FileComparer {
     for (let i = 0; i < inputPaths.length;) {
       let parsedPath = path.parse(inputPaths[i])
 
-      let sourceFile = globSync(
-        paths.sources.root + '**/' + parsedPath.name + '.*'
-      )
-      let destFile = globSync(
-        paths.output.root + '**/' + parsedPath.name + '.*'
-      )
+      // Creating and correcting the file path for the Glob library.
+      let pathToGlob = Plugin.getDistPathForFile(inputPaths[i])
+        .replace(parsedPath.ext, '.*')
+        .replaceAll('\\', '/')
 
-      let sourceStats = sourceFile[0] && fs.statSync(sourceFile[0])
+      let destFile = globSync(pathToGlob)
+
+      let sourceStats = fs.statSync(inputPaths[i])
       let outputStats = destFile[0] && fs.statSync(destFile[0])
 
 
