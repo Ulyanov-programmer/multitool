@@ -12,15 +12,16 @@ export class PostCss extends Plugin {
       workingDirectory: options.workingDirectory,
       ignore: options.ignore,
       logColor: '#2277ff',
+
       runTaskCallback: paths => { return this.#process(paths) },
+
+      watchEvents: options.reLaunchOn,
     })
 
     this.#plugins = options.plugins
     this.#outputExtname = options.outputExtname
 
     this.#postcssItem = postcss(this.#plugins)
-
-    this.startWatching(options.reLaunchOn)
 
     this.emitter.emit('runTask')
   }

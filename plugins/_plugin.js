@@ -76,6 +76,8 @@ export class Plugin {
     this.emitter.on('runTask', options => {
       this.#runProcess(undefined, options)
     })
+
+    this.startWatching(options.watchEvents)
   }
 
   getChangedFiles(files = this.glob) {
@@ -190,7 +192,7 @@ export class Plugin {
   }
 
   startWatching(runEvents) {
-    if (runEvents?.length <= 0) return
+    if (!runEvents?.length) return
 
     this.watcher = this.chokidar.watch(this.glob, {
       ignoreInitial: true,
@@ -206,7 +208,7 @@ export class Plugin {
             this.runningTaskCounter++
 
             await this.#runProcess(pathToFile, {
-              ignoreCache: true,
+              passAllFiles: true,
             })
           }
 
@@ -223,7 +225,7 @@ export class Plugin {
     let localChokidar = this.chokidar.watch(globToFiles, { ignoreInitial: true, })
 
     // running the task in such a way that it processes all the files it is associated with
-    localChokidar.on('change', () => this.#runProcess(null, { ignoreCache: true }))
+    localChokidar.on('change', () => this.#runProcess(null, { passAllFiles: true }))
   }
 
   updateTaskBufferForProcessedFiles(pathToFile) {
@@ -231,7 +233,7 @@ export class Plugin {
   }
 
   async #runProcess(paths, options) {
-    if (options?.ignoreCache && !paths) {
+    if (options?.passAllFiles && !paths) {
       paths = this.unGlobPaths(this.glob, this.globOptions)
     }
     else if (!paths) {

@@ -10,10 +10,11 @@ export class Ttf2Woff2 extends Plugin {
       workingDirectory: options.workingDirectory,
       ignore: options.ignore,
       logColor: '#2E2927',
-      runTaskCallback: paths => { return this.#process(paths) },
-    })
 
-    this.startWatching(options.reLaunchOn)
+      runTaskCallback: paths => { return this.#process(paths) },
+
+      watchEvents: options.reLaunchOn,
+    })
 
     this.emitter.emit('runTask')
   }

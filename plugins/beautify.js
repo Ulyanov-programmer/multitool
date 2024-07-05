@@ -12,13 +12,14 @@ export class Beautify extends Plugin {
       workingDirectory: options.workingDirectory,
       ignore: options.ignore,
       logColor: '#99005C',
+
       runTaskCallback: paths => { return this.#process(paths) },
+
+      watchEvents: options.reLaunchOn,
     })
 
     this.#options = options.options
     this.#beautifyPlugin = options.beautifyPluginSlug
-
-    this.startWatching(options.reLaunchOn)
   }
 
   #process(paths) {

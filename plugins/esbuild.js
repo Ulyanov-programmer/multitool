@@ -16,6 +16,7 @@ export class Esbuild extends Plugin {
       workingDirectory: options.workingDirectory,
       ignore: options.ignore,
       logColor: '#f3cb36',
+
       runTaskCallback: paths => { return this.#process(paths) },
     })
 
@@ -25,7 +26,7 @@ export class Esbuild extends Plugin {
     this.#options = options.params
 
     this.emitter.emit('runTask', {
-      ignoreCache: true,
+      passAllFiles: true,
     })
   }
 

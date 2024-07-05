@@ -30,7 +30,10 @@ export class Sharp extends Plugin {
       workingDirectory: options.workingDirectory,
       ignore: options.ignore,
       logColor: '#009900',
+
       runTaskCallback: paths => { return this.#process(paths) },
+
+      watchEvents: options.reLaunchOn,
     })
 
     this.#sharpOptions = Object.assign(
@@ -40,8 +43,6 @@ export class Sharp extends Plugin {
     delete options.params.sharpOptions
 
     this.#options = this.#parseOptionObject(options.params)
-
-    options.reLaunchOn && this.startWatching(options.reLaunchOn)
 
     this.emitter.emit('runTask')
   }

@@ -39,8 +39,8 @@ export class FileComparer {
       inputFilesCtime = inputPaths.map(file => fs.statSync(file).ctimeMs),
       otherFilesCtime = thirdPartyFiles.map(file => fs.statSync(file).ctimeMs),
 
-      latestModTimeOfThirdParty = Math.max(...inputFilesCtime),
-      latestModTimeOfInputs = Math.max(...otherFilesCtime)
+      latestModTimeOfThirdParty = Math.max(...otherFilesCtime),
+      latestModTimeOfInputs = Math.max(...inputFilesCtime)
 
     if (latestModTimeOfThirdParty >= latestModTimeOfInputs) {
       // This is necessary to prevent the files from being processed again
