@@ -33,43 +33,24 @@ export class FileComparer {
   }
 
   static thirdPartyFileHasBeenModified(inputPaths, thirdPartyFiles = []) {
-    if (!thirdPartyFiles) return false
+    if (!thirdPartyFiles?.length) return false
 
-    let isThirdPartyFileModded
+    let
+      inputFilesCtime = inputPaths.map(file => fs.statSync(file).ctimeMs),
+      otherFilesCtime = thirdPartyFiles.map(file => fs.statSync(file).ctimeMs),
 
-    for (let inputPath of inputPaths) {
-      // If at least one of the paths is the path to a third-party file
-      if (thirdPartyFiles.includes(inputPath))
-        isThirdPartyFileModded = true
-    }
+      latestModTimeOfThirdParty = Math.max(...inputFilesCtime),
+      latestModTimeOfInputs = Math.max(...otherFilesCtime)
 
-    if (isThirdPartyFileModded) {
-      return true
-    }
-    else {
-      let inputFilesStatsCtime = []
-      let otherFilesStatsCtime = []
-
-      for (let thirdPartyFile of thirdPartyFiles) {
-        otherFilesStatsCtime.push(fs.statSync(thirdPartyFile).ctimeMs)
-      }
+    if (latestModTimeOfThirdParty >= latestModTimeOfInputs) {
+      // This is necessary to prevent the files from being processed again
       for (let inputPath of inputPaths) {
-        inputFilesStatsCtime.push(fs.statSync(inputPath).ctimeMs)
+        utimesSync(inputPath, {
+          mtime: Math.ceil(latestModTimeOfThirdParty + 1),
+        })
       }
 
-      let latestModTimeOfThirdParty = Math.max(...otherFilesStatsCtime)
-      let latestModTimeOfInputs = Math.max(...inputFilesStatsCtime)
-
-      if (latestModTimeOfThirdParty >= latestModTimeOfInputs) {
-        // This is necessary to prevent the files from being processed again
-        for (let inputPath of inputPaths) {
-          utimesSync(inputPath, {
-            mtime: Math.ceil(latestModTimeOfThirdParty + 1),
-          })
-        }
-
-        return true
-      }
+      return true
     }
 
     return false

@@ -35,6 +35,7 @@ export class Plugin {
 
     // paths of user 
     this.paths = paths
+    this.path = path
 
     this.runTaskCallback = options.runTaskCallback
 
@@ -148,7 +149,7 @@ export class Plugin {
           chalk.red('[') +
           this.chalkColor.bold(this.constructor.name) +
           chalk.red('] ') +
-          ':' + chalk.red('error!\n') +
+          ': ' + chalk.red('error!\n') +
           chalk.red(options.error)
         )
         break
@@ -222,7 +223,7 @@ export class Plugin {
     let localChokidar = this.chokidar.watch(globToFiles, { ignoreInitial: true, })
 
     // running the task in such a way that it processes all the files it is associated with
-    localChokidar.on('change', this.#runProcess.bind(this))
+    localChokidar.on('change', () => this.#runProcess(null, { ignoreCache: true }))
   }
 
   updateTaskBufferForProcessedFiles(pathToFile) {
