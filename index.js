@@ -16,7 +16,7 @@ import imgAutosize from 'posthtml-img-autosize'
 import { isDeleteDistBeforeLaunch, isProductionMode }
   from './plugins/other/environment.js'
 
-// import './plugins/other/server.js'
+import './plugins/other/server.js'
 import './plugins/other/fontsWriting.js' // Parsing fonts into the style file
 
 

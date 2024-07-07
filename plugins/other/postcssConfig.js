@@ -6,7 +6,6 @@ import nested from 'postcss-nested'
 import simpleVars from 'postcss-simple-vars'
 import mediaMinmax from '@csstools/postcss-media-minmax'
 import functions from 'postcss-functions'
-import mixins from 'postcss-mixins'
 import customMedia from 'postcss-custom-media'
 import rem from 'postcss-rem'
 import size from 'postcss-size'
@@ -38,7 +37,6 @@ export const plugins = [
       absolute: PostcssFunctions.absolute,
     }
   }),
-  mixins(),
   customMedia(),
   rem({
     name: 'rem',
