@@ -3,6 +3,7 @@ import { Plugin } from './_plugin.js'
 
 export class PostHtml extends Plugin {
   #pluginsArray
+  #customEmitters
 
   constructor(options) {
     super({
@@ -11,6 +12,8 @@ export class PostHtml extends Plugin {
 
       runTaskCallback: paths => { return this.#process(paths) },
     })
+
+    this.#customEmitters = options.emitEventOnDone ?? []
 
     this.#pluginsArray = options.plugins
 
@@ -29,6 +32,10 @@ export class PostHtml extends Plugin {
       this.emitter.emit('processedFile', {
         pathToFile: pathToFile,
       })
+    }
+
+    for (let emitter of this.#customEmitters ?? []) {
+      emitter.emit('posthtmlDone', this.returnAndCleanProcessedBuffer())
     }
   }
 }

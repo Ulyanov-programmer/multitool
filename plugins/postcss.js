@@ -5,6 +5,7 @@ export class PostCss extends Plugin {
   #plugins
   #postcssItem
   #outputExtname
+  #customEmitters
 
   constructor(options) {
     super({
@@ -13,6 +14,8 @@ export class PostCss extends Plugin {
 
       runTaskCallback: paths => { return this.#process(paths) },
     })
+
+    this.#customEmitters = options.emitEventOnDone ?? []
 
     this.#plugins = options.plugins
     this.#outputExtname = options.outputExtname
@@ -39,7 +42,12 @@ export class PostCss extends Plugin {
 
       this.emitter.emit('processedFile', {
         pathToFile: pathToFile,
+        extension: 'css',
       })
+    }
+
+    for (let emitter of this.#customEmitters ?? []) {
+      emitter.emit('posthtmlDone', this.returnAndCleanProcessedBuffer())
     }
   }
 }

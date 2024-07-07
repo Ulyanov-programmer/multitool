@@ -1,3 +1,4 @@
+import { EventEmitter } from 'node:events'
 import { paths } from './paths.js'
 
 import { Sharp } from './plugins/sharp.js'
@@ -29,26 +30,14 @@ if (isDeleteDistBeforeLaunch) {
 import './plugins/other/copy.js'
 
 
-new Beautify({
-  associations: 'html',
-  workingDirectory: paths.output.root,
-  options: {
-    indent_size: 2,
-    max_preserve_newlines: 1,
-  },
-  beautifyPluginSlug: 'html',
-  watchEvents: ['change'],
-})
+const beautifyEmitter = new EventEmitter()
+
 
 new Beautify({
-  associations: 'css',
+  associations: '{html,css}',
   ignore: paths.output.assets + '**',
   workingDirectory: paths.output.root,
-  options: {
-    indent_size: 2,
-  },
-  beautifyPluginSlug: 'css',
-  watchEvents: ['change'],
+  subscribeOnEmitters: [beautifyEmitter],
 })
 
 new Sharp({
@@ -115,6 +104,7 @@ new PostHtml({
   thirdPartyFiles: [
     paths.sources.htmlComponents + '*.html',
   ],
+  emitEventOnDone: [beautifyEmitter],
 })
 
 new PostCss({
@@ -123,4 +113,5 @@ new PostCss({
   plugins: plugins,
   outputExtname: 'css',
   watchEvents: ['change'],
+  emitEventOnDone: [beautifyEmitter],
 })

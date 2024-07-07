@@ -29,18 +29,12 @@ export class Plugin {
 
     this.globOptions.ignore = options.ignore
 
-    if (options.workingDirectory?.includes(paths.output.root)) {
-      this.workingInOutputDir = true
-    }
-
     // paths of user 
     this.paths = paths
     this.path = path
 
     this.runTaskCallback = options.runTaskCallback
 
-    this.globSync = globSync
-    this.hasMagic = hasMagic
     this.fs = fs
     this.emitter = new EventEmitter()
     this.chalk = chalk
@@ -57,9 +51,15 @@ export class Plugin {
       this.chalkColor.bold(this.constructor.name) +
       chalk.grey('] ')
 
+    this.#registerEvents()
+
+    this.startWatching(options.watchEvents)
+  }
+
+  #registerEvents() {
     this.emitter.on('processedFile', options => {
       this.log('processed', options)
-      this.updateTaskBufferForProcessedFiles(options.pathToFile)
+      this.updateTaskBufferForProcessedFiles(options)
     })
 
     this.emitter.on('processStart', options => {
@@ -76,8 +76,6 @@ export class Plugin {
     this.emitter.on('runTask', options => {
       this.#runProcess(undefined, options)
     })
-
-    this.startWatching(options.watchEvents)
   }
 
   getChangedFiles(files = this.glob) {
@@ -114,8 +112,8 @@ export class Plugin {
   }
 
   #unmaskPathsAndTransformToArray(paths, globOptions) {
-    if (this.hasMagic(paths))
-      paths = this.globSync(paths, globOptions)
+    if (hasMagic(paths))
+      paths = globSync(paths, globOptions)
 
     if (!Array.isArray(paths))
       paths = [paths]
@@ -200,21 +198,7 @@ export class Plugin {
     })
 
     for (let runEvent of runEvents) {
-      if (this.workingInOutputDir) {
-        this.canRunTheTask = true
-
-        this.watcher.on(runEvent, pathToFile => {
-          if (!this.canRunTheTask) return
-
-          this.canRunTheTask = false
-
-          this.#runProcess(pathToFile, { passAllFiles: true, })
-            .then(this.canRunTheTask = true)
-        })
-      }
-      else {
-        this.watcher.on(runEvent, this.#runProcess.bind(this))
-      }
+      this.watcher.on(runEvent, this.#runProcess.bind(this))
     }
   }
 
@@ -225,8 +209,10 @@ export class Plugin {
     localChokidar.on('change', () => this.#runProcess(null, { passAllFiles: true }))
   }
 
-  updateTaskBufferForProcessedFiles(pathToFile) {
-    this.processedBuffer.push(Plugin.getDistPathForFile(pathToFile))
+  updateTaskBufferForProcessedFiles(options) {
+    this.processedBuffer.push(
+      Plugin.getDistPathForFile(options.pathToFile, options.extension)
+    )
   }
 
   async #runProcess(paths, options) {
