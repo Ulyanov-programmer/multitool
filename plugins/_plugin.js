@@ -201,18 +201,15 @@ export class Plugin {
 
     for (let runEvent of runEvents) {
       if (this.workingInOutputDir) {
-        this.runningTaskCounter = 0
+        this.canRunTheTask = true
 
-        this.watcher.on(runEvent, async pathToFile => {
-          if (this.runningTaskCounter == 0) {
-            this.runningTaskCounter++
+        this.watcher.on(runEvent, pathToFile => {
+          if (!this.canRunTheTask) return
 
-            await this.#runProcess(pathToFile, {
-              passAllFiles: true,
-            })
-          }
+          this.canRunTheTask = false
 
-          this.runningTaskCounter = 0
+          this.#runProcess(pathToFile, { passAllFiles: true, })
+            .then(this.canRunTheTask = true)
         })
       }
       else {

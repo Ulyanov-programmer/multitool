@@ -8,14 +8,10 @@ export class PostCss extends Plugin {
 
   constructor(options) {
     super({
-      associations: options.associations,
-      workingDirectory: options.workingDirectory,
-      ignore: options.ignore,
+      ...options,
       logColor: '#2277ff',
 
       runTaskCallback: paths => { return this.#process(paths) },
-
-      watchEvents: options.reLaunchOn,
     })
 
     this.#plugins = options.plugins

@@ -8,13 +8,10 @@ export class Esbuild extends Plugin {
   }
   #watchMode
   #options
-  cache
 
   constructor(options) {
     super({
-      associations: options.associations,
-      workingDirectory: options.workingDirectory,
-      ignore: options.ignore,
+      ...options,
       logColor: '#f3cb36',
 
       runTaskCallback: paths => { return this.#process(paths) },
@@ -60,7 +57,5 @@ export class Esbuild extends Plugin {
         })
       }
     }
-
-    return paths
   }
 }

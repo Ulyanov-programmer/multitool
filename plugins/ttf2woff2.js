@@ -2,18 +2,12 @@ import ttf2woff2 from 'ttf2woff2'
 import { Plugin } from './_plugin.js'
 
 export class Ttf2Woff2 extends Plugin {
-  cache
-
   constructor(options) {
     super({
-      associations: options.associations,
-      workingDirectory: options.workingDirectory,
-      ignore: options.ignore,
+      ...options,
       logColor: '#2E2927',
 
       runTaskCallback: paths => { return this.#process(paths) },
-
-      watchEvents: options.reLaunchOn,
     })
 
     this.emitter.emit('runTask')

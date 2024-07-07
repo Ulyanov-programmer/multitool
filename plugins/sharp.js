@@ -22,18 +22,13 @@ export class Sharp extends Plugin {
   }
   #options
   #sharpOptions
-  cache
 
   constructor(options) {
     super({
-      associations: options.associations,
-      workingDirectory: options.workingDirectory,
-      ignore: options.ignore,
+      ...options,
       logColor: '#009900',
 
       runTaskCallback: paths => { return this.#process(paths) },
-
-      watchEvents: options.reLaunchOn,
     })
 
     this.#sharpOptions = Object.assign(

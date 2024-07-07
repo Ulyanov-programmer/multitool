@@ -4,18 +4,13 @@ import { Plugin } from './_plugin.js'
 export class Beautify extends Plugin {
   #options
   #beautifyPlugin
-  cache
 
   constructor(options) {
     super({
-      associations: options.associations,
-      workingDirectory: options.workingDirectory,
-      ignore: options.ignore,
+      ...options,
       logColor: '#99005C',
 
       runTaskCallback: paths => { return this.#process(paths) },
-
-      watchEvents: options.reLaunchOn,
     })
 
     this.#options = options.options

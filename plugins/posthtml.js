@@ -3,19 +3,13 @@ import { Plugin } from './_plugin.js'
 
 export class PostHtml extends Plugin {
   #pluginsArray
-  cache
 
   constructor(options) {
     super({
-      associations: options.associations,
-      workingDirectory: options.workingDirectory,
-      ignore: options.ignore,
+      ...options,
       logColor: '#e54d26',
-      thirdPartyFiles: options.thirdPartyFiles,
 
       runTaskCallback: paths => { return this.#process(paths) },
-
-      watchEvents: options.reLaunchOn,
     })
 
     this.#pluginsArray = options.plugins

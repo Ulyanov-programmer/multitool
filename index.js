@@ -37,7 +37,7 @@ new Beautify({
     max_preserve_newlines: 1,
   },
   beautifyPluginSlug: 'html',
-  reLaunchOn: ['change'],
+  watchEvents: ['change'],
 })
 
 new Beautify({
@@ -48,7 +48,7 @@ new Beautify({
     indent_size: 2,
   },
   beautifyPluginSlug: 'css',
-  reLaunchOn: ['change'],
+  watchEvents: ['change'],
 })
 
 new Sharp({
@@ -75,13 +75,13 @@ new Sharp({
     webp: {},
     avif: {},
   },
-  reLaunchOn: ['add', 'changed'],
+  watchEvents: ['add', 'changed'],
 })
 
 new Ttf2Woff2({
   associations: '{otf,ttf}',
   ignore: paths.sources.assets + '**',
-  reLaunchOn: ['add'],
+  watchEvents: ['add'],
 })
 
 new Esbuild({
@@ -111,7 +111,7 @@ new PostHtml({
       processEmptySize: true,
     }),
   ],
-  reLaunchOn: ['change'],
+  watchEvents: ['change'],
   thirdPartyFiles: [
     paths.sources.htmlComponents + '*.html',
   ],
@@ -122,5 +122,5 @@ new PostCss({
   ignore: paths.sources.assets + '**',
   plugins: plugins,
   outputExtname: 'css',
-  reLaunchOn: ['change'],
+  watchEvents: ['change'],
 })
