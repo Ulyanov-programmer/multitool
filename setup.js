@@ -1,5 +1,5 @@
 import fs from 'fs-extra'
-import replace from 'replace-in-file'
+import { replaceInFile, replaceInFileSync } from 'replace-in-file'
 import { log } from 'console'
 import enquirer from 'enquirer'
 import chalk from 'chalk'
@@ -328,7 +328,7 @@ async function setVariables(...variableTemplates) {
     let newTemplateStrings = newTemplate.split('\n')
 
     for (let i = 0; i < templateStrings.length; i++) {
-      await replace({
+      await replaceInFile({
         files: variableTemplate.variableFilePath,
         from: templateStrings[i],
         to: newTemplateStrings[i],
@@ -372,12 +372,12 @@ async function setMainFont() {
     footer: () => chalk.gray.italic("use ↑↓ to move, when you're done, press enter")
   })
 
-  replace.sync({
+  replaceInFileSync({
     files: styles.normalize,
     from: `--main-font-family: arial;`,
     to: `--main-font-family: '${selectedFont.split('-')[0]}'; `,
   })
-  replace.sync({
+  replaceInFileSync({
     files: html.layout,
     from: `href="./fonts/your_preloadedFontName.woff2"`,
     to: `href="./fonts/${selectedFont.split('.')[0]}.woff2"`,

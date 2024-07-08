@@ -38,9 +38,6 @@
     "posthtml-img-autosize": "^0.1.6",
     "replace-in-file": "^8.1.0",
     "sharp": "^0.33.4",
-    "stylelint": "^16.6.1",
-    "stylelint-config-clean-order": "^6.1.0",
-    "stylelint-config-standard": "^36.0.1",
     "ttf2woff2": "^5.0.0",
     "utimes": "^5.2.1"
   },
