@@ -1,26 +1,31 @@
 import esbuild from 'esbuild'
-import { Plugin } from './_plugin.js'
+import { paths } from '../paths.js'
+import { Plugin } from './other/_plugin.js'
+import { isProductionMode } from './other/environment.js'
 
-export class Esbuild extends Plugin {
+export default class Esbuild extends Plugin {
   #DEFAULT_OPTIONS = {
     bundle: false,
     write: true,
   }
-  #watchMode
-  #options
+  #watchMode = true
+  #options = {
+    target: 'es2022',
+    bundle: false,
+    outdir: paths.output.scripts,
+    //? Necessary if the task works with only one file.
+    outbase: paths.sources.scripts,
+    minify: isProductionMode,
+  }
 
-  constructor(options) {
+  constructor() {
     super({
-      ...options,
+      associations: '{js,ts}',
+      ignore: paths.sources.assets + '**',
       logColor: '#f3cb36',
 
       runTaskCallback: paths => { return this.#process(paths) },
     })
-
-    this.#watchMode = options.params.watchMode ?? false
-    delete options.params.watchMode
-
-    this.#options = options.params
 
     this.emitter.emit('runTask', {
       passAllFiles: true,

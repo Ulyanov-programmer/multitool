@@ -1,7 +1,8 @@
 import sharp from 'sharp'
-import { Plugin } from './_plugin.js'
+import { paths } from '../paths.js'
+import { Plugin } from './other/_plugin.js'
 
-export class Sharp extends Plugin {
+export default class Sharp extends Plugin {
   #ALLOWED_EXTENSIONS = [
     'gif',
     'png',
@@ -16,28 +17,41 @@ export class Sharp extends Plugin {
     lossless: false,
     chromaSubsampling: '4:2:0',
   }
-  #DEFAULT_SHARP_OPTIONS = {
+  #SHARP_OPTIONS = {
     animated: true,
     limitInputPixels: false,
   }
-  #options
-  #sharpOptions
+  #options = {
+    png: {
+      quality: 90,
 
-  constructor(options) {
+      webp: {},
+      avif: {},
+    },
+    jpg: {
+      mozjpeg: true,
+
+      webp: {},
+      avif: {},
+    },
+    gif: {
+      webp: {},
+    },
+    webp: {},
+    avif: {},
+  }
+
+  constructor() {
     super({
-      ...options,
+      associations: '{gif,webp,avif,png,jpg,jpeg,svg}',
+      ignore: paths.sources.assets + '**',
+      watchEvents: ['add', 'changed'],
       logColor: '#009900',
 
       runTaskCallback: paths => { return this.#process(paths) },
     })
 
-    this.#sharpOptions = Object.assign(
-      this.#DEFAULT_SHARP_OPTIONS,
-      options.params.sharpOptions ?? {}
-    )
-    delete options.params.sharpOptions
-
-    this.#options = this.#parseOptionObject(options.params)
+    this.#options = this.#parseOptionObject(this.#options)
 
     this.emitter.emit('runTask')
   }
@@ -58,7 +72,7 @@ export class Sharp extends Plugin {
 
         let destFilePath = Plugin.getDistPathForFile(pathToFile, outputExtname)
 
-        let sharpInstance = await sharp(pathToFile, this.#sharpOptions)
+        let sharpInstance = await sharp(pathToFile, this.#SHARP_OPTIONS)
           .toFormat(
             outputExtname,
             {

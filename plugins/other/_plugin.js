@@ -6,7 +6,7 @@ import chalk from 'chalk'
 import chokidar from 'chokidar'
 import { performance } from 'perf_hooks'
 import { EventEmitter } from 'node:events'
-import { paths } from '../paths.js'
+import { paths } from '../../paths.js'
 import { FileComparer } from './comparer.js'
 
 export class Plugin {

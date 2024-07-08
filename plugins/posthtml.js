@@ -1,21 +1,33 @@
 import posthtml from 'posthtml'
-import { Plugin } from './_plugin.js'
+import component from 'posthtml-component'
+import imgAutosize from 'posthtml-img-autosize'
+import { paths } from '../paths.js'
+import { Plugin } from './other/_plugin.js'
 
-export class PostHtml extends Plugin {
-  #pluginsArray
-  #customEmitters
+export default class PostHtml extends Plugin {
+  #plugins = [
+    component({
+      root: paths.sources.root,
+      folders: ['components'],
+    }),
+    imgAutosize({
+      root: paths.output.root,
+      processEmptySize: true,
+    }),
+  ]
 
-  constructor(options) {
+  constructor() {
     super({
-      ...options,
+      associations: 'html',
+      ignore: [paths.sources.assets + '**', paths.sources.htmlComponents + '**'],
+      watchEvents: ['change'],
+      thirdPartyFiles: [
+        paths.sources.htmlComponents + '*.html',
+      ],
       logColor: '#e54d26',
 
       runTaskCallback: paths => { return this.#process(paths) },
     })
-
-    this.#customEmitters = options.emitEventOnDone ?? []
-
-    this.#pluginsArray = options.plugins
 
     this.emitter.emit('runTask')
   }
@@ -24,7 +36,7 @@ export class PostHtml extends Plugin {
     for (let pathToFile of paths) {
       let distPathToFile = Plugin.getDistPathForFile(pathToFile)
 
-      let result = await posthtml(this.#pluginsArray)
+      let result = await posthtml(this.#plugins)
         .process(this.fs.readFileSync(pathToFile, Plugin.ENCODING))
 
       this.fs.outputFileSync(distPathToFile, result.html, Plugin.ENCODING)
@@ -34,8 +46,6 @@ export class PostHtml extends Plugin {
       })
     }
 
-    for (let emitter of this.#customEmitters ?? []) {
-      emitter.emit('posthtmlDone', this.returnAndCleanProcessedBuffer())
-    }
+    globalThis?.emitter.emit('beautifyTaskRun', this.returnAndCleanProcessedBuffer())
   }
 }

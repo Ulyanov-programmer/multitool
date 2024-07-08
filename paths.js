@@ -3,7 +3,6 @@ export const
   sourcesFolder = 'sources/',
   paths = {
     root: './',
-    cache: 'tmp/',
     output: {
       root: outputFolder,
       styles: outputFolder + 'styles/',

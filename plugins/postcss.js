@@ -1,26 +1,23 @@
 import postcss from 'postcss'
-import { Plugin } from './_plugin.js'
+import { plugins } from './other/postcssConfig.js'
+import { paths } from '../paths.js'
+import { Plugin } from './other/_plugin.js'
 
-export class PostCss extends Plugin {
-  #plugins
-  #postcssItem
-  #outputExtname
-  #customEmitters
 
-  constructor(options) {
+export default class PostCss extends Plugin {
+  #postcssItem = postcss(plugins)
+  #outputExtname = 'css'
+
+  constructor() {
     super({
-      ...options,
+      associations: 'pcss',
+      ignore: paths.sources.assets + '**',
+      outputExtname: 'css',
+      watchEvents: ['change'],
       logColor: '#2277ff',
 
       runTaskCallback: paths => { return this.#process(paths) },
     })
-
-    this.#customEmitters = options.emitEventOnDone ?? []
-
-    this.#plugins = options.plugins
-    this.#outputExtname = options.outputExtname
-
-    this.#postcssItem = postcss(this.#plugins)
 
     this.emitter.emit('runTask')
   }
@@ -46,8 +43,6 @@ export class PostCss extends Plugin {
       })
     }
 
-    for (let emitter of this.#customEmitters ?? []) {
-      emitter.emit('posthtmlDone', this.returnAndCleanProcessedBuffer())
-    }
+    globalThis?.emitter.emit('beautifyTaskRun', this.returnAndCleanProcessedBuffer())
   }
 }

@@ -1,10 +1,13 @@
 import ttf2woff2 from 'ttf2woff2'
-import { Plugin } from './_plugin.js'
+import { paths } from '../paths.js'
+import { Plugin } from './other/_plugin.js'
 
-export class Ttf2Woff2 extends Plugin {
-  constructor(options) {
+export default class Ttf2Woff2 extends Plugin {
+  constructor() {
     super({
-      ...options,
+      associations: '{otf,ttf}',
+      ignore: paths.sources.assets + '**',
+      watchEvents: ['add'],
       logColor: '#2E2927',
 
       runTaskCallback: paths => { return this.#process(paths) },

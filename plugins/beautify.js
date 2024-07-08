@@ -1,7 +1,8 @@
 import beautify from 'js-beautify'
-import { Plugin } from './_plugin.js'
+import { paths } from '../paths.js'
+import { Plugin } from './other/_plugin.js'
 
-export class Beautify extends Plugin {
+export default class Beautify extends Plugin {
   #formatOptions = {
     html: {
       indent_size: 2,
@@ -13,15 +14,15 @@ export class Beautify extends Plugin {
     },
   }
 
-  constructor(options) {
+  constructor() {
     super({
-      ...options,
+      associations: '{html,css}',
+      ignore: paths.output.assets + '**',
+      workingDirectory: paths.output.root,
       logColor: '#99005C',
     })
 
-    for (let emitter of options.subscribeOnEmitters ?? []) {
-      emitter.on('posthtmlDone', this.#process.bind(this))
-    }
+    globalThis.emitter.on('beautifyTaskRun', this.#process.bind(this))
   }
 
   #process(paths) {
