@@ -6,16 +6,17 @@ import chalk from 'chalk'
 import chokidar from 'chokidar'
 import { performance } from 'perf_hooks'
 import { EventEmitter } from 'node:events'
-import { paths } from '../../paths.js'
 import { FileComparer } from './comparer.js'
 
 export class Plugin {
   static ENCODING = 'utf8'
   static performanceStartValue
   static performanceEndValue
+  static fs = fs
+  static chalk = chalk
+  static path = path
   emitter
   processedBuffer = []
-  globArray
   thirdPartyFilesGlobArray
   globOptions = {
     ignore: null,
@@ -23,22 +24,15 @@ export class Plugin {
 
   constructor(options) {
     this.glob =
-      `${options.workingDirectory ?? paths.sources.root}**/*.${options.associations}`
+      `${options.workingDirectory ?? globalThis.paths.sources.root}**/*.${options.associations}`
 
     this.thirdPartyFilesGlobArray = options.thirdPartyFiles
 
     this.globOptions.ignore = options.ignore
 
-    // paths of user 
-    this.paths = paths
-    this.path = path
-
     this.runTaskCallback = options.runTaskCallback
 
-    this.fs = fs
     this.emitter = new EventEmitter()
-    this.chalk = chalk
-    this.chokidar = chokidar
 
     this.cwd = Plugin.getCwd(options)
 
@@ -83,7 +77,8 @@ export class Plugin {
       // main files
       this.unGlobPaths(files, this.globOptions),
       // third party files
-      this.unGlobPaths(this.thirdPartyFilesGlobArray)
+      this.unGlobPaths(this.thirdPartyFilesGlobArray),
+      this.outputExtname
     )
 
     if (files === false)
@@ -99,7 +94,7 @@ export class Plugin {
   }
 
   static getCwd(options) {
-    return path.normalize(globParent(options?.workingDirectory ?? paths.sources.root))
+    return path.normalize(globParent(options?.workingDirectory ?? globalThis.paths.sources.root))
   }
 
   #checkPath(paths) {
@@ -182,7 +177,7 @@ export class Plugin {
     let parsedPath = path.parse(filePath)
     let newFileBase = newFileExt ? parsedPath.name + `.${newFileExt}` : parsedPath.base
 
-    let newPath = paths.output.root +
+    let newPath = globalThis.paths.output.root +
       parsedPath.dir.replace(this.cwd ?? Plugin.getCwd(), '') + '/' +
       newFileBase
 
@@ -192,7 +187,7 @@ export class Plugin {
   startWatching(runEvents) {
     if (!runEvents?.length) return
 
-    this.watcher = this.chokidar.watch(this.glob, {
+    this.watcher = chokidar.watch(this.glob, {
       ignoreInitial: true,
       ignored: this.globOptions.ignore,
     })
@@ -203,7 +198,7 @@ export class Plugin {
   }
 
   startWatchingForThirdPartyFiles(globToFiles = []) {
-    let localChokidar = this.chokidar.watch(globToFiles, { ignoreInitial: true, })
+    let localChokidar = chokidar.watch(globToFiles, { ignoreInitial: true, })
 
     // running the task in such a way that it processes all the files it is associated with
     localChokidar.on('change', () => this.#runProcess(null, { passAllFiles: true }))

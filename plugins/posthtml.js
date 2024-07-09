@@ -1,28 +1,28 @@
 import posthtml from 'posthtml'
 import component from 'posthtml-component'
 import imgAutosize from 'posthtml-img-autosize'
-import { paths } from '../paths.js'
 import { Plugin } from './other/_plugin.js'
 
 export default class PostHtml extends Plugin {
   #plugins = [
     component({
-      root: paths.sources.root,
+      root: globalThis.paths.sources.root,
       folders: ['components'],
     }),
     imgAutosize({
-      root: paths.output.root,
+      root: globalThis.paths.output.root,
       processEmptySize: true,
     }),
   ]
+  outputExtname = 'html'
 
   constructor() {
     super({
       associations: 'html',
-      ignore: [paths.sources.assets + '**', paths.sources.htmlComponents + '**'],
+      ignore: [globalThis.paths.sources.assets + '**', globalThis.paths.sources.htmlComponents + '**'],
       watchEvents: ['change'],
       thirdPartyFiles: [
-        paths.sources.htmlComponents + '*.html',
+        globalThis.paths.sources.htmlComponents + '*.html',
       ],
       logColor: '#e54d26',
 
@@ -37,15 +37,15 @@ export default class PostHtml extends Plugin {
       let distPathToFile = Plugin.getDistPathForFile(pathToFile)
 
       let result = await posthtml(this.#plugins)
-        .process(this.fs.readFileSync(pathToFile, Plugin.ENCODING))
+        .process(Plugin.fs.readFileSync(pathToFile, Plugin.ENCODING))
 
-      this.fs.outputFileSync(distPathToFile, result.html, Plugin.ENCODING)
+      Plugin.fs.outputFileSync(distPathToFile, result.html, Plugin.ENCODING)
 
       this.emitter.emit('processedFile', {
         pathToFile: pathToFile,
       })
     }
 
-    globalThis?.emitter.emit('beautifyTaskRun', this.returnAndCleanProcessedBuffer())
+    globalThis?.emitter.emit('beautifyTaskRun', this.processedBuffer)
   }
 }

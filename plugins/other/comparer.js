@@ -5,7 +5,7 @@ import { utimesSync } from 'utimes'
 import { Plugin } from './_plugin.js'
 
 export class FileComparer {
-  static onlyChangedFiles(inputPaths = [], thirdPartyFiles) {
+  static onlyChangedFiles(inputPaths = [], thirdPartyFiles, outputExtname) {
     if (this.thirdPartyFileHasBeenModified(inputPaths, thirdPartyFiles))
       return false
 
@@ -14,7 +14,7 @@ export class FileComparer {
 
       // Creating and correcting the file path for the Glob library.
       let pathToGlob = Plugin.getDistPathForFile(inputPaths[i])
-        .replace(parsedPath.ext, '.*')
+        .replace(parsedPath.ext, `*.${outputExtname ?? '*'}`)
         .replaceAll('\\', '/')
 
       let destFile = globSync(pathToGlob)

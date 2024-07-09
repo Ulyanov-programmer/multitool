@@ -1,5 +1,4 @@
 import sharp from 'sharp'
-import { paths } from '../paths.js'
 import { Plugin } from './other/_plugin.js'
 
 export default class Sharp extends Plugin {
@@ -44,7 +43,7 @@ export default class Sharp extends Plugin {
   constructor() {
     super({
       associations: '{gif,webp,avif,png,jpg,jpeg,svg}',
-      ignore: paths.sources.assets + '**',
+      ignore: globalThis.paths.sources.assets + '**',
       watchEvents: ['add', 'changed'],
       logColor: '#009900',
 
@@ -58,7 +57,7 @@ export default class Sharp extends Plugin {
 
   async #process(paths) {
     for (let pathToFile of paths) {
-      let parsedPath = this.path.parse(pathToFile)
+      let parsedPath = Plugin.path.parse(pathToFile)
       let extWithoutDot = parsedPath.ext.replace('.', '')
 
       if (!this.#extnameIsCorrect(extWithoutDot)) {
@@ -81,7 +80,7 @@ export default class Sharp extends Plugin {
             }
           )
 
-        this.fs.createFileSync(destFilePath)
+        Plugin.fs.createFileSync(destFilePath)
 
         await sharpInstance.toFile(destFilePath)
 
@@ -120,11 +119,11 @@ export default class Sharp extends Plugin {
   }
 
   #copyWithLog(pathToFile) {
-    this.fs.copySync(pathToFile, Plugin.getDistPathForFile(pathToFile))
+    Plugin.fs.copySync(pathToFile, Plugin.getDistPathForFile(pathToFile))
 
     this.emitter.emit('processedFile', {
       pathToFile: pathToFile,
-      extension: this.path.extname(pathToFile).replace('.', ''),
+      extension: Plugin.path.extname(pathToFile).replace('.', ''),
     })
   }
   #extnameIsCorrect(extname) {

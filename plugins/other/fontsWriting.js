@@ -3,7 +3,6 @@ import { kebabCase } from 'case-anything'
 import chalk from 'chalk'
 import path from 'path'
 import { parseNumericWeightFromName, parseStyleFromName } from 'parse-font-name'
-import { paths } from '../../paths.js'
 
 
 function fontsWriting() {
@@ -24,7 +23,7 @@ function fontsWriting() {
   let fonts = []
   let currentFontName
 
-  for (let fileName of fs.readdirSync(paths.sources.fontsFolder)) {
+  for (let fileName of fs.readdirSync(globalThis.paths.sources.fontsFolder)) {
     if (fileName == '.gitkeep') continue
 
     let
@@ -79,7 +78,7 @@ fontsWriting()
 
 function setupFontFaceRule(type, fontName, fileNameNoExt, weight, style) {
   fs.appendFileSync(
-    paths.sources.fontsFilePath,
+    globalThis.paths.sources.fontsFilePath,
 
     `@font-face {
   font-style: ${style};
@@ -129,13 +128,13 @@ function declareFontVariablesAndModifiers(fonts) {
 }\n`
 
 
-  fs.appendFileSync(paths.sources.fontsFilePath,
+  fs.appendFileSync(globalThis.paths.sources.fontsFilePath,
     variablesInRoot + modifiers
   )
 }
 
 function filesIsCorrect() {
-  let fileNames = fs.readdirSync(paths.sources.fontsFolder)
+  let fileNames = fs.readdirSync(globalThis.paths.sources.fontsFolder)
     ?.filter(name => name != '.gitkeep')
 
   if (fileNames?.length <= 0)
@@ -145,9 +144,13 @@ function filesIsCorrect() {
 }
 
 function isFontsStyleFileFull() {
-  return fs.readFileSync(paths.sources.fontsFilePath, 'utf8')
-    .replace(/\s/g, '')
-    .length > 0
+  try {
+    let fontsStyleFile = fs.readFileSync(globalThis.paths.sources.fontsFilePath, 'utf8')
+    return fontsStyleFile.replace(/\s/g, '').length > 0
+  }
+  catch (error) {
+    return true
+  }
 }
 
 function writeWelcomePhrase() {

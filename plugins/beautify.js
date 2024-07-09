@@ -1,5 +1,4 @@
 import beautify from 'js-beautify'
-import { paths } from '../paths.js'
 import { Plugin } from './other/_plugin.js'
 
 export default class Beautify extends Plugin {
@@ -17,8 +16,8 @@ export default class Beautify extends Plugin {
   constructor() {
     super({
       associations: '{html,css}',
-      ignore: paths.output.assets + '**',
-      workingDirectory: paths.output.root,
+      ignore: globalThis.paths.output.assets + '**',
+      workingDirectory: globalThis.paths.output.root,
       logColor: '#99005C',
     })
 
@@ -27,10 +26,10 @@ export default class Beautify extends Plugin {
 
   #process(paths) {
     for (let pathToFile of paths) {
-      let data = this.fs.readFileSync(pathToFile, Plugin.ENCODING)
+      let data = Plugin.fs.readFileSync(pathToFile, Plugin.ENCODING)
       let result
 
-      switch (this.path.parse(pathToFile).ext) {
+      switch (Plugin.path.parse(pathToFile).ext) {
         case '.html':
           result = beautify.html(data, this.#formatOptions.html)
           break
@@ -39,7 +38,7 @@ export default class Beautify extends Plugin {
           break
       }
 
-      this.fs.writeFileSync(pathToFile, result, Plugin.ENCODING)
+      Plugin.fs.writeFileSync(pathToFile, result, Plugin.ENCODING)
 
       this.emitter.emit('processedFile', {
         pathToFile: pathToFile,

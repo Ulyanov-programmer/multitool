@@ -1,3 +1,4 @@
+import './paths.js'
 import { EventEmitter } from 'node:events'
 import { getPluginNames } from './plugins/other/getPluginNames.js'
 

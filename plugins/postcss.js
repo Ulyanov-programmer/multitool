@@ -1,18 +1,16 @@
 import postcss from 'postcss'
 import { plugins } from './other/postcssConfig.js'
-import { paths } from '../paths.js'
 import { Plugin } from './other/_plugin.js'
 
 
 export default class PostCss extends Plugin {
   #postcssItem = postcss(plugins)
-  #outputExtname = 'css'
+  outputExtname = 'css'
 
   constructor() {
     super({
       associations: 'pcss',
-      ignore: paths.sources.assets + '**',
-      outputExtname: 'css',
+      ignore: globalThis.paths.sources.assets + '**',
       watchEvents: ['change'],
       logColor: '#2277ff',
 
@@ -24,9 +22,9 @@ export default class PostCss extends Plugin {
 
   async #process(paths) {
     for (let pathToFile of paths) {
-      let destFilePath = Plugin.getDistPathForFile(pathToFile, this.#outputExtname)
+      let destFilePath = Plugin.getDistPathForFile(pathToFile, this.outputExtname)
 
-      let css = this.fs.readFileSync(pathToFile)
+      let css = Plugin.fs.readFileSync(pathToFile)
 
       let result = await this.#postcssItem.process(css,
         {
@@ -35,7 +33,7 @@ export default class PostCss extends Plugin {
         }
       )
 
-      this.fs.outputFileSync(destFilePath, result.css, Plugin.ENCODING)
+      Plugin.fs.outputFileSync(destFilePath, result.css, Plugin.ENCODING)
 
       this.emitter.emit('processedFile', {
         pathToFile: pathToFile,
@@ -43,6 +41,6 @@ export default class PostCss extends Plugin {
       })
     }
 
-    globalThis?.emitter.emit('beautifyTaskRun', this.returnAndCleanProcessedBuffer())
+    globalThis?.emitter.emit('beautifyTaskRun', this.processedBuffer)
   }
 }

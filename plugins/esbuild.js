@@ -1,5 +1,4 @@
 import esbuild from 'esbuild'
-import { paths } from '../paths.js'
 import { Plugin } from './other/_plugin.js'
 import { isProductionMode } from './other/environment.js'
 
@@ -12,16 +11,17 @@ export default class Esbuild extends Plugin {
   #options = {
     target: 'es2022',
     bundle: false,
-    outdir: paths.output.scripts,
+    outdir: globalThis.paths.output.scripts,
     //? Necessary if the task works with only one file.
-    outbase: paths.sources.scripts,
+    outbase: globalThis.paths.sources.scripts,
     minify: isProductionMode,
   }
+  outputExtname = 'js'
 
   constructor() {
     super({
       associations: '{js,ts}',
-      ignore: paths.sources.assets + '**',
+      ignore: globalThis.paths.sources.assets + '**',
       logColor: '#f3cb36',
 
       runTaskCallback: paths => { return this.#process(paths) },
@@ -54,7 +54,7 @@ export default class Esbuild extends Plugin {
       let buildContext = await esbuild.context(this.#options)
       buildContext.watch()
 
-      console.log(this.chalk.bgGreen('Watch mode is active'))
+      console.log(Plugin.chalk.green.bold('Watch mode is active'))
 
       for (let entry of paths) {
         this.emitter.emit('processedFile', {
