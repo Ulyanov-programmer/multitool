@@ -3,7 +3,7 @@ import { replaceInFile, replaceInFileSync } from 'replace-in-file'
 import { log } from 'console'
 import enquirer from 'enquirer'
 import chalk from 'chalk'
-import './paths.js'
+import './config.js'
 
 
 

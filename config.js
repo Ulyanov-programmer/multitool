@@ -1,3 +1,9 @@
+import { EventEmitter } from 'node:events'
+
+// ? This is necessary to trigger special events inside plugins.
+globalThis.emitter = new EventEmitter()
+
+
 const outputFolder = 'dist/', sourcesFolder = 'sources/'
 
 globalThis.paths = {

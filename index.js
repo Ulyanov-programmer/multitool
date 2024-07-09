@@ -1,9 +1,5 @@
-import './paths.js'
-import { EventEmitter } from 'node:events'
+import './config.js'
 import { getAllPluginNames, getPathToThePlugin } from './plugins/other/getPluginNames.js'
-
-
-globalThis.emitter = new EventEmitter()
 
 
 let tasksArg = process.argv.find(arg => arg.includes('tasks'))
