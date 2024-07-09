@@ -5,7 +5,7 @@ import path from 'path'
 import { parseNumericWeightFromName, parseStyleFromName } from 'parse-font-name'
 
 
-function fontsWriting() {
+export default function () {
   if (isFontsStyleFileFull()) {
     console.log(chalk.green('The font styles file is already filled in.'))
     return
@@ -71,8 +71,6 @@ function fontsWriting() {
 
   writeEndingPhrase()
 }
-
-fontsWriting()
 
 
 
