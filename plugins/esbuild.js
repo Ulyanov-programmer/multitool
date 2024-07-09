@@ -1,6 +1,5 @@
 import esbuild from 'esbuild'
 import { Plugin } from './other/_plugin.js'
-import { isProductionMode } from './other/environment.js'
 
 export default class Esbuild extends Plugin {
   #DEFAULT_OPTIONS = {
@@ -14,7 +13,7 @@ export default class Esbuild extends Plugin {
     outdir: globalThis.paths.output.scripts,
     //? Necessary if the task works with only one file.
     outbase: globalThis.paths.sources.scripts,
-    minify: isProductionMode,
+    minify: globalThis.isProductionMode,
   }
   outputExtname = 'js'
 
