@@ -3,7 +3,7 @@ import { replaceInFile, replaceInFileSync } from 'replace-in-file'
 import { log } from 'console'
 import enquirer from 'enquirer'
 import chalk from 'chalk'
-import { paths } from './paths.js'
+import './paths.js'
 
 
 
@@ -36,13 +36,13 @@ class VariableTemplate {
 
 
 const
-  postcssFunctionsFile = paths.root + 'plugins/other/postcssFunctions.js',
+  postcssFunctionsFile = globalThis.paths.root + 'plugins/other/postcssFunctions.js',
   styles = {
-    normalize: paths.sources.styles + 'normalize.pcss',
+    normalize: globalThis.paths.sources.styles + 'normalize.pcss',
   },
   html = {
-    layout: paths.sources.htmlComponents + 'layout.html',
-    index: paths.sources.root + 'index.html',
+    layout: globalThis.paths.sources.htmlComponents + 'layout.html',
+    index: globalThis.paths.sources.root + 'index.html',
   }
 
 
@@ -70,32 +70,32 @@ await includeModuleByQuestion(
 
   new ModuleObject({
     moduleName: 'Just Validate',
-    filesAndFolders: paths.sources.assets + 'justValidate/',
+    filesAndFolders: globalThis.paths.sources.assets + 'justValidate/',
   }),
   new ModuleObject({
     moduleName: 'scroll-timeline polyfill',
-    filesAndFolders: paths.sources.assets + 'scroll-timeline.js',
+    filesAndFolders: globalThis.paths.sources.assets + 'scroll-timeline.js',
   }),
   new ModuleObject({
     moduleName: `Slider Swiper ${chalk.magenta(`[MANDATORY FOR MODULE 'STEP BY STEP BLOCK']`)
       }`,
-    filesAndFolders: paths.sources.assets + 'swiper/',
+    filesAndFolders: globalThis.paths.sources.assets + 'swiper/',
   }),
   new ModuleObject({
     moduleName: 'Typed',
-    filesAndFolders: paths.sources.assets + 'typed/',
+    filesAndFolders: globalThis.paths.sources.assets + 'typed/',
   }),
   new ModuleObject({
     moduleName: 'Input Mask',
-    filesAndFolders: paths.sources.assets + 'inputmask/',
+    filesAndFolders: globalThis.paths.sources.assets + 'inputmask/',
   }),
   new ModuleObject({
     moduleName: 'Photo Swipe',
-    filesAndFolders: paths.sources.assets + 'photoswipe/',
+    filesAndFolders: globalThis.paths.sources.assets + 'photoswipe/',
   }),
   new ModuleObject({
     moduleName: 'No Ui Slider',
-    filesAndFolders: paths.sources.assets + 'nouislider/',
+    filesAndFolders: globalThis.paths.sources.assets + 'nouislider/',
   })
 )
 await includeModuleByQuestion(
@@ -104,45 +104,45 @@ await includeModuleByQuestion(
   new ModuleObject({
     moduleName: 'Scripts for dialog',
     filesAndFolders: [
-      paths.sources.scripts + 'dialogs/',
-      paths.sources.htmlComponents + 'modals.html',
+      globalThis.paths.sources.scripts + 'dialogs/',
+      globalThis.paths.sources.htmlComponents + 'modals.html',
     ],
   }),
   new ModuleObject({
     moduleName: 'Tabs',
-    filesAndFolders: paths.sources.scripts + 'tab/',
+    filesAndFolders: globalThis.paths.sources.scripts + 'tab/',
   }),
   new ModuleObject({
     moduleName: 'Parallax by mouse',
-    filesAndFolders: paths.sources.scripts + 'mouseParallax/',
+    filesAndFolders: globalThis.paths.sources.scripts + 'mouseParallax/',
   }),
   new ModuleObject({
     moduleName: 'AutoScrollPadding',
-    filesAndFolders: paths.sources.scripts + 'autoScrollPadding/',
+    filesAndFolders: globalThis.paths.sources.scripts + 'autoScrollPadding/',
   }),
   new ModuleObject({
     moduleName: 'Tools for observer',
-    filesAndFolders: paths.sources.scripts + 'observerTools/',
+    filesAndFolders: globalThis.paths.sources.scripts + 'observerTools/',
   }),
   new ModuleObject({
     moduleName: 'Horizontal scroll by mouse wheel',
-    filesAndFolders: paths.sources.scripts + 'horizontalMouseScroll.ts',
+    filesAndFolders: globalThis.paths.sources.scripts + 'horizontalMouseScroll.ts',
   }),
   new ModuleObject({
     moduleName: 'Switching by swipe',
-    filesAndFolders: paths.sources.scripts + 'toggleBySwipe/',
+    filesAndFolders: globalThis.paths.sources.scripts + 'toggleBySwipe/',
   }),
   new ModuleObject({
     moduleName: 'Step By Step block',
-    filesAndFolders: paths.sources.scripts + 'stepByStepBlock/',
+    filesAndFolders: globalThis.paths.sources.scripts + 'stepByStepBlock/',
   }),
   new ModuleObject({
     moduleName: 'Infinite auto-scroll',
-    filesAndFolders: paths.sources.scripts + 'infiniteScroll/',
+    filesAndFolders: globalThis.paths.sources.scripts + 'infiniteScroll/',
   }),
   new ModuleObject({
     moduleName: 'Horizontal scrolling with a mouse wheel',
-    filesAndFolders: paths.sources.scripts + 'horizontalMouseScroll/',
+    filesAndFolders: globalThis.paths.sources.scripts + 'horizontalMouseScroll/',
   }),
 )
 
@@ -339,7 +339,7 @@ async function setVariables(...variableTemplates) {
 
 async function setMainFont() {
   await enquirer.toggle({
-    message: chalk.italic(`Now i will analyze your folder ${chalk.underline.yellow(paths.sources.fontsFolder)}, make sure that you have added font files there.\n`),
+    message: chalk.italic(`Now i will analyze your folder ${chalk.underline.yellow(globalThis.paths.sources.fontsFolder)}, make sure that you have added font files there.\n`),
     enabled: chalk.greenBright(
       `I added the font files to this folder.`
     ),
@@ -348,7 +348,7 @@ async function setMainFont() {
     ),
   })
 
-  let filesSources = fs.readdirSync(paths.sources.fontsFolder)
+  let filesSources = fs.readdirSync(globalThis.paths.sources.fontsFolder)
 
   if (filesSources.indexOf('.gitkeep') != -1) {
     filesSources.splice(filesSources.indexOf('.gitkeep'), 1)
@@ -385,17 +385,17 @@ async function setMainFont() {
 }
 
 function deleteUnnecessaryFilesAndFolders() {
-  deleteFolder(paths.root + 'README.md')
+  deleteFolder(globalThis.paths.root + 'README.md')
   fs.createFileSync('README.md')
 
   log(chalk.gray.italic('✅ The readme file are clean.'))
 
-  deleteFolder(paths.output.root, 'Dist have been deleted.')
-  deleteFolder(paths.root + 'snippets/', 'Snippets have been deleted.')
-  deleteFolder(paths.sources.fontsFolder + '.gitkeep', 'Gitkeep in fonts have been deleted.')
+  deleteFolder(globalThis.paths.output.root, 'Dist have been deleted.')
+  deleteFolder(globalThis.paths.root + 'snippets/', 'Snippets have been deleted.')
+  deleteFolder(globalThis.paths.sources.fontsFolder + '.gitkeep', 'Gitkeep in fonts have been deleted.')
 
-  if (fs.readdirSync(paths.sources.assets).length == 0)
-    deleteFolder(paths.sources.assets, 'paths.sources.assets have been deleted.')
+  if (!fs.readdirSync(globalThis.paths.sources.assets)?.length)
+    deleteFolder(globalThis.paths.sources.assets, 'assets have been deleted.')
 }
 
 function deleteFolder(folderPath, messageOnSuccessful) {
