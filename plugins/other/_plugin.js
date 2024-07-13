@@ -21,6 +21,7 @@ export class Plugin {
   globOptions = {
     ignore: null,
   }
+  static globalEmitter = new EventEmitter()
 
   constructor(options) {
     this.glob =

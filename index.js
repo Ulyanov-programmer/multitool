@@ -19,9 +19,7 @@ for (let taskName of tasksArg) {
         new task.default()
       }
       catch (error) {
-        throw new Error(
-          'The task does not have a default exported class with constructor / function!'
-        )
+        throw new Error(error.message)
       }
     })
 }

@@ -46,6 +46,6 @@ export default class PostHtml extends Plugin {
       })
     }
 
-    globalThis?.emitter.emit('beautifyTaskRun', this.processedBuffer)
+    Plugin.globalEmitter.emit('beautifyTaskRun', this.processedBuffer)
   }
 }

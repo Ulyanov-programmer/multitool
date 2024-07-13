@@ -41,6 +41,6 @@ export default class PostCss extends Plugin {
       })
     }
 
-    globalThis?.emitter.emit('beautifyTaskRun', this.processedBuffer)
+    Plugin.globalEmitter.emit('beautifyTaskRun', this.processedBuffer)
   }
 }

@@ -21,7 +21,7 @@ export default class Beautify extends Plugin {
       logColor: '#99005C',
     })
 
-    globalThis.emitter.on('beautifyTaskRun', this.#process.bind(this))
+    Plugin.globalEmitter.on('beautifyTaskRun', this.#process.bind(this))
   }
 
   #process(paths) {
