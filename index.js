@@ -19,7 +19,7 @@ for (let taskName of tasksArg) {
         new task.default()
       }
       catch (error) {
-        throw new Error(error.message)
+        console.error(error)
       }
     })
 }
