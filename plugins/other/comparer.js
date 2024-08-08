@@ -20,7 +20,15 @@ export class FileComparer {
       let destFile = globSync(pathToGlob)
 
       let sourceStats = fs.statSync(inputPaths[i])
-      let outputStats = destFile[0] && fs.statSync(destFile[0])
+      let outputStats
+
+      let fileWithSameExtension = destFile.find(
+        pathToFile => path.extname(pathToFile) == parsedPath.ext
+      )
+
+      if (fileWithSameExtension || destFile[0]) {
+        outputStats = fs.statSync(fileWithSameExtension || destFile[0])
+      }
 
 
       if (sourceStats?.ctimeMs <= outputStats?.ctimeMs)

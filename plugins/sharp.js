@@ -63,7 +63,7 @@ export default class Sharp extends Plugin {
       if (!this.#extnameIsCorrect(extWithoutDot)) {
         this.#copyWithLog(pathToFile, parsedPath.base)
 
-        return
+        continue
       }
 
       for (let paramName of Object.keys(this.#options[extWithoutDot])) {
