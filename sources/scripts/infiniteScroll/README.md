@@ -33,7 +33,8 @@ Declare them in styles for your infinite line:
 
 ```css
 infinite-scroll#your-infinite-line {
-  /* Change the direction of the animation. */
+    /* Change the direction of the animation (corresponds to the animation-direction property) */
+
   --direction: normal;
 
   /* Set the animation speed. */

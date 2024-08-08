@@ -6,11 +6,11 @@
 
 ```html
 <link rel="stylesheet" href="./assets/swiper/swiper-bundle.min.css" />
-<script type="module" src="./assets/swiper/index.js"></script>
+<script type="module" src="./assets/swiper/your_API.js"></script>
 ```
 
 ```js
-import Swiper from './assets/swiper/index.js'
+import Swiper from './assets/swiper/swiper-bundle.min.mjs'
 
 new Swiper(`#someSlider`, {})
 ```

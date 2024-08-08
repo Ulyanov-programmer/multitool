@@ -36,6 +36,7 @@ class HTMLInfiniteScroll extends HTMLElement {
 c-inner {
   display: flex !important;
   flex-flow: row nowrap !important;
+  align-items: center;
   gap: var(--gap) !important;
   width: max-content !important;
   animation: infinite-scrolling 
