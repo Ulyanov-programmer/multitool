@@ -2546,10 +2546,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"inline-style-parser@npm:0.2.2":
-  version: 0.2.2
-  resolution: "inline-style-parser@npm:0.2.2"
-  checksum: 82099645fd99451301ff243706f70917c066e3033d32bdb1074a54eb1909e08d1cafb48c426a643facbe8248cff362082e90ca14760b3d44e09a858fe668b3fe
+"inline-style-parser@npm:0.2.3":
+  version: 0.2.3
+  resolution: "inline-style-parser@npm:0.2.3"
+  checksum: 21b46d39a39c8aeaa738346650469388e8a412dd276ab75aa3d85b1883311e89c86a1fdbb8c2f1958f4c979bae74067f6ba0385455b125faf4fa77e1dbb94799
   languageName: node
   linkType: hard
 
@@ -3193,7 +3193,7 @@ __metadata:
     postcss-simple-vars: "npm:^7.0.1"
     postcss-size: "npm:^5.0.0"
     posthtml: "npm:^0.16.6"
-    posthtml-component: "npm:^1.1.1"
+    posthtml-component: "npm:^2.0.0"
     posthtml-img-autosize: "npm:^0.1.6"
     replace-in-file: "npm:^8.1.0"
     sharp: "npm:^0.33.4"
@@ -3284,7 +3284,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"object-assign@npm:^4, object-assign@npm:^4.0.1, object-assign@npm:^4.1.1":
+"object-assign@npm:^4, object-assign@npm:^4.1.1":
   version: 4.1.1
   resolution: "object-assign@npm:4.1.1"
   checksum: 1f4df9945120325d041ccf7b86f31e8bcc14e73d29171e37a7903050e96b81323784ec59f93f102ec635bcf6fa8034ba3ea0a8c7e69fa202b87ae3b6cec5a414
@@ -3911,40 +3911,38 @@ __metadata:
   languageName: node
   linkType: hard
 
-"posthtml-attrs-parser@npm:^0.1.1":
-  version: 0.1.1
-  resolution: "posthtml-attrs-parser@npm:0.1.1"
-  dependencies:
-    object-assign: "npm:^4.0.1"
-  checksum: f96b674995db57f90311f5ef0a2c7f9ef9faa825a11499d880ceef8aa512ccf2f024583e4d94b041a628151c14f5a4a2bdbdc7ce338556aca9aec702edf255ac
+"posthtml-attrs-parser@npm:^1.1.0":
+  version: 1.1.1
+  resolution: "posthtml-attrs-parser@npm:1.1.1"
+  checksum: d0d0020aa3168becddccd602ccc16fdab53e009c38dc4653165d9273ff469903ae09fde928494ba60fe19f664f85c56b52b6b278142d4d280b9186322f40d829
   languageName: node
   linkType: hard
 
-"posthtml-component@npm:^1.1.1":
-  version: 1.1.1
-  resolution: "posthtml-component@npm:1.1.1"
+"posthtml-component@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "posthtml-component@npm:2.0.0"
   dependencies:
     lodash: "npm:^4.17.21"
     posthtml: "npm:^0.16.6"
-    posthtml-attrs-parser: "npm:^0.1.1"
-    posthtml-expressions: "npm:^1.9.0"
+    posthtml-attrs-parser: "npm:^1.1.0"
+    posthtml-expressions: "npm:^1.11.4"
     posthtml-parser: "npm:^0.12.0"
     posthtml-render: "npm:^3.0.0"
-    style-to-object: "npm:^1.0.5"
-  checksum: cc85f4a5a8d1647b6ccf332d12806366d2ca9ff8565f67832807defa5163c65c58a892ebb3bca9ea609defe3c8e509e97f54325d76664859b7bc9a89e49d98b4
+    style-to-object: "npm:^1.0.6"
+  checksum: 0eceb8a4aae819043fef806f2ee74f2dff9c55debd152da2469adeeb0fe829725c54484fe72d6f24a28097dae5a5eb9b4cd5b08bb4f60a243e5fd5cfb955ee56
   languageName: node
   linkType: hard
 
-"posthtml-expressions@npm:^1.9.0":
-  version: 1.11.3
-  resolution: "posthtml-expressions@npm:1.11.3"
+"posthtml-expressions@npm:^1.11.4":
+  version: 1.11.4
+  resolution: "posthtml-expressions@npm:1.11.4"
   dependencies:
     fclone: "npm:^1.0.11"
     posthtml: "npm:^0.16.5"
     posthtml-match-helper: "npm:^1.0.1"
     posthtml-parser: "npm:^0.10.0"
     posthtml-render: "npm:^3.0.0"
-  checksum: b2fdec36fbbbe07008e1abf199d4ad28ea087fed4e4f623f6dc517f68881e21d7f84a6495c0fd53836a48f39c705d63516eec47477b174195e1a2be9eafbd98f
+  checksum: 5a535ce4c419a25e43039fbf5f8d0b63516c02d1e442da4762bb79fba96204ceaded8bfc6fd98469ea7ff45bf6e8957a88c416aba8375fde08584db805378c57
   languageName: node
   linkType: hard
 
@@ -4629,12 +4627,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"style-to-object@npm:^1.0.5":
-  version: 1.0.5
-  resolution: "style-to-object@npm:1.0.5"
+"style-to-object@npm:^1.0.6":
+  version: 1.0.6
+  resolution: "style-to-object@npm:1.0.6"
   dependencies:
-    inline-style-parser: "npm:0.2.2"
-  checksum: 39bbc5e9f82a80d6a84c134bf49ba50402bf90304af4281fdd317c9792436c166b2f3a2a3d9a65e3f2a3360b35fe4e352932ec9a51513b9864bfd80b7f5a82e1
+    inline-style-parser: "npm:0.2.3"
+  checksum: be5e8e3f0e35c0338de4112b9d861db576a52ebbd97f2501f1fb2c900d05c8fc42c5114407fa3a7f8b39301146cd8ca03a661bf52212394125a9629d5b771aba
   languageName: node
   linkType: hard
 
