@@ -5,6 +5,13 @@ __metadata:
   version: 8
   cacheKey: 10c0
 
+"@adobe/css-tools@npm:^4.4.0":
+  version: 4.4.0
+  resolution: "@adobe/css-tools@npm:4.4.0"
+  checksum: d65ddc719389bf469097df80fb16a8af48a973dea4b57565789d70ac8e7ab4987e6dc0095da3ed5dc16c1b6f8960214a7590312eeda8abd543d91fd0f59e6c94
+  languageName: node
+  linkType: hard
+
 "@csstools/cascade-layer-name-parser@npm:^1.0.13":
   version: 1.0.13
   resolution: "@csstools/cascade-layer-name-parser@npm:1.0.13"
@@ -1594,6 +1601,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"css-selector-parser@npm:^3.0.5":
+  version: 3.0.5
+  resolution: "css-selector-parser@npm:3.0.5"
+  checksum: 250b110ffd6926a9971dad56a69802b00ff52d621b6c20b3cfd714f024eb6ed7042a57226dea3446ff00dad864d03f5cee5c451b8c6d09ee12c723f5a9ca71c2
+  languageName: node
+  linkType: hard
+
 "cssdb@npm:^8.1.0":
   version: 8.1.0
   resolution: "cssdb@npm:8.1.0"
@@ -3169,12 +3183,14 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "node-task-runner@workspace:."
   dependencies:
+    "@adobe/css-tools": "npm:^4.4.0"
     "@csstools/postcss-media-minmax": "npm:^1.1.8"
     autoprefixer: "npm:^10.4.19"
     browser-sync: "npm:^3.0.2"
     case-anything: "npm:^3.1.0"
     chalk: "npm:^5.3.0"
     chokidar: "npm:^3.6.0"
+    css-selector-parser: "npm:^3.0.5"
     enquirer: "npm:^2.4.1"
     esbuild: "npm:^0.23.0"
     fs-extra: "npm:^11.2.0"

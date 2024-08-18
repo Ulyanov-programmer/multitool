@@ -26,12 +26,14 @@ const RAW_RUNTIME_STATE =
       [null, {\
         "packageLocation": "./",\
         "packageDependencies": [\
+          ["@adobe/css-tools", "npm:4.4.0"],\
           ["@csstools/postcss-media-minmax", "virtual:b1fdc09fe8d3172747d863af182a8616e4efda25640563cc2edd625aacfc3d8f41938546174da795a564492118d5aaf11205c675d308d0449d4fa77739afbdc8#npm:1.1.8"],\
           ["autoprefixer", "virtual:b1fdc09fe8d3172747d863af182a8616e4efda25640563cc2edd625aacfc3d8f41938546174da795a564492118d5aaf11205c675d308d0449d4fa77739afbdc8#npm:10.4.19"],\
           ["browser-sync", "npm:3.0.2"],\
           ["case-anything", "npm:3.1.0"],\
           ["chalk", "npm:5.3.0"],\
           ["chokidar", "npm:3.6.0"],\
+          ["css-selector-parser", "npm:3.0.5"],\
           ["enquirer", "npm:2.4.1"],\
           ["esbuild", "npm:0.23.0"],\
           ["fs-extra", "npm:11.2.0"],\
@@ -58,6 +60,15 @@ const RAW_RUNTIME_STATE =
           ["utimes", "npm:5.2.1"]\
         ],\
         "linkType": "SOFT"\
+      }]\
+    ]],\
+    ["@adobe/css-tools", [\
+      ["npm:4.4.0", {\
+        "packageLocation": "./.yarn/cache/@adobe-css-tools-npm-4.4.0-3e89ecd033-d65ddc7193.zip/node_modules/@adobe/css-tools/",\
+        "packageDependencies": [\
+          ["@adobe/css-tools", "npm:4.4.0"]\
+        ],\
+        "linkType": "HARD"\
       }]\
     ]],\
     ["@csstools/cascade-layer-name-parser", [\
@@ -2326,6 +2337,15 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
+    ["css-selector-parser", [\
+      ["npm:3.0.5", {\
+        "packageLocation": "./.yarn/cache/css-selector-parser-npm-3.0.5-15c228db4d-250b110ffd.zip/node_modules/css-selector-parser/",\
+        "packageDependencies": [\
+          ["css-selector-parser", "npm:3.0.5"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
     ["cssdb", [\
       ["npm:8.1.0", {\
         "packageLocation": "./.yarn/cache/cssdb-npm-8.1.0-6bd327e106-1fa1f1566c.zip/node_modules/cssdb/",\
@@ -3988,12 +4008,14 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./",\
         "packageDependencies": [\
           ["node-task-runner", "workspace:."],\
+          ["@adobe/css-tools", "npm:4.4.0"],\
           ["@csstools/postcss-media-minmax", "virtual:b1fdc09fe8d3172747d863af182a8616e4efda25640563cc2edd625aacfc3d8f41938546174da795a564492118d5aaf11205c675d308d0449d4fa77739afbdc8#npm:1.1.8"],\
           ["autoprefixer", "virtual:b1fdc09fe8d3172747d863af182a8616e4efda25640563cc2edd625aacfc3d8f41938546174da795a564492118d5aaf11205c675d308d0449d4fa77739afbdc8#npm:10.4.19"],\
           ["browser-sync", "npm:3.0.2"],\
           ["case-anything", "npm:3.1.0"],\
           ["chalk", "npm:5.3.0"],\
           ["chokidar", "npm:3.6.0"],\
+          ["css-selector-parser", "npm:3.0.5"],\
           ["enquirer", "npm:2.4.1"],\
           ["esbuild", "npm:0.23.0"],\
           ["fs-extra", "npm:11.2.0"],\
