@@ -22,8 +22,9 @@ export default class Esbuild extends Plugin {
       associations: '{js,ts}',
       ignore: globalThis.paths.sources.assets + '**',
       logColor: '#f3cb36',
-
-      runTaskCallback: paths => { return this.#process(paths) },
+      runOnEvents: {
+        function: paths => { return this.#process(paths) }
+      },
     })
 
     this.emitter.emit('runTask', {

@@ -19,9 +19,13 @@ export default class Beautify extends Plugin {
       ignore: globalThis.paths.output.assets + '**',
       workingDirectory: globalThis.paths.output.root,
       logColor: '#99005C',
+      runOnEvents: {
+        names: [
+          'run:beautifyTask',
+        ],
+        function: paths => { return this.#process(paths) }
+      },
     })
-
-    Plugin.globalEmitter.on('beautifyTaskRun', this.#process.bind(this))
   }
 
   #process(paths) {

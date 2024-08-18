@@ -25,11 +25,13 @@ export default class PostHtml extends Plugin {
         globalThis.paths.sources.htmlComponents + '*.html',
       ],
       logColor: '#e54d26',
-
-      runTaskCallback: paths => { return this.#process(paths) },
+      runOnEvents: {
+        names: [
+          'tasksAreReady',
+        ],
+        function: paths => { return this.#process(paths) }
+      },
     })
-
-    this.emitter.emit('runTask')
   }
 
   async #process(paths) {
@@ -46,6 +48,6 @@ export default class PostHtml extends Plugin {
       })
     }
 
-    Plugin.globalEmitter.emit('beautifyTaskRun', this.processedBuffer)
+    Plugin.globalEmitter.emit('run:beautifyTask', this.processedBuffer)
   }
 }

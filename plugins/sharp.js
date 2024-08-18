@@ -46,13 +46,15 @@ export default class Sharp extends Plugin {
       ignore: globalThis.paths.sources.assets + '**',
       watchEvents: ['add', 'changed'],
       logColor: '#009900',
-
-      runTaskCallback: paths => { return this.#process(paths) },
+      runOnEvents: {
+        names: [
+          'tasksAreReady',
+        ],
+        function: paths => { return this.#process(paths) }
+      },
     })
 
     this.#options = this.#parseOptionObject(this.#options)
-
-    this.emitter.emit('runTask')
   }
 
   async #process(paths) {

@@ -13,11 +13,13 @@ export default class PostCss extends Plugin {
       ignore: globalThis.paths.sources.assets + '**',
       watchEvents: ['change'],
       logColor: '#2277ff',
-
-      runTaskCallback: paths => { return this.#process(paths) },
+      runOnEvents: {
+        names: [
+          'tasksAreReady',
+        ],
+        function: paths => { return this.#process(paths) }
+      },
     })
-
-    this.emitter.emit('runTask')
   }
 
   async #process(paths) {
@@ -41,6 +43,7 @@ export default class PostCss extends Plugin {
       })
     }
 
-    Plugin.globalEmitter.emit('beautifyTaskRun', this.processedBuffer)
+    Plugin.globalEmitter.emit('run:beautifyTask', this.processedBuffer)
+    Plugin.globalEmitter.emit('run:cssToHtmlTask', this.processedBuffer)
   }
 }

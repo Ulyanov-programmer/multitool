@@ -10,6 +10,7 @@ import { FileComparer } from './comparer.js'
 
 export class Plugin {
   static ENCODING = 'utf8'
+  static activePlugins = []
   static performanceStartValue
   static performanceEndValue
   static fs = fs
@@ -24,34 +25,31 @@ export class Plugin {
   static globalEmitter = new EventEmitter()
 
   constructor(options) {
+    this.#setPathsAndFiles(options)
+
+    this.emitter = new EventEmitter()
+    this.cwd = Plugin.getCwd(options)
+
+    this.startWatchingForThirdPartyFiles(options.thirdPartyFiles)
+
+    this.#setConsoleLogging(options?.logColor)
+    this.#registerEvents(options?.runOnEvents)
+    this.startWatching(options.watchEvents)
+
+    Plugin.activePlugins.push(this)
+  }
+
+  #setPathsAndFiles(options) {
     this.glob =
       `${options.workingDirectory ?? globalThis.paths.sources.root}**/*.${options.associations}`
 
     this.thirdPartyFilesGlobArray = options.thirdPartyFiles
 
     this.globOptions.ignore = options.ignore
-
-    this.runTaskCallback = options.runTaskCallback
-
-    this.emitter = new EventEmitter()
-
-    this.cwd = Plugin.getCwd(options)
-
-    this.startWatchingForThirdPartyFiles(options.thirdPartyFiles)
-
-    this.chalkColor = chalk.hex(options.logColor ?? '#FFF')
-    // locks like `[child_plugin_name]`
-    this.pluginStringInLog =
-      chalk.grey('[') +
-      this.chalkColor.bold(this.constructor.name) +
-      chalk.grey('] ')
-
-    this.#registerEvents()
-
-    this.startWatching(options.watchEvents)
   }
+  #registerEvents(customEvents) {
+    this.taskCallback = customEvents.function
 
-  #registerEvents() {
     this.emitter.on('processedFile', options => {
       this.log('processed', options)
       this.updateTaskBufferForProcessedFiles(options)
@@ -71,6 +69,19 @@ export class Plugin {
     this.emitter.on('runTask', options => {
       this.#runProcess(undefined, options)
     })
+
+    for (let eventName of customEvents?.names ?? []) {
+      Plugin.globalEmitter.on(eventName, this.#runProcess.bind(this))
+    }
+  }
+  #setConsoleLogging(logColor) {
+    this.chalkColor = chalk.hex(logColor ?? '#FFF')
+
+    // locks like `[child_plugin_name]`
+    this.pluginStringInLog =
+      chalk.grey('[') +
+      this.chalkColor.bold(this.constructor.name) +
+      chalk.grey('] ')
   }
 
   getChangedFiles(files = this.glob) {
@@ -177,10 +188,16 @@ export class Plugin {
   static getDistPathForFile(filePath, newFileExt) {
     let parsedPath = path.parse(filePath)
     let newFileBase = newFileExt ? parsedPath.name + `.${newFileExt}` : parsedPath.base
+    let newPath
 
-    let newPath = globalThis.paths.output.root +
-      parsedPath.dir.replace(this.cwd ?? Plugin.getCwd(), '') + '/' +
-      newFileBase
+    if (parsedPath.dir.includes(globalThis.paths.output.root.replaceAll('/', ''))) {
+      return path.normalize(filePath)
+    }
+    else {
+      newPath = globalThis.paths.output.root
+        + parsedPath.dir.replace(this.cwd ?? Plugin.getCwd(), '') + '/'
+        + newFileBase
+    }
 
     return path.normalize(newPath)
   }
@@ -227,7 +244,7 @@ export class Plugin {
     this.emitter.emit('processStart')
 
     try {
-      await this.runTaskCallback(paths)
+      await this.taskCallback(paths)
 
       this.emitter.emit('processEnd')
     }

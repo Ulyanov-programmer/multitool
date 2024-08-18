@@ -1,4 +1,5 @@
 import './config.js'
+import { Plugin } from './plugins/other/_plugin.js'
 import { getAllPluginNames, getPathToThePlugin } from './plugins/other/getPluginNames.js'
 
 
@@ -13,13 +14,13 @@ if (!tasksArg?.length)
 for (let taskName of tasksArg) {
   let pathToTask = getPathToThePlugin(taskName)
 
-  import(pathToTask)
-    .then(task => {
-      try {
-        new task.default()
-      }
-      catch (error) {
-        console.error(error)
-      }
-    })
+  try {
+    let task = await import(pathToTask)
+    new task.default()
+  }
+  catch (error) {
+    console.error(error)
+  }
 }
+
+Plugin.globalEmitter.emit('tasksAreReady')

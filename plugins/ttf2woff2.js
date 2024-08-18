@@ -8,11 +8,13 @@ export default class Ttf2Woff2 extends Plugin {
       ignore: globalThis.paths.sources.assets + '**',
       watchEvents: ['add'],
       logColor: '#2E2927',
-
-      runTaskCallback: paths => { return this.#process(paths) },
+      runOnEvents: {
+        names: [
+          'tasksAreReady',
+        ],
+        function: paths => { return this.#process(paths) }
+      },
     })
-
-    this.emitter.emit('runTask')
   }
 
   #process(paths) {
