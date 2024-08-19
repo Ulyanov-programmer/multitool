@@ -27,12 +27,17 @@ export class CssToHtml {
   #content = ''
   #writeBefore
   #writeAfter
+  #formatterOptions = {
+    indent_size: 2,
+    max_preserve_newlines: 1,
+  }
 
-  constructor({ pathToHTML, pathToCSS, writeBefore, writeAfter }) {
+  constructor({ pathToHTML, pathToCSS, writeBefore, writeAfter, formatterOptions }) {
     this.#pathToHTML = path.normalize(pathToHTML)
     this.#pathToCSS = path.normalize(pathToCSS)
     this.#writeAfter = writeAfter || '<body>'
     this.#writeBefore = writeBefore || '</body>'
+    this.#formatterOptions = Object.assign(this.#formatterOptions, formatterOptions)
 
     if (!fs.existsSync(this.#pathToHTML)) {
       fs.createFileSync(this.#pathToHTML)

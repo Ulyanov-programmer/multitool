@@ -24,9 +24,12 @@ export default class CssToHtmlPlugin extends Plugin {
 
       new CssToHtml({
         pathToCSS: pathToFile,
-        pathToHTML: globalThis.paths.output.root + fileName.replace('.css', '.html'),
-        writeAfter: '<main>',
-        writeBefore: '<footer>'
+        pathToHTML: globalThis.paths.sources.root + fileName.replace('.css', '.html'),
+        writeAfter: 'name="additional_code_in_head"></push>',
+        writeBefore: '</x-layout>',
+        formatterOptions: {
+          indent_size: 1,
+        },
       })
 
       this.emitter.emit('processedFile', {
