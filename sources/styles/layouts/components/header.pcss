@@ -1,0 +1,51 @@
+header {
+  > nav {
+    ul {
+      li {
+        a {
+        }
+      }
+    }
+  }
+  nav {
+    ul {
+      li {
+        a {
+          --attr-href: '#';
+          --attrs: "target='_self' rel='noopener noreferrer'";
+        }
+      }
+    }
+  }
+
+  button#burgerButton[data-open-dialog-id='burger-menu'] {
+    --attr-type: 'button';
+    --attr-title: 'Open the burger menu';
+
+    svg {
+      --attrs: 'width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"';
+
+      rect.rectTop {
+        --attrs: 'width="40" height="3" x="0%" y="0%" fill="gray"';
+      }
+      rect.rectCenter {
+        --attrs: 'width="40" height="3" x="0%" y="45%" fill="gray"';
+      }
+      rect.rectBottom {
+        --attrs: 'width="40" height="3" x="0%" y="90%" fill="gray"';
+      }
+    }
+  }
+  dialog#burger-menu[data-modal-dialog] {
+    nav {
+      ul {
+        li {
+          a {
+            --attr-href: '#';
+            --attrs: "target='_self' rel='noopener noreferrer'";
+          }
+        }
+      }
+    }
+  }
+}

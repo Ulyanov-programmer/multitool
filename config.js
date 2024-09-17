@@ -8,7 +8,6 @@ globalThis.paths = {
   output: {
     root: outputFolder,
     styles: outputFolder + 'styles/',
-    styleLayouts: outputFolder + 'styles/layouts/',
     scripts: outputFolder + 'scripts/',
     images: outputFolder + 'images/',
     fonts: outputFolder + 'fonts/',
@@ -18,6 +17,7 @@ globalThis.paths = {
     root: sourcesFolder,
     htmlComponents: sourcesFolder + 'components/',
     styles: sourcesFolder + 'styles/',
+    styleLayouts: sourcesFolder + 'styles/layouts/',
     scripts: sourcesFolder + 'scripts/',
     images: sourcesFolder + 'images/',
     fontsFolder: sourcesFolder + 'fonts/',

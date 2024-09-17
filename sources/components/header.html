@@ -1,31 +1,30 @@
-<script props>
-  //You can pass an argument here via x-layout using 'aware'. See https://posthtml.github.io/posthtml-components/docs.html#props
-  module.exports = { props: props }
-</script>
-
 <header>
-  <!--? Use if the header can be clearly divided into two parts. -->
-  <!-- <header-top></header-top>
-  <header-bottom></header-bottom> -->
-
-  <!-- <a href="index.html" class="Logo" aria-label="To main page">
-    <img src="images/logo.png" alt="logo" />
-  </a> -->
-
-  <!-- <form role="search">
-    <input type="text" placeholder="input" required />
-    <button type="submit">
-      <img src="images" alt="search" />
-    </button>
-  </form> -->
-
   <nav>
     <ul>
       <li>
-        <a target="_self" rel="noopener" href="#"> ref </a>
+        <a href='#' target='_self' rel='noopener noreferrer'>
+        </a>
       </li>
     </ul>
   </nav>
-
-  <x-burgerMenu></x-burgerMenu>
+  <button id="burgerButton" data-open-dialog-id="burger-menu" type='button' title='Open the burger menu'>
+    <svg width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+      <rect class="rectTop" width="40" height="3" x="0%" y="0%" fill="gray">
+      </rect>
+      <rect class="rectCenter" width="40" height="3" x="0%" y="45%" fill="gray">
+      </rect>
+      <rect class="rectBottom" width="40" height="3" x="0%" y="90%" fill="gray">
+      </rect>
+    </svg>
+  </button>
+  <dialog id="burger-menu" data-modal-dialog>
+    <nav>
+      <ul>
+        <li>
+          <a href='#' target='_self' rel='noopener noreferrer'>
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </dialog>
 </header>
