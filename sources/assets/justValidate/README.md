@@ -67,7 +67,7 @@ new JustValidate('#your_form_id', {
     return /^[0-9]{countOfNumbers}/.test(str)
 
     // ? Checking for a phone number
-    return Number(unmaskedValue) && unmaskedValue.length >= 11
+    return str?.length >= 11 && Number.isInteger(parseInt(str))
 
     // ? If you use inputmask...
     let unmaskedValue = HTMLElement.inputmask.unmaskedvalue()

@@ -5,7 +5,7 @@
 1. To initialize, connect the script to your page:
 
 ```html
-<script type="module" src="./scripts/infiniteScroll/index.js"></script>
+<script src="./scripts/infiniteScroll/index.js"></script>
 ```
 
 2. Write the following markup:

@@ -1,4 +1,4 @@
-import { returnScrollbarWidth, sleep } from '../generalFunctions.js'
+import { sleep } from '../generalFunctions.js'
 
 export default class Dialogs {
   private static dialogModalElements: NodeListOf<HTMLDialogElement>
@@ -114,16 +114,9 @@ export default class Dialogs {
   private async toggleBodyScroll(toggleScrollOn: boolean, dialog: HTMLElement) {
     if (toggleScrollOn) {
       if (document.querySelector('dialog[data-modal-dialog][open]')) return
-
-      document.body.style.paddingRight = ''
       document.body.style.overflow = ''
     }
     else {
-      let scrollbarWidth = returnScrollbarWidth()
-
-      if (scrollbarWidth > 0)
-        document.body.style.paddingRight = scrollbarWidth + 'px'
-
       document.body.style.overflow = 'hidden'
     }
   }

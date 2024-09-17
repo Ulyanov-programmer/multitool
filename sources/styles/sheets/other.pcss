@@ -127,39 +127,34 @@ spoiler-wrapper {
       Open the spoiler
     </button>
 
-    <c-content>
-      <dialog id='spoiler'>
-        content
-      </dialog>
-    </c-content>
+    <content-block>
+      <dialog id='spoiler'> content </dialog>
+    </content-block>
   </spoiler-wrapper>
   */
 
-  > c-content {
+  > content-block {
+    --transition-timing: 0.3s;
     display: grid;
 
     /* You can "ajar" a content element by setting a value between 0 and 1 fr. */
     grid-template-rows: 0fr;
-    transition: grid-template-rows 0.3s ease;
+    transition: grid-template-rows var(--transition-timing) ease;
+
+    &:has(dialog[open]) {
+      grid-template-rows: 1fr;
+    }
 
     dialog {
       overflow: hidden;
       opacity: 1;
+      transition: opacity var(--transition-timing) ease;
 
       &:not([open]) {
         pointer-events: none;
       }
 
       &[open] {
-        pointer-events: all;
-      }
-    }
-  }
-
-  > button {
-    &[aria-expanded='true'] {
-      ~ .content {
-        grid-template-rows: 1fr;
       }
     }
   }
