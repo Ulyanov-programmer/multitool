@@ -71,7 +71,12 @@ export class Plugin {
     })
 
     for (let eventName of customEvents?.names ?? []) {
-      Plugin.globalEmitter.on(eventName, this.#runProcess.bind(this))
+      Plugin.globalEmitter.on(eventName, paths => {
+        if (paths?.length) {
+          paths = paths.filter(path => path.includes(this.cwd))
+        }
+        this.#runProcess(paths)
+      })
     }
   }
   #setConsoleLogging(logColor) {

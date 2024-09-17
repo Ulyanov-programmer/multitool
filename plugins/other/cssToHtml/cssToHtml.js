@@ -2,76 +2,126 @@ import fs from 'fs-extra'
 import path from 'path'
 import beautify from 'js-beautify'
 import { parse } from '@adobe/css-tools'
+import { createParser } from 'css-selector-parser'
 import { ElementOfHtml } from './elementOfHtml.js'
-
-
-const ENCODING = 'utf8'
-const DEFAULT_HTML_CONTENT =
-  `<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-  </head>
-  <body></body>
-</html>`
+import postcss from 'postcss'
+import nested from 'postcss-nested'
 
 
 export class CssToHtml {
+  // добавить в опции плагина?
+  static #postcss = postcss([
+    nested({
+      preserveEmpty: true,
+    }),
+  ])
+  static ENCODING = 'utf8'
+  static SELECTOR_PARSER = createParser({ syntax: 'progressive' })
+  static UNACCEPTABLE_SELECTORS = [
+    'WildcardTag',
+    'PseudoElement',
+    'PseudoClass',
+    ':',
+    '*',
+    '+',
+    '>',
+    '||',
+    '~',
+    '|',
+  ]
   #pathToHTML
   #pathToCSS
   #html
-  #ast
+  #astRules
   #elements = []
-  #content = ''
   #writeBefore
   #writeAfter
   #formatterOptions = {
     indent_size: 2,
-    max_preserve_newlines: 1,
+    max_preserve_newlines: -1,
+    preserve_newlines: false,
   }
 
   constructor({ pathToHTML, pathToCSS, writeBefore, writeAfter, formatterOptions }) {
     this.#pathToHTML = path.normalize(pathToHTML)
     this.#pathToCSS = path.normalize(pathToCSS)
-    this.#writeAfter = writeAfter || '<body>'
-    this.#writeBefore = writeBefore || '</body>'
     this.#formatterOptions = Object.assign(this.#formatterOptions, formatterOptions)
 
     if (!fs.existsSync(this.#pathToHTML)) {
       fs.createFileSync(this.#pathToHTML)
-      fs.writeFileSync(this.#pathToHTML, DEFAULT_HTML_CONTENT)
     }
 
-    this.#html = fs.readFileSync(this.#pathToHTML, ENCODING)
-    this.#ast = parse(fs.readFileSync(this.#pathToCSS, ENCODING))
+    this.#html = fs.readFileSync(this.#pathToHTML, CssToHtml.ENCODING)
+    let css = fs.readFileSync(this.#pathToCSS, CssToHtml.ENCODING)
 
-    for (let rule of this.#ast.stylesheet.rules) {
-      if (rule.type == 'rule')
-        this.#elements.push(new ElementOfHtml(rule))
-    }
+    this.#writeAfter = writeAfter ?? ''
+    this.#writeBefore = writeBefore ?? ''
 
-    for (let el of this.#elements) {
-      let searched = el.searchInnerElements(this.#elements)
-      this.#elements = this.#elements.filter(el => !searched.includes(el))
-    }
+    let postcssResult = CssToHtml.#postcss.process(css)
 
-    if (this.#elements.length) {
-      this.#elements.forEach(el => this.#content += el.string)
+    let astRules = parse(postcssResult.css).stylesheet.rules
 
+    if (!astRules.length)
+      return
+
+    this.#filterAstRules(astRules)
+
+    this.#initHTMLElements()
+    this.#createHTMLStructure()
+
+    if (this.#elements.length)
       this.#writeData()
+  }
+
+  #filterAstRules(astRules) {
+    this.#astRules = astRules.filter(
+      rule => {
+        if (
+          rule.type != 'rule' ||
+          this.#containsUnacceptableSelector(rule.selectors[0])
+        )
+          return false
+
+        return true
+      }
+    )
+  }
+  #initHTMLElements() {
+    for (let rule of this.#astRules) {
+      this.#elements.push(new ElementOfHtml(rule, rule.selectors[0]))
     }
   }
+  #createHTMLStructure() {
+    for (let i = 0; i < this.#elements.length; i++) {
+      this.#elements[i].searchInnerElements(this.#elements, i)
+    }
+
+    this.#elements = this.#elements.filter(el => el.parentSelector == '')
+  }
   #writeData() {
-    let contentStartIndex =
+    let contentStartIndex, contentEndIndex, newContent = ''
+
+    contentStartIndex =
       this.#html.indexOf(this.#writeAfter) + this.#writeAfter.length
-    let contentEndIndex = this.#html.lastIndexOf(this.#writeBefore)
+    contentEndIndex = this.#writeBefore
+      ? this.#html.lastIndexOf(this.#writeBefore)
+      : this.#html.length
 
-    let newHtml = this.#html.substring(0, contentStartIndex)
-    newHtml += this.#content
-    newHtml += this.#html.substring(contentEndIndex)
+    newContent += this.#html.substring(0, contentStartIndex)
 
-    fs.writeFileSync(this.#pathToHTML, beautify.html(newHtml))
+    for (let element of this.#elements) {
+      newContent += element.string + '\n'
+    }
+
+    newContent += this.#html.substring(contentEndIndex)
+
+    newContent = beautify.html(newContent, this.#formatterOptions)
+
+    fs.writeFileSync(this.#pathToHTML, newContent)
+  }
+  #containsUnacceptableSelector(selector) {
+    return CssToHtml.UNACCEPTABLE_SELECTORS.some(
+      unSelector => selector.includes(unSelector)
+    )
   }
 }

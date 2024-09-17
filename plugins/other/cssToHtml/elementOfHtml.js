@@ -28,8 +28,10 @@ const selfCloseTags = [
 export class ElementOfHtml {
   #string = ''
   get string() {
+    if (this.#string) return this.#string
+
     this.#addTextBefore()
-    this.#createFirstString()
+    this.#createTagString()
     this.#addText()
     this.#addInnerElements()
     this.#createEndString()
@@ -38,28 +40,34 @@ export class ElementOfHtml {
     return this.#string
   }
   #selfCloseTag = false
-  selector
+  parentSelector = ''
+  fullSelector
+  selfSelector
   innerElements = []
   classes = []
   attributes = ''
 
-  constructor(entryRule) {
-    this.selector = entryRule.selectors[0]
+  constructor(entryRule, selector) {
+    this.fullSelector = selector
 
-    this.#parseSelector(entryRule.selectors[0])
+    this.#setParentAndSelfSelector(this.fullSelector)
+
+    this.#parseSelector(selector)
 
     this.#setAttributes(entryRule)
     this.#setText(entryRule)
     this.#setTag()
+    this.#setId()
     this.#setClasses()
   }
 
-  #createFirstString() {
+  #createTagString() {
     let endOfString = this.#selfCloseTag ? ' />' : ' >'
 
     this.#string +=
       '<' +
       this.tag +
+      this.id +
       this.classes +
       this.attributes +
       endOfString
@@ -83,23 +91,23 @@ export class ElementOfHtml {
       this.#string += '\n</' + this.tag + '>'
     }
   }
-  searchInnerElements(elements) {
-    this.innerElements = elements.filter(el =>
-      el != this &&
-      el.selector.includes(this.selector)
-    )
-
-    for (let element of this.innerElements) {
-      let searched = element.searchInnerElements(this.innerElements)
-      this.innerElements = this.innerElements.filter(el => !searched.includes(el))
+  searchInnerElements(elements, searchIndex) {
+    for (++searchIndex; searchIndex < elements.length; searchIndex++) {
+      if (this.#isFirstLevelChild(elements[searchIndex])) {
+        this.innerElements.push(elements[searchIndex])
+      }
+      else if (!this.#isInnerElement(elements[searchIndex])) {
+        break
+      }
     }
-
-    return this.innerElements
   }
 
   #setTag() {
     this.tag = this.tag ?? 'div'
     this.#selfCloseTag = selfCloseTags.includes(this.tag)
+  }
+  #setId() {
+    this.id = this.id ? ` id="${this.id}"` : ''
   }
   #setClasses() {
     if (this.classes.length) {
@@ -111,6 +119,8 @@ export class ElementOfHtml {
   }
   #setAttributes(entryRule) {
     for (let decl of entryRule.declarations) {
+      if (decl.type == 'comment') continue
+
       let declName = decl.property.split('-')
 
       if (validVariableNamesForAttributes.includes(declName[2])) {
@@ -134,18 +144,23 @@ export class ElementOfHtml {
     this.textBefore = this?.textBefore?.substring(1, this.textBefore.length - 1)
     this.textAfter = this?.textAfter?.substring(1, this.textAfter.length - 1)
   }
+  #setParentAndSelfSelector(fullSelector) {
+    let partsOfSelector = fullSelector.split(' ')
 
-  #parseSelector(selector) {
-    let rule = selectorParser(selector)
-
-    // Getting the last rule if it has nested ones.
-    if (rule.rules[0]?.nestedRule) {
-      rule = rule.rules[0].nestedRule
-
-      while (rule.nestedRule) rule = rule.nestedRule
+    if (partsOfSelector.length > 1) {
+      this.parentSelector = partsOfSelector
+        .filter((el, index) => index != partsOfSelector.length - 1)
+        .join(' ')
     }
 
-    for (let item of rule.items || rule.rules[0].items) {
+    this.selfSelector = partsOfSelector.at(-1)
+  }
+
+  #parseSelector(selector) {
+    let lastNestedSelector = selector.split(' ').at(-1)
+    let rule = selectorParser(lastNestedSelector)
+
+    for (let item of rule.rules[0].items) {
       switch (item.type) {
         case 'TagName':
           this.tag = item.name
@@ -158,6 +173,9 @@ export class ElementOfHtml {
             ? item?.operator + `"${item?.value?.value}"`
             : ''
           this.attributes += ' ' + item.name + value
+          break
+        case 'Id':
+          this.id = item.name
           break
       }
     }
@@ -175,10 +193,16 @@ export class ElementOfHtml {
         return name + values
 
       case 'attrs':
-        values = declaration.value.split(' ')
-          .map(v => v.substring(1, v.length - 1))
+        values = declaration.value.substring(1, declaration.value.length - 1)
 
-        return values.toString().replaceAll(',', ' ')
+        return values
     }
+  }
+
+  #isFirstLevelChild(element) {
+    return element.fullSelector == `${this.fullSelector} ${element.selfSelector}`
+  }
+  #isInnerElement(element) {
+    return element.parentSelector.startsWith(this.fullSelector)
   }
 }

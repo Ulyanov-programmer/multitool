@@ -3,15 +3,18 @@ import { Plugin } from './other/_plugin.js'
 import { CssToHtml } from './other/cssToHtml/cssToHtml.js'
 
 export default class CssToHtmlPlugin extends Plugin {
+  static styleLayoutsPath = path.normalize(globalThis.paths.sources.styleLayouts)
+
   constructor() {
     super({
-      associations: 'css',
-      ignore: globalThis.paths.output.assets + '**',
-      workingDirectory: globalThis.paths.output.styleLayouts,
+      associations: 'pcss',
+      ignore: globalThis.paths.sources.styles + 'layouts/**/_*.pcss',
+      workingDirectory: globalThis.paths.sources.styles + 'layouts/',
       logColor: '#ee9086',
+      watchEvents: ['change'],
       runOnEvents: {
         names: [
-          'run:cssToHtmlTask',
+          'tasksAreReady'
         ],
         function: paths => { return this.#process(paths) }
       },
@@ -20,15 +23,22 @@ export default class CssToHtmlPlugin extends Plugin {
 
   #process(paths) {
     for (let pathToFile of paths) {
-      let fileName = path.basename(pathToFile)
+      let isLayoutFile = this.#isLayoutFile(pathToFile)
+
+      let pathToHTML = pathToFile
+        .replace(
+          CssToHtmlPlugin.styleLayoutsPath,
+          globalThis.paths.sources.root,
+        )
+        .replace('.pcss', '.html')
 
       new CssToHtml({
         pathToCSS: pathToFile,
-        pathToHTML: globalThis.paths.sources.root + fileName.replace('.css', '.html'),
-        writeAfter: 'name="additional_code_in_head"></push>',
-        writeBefore: '</x-layout>',
+        pathToHTML: pathToHTML,
+        writeAfter: isLayoutFile ? '</push>' : null,
+        writeBefore: isLayoutFile ? '</x-layout>' : null,
         formatterOptions: {
-          indent_size: 1,
+          indent_size: 2,
         },
       })
 
@@ -36,5 +46,11 @@ export default class CssToHtmlPlugin extends Plugin {
         pathToFile: pathToFile,
       })
     }
+  }
+
+  #isLayoutFile(pathToFile) {
+    let fileDir = path.dirname(pathToFile) + '\\'
+
+    return fileDir == CssToHtmlPlugin.styleLayoutsPath
   }
 }
