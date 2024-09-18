@@ -16,25 +16,26 @@ export class Plugin {
   static fs = fs
   static chalk = chalk
   static path = path
+  static globalEmitter = new EventEmitter()
+  name
   emitter
   processedBuffer = []
   thirdPartyFilesGlobArray
   globOptions = {
     ignore: null,
   }
-  static globalEmitter = new EventEmitter()
 
   constructor(options) {
     this.#setPathsAndFiles(options)
 
     this.emitter = new EventEmitter()
-    this.cwd = Plugin.getCwd(options)
+    this.outputExtname = options.outputExtname
 
-    this.startWatchingForThirdPartyFiles(options.thirdPartyFiles)
+    this.startWatchingForThirdPartyFiles(options)
 
-    this.#setConsoleLogging(options?.logColor)
-    this.#registerEvents(options?.runOnEvents)
-    this.startWatching(options.watchEvents)
+    this.#setConsoleLogging(options)
+    this.#registerEvents(options)
+    this.startWatching(options)
 
     Plugin.activePlugins.push(this)
   }
@@ -46,9 +47,11 @@ export class Plugin {
     this.thirdPartyFilesGlobArray = options.thirdPartyFiles
 
     this.globOptions.ignore = options.ignore
+
+    this.cwd = Plugin.getCwd(options)
   }
-  #registerEvents(customEvents) {
-    this.taskCallback = customEvents.function
+  #registerEvents(options) {
+    this.taskCallback = options?.runOnEvents?.function
 
     this.emitter.on('processedFile', options => {
       this.log('processed', options)
@@ -70,7 +73,7 @@ export class Plugin {
       this.#runProcess(undefined, options)
     })
 
-    for (let eventName of customEvents?.names ?? []) {
+    for (let eventName of options?.runOnEvents?.names ?? []) {
       Plugin.globalEmitter.on(eventName, paths => {
         if (paths?.length) {
           paths = paths.filter(path => path.includes(this.cwd))
@@ -79,13 +82,14 @@ export class Plugin {
       })
     }
   }
-  #setConsoleLogging(logColor) {
-    this.chalkColor = chalk.hex(logColor ?? '#FFF')
+  #setConsoleLogging(options) {
+    this.name = options.name ?? 'Plugin name'
+    this.chalkColor = chalk.hex(options.logColor ?? '#FFF')
 
-    // locks like `[child_plugin_name]`
+    // locks like `[Plugin name] `
     this.pluginStringInLog =
       chalk.grey('[') +
-      this.chalkColor.bold(this.constructor.name) +
+      this.chalkColor.bold(this.name) +
       chalk.grey('] ')
   }
 
@@ -207,21 +211,23 @@ export class Plugin {
     return path.normalize(newPath)
   }
 
-  startWatching(runEvents) {
-    if (!runEvents?.length) return
+  startWatching(options) {
+    if (!options?.watchEvents?.length) return
 
     this.watcher = chokidar.watch(this.glob, {
       ignoreInitial: true,
       ignored: this.globOptions.ignore,
     })
 
-    for (let runEvent of runEvents) {
+    for (let runEvent of options.watchEvents) {
       this.watcher.on(runEvent, this.#runProcess.bind(this))
     }
   }
 
-  startWatchingForThirdPartyFiles(globToFiles = []) {
-    let localChokidar = chokidar.watch(globToFiles, { ignoreInitial: true, })
+  startWatchingForThirdPartyFiles(options) {
+    let localChokidar = chokidar.watch(
+      options.thirdPartyFiles ?? [], { ignoreInitial: true, }
+    )
 
     // running the task in such a way that it processes all the files it is associated with
     localChokidar.on('change', () => this.#runProcess(null, { passAllFiles: true }))

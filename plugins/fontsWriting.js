@@ -5,7 +5,7 @@ import path from 'path'
 import { parseNumericWeightFromName, parseStyleFromName } from 'parse-font-name'
 
 
-export default function () {
+function init() {
   if (isFontsStyleFileFull()) {
     console.log(chalk.green('The font styles file is already filled in.'))
     return
@@ -17,7 +17,6 @@ export default function () {
   }
 
   writeWelcomePhrase()
-
 
 
   let fonts = []
@@ -71,8 +70,7 @@ export default function () {
 
   writeEndingPhrase()
 }
-
-
+init()
 
 function setupFontFaceRule(type, fontName, fileNameNoExt, weight, style) {
   fs.appendFileSync(

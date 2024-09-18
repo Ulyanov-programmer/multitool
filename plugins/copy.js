@@ -1,7 +1,7 @@
 import fs from 'fs-extra'
 import chalk from 'chalk'
 
-export default function () {
+function copy() {
   if (!fs.existsSync(globalThis.paths.sources.assets))
     return
 
@@ -17,7 +17,8 @@ export default function () {
   fs.copySync(globalThis.paths.sources.assets, globalThis.paths.output.assets)
 
   console.log(
-    chalk.gray('[') + 'Assets' + chalk.gray(']') +
-    ' files copied'
+    chalk.gray('[') + 'Assets' + chalk.gray(']') + ' files copied'
   )
 }
+
+copy()

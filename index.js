@@ -15,8 +15,7 @@ for (let taskName of tasksArg) {
   let pathToTask = getPathToThePlugin(taskName)
 
   try {
-    let task = await import(pathToTask)
-    new task.default()
+    await import(pathToTask)
   }
   catch (error) {
     console.error(error)

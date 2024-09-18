@@ -1,66 +1,51 @@
-import esbuild from 'esbuild'
 import { Plugin } from './other/_plugin.js'
+import esbuild from 'esbuild'
 
-export default class Esbuild extends Plugin {
-  #DEFAULT_OPTIONS = {
-    bundle: false,
-    write: true,
-  }
-  #watchMode = true
-  #options = {
+
+const
+  WATCH_MODE = true,
+  OPTIONS = {
     target: 'es2022',
     bundle: false,
+    write: true,
     outdir: globalThis.paths.output.scripts,
     //? Necessary if the task works with only one file.
     outbase: globalThis.paths.sources.scripts,
     minify: globalThis.isProductionMode,
   }
-  outputExtname = 'js'
 
-  constructor() {
-    super({
-      associations: '{js,ts}',
-      ignore: globalThis.paths.sources.assets + '**',
-      logColor: '#f3cb36',
-      runOnEvents: {
-        function: paths => { return this.#process(paths) }
-      },
-    })
+new Plugin({
+  name: 'esbuild',
+  associations: '{js,ts}',
+  ignore: globalThis.paths.sources.assets + '**',
+  logColor: '#f3cb36',
+  watchEvents: ['add'],
 
-    this.emitter.emit('runTask', {
-      passAllFiles: true,
-    })
+  runOnEvents: {
+    function: process
+  },
+  outputExtname: 'js',
+})
+  .emitter.emit('runTask', {
+    passAllFiles: true,
+  })
+
+async function process(paths) {
+  let options = { ...OPTIONS, entryPoints: paths, }
+
+  if (WATCH_MODE) {
+    let buildContext = await esbuild.context(options)
+    buildContext.watch()
+
+    console.log(Plugin.chalk.green.bold('Files have been added to watch mode:'))
+  }
+  else {
+    await esbuild.build(options)
   }
 
-  async #process(paths) {
-    this.#options = Object.assign(
-      {
-        entryPoints: paths,
-      },
-      this.#DEFAULT_OPTIONS,
-      this.#options,
-    )
-
-    if (!this.#watchMode) {
-      await esbuild.build(this.#options)
-
-      for (let entry of paths) {
-        this.emitter.emit('processedFile', {
-          pathToFile: entry,
-        })
-      }
-    }
-    else {
-      let buildContext = await esbuild.context(this.#options)
-      buildContext.watch()
-
-      console.log(Plugin.chalk.green.bold('Watch mode is active'))
-
-      for (let entry of paths) {
-        this.emitter.emit('processedFile', {
-          pathToFile: entry,
-        })
-      }
-    }
+  for (let entry of paths) {
+    this.emitter.emit('processedFile', {
+      pathToFile: entry,
+    })
   }
 }
