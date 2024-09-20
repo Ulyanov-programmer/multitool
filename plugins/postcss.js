@@ -1,7 +1,13 @@
 import { Plugin } from './other/_plugin.js'
 import postcss from 'postcss'
-import { plugins } from './other/postcssConfig.js'
+import { plugins } from './other/postcssPlugins.js'
 
+/**
+ * This plugin converts .pcss files by applying plugins based on the postcss library to them.
+ * It also works when files are changed.
+ * 
+ * Upon completion of processing, the beatify plugin is called for all processed files.
+ */
 
 new Plugin({
   name: 'postcss',
@@ -11,7 +17,7 @@ new Plugin({
   logColor: '#2277ff',
   runOnEvents: {
     names: [
-      'tasksAreReady',
+      'pluginsAreReady',
     ],
     function: process,
   },

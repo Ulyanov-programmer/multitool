@@ -1,6 +1,10 @@
 import { Plugin } from './other/_plugin.js'
 import sharp from 'sharp'
 
+/**
+ * This plugin converts images to more modern formats.
+ * It is also triggered when a new file is changed or added.
+ */
 
 new Plugin({
   name: 'sharp',
@@ -10,7 +14,7 @@ new Plugin({
   logColor: '#009900',
   runOnEvents: {
     names: [
-      'tasksAreReady',
+      'pluginsAreReady',
     ],
     function: process,
   },

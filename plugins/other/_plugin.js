@@ -99,7 +99,7 @@ export class Plugin {
       this.unGlobPaths(files, this.globOptions),
       // third party files
       this.unGlobPaths(this.thirdPartyFilesGlobArray),
-      this.outputExtname
+      this.outputExtname,
     )
 
     if (files === false)

@@ -2,6 +2,13 @@ import { Plugin } from './other/_plugin.js'
 import path from 'path'
 import { CssToHtml } from './other/cssToHtml/cssToHtml.js'
 
+/**
+ * This plugin uses the cssToHtml library to convert the contents of PCSS files into HTML.
+ * It works exclusively within the styles/layouts folder.
+ * 
+ * It is triggered every time the file is changed.
+ */
+
 new Plugin({
   name: 'cssToHtml',
   associations: 'pcss',
@@ -11,7 +18,7 @@ new Plugin({
   watchEvents: ['change'],
   runOnEvents: {
     names: [
-      'tasksAreReady'
+      'pluginsAreReady'
     ],
     function: process,
   },

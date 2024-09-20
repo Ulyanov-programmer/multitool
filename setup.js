@@ -5,7 +5,9 @@ import enquirer from 'enquirer'
 import chalk from 'chalk'
 import './config.js'
 
-
+/**
+ * Run this file if you want to modify the project files before using it.
+ */
 
 class ModuleObject {
   constructor(config) {

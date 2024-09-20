@@ -1,6 +1,10 @@
 import { Plugin } from './other/_plugin.js'
 import ttf2woff2 from 'ttf2woff2'
 
+/**
+ * This plugin converts font files in .otf/ttf format to .woff2 format.
+ * It also works if you add a new font file.
+ */
 
 new Plugin({
   name: 'ttf2Woff2',
@@ -10,7 +14,7 @@ new Plugin({
   logColor: '#2E2927',
   runOnEvents: {
     names: [
-      'tasksAreReady',
+      'pluginsAreReady',
     ],
     function: process
   },

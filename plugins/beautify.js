@@ -1,6 +1,10 @@
 import { Plugin } from './other/_plugin.js'
 import beautify from 'js-beautify'
 
+/**
+ * This plugin formats files in the dist folder.
+ * It is recommended to call it exclusively through the 'run:beautifyTask' event.
+ */
 
 new Plugin({
   name: 'beautify',

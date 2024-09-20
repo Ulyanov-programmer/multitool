@@ -3,6 +3,12 @@ import posthtml from 'posthtml'
 import component from 'posthtml-component'
 import imgAutosize from 'posthtml-img-autosize'
 
+/**
+ * This plugin converts .html files by applying plugins based on the posthtml library to them.
+ * It also works when files are changed.
+ * 
+ * Upon completion of processing, the beatify plugin is called for all processed files.
+ */
 
 new Plugin({
   name: 'posthtml',
@@ -18,7 +24,7 @@ new Plugin({
   logColor: '#e54d26',
   runOnEvents: {
     names: [
-      'tasksAreReady',
+      'pluginsAreReady',
     ],
     function: process
   },

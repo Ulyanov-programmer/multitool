@@ -1,6 +1,12 @@
 import { Plugin } from './other/_plugin.js'
 import esbuild from 'esbuild'
 
+/**
+ * This plugin processes files .js/ts based on the esbuild library.
+ * By default, it runs in watch mode (library features), so it is called only once.
+ * 
+ * It is also triggered when creating a new file.
+ */
 
 const
   WATCH_MODE = true,

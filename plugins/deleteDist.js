@@ -1,6 +1,10 @@
 import fs from 'fs-extra'
 import chalk from 'chalk'
 
+/** 
+ * This plugin deletes the folder with the result files.
+ */
+
 fs.removeSync(globalThis.paths.output.root)
 
 console.log(

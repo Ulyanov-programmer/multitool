@@ -1,6 +1,10 @@
 import fs from 'fs-extra'
 import chalk from 'chalk'
 
+/** 
+ * This plugin copies some files (files of folder sources/assets) to the dist folder.
+ */
+
 function copy() {
   if (!fs.existsSync(globalThis.paths.sources.assets))
     return
