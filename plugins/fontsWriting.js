@@ -4,13 +4,14 @@ import chalk from 'chalk'
 import path from 'path'
 import { parseNumericWeightFromName, parseStyleFromName } from 'parse-font-name'
 
-
+/**
+ * Creates `@font-face` rules based on the contents of the *fonts folder*.
+ */
 function init() {
   if (isFontsStyleFileFull()) {
     console.log(chalk.green('The font styles file is already filled in.'))
     return
   }
-
   if (!filesIsCorrect()) {
     console.log(chalk.green('No one font was found!'))
     return
@@ -20,73 +21,70 @@ function init() {
 
 
   let fonts = []
-  let currentFontName
+  let previousFontName
 
   for (let fileName of fs.readdirSync(globalThis.paths.sources.fontsFolder)) {
     if (fileName == '.gitkeep') continue
 
-    let
-      fileNameNoExt = path.parse(fileName).name,
-      fontName = fileName.split('-').at(0),
-      weight = parseNumericWeightFromName(fileName),
-      style = parseStyleFromName(fileName),
-      type
-
-    if (
-      fileNameNoExt.toLocaleLowerCase().includes('variablefont') ||
-      fileNameNoExt.toLocaleLowerCase().includes('wght')
-    ) {
-      type = 'woff2-variations'
-      weight = '100 1000'
+    let newFont = {
+      fontName: fileName.split('-').at(0),
+      fileNamesNoExt: [path.parse(fileName).name],
+      weights: [parseNumericWeightFromName(fileName)],
+      styles: [parseStyleFromName(fileName)],
+      type: null,
     }
+
+    setFontType(newFont)
+
+    if (previousFontName != newFont.fontName) {
+      previousFontName = newFont.fontName
+
+      fonts.push(newFont)
+    }
+    // If the current font is just another variation of the same
     else {
-      type = 'woff2'
-    }
-
-    setupFontFaceRule(type, fontName, fileNameNoExt, weight, style)
-
-
-    if (currentFontName != fontName) {
-      currentFontName = fontName
-
-      fonts.push({
-        fontName: fontName,
-        weights: [weight],
-        styles: [style],
-      })
-    }
-    else {
-      let indexOfCurrentFont = fonts.findIndex(item => item.fontName == fontName)
+      let indexOfCurrentFont = fonts.findIndex(
+        item => item.fontName == newFont.fontName
+      )
 
       if (indexOfCurrentFont != -1) {
-        fonts[indexOfCurrentFont].weights.push(weight)
-        fonts[indexOfCurrentFont].styles.push(style)
+        fonts[indexOfCurrentFont].fileNamesNoExt =
+          fonts[indexOfCurrentFont].fileNamesNoExt.concat(newFont.fileNamesNoExt)
+        fonts[indexOfCurrentFont].weights =
+          fonts[indexOfCurrentFont].weights.concat(newFont.weights)
+        fonts[indexOfCurrentFont].styles =
+          fonts[indexOfCurrentFont].styles.concat(newFont.styles)
       }
     }
   }
 
+  for (let font of fonts) {
+    writeFontFaceRule(font)
+  }
 
-  declareFontVariablesAndModifiers(fonts)
+  writeVariablesAndClasses(fonts)
 
   writeEndingPhrase()
 }
 init()
 
-function setupFontFaceRule(type, fontName, fileNameNoExt, weight, style) {
-  fs.appendFileSync(
-    globalThis.paths.sources.fontsFilePath,
+function writeFontFaceRule(font) {
+  for (let i = 0; i < font.weights.length; i++) {
+    fs.appendFileSync(
+      globalThis.paths.sources.fontsFilePath,
 
-    `@font-face {
-  font-style: ${style};
-  font-weight: ${weight};
-  src: url("../fonts/${fileNameNoExt}.woff2") format("${type}");
-  font-family: "${fontName}";
+      `@font-face {
+  font-style: ${font.styles[i]};
+  font-weight: ${font.weights[i]};
+  src: url("../fonts/${font.fileNamesNoExt[i]}.woff2") format("${font.type}");
+  font-family: "${font.fontName}";
   font-display: swap;
 }
 `)
+  }
 }
 
-function declareFontVariablesAndModifiers(fonts) {
+function writeVariablesAndClasses(fonts) {
   if (fonts.length <= 0) return
 
   let vars = [], modifiers = []
@@ -133,10 +131,7 @@ function filesIsCorrect() {
   let fileNames = fs.readdirSync(globalThis.paths.sources.fontsFolder)
     ?.filter(name => name != '.gitkeep')
 
-  if (fileNames?.length <= 0)
-    return false
-  else
-    return true
+  return fileNames?.length > 0
 }
 
 function isFontsStyleFileFull() {
@@ -158,4 +153,19 @@ function writeEndingPhrase() {
   console.log(chalk.green(
     'Fonts have been successfully written, i continue...'
   ))
+}
+
+function setFontType(font) {
+  let fontNameLowerCase = font.fileNamesNoExt[0].toLocaleLowerCase()
+
+  if (fontNameLowerCase.includes('variablefont')) {
+    font.type = 'woff2-variations'
+
+    if (fontNameLowerCase.includes('wght')) {
+      font.weights = ['100 1000']
+    }
+  }
+  else {
+    font.type = 'woff2'
+  }
 }
