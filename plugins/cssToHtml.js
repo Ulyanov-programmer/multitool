@@ -1,6 +1,8 @@
 import { Plugin } from './other/_plugin.js'
 import path from 'path'
 import { CssToHtml } from './other/cssToHtml/cssToHtml.js'
+import postcss from 'postcss'
+import nested from 'postcss-nested'
 
 /**
  * This plugin uses the cssToHtml library to convert the contents of PCSS files into HTML.
@@ -24,7 +26,13 @@ new Plugin({
   },
 })
 
-const styleLayoutsPath = path.normalize(globalThis.paths.sources.styleLayouts)
+const
+  styleLayoutsPath = path.normalize(globalThis.paths.sources.styleLayouts),
+  postcssEntity = postcss([
+    nested({
+      preserveEmpty: true,
+    }),
+  ])
 
 function process(paths) {
   for (let pathToFile of paths) {
@@ -44,6 +52,9 @@ function process(paths) {
       writeBefore: isLayout ? '</x-layout>' : null,
       formatterOptions: {
         indent_size: 2,
+      },
+      preprocessingFunction: inputCss => {
+        return postcssEntity.process(inputCss).css
       },
     })
 

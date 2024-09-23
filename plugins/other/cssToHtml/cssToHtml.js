@@ -4,17 +4,9 @@ import beautify from 'js-beautify'
 import { parse } from '@adobe/css-tools'
 import { createParser } from 'css-selector-parser'
 import { ElementOfHtml } from './elementOfHtml.js'
-import postcss from 'postcss'
-import nested from 'postcss-nested'
 
 
 export class CssToHtml {
-  // добавить в опции плагина?
-  static #postcss = postcss([
-    nested({
-      preserveEmpty: true,
-    }),
-  ])
   static ENCODING = 'utf8'
   static SELECTOR_PARSER = createParser({ syntax: 'progressive' })
   static UNACCEPTABLE_SELECTORS = [
@@ -32,6 +24,7 @@ export class CssToHtml {
   #pathToHTML
   #pathToCSS
   #html
+  #css
   #astRules
   #elements = []
   #writeBefore
@@ -42,24 +35,28 @@ export class CssToHtml {
     preserve_newlines: false,
   }
 
-  constructor({ pathToHTML, pathToCSS, writeBefore, writeAfter, formatterOptions }) {
+  constructor({ pathToHTML, pathToCSS, writeBefore, writeAfter, formatterOptions, preprocessingFunction }) {
     this.#pathToHTML = path.normalize(pathToHTML)
     this.#pathToCSS = path.normalize(pathToCSS)
     this.#formatterOptions = Object.assign(this.#formatterOptions, formatterOptions)
 
     if (!fs.existsSync(this.#pathToHTML)) {
+      console.error(`The ${this.#pathToHTML} file was not found, so it was created.`)
+
       fs.createFileSync(this.#pathToHTML)
     }
 
     this.#html = fs.readFileSync(this.#pathToHTML, CssToHtml.ENCODING)
-    let css = fs.readFileSync(this.#pathToCSS, CssToHtml.ENCODING)
+    this.#css = fs.readFileSync(this.#pathToCSS, CssToHtml.ENCODING)
 
-    this.#writeAfter = writeAfter ?? ''
-    this.#writeBefore = writeBefore ?? ''
+    if (preprocessingFunction) {
+      this.#css = preprocessingFunction(this.#css)
+    }
 
-    let postcssResult = CssToHtml.#postcss.process(css)
+    this.#writeAfter = writeAfter
+    this.#writeBefore = writeBefore
 
-    let astRules = parse(postcssResult.css).stylesheet.rules
+    let astRules = parse(this.#css).stylesheet.rules
 
     if (!astRules.length)
       return
@@ -99,15 +96,9 @@ export class CssToHtml {
     this.#elements = this.#elements.filter(el => el.parentSelector == '')
   }
   #writeData() {
-    let contentStartIndex, contentEndIndex, newContent = ''
+    let [contentStartIndex, contentEndIndex] = this.#getWritingStartAndEndIndex()
 
-    contentStartIndex =
-      this.#html.indexOf(this.#writeAfter) + this.#writeAfter.length
-    contentEndIndex = this.#writeBefore
-      ? this.#html.lastIndexOf(this.#writeBefore)
-      : this.#html.length
-
-    newContent += this.#html.substring(0, contentStartIndex)
+    let newContent = this.#html.substring(0, contentStartIndex)
 
     for (let element of this.#elements) {
       newContent += element.string + '\n'
@@ -123,5 +114,23 @@ export class CssToHtml {
     return CssToHtml.UNACCEPTABLE_SELECTORS.some(
       unSelector => selector.includes(unSelector)
     )
+  }
+  #getWritingStartAndEndIndex() {
+    let contentStartIndex = 0, contentEndIndex = this.#html.length
+
+    if (this.#writeAfter) {
+      contentStartIndex = this.#html.indexOf(this.#writeAfter)
+    }
+    if (this.#writeBefore) {
+      contentEndIndex = this.#html.lastIndexOf(this.#writeBefore)
+    }
+
+    if (contentStartIndex == -1 || contentEndIndex == -1) {
+      throw new Error(`contentStartIndex or contentEndIndex was not found in the file ${this.#pathToHTML}!`)
+    }
+
+    contentStartIndex += this.#writeAfter?.length ?? 0
+
+    return [contentStartIndex, contentEndIndex]
   }
 }
