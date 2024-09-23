@@ -34,27 +34,37 @@ export class CssToHtml {
     max_preserve_newlines: -1,
     preserve_newlines: false,
   }
+  #writeInFile = false
+  outputHTML
 
-  constructor({ pathToHTML, pathToCSS, writeBefore, writeAfter, formatterOptions, preprocessingFunction }) {
-    this.#pathToHTML = path.normalize(pathToHTML)
+  constructor({
+    pathToCSS,
+    formatterOptions,
+    write,
+    preprocessingFunction,
+  }) {
     this.#pathToCSS = path.normalize(pathToCSS)
+    let fileCss = fs.readFileSync(this.#pathToCSS, CssToHtml.ENCODING)
+
+    this.#css = preprocessingFunction
+      ? preprocessingFunction(fileCss)
+      : fileCss
+
     this.#formatterOptions = Object.assign(this.#formatterOptions, formatterOptions)
 
-    if (!fs.existsSync(this.#pathToHTML)) {
-      console.error(`The ${this.#pathToHTML} file was not found, so it was created.`)
+    if (write?.in) {
+      this.#pathToHTML = path.normalize(write.in)
 
-      fs.createFileSync(this.#pathToHTML)
+      if (!fs.existsSync(this.#pathToHTML)) {
+        console.error(`The ${this.#pathToHTML} file was not found, so it will be created.`)
+        fs.createFileSync(this.#pathToHTML)
+      }
+
+      this.#writeInFile = true
+      this.#html = fs.readFileSync(this.#pathToHTML, CssToHtml.ENCODING)
+      this.#writeAfter = write?.after
+      this.#writeBefore = write?.before
     }
-
-    this.#html = fs.readFileSync(this.#pathToHTML, CssToHtml.ENCODING)
-    this.#css = fs.readFileSync(this.#pathToCSS, CssToHtml.ENCODING)
-
-    if (preprocessingFunction) {
-      this.#css = preprocessingFunction(this.#css)
-    }
-
-    this.#writeAfter = writeAfter
-    this.#writeBefore = writeBefore
 
     let astRules = parse(this.#css).stylesheet.rules
 
@@ -66,8 +76,13 @@ export class CssToHtml {
     this.#initHTMLElements()
     this.#createHTMLStructure()
 
-    if (this.#elements.length)
-      this.#writeData()
+    if (!this.#elements.length) return
+
+    this.outputHTML = this.#prepareHtml()
+
+    if (this.#writeInFile) {
+      fs.writeFileSync(write.in, this.outputHTML)
+    }
   }
 
   #filterAstRules(astRules) {
@@ -95,20 +110,26 @@ export class CssToHtml {
 
     this.#elements = this.#elements.filter(el => el.parentSelector == '')
   }
-  #writeData() {
+  #prepareHtml() {
+    let newContent = ''
     let [contentStartIndex, contentEndIndex] = this.#getWritingStartAndEndIndex()
 
-    let newContent = this.#html.substring(0, contentStartIndex)
+    if (this.#writeInFile) {
+      newContent = this.#html.substring(0, contentStartIndex)
 
-    for (let element of this.#elements) {
-      newContent += element.string + '\n'
+      for (let element of this.#elements) {
+        newContent += element.string + '\n'
+      }
+
+      newContent += this.#html.substring(contentEndIndex)
+    }
+    else {
+      for (let element of this.#elements) {
+        newContent += element.string + '\n'
+      }
     }
 
-    newContent += this.#html.substring(contentEndIndex)
-
-    newContent = beautify.html(newContent, this.#formatterOptions)
-
-    fs.writeFileSync(this.#pathToHTML, newContent)
+    return beautify.html(newContent, this.#formatterOptions)
   }
   #containsUnacceptableSelector(selector) {
     return CssToHtml.UNACCEPTABLE_SELECTORS.some(
@@ -116,6 +137,9 @@ export class CssToHtml {
     )
   }
   #getWritingStartAndEndIndex() {
+    if (!this.#writeInFile) return [0, 0]
+
+
     let contentStartIndex = 0, contentEndIndex = this.#html.length
 
     if (this.#writeAfter) {

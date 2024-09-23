@@ -47,9 +47,11 @@ function process(paths) {
 
     new CssToHtml({
       pathToCSS: pathToFile,
-      pathToHTML: pathToHTML,
-      writeAfter: isLayout ? '</push>' : null,
-      writeBefore: isLayout ? '</x-layout>' : null,
+      write: {
+        in: pathToHTML,
+        after: isLayout ? '</push>' : null,
+        before: isLayout ? '</x-layout>' : null,
+      },
       formatterOptions: {
         indent_size: 2,
       },
