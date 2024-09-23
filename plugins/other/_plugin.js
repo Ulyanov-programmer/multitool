@@ -51,11 +51,11 @@ export class Plugin {
     this.cwd = Plugin.getCwd(options)
   }
   #registerEvents(options) {
-    this.taskCallback = options?.runOnEvents?.function
+    this.pluginCallback = options?.runOnEvents?.function
 
     this.emitter.on('processedFile', options => {
       this.log('processed', options)
-      this.updateTaskBufferForProcessedFiles(options)
+      this.updateBufferForProcessedFiles(options)
     })
 
     this.emitter.on('processStart', options => {
@@ -69,7 +69,7 @@ export class Plugin {
       })
     })
 
-    this.emitter.on('runTask', options => {
+    this.emitter.on('run', options => {
       this.#runProcess(undefined, options)
     })
 
@@ -229,11 +229,11 @@ export class Plugin {
       options.thirdPartyFiles ?? [], { ignoreInitial: true, }
     )
 
-    // running the task in such a way that it processes all the files it is associated with
+    // running the plugin in such a way that it processes all the files it is associated with
     localChokidar.on('change', () => this.#runProcess(null, { passAllFiles: true }))
   }
 
-  updateTaskBufferForProcessedFiles(options) {
+  updateBufferForProcessedFiles(options) {
     this.processedBuffer.push(
       Plugin.getDistPathForFile(options.pathToFile, options.extension)
     )
@@ -255,7 +255,7 @@ export class Plugin {
     this.emitter.emit('processStart')
 
     try {
-      await this.taskCallback(paths)
+      await this.pluginCallback(paths)
 
       this.emitter.emit('processEnd')
     }

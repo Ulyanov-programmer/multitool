@@ -32,7 +32,7 @@ new Plugin({
   },
   outputExtname: 'js',
 })
-  .emitter.emit('runTask', {
+  .emitter.emit('run', {
     passAllFiles: true,
   })
 

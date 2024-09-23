@@ -3190,16 +3190,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"node-releases@npm:^2.0.14":
-  version: 2.0.14
-  resolution: "node-releases@npm:2.0.14"
-  checksum: 199fc93773ae70ec9969bc6d5ac5b2bbd6eb986ed1907d751f411fef3ede0e4bfdb45ceb43711f8078bea237b6036db8b1bf208f6ff2b70c7d615afd157f3ab9
-  languageName: node
-  linkType: hard
-
-"node-task-runner@workspace:.":
+"node-plugin-runner@workspace:.":
   version: 0.0.0-use.local
-  resolution: "node-task-runner@workspace:."
+  resolution: "node-plugin-runner@workspace:."
   dependencies:
     "@adobe/css-tools": "npm:^4.4.0"
     "@csstools/postcss-media-minmax": "npm:^1.1.8"
@@ -3238,6 +3231,13 @@ __metadata:
     utimes: "npm:^5.2.1"
   languageName: unknown
   linkType: soft
+
+"node-releases@npm:^2.0.14":
+  version: 2.0.14
+  resolution: "node-releases@npm:2.0.14"
+  checksum: 199fc93773ae70ec9969bc6d5ac5b2bbd6eb986ed1907d751f411fef3ede0e4bfdb45ceb43711f8078bea237b6036db8b1bf208f6ff2b70c7d615afd157f3ab9
+  languageName: node
+  linkType: hard
 
 "nopt@npm:^5.0.0":
   version: 5.0.0
