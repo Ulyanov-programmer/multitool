@@ -45,8 +45,11 @@ function process(paths) {
       )
       .replace('.pcss', '.html')
 
+    let postcss = Plugin.fs.readFileSync(pathToFile, 'utf-8')
+    let css = postcssEntity.process(postcss).css
+
     new CssToHtml({
-      pathToCSS: pathToFile,
+      css: css,
       write: {
         in: pathToHTML,
         after: isLayout ? '</push>' : null,
@@ -54,9 +57,6 @@ function process(paths) {
       },
       formatterOptions: {
         indent_size: 2,
-      },
-      preprocessingFunction: inputCss => {
-        return postcssEntity.process(inputCss).css
       },
     })
 

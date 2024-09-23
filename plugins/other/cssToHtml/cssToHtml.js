@@ -22,7 +22,6 @@ export class CssToHtml {
     '|',
   ]
   #pathToHTML
-  #pathToCSS
   #html
   #css
   #astRules
@@ -37,18 +36,8 @@ export class CssToHtml {
   #writeInFile = false
   outputHTML
 
-  constructor({
-    pathToCSS,
-    formatterOptions,
-    write,
-    preprocessingFunction,
-  }) {
-    this.#pathToCSS = path.normalize(pathToCSS)
-    let fileCss = fs.readFileSync(this.#pathToCSS, CssToHtml.ENCODING)
-
-    this.#css = preprocessingFunction
-      ? preprocessingFunction(fileCss)
-      : fileCss
+  constructor({ css, formatterOptions, write, }) {
+    this.#css = css
 
     this.#formatterOptions = Object.assign(this.#formatterOptions, formatterOptions)
 
