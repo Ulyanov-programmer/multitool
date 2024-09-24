@@ -1,6 +1,6 @@
 import { Plugin } from './other/_plugin.js'
 import path from 'path'
-import { CssToHtml } from './other/cssToHtml/cssToHtml.js'
+import { CssToHtml } from 'css-to-html'
 import postcss from 'postcss'
 import nested from 'postcss-nested'
 

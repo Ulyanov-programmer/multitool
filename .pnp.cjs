@@ -26,14 +26,13 @@ const RAW_RUNTIME_STATE =
       [null, {\
         "packageLocation": "./",\
         "packageDependencies": [\
-          ["@adobe/css-tools", "npm:4.4.0"],\
           ["@csstools/postcss-media-minmax", "virtual:ebb00fb797d3b9d045dba9492bb80fe669275ab6bd8f36b7a280140eb5c909678cf5b023144ef0a92b6d567ce521844fa6ad5aa67a7196e4ab5140a59e599b84#npm:1.1.8"],\
           ["autoprefixer", "virtual:ebb00fb797d3b9d045dba9492bb80fe669275ab6bd8f36b7a280140eb5c909678cf5b023144ef0a92b6d567ce521844fa6ad5aa67a7196e4ab5140a59e599b84#npm:10.4.19"],\
           ["browser-sync", "npm:3.0.2"],\
           ["case-anything", "npm:3.1.0"],\
           ["chalk", "npm:5.3.0"],\
           ["chokidar", "npm:3.6.0"],\
-          ["css-selector-parser", "npm:3.0.5"],\
+          ["css-to-html", "https://github.com/Ulyanov-programmer/css-to-html.git#commit=55197e7401c547629a886154b23ab9d3464037ef"],\
           ["enquirer", "npm:2.4.1"],\
           ["esbuild", "npm:0.23.0"],\
           ["fs-extra", "npm:11.2.0"],\
@@ -2342,6 +2341,19 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
+    ["css-to-html", [\
+      ["https://github.com/Ulyanov-programmer/css-to-html.git#commit=55197e7401c547629a886154b23ab9d3464037ef", {\
+        "packageLocation": "./.yarn/cache/css-to-html-https-d719f095b4-00637a17c2.zip/node_modules/css-to-html/",\
+        "packageDependencies": [\
+          ["css-to-html", "https://github.com/Ulyanov-programmer/css-to-html.git#commit=55197e7401c547629a886154b23ab9d3464037ef"],\
+          ["@adobe/css-tools", "npm:4.4.0"],\
+          ["css-selector-parser", "npm:3.0.5"],\
+          ["fs-extra", "npm:11.2.0"],\
+          ["js-beautify", "npm:1.15.1"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
     ["cssdb", [\
       ["npm:8.1.0", {\
         "packageLocation": "./.yarn/cache/cssdb-npm-8.1.0-6bd327e106-1fa1f1566c.zip/node_modules/cssdb/",\
@@ -4033,14 +4045,13 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./",\
         "packageDependencies": [\
           ["node-plugin-runner", "workspace:."],\
-          ["@adobe/css-tools", "npm:4.4.0"],\
           ["@csstools/postcss-media-minmax", "virtual:ebb00fb797d3b9d045dba9492bb80fe669275ab6bd8f36b7a280140eb5c909678cf5b023144ef0a92b6d567ce521844fa6ad5aa67a7196e4ab5140a59e599b84#npm:1.1.8"],\
           ["autoprefixer", "virtual:ebb00fb797d3b9d045dba9492bb80fe669275ab6bd8f36b7a280140eb5c909678cf5b023144ef0a92b6d567ce521844fa6ad5aa67a7196e4ab5140a59e599b84#npm:10.4.19"],\
           ["browser-sync", "npm:3.0.2"],\
           ["case-anything", "npm:3.1.0"],\
           ["chalk", "npm:5.3.0"],\
           ["chokidar", "npm:3.6.0"],\
-          ["css-selector-parser", "npm:3.0.5"],\
+          ["css-to-html", "https://github.com/Ulyanov-programmer/css-to-html.git#commit=55197e7401c547629a886154b23ab9d3464037ef"],\
           ["enquirer", "npm:2.4.1"],\
           ["esbuild", "npm:0.23.0"],\
           ["fs-extra", "npm:11.2.0"],\
