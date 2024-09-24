@@ -1598,15 +1598,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"css-to-html@github:Ulyanov-programmer/css-to-html#main":
+"css2html@npm:^1.0.0":
   version: 1.0.0
-  resolution: "css-to-html@https://github.com/Ulyanov-programmer/css-to-html.git#commit=55197e7401c547629a886154b23ab9d3464037ef"
+  resolution: "css2html@npm:1.0.0"
   dependencies:
     "@adobe/css-tools": "npm:^4.4.0"
     css-selector-parser: "npm:^3.0.5"
     fs-extra: "npm:^11.2.0"
     js-beautify: "npm:^1.15.1"
-  checksum: 00637a17c2cf287fd72273b9e11cad71de4711051fe8bdd1210d6697c25bcd1e0f7dd2512958638918b88a1272ffd669f2ea93230c499a63259e05f37fc18d1c
+  checksum: 391a5041d8d54316bc780516b0d2020e83659f44ec38cd582f24630379f8f65f1534478bfade2aaee327a6f634ec02a36b82625f4a382e6243bfc7e6a57762fd
   languageName: node
   linkType: hard
 
@@ -3212,7 +3212,7 @@ __metadata:
     case-anything: "npm:^3.1.0"
     chalk: "npm:^5.3.0"
     chokidar: "npm:^3.6.0"
-    css-to-html: "github:Ulyanov-programmer/css-to-html#main"
+    css2html: "npm:^1.0.0"
     enquirer: "npm:^2.4.1"
     esbuild: "npm:^0.23.0"
     fs-extra: "npm:^11.2.0"

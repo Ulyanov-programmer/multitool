@@ -32,7 +32,7 @@ const RAW_RUNTIME_STATE =
           ["case-anything", "npm:3.1.0"],\
           ["chalk", "npm:5.3.0"],\
           ["chokidar", "npm:3.6.0"],\
-          ["css-to-html", "https://github.com/Ulyanov-programmer/css-to-html.git#commit=55197e7401c547629a886154b23ab9d3464037ef"],\
+          ["css2html", "npm:1.0.0"],\
           ["enquirer", "npm:2.4.1"],\
           ["esbuild", "npm:0.23.0"],\
           ["fs-extra", "npm:11.2.0"],\
@@ -2341,11 +2341,11 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
-    ["css-to-html", [\
-      ["https://github.com/Ulyanov-programmer/css-to-html.git#commit=55197e7401c547629a886154b23ab9d3464037ef", {\
-        "packageLocation": "./.yarn/cache/css-to-html-https-d719f095b4-00637a17c2.zip/node_modules/css-to-html/",\
+    ["css2html", [\
+      ["npm:1.0.0", {\
+        "packageLocation": "./.yarn/cache/css2html-npm-1.0.0-c66122923d-391a5041d8.zip/node_modules/css2html/",\
         "packageDependencies": [\
-          ["css-to-html", "https://github.com/Ulyanov-programmer/css-to-html.git#commit=55197e7401c547629a886154b23ab9d3464037ef"],\
+          ["css2html", "npm:1.0.0"],\
           ["@adobe/css-tools", "npm:4.4.0"],\
           ["css-selector-parser", "npm:3.0.5"],\
           ["fs-extra", "npm:11.2.0"],\
@@ -4051,7 +4051,7 @@ const RAW_RUNTIME_STATE =
           ["case-anything", "npm:3.1.0"],\
           ["chalk", "npm:5.3.0"],\
           ["chokidar", "npm:3.6.0"],\
-          ["css-to-html", "https://github.com/Ulyanov-programmer/css-to-html.git#commit=55197e7401c547629a886154b23ab9d3464037ef"],\
+          ["css2html", "npm:1.0.0"],\
           ["enquirer", "npm:2.4.1"],\
           ["esbuild", "npm:0.23.0"],\
           ["fs-extra", "npm:11.2.0"],\
