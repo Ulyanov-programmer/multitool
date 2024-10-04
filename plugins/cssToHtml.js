@@ -36,14 +36,9 @@ const
 
 function process(paths) {
   for (let pathToFile of paths) {
-    let isLayout = isLayoutFile(pathToFile)
+    let isComponent = isHTMLComponent(pathToFile)
 
-    let pathToHTML = pathToFile
-      .replace(
-        styleLayoutsPath,
-        globalThis.paths.sources.root,
-      )
-      .replace('.pcss', '.html')
+    let pathToHTML = createPathToHTML(pathToFile)
 
     let postcss = Plugin.fs.readFileSync(pathToFile, 'utf-8')
     let css = postcssEntity.process(postcss).css
@@ -52,8 +47,8 @@ function process(paths) {
       css: css,
       write: {
         in: pathToHTML,
-        after: isLayout ? '</push>' : null,
-        before: isLayout ? '</x-layout>' : null,
+        after: isComponent ? null : '</push>',
+        before: isComponent ? null : '</',
       },
       formatterOptions: {
         indent_size: 2,
@@ -66,8 +61,17 @@ function process(paths) {
   }
 }
 
-function isLayoutFile(pathToFile) {
+function isHTMLComponent(pathToFile) {
   let fileDir = path.dirname(pathToFile) + '\\'
 
-  return fileDir == styleLayoutsPath
+  return fileDir.includes(styleLayoutsPath + 'components\\')
+}
+function createPathToHTML(originalPath) {
+  let pathToHTML = originalPath
+    .replace(
+      styleLayoutsPath, globalThis.paths.sources.root,
+    )
+    .replace('.pcss', '.html')
+
+  return pathToHTML
 }
