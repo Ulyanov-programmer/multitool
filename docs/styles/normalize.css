@@ -1,0 +1,438 @@
+@layer normalizing;
+
+@layer normalizing {
+
+  :not(svg,
+    svg *,
+    td,
+    img,
+    table,
+    caption,
+    thead,
+    tbody,
+    tfoot,
+    colgroup,
+    tr,
+    th) {
+    all: unset;
+    box-sizing: border-box;
+  }
+
+  head,
+  script,
+  style {
+    display: none;
+  }
+
+  ::before,
+  ::after {
+    box-sizing: border-box;
+  }
+
+  :active {
+    outline: none;
+  }
+
+  :focus-visible {
+    /* Creates an outline that will be clearly visible regardless of the background color and border. */
+    outline: 2px solid color-mix(in hsl, transparent, currentColor);
+  }
+
+  nav,
+  footer,
+  header,
+  aside,
+  body,
+  div,
+  main,
+  section,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  hr,
+  p,
+  pre,
+  ul,
+  ol,
+  form,
+  fieldset,
+  address,
+  blockquote {
+    display: block;
+  }
+
+  html,
+  body {
+    line-height: 1;
+    -webkit-text-size-adjust: auto;
+    -moz-text-size-adjust: auto;
+    text-size-adjust: auto;
+    -webkit-tap-highlight-color: #0000;
+  }
+
+  html {
+    scrollbar-gutter: stable;
+  }
+
+  html ::-moz-selection {
+    background: black;
+    color: white;
+  }
+
+  html ::selection {
+    background: black;
+    color: white;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth
+    }
+  }
+
+  a,
+  button {
+    cursor: pointer;
+    display: inline-block;
+  }
+
+  button,
+  a.likeButton {
+    background: black;
+    color: white;
+    padding: 10px 7px;
+    font-family: Montserrat;
+    letter-spacing: 1px;
+    line-height: 1.1;
+    font-size: 18px;
+    transition: all ease 0.3s;
+  }
+
+  @media (hover: hover) {
+
+    button:not(.functional-btn):hover,
+    a.likeButton:not(.functional-btn):hover {
+      background: rgb(248, 56, 56);
+    }
+  }
+
+  button.active,
+  a.likeButton.active {
+    background: rgb(248, 56, 56);
+  }
+
+  a,
+  p,
+  span,
+  mark,
+  abbr,
+  q,
+  blockquote,
+  cite,
+  strong,
+  small {
+    text-wrap: pretty;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+  }
+
+  a:not(.likeButton) {
+    display: inline-block;
+    transition: all ease 0.1s;
+  }
+
+  a:not(.likeButton):hover,
+  a:not(.likeButton):visited {
+    text-decoration: none;
+  }
+
+  a:not(.likeButton) {
+    color: var(--red);
+  }
+
+  @media (hover: hover) {
+    a:not(.likeButton):hover {
+      color: red;
+    }
+  }
+
+  ul,
+  li {
+    list-style: none;
+  }
+
+  ol,
+  li {
+    list-style: decimal inside;
+  }
+
+  img {
+    height: auto;
+    shape-margin: 0.75em;
+    max-width: 100%;
+    font-style: italic;
+    vertical-align: middle;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  caption {
+    text-wrap: balance;
+    font-family: Montserrat;
+    font-weight: 600;
+  }
+
+  :root {
+    --main-font-family: arial;
+    --main-text-color: black;
+    --red: #fe7e7e;
+    --background: #d9d9d9;
+    --black-bg: #3b3a3a;
+    --content-inline-padding: none;
+    --content-block-padding: 60px;
+  }
+
+  @media (min-width: 1440.02px) {
+    :root {
+      --content-inline-padding: 25vw
+    }
+  }
+
+  @media (min-width: 1024px) and (max-width: 1440px) {
+    :root {
+      --content-inline-padding: 20vw
+    }
+  }
+
+  @media (min-width: 769px) and (max-width: 1024px) {
+    :root {
+      --content-inline-padding: 10vw
+    }
+  }
+
+  @media (min-width: 426px) and (max-width: 769px) {
+    :root {
+      --content-inline-padding: 5vw
+    }
+  }
+
+  @media (max-width: 426px) {
+    :root {
+      --content-inline-padding: 3vw
+    }
+  }
+
+  section {
+    display: grid;
+    gap: 30px;
+    padding: 20px 40px;
+  }
+
+  section :is(h1, h2, h3) {
+    text-align: center;
+  }
+
+  section ul {
+    margin-inline: 20%;
+  }
+
+  @media (max-width: 426px) {
+    section ul {
+      margin-inline: 5%;
+    }
+  }
+
+  body {
+    font-family: var(--main-font-family);
+    font-size: clamp(0.75rem, calc(16 * 100vw / 1440) + 0.01rem, 1rem);
+    color: var(--main-text-color);
+    background: var(--background);
+  }
+
+  body.multitool {
+    display: grid;
+    grid-template: auto 150px auto / 1fr;
+  }
+
+  body.multitool section {
+    background: white;
+  }
+
+  body.multitool main {
+    padding-inline: var(--content-inline-padding);
+    padding-block: 60px;
+  }
+
+  table-wrapper {
+    overflow-x: auto;
+    display: block;
+    max-width: 100%;
+  }
+
+  table {
+    display: table;
+    border-collapse: collapse;
+    width: 100%;
+    min-width: 700px;
+  }
+
+  table caption {
+    background: inherit;
+  }
+
+  select {
+    cursor: pointer;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background: #fff;
+  }
+
+  select:focus-visible {
+    outline: none;
+  }
+
+  h1 {
+    font-size: 32px;
+    line-height: 1.2;
+  }
+
+  h2 {
+    font-size: 26px;
+  }
+
+  h3 {
+    font-size: 20px;
+  }
+
+  inline-container {
+    container-type: inline-size;
+    display: block;
+  }
+
+  ol {
+    list-style: decimal inside
+  }
+
+  .centred-text {
+    text-align: center;
+  }
+
+  my-work {
+    display: grid;
+    justify-items: center;
+    align-content: center;
+    max-width: 400px;
+    max-height: 400px;
+  }
+
+  @media (hover: hover) {
+    my-work:hover h3 {
+      background: var(--red);
+    }
+  }
+
+  my-work[role='button'] {
+    cursor: pointer;
+  }
+
+  my-work h3 {
+    color: black;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    background: white;
+    width: -moz-fit-content;
+    width: fit-content;
+    padding: 15px;
+    transition: all ease 0.2s;
+  }
+
+  my-work>picture img {
+    border-radius: 3px;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.3);
+    -o-object-position: bottom;
+    object-position: bottom;
+    -o-object-fit: contain;
+    object-fit: contain;
+  }
+
+  my-work dialog[data-modal-dialog] {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    gap: 25px;
+  }
+
+  my-work dialog[data-modal-dialog] .swiper {
+    max-width: 100%;
+    flex: 1 0 auto;
+  }
+
+  my-work dialog[data-modal-dialog] .swiper .swiper-slide>a {
+    display: block;
+    margin: auto;
+  }
+
+  my-work dialog[data-modal-dialog] :is(img) {
+    -o-object-fit: contain;
+    object-fit: contain;
+    height: 100%;
+    width: 100%;
+    max-height: 400px;
+  }
+
+  my-work dialog[data-modal-dialog] aside {
+    display: flex;
+    gap: 15px;
+  }
+
+  my-work dialog[data-modal-dialog] pagination-block {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  my-work dialog[data-modal-dialog] pagination-block span {
+    width: 15px !important;
+    height: 15px !important;
+    border-radius: 5px !important;
+    margin: 10px !important;
+  }
+
+  my-work dialog[data-modal-dialog] pagination-block span[aria-current='true'] {
+    background: var(--red) !important;
+  }
+
+  @media (min-width: 426px) {
+    my-work dialog[data-modal-dialog] :is(img) {
+      border-radius: 5px;
+    }
+  }
+
+  section#works .ref-to-work {
+    background: white;
+    color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 35px 60px;
+    height: -moz-fit-content;
+    height: fit-content;
+    border-radius: 5px;
+  }
+
+  @media (hover: hover) {
+    section#works .ref-to-work:hover {
+      background: var(--red);
+    }
+  }
+}

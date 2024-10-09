@@ -1,0 +1,446 @@
+[class*='pos'] {
+  &[class*='_r'] {
+    position: relative;
+  }
+
+  &[class*='_a'] {
+    position: absolute;
+  }
+
+  &[class*='_sticky'] {
+    position: sticky;
+    top: 0;
+  }
+}
+
+[class*='t'] {
+  &[class*='_upper'] {
+    text-transform: uppercase;
+  }
+
+  &[class*='_center'] {
+    text-align: center;
+  }
+}
+
+[class*='fw'] {
+  &[class*='_100'] {
+    font-weight: 100;
+  }
+
+  &[class*='_200'] {
+    font-weight: 200;
+  }
+
+  &[class*='_300'] {
+    font-weight: 300;
+  }
+
+  &[class*='_500'] {
+    font-weight: 500;
+  }
+
+  &[class*='_600'] {
+    font-weight: 600;
+  }
+
+  &[class*='_700'] {
+    font-weight: 700;
+  }
+
+  &[class*='_800'] {
+    font-weight: 800;
+  }
+
+  &[class*='_900'] {
+    font-weight: 900;
+  }
+}
+
+.smooth_hiding_sides {
+  /* Use this to create the effect of smoothly hiding the elements. */
+
+  mask: linear-gradient(
+    90deg,
+    transparent,
+    rgb(0 0 0 / 100%) 10%,
+    rgb(0 0 0 / 100%) 90%,
+    transparent
+  );
+}
+
+.hide_scrollbar {
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+  }
+}
+
+emerge-menu {
+  position: relative;
+  display: inline-block;
+  width: fit-content;
+
+  > button {
+  }
+
+  > dialog {
+    position: absolute;
+    z-index: 1;
+    top: 100%;
+
+    display: block;
+
+    width: max-content;
+
+    background: white;
+
+    transition: all 0.2s ease;
+
+    &:not([open]) {
+      pointer-events: none;
+      opacity: 0;
+    }
+
+    &.toLeft {
+      right: 0;
+    }
+
+    &.toRight {
+      left: 0;
+    }
+
+    &.toCenter {
+      left: 50%;
+      translate: -50% 0;
+    }
+  }
+}
+
+spoiler-wrapper {
+  /* ? Example of usage. Don't forget to connect the dialogs scripts.
+  <spoiler-wrapper>
+    <button type='button'
+            data-toggle-dialog-id='spoiler'>
+      Open the spoiler
+    </button>
+
+    <content-block>
+      <dialog id='spoiler'> content </dialog>
+    </content-block>
+  </spoiler-wrapper>
+  */
+
+  > content-block {
+    --transition-timing: 0.3s;
+    display: grid;
+
+    /* You can "ajar" a content element by setting a value between 0 and 1 fr. */
+    grid-template-rows: 0fr;
+    transition: grid-template-rows var(--transition-timing) ease;
+
+    &:has(dialog[open]) {
+      grid-template-rows: 1fr;
+    }
+
+    dialog {
+      overflow: hidden;
+      opacity: 1;
+      transition: opacity var(--transition-timing) ease;
+
+      &:not([open]) {
+        pointer-events: none;
+      }
+
+      &[open] {
+      }
+    }
+  }
+}
+
+.NavMenu {
+  ul {
+    li {
+      a,
+      button {
+      }
+    }
+  }
+
+  @media (--burger-menu-is-visible) {
+    display: none;
+  }
+}
+
+#burger-menu {
+  @custom-media --burger-menu-is-hidden (width > 768px);
+  @custom-media --burger-menu-is-visible (width <= 768px);
+
+  position: fixed;
+  bottom: 100vh;
+  left: 0;
+
+  display: grid;
+  place-content: center center;
+  place-items: center center;
+
+  width: 100vw;
+  height: 100vh;
+
+  transition: all 0.3s ease;
+
+  &::backdrop {
+  }
+
+  &:not([open]) {
+  }
+
+  &[open] {
+  }
+
+  nav {
+    scroll-snap-type: y mandatory;
+    overflow: auto;
+
+    /* For normal outline visibility */
+    padding: 1px;
+
+    ul {
+      display: grid;
+
+      li {
+        scroll-snap-align: start;
+
+        a,
+        button {
+        }
+
+        a {
+        }
+
+        button {
+        }
+      }
+    }
+  }
+
+  @media (--burger-menu-is-hidden) {
+    display: none;
+  }
+}
+
+button[data-open-dialog-id='burger-menu'] {
+  @media (--burger-menu-is-hidden) {
+    display: none;
+  }
+}
+
+/*
+  ? This is the basic properties and animations of the burger button.
+  If you find that a part of the <rect> extends beyond the boundaries of the <svg>, try to make the <svg> a square (width and height must be equal).
+*/
+button.AnimatedSvgBurger {
+  svg {
+    > rect {
+      transform-origin: center;
+      transform-box: fill-box;
+      transition: all 0.3s ease;
+
+      &:nth-child(1) {
+        width: 100%;
+      }
+
+      &:nth-child(2) {
+        width: 100%;
+      }
+
+      &:nth-child(3) {
+        width: 100%;
+      }
+    }
+  }
+
+  &[aria-expanded='true'] {
+    .rectTop {
+      rotate: 45deg;
+
+      x: 0%;
+      y: 50%;
+    }
+
+    .rectCenter {
+      pointer-events: none;
+      overflow: hidden;
+      opacity: 0;
+    }
+
+    .rectBottom {
+      rotate: -45deg;
+
+      x: 0;
+      y: 50%;
+    }
+  }
+}
+
+img {
+  &.cover {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  &.contain {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  &.fill {
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+  }
+}
+
+.visuallyHidden {
+  position: absolute;
+
+  overflow: hidden;
+
+  width: 1px;
+  height: 1px;
+
+  white-space: nowrap;
+
+  clip-path: inset(50%);
+}
+
+[class*='inText'] {
+  width: fit-content;
+  color: transparent;
+  background-clip: text;
+  background-size: cover;
+
+  &[class*='image'] {
+    background-image: url('');
+  }
+
+  &[class*='gradient'] {
+    background-image: linear-gradient(90deg, red, blue);
+  }
+}
+
+[class*='grid'] {
+  display: grid;
+
+  &[class*='inline'] {
+    display: inline-grid;
+  }
+
+  &[class*='twoColumns'] {
+    grid-template: 1fr 1fr;
+  }
+
+  &[class*='threeColumns'] {
+    grid-template: 1fr 1fr 1fr;
+  }
+
+  &[class*='JIStart'] {
+    justify-items: start;
+  }
+
+  &[class*='JICenter'] {
+    justify-items: center;
+  }
+
+  &[class*='JIEnd'] {
+    justify-items: end;
+  }
+
+  &[class*='JCSpaceBetween'] {
+    justify-content: space-between;
+  }
+
+  &[class*='AIStart'] {
+    align-items: start;
+  }
+
+  &[class*='AICenter'] {
+    align-items: center;
+  }
+
+  &[class*='AIEnd'] {
+    align-items: end;
+  }
+
+  &[class*='AISpaceBetween'] {
+    align-content: space-between;
+  }
+
+  &[class*='ACBaseline'] {
+    align-content: baseline;
+  }
+
+  &[class*='fullWidthWithPaddings'] {
+    grid-template-columns:
+      var(--content-inline-padding)
+      1fr
+      var(--content-inline-padding);
+    width: 100vw;
+  }
+}
+
+[class*='flex'] {
+  display: flex;
+
+  &[class*='inline'] {
+    display: inline-flex;
+  }
+
+  &[class*='row'] {
+    flex-direction: row;
+  }
+
+  &[class*='column'] {
+    flex-direction: column;
+  }
+
+  &[class*='wrap'] {
+    flex-wrap: wrap;
+  }
+
+  &[class*='AIStart'] {
+    align-items: start;
+  }
+
+  &[class*='AICenter'] {
+    align-items: center;
+  }
+
+  &[class*='AIEnd'] {
+    align-items: flex-end;
+  }
+
+  &[class*='AIBaseline'] {
+    align-items: baseline;
+  }
+
+  &[class*='JCStart'] {
+    justify-content: start;
+  }
+
+  &[class*='JCCenter'] {
+    justify-content: center;
+  }
+
+  &[class*='JCEnd'] {
+    justify-content: end;
+  }
+
+  &[class*='JCSpaceBetween'] {
+    justify-content: space-between;
+  }
+}

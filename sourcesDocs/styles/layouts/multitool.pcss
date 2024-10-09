@@ -1,0 +1,66 @@
+section {
+  h1 {
+    --text: 'Multitool';
+  }
+  p.centred-text {
+    --text: 'Это главная страница о моей сборке для вёрстки сайтов. Обрати внимание:';
+  }
+  ul {
+    display: grid;
+    gap: 20px;
+
+    > li {
+      display: flex;
+
+      &:before {
+        display: inline-block;
+        background: black;
+        min-width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        margin-right: 0.5em;
+        margin-left: 0.3em;
+        margin-top: 0.3em;
+        content: '';
+      }
+    }
+    li {
+      --text: 'Используй шапку сайта (вон ту, красную сверху) что бы найти ссылки на сторонние ресурсы.';
+    }
+    li {
+      --text: 'Используй серую панель сверху как навигацию по сайту. <br> Попробуй нажать на неё и "подвинуть"...';
+    }
+    li {
+      p {
+        a {
+          --attr-href: 'https://github.com/Ulyanov-programmer/multitool';
+          --attrs: "target='_self' rel='noopener noreferrer'";
+
+          --text: 'Ссылка';
+          --text-after: 'на сборку (GitHub)';
+
+          &:after {
+            display: inline-block;
+            content: ' ';
+          }
+        }
+      }
+    }
+  }
+  h2 {
+    --text: 'Обнаружена ошибка? Доложи об этом на';
+    a {
+      --attr-href: 'https://github.com/Ulyanov-programmer/multitool/issues';
+      --attrs: "target='_blank' rel='noopener noreferrer'";
+      --text: 'issues';
+    }
+  }
+  h2 {
+    --text: 'Пригодилось что-то? Ставить звезду';
+    a {
+      --attr-href: 'https://github.com/Ulyanov-programmer/multitool';
+      --attrs: "target='_blank' rel='noopener noreferrer'";
+      --text: 'здесь';
+    }
+  }
+}

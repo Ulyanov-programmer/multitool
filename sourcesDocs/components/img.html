@@ -1,0 +1,34 @@
+<script props>
+  module.exports = {
+    source: props.source,
+    // Deleting the last extension from the file path.
+    sourceWithoutExt: props.source.replace(
+      '.' + props.source.split('.').at(-1),
+      ''
+    ),
+    alt: props.alt || '',
+    loading: props.loading || 'eager',
+    class: props.class ?? '',
+    webp: props.webp,
+    avif: props.avif,
+  }
+  /* Usage example
+  <x-img class=''
+         source='images/image.jpg'
+         webp
+         avif
+         alt=''>
+  </x-img>
+  */
+</script>
+
+<picture>
+  <if condition="avif != undefined">
+    <source srcset="{{sourceWithoutExt}}.avif" type="image/avif" />
+  </if>
+  <if condition="webp != undefined">
+    <source srcset="{{sourceWithoutExt}}.webp" type="image/webp" />
+  </if>
+
+  <img class="{{class}}" src="{{source}}" loading="{{loading}}" alt="{{alt}}" />
+</picture>

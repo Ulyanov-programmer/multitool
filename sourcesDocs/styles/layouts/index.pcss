@@ -1,0 +1,41 @@
+html {
+  scrollbar-gutter: auto;
+}
+html > body {
+  height: 100vh;
+  padding: 20px;
+
+  main {
+    display: grid;
+    align-content: center;
+    text-align: center;
+    gap: 30px;
+    height: 100%;
+  }
+}
+
+h1 {
+  --text: 'Здравствуй! <br> Я - Ульянов Иван, программист.';
+  margin-bottom: 120px;
+}
+h2 {
+  --text: 'Чего пожелаешь?';
+}
+div {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+
+  a.likeButton {
+    --attr-href: './portfolio.html';
+    --attrs: "target='_self' rel='noopener noreferrer'";
+
+    --text: 'Моё портфолио';
+  }
+  a.likeButton {
+    --attr-href: './multitool.html';
+    --attrs: "target='_self' rel='noopener noreferrer'";
+
+    --text: 'Сборка multitool';
+  }
+}

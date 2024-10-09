@@ -1,0 +1,208 @@
+body > #main-navigation {
+  &.active {
+    min-height: 350px;
+  }
+  a {
+    padding: 15px 15px;
+    max-width: 200px;
+  }
+}
+nav#main-navigation {
+  display: flex;
+  flex-flow: row nowrap;
+  gap: 30px;
+  align-items: start;
+  padding-inline: calc(var(--content-inline-padding) / 2) @768 25px;
+  padding-block: 20px;
+  background: var(--black-bg);
+  overflow: scroll;
+  isolation: isolate;
+  cursor: grab;
+  scrollbar-width: none;
+  height: max-content;
+  max-height: 150px;
+  min-height: 150px;
+  user-select: none;
+  transition: min-height ease 0.3s;
+  direction: rtl;
+
+  @media (width <= 426px) {
+    flex-flow: column nowrap;
+  }
+
+  &::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+  }
+
+  > * {
+    flex: 0 0 auto;
+    text-align: center;
+    direction: ltr;
+  }
+
+  > nav-row {
+    display: grid @426 flex;
+    align-items: flex-start;
+    gap: 10px;
+    position: relative;
+    border-top: 1px solid gray;
+    padding: 5px;
+    padding-top: 0.7em;
+
+    > span {
+      position: absolute;
+      top: -0.5em;
+      left: 0;
+      right: 0;
+      margin: auto @426 0 1em;
+      color: white;
+      background: var(--black-bg);
+      padding-inline: 2px;
+      width: fit-content;
+    }
+  }
+
+  a.likeButton {
+    --attr-href: '/Multitool.html';
+    --attrs: "target='_self' rel='noopener noreferrer'";
+
+    --text: 'Главная';
+  }
+
+  nav-row {
+    span {
+      --text: 'Плагины';
+    }
+    a.likeButton {
+      --attr-href: '/html/plugins/fonts.html';
+      --attrs: "target='_self' rel='noopener noreferrer'";
+
+      --text: 'HTML';
+    }
+    a.likeButton {
+      --attr-href: '/html/plugins/fonts.html';
+      --attrs: "target='_self' rel='noopener noreferrer'";
+
+      --text: 'CSS';
+    }
+    a.likeButton {
+      --attr-href: '/html/plugins/fonts.html';
+      --attrs: "target='_self' rel='noopener noreferrer'";
+
+      --text: 'JS/TS';
+    }
+    a.likeButton {
+      --attr-href: '/html/plugins/fonts.html';
+      --attrs: "target='_self' rel='noopener noreferrer'";
+
+      --text: 'Сервер';
+    }
+    a.likeButton {
+      --attr-href: '/html/plugins/fonts.html';
+      --attrs: "target='_self' rel='noopener noreferrer'";
+
+      --text: 'Изображения';
+    }
+    a.likeButton {
+      --attr-href: '/html/plugins/fonts.html';
+      --attrs: "target='_self' rel='noopener noreferrer'";
+
+      --text: 'Шрифты';
+    }
+    a.likeButton {
+      --attr-href: '/html/plugins/fonts.html';
+      --attrs: "target='_self' rel='noopener noreferrer'";
+
+      --text: 'Перезапись dist';
+    }
+    a.likeButton {
+      --attr-href: '/html/plugins/fonts.html';
+      --attrs: "target='_self' rel='noopener noreferrer'";
+
+      --text: 'Копирование';
+    }
+    a.likeButton {
+      --attr-href: '/html/plugins/fonts.html';
+      --attrs: "target='_self' rel='noopener noreferrer'";
+
+      --text: 'Форматирование';
+    }
+    a.likeButton {
+      --attr-href: '/html/plugins/fonts.html';
+      --attrs: "target='_self' rel='noopener noreferrer'";
+
+      --text: 'CSS в HTML';
+    }
+  }
+  nav-row {
+    span {
+      --text: 'Готовый код';
+    }
+    a.likeButton {
+      --attr-href: '/html/plugins/fonts.html';
+      --attrs: "target='_self' rel='noopener noreferrer'";
+
+      --text: 'Диалоги';
+    }
+    a.likeButton {
+      --attr-href: '/html/plugins/fonts.html';
+      --attrs: "target='_self' rel='noopener noreferrer'";
+
+      --text: 'Горизонтальная  прокрутка';
+    }
+    a.likeButton {
+      --attr-href: '/html/plugins/fonts.html';
+      --attrs: "target='_self' rel='noopener noreferrer'";
+
+      --text: 'Бесконечная  прокрутка';
+    }
+    a.likeButton {
+      --attr-href: '/html/plugins/fonts.html';
+      --attrs: "target='_self' rel='noopener noreferrer'";
+
+      --text: 'Диалоги';
+    }
+    a.likeButton {
+      --attr-href: '/html/plugins/fonts.html';
+      --attrs: "target='_self' rel='noopener noreferrer'";
+
+      --text: 'Auto scroll-padding';
+    }
+    a.likeButton {
+      --attr-href: '/html/plugins/fonts.html';
+      --attrs: "target='_self' rel='noopener noreferrer'";
+
+      --text: 'Observer tools';
+    }
+    a.likeButton {
+      --attr-href: '/html/plugins/fonts.html';
+      --attrs: "target='_self' rel='noopener noreferrer'";
+
+      --text: 'Табы';
+    }
+    a.likeButton {
+      --attr-href: '/html/plugins/fonts.html';
+      --attrs: "target='_self' rel='noopener noreferrer'";
+
+      --text: 'Параллакс мышью';
+    }
+  }
+  nav-row {
+    span {
+      --text: 'Разное';
+    }
+    a.likeButton {
+      --attr-href: '/html/plugins/fonts.html';
+      --attrs: "target='_self' rel='noopener noreferrer'";
+
+      --text: 'Что такое плагин?';
+    }
+    a.likeButton {
+      --attr-href: '/html/plugins/fonts.html';
+      --attrs: "target='_self' rel='noopener noreferrer'";
+
+      --text: 'Файловая структура';
+    }
+  }
+}
