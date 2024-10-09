@@ -3,6 +3,7 @@ import path from 'path'
 import { CssToHtml } from 'css2html'
 import postcss from 'postcss'
 import nested from 'postcss-nested'
+import simpleVars from 'postcss-simple-vars'
 
 /**
  * This plugin uses the cssToHtml library to convert the contents of PCSS files into HTML.
@@ -29,6 +30,7 @@ new Plugin({
 const
   styleLayoutsPath = path.normalize(globalThis.paths.sources.styleLayouts),
   postcssEntity = postcss([
+    simpleVars(),
     nested({
       preserveEmpty: true,
     }),
