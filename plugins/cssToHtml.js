@@ -52,9 +52,7 @@ function process(paths) {
         after: isComponent ? null : '</push>',
         before: isComponent ? null : '</',
       },
-      formatterOptions: {
-        indent_size: 2,
-      },
+      format: true,
     })
 
     this.emitter.emit('processedFile', {

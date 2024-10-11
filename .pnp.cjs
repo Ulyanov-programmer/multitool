@@ -32,7 +32,7 @@ const RAW_RUNTIME_STATE =
           ["case-anything", "npm:3.1.0"],\
           ["chalk", "npm:5.3.0"],\
           ["chokidar", "npm:3.6.0"],\
-          ["css2html", "npm:1.0.0"],\
+          ["css2html", "npm:2.0.0"],\
           ["enquirer", "npm:2.4.1"],\
           ["esbuild", "npm:0.23.0"],\
           ["fs-extra", "npm:11.2.0"],\
@@ -2342,14 +2342,14 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["css2html", [\
-      ["npm:1.0.0", {\
-        "packageLocation": "./.yarn/cache/css2html-npm-1.0.0-c66122923d-391a5041d8.zip/node_modules/css2html/",\
+      ["npm:2.0.0", {\
+        "packageLocation": "./.yarn/cache/css2html-npm-2.0.0-cadf6da541-6e88c07b26.zip/node_modules/css2html/",\
         "packageDependencies": [\
-          ["css2html", "npm:1.0.0"],\
+          ["css2html", "npm:2.0.0"],\
           ["@adobe/css-tools", "npm:4.4.0"],\
           ["css-selector-parser", "npm:3.0.5"],\
           ["fs-extra", "npm:11.2.0"],\
-          ["js-beautify", "npm:1.15.1"]\
+          ["html-format", "npm:1.1.7"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -3162,6 +3162,15 @@ const RAW_RUNTIME_STATE =
         "packageDependencies": [\
           ["hasown", "npm:2.0.0"],\
           ["function-bind", "npm:1.1.2"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["html-format", [\
+      ["npm:1.1.7", {\
+        "packageLocation": "./.yarn/cache/html-format-npm-1.1.7-dea07642ea-5476d4cd59.zip/node_modules/html-format/",\
+        "packageDependencies": [\
+          ["html-format", "npm:1.1.7"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -4051,7 +4060,7 @@ const RAW_RUNTIME_STATE =
           ["case-anything", "npm:3.1.0"],\
           ["chalk", "npm:5.3.0"],\
           ["chokidar", "npm:3.6.0"],\
-          ["css2html", "npm:1.0.0"],\
+          ["css2html", "npm:2.0.0"],\
           ["enquirer", "npm:2.4.1"],\
           ["esbuild", "npm:0.23.0"],\
           ["fs-extra", "npm:11.2.0"],\

@@ -1598,15 +1598,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"css2html@npm:^1.0.0":
-  version: 1.0.0
-  resolution: "css2html@npm:1.0.0"
+"css2html@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "css2html@npm:2.0.0"
   dependencies:
     "@adobe/css-tools": "npm:^4.4.0"
     css-selector-parser: "npm:^3.0.5"
     fs-extra: "npm:^11.2.0"
-    js-beautify: "npm:^1.15.1"
-  checksum: 391a5041d8d54316bc780516b0d2020e83659f44ec38cd582f24630379f8f65f1534478bfade2aaee327a6f634ec02a36b82625f4a382e6243bfc7e6a57762fd
+    html-format: "npm:^1.1.7"
+  checksum: 6e88c07b26de02950af916458474346c1ee31ca5e8befe5b1898329bf103ab168427656430557a91cc67be7aeeb680774a3c32b59e9445c5776d7cbb012139c1
   languageName: node
   linkType: hard
 
@@ -2375,6 +2375,13 @@ __metadata:
   dependencies:
     function-bind: "npm:^1.1.2"
   checksum: 5d415b114f410661208c95e7ab4879f1cc2765b8daceff4dc8718317d1cb7b9ffa7c5d1eafd9a4389c9aab7445d6ea88e05f3096cb1e529618b55304956b87fc
+  languageName: node
+  linkType: hard
+
+"html-format@npm:^1.1.7":
+  version: 1.1.7
+  resolution: "html-format@npm:1.1.7"
+  checksum: 5476d4cd594eeea284ed0363b7688326ca2d3233a1bc9f1bbbf866ee670415db741d08a6803cdb4f54b98062d179696f6934d972d9d94f0c8345df85d90b2cd8
   languageName: node
   linkType: hard
 
@@ -3212,7 +3219,7 @@ __metadata:
     case-anything: "npm:^3.1.0"
     chalk: "npm:^5.3.0"
     chokidar: "npm:^3.6.0"
-    css2html: "npm:^1.0.0"
+    css2html: "npm:^2.0.0"
     enquirer: "npm:^2.4.1"
     esbuild: "npm:^0.23.0"
     fs-extra: "npm:^11.2.0"
