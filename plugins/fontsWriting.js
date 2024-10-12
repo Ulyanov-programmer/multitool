@@ -29,7 +29,7 @@ function init() {
     if (fileName == '.gitkeep') continue
 
     let newFont = {
-      fontName: fileName.split('-').at(0),
+      fontName: fileName.split(/(-)|[.]/)[0],
       fileNamesNoExt: [path.parse(fileName).name],
       weights: [parseNumericWeightFromName(fileName)],
       styles: [parseStyleFromName(fileName)],
@@ -140,13 +140,13 @@ function isFontsStyleFileFull() {
   try {
     let sourceFontNames = fs
       .readdirSync(globalThis.paths.sources.fontsFolder)
-      .map(font => path.parse(font).name)
+      ?.map(font => path.parse(font).name)
 
     let fontsStyleFile = fs.readFileSync(globalThis.paths.sources.fontsFilePath, 'utf8')
 
     let filePathsFromFontFaces = fontsStyleFile
       .match(/url(.*.woff2)/g)
-      .map(font => path.parse(font).name)
+      ?.map(font => path.parse(font).name)
 
     return JSON.stringify(sourceFontNames) == JSON.stringify(filePathsFromFontFaces)
   }
