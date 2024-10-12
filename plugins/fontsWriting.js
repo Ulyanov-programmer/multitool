@@ -17,6 +17,8 @@ function init() {
     return
   }
 
+  fs.writeFileSync(globalThis.paths.sources.fontsFilePath, '')
+
   writeWelcomePhrase()
 
 
@@ -136,8 +138,17 @@ function filesIsCorrect() {
 
 function isFontsStyleFileFull() {
   try {
+    let sourceFontNames = fs
+      .readdirSync(globalThis.paths.sources.fontsFolder)
+      .map(font => path.parse(font).name)
+
     let fontsStyleFile = fs.readFileSync(globalThis.paths.sources.fontsFilePath, 'utf8')
-    return fontsStyleFile.replace(/\s/g, '').length > 0
+
+    let filePathsFromFontFaces = fontsStyleFile
+      .match(/url(.*.woff2)/g)
+      .map(font => path.parse(font).name)
+
+    return JSON.stringify(sourceFontNames) == JSON.stringify(filePathsFromFontFaces)
   }
   catch (error) {
     return true
