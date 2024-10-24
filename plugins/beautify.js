@@ -9,8 +9,8 @@ import beautify from 'js-beautify'
 new Plugin({
   name: 'beautify',
   associations: '{html,css}',
-  ignore: globalThis.paths.output.assets + '**',
-  workingDirectory: globalThis.paths.output.root,
+  ignore: globalThis.config.output.assets + '**',
+  workingDirectory: globalThis.config.output.root,
   logColor: '#99005C',
   runOnEvents: {
     names: [

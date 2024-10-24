@@ -42,7 +42,7 @@ export class Plugin {
 
   #setPathsAndFiles(options) {
     this.glob =
-      `${options.workingDirectory ?? globalThis.paths.sources.root}**/*.${options.associations}`
+      `${options.workingDirectory ?? globalThis.config.sources.root}**/*.${options.associations}`
 
     this.thirdPartyFilesGlobArray = options.thirdPartyFiles
 
@@ -115,7 +115,7 @@ export class Plugin {
   }
 
   static getCwd(options) {
-    return path.normalize(globParent(options?.workingDirectory ?? globalThis.paths.sources.root))
+    return path.normalize(globParent(options?.workingDirectory ?? globalThis.config.sources.root))
   }
 
   #checkPath(paths) {
@@ -199,11 +199,11 @@ export class Plugin {
     let newFileBase = newFileExt ? parsedPath.name + `.${newFileExt}` : parsedPath.base
     let newPath
 
-    if (parsedPath.dir.includes(globalThis.paths.output.root.replaceAll('/', ''))) {
+    if (parsedPath.dir.includes(globalThis.config.output.root.replaceAll('/', ''))) {
       return path.normalize(filePath)
     }
     else {
-      newPath = globalThis.paths.output.root
+      newPath = globalThis.config.output.root
         + parsedPath.dir.replace(this.cwd ?? Plugin.getCwd(), '') + '/'
         + newFileBase
     }

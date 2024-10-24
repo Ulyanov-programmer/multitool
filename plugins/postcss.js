@@ -12,7 +12,7 @@ import { plugins } from './other/postcssPlugins.js'
 new Plugin({
   name: 'postcss',
   associations: 'pcss',
-  ignore: globalThis.paths.sources.assets + '**',
+  ignore: globalThis.config.sources.assets + '**',
   watchEvents: ['change'],
   logColor: '#2277ff',
   runOnEvents: {

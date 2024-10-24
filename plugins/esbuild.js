@@ -14,16 +14,16 @@ const
     target: 'es2022',
     bundle: false,
     write: true,
-    outdir: globalThis.paths.output.scripts,
+    outdir: globalThis.config.output.scripts,
     //? Necessary if the task works with only one file.
-    outbase: globalThis.paths.sources.scripts,
-    minify: globalThis.isProductionMode,
+    outbase: globalThis.config.sources.scripts,
+    minify: globalThis.config.production,
   }
 
 new Plugin({
   name: 'esbuild',
   associations: '{js,ts}',
-  ignore: globalThis.paths.sources.assets + '**',
+  ignore: globalThis.config.sources.assets + '**',
   logColor: '#f3cb36',
   watchEvents: ['add'],
 

@@ -15,8 +15,8 @@ import simpleVars from 'postcss-simple-vars'
 new Plugin({
   name: 'cssToHtml',
   associations: 'pcss',
-  ignore: globalThis.paths.sources.styleLayouts + '**/_*.pcss',
-  workingDirectory: globalThis.paths.sources.styleLayouts,
+  ignore: globalThis.config.sources.stylesLayouts + '**/_*.pcss',
+  workingDirectory: globalThis.config.sources.stylesLayouts,
   logColor: '#ee9086',
   watchEvents: ['change'],
   runOnEvents: {
@@ -28,7 +28,7 @@ new Plugin({
 })
 
 const
-  styleLayoutsPath = path.normalize(globalThis.paths.sources.styleLayouts),
+  styleLayoutsPath = path.normalize(globalThis.config.sources.stylesLayouts),
   postcssEntity = postcss([
     simpleVars(),
     nested({
@@ -68,9 +68,7 @@ function isHTMLComponent(pathToFile) {
 }
 function createPathToHTML(originalPath) {
   let pathToHTML = originalPath
-    .replace(
-      styleLayoutsPath, globalThis.paths.sources.root,
-    )
+    .replace(styleLayoutsPath, globalThis.config.sources.root)
     .replace('.pcss', '.html')
 
   return pathToHTML

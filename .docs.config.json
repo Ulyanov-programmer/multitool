@@ -1,0 +1,22 @@
+{
+  "production": false,
+  "output": {
+    "root": "docs/",
+    "styles": "docs/styles/",
+    "scripts": "docs/scripts/",
+    "images": "docs/images/",
+    "fonts": "docs/fonts/",
+    "assets": "docs/assets/"
+  },
+  "sources": {
+    "root": "sourcesDocs/",
+    "htmlComponents": "sourcesDocs/components/",
+    "styles": "sourcesDocs/styles/",
+    "stylesLayouts": "sourcesDocs/styles/layouts/",
+    "stylesFonts": "sourcesDocs/styles/fonts.pcss",
+    "scripts": "sourcesDocs/scripts/",
+    "images": "sourcesDocs/images/",
+    "fonts": "sourcesDocs/fonts/",
+    "assets": "sourcesDocs/assets/"
+  }
+}

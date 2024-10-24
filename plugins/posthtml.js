@@ -14,12 +14,12 @@ new Plugin({
   name: 'posthtml',
   associations: 'html',
   ignore: [
-    globalThis.paths.sources.assets + '**',
-    globalThis.paths.sources.htmlComponents + '**'
+    globalThis.config.sources.assets + '**',
+    globalThis.config.sources.htmlComponents + '**'
   ],
   watchEvents: ['change'],
   thirdPartyFiles: [
-    globalThis.paths.sources.htmlComponents + '*.html',
+    globalThis.config.sources.htmlComponents + '*.html',
   ],
   logColor: '#e54d26',
   runOnEvents: {
@@ -33,11 +33,11 @@ new Plugin({
 
 const plugins = [
   component({
-    root: globalThis.paths.sources.root,
+    root: globalThis.config.sources.root,
     folders: ['components'],
   }),
   imgAutosize({
-    root: globalThis.paths.output.root,
+    root: globalThis.config.output.root,
     processEmptySize: true,
   }),
 ]

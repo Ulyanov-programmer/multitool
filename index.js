@@ -1,28 +1,20 @@
-import './config.js'
 import { Plugin } from './plugins/other/_plugin.js'
-import { getAllPluginNames, getPathToThePlugin } from './plugins/other/getPluginNames.js'
-
-// ? To run plugins, you must specify the 
-// ? `plugins` argument at startup in command line.
-// example - 'plugins=plugFileName1,plugFileName2
-let runPluginNames = process.argv.find(arg => arg.includes('plugins'))
-
-runPluginNames = runPluginNames && runPluginNames.replace("plugins=", '').split(' ')
-
-if (!runPluginNames?.length)
-  runPluginNames = getAllPluginNames()
+import * as additional from './plugins/other/additionalFunctions.js'
 
 
-for (let pluginName of runPluginNames) {
-  let pathToTask = getPathToThePlugin(pluginName)
+// ? To run plugins, you must specify the 'plugins' argument at startup in command line.
+// example - yarn start plugins=plugFileName1,plugFileName2
 
-  try {
-    await import(pathToTask)
+await additional.addConfigFromArgvToGlobalThis()
+
+
+try {
+  for (let pluginName of additional.getPlugins()) {
+    await import(additional.getPathToThePlugin(pluginName))
   }
-  catch (error) {
-    console.error(error)
-  }
+
+  Plugin.globalEmitter.emit('pluginsAreReady')
 }
-
-// It is necessary to run plugins
-Plugin.globalEmitter.emit('pluginsAreReady')
+catch (error) {
+  console.error(error)
+}

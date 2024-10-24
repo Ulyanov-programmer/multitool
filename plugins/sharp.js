@@ -9,7 +9,7 @@ import sharp from 'sharp'
 new Plugin({
   name: 'sharp',
   associations: '{gif,webp,avif,png,jpg,jpeg,svg}',
-  ignore: globalThis.paths.sources.assets + '**',
+  ignore: globalThis.config.sources.assets + '**',
   watchEvents: ['add', 'changed'],
   logColor: '#009900',
   runOnEvents: {

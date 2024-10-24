@@ -1,0 +1,22 @@
+{
+  "production": false,
+  "output": {
+    "root": "dist/",
+    "styles": "dist/styles/",
+    "scripts": "dist/scripts/",
+    "images": "dist/images/",
+    "fonts": "dist/fonts/",
+    "assets": "dist/assets/"
+  },
+  "sources": {
+    "root": "sources/",
+    "htmlComponents": "sources/components/",
+    "styles": "sources/styles/",
+    "stylesLayouts": "sources/styles/layouts/",
+    "stylesFonts": "sources/styles/fonts.pcss",
+    "scripts": "sources/scripts/",
+    "images": "sources/images/",
+    "fonts": "sources/fonts/",
+    "assets": "sources/assets/"
+  }
+}

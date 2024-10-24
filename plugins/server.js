@@ -7,7 +7,7 @@ import browserSync from 'browser-sync'
 browserSync.create()
   .init({
     server: {
-      baseDir: globalThis.paths.output.root,
+      baseDir: globalThis.config.output.root,
     },
     port: 1243,
     notify: false,

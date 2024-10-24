@@ -9,7 +9,7 @@ import ttf2woff2 from 'ttf2woff2'
 new Plugin({
   name: 'ttf2Woff2',
   associations: '{otf,ttf}',
-  ignore: globalThis.paths.sources.assets + '**',
+  ignore: globalThis.config.sources.assets + '**',
   watchEvents: ['add'],
   logColor: '#2E2927',
   runOnEvents: {

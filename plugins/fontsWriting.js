@@ -17,7 +17,7 @@ function init() {
     return
   }
 
-  fs.writeFileSync(globalThis.paths.sources.fontsFilePath, '')
+  fs.writeFileSync(globalThis.config.sources.stylesFonts, '')
 
   writeWelcomePhrase()
 
@@ -25,7 +25,7 @@ function init() {
   let fonts = []
   let previousFontName
 
-  for (let fileName of fs.readdirSync(globalThis.paths.sources.fontsFolder)) {
+  for (let fileName of fs.readdirSync(globalThis.config.sources.fonts)) {
     if (fileName == '.gitkeep') continue
 
     let newFont = {
@@ -73,7 +73,7 @@ init()
 function writeFontFaceRule(font) {
   for (let i = 0; i < font.weights.length; i++) {
     fs.appendFileSync(
-      globalThis.paths.sources.fontsFilePath,
+      globalThis.config.sources.stylesFonts,
 
       `@font-face {
   font-style: ${font.styles[i]};
@@ -124,13 +124,13 @@ function writeVariablesAndClasses(fonts) {
 }\n`
 
 
-  fs.appendFileSync(globalThis.paths.sources.fontsFilePath,
+  fs.appendFileSync(globalThis.config.sources.stylesFonts,
     variablesInRoot + modifiers
   )
 }
 
 function filesIsCorrect() {
-  let fileNames = fs.readdirSync(globalThis.paths.sources.fontsFolder)
+  let fileNames = fs.readdirSync(globalThis.config.sources.fonts)
     ?.filter(name => name != '.gitkeep')
 
   return fileNames?.length > 0
@@ -139,10 +139,10 @@ function filesIsCorrect() {
 function isFontsStyleFileFull() {
   try {
     let sourceFontNames = fs
-      .readdirSync(globalThis.paths.sources.fontsFolder)
+      .readdirSync(globalThis.config.sources.fonts)
       ?.map(font => path.parse(font).name)
 
-    let fontsStyleFile = fs.readFileSync(globalThis.paths.sources.fontsFilePath, 'utf8')
+    let fontsStyleFile = fs.readFileSync(globalThis.config.sources.fonts, 'utf8')
 
     let filePathsFromFontFaces = fontsStyleFile
       .match(/url(.*.woff2)/g)

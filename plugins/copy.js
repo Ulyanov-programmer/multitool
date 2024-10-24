@@ -6,19 +6,19 @@ import chalk from 'chalk'
  */
 
 function copy() {
-  if (!fs.existsSync(globalThis.paths.sources.assets))
+  if (!fs.existsSync(globalThis.config.sources.assets))
     return
 
-  let assetsFolderCtime = fs.statSync(globalThis.paths.sources.assets)?.ctimeMs
+  let assetsFolderCtime = fs.statSync(globalThis.config.sources.assets)?.ctimeMs
 
-  if (fs.existsSync(globalThis.paths.output.assets)) {
-    var distAssetsFolderCtime = fs.statSync(globalThis.paths.output.assets)?.ctimeMs
+  if (fs.existsSync(globalThis.config.output.assets)) {
+    var distAssetsFolderCtime = fs.statSync(globalThis.config.output.assets)?.ctimeMs
   }
 
   if (assetsFolderCtime <= distAssetsFolderCtime)
     return
 
-  fs.copySync(globalThis.paths.sources.assets, globalThis.paths.output.assets)
+  fs.copySync(globalThis.config.sources.assets, globalThis.config.output.assets)
 
   console.log(
     chalk.gray('[') + 'Assets' + chalk.gray(']') + ' files copied'
