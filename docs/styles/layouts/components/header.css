@@ -1,24 +1,24 @@
-header {
-  background: var(--red);
-  display: flex;
-  gap: 15px;
-  justify-content: center;
-  align-content: center;
-  padding: 10px;
+header{
+  background:var(--red);
+  display:flex;
+  gap:15px;
+  justify-content:center;
+  align-content:center;
+  padding:10px;
 }
 
-header>a {
-  width: 35px;
-  height: 35px;
-  transition: all ease 0.3s;
-}
-
-@media (hover: hover) {
-  header>a:hover {
-    scale: 1.1;
+  header > a{
+    width:35px;
+    height:35px;
+    transition:all ease 0.3s;
   }
-}
 
-header>a img {
-  border-radius: 5px;
-}
+  @media (hover: hover){
+      header > a:hover{
+        scale:1.1;
+      }
+    }
+
+  header > a img{
+      border-radius:5px;
+    }

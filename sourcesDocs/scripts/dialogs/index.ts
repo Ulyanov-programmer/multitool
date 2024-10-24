@@ -75,11 +75,11 @@ export default class Dialogs {
 
     dialog.showModal()
 
-    this.toggleBodyScroll(false, dialog)
+    this.toggleBodyScroll(false)
     this.toggleAllDependentButtons(dialog)
 
     if (dialog.dataset.nonClickableBackdrop == undefined) {
-      dialog.addEventListener('pointerdown', this.closeByClickOnBackdropEvent.bind(this))
+      dialog.addEventListener('click', this.closeByClickOnBackdropEvent.bind(this))
     }
 
     dialog.addEventListener('cancel', event => {
@@ -87,6 +87,7 @@ export default class Dialogs {
     })
   }
   private closeDialog(event: Event, currentDialog?: HTMLDialogElement) {
+    event.stopPropagation()
     let toggler = event.currentTarget as HTMLButtonElement
 
     if (!currentDialog || currentDialog.nodeName != 'DIALOG') {
@@ -103,15 +104,15 @@ export default class Dialogs {
 
     Dialogs.closeAllDialogsIfSpecified(toggler, Dialogs.dialogModalElements)
 
-    this.toggleBodyScroll(true, currentDialog)
+    this.toggleBodyScroll(true)
 
     if (currentDialog.dataset.nonClickableBackdrop == undefined) {
-      currentDialog.removeEventListener('pointerdown', this.closeByClickOnBackdropEvent.bind(this))
+      currentDialog.removeEventListener('click', this.closeByClickOnBackdropEvent.bind(this))
     }
   }
 
 
-  private async toggleBodyScroll(toggleScrollOn: boolean, dialog: HTMLElement) {
+  private async toggleBodyScroll(toggleScrollOn: boolean) {
     if (toggleScrollOn) {
       if (document.querySelector('dialog[data-modal-dialog][open]')) return
       document.body.style.overflow = ''

@@ -1,26 +1,22 @@
-html {
-  scrollbar-gutter: auto;
+html{
+  scrollbar-gutter:auto;
 }
-
-html>body {
-  height: 100vh;
-  padding: 20px;
+html > body{
+  height:100vh;
+  padding:20px;
 }
-
-html>body main {
-  display: grid;
-  align-content: center;
-  text-align: center;
-  gap: 30px;
-  height: 100%;
+html > body main{
+    display:grid;
+    align-content:center;
+    text-align:center;
+    gap:30px;
+    height:100%;
+  }
+h1{
+  margin-bottom:120px;
 }
-
-h1 {
-  margin-bottom: 120px;
-}
-
-div {
-  display: flex;
-  justify-content: center;
-  gap: 20px
+div{
+  display:flex;
+  justify-content:center;
+  gap:20px
 }

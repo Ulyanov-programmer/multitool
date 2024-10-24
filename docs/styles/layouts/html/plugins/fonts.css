@@ -1,0 +1,19 @@
+section pre code {
+  /* text: @font-face {
+  font-style: normal;
+  font-weight: 100 1000;
+  src: url("../fonts/Montserrat-VariableFont_wght.woff2") format("woff2-variations");
+  font-family: "Montserrat";
+  font-display: swap;
+} 
+
+:root {
+  --montserrat: 'Montserrat';
+}
+
+.Montserrat {
+  font-family: var(--montserrat);
+  font-weight: 100 1000;
+  font-style: normal;
+} */
+}

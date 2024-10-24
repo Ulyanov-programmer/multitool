@@ -179,6 +179,19 @@
     background-size: cover;
   }
 
+  pre {
+    white-space: pre;
+  }
+
+  pre:has(code) {
+    background: #e1e1e1;
+    padding-inline: 5px;
+    line-height: 1.2;
+    font-family: JetBrainsMono;
+    border-radius: 3px;
+    padding: 15px;
+  }
+
   h1,
   h2,
   h3,
@@ -237,8 +250,9 @@
     padding: 20px 40px;
   }
 
-  section :is(h1, h2, h3) {
+  section :is(h1, h2, h3, p) {
     text-align: center;
+    line-height: 1.5;
   }
 
   section ul {
@@ -270,6 +284,14 @@
   body.multitool main {
     padding-inline: var(--content-inline-padding);
     padding-block: 60px;
+  }
+
+  code {
+    background: #e1e1e1;
+    padding-inline: 5px;
+    line-height: 1.2;
+    font-family: JetBrainsMono;
+    border-radius: 3px;
   }
 
   table-wrapper {
@@ -323,7 +345,7 @@
     list-style: decimal inside
   }
 
-  .centred-text {
+  .centred-text>*:not(ul, ol) {
     text-align: center;
   }
 
@@ -434,5 +456,9 @@
     section#works .ref-to-work:hover {
       background: var(--red);
     }
+  }
+
+  b {
+    font-weight: bold;
   }
 }

@@ -59,16 +59,17 @@ export default class Dialogs {
     }
     Dialogs.closeAllDialogsIfSpecified(toggler, Dialogs.dialogModalElements);
     dialog.showModal();
-    this.toggleBodyScroll(false, dialog);
+    this.toggleBodyScroll(false);
     this.toggleAllDependentButtons(dialog);
     if (dialog.dataset.nonClickableBackdrop == void 0) {
-      dialog.addEventListener("pointerdown", this.closeByClickOnBackdropEvent.bind(this));
+      dialog.addEventListener("click", this.closeByClickOnBackdropEvent.bind(this));
     }
     dialog.addEventListener("cancel", (event2) => {
       this.closeDialog(event2, event2.currentTarget);
     });
   }
   closeDialog(event, currentDialog) {
+    event.stopPropagation();
     let toggler = event.currentTarget;
     if (!currentDialog || currentDialog.nodeName != "DIALOG") {
       currentDialog = Dialogs.getDialogByData(toggler);
@@ -78,12 +79,12 @@ export default class Dialogs {
     this.toggleAllDependentButtons(currentDialog);
     if (currentDialog.dataset.modalDialog == void 0) return;
     Dialogs.closeAllDialogsIfSpecified(toggler, Dialogs.dialogModalElements);
-    this.toggleBodyScroll(true, currentDialog);
+    this.toggleBodyScroll(true);
     if (currentDialog.dataset.nonClickableBackdrop == void 0) {
-      currentDialog.removeEventListener("pointerdown", this.closeByClickOnBackdropEvent.bind(this));
+      currentDialog.removeEventListener("click", this.closeByClickOnBackdropEvent.bind(this));
     }
   }
-  async toggleBodyScroll(toggleScrollOn, dialog) {
+  async toggleBodyScroll(toggleScrollOn) {
     if (toggleScrollOn) {
       if (document.querySelector("dialog[data-modal-dialog][open]")) return;
       document.body.style.overflow = "";

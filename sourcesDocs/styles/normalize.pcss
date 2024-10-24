@@ -170,6 +170,19 @@
     background-size: cover;
   }
 
+  pre {
+    white-space: pre;
+
+    &:has(code) {
+      background: #e1e1e1;
+      padding-inline: 5px;
+      line-height: 1.2;
+      font-family: JetBrainsMono;
+      border-radius: 3px;
+      padding: 15px;
+    }
+  }
+
   h1,
   h2,
   h3,
@@ -217,8 +230,9 @@
     gap: 30px;
     padding: 20px 40px;
 
-    :is(h1, h2, h3) {
+    :is(h1, h2, h3, p) {
       text-align: center;
+      line-height: 1.5;
     }
     ul {
       margin-inline: 20% @426 5%;
@@ -243,6 +257,14 @@
         padding-block: 60px;
       }
     }
+  }
+
+  code {
+    background: #e1e1e1;
+    padding-inline: 5px;
+    line-height: 1.2;
+    font-family: JetBrainsMono;
+    border-radius: 3px;
   }
 
   table-wrapper {
@@ -355,7 +377,9 @@
     }
   }
   .centred-text {
-    text-align: center;
+    > *:not(ul, ol) {
+      text-align: center;
+    }
   }
   my-work {
     display: grid;
@@ -455,5 +479,8 @@
         }
       }
     }
+  }
+  b {
+    font-weight: bold;
   }
 }

@@ -492,7 +492,8 @@ section#works {
         }
       }
     }
-    my-work[role='button'][tabindex='0'][data-open-dialog-id='honorTheDetails'] {
+    my-work[role='button'][tabindex='0'] {
+      --data-open-dialog-id: 'honorTheDetails';
       --attr-aria-label: 'Открыть модальное окно';
 
       h3 {
@@ -503,7 +504,9 @@ section#works {
         --attrs: "loading='lazy' alt='' webp avif";
       }
 
-      dialog[data-modal-dialog]#honorTheDetails {
+      dialog#honorTheDetails {
+        --data-modal-dialog: '';
+
         .swiper {
           .swiper-wrapper {
             .swiper-slide {

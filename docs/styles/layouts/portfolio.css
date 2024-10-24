@@ -69,3 +69,11 @@ section#works section:before {
   height: 100%;
   content: '';
 }
+
+section#works section my-work[role='button'][tabindex='0'] {
+  --data-open-dialog-id: 'honorTheDetails';
+}
+
+section#works section my-work[role='button'][tabindex='0'] dialog#honorTheDetails {
+  --data-modal-dialog: '';
+}
