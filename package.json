@@ -6,9 +6,9 @@
   "type": "module",
   "license": "MIT",
   "scripts": {
-    "setup": "node setup.js config=.config.json",
-    "start": "node index.js config=.config.json",
-    "docs": "node index.js config=.docs.config.json"
+    "setup": "node --no-warnings setup.js config=.config.json",
+    "start": "node --no-warnings index.js config=.config.json",
+    "docs": "node --no-warnings index.js config=.docs.config.json"
   },
   "dependencies": {
     "@csstools/postcss-media-minmax": "^1.1.8",
