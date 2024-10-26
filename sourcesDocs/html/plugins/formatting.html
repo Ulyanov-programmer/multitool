@@ -1,0 +1,29 @@
+<x-layout page_title="Форматирование">
+  <push name="additional_code_in_head">
+    <link rel="stylesheet" href="/styles/layouts/components/header.css" />
+    <link rel="stylesheet" href="/styles/layouts/components/navigation.css" />
+    <link rel="stylesheet" href="/styles/layouts/multitool.css" />
+    <script defer src="/scripts/setActiveNavlink.js"></script>
+    <script defer src="/scripts/cursorForMove.js"></script>
+  </push>
+  <section>
+    <h1>Форматирование</h1>
+    <p>Как же без форматирования? Никак! В этой сборке для этого есть плагин
+      <a href="https://www.npmjs.com/package/js-beautify" target="_blank"
+        rel="noopener noreferrer">js-beautify</a>
+    </p>
+    <p>В отличии от других плагинов сборки, он работает не с файлами в
+      <code>sources/</code>, а с файлами в
+      <code>dist/</code>. По-умолчанию он обрабатывает файлы HTML и CSS.
+    </p>
+    <p>Несмотря на то, что плагин можно настроить так, что бы он обрабатывал
+      файлы в случае их изменения, по некоторым причинам это будет работать
+      некорректно. Для того, что бы запустить плагин, следует использовать
+      <a href="#" target="_self" rel="noopener noreferrer">событие</a>
+      <code>run:beautifyTask</code> в другом плагине.
+    </p>
+    <p>Вы сможете найти файл конфигурации по пути
+      <code>sources/plugins/beautify.js</code>
+    </p>
+  </section>
+</x-layout>

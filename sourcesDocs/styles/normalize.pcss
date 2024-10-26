@@ -103,8 +103,8 @@
     font-size: 18px;
     transition: all ease 0.3s;
 
-    @media (hover: hover) {
-      &:not(.functional-btn) {
+    &:not(.functional-btn) {
+      @media (hover: hover) {
         &:hover {
           background: rgb(248, 56, 56);
         }
@@ -112,6 +112,11 @@
     }
     &.active {
       background: rgb(248, 56, 56);
+    }
+  }
+  a:not(.likeButton) {
+    &:visited {
+      color: blueviolet;
     }
   }
 
@@ -171,7 +176,7 @@
   }
 
   pre {
-    white-space: pre;
+    white-space: pre-wrap;
 
     &:has(code) {
       background: #e1e1e1;
@@ -227,6 +232,7 @@
 
   section {
     display: grid;
+    justify-items: center;
     gap: 30px;
     padding: 20px 40px;
 
@@ -235,7 +241,24 @@
       line-height: 1.5;
     }
     ul {
+      display: grid;
+      gap: 15px;
       margin-inline: 20% @426 5%;
+
+      li {
+        display: flex;
+        align-items: center;
+
+        &:before {
+          display: inline-block;
+          background: black;
+          min-width: 5px;
+          height: 5px;
+          border-radius: 50%;
+          margin-right: 0.5em;
+          content: '';
+        }
+      }
     }
   }
 
@@ -253,7 +276,7 @@
         background: white;
       }
       main {
-        padding-inline: var(--content-inline-padding);
+        padding-inline: var(--content-inline-padding) @426 0px;
         padding-block: 60px;
       }
     }
@@ -482,5 +505,8 @@
   }
   b {
     font-weight: bold;
+  }
+  i {
+    font-style: italic;
   }
 }

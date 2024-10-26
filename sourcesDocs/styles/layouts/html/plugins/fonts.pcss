@@ -24,10 +24,25 @@ section {
     }
     code {
       --text: '.ttf';
+      --text-after: ' в ';
     }
     code {
       --text: '.woff2';
-      --text-before: ' в ';
+    }
+  }
+  p {
+    --text: 'Они будут перемещены в';
+    code {
+      --text: 'dist/';
+      --text-after: ' с сохранением структуры папок (например, если файл был в ';
+    }
+    code {
+      --text: 'sources/fonts/';
+      --text-after: ' он будет перемещён в ';
+    }
+    code {
+      --text: 'dist/fonts/';
+      --text-after: ').';
     }
   }
   h2 {

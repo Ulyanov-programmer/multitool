@@ -124,6 +124,10 @@
     background: rgb(248, 56, 56);
   }
 
+  a:not(.likeButton):visited {
+    color: blueviolet;
+  }
+
   a,
   p,
   span,
@@ -180,7 +184,7 @@
   }
 
   pre {
-    white-space: pre;
+    white-space: pre-wrap;
   }
 
   pre:has(code) {
@@ -246,6 +250,7 @@
 
   section {
     display: grid;
+    justify-items: center;
     gap: 30px;
     padding: 20px 40px;
   }
@@ -256,7 +261,24 @@
   }
 
   section ul {
+    display: grid;
+    gap: 15px;
     margin-inline: 20%;
+  }
+
+  section ul li {
+    display: flex;
+    align-items: center;
+  }
+
+  section ul li:before {
+    display: inline-block;
+    background: black;
+    min-width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    margin-right: 0.5em;
+    content: '';
   }
 
   @media (max-width: 426px) {
@@ -284,6 +306,12 @@
   body.multitool main {
     padding-inline: var(--content-inline-padding);
     padding-block: 60px;
+  }
+
+  @media (max-width: 426px) {
+    body.multitool main {
+      padding-inline: 0px;
+    }
   }
 
   code {
@@ -460,5 +488,9 @@
 
   b {
     font-weight: bold;
+  }
+
+  i {
+    font-style: italic;
   }
 }

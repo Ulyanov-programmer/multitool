@@ -1,0 +1,61 @@
+section {
+  h1 {
+    --text: 'Скрипты';
+  }
+  p {
+    --text: 'Эта сборка умеет обрабатывать JavaScript/TypeScript. Это обеспечивает ';
+
+    a {
+      --attr-href: 'https://www.npmjs.com/package/esbuild';
+      --attrs: 'target="_blank" rel="noopener noreferrer"';
+      --text: 'esbuild';
+      --text-after: '.';
+    }
+  }
+  p {
+    --text: 'Для того, что бы работать со скриптами, создайте их в любом месте, кроме ';
+
+    code {
+      --text: 'sources/assets/';
+    }
+  }
+  p {
+    --text: 'Они будут преобразованы в JS и перемещены в';
+    code {
+      --text: 'dist/';
+      --text-after: ' с сохранением структуры папок (например, если файл был в ';
+    }
+    code {
+      --text: 'sources/scripts/subfolder/';
+      --text-after: ' он будет перемещён в ';
+    }
+    code {
+      --text: 'dist/scripts/subfolder/';
+      --text-after: ').';
+    }
+  }
+  p {
+    --text: 'Вы сможете найти файл конфигурации по пути ';
+
+    code {
+      --text: 'sources/plugins/esbuild.js';
+    }
+  }
+
+  p {
+    --text: 'Обратите внимание, что по-умолчанию этот плагин настроен так, что бы обработать ';
+
+    i {
+      --text: 'все';
+      --text-after: ' файлы скриптов в момент запуска независимо от того, изменили вы их или нет. Одновременно с этим esbuild запускает ';
+    }
+    i {
+      --text: 'режим наблюдения (watch mode)';
+      --text-after: ' за файлами. Именно по этому вы не заметите в терминале/консоли сообщения об обновлении файлов, но ';
+    }
+    i {
+      --text: 'фактически они будут обработаны';
+      --text-after: '.';
+    }
+  }
+}

@@ -1,0 +1,57 @@
+section {
+  h1 {
+    --text: 'CSS';
+  }
+  p {
+    --text: 'Эта сборка умеет работать с CSS. В первую очередь с';
+    a {
+      --attr-href: 'https://www.npmjs.com/package/postcss';
+      --attrs: 'target="_blank" rel="noopener noreferrer"';
+      --text: 'PostCSS';
+      --text-after: '.';
+    }
+  }
+  p {
+    --text: 'Нельзя просто взять и написать CSS. Все файлы по умолчанию обрабатываются PostCSS, а это значит, что писать CSS нужно в файлах с расширением ';
+
+    code {
+      --text: '.pcss';
+      --text-after: '. PostCSS в этом проекте выполняет функцию постпроцессора, то есть, он выполняет рутинную работу и расширяет функционал CSS за счёт внедряемых плагинов, вроде ';
+    }
+    a {
+      --attr-href: 'https://www.npmjs.com/package/postcss-nested';
+      --attrs: 'target="_blank" rel="noopener noreferrer"';
+      --text: 'этого';
+      --text-after: '.';
+    }
+  }
+  p {
+    --text: 'Для того, что бы работать с PCSS-файлами, создайте их в любом месте, кроме ';
+
+    code {
+      --text: 'sources/assets/';
+    }
+  }
+  p {
+    --text: 'Они будут преобразованы в CSS и перемещены в';
+    code {
+      --text: 'dist/';
+      --text-after: ' с сохранением структуры папок (например, если файл был в ';
+    }
+    code {
+      --text: 'sources/styles/subfolder/';
+      --text-after: ' он будет перемещён в ';
+    }
+    code {
+      --text: 'dist/styles/subfolder/';
+      --text-after: ').';
+    }
+  }
+  p {
+    --text: 'Вы сможете найти файл конфигурации по пути ';
+
+    code {
+      --text: 'sources/plugins/postcss.js';
+    }
+  }
+}

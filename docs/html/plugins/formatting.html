@@ -14,7 +14,7 @@
   <link rel="mask-icon" href="/images/favicon.svg" color="#000000">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
 
-  <title>HTML</title>
+  <title>Форматирование</title>
 
   <!-- General stylesheets -->
   <link rel="stylesheet" href="/styles/fonts.css">
@@ -94,29 +94,22 @@
   <main>
 
     <section>
-      <h1>HTML</h1>
-      <p>Эта сборка умеет работать с HTML. В первую очередь с
-        <a href="https://www.npmjs.com/package/posthtml" target="_blank" rel="noopener noreferrer">PostHTML</a>.
+      <h1>Форматирование</h1>
+      <p>Как же без форматирования? Никак! В этой сборке для этого есть плагин
+        <a href="https://www.npmjs.com/package/js-beautify" target="_blank" rel="noopener noreferrer">js-beautify</a>
       </p>
-      <p>В принципе вам ничто не мешает просто писать HTML-файлы, но для упрощения
-        разработки они по умолчанию обрабатываются PostHTML - постпроцессором для
-        HTML. Он преобразует файлы, выполняя над ними ту работу, которую не
-        хотелось бы делать вручную.</p>
-      <p>Для того, что бы работать с HTML-файлами, создайте их в любом месте,
-        кроме
-        <code>sources/assets/</code> и
-        <code>sources/components/</code> (файлы оттуда можно использовать как
-        шаблоны).
+      <p>В отличии от других плагинов сборки, он работает не с файлами в
+        <code>sources/</code>, а с файлами в
+        <code>dist/</code>. По-умолчанию он обрабатывает файлы HTML и CSS.
       </p>
-      <p>Они будут перемещены в
-        <code>dist/</code> с сохранением структуры папок (например, если файл был
-        в
-        <code>sources/html/pages/</code> он будет перемещён в
-        <code>dist/html/pages/</code>).
+      <p>Несмотря на то, что плагин можно настроить так, что бы он обрабатывал
+        файлы в случае их изменения, по некоторым причинам это будет работать
+        некорректно. Для того, что бы запустить плагин, следует использовать
+        <a href="#" target="_self" rel="noopener noreferrer">событие</a>
+        <code>run:beautifyTask</code> в другом плагине.
       </p>
-      <p>Вы сможете найти файл конфигурации для HTML по пути
-        <code>sources/plugins/posthtml.js</code> (posthtml обрабатывает все
-        html-файлы по умолчанию).
+      <p>Вы сможете найти файл конфигурации по пути
+        <code>sources/plugins/beautify.js</code>
       </p>
     </section>
 

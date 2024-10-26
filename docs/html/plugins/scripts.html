@@ -14,7 +14,7 @@
   <link rel="mask-icon" href="/images/favicon.svg" color="#000000">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
 
-  <title>HTML</title>
+  <title>JS/TS</title>
 
   <!-- General stylesheets -->
   <link rel="stylesheet" href="/styles/fonts.css">
@@ -94,29 +94,29 @@
   <main>
 
     <section>
-      <h1>HTML</h1>
-      <p>Эта сборка умеет работать с HTML. В первую очередь с
-        <a href="https://www.npmjs.com/package/posthtml" target="_blank" rel="noopener noreferrer">PostHTML</a>.
+      <h1>Скрипты</h1>
+      <p>Эта сборка умеет обрабатывать JavaScript/TypeScript. Это обеспечивает
+        <a href="https://www.npmjs.com/package/esbuild" target="_blank" rel="noopener noreferrer">esbuild</a>.
       </p>
-      <p>В принципе вам ничто не мешает просто писать HTML-файлы, но для упрощения
-        разработки они по умолчанию обрабатываются PostHTML - постпроцессором для
-        HTML. Он преобразует файлы, выполняя над ними ту работу, которую не
-        хотелось бы делать вручную.</p>
-      <p>Для того, что бы работать с HTML-файлами, создайте их в любом месте,
-        кроме
-        <code>sources/assets/</code> и
-        <code>sources/components/</code> (файлы оттуда можно использовать как
-        шаблоны).
+      <p>Для того, что бы работать со скриптами, создайте их в любом месте, кроме
+        <code>sources/assets/</code>
       </p>
-      <p>Они будут перемещены в
+      <p>Они будут преобразованы в JS и перемещены в
         <code>dist/</code> с сохранением структуры папок (например, если файл был
         в
-        <code>sources/html/pages/</code> он будет перемещён в
-        <code>dist/html/pages/</code>).
+        <code>sources/scripts/subfolder/</code> он будет перемещён в
+        <code>dist/scripts/subfolder/</code>).
       </p>
-      <p>Вы сможете найти файл конфигурации для HTML по пути
-        <code>sources/plugins/posthtml.js</code> (posthtml обрабатывает все
-        html-файлы по умолчанию).
+      <p>Вы сможете найти файл конфигурации по пути
+        <code>sources/plugins/esbuild.js</code>
+      </p>
+      <p>Обратите внимание, что по-умолчанию этот плагин настроен так, что бы
+        обработать
+        <i>все</i> файлы скриптов в момент запуска независимо от того, изменили вы
+        их или нет. Одновременно с этим esbuild запускает
+        <i>режим наблюдения (watch mode)</i> за файлами. Именно по этому вы не
+        заметите в терминале/консоли сообщения об обновлении файлов, но
+        <i>фактически они будут обработаны</i>.
       </p>
     </section>
 

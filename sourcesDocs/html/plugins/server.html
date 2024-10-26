@@ -1,0 +1,20 @@
+<x-layout page_title="Сервер">
+  <push name="additional_code_in_head">
+    <link rel="stylesheet" href="/styles/layouts/components/header.css" />
+    <link rel="stylesheet" href="/styles/layouts/components/navigation.css" />
+    <link rel="stylesheet" href="/styles/layouts/multitool.css" />
+    <script defer src="/scripts/setActiveNavlink.js"></script>
+    <script defer src="/scripts/cursorForMove.js"></script>
+  </push>
+  <section>
+    <h1>Сервер</h1>
+    <p>Для разработки нужен сервер, на котором будут видны результаты трудов. В
+      этом проекте для этого используется
+      <a href="https://www.npmjs.com/package/browser-sync" target="_blank"
+        rel="noopener noreferrer">BrowserSync.</a>
+    </p>
+    <p>Вы сможете найти файл конфигурации сервера по пути
+      <code>sources/plugins/server.js</code>
+    </p>
+  </section>
+</x-layout>

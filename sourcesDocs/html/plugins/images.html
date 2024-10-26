@@ -1,0 +1,51 @@
+<x-layout page_title="Изображения">
+  <push name="additional_code_in_head">
+    <link rel="stylesheet" href="/styles/layouts/components/header.css" />
+    <link rel="stylesheet" href="/styles/layouts/components/navigation.css" />
+    <link rel="stylesheet" href="/styles/layouts/multitool.css" />
+    <script defer src="/scripts/setActiveNavlink.js"></script>
+    <script defer src="/scripts/cursorForMove.js"></script>
+  </push>
+  <section>
+    <h1>Изображения</h1>
+    <p>Эта сборка умеет обрабатывать изображения форматов:</p>
+    <ul>
+      <li>
+        <code>gif</code>
+      </li>
+      <li>
+        <code>webp</code>
+      </li>
+      <li>
+        <code>avif</code>
+      </li>
+      <li>
+        <code>png</code>
+      </li>
+      <li>
+        <code>jpg | jpeg</code>
+      </li>
+      <li>
+        <code>svg</code>(пропускает без изменений)
+      </li>
+    </ul>
+    <p>
+      Это обеспечивает <a href="https://www.npmjs.com/package/sharp"
+        target="_blank" rel="noopener noreferrer">sharp</a>.
+    </p>
+    <p>Для того, что бы обработать изображения, создайте/переместите их в любое
+      место, кроме
+      <code>sources/assets/</code>
+    </p>
+    <p>Используйте гибкий API плагина, что бы преобразовать изображения так, как
+      вам нужно. Их обрабаотанные версии будут перемещены в
+      <code>dist/</code> с сохранением структуры папок (например, если файл был
+      в
+      <code>sources/images/subfolder/</code> он будет перемещён в
+      <code>dist/images/subfolder/</code>).
+    </p>
+    <p>Вы сможете найти файл конфигурации по пути
+      <code>sources/plugins/sharp.js</code>
+    </p>
+  </section>
+</x-layout>
