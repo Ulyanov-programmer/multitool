@@ -2,13 +2,13 @@ import { globSync } from 'glob'
 import path from 'path'
 
 /**
- * Returns the names of all files in the plugins folder, excluding subfolders and `deleteDist` plugin.
+ * Returns the names of all files in the plugins folder.
  */
 export function getAllPluginNames() {
   let plugins = globSync('./plugins/*.*')
     .map(pluginPath => path.parse(pluginPath).name)
 
-  return plugins.filter(name => name != 'deleteDist')
+  return plugins
 }
 
 /**
