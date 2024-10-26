@@ -4,6 +4,8 @@ import sharp from 'sharp'
 /**
  * This plugin converts images to more modern formats.
  * It is also triggered when a new file is changed or added.
+ * 
+ * You can customize the plugin by changing the 'options' object below.
  */
 
 new Plugin({
