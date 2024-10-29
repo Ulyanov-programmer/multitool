@@ -10,10 +10,10 @@ new Plugin({
   name: 'ttf2Woff2',
   associations: '{otf,ttf}',
   ignore: globalThis.config.sources.assets + '**',
-  watchEvents: ['add'],
   logColor: '#2E2927',
   runOnEvents: {
     names: [
+      'fs:add',
       'pluginsAreReady',
     ],
     function: process

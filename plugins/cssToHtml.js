@@ -18,9 +18,9 @@ new Plugin({
   ignore: globalThis.config.sources.stylesLayouts + '**/_*.pcss',
   workingDirectory: globalThis.config.sources.stylesLayouts,
   logColor: '#ee9086',
-  watchEvents: ['change'],
   runOnEvents: {
     names: [
+      'fs:change',
       'pluginsAreReady'
     ],
     function: process,

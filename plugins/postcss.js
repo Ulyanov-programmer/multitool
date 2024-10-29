@@ -13,10 +13,10 @@ new Plugin({
   name: 'postcss',
   associations: 'pcss',
   ignore: globalThis.config.sources.assets + '**',
-  watchEvents: ['change'],
   logColor: '#2277ff',
   runOnEvents: {
     names: [
+      'fs:change',
       'pluginsAreReady',
     ],
     function: process,

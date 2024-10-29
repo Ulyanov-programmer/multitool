@@ -25,9 +25,9 @@ new Plugin({
   associations: '{js,ts}',
   ignore: globalThis.config.sources.assets + '**',
   logColor: '#f3cb36',
-  watchEvents: ['add'],
 
   runOnEvents: {
+    names: ['fs:add'],
     function: process
   },
   outputExtname: 'js',

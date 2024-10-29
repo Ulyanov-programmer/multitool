@@ -17,13 +17,13 @@ new Plugin({
     globalThis.config.sources.assets + '**',
     globalThis.config.sources.htmlComponents + '**'
   ],
-  watchEvents: ['change'],
   thirdPartyFiles: [
     globalThis.config.sources.htmlComponents + '*.html',
   ],
   logColor: '#e54d26',
   runOnEvents: {
     names: [
+      'fs:change',
       'pluginsAreReady',
     ],
     function: process

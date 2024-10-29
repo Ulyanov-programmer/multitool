@@ -12,10 +12,11 @@ new Plugin({
   name: 'sharp',
   associations: '{gif,webp,avif,png,jpg,jpeg,svg}',
   ignore: globalThis.config.sources.assets + '**',
-  watchEvents: ['add', 'changed'],
   logColor: '#009900',
   runOnEvents: {
     names: [
+      'fs:add',
+      'fs:change',
       'pluginsAreReady',
     ],
     function: process,

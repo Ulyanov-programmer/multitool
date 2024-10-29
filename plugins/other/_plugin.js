@@ -212,14 +212,18 @@ export class Plugin {
   }
 
   startWatching(options) {
-    if (!options?.watchEvents?.length) return
+    let filesystemEvents = options.runOnEvents?.names
+      ?.filter(name => name.includes('fs:'))
+      ?.map(name => name.replace('fs:', ''))
+
+    if (!filesystemEvents?.length) return
 
     this.watcher = chokidar.watch(this.glob, {
       ignoreInitial: true,
       ignored: this.globOptions.ignore,
     })
 
-    for (let runEvent of options.watchEvents) {
+    for (let runEvent of filesystemEvents) {
       this.watcher.on(runEvent, this.#runProcess.bind(this))
     }
   }
