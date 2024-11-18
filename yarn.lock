@@ -6,9 +6,9 @@ __metadata:
   cacheKey: 10c0
 
 "@adobe/css-tools@npm:^4.4.0":
-  version: 4.4.0
-  resolution: "@adobe/css-tools@npm:4.4.0"
-  checksum: d65ddc719389bf469097df80fb16a8af48a973dea4b57565789d70ac8e7ab4987e6dc0095da3ed5dc16c1b6f8960214a7590312eeda8abd543d91fd0f59e6c94
+  version: 4.4.1
+  resolution: "@adobe/css-tools@npm:4.4.1"
+  checksum: 1a68ad9af490f45fce7b6e50dd2d8ac0c546d74431649c0d42ee4ceb1a9fa057fae0a7ef1e148effa12d84ec00ed71869ebfe0fb1dcdcc80bfcb6048c12abcc0
   languageName: node
   linkType: hard
 
@@ -1598,15 +1598,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"css2html@npm:^2.0.0":
-  version: 2.0.0
-  resolution: "css2html@npm:2.0.0"
+"css2html@npm:^2.1.0":
+  version: 2.1.0
+  resolution: "css2html@npm:2.1.0"
   dependencies:
     "@adobe/css-tools": "npm:^4.4.0"
     css-selector-parser: "npm:^3.0.5"
     fs-extra: "npm:^11.2.0"
     html-format: "npm:^1.1.7"
-  checksum: 6e88c07b26de02950af916458474346c1ee31ca5e8befe5b1898329bf103ab168427656430557a91cc67be7aeeb680774a3c32b59e9445c5776d7cbb012139c1
+  checksum: cbc80687596cb2998ff772c73fb7626df6af9acb1bbca5bb1895c90eb44c17bf1e0d651f010eda148557a3ce75fd79e9652d797ac951518e1969b8c14ae59b74
   languageName: node
   linkType: hard
 
@@ -3219,7 +3219,7 @@ __metadata:
     case-anything: "npm:^3.1.0"
     chalk: "npm:^5.3.0"
     chokidar: "npm:^3.6.0"
-    css2html: "npm:^2.0.0"
+    css2html: "npm:^2.1.0"
     enquirer: "npm:^2.4.1"
     esbuild: "npm:^0.23.0"
     fs-extra: "npm:^11.2.0"
@@ -3234,7 +3234,7 @@ __metadata:
     postcss-functions: "npm:^4.0.2"
     postcss-import: "npm:^16.1.0"
     postcss-inline-media: "npm:^1.5.0"
-    postcss-nested: "npm:^6.0.1"
+    postcss-nested: "npm:^7.0.2"
     postcss-preset-env: "npm:^9.5.15"
     postcss-rem: "npm:^3.0.0"
     postcss-sanitize: "npm:^0.0.9"
@@ -3743,14 +3743,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss-nested@npm:^6.0.1":
-  version: 6.0.1
-  resolution: "postcss-nested@npm:6.0.1"
+"postcss-nested@npm:^7.0.2":
+  version: 7.0.2
+  resolution: "postcss-nested@npm:7.0.2"
   dependencies:
-    postcss-selector-parser: "npm:^6.0.11"
+    postcss-selector-parser: "npm:^7.0.0"
   peerDependencies:
     postcss: ^8.2.14
-  checksum: 2a50aa36d5d103c2e471954830489f4c024deed94fa066169101db55171368d5f80b32446b584029e0471feee409293d0b6b1d8ede361f6675ba097e477b3cbd
+  checksum: b467f328c89c5b0dcd1b569ae083f6163235c0cac09494a0b284eef5275fa1386bbc26c66c85adf194cef0a65d315994140724a34539a096e5acd39d9c753338
   languageName: node
   linkType: hard
 
@@ -3931,7 +3931,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss-selector-parser@npm:^6.0.11, postcss-selector-parser@npm:^6.0.13":
+"postcss-selector-parser@npm:^6.0.13":
   version: 6.0.13
   resolution: "postcss-selector-parser@npm:6.0.13"
   dependencies:
@@ -3948,6 +3948,16 @@ __metadata:
     cssesc: "npm:^3.0.0"
     util-deprecate: "npm:^1.0.2"
   checksum: 91e9c6434772506bc7f318699dd9d19d32178b52dfa05bed24cb0babbdab54f8fb765d9920f01ac548be0a642aab56bce493811406ceb00ae182bbb53754c473
+  languageName: node
+  linkType: hard
+
+"postcss-selector-parser@npm:^7.0.0":
+  version: 7.0.0
+  resolution: "postcss-selector-parser@npm:7.0.0"
+  dependencies:
+    cssesc: "npm:^3.0.0"
+    util-deprecate: "npm:^1.0.2"
+  checksum: e96e096afcce70bf5c97789f5ea09d7415ae5eb701d82b05b5e8532885d31363b484fcb1ca9488c9a331f30508d9e5bb6c3109eb2eb5067ef3d3919f9928cd9d
   languageName: node
   linkType: hard
 
